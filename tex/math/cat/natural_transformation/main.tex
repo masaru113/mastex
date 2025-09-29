@@ -1,0 +1,967 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+\textbf{Natural Transformations and the Yoneda Lemma}
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	These are notes I wrote hoping they'd be helpful for those who want to get a feel for natural transformations and the Yoneda Lemma.
+
+	In these notes, we will look at the concept of natural transformations, which connect different structures, through familiar mathematical phenomena.
+
+	We will also consider the statement of the \textbf{Yoneda Lemma}, one of the most important theorems in category theory.
+	(This note won't prove the Yoneda Lemma; it will just go over my personal take on the theorem and its "feel".)
+
+	Maybe it'll be useful for functional programming or something (?).
+
+
+\end{abstract}
+
+\section{Natural Transformations}
+
+\subsection{Definition of a Natural Transformation}
+
+A category is formed when we have objects and composable morphisms.
+
+A functor is something that maps objects and morphisms to another category.
+In the sense that it is a "morphism between morphisms" or a "bundle of morphisms," a functor gives the impression of a 2-dimensional arrow.
+
+A natural transformation is introduced as a "morphism between functors," or as a "bundle of functors."
+
+Let $F, G$ be two functors between two categories $C, D$.
+A natural transformation $\alpha : F \to G$ is a family of morphisms
+$$\alpha = \Big\{ F(X) \xrightarrow{\alpha_{X}}G(X) \Big\}_{X \in C}$$
+that also makes the following diagram commute.
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRADEAKADQEoQAvqXSZc+QigDM5KrUYs2XAJr8hI7HgJFpk2fWatEIAOKcVg4SAwbxRMrur6FR03wvqxWlGQAMe+YYg3O5WopoSyNJ+jgFsSiHWnhE+MjEGiglhtigpDnLpLoKyMFAA5vBEoABmAE4QALZIACzUOBBIAKxpziBVIbUNSABsre2IAOzdgQA604xoABZ0INQMdABGMAwAClleIDVYpQs4KyBwC1hVp4g+ar11jbejSGT5PVxVqpYDTykgbSQ0neMzmDEWdAA+sBuAJ+o9Xi9EAAmKZsWbzJbQpRw+6-IFI1EgtimL5FARAA
+	\begin{tikzcd}
+		& X \arrow[rr, "f"]                                &  & Y                             \\
+		F \arrow[dd, "\alpha"'] & F(X) \arrow[rr, "F(f)"] \arrow[dd, "\alpha_{X}"] &  & F(Y) \arrow[dd, "\alpha_{Y}"] \\
+		&                                                  &  &                               \\
+		G                       & G(X) \arrow[rr, "G(f)"]                          &  & G(Y)
+	\end{tikzcd}
+\]
+The same thing expressed in an equation is that commutativity means
+$$
+	G(f) \circ \alpha_{X} = \alpha_{Y} \circ F(f)
+$$
+This condition must be satisfied.
+
+A natural transformation from $F$ to $G$ can also be represented by the following diagram.
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQBhEAX1PU1z5CKAEwVqdJq3YARHnxAZseAkXKliEhizaIQ8-sqFrSIrVN37uEmFADm8IqABmAJwgBbJGRA4ISdRAAIxgwKCQANgB2GkZ6EMYABQEVYRBGGGccEBptaT0AMQMQN09vGj8AmhCwpABaaNyLdgBxHPT4mCSU4z1XLDsAC2zeF3cvRDFff0QAZlisMEsoCGYgjPbBmHpwxDBmRkYK+ixGdkgl9rzLAB0bpjRB+na4QawsgOtuIA
+	\begin{tikzcd}
+		& {} \arrow[dd, "\alpha", Rightarrow, shift right] &   \\
+		C \arrow[rr, "F", bend left=80] \arrow[rr, "G"', bend right=80] &                                                  & D \\
+		& {}                                               &
+	\end{tikzcd}
+\]
+
+\subsection{Composition of Natural Transformations}
+Natural transformations can be composed.
+Let there be three functors $F, G, H: C \to D$ and natural transformations $\alpha: F \to G$ and $\beta: G \to H$.
+Then the composition of natural transformations $\beta \circ \alpha: F \to H$ is defined as the composition of morphisms for each object $X \in C$:
+$$
+	(\beta \circ \alpha)_X = \beta_X \circ \alpha_X: F(X) \to H(X)
+$$
+With this composition, natural transformations also behave as morphisms of a category.
+
+\subsection{Natural Isomorphism}
+A natural transformation $\alpha: F \to G$ is a \textbf{natural isomorphism} if each component $\alpha_X: F(X) \to G(X)$ is an isomorphism in the category $D$ for each object $X \in C$.
+In this case, each component $\alpha_X$ has an inverse morphism $\alpha_X^{-1}: G(X) \to F(X)$, and this family of inverse morphisms $\alpha^{-1} = \{\alpha_X^{-1}\}_{X \in C}$ also forms a natural transformation $\alpha^{-1}: G \to F$.
+
+To put it more simply,
+for two functors $F,G: C \to G$, if we write the set of all natural transformations from $F$ to $G$ as $\text{Nat}(F,G)$, an element $\text{Nat}(F,G) \ni \eta_{X} : FX \to GX$ is an isomorphism, we say that $\eta$ is a natural isomorphism, and that $F$ and $G$ are also isomorphic.
+
+
+
+
+\subsection{Properties of Functors: Faithfulness and Fullness}
+
+Let $F$ be a functor from a category $C$ to $D$.
+The mapping
+$$
+	f : \text{Hom}_{C}(X,Y) \to \text{Hom}_{D}(FX,FY)
+$$
+is called
+\begin{itemize}
+	\item \textbf{faithful} if it is injective.
+	\item \textbf{full} if it is surjective.
+	\item \textbf{fully faithful} if it is bijective.
+\end{itemize}
+
+A fully faithful functor preserves the entire structure of the morphisms between the objects of the domain category.
+
+A necessary and sufficient condition for $F$ to be fully faithful is that each morphism $FX \to FY$ is the image of exactly one morphism $X \to Y$.
+This can be seen as an embedding from one category to another.
+(However, a fully faithful functor is not necessarily injective on objects.)
+A fully faithful functor that is injective on objects is called a "full embedding."
+
+
+\subsubsection{Example of a fully faithful functor that is not injective on objects}
+
+A counterexample can be made with a category that has only one object.
+
+Let category $C$ consist of only two objects $X,Y$ and their identity morphisms $\text{id}_{X}, \text{id}_{Y}$.
+
+Let category $D$ consist of only one object $Z$ and its identity morphism $\text{id}_{Z}$.
+
+Construct a functor $F:C \to D$ as follows:
+$F(X)=F(Y)=Z, F(\text{id}_{X})=F(\text{id}_{Y})=\text{id}_{Z}$
+
+This functor is fully faithful.
+
+	{}
+
+(Checking faithfulness)
+
+$X \to X: \text{Hom}_{C}(X,X) = \{ \text{id}_{X} \}$
+
+$FX \to FX: \text{Hom}_{D}(FX,FX) = \text{Hom}_{D}(Z,Z) = \{ \text{id}_{Z} \}$
+
+$F$ maps $\text{id}_{X}$ to $\text{id}_{Z}$, so the mapping between the sets of morphisms is injective.
+
+Similarly, it's injective for $Y$.
+
+The set of morphisms $X \to Y$ and its inverse is the empty set, so $F$ is faithful.
+
+	{}
+
+(Checking fullness)
+
+$X \to X: \text{Hom}_{D}(FX,FX) = \{ \text{id}_{Z} \}$
+
+$Y \to Y: \text{Hom}_{D}(FX,FX) = \{ \text{id}_{Z} \}$
+
+The set of morphisms $X \to Y$ and its inverse is the empty set, so the fullness condition for $F$ is satisfied.
+
+We have found that this functor is fully faithful, but it is not injective on objects.
+Since $F(X)=F(Y)=Z$, different objects $X,Y$ are mapped to the same object $Z$, so it is not injective on objects.
+
+This kind of case is a counterexample for a full embedding,
+and it is an example of a fully faithful functor that is not a full embedding.
+
+
+\subsection{Category Isomorphism and Equivalence}
+Given two categories $C$ and $D$, there are concepts that represent their "degree of similarity": \textbf{category isomorphism} and \textbf{category equivalence}.
+
+\subsubsection{Isomorphic Categories}
+Categories $C$ and $D$ are \textbf{isomorphic} if there exist functors $F: C \to D$ and $G: D \to C$ that satisfy the following conditions:
+\begin{enumerate}
+	\item $F \circ G = \mathrm{id}_D$
+	\item $G \circ F = \mathrm{id}_C$
+\end{enumerate}
+In this case, $F$ and $G$ are inverse functors to each other. Category isomorphism is a very strong condition, meaning that the two categories are literally "the same."
+
+\subsubsection{Equivalent Categories}
+Categories $C$ and $D$ are \textbf{equivalent} if there exist functors $F: C \to D$ and $G: D \to C$ that satisfy the following conditions:
+\begin{enumerate}
+	\item $F \circ G$ is naturally isomorphic to the identity functor $\mathrm{id}_D$
+	\item $G \circ F$ is naturally isomorphic to the identity functor $\mathrm{id}_C$
+\end{enumerate}
+In this case, $F$ is called a \textbf{category equivalence functor} or an \textbf{equivalence functor}.
+Category equivalence is a weaker condition than category isomorphism, and it means that the two categories are "structurally the same." In many fields of mathematics, category equivalence is more important than category isomorphism. This is because category isomorphism requires the object labels and morphism names to be perfectly identical, while category equivalence only captures the "essential" structure of the categories.
+
+
+
+
+\section{The Determinant as a Natural Transformation}
+
+Considering the determinant $\det(X), \det(Y)$ of $n \times n$ matrices $X,Y$,
+the determinant $\det$ is a natural transformation from the category of commutative rings $\textbf{CRing}$ to the category of monoids $\textbf{Mon}$.
+Let's check this.
+
+	{}
+
+For a commutative ring $R$, the set of $n \times n$ matrices with components in $R$ forms a monoid $M_{n}(R)$ under multiplication.
+A ring homomorphism $R \to S$ induces a monoid homomorphism $M_{n} (R) \to M_{n} (S)$.
+Therefore, $M_{n}$ is a functor from $\textbf{CRing} \to \textbf{Mon}$.
+
+Another functor is the forgetful functor $U : \textbf{CRing} \to \textbf{Mon}$, where the underlying set $U(R)$ of the ring $R$ becomes a monoid under multiplication.
+
+The determinant preserves products (the determinant of a matrix product is the product of the determinants) and preserves the identity element, so the determinant is a homomorphism from a commutative ring to a monoid.
+$$\det(XY) = \det(X)\det(Y), \ \det(\text{id}_{R}) = 1$$
+
+From the above, let's check if the following natural transformation diagram holds.
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQAdDnGADxwBGAM2ABhAEpYwAcwC+IWaXSZc+QigBMFanSat2XHv2HAAsgXmLl2PASLlSxHQxZtEIBUpAYba+6Q1nPTcPWR0YKGl4IlAhACcIAFskMhAcCCQHEAEYMCgkAHYsxnocxgAFFVt1EEYYIRwQGhd9d1MAfWAwSy94pJSadMyaHLykAFoi5uD2AFUm2tKYCqq-dzisaQALRqsQPuTELTSMxABmGkYpEKgIZgE6ha2YenzEMGZGRkH6LEZ2SBgNjTVwGDiwRo0OBbLANTJhWRAA
+	\begin{tikzcd}
+		& {} \arrow[dd, "\det", Rightarrow, shift right] &              \\
+		\textbf{CRing} \arrow[rr, "M_{n}", bend left=71] \arrow[rr, "U"', bend right=71] &                                                & \textbf{Mon} \\
+		& {}                                             &
+	\end{tikzcd}
+\]
+
+Writing the commutative diagram:
+\[
+	\begin{tikzcd}
+		R \arrow[r, "f"]
+		\arrow[d, "M_n"']
+		&
+		S \arrow[d, "M_n"] \\
+		M_n(R) \arrow[r, "M_n(f)"']
+		\arrow[d, "\det_R"']
+		&
+		M_n(S) \arrow[d, "\det_S"] \\
+		U(R) \arrow[r, "U(f)"']
+		&
+		U(S)
+	\end{tikzcd}
+\]
+
+That is, the diagram commutes if
+$$
+	U(f) \circ \det_{R} = \det_{S} \circ M_{n}(f)
+$$
+is satisfied.
+
+For any $A \in M_{n} (R)$, the diagram is commutative if
+\[
+	(U(f) \circ \det_{R}) (A)
+	\ = \
+	(\det_{S} \circ M_{n}(f)) (A)
+\]
+holds.
+
+If we break it down by components, $A=(a_{ij}) \in M_{n} (R)$
+
+\[
+	\det_{R} (A) = \sum_{\sigma \in S_{n}} \text{sgn}(\sigma) \prod^{n}_{i=1} a_{i , \sigma(i)}
+\]
+
+\[
+	M_{n}(f)(A) = (f(a_{ij}))
+\]
+
+\[
+	\det_{S} M_{n}(f)(A)
+	=
+	\sum_{\sigma \in S_{n}} \text{sgn}(\sigma) \prod^{n}_{i=1} f(a_{i , \sigma(i)})
+\]
+
+
+\[
+	f(\det_{R}(A))
+	=
+	f \left(
+	\sum_{\sigma \in S_{n}} \text{sgn}(\sigma) \prod^{n}_{i=1} a_{i , \sigma(i)}
+	\right)
+	=
+	\sum_{\sigma \in S_{n}} \text{sgn}(\sigma) \prod^{n}_{i=1} f(a_{i , \sigma(i)})
+\]
+
+From the above,
+$$
+	U(f) \circ \det_{R} = \det_{S} \circ M_{n}(f)
+$$
+is proven.
+
+Since calculating the determinant and then applying the homomorphism gives the same result as applying the homomorphism and then calculating the determinant, the diagram commutes.
+
+
+\section{The Trace as a Natural Transformation}
+
+The trace of an $n \times n$ matrix, $ \text{tr} (X)$, also has a natural transformation structure, similar to the determinant.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQAdDnGADxwBGAM2ABhAEpYwAcwC+IWaXSZc+QigBMFanSat2XHv2HAAglCgBZAvMXLseAkXKliOhizaIQCpSAwOas6kGu56Xj6yOjBQ0vBEoEIAThAAtkhkIDgQSC4gAjBgUEgA7HmM9AWMAAoqjuogjDBCOCA0HvrelgD6wGC2fslpGTTZuTQFRUgAtGXt4eymbY2VMDV1Qd5JWNIAFq12IEPpiFpZOYgAzDSMUhFQEMwCTcu7MPTFiGDMjIyj9FhGOxIGA2PNPAZuHwcMAcEl5DQ4LssC1clFZEA
+	\begin{tikzcd}
+		& {} \arrow[dd, "\text{tr}", Rightarrow, shift right] &                 \\
+		\textbf{CRing} \arrow[rr, "M_{n}", bend left=71] \arrow[rr, "A"', bend right=71] &                                                     & \textbf{AddMon} \\
+		& {}                                                  &
+	\end{tikzcd}
+\]
+
+Note that the trace preserves additive structure, which is different from the determinant.
+
+\subsection{Functor Setup}
+
+For a commutative ring $R$, the set of all $n \times n$ matrices with components in $R$, $M_n(R)$, forms a monoid under addition.
+A ring homomorphism $f: R \to S$ induces an additive monoid homomorphism $M_n(f): M_n(R) \to M_n(S)$ by applying $f$ to each component.
+Thus, $M_n$ is a functor from $\mathbf{CRing} \to \mathbf{AddMon}$ (where $\mathbf{AddMon}$ is the category of additive monoids).
+
+The other functor is the additive group functor $A: \mathbf{CRing} \to \mathbf{AddMon}$,
+which maps a ring $R$ to its monoid under addition $(R, +)$.
+
+The trace preserves sums (the trace of a sum of matrices is the sum of the traces) and the trace of the zero matrix is $0$, so
+the trace is a homomorphism of additive monoids.
+\[
+	\text{tr}(X + Y) = \text{tr}(X) + \text{tr}(Y), \quad \text{tr}(0) = 0
+\]
+
+\subsection{Structure as a Natural Transformation}
+
+The trace makes the following natural transformation diagram commute:
+
+\[
+	\begin{tikzcd}
+		R \arrow[r, "f"]
+		\arrow[d, "M_n"']
+		&
+		S \arrow[d, "M_n"] \\
+		M_n(R) \arrow[r, "M_n(f)"']
+		\arrow[d, "\text{tr}_R"']
+		&
+		M_n(S) \arrow[d, "\text{tr}_S"] \\
+		A(R) \arrow[r, "A(f)"']
+		&
+		A(S)
+	\end{tikzcd}
+\]
+
+In other words, it's a natural transformation if the following equation holds:
+\[
+	A(f) \circ \text{tr}_R = \text{tr}_S \circ M_n(f)
+\]
+
+\subsection{Proof of Naturality}
+
+For any $A = (a_{ij}) \in M_n(R)$, let's compute both sides.
+
+Left-hand side:
+\[
+	(A(f) \circ \text{tr}_R)(A) = A(f)(\text{tr}_R(A)) = f\left(\sum_{i=1}^n a_{ii}\right)
+\]
+
+Right-hand side:
+\[
+	(\text{tr}_S \circ M_n(f))(A) = \text{tr}_S(M_n(f)(A)) = \text{tr}_S((f(a_{ij}))) = \sum_{i=1}^n f(a_{ii})
+\]
+
+Since $f$ is a ring homomorphism, it preserves addition:
+\[
+	f\left(\sum_{i=1}^n a_{ii}\right) = \sum_{i=1}^n f(a_{ii})
+\]
+
+Therefore,
+\[
+	A(f) \circ \text{tr}_R = \text{tr}_S \circ M_n(f)
+\]
+holds, and the diagram commutes.
+
+\subsection{Comparison with the Determinant}
+
+Comparing the properties of the determinant and trace as natural transformations:
+
+\begin{itemize}
+	\item \textbf{Determinant}: A natural transformation to the multiplicative monoid functor $U$ (preserves multiplicative structure)
+	\item \textbf{Trace}: A natural transformation to the additive monoid functor $A$ (preserves additive structure)
+	\item \textbf{Domain}: The determinant is defined on the general linear group $GL_n(R)$, while the trace is defined on the full matrix ring $M_n(R)$
+	\item \textbf{Product property}: The determinant satisfies $\det(XY) = \det(X)\det(Y)$, while the trace has a different multiplicative property, $\text{tr}(XY) = \text{tr}(YX)$ (cyclicity)
+\end{itemize}
+
+In this way, the determinant and trace can be understood as natural transformations that reflect the multiplicative and additive structures of a ring, respectively.
+
+
+
+
+
+\section{The Double Dual as a Natural Transformation}
+
+In the category of finite-dimensional vector spaces, the operation that maps a vector space to its double dual space gives a natural isomorphism (a natural transformation that is also an isomorphism) from the identity functor to the double dual functor.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQAdDnGADxwBGAM2AAxLGABqMAMY4AvgH1gAa3kh5pdJlz5CKAEwVqdJq3Zce-YWInS5S1es3bseAkXKliJhizaIIBpaIBhuep6kBr5mAUHyJjBQAObwRKBCAE4QALZIZCA4EEheIAIwYFBIAOyljPTljAAKOu76IIwwQjggNH7mgZZ8OMBYUM4hWbn5NEUlNOWVSAC0tTT1jS3hHoGZWMkAFj19sewAFMsAlAB6wABUdxMZ2XmIRoXFiADM6xJxUBBmAJOr0QAcYPQqogwMxGIxZvQsIx2JAwGwTv4LNxhsAYH51DQ4AcsN0Sgl5EA
+	\begin{tikzcd}
+		& {} \arrow[dd, "\text{eval}", Rightarrow, shift right] &                      \\
+		\textbf{FinVect}_{k} \arrow[rr, "\text{id}", bend left=71] \arrow[rr, "(-)^{**}"', bend right=71] &                                                       & \textbf{FinVect}_{k} \\
+		& {}                                                    &
+	\end{tikzcd}
+\]
+
+\subsection{Preliminaries}
+
+Let $\mathbf{FinVect}_k$ be the category of finite-dimensional vector spaces over a field $k$.
+For each vector space $V$, we consider its dual space $V^* = \mathrm{Hom}_k(V, k)$.
+
+The double dual functor $D: \mathbf{FinVect}_k \to \mathbf{FinVect}_k$ is defined as follows:
+\begin{itemize}
+	\item Objects: $D(V) = V^{**} = (V^*)^*$
+	\item Morphisms: For a linear map $f: V \to W$, $D(f) = f^{**}: V^{**} \to W^{**}$ is
+	      \[
+		      f^{**}(\xi)(\phi) = \xi(\phi \circ f) \quad (\xi \in V^{**}, \phi \in W^*)
+	      \]
+\end{itemize}
+
+The evaluation map $\mathrm{eval}_V: V \to V^{**}$ is defined as follows:
+\[
+	\mathrm{eval}_V(v)(\phi) = \phi(v) \quad (v \in V, \phi \in V^*)
+\]
+
+
+
+
+
+\subsection{About the Evaluation Map}
+
+The evaluation map $\mathrm{eval}_V: V \to V^{**}$ is an important map that associates a vector in a vector space with a vector in its double dual space. Let's take a closer look at its definition and intuitive meaning.
+
+\paragraph{Review of the Definition}
+For any $v \in V$, $\mathrm{eval}_V(v)$ is a linear map from $V^*$ to $k$, i.e., an element of $V^{**}$:
+\[
+	\mathrm{eval}_V(v): V^* \to k, \quad \phi \mapsto \phi(v)
+\]
+
+In other words, $\mathrm{eval}_V(v)$ is "the map that takes an element $\phi$ of the dual space and returns the result of applying $\phi$ to $v$."
+
+\paragraph{Concrete Example}
+
+Let the field $k = \mathbb{R}$ (the real numbers) and $V = \mathbb{R}^2$.
+
+An element of $V$: $v = (3, 2)$
+
+An element of $V^*$ (a linear functional): for example, $\phi(x,y) = 2x + 5y$
+
+Then:
+\[
+	\mathrm{eval}_V(v)(\phi) = \phi(v) = \phi(3,2) = 2\cdot3 + 5\cdot2 = 6 + 10 = 16
+\]
+
+For another linear functional $\psi(x,y) = x - y$:
+\[
+	\mathrm{eval}_V(v)(\psi) = \psi(3,2) = 3 - 2 = 1
+\]
+
+In this way, $\mathrm{eval}_V(v)$ can be understood as "the operation of applying various linear functionals to $v$ when $v$ is fixed."
+
+\paragraph{Linearity}
+
+Let's check that $\mathrm{eval}_V$ is a linear map:
+
+For any $v, w \in V$, $c \in k$, $\phi \in V^*$:
+\begin{align*}
+	\mathrm{eval}_V(v + w)(\phi) & = \phi(v + w) = \phi(v) + \phi(w)                      \\
+	                             & = \mathrm{eval}_V(v)(\phi) + \mathrm{eval}_V(w)(\phi)  \\
+	\mathrm{eval}_V(cv)(\phi)    & = \phi(cv) = c\phi(v) = c\cdot\mathrm{eval}_V(v)(\phi)
+\end{align*}
+
+Thus, $\mathrm{eval}_V$ is a linear map.
+
+\paragraph{Bases}
+
+Fix a basis $\{e_1, \ldots, e_n\}$ for $V$. Consider the dual basis $\{\epsilon_1, \ldots, \epsilon_n\}$ ($\epsilon_i(e_j) = \delta_{ij}$).
+
+If we express $v = \sum_{i=1}^n a_i e_i$, then for any $\phi = \sum_{j=1}^n b_j \epsilon_j$:
+\[
+	\mathrm{eval}_V(v)(\phi) = \phi(v) = \sum_{i,j} a_i b_j \epsilon_j(e_i) = \sum_{i=1}^n a_i b_i
+\]
+
+This can be interpreted as the inner product of the component vector of $v$, $(a_1, \ldots, a_n)$, and the component vector of $\phi$, $(b_1, \ldots, b_n)$.
+
+\paragraph{Issues with the Infinite-Dimensional Case}
+
+In infinite-dimensional vector spaces, $V^{**}$ can be "larger" than $V$. For example, if $V$ is infinite-dimensional, there are many elements in $V^{**}$ that do not come from elements of $V$. This is the reason why the evaluation map is not surjective.
+
+\paragraph{Intuitive Interpretation}
+
+The evaluation map can be thought of as a way to represent an element of a vector space as a "function of functions":
+\begin{itemize}
+	\item First-order functions: Elements of $V^*$ (linear maps from $V$ to $k$)
+	\item Second-order functions: Elements of $V^{**}$ (linear maps from $V^*$ to $k$)
+	\item Evaluation map: Associates each element $v$ of $V$ with a second-order function that is "the operation of evaluating $v$."
+\end{itemize}
+
+In the finite-dimensional case, this correspondence is perfect (an isomorphism), but in the infinite-dimensional case, information can be lost.
+
+
+
+
+
+\subsection{Natural Transformation Diagram}
+
+Let's show that the family of evaluation maps $\{\mathrm{eval}_V\}_{V \in \mathbf{FinVect}_k}$ is a natural transformation from the identity functor $\mathrm{id}$ to the double dual functor $D$.
+
+We need to show that the following diagram commutes:
+\[
+	\begin{tikzcd}
+		V \arrow[r, "f"] \arrow[d, "\mathrm{eval}_V"']
+		& W \arrow[d, "\mathrm{eval}_W"] \\
+		V^{**} \arrow[r, "f^{**}"']
+		& W^{**}
+	\end{tikzcd}
+\]
+
+That is, for any linear map $f: V \to W$:
+\[
+	\mathrm{eval}_W \circ f = f^{**} \circ \mathrm{eval}_V
+\]
+
+\subsection{Proof of Naturality}
+
+For any $v \in V$ and $\phi \in W^*$, let's evaluate both sides.
+
+Left-hand side:
+\[
+	(\mathrm{eval}_W \circ f)(v)(\phi) = \mathrm{eval}_W(f(v))(\phi) = \phi(f(v))
+\]
+
+Right-hand side:
+\[
+	(f^{**} \circ \mathrm{eval}_V)(v)(\phi) = f^{**}(\mathrm{eval}_V(v))(\phi)
+	= \mathrm{eval}_V(v)(\phi \circ f) = (\phi \circ f)(v) = \phi(f(v))
+\]
+
+Thus, both sides are equal, and the diagram commutes.
+
+\subsection{It is a Natural Isomorphism}
+
+In the case of finite-dimensional vector spaces, the evaluation map $\mathrm{eval}_V: V \to V^{**}$ is an isomorphism.
+This is because:
+\begin{itemize}
+	\item The dimensions are equal: $\dim V = \dim V^* = \dim V^{**}$
+	\item $\mathrm{eval}_V$ is injective: If $\mathrm{eval}_V(v) = 0$, then for all $\phi \in V^*$, $\phi(v) = 0$, which implies $v = 0$
+	\item Since the dimensions are equal and it's injective, it's also surjective
+\end{itemize}
+
+Therefore, $\mathrm{eval}$ is a natural isomorphism $\mathrm{id} \Rightarrow D$.
+
+\subsection{Note on the Infinite-Dimensional Case}
+
+In the case of infinite-dimensional vector spaces, the evaluation map $\mathrm{eval}_V: V \to V^{**}$ is injective, but it is not necessarily surjective. Therefore, it is a natural transformation but not a natural isomorphism.
+
+This is an example where finite dimensionality is essentially important.
+
+\subsection{Significance}
+
+The natural isomorphism of the double dual demonstrates the following important concepts:
+\begin{itemize}
+	\item A vector space is "naturally" isomorphic to its double dual space.
+	\item This isomorphism does not depend on the choice of a basis (naturality).
+	\item It reflects a deep property of duality in finite-dimensional linear algebra.
+\end{itemize}
+
+This example shows that the concept of a natural transformation is a powerful tool for capturing the "naturalness" and "universality" of mathematical structures.
+
+
+
+
+
+
+
+\section{Relationship between Natural Transformations and Universal Properties}
+
+The concept of a natural transformation is deeply connected to universal properties. Let's examine how the examples we've looked at so far (determinant, trace, double dual) embody universality.
+
+\subsection{What is a Universal Property?}
+
+A universal property is when:
+
+\begin{itemize}
+	\item There exists a "most general" object with a certain structure.
+	\item There is a unique homomorphism from this object to any other object.
+	\item This property can be expressed as a natural transformation.
+\end{itemize}
+
+\subsection{Universality of the Determinant}
+
+The determinant $\det: GL_n(R) \to R^\times$ satisfies the following universal property:
+
+\paragraph{Formulation of the Universal Property}
+Consider any commutative ring $R$ and a group homomorphism $f: GL_n(R) \to G$ ($G$ is an abelian group) that satisfies the following properties:
+\begin{enumerate}
+	\item $f$ is invariant under transformations by elementary matrices.
+	\item $f$ maps matrix products to group products.
+\end{enumerate}
+
+Then, $f$ factors uniquely through the determinant:
+\[
+	\begin{tikzcd}
+		GL_n(R) \arrow[r, "f"] \arrow[d, "\det"'] & G \\
+		R^\times \arrow[ru, dashed, "\exists! \tilde{f}"'] &
+	\end{tikzcd}
+\]
+
+This means that any group homomorphism with "good properties" can be expressed via the determinant.
+
+\paragraph{Interpretation as a Natural Transformation}
+This universal property means that a natural transformation from the functor $GL_n$ to a functor to an abelian group factors uniquely through the determinant. The determinant has a universal property as the "finest invariant."
+
+\subsection{Universality of the Trace}
+
+The trace $\text{tr}: M_n(R) \to R$ also has a similar universal property:
+
+\paragraph{Formulation of the Universal Property}
+Consider any commutative ring $R$ and an additive homomorphism $f: M_n(R) \to A$ ($A$ is an abelian group) that satisfies the following properties:
+\begin{enumerate}
+	\item $f$ is invariant under similarity transformations: $f(P^{-1}AP) = f(A)$.
+	\item $f$ vanishes on commutators: $f(AB - BA) = 0$.
+\end{enumerate}
+
+Then, $f$ factors uniquely through the trace:
+\[
+	\begin{tikzcd}
+		M_n(R) \arrow[r, "f"] \arrow[d, "\text{tr}"'] & A \\
+		R \arrow[ru, dashed, "\exists! \tilde{f}"'] &
+	\end{tikzcd}
+\]
+
+\paragraph{Significance}
+The trace is a universal invariant that captures all "additive information about matrices that is invariant under similarity and vanishes on commutators."
+
+\subsection{Universality of the Double Dual}
+
+The evaluation map $\mathrm{eval}_V: V \to V^{**}$ realizes a universal property related to duality:
+
+\paragraph{Formulation of the Universal Property}
+For any linear map $f: V \to W^{**}$ ($W$ is any vector space), there does not necessarily exist a unique linear map $\tilde{f}: V \to W$ such that:
+\[
+	f = \mathrm{eval}_W \circ \tilde{f}
+\]
+However, in the finite-dimensional case, $V^{**}$ has a universal property as the "completion" of $V$.
+
+More precisely, the evaluation map is the unit of an adjunction that has the following universal property:
+\[
+	\mathrm{Hom}(V, W^*) \cong \mathrm{Hom}(W, V^*)
+\]
+This isomorphism is naturally given through the evaluation map.
+
+\subsection{General Relationship between Natural Transformations and Universal Properties}
+
+From these examples, a general relationship between natural transformations and universal properties becomes apparent:
+
+\paragraph{Formulation of a Natural Transformation's Universal Property}
+A natural transformation $\eta: F \Rightarrow G$ between functors $F, G: \mathcal{C} \to \mathcal{D}$ has a \textbf{universal property} if any natural transformation $\alpha: F \Rightarrow H$ ($H: \mathcal{C} \to \mathcal{D}$ is a functor) factors uniquely through $\eta$. That is, there exists a unique natural transformation $\beta: G \Rightarrow H$ such that:
+\[
+	\alpha = \beta \circ \eta
+\]
+This can be expressed diagrammatically as:
+\[
+	\begin{tikzcd}
+		F \arrow[r, "\eta"] \arrow[rd, "\alpha"'] & G \arrow[d, dashed, "\exists! \beta"] \\
+		& H
+	\end{tikzcd}
+\]
+
+\paragraph{Correspondence in Specific Examples}
+\begin{itemize}
+	\item For the determinant: $F = GL_n$, $G = U$, $\eta = \det$, $H$ is a functor to any abelian group.
+	\item For the trace: $F = M_n$, $G = A$, $\eta = \text{tr}$, $H$ is a functor to any additive abelian group.
+	\item For the double dual: $F = \mathrm{id}$, $G = D$, $\eta = \mathrm{eval}$.
+\end{itemize}
+
+\subsection{Significance in Category Theory}
+
+A natural transformation having a universal property means the following:
+
+\begin{itemize}
+	\item \textbf{Maximality}: The natural transformation "preserves as much information as possible."
+	\item \textbf{Uniqueness}: Any natural transformation with that property is essentially unique.
+	\item \textbf{Functorial Property}: The transformation behaves functorially (naturality).
+\end{itemize}
+
+\paragraph{Summary of Concrete Examples}
+\begin{itemize}
+	\item Determinant: The maximal invariant as a group homomorphism.
+	\item Trace: The maximal invariant as an additive similarity invariant.
+	\item Double Dual: The embedding that maximally realizes duality.
+\end{itemize}
+
+These examples show that the theory of natural transformations is not just a technical tool but a deep concept for capturing the essential properties of mathematical structures.
+
+
+
+\section{Functorial Interpretation of the Fourier Transform}
+
+Let's look at the Fourier transform from the perspective of natural transformations.
+We will see that when considering categories of elementary function spaces (e.g., $L^{1}$ or $C_{0}$), the Fourier transform is not a natural transformation in the strict sense, and some caveats are necessary.
+
+Using a more advanced framework, the Fourier transform can be shown to be a type of natural transformation, but this note won't go into that.
+
+\subsection{Problem Statement}
+
+The Fourier transform $\mathcal{F}$ is a map from one function space to another.
+Let's check if it becomes a natural transformation.
+First, we need to define the appropriate functors.
+
+For example, consider the case where the Fourier transform $\mathcal{F}$ acts between $L^1(\mathbb{R}^n)$ and $C_0(\mathbb{R}^n)$.
+\[
+	\mathcal{F}: L^1(\mathbb{R}^n) \to C_0(\mathbb{R}^n)
+\]
+Now, if we consider a map between $\mathbb{R}^n$ and $\mathbb{R}^n$, for example, an affine transformation $f: \mathbb{R}^n \to \mathbb{R}^n$, the question arises as to how to define the map (functor) between the function spaces induced by this map.
+
+\subsection{Naturality in Linear Isomorphisms}
+
+As the simplest example, let's consider a linear isomorphism $A: \mathbb{R}^n \to \mathbb{R}^n$.
+If we define the "pullback" of a function $g$, $A^*g$, as $A^*g(x) = g(Ax)$, we need to check if the following diagram commutes.
+\[
+	\begin{tikzcd}
+		L^1(\mathbb{R}^n) \arrow[r, "\mathcal{F}"] \arrow[d, "A^*"'] & C_0(\mathbb{R}^n) \arrow[d, "(A^{-T})^*"] \\
+		L^1(\mathbb{R}^n) \arrow[r, "\mathcal{F}"'] & C_0(\mathbb{R}^n)
+	\end{tikzcd}
+\]
+
+Here, we consider the pullback operation $(A^{-T})^*h(\xi) = h(A^{-T}\xi)$ by the linear map $A^{-T}$.
+
+The pullback operation $(A^{-T})^*h(\xi) = h(A^{-T}\xi)$ by the linear map $A^{-T}$.
+
+Note that $\boldsymbol{A^{-T}}$ represents the transpose of the inverse matrix, $(\boldsymbol{A}^{-1})^{T}$.
+This diagram commuting means that the following equation holds:
+\[
+	\mathcal{F}(A^*g) = (A^{-T})^*\mathcal{F}(g)
+\]
+Note that this equality does not always hold.
+
+\subsubsection{Proof}
+
+For any $g \in L^1(\mathbb{R}^n)$, the left-hand side is:
+\begin{align*}
+	\mathcal{F}(A^* g)(\xi) & = \int_{\mathbb{R}^n} g(Ax) e^{-2\pi i x \cdot \xi} dx \\
+	                        & = \int_{\mathbb{R}^n} g(Ax) e^{-2\pi i (x^T \xi)} dx
+\end{align*}
+Here, if we change variables with $y = Ax$, then $x = A^{-1}y$, and $\det(A)$ is the Jacobian.
+
+Since $x^T \xi = (A^{-1}y)^T \xi = y^T (A^{-1})^T \xi = y \cdot (A^{-T}\xi)$,
+\begin{align*}
+	\mathcal{F}(A^* g)(\xi) & = \frac{1}{|\det A|} \int_{\mathbb{R}^n} g(y) e^{-2\pi i y \cdot (A^{-T}\xi)} dy \\
+	                        & = \frac{1}{|\det A|} \mathcal{F}(g)(A^{-T}\xi)                                   \\
+	                        & = \frac{1}{|\det A|} \left[(A^{-T})^*\mathcal{F}(g)\right](\xi)
+\end{align*}
+Therefore, $\mathcal{F}(A^*g) = \frac{1}{|\det A|}(A^{-T})^*\mathcal{F}(g)$, and the diagram does not commute if $\det(A) \neq \pm 1$.
+
+From this, the Fourier transform is not a natural isomorphism in the strict sense in the category of linear isomorphisms.
+
+
+\paragraph{Naturality in the Case of Orthogonal Transformations}
+If $A$ is an orthogonal matrix ($A^T A = I$), then $|\det A| = 1$ and $A^{-T} = A$, so:
+\[
+	\mathcal{F}(A^*g) = (A)^*\mathcal{F}(g)
+\]
+In this case, the diagram commutes, and the Fourier transform is a natural transformation.
+
+
+
+\subsection{A Deeper Understanding of Naturality}
+
+To properly understand the naturality of the Fourier transform, the following more advanced frameworks are needed (which this note will not delve into).
+
+\begin{enumerate}
+	\item \textbf{The Schwartz Space $\mathcal{S}(\mathbb{R}^n)$}:
+	      On the space of rapidly decreasing functions $\mathcal{S}(\mathbb{R}^n)$, the Fourier transform gives an automorphism $\mathcal{F}: \mathcal{S}(\mathbb{R}^n) \to \mathcal{S}(\mathbb{R}^n)$, and for a linear isomorphism $A: \mathbb{R}^n \to \mathbb{R}^n$:
+	      \[
+		      \mathcal{F} \circ A^* = |\det A|^{-1} (A^{-T})^* \circ \mathcal{F}
+	      \]
+	      which has better consistency.
+
+
+
+	      \paragraph{What is the Schwartz Space?}
+	      The Schwartz space $\mathcal{S}(\mathbb{R}^n)$ is the vector space of "rapidly decreasing functions."
+	      A function $f: \mathbb{R}^n \to \mathbb{C}$ is rapidly decreasing if for any multi-indices $\alpha, \beta$:
+	      \[
+		      \sup_{x \in \mathbb{R}^n} |x^\alpha \partial^\beta f(x)| < \infty
+	      \]
+	      Here, $x^\alpha = x_1^{\alpha_1} \cdots x_n^{\alpha_n}$ and $\partial^\beta = \frac{\partial^{|\beta|}}{\partial x_1^{\beta_1} \cdots \partial x_n^{\beta_n}}$.
+
+
+	      \paragraph{Intuitive Meaning}
+	      Rapidly decreasing functions:
+	      \begin{itemize}
+		      \item Converge to 0 very fast at infinity (faster than any polynomial).
+		      \item Are infinitely differentiable, and their derivatives also decrease rapidly.
+		      \item Examples: The Gaussian function $e^{-|x|^2}$, infinitely differentiable functions with compact support, etc.
+	      \end{itemize}
+
+	      \paragraph{Behavior of the Fourier Transform}
+	      In the Schwartz space, the Fourier transform has the following good properties:
+	      \[
+		      \begin{tikzcd}
+			      \mathcal{S}(\mathbb{R}^n) \arrow[r, "\mathcal{F}"] \arrow[d, "A^*"']
+			      & \mathcal{S}(\mathbb{R}^n) \arrow[d, "|\det A|^{-1} (A^{-T})^*"] \\
+			      \mathcal{S}(\mathbb{R}^n) \arrow[r, "\mathcal{F}"']
+			      & \mathcal{S}(\mathbb{R}^n)
+		      \end{tikzcd}
+	      \]
+
+	      This diagram is "almost" commutative, but to be precise:
+	      \[
+		      \mathcal{F} \circ A^* = |\det A|^{-1} \circ (A^{-T})^* \circ \mathcal{F}
+	      \]
+	      There is a relationship that holds.
+	      Since the coefficient $|\det A|^{-1}$ appears, it is not a strict natural transformation, but it has a higher degree of consistency than the $L^1$ space case.
+
+
+	      \paragraph{Concrete Example: Gaussian Function}
+	      $g(x) = e^{-\pi |x|^2}$ is a rapidly decreasing function, and its Fourier transform is $\mathcal{F}(g)(\xi) = e^{-\pi |\xi|^2}$ (it maps to itself).
+
+	      Considering the linear transformation $A: \mathbb{R} \to \mathbb{R}$, $A(x) = ax$ ($a > 0$):
+	      \begin{align*}
+		      A^*g(x)                       & = g(ax) = e^{-\pi a^2 x^2}                       \\
+		      \mathcal{F}(A^*g)(\xi)        & = \frac{1}{a} e^{-\pi \xi^2/a^2}                 \\
+		      (A^{-T})^*\mathcal{F}(g)(\xi) & = \mathcal{F}(g)(a^{-1}\xi) = e^{-\pi \xi^2/a^2}
+	      \end{align*}
+	      It is indeed true that $\mathcal{F}(A^*g) = \frac{1}{a} (A^{-T})^*\mathcal{F}(g)$.
+
+
+	      \paragraph{Characteristics of the Schwartz Space}
+	      The Schwartz space functions as an ideal function space in Fourier analysis:
+	      \begin{itemize}
+		      \item The Fourier transform is an automorphism (bijective).
+		      \item It has good consistency with differentiation, integration, and linear transformations.
+		      \item It provides a natural framework for the theory of distributions (generalized functions).
+	      \end{itemize}
+
+	      In this way, the quasi-naturality of the Fourier transform is clearly expressed in the Schwartz space.
+	\item \textbf{Pontryagin Duality}:
+	      In the category of locally compact abelian groups, the Fourier transform can be seen as a natural isomorphism between a group and its dual group (the character group). This becomes the concept of duality itself in category theory.
+
+	\item \textbf{Natural Transformations and Universal Properties}:
+	      In this case, the Fourier transform is understood as a natural way to construct a universal structure called the dual group.
+
+\end{enumerate}
+
+In reality, when defining functors for function spaces, it is an issue whether to adopt the "push-forward" or "pullback" of a map $f: \mathbb{R}^n \to \mathbb{R}^n$.
+In the case of the Fourier transform, different functor combinations are needed for the domain and codomain, so the formulation of the natural transformation is not trivial.
+
+\subsection{Summary}
+
+The Fourier transform is a type of natural transformation, but it's not a strict example of one when considering elementary categories.
+Behind it lies a functorial correspondence between function spaces and a deeper relationship between mathematical structures (Pontryagin duality) (which is an advanced topic and won't be covered in this note).
+
+
+
+
+
+
+
+\section{The Yoneda Lemma}
+
+\subsection{A Quick Review}
+
+Our discussion so far has used familiar examples such as the determinant, trace, double dual, and Fourier transform to show that natural transformations are not just abstract concepts.
+
+These examples suggest that natural transformations are a powerful tool for capturing the essence of mathematical structures.
+
+	{}
+
+The determinant connects the multiplicative structure of a complex object, a matrix, to the multiplicative structure of a simple object, a scalar.
+
+Similarly, the trace connects the additive structure of a matrix to the additive structure of a scalar.
+
+And the natural isomorphism of the double dual guarantees that a vector space and its double dual space, which is derived from it, have an essentially identical structure, independent of the artificial choice of a basis.
+(This, to me personally, feels very mysterious.)
+
+{}
+
+These describe deep, universal relationships between different mathematical structures.
+
+A natural transformation acts as a filter that strips away irrelevant details when transforming information from one structure to another, extracting only the truly important elements.
+
+	{}
+
+This pursuit of naturalness is at the core of the philosophy of category theory.
+
+Natural transformations provide a new perspective for understanding mathematical objects not from within, but from without, through their relationships (morphisms) with other objects.
+
+This perspective allows us to discover not only the properties of individual objects but also the harmony and beauty of the entire structure they weave together.
+
+	{}
+
+The \textbf{Yoneda Lemma} re-examines this concept of universality from the deep foundations of category theory.
+
+This lemma makes the astonishing claim that the structure of an object itself can be completely described by the set of its natural transformations.
+
+\subsection{Statement of the Yoneda Lemma}
+
+The Yoneda Lemma claims the (surprising) fact that any object $A$ is completely determined by the structure of all the morphisms that go out of it.
+
+It means that instead of examining the object itself, we can completely understand its properties by examining the morphisms from it.
+
+This lemma is one of the most important results in category theory and a key to unraveling the universal properties of many mathematical structures.
+
+
+\subsection{Presheaves and the Yoneda Functor}
+To formulate the Yoneda Lemma, we introduce the concept of a \textbf{presheaf}.
+A presheaf on a category $C$ is a contravariant functor $F: C^{\text{op}} \to \mathbf{Set}$ from the category $C$ to the category of sets $\mathbf{Set}$.
+A presheaf can be thought of as a general way for a functor to assign information, such as properties, to objects.
+
+The most important example of a presheaf is what's called a representable functor.
+A functor $F$ from a category $C$ to the category of sets $\textbf{Set}$ is said to be representable if there exists an object $A \in C$ such that $F$ is naturally isomorphic to the hom-set $\text{Hom}_C(A,-)$.
+In other words, a functor $F$ is called a representable functor (or simply representable) if $F \cong \text{Hom}_C(A,-)$.
+
+In particular, a functor of the form $\mathrm{Hom}_C(A, -): C \to \mathbf{Set}$ is called a Yoneda functor.
+All Yoneda functors are representable functors, but not all representable functors are Yoneda functors.
+The Yoneda functor provides a standard way to view the category $C$ from the perspective of object $A$.
+Through this perspective, other functors can be studied.
+
+
+
+\subsection{The Yoneda Embedding}
+
+Crucial to understanding the Yoneda Lemma is the Yoneda embedding.
+
+This is a functor $h$ from the category $C$ to the category of presheaves $\mathbf{Set}^{C^{\text{op}}}$, which maps each object $A$ to the representable functor $\mathrm{Hom}_C(A, -)$. This functor transforms any object into the perspective of the structure of all morphisms going out of it.
+
+(Here, the category of presheaves $\mathbf{Set}^{C^{\text{op}}}$ refers to the category where the objects are all presheaves (contravariant functors) $\{ F |F : C^{\text{op}} \to \mathbf{Set} \}$ and the morphisms are natural transformations between presheaves.)
+
+The Yoneda Lemma claims that this functor $h$ is \textbf{fully faithful}. This means that the category $C$ is embedded in the category of presheaves while completely preserving the structure of the morphisms.
+From this fact, it follows that the properties of an object itself can be completely grasped through the structure of the morphisms the object has.
+
+
+
+
+\subsection{The Yoneda Lemma}
+
+The Yoneda Lemma connects the set of natural transformations between a representable functor and any functor with the value of the original functor at the object.
+
+The set of natural transformations between a representable functor $\mathrm{Hom}_C(A, -): C \to \mathbf{Set}$ and any functor $F: C \to \mathbf{Set}$ corresponds one-to-one with the elements of object $A$.
+
+$$
+	\text{Nat}(\mathrm{Hom}_C(A, -), F) \cong F(A)
+$$
+
+This isomorphism is a natural isomorphism, meaning that the functor $F$ can be completely determined by the family of natural transformations.
+
+This formula shows that the set of natural transformations from the Yoneda functor $\mathrm{Hom}_C(A, -)$ to any functor $F$ is naturally isomorphic to the value of $F$ at object $A$.
+
+This can be applied to all functors $F$, regardless of whether they are representable functors.
+
+The Yoneda functor gives a standard way to view the category $C$ from the perspective of object $A$, and through this perspective, other functors can be studied.
+
+\subsection{The Chaining Presheaf Category and the Yoneda Lemma}
+
+Abstractly, the Yoneda Lemma describes the relationship between a category $C$ and its category of presheaves $\mathbf{Set}^{C^{op}}$, and it is simply the claim that the Yoneda embedding $h: C \to \mathbf{Set}^{C^{op}}$ exists and is fully faithful.
+
+If we write the presheaf category of $C$ as $\hat{C} = \mathbf{Set}^{C^{op}}$, we can further generate the presheaf category of that, $\hat{\hat{C}}$, from $\hat{C} = \mathbf{Set}^{\hat{C}^{op}}$.
+
+And the Yoneda Lemma also tells us that there exists a Yoneda embedding $\hat{h}$ from the first-level presheaf category $\hat{C}$ to the second-level presheaf category $\hat{\hat{C}}$, and that it is also fully faithful.
+And by following the exact same procedure, we can continue to the third level, ..., and the $n$-th level.
+
+This process allows us to chain Yoneda embeddings into a series of presheaf categories generated from a single category.
+
+The Yoneda Lemma also seems to describe the process itself of mapping a category to a presheaf.
+
+
+\subsection{Summary}
+
+We have seen that the Yoneda Lemma is an important theorem in category theory.
+
+This lemma is based on the deep philosophy of capturing the essence of a mathematical object not from within, but from without, by describing it completely through its relationships with other objects.
+
+	{}
+
+Just as the example of the double dual revealed a universal structure that does not depend on the artificial choice of a basis (\textbf{as if given by God?}),
+the Yoneda Lemma lifts any object into a universal perspective that does not contain artificial elements: the structure of the morphisms going out of it.
+
+
+This process makes it possible to embed the objects of a category into the rich world of the category of presheaves.
+
+	{}
+
+The core of the Yoneda Lemma lies in the refined form of universality that natural transformations possess.
+
+This lemma becomes a tool that concretely connects abstract category theory with the harmony and beauty of mathematical structures (the relationships between objects and morphisms).
+
+\end{document}

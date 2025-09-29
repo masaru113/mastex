@@ -1,0 +1,985 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{tikz-cd}
+\title{
+自然変換と米田の補題
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	自然変換と米田の補題の気持ちを知りたいときに役に立てば良いな思って書いたメモ。
+
+	このメモでは、身近な数学的現象を通じて、異なる構造を結びつける自然変換の概念を確認します。
+
+	圏論における最重要定理の一つである $\textbf{米田の補題}$ の主張について考えてみます。
+	（このノートでは米田の補題の証明はせず、定理の個人的な捉え方（お気持ち表明）まで。）
+
+	関数型プログラミングか何かの役に立つかもしれない（？）
+
+
+\end{abstract}
+
+\section{自然変換}
+
+\subsection{自然変換の定義}
+
+対象と合成できる射があれば圏になった。
+
+射と対象をそれぞれ別の圏に対応させるものを関手と呼んだ。
+射の間の射、もしくは射を束ねたものという意味でこの関手は2次元的な矢印のような印象を与える。
+
+さらに関手の間の射のように、関手を束ねたものとして自然変換を導入する。
+
+2つの圏 $C,D$ の間に関手 $F,G$ があるとする。
+$\alpha : F \to G$ が自然変換であるとは、
+関手の族
+$$\alpha = \Big\{ F(X) \xrightarrow{\alpha_{X}}G(X) \Big\}_{X \in C}$$
+のことであり、なおかつ以下の図式を可換にするものとして定義される。
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRADEAKADQEoQAvqXSZc+QigDM5KrUYs2XAJr8hI7HgJFpk2fWatEIAOKcVg4SAwbxRMrur6FR03wvqxWlGQAMe+YYg3O5WopoSyNJ+jgFsSiHWnhE+MjEGiglhtigpDnLpLoKyMFAA5vBEoABmAE4QALZIACzUOBBIAKxpziBVIbUNSABsre2IAOzdgQA604xoABZ0INQMdABGMAwAClleIDVYpQs4KyBwC1hVp4g+ar11jbejSGT5PVxVqpYDTykgbSQ0neMzmDEWdAA+sBuAJ+o9Xi9EAAmKZsWbzJbQpRw+6-IFI1EgtimL5FARAA
+	\begin{tikzcd}
+		& X \arrow[rr, "f"]                                &  & Y                             \\
+		F \arrow[dd, "\alpha"'] & F(X) \arrow[rr, "F(f)"] \arrow[dd, "\alpha_{X}"] &  & F(Y) \arrow[dd, "\alpha_{Y}"] \\
+		&                                                  &  &                               \\
+		G                       & G(X) \arrow[rr, "G(f)"]                          &  & G(Y)
+	\end{tikzcd}
+\]
+同じことを式で表すと、可換であるとは
+$$
+	G(f) \circ \alpha_{X} = \alpha_{Y} \circ F(f)
+$$
+これが満たされることである。
+
+$F$ から $G$ への自然変換を表す図式として以下のように書くこともある。
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQBhEAX1PU1z5CKAEwVqdJq3YARHnxAZseAkXKliEhizaIQ8-sqFrSIrVN37uEmFADm8IqABmAJwgBbJGRA4ISdRAAIxgwKCQANgB2GkZ6EMYABQEVYRBGGGccEBptaT0AMQMQN09vGj8AmhCwpABaaNyLdgBxHPT4mCSU4z1XLDsAC2zeF3cvRDFff0QAZlisMEsoCGYgjPbBmHpwxDBmRkYK+ixGdkgl9rzLAB0bpjRB+na4QawsgOtuIA
+	\begin{tikzcd}
+		& {} \arrow[dd, "\alpha", Rightarrow, shift right] &   \\
+		C \arrow[rr, "F", bend left=80] \arrow[rr, "G"', bend right=80] &                                                  & D \\
+		& {}                                               &
+	\end{tikzcd}
+\]
+
+\subsection{自然変換の合成}
+自然変換は合成することができる。
+3つの関手 $F, G, H: C \to D$ があり、自然変換 $\alpha: F \to G$ と $\beta: G \to H$ があるとする。
+このとき、自然変換の合成 $\beta \circ \alpha: F \to H$ は、各対象 $X \in C$ に対して、射の合成として定義される：
+$$
+	(\beta \circ \alpha)_X = \beta_X \circ \alpha_X: F(X) \to H(X)
+$$
+この合成によって、自然変換もまた圏の射として振る舞う。
+
+\subsection{自然同型}
+自然変換 $\alpha: F \to G$ が\textbf{自然同型}であるとは、各対象 $X \in C$ について、その成分 $\alpha_X: F(X) \to G(X)$ が圏 $D$ における同型射であることである。
+このとき、各成分 $\alpha_X$ は逆射 $\alpha_X^{-1}: G(X) \to F(X)$ を持ち、これらの逆射の族 $\alpha^{-1} = \{\alpha_X^{-1}\}_{X \in C}$ もまた自然変換 $\alpha^{-1}: G \to F$ をなす。
+
+もっとシンプルに表現すると、
+2つの関手 $F,G: C \to G$ に対して、 $F$ から $G$ への自然変換全体の集合を
+$\text{Nat}(F,G)$
+と書くことにすると、その要素 $\text{Nat}(F,G) \ni \eta_{X} : FX \to GX$ が同型であるとき、$\eta$ は自然同型といい、$F$ と $G$ も同型であるという。
+
+
+
+
+\subsection{関手の性質：忠実性と充満性}
+
+$F$ を圏 $C$ から $D$ への関手とする。
+このとき、写像
+$$
+	f : \text{Hom}_{C}(X,Y) \to \text{Hom}_{D}(FX,FY)
+$$
+これが
+\begin{itemize}
+	\item 単射のとき、$F$ は忠実（faithful） という。
+	\item 全射のとき、$F$ は充満（full） という。
+	\item 全単射のとき、$F$ は忠実充満（fully faithful） という。
+\end{itemize}
+
+忠実充満な関手は、定義域の圏の対象の間の射の構造をすべて保存する。
+
+$F$ が忠実充満であるための必要十分条件は、各 $FX \to FY$ がただ一つの射 $X \to Y$ の像になっていることと同値である。
+これを圏から圏への埋め込みとみなせる。
+（ただし、忠実充満な関手が対象の上で単射になるとは限らない。）
+対象の上で単射である忠実充満な関手のことを「充満埋め込み」という。
+
+
+\subsubsection{忠実充満だが対象の上で単射でない関手の例}
+
+1つの対象しか持たない圏1に対して反例が作れる。
+
+圏 $C$ を2つの対象 $X,Y$ とその上の恒等射$\text{id}_{X}, \text{id}_{Y}$ のみからなるとする。
+
+圏 $D$ を1つの対象 $Z$ と、その上の恒等射 $\text{id}_{Z}$ のみからなるとする。
+
+関手 $F:C \to D$ を次のように構成する：
+$F(X)=F(Y)=Z, F(\text{id}_{X})=F(\text{id}_{Y})=\text{id}_{Z}$
+
+この関手は忠実充満である。
+
+${}$
+
+（忠実性の確認）
+
+$X \to X: \text{Hom}_{C}(X,X) = \{ \text{id}_{X} \}$
+
+$FX \to FX: \text{Hom}_{D}(FX,FX) = \text{Hom}_{D}(Z,Z) = \{ \text{id}_{Z} \}$
+
+$F$ は $\text{id}_{X}$ を $\text{id}_{Z}$ に写すので射の集合の間の写像は単射。
+
+$Y$ についても同様に単射。
+
+$X \to Y$ やその逆射の集合は空集合なので、$F$ は忠実である。
+
+${}$
+
+（充満性の確認）
+
+$X \to X: \text{Hom}_{D}(FX,FX) = \{ \text{id}_{Z} \}$
+
+$Y \to Y: \text{Hom}_{D}(FX,FX) = \{ \text{id}_{Z} \}$
+
+$X \to Y$ やその逆射の集合は空集合なので、$F$ の充満条件が満たされる。
+
+この関手が忠実充満であることが分かったが、しかし対象の上では単射にならない。
+$F(X)=F(Y)=Z$ で、異なる対象 $X,Y$ が同じ対象 $Z$ に写されているので、対象の上では単射にならない。
+
+このようなケースが充満埋め込みの反例で、
+忠実充満な関手であっても充満埋め込みとならない例である。
+
+
+\subsection{圏の同値と同型}
+2つの圏 $C$ と $D$ があるとき、それらの「同じくらい似ている」度合いを表す概念として、\textbf{圏同型}と\textbf{圏同値}がある。
+
+\subsubsection{圏同型 (Isomorphic Categories)}
+圏 $C$ と $D$ が\textbf{圏同型}であるとは、関手 $F: C \to D$ と $G: D \to C$ が存在して、次の条件を満たすことである：
+\begin{enumerate}
+	\item $F \circ G = \mathrm{id}_D$
+	\item $G \circ F = \mathrm{id}_C$
+\end{enumerate}
+このとき、$F$ と $G$ は互いに逆関手となる。圏同型は非常に強い条件であり、2つの圏が文字通り「同じ」であることを意味する。
+
+\subsubsection{圏同値 (Equivalent Categories)}
+圏 $C$ と $D$ が\textbf{圏同値}であるとは、関手 $F: C \to D$ と $G: D \to C$ が存在して、次の条件を満たすことである：
+\begin{enumerate}
+	\item $F \circ G$ が恒等関手 $\mathrm{id}_D$ に自然同型
+	\item $G \circ F$ が恒等関手 $\mathrm{id}_C$ に自然同型
+\end{enumerate}
+このとき、$F$ は\textbf{圏同値関手}、または\textbf{同値関手}と呼ばれる。
+圏同値は圏同型よりも弱い条件であり、2つの圏が「構造的に同じ」であることを意味する。多くの数学の分野では、圏同型よりも圏同値の方が重要となる。これは、圏同型が対象のラベルや射の命名が完全に一致することを要求するのに対し、圏同値は圏の「本質的な」構造のみを捉えるからである。
+
+
+
+
+\section{自然変換としての行列式}
+
+$n \times n$ 行列$X,Y$の行列式 $\det(X), \det(Y)$ を考えると、
+この行列式 $\det$ は可換環の圏 $\textbf{CRing}$ からモノイドの圏 $\textbf{Mon}$ への自然変換になっている。
+このことを確認してみる。
+
+${}$
+
+可換環 $R$ について、$R$ 成分の $n \times n$ 行列は乗法によってモノイド $M_{n}(R)$ を成す。
+環準同型 $R \to S$ はモノイド準同型 $M_{n} (R) \to M_{n} (S)$ を誘導する。
+よって、$M_{n}$ は $\textbf{CRing} \to \textbf{Mon}$ の関手になっている。
+
+もう一つの関手は忘却関手 $U : \textbf{CRing} \to \textbf{Mon}$ であり、環 $R$ の台集合 $U(R)$ は乗法についてモノイドになる。
+
+行列式は積を保ち（行列の積の行列式は行列式同士の積になり）、単位元を保つので、行列式は可換環からモノイドへの準同型になっている。
+$$\det(XY) = \det(X)\det(Y), \ \det(\text{id}_{R}) = 1$$
+
+以上から、次の自然変換の図式が成り立つのでは、と疑ってみる。
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQAdDnGADxwBGAM2ABhAEpYwAcwC+IWaXSZc+QigBMFanSat2XHv2HAAsgXmLl2PASLlSxHQxZtEIBUpAYba+6Q1nPTcPWR0YKGl4IlAhACcIAFskMhAcCCQHEAEYMCgkAHYsxnocxgAFFVt1EEYYIRwQGhd9d1MAfWAwSy94pJSadMyaHLykAFoi5uD2AFUm2tKYCqq-dzisaQALRqsQPuTELTSMxABmGkYpEKgIZgE6ha2YenzEMGZGRkH6LEZ2SBgNjTVwGDiwRo0OBbLANTJhWRAA
+	\begin{tikzcd}
+		& {} \arrow[dd, "\det", Rightarrow, shift right] &              \\
+		\textbf{CRing} \arrow[rr, "M_{n}", bend left=71] \arrow[rr, "U"', bend right=71] &                                                & \textbf{Mon} \\
+		& {}                                             &
+	\end{tikzcd}
+\]
+
+可換図式を書くと以下のようになる。
+\[
+	\begin{tikzcd}
+		R \arrow[r, "f"]
+		\arrow[d, "M_n"']
+		&
+		S \arrow[d, "M_n"] \\
+		M_n(R) \arrow[r, "M_n(f)"']
+		\arrow[d, "\det_R"']
+		&
+		M_n(S) \arrow[d, "\det_S"] \\
+		U(R) \arrow[r, "U(f)"']
+		&
+		U(S)
+	\end{tikzcd}
+\]
+
+つまり
+
+$$
+	U(f) \circ \det_{R} = \det_{S} \circ M_{n}(f)
+$$
+
+これが満たされれば自然変換の定義を満たすことが確認できる。
+
+任意の $A \in M_{n} (R)$ について
+\[
+	(U(f) \circ \det_{R}) (A)
+	\ = \
+	(\det_{S} \circ M_{n}(f)) (A)
+\]
+が成立すると図式は可換である。
+
+$A=(a_{ij}) \in M_{n} (R)$
+のように成分に分けると
+
+\[
+	\det_{R} (A) = \sum_{\sigma \in S_{n}} \text{sgn}(\sigma) \prod^{n}_{i=1} a_{i , \sigma(i)}
+\]
+
+\[
+	M_{n}(f)(A) = (f(a_{ij}))
+\]
+
+\[
+	\det_{S} M_{n}(f)(A)
+	=
+	\sum_{\sigma \in S_{n}} \text{sgn}(\sigma) \prod^{n}_{i=1} f(a_{i , \sigma(i)})
+\]
+
+
+\[
+	f(\det_{R}(A))
+	=
+	f \left(
+	\sum_{\sigma \in S_{n}} \text{sgn}(\sigma) \prod^{n}_{i=1} a_{i , \sigma(i)}
+	\right)
+	=
+	\sum_{\sigma \in S_{n}} \text{sgn}(\sigma) \prod^{n}_{i=1} f(a_{i , \sigma(i)})
+\]
+
+以上から
+$$
+	U(f) \circ \det_{R} = \det_{S} \circ M_{n}(f)
+$$
+が示された。
+
+行列式を計算してから準同型で移すのと、準同型で移してから行列式を計算するのは等しい結果を与えるので、図式は可換である。
+
+
+\section{自然変換としてのトレース}
+
+$n \times n$ 行列のトレース $ \text{tr} (X)$ も、行列式と同様に自然変換の構造を持つ。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQAdDnGADxwBGAM2ABhAEpYwAcwC+IWaXSZc+QigBMFanSat2XHv2HAAglCgBZAvMXLseAkXKliOhizaIQCpSAwOas6kGu56Xj6yOjBQ0vBEoEIAThAAtkhkIDgQSC4gAjBgUEgA7HmM9AWMAAoqjuogjDBCOCA0HvrelgD6wGC2fslpGTTZuTQFRUgAtGXt4eymbY2VMDV1Qd5JWNIAFq12IEPpiFpZOYgAzDSMUhFQEMwCTcu7MPTFiGDMjIyj9FhGOxIGA2PNPAZuHwcMAcEl5DQ4LssC1clFZEA
+	\begin{tikzcd}
+		& {} \arrow[dd, "\text{tr}", Rightarrow, shift right] &                 \\
+		\textbf{CRing} \arrow[rr, "M_{n}", bend left=71] \arrow[rr, "A"', bend right=71] &                                                     & \textbf{AddMon} \\
+		& {}                                                  &
+	\end{tikzcd}
+\]
+
+ただし、トレースは加法的構造を保つ点が行列式とは異なる。
+
+\subsection{関手の設定}
+
+可換環 $R$ について、$R$ 成分の $n \times n$ 行列全体 $M_n(R)$ は加法についてモノイドを成す。
+環準同型 $f: R \to S$ は、成分ごとに $f$ を適用することで加法的モノイド準同型 $M_n(f): M_n(R) \to M_n(S)$ を誘導する。
+よって、$M_n$ は $\mathbf{CRing} \to \mathbf{AddMon}$ の関手になっている（ここで $\mathbf{AddMon}$ は加法的モノイドの圏）。
+
+もう一つの関手は加法群関手 $A: \mathbf{CRing} \to \mathbf{AddMon}$ であり、
+環 $R$ をその加法についてのモノイド $(R, +)$ に送る。
+
+トレースは和を保ち（行列の和のトレースはトレースの和になり）、零行列のトレースは$0$なので、
+トレースは加法的モノイドの準同型になっている。
+\[
+	\text{tr}(X + Y) = \text{tr}(X) + \text{tr}(Y), \quad \text{tr}(0) = 0
+\]
+
+\subsection{自然変換としての構造}
+
+トレースは以下の自然変換の図式を可換にする：
+
+\[
+	\begin{tikzcd}
+		R \arrow[r, "f"]
+		\arrow[d, "M_n"']
+		&
+		S \arrow[d, "M_n"] \\
+		M_n(R) \arrow[r, "M_n(f)"']
+		\arrow[d, "\text{tr}_R"']
+		&
+		M_n(S) \arrow[d, "\text{tr}_S"] \\
+		A(R) \arrow[r, "A(f)"']
+		&
+		A(S)
+	\end{tikzcd}
+\]
+
+つまり、以下の等式が成り立てば自然変換である：
+\[
+	A(f) \circ \text{tr}_R = \text{tr}_S \circ M_n(f)
+\]
+
+\subsection{自然性の証明}
+
+任意の $A = (a_{ij}) \in M_n(R)$ について、両辺を計算する。
+
+左辺：
+\[
+	(A(f) \circ \text{tr}_R)(A) = A(f)(\text{tr}_R(A)) = f\left(\sum_{i=1}^n a_{ii}\right)
+\]
+
+右辺：
+\[
+	(\text{tr}_S \circ M_n(f))(A) = \text{tr}_S(M_n(f)(A)) = \text{tr}_S((f(a_{ij}))) = \sum_{i=1}^n f(a_{ii})
+\]
+
+$f$ が環準同型なので加法を保つ：
+\[
+	f\left(\sum_{i=1}^n a_{ii}\right) = \sum_{i=1}^n f(a_{ii})
+\]
+
+したがって、
+\[
+	A(f) \circ \text{tr}_R = \text{tr}_S \circ M_n(f)
+\]
+が成り立ち、図式は可換である。
+
+\subsection{行列式との比較}
+
+行列式とトレースの自然変換としての性質を比較すると：
+
+\begin{itemize}
+	\item \textbf{行列式}：乗法モノイド関手 $U$ への自然変換（乗法構造を保つ）
+	\item \textbf{トレース}：加法モノイド関手 $A$ への自然変換（加法構造を保つ）
+	\item \textbf{定義域}：行列式は一般線形群 $GL_n(R)$ で定義されるが、トレースは全行列環 $M_n(R)$ で定義される
+	\item \textbf{積の性質}：行列式は $\det(XY) = \det(X)\det(Y)$ を満たすが、トレースは $\text{tr}(XY) = \text{tr}(YX)$（巡回性）という異なる乗法的性質を持つ
+\end{itemize}
+
+このように、行列式とトレースはそれぞれ環の乗法的構造と加法的構造を反映した自然変換として理解できる。
+
+
+
+
+
+\section{自然変換としての二重双対}
+
+有限次元ベクトル空間の圏において、ベクトル空間とその二重双対空間を対応させる操作は、
+恒等関手から二重双対関手への自然同型（自然変換でかつ同型）を与える。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQAdDnGADxwBGAM2AAxLGABqMAMY4AvgH1gAa3kh5pdJlz5CKAEwVqdJq3Zce-YWInS5S1es3bseAkXKliJhizaIIBpaIBhuep6kBr5mAUHyJjBQAObwRKBCAE4QALZIZCA4EEheIAIwYFBIAOyljPTljAAKOu76IIwwQjggNH7mgZZ8OMBYUM4hWbn5NEUlNOWVSAC0tTT1jS3hHoGZWMkAFj19sewAFMsAlAB6wABUdxMZ2XmIRoXFiADM6xJxUBBmAJOr0QAcYPQqogwMxGIxZvQsIx2JAwGwTv4LNxhsAYH51DQ4AcsN0Sgl5EA
+	\begin{tikzcd}
+		& {} \arrow[dd, "\text{eval}", Rightarrow, shift right] &                      \\
+		\textbf{FinVect}_{k} \arrow[rr, "\text{id}", bend left=71] \arrow[rr, "(-)^{**}"', bend right=71] &                                                       & \textbf{FinVect}_{k} \\
+		& {}                                                    &
+	\end{tikzcd}
+\]
+
+\subsection{準備}
+
+$\mathbf{FinVect}_k$ を体 $k$ 上の有限次元ベクトル空間の圏とする。
+各ベクトル空間 $V$ に対して、その双対空間 $V^* = \mathrm{Hom}_k(V, k)$ を考える。
+
+二重双対関手 $D: \mathbf{FinVect}_k \to \mathbf{FinVect}_k$ を以下で定義する：
+\begin{itemize}
+	\item 対象：$D(V) = V^{**} = (V^*)^*$
+	\item 射：線形写像 $f: V \to W$ に対して、$D(f) = f^{**}: V^{**} \to W^{**}$ は
+	      \[
+		      f^{**}(\xi)(\phi) = \xi(\phi \circ f) \quad (\xi \in V^{**}, \phi \in W^*)
+	      \]
+\end{itemize}
+
+評価写像 $\mathrm{eval}_V: V \to V^{**}$ を以下で定義する：
+\[
+	\mathrm{eval}_V(v)(\phi) = \phi(v) \quad (v \in V, \phi \in V^*)
+\]
+
+
+
+
+
+\subsection{評価写像について}
+
+評価写像 $\mathrm{eval}_V: V \to V^{**}$ は、ベクトル空間の元をその二重双対空間の元に対応させる重要な写像である。この写像の定義と直感的な意味を詳しく見ていく。
+
+\paragraph{定義の確認}
+任意の $v \in V$ に対して、$\mathrm{eval}_V(v)$ は $V^*$ から $k$ への線形写像、すなわち $V^{**}$ の元である：
+\[
+	\mathrm{eval}_V(v): V^* \to k, \quad \phi \mapsto \phi(v)
+\]
+
+つまり、$\mathrm{eval}_V(v)$ は「双対空間の元 $\phi$ を受け取って、$\phi$ を $v$ に適用した結果を返す写像」である。
+
+\paragraph{具体例}
+
+体 $k = \mathbb{R}$（実数体）とし、$V = \mathbb{R}^2$ の場合を考える。
+
+$V$ の元：$v = (3, 2)$
+
+$V^*$ の元（線形汎関数）：例えば $\phi(x,y) = 2x + 5y$
+
+このとき：
+\[
+	\mathrm{eval}_V(v)(\phi) = \phi(v) = \phi(3,2) = 2\cdot3 + 5\cdot2 = 6 + 10 = 16
+\]
+
+別の線形汎関数 $\psi(x,y) = x - y$ に対しては：
+\[
+	\mathrm{eval}_V(v)(\psi) = \psi(3,2) = 3 - 2 = 1
+\]
+
+このように、$\mathrm{eval}_V(v)$ は「$v$ を固定したとき、様々な線形汎関数を $v$ に適用する操作」と理解できる。
+
+\paragraph{線形性}
+
+$\mathrm{eval}_V$ が線形写像であることを確認する：
+
+任意の $v, w \in V$, $c \in k$, $\phi \in V^*$ に対して：
+\begin{align*}
+	\mathrm{eval}_V(v + w)(\phi) & = \phi(v + w) = \phi(v) + \phi(w)                      \\
+	                             & = \mathrm{eval}_V(v)(\phi) + \mathrm{eval}_V(w)(\phi)  \\
+	\mathrm{eval}_V(cv)(\phi)    & = \phi(cv) = c\phi(v) = c\cdot\mathrm{eval}_V(v)(\phi)
+\end{align*}
+
+したがって、$\mathrm{eval}_V$ は線形写像である。
+
+\paragraph{基底}
+
+$V$ の基底 $\{e_1, \ldots, e_n\}$ を固定する。双対基底 $\{\epsilon_1, \ldots, \epsilon_n\}$（$\epsilon_i(e_j) = \delta_{ij}$）を考える。
+
+$v = \sum_{i=1}^n a_i e_i$ と表すと、任意の $\phi = \sum_{j=1}^n b_j \epsilon_j$ に対して：
+\[
+	\mathrm{eval}_V(v)(\phi) = \phi(v) = \sum_{i,j} a_i b_j \epsilon_j(e_i) = \sum_{i=1}^n a_i b_i
+\]
+
+これは、$v$ の成分ベクトル $(a_1, \ldots, a_n)$ と $\phi$ の成分ベクトル $(b_1, \ldots, b_n)$ の内積と解釈できる。
+
+\paragraph{無限次元の場合の問題点}
+
+無限次元ベクトル空間では、$V^{**}$ は $V$ よりも「大きい」ことがある。例えば、$V$ が無限次元ならば、$V^{**}$ には $V$ の元から来るもの以外にも多くの元が存在する。これが評価写像が全射ではなくなる理由である。
+
+\paragraph{直感的な解釈}
+
+評価写像は、ベクトル空間の元を「関数の関数」として表現する方法と考えることができる：
+\begin{itemize}
+	\item 一次の関数：$V^*$ の元（$V$ から $k$ への線形写像）
+	\item 二次の関数：$V^{**}$ の元（$V^*$ から $k$ への線形写像）
+	\item 評価写像：$V$ の各元 $v$ を、「$v$ を評価する操作」という二次の関数に対応させる
+\end{itemize}
+
+有限次元の場合、この対応は完全（同型）であるが、無限次元では情報が失われることがある。
+
+
+
+
+
+\subsection{自然変換の図式}
+
+評価写像の族 $\{\mathrm{eval}_V\}_{V \in \mathbf{FinVect}_k}$ が
+恒等関手 $\mathrm{id}$ から二重双対関手 $D$ への自然変換であることを示す。
+
+以下の図式が可換であることを示せばよい：
+\[
+	\begin{tikzcd}
+		V \arrow[r, "f"] \arrow[d, "\mathrm{eval}_V"']
+		& W \arrow[d, "\mathrm{eval}_W"] \\
+		V^{**} \arrow[r, "f^{**}"']
+		& W^{**}
+	\end{tikzcd}
+\]
+
+つまり、任意の線形写像 $f: V \to W$ に対して：
+\[
+	\mathrm{eval}_W \circ f = f^{**} \circ \mathrm{eval}_V
+\]
+
+\subsection{自然性の証明}
+
+任意の $v \in V$ と $\phi \in W^*$ に対して、両辺を評価する。
+
+左辺：
+\[
+	(\mathrm{eval}_W \circ f)(v)(\phi) = \mathrm{eval}_W(f(v))(\phi) = \phi(f(v))
+\]
+
+右辺：
+\[
+	(f^{**} \circ \mathrm{eval}_V)(v)(\phi) = f^{**}(\mathrm{eval}_V(v))(\phi)
+	= \mathrm{eval}_V(v)(\phi \circ f) = (\phi \circ f)(v) = \phi(f(v))
+\]
+
+したがって、両辺は一致し、図式は可換である。
+
+\subsection{自然同型であること}
+
+有限次元ベクトル空間の場合、評価写像 $\mathrm{eval}_V: V \to V^{**}$ は同型写像である。
+なぜなら：
+\begin{itemize}
+	\item $\dim V = \dim V^* = \dim V^{**}$（次元の一致）
+	\item $\mathrm{eval}_V$ は単射：$\mathrm{eval}_V(v) = 0$ ならばすべての $\phi \in V^*$ に対して $\phi(v) = 0$ であり、これは $v = 0$ を意味する
+	\item 次元が等しく単射なので、全射でもある
+\end{itemize}
+
+したがって、$\mathrm{eval}$ は自然同型 $\mathrm{id} \Rightarrow D$ である。
+
+\subsection{無限次元の場合の注意}
+
+無限次元ベクトル空間の場合、評価写像 $\mathrm{eval}_V: V \to V^{**}$ は単射ではあるが、
+全射とは限らない。したがって、自然変換ではあるが自然同型ではない。
+
+有限次元性が本質的に重要である例となっている。
+
+\subsection{意義}
+
+二重双対の自然同型は以下の重要な概念を示している：
+\begin{itemize}
+	\item ベクトル空間はその二重双対空間と「自然に」同型である
+	\item この同型は基底の選択に依存しない（自然性）
+	\item 有限次元線形代数における双対性の深い性質を反映している
+\end{itemize}
+
+この例は、自然変換の概念が数学的構造の「自然さ」や「普遍性」を捉えるための強力な道具であることを示している。
+
+
+
+
+
+
+
+\section{自然変換と普遍性の関係}
+
+自然変換の概念は普遍性と深く結びついている。これまで見てきた例（行列式、トレース、二重双対）がどのように普遍性を体現しているかを考察する。
+
+\subsection{普遍性とは}
+
+普遍性（universal property）とは、
+
+\begin{itemize}
+	\item ある構造を持つ「最も一般的な」対象が存在する
+	\item この対象から他の任意の対象への準同型が一意的に存在する
+	\item この性質が自然変換として表現される
+\end{itemize}
+
+\subsection{行列式の普遍性}
+
+行列式 $\det: GL_n(R) \to R^\times$ は、以下の普遍性を満たす：
+
+\paragraph{普遍性の定式化}
+任意の可換環 $R$ と群準同型 $f: GL_n(R) \to G$（$G$ はアーベル群）で、次の性質を満たすもの考える：
+\begin{enumerate}
+	\item $f$ は基本行列の変換で不変
+	\item $f$ は行列の積を群の積に移す
+\end{enumerate}
+
+このとき、$f$ は行列式を通して一意的に分解する：
+\[
+	\begin{tikzcd}
+		GL_n(R) \arrow[r, "f"] \arrow[d, "\det"'] & G \\
+		R^\times \arrow[ru, dashed, "\exists! \tilde{f}"'] &
+	\end{tikzcd}
+\]
+
+つまり、任意の「良い性質」を持つ群準同型は、行列式を経由して表現できる。
+
+\paragraph{自然変換としての解釈}
+この普遍性は、関手 $GL_n$ からアーベル群への関手への自然変換が、行列式を経由して一意的に分解することを意味する。行列式は「最も細かい不変量」としての普遍性を持つ。
+
+\subsection{トレースの普遍性}
+
+トレース $\text{tr}: M_n(R) \to R$ も同様の普遍性を持つ：
+
+\paragraph{普遍性の定式化}
+任意の可換環 $R$ と加法的準同型 $f: M_n(R) \to A$（$A$ はアーベル群）で、次の性質を満たすもの考える：
+\begin{enumerate}
+	\item $f$ は相似変換で不変：$f(P^{-1}AP) = f(A)$
+	\item $f$ は交換子で消える：$f(AB - BA) = 0$
+\end{enumerate}
+
+このとき、$f$ はトレースを通して一意的に分解する：
+\[
+	\begin{tikzcd}
+		M_n(R) \arrow[r, "f"] \arrow[d, "\text{tr}"'] & A \\
+		R \arrow[ru, dashed, "\exists! \tilde{f}"'] &
+	\end{tikzcd}
+\]
+
+\paragraph{意義}
+トレースは「行列の加法的な情報の中で、相似不変かつ交換子で消えるもの」をすべて捕捉する普遍的な不変量である。
+
+\subsection{二重双対の普遍性}
+
+評価写像 $\mathrm{eval}_V: V \to V^{**}$ は双対性に関する普遍性を実現する：
+
+\paragraph{普遍性の定式化}
+任意の線形写像 $f: V \to W^{**}$（$W$ は任意のベクトル空間）に対して、一意的な線形写像 $\tilde{f}: V \to W$ が存在して：
+\[
+	f = \mathrm{eval}_W \circ \tilde{f}
+\]
+とは限らないが、有限次元の場合、$V^{**}$ は $V$ の「完備化」としての普遍性を持つ。
+
+より正確には、評価写像は以下の随伴関手の単位（unit）としての普遍性を持つ：
+\[
+	\mathrm{Hom}(V, W^*) \cong \mathrm{Hom}(W, V^*)
+\]
+この同型は評価写像を通して自然に与えられる。
+
+\subsection{自然変換と普遍性の一般的関係}
+
+これらの例から、自然変換と普遍性の一般的な関係が見えてくる：
+
+\paragraph{自然変換の普遍性の定式化}
+関手 $F, G: \mathcal{C} \to \mathcal{D}$ の間の自然変換 $\eta: F \Rightarrow G$ が\textbf{普遍性}を持つとは、任意の自然変換 $\alpha: F \Rightarrow H$（$H: \mathcal{C} \to \mathcal{D}$ は関手）が $\eta$ を経由して一意的に分解することをいう。すなわち、ある自然変換 $\beta: G \Rightarrow H$ が一意的に存在して：
+\[
+	\alpha = \beta \circ \eta
+\]
+が成り立つことである。
+
+これを図式で表すと：
+\[
+	\begin{tikzcd}
+		F \arrow[r, "\eta"] \arrow[rd, "\alpha"'] & G \arrow[d, dashed, "\exists! \beta"] \\
+		& H
+	\end{tikzcd}
+\]
+
+\paragraph{具体例での対応}
+\begin{itemize}
+	\item 行列式の場合：$F = GL_n$, $G = U$, $\eta = \det$, $H$ は任意のアーベル群への関手
+	\item トレースの場合：$F = M_n$, $G = A$, $\eta = \text{tr} , H$ は任意の加法的アーベル群への関手
+	\item 二重双対の場合：$F = \mathrm{id}$, $G = D$, $\eta = \mathrm{eval}$
+\end{itemize}
+
+\subsection{圏論的な意義}
+
+自然変換が普遍性を持つことは、以下のことを意味する：
+
+\begin{itemize}
+	\item \textbf{極大性}：その自然変換は「可能な限り多くの情報を保存する」
+	\item \textbf{一意性}：その性質を満たす自然変換は本質的に一意
+	\item \textbf{函手的性質}：変換が関手的に振る舞う（自然性）
+\end{itemize}
+
+\paragraph{具体例のまとめ}
+\begin{itemize}
+	\item 行列式：群準同型としての極大不変量
+	\item トレース：加法的な相似不変量としての極大不変量
+	\item 二重双対：双対性を最大限に実現する埋め込み
+\end{itemize}
+
+これらの例は、自然変換の理論が単なる技術的な道具ではなく、数学的構造の本質的な性質を捉えるための深い概念であることを示している。
+
+
+
+\section{フーリエ変換の関手的解釈}
+
+フーリエ変換を自然変換の観点で眺めてみる。
+フーリエ変換は、初等的な関数空間の圏（例：$L^{1}$ や $C_{0}$ の圏）を考えると、厳密な意味での自然変換とはならず、いくつかの留意が必要であることを見る。
+
+より高度な枠組みを用いるとフーリエ変換は自然変換の一種であることが分かるが、このノートではそこまで踏み込まない。
+
+\subsection{問題提起}
+
+フーリエ変換 $\mathcal{F}$ は、関数空間から別の関数空間への写像になっている。
+これが自然変換になるか確認してみる。
+まず適切な関手を定義する。
+
+例えば、$L^1(\mathbb{R}^n)$ と $C_0(\mathbb{R}^n)$ の間にフーリエ変換 $\mathcal{F}$ が作用する場合を考える。
+\[
+	\mathcal{F}: L^1(\mathbb{R}^n) \to C_0(\mathbb{R}^n)
+\]
+ここで、$\mathbb{R}^n$ の間の写像、例えばアフィン変換 $f: \mathbb{R}^n \to \mathbb{R}^n$ を考えると、この写像が誘導する関数空間の間の写像（関手）をどのように定義するかという問題が出てくる。
+
+\subsection{線形同型における自然性の考察}
+
+最も単純な例として、$\mathbb{R}^n$ から $\mathbb{R}^n$ への線形同型写像 $A: \mathbb{R}^n \to \mathbb{R}^n$ を考える。
+このとき、関数 $g$ の「引き戻し」$A^*g$ を $A^*g(x) = g(Ax)$ で定義すると、以下の図式が可換になるかどうかを確認する。
+\[
+	\begin{tikzcd}
+		L^1(\mathbb{R}^n) \arrow[r, "\mathcal{F}"] \arrow[d, "A^*"'] & C_0(\mathbb{R}^n) \arrow[d, "(A^{-T})^*"] \\
+		L^1(\mathbb{R}^n) \arrow[r, "\mathcal{F}"'] & C_0(\mathbb{R}^n)
+	\end{tikzcd}
+\]
+
+ここで、線形写像 $A^{-T}$ による引き戻し操作 $(A^{-T})^*h(\xi) = h(A^{-T}\xi)$ を考える。
+
+線形写像 $A^{-T}$ による引き戻し操作 $(A^{-T})^*h(\xi) = h(A^{-T}\xi)$
+
+ただし、$\boldsymbol{A^{-T}}$ は逆行列の転置 $(\boldsymbol{A}^{-1})^{T}$ を表す。
+この図式が可換であることは、次の式が成り立つことを意味する：
+\[
+	\mathcal{F}(A^*g) = (A^{-T})^*\mathcal{F}(g)
+\]
+この等式は常に成り立つわけではないことに注意する。
+
+\subsubsection{証明}
+
+任意の $g \in L^1(\mathbb{R}^n)$ に対して、左辺は：
+\begin{align*}
+	\mathcal{F}(A^* g)(\xi) & = \int_{\mathbb{R}^n} g(Ax) e^{-2\pi i x \cdot \xi} dx \\
+	                        & = \int_{\mathbb{R}^n} g(Ax) e^{-2\pi i (x^T \xi)} dx
+\end{align*}
+ここで、$y = Ax$ と変数変換すると、$x = A^{-1}y$ であり、$\det(A)$ はヤコビアンとなる。
+
+$x^T \xi = (A^{-1}y)^T \xi = y^T (A^{-1})^T \xi = y \cdot (A^{-T}\xi)$ となるため、
+\begin{align*}
+	\mathcal{F}(A^* g)(\xi) & = \frac{1}{|\det A|} \int_{\mathbb{R}^n} g(y) e^{-2\pi i y \cdot (A^{-T}\xi)} dy \\
+	                        & = \frac{1}{|\det A|} \mathcal{F}(g)(A^{-T}\xi)                                   \\
+	                        & = \frac{1}{|\det A|} \left[(A^{-T})^*\mathcal{F}(g)\right](\xi)
+\end{align*}
+したがって、$\mathcal{F}(A^*g) = \frac{1}{|\det A|}(A^{-T})^*\mathcal{F}(g)$ となり、$\det(A) \neq \pm 1$ の場合は可換にならない。
+
+このことから、フーリエ変換は線形同型写像の圏においては、厳密な意味での自然同型とは言えない。
+
+
+\paragraph{直交変換の場合の自然性}
+$A$ が直交行列（$A^T A = I$）の場合、$|\det A| = 1$ かつ $A^{-T} = A$ なので：
+\[
+	\mathcal{F}(A^*g) = (A)^*\mathcal{F}(g)
+\]
+この場合、図式は可換になり、フーリエ変換は自然変換となる。
+
+
+
+\subsection{より深い自然性の理解}
+
+フーリエ変換の自然性を適切に理解するためには、以下のより高度な枠組みが必要になる（このノートではここまで踏み入れない）。
+
+\begin{enumerate}
+	\item \textbf{シュワルツ空間 $\mathcal{S}(\mathbb{R}^n)$}:
+	      急減少関数の空間 $\mathcal{S}(\mathbb{R}^n)$ 上では、フーリエ変換は自己同型写像 $\mathcal{F}: \mathcal{S}(\mathbb{R}^n) \to \mathcal{S}(\mathbb{R}^n)$ を与え、線形同型 $A: \mathbb{R}^n \to \mathbb{R}^n$ に対して
+	      \[
+		      \mathcal{F} \circ A^* = |\det A|^{-1} (A^{-T})^* \circ \mathcal{F}
+	      \]
+	      というより良い整合性を持つ。
+
+
+
+	      \paragraph{シュワルツ空間とは}
+	      シュワルツ空間 $\mathcal{S}(\mathbb{R}^n)$ は、「急減少関数」のなすベクトル空間である。
+	      関数 $f: \mathbb{R}^n \to \mathbb{C}$ が急減少であるとは、任意の多重指数 $\alpha, \beta$ に対して：
+	      \[
+		      \sup_{x \in \mathbb{R}^n} |x^\alpha \partial^\beta f(x)| < \infty
+	      \]
+	      が成り立つことである。
+	      ここで $x^\alpha = x_1^{\alpha_1} \cdots x_n^{\alpha_n}$、$\partial^\beta = \frac{\partial^{|\beta|}}{\partial x_1^{\beta_1} \cdots \partial x_n^{\beta_n}}$ である。
+
+
+	      \paragraph{直感的な意味}
+	      急減少関数とは：
+	      \begin{itemize}
+		      \item 無限遠で非常に速く0に収束する（多項式よりも速い）
+		      \item 任意回微分可能で、その微分も同様に急減少する
+		      \item 例：ガウス関数 $e^{-|x|^2}$、コンパクト台を持つ無限回微分可能関数など
+	      \end{itemize}
+
+	      \paragraph{フーリエ変換の振る舞い}
+	      シュワルツ空間では、フーリエ変換は以下の良い性質を持つ：
+	      \[
+		      \begin{tikzcd}
+			      \mathcal{S}(\mathbb{R}^n) \arrow[r, "\mathcal{F}"] \arrow[d, "A^*"']
+			      & \mathcal{S}(\mathbb{R}^n) \arrow[d, "|\det A|^{-1} (A^{-T})^*"] \\
+			      \mathcal{S}(\mathbb{R}^n) \arrow[r, "\mathcal{F}"']
+			      & \mathcal{S}(\mathbb{R}^n)
+		      \end{tikzcd}
+	      \]
+
+	      この図式は「ほとんど」可換だが、正確には：
+	      \[
+		      \mathcal{F} \circ A^* = |\det A|^{-1} \circ (A^{-T})^* \circ \mathcal{F}
+	      \]
+	      という関係がある。
+	      係数 $|\det A|^{-1}$ が現れるため、厳密な自然変換ではないが、$L^1$ 空間の場合よりも整合性が高くなっている。
+
+
+	      \paragraph{具体例：ガウス関数}
+	      $g(x) = e^{-\pi |x|^2}$ は急減少関数で、そのフーリエ変換は $\mathcal{F}(g)(\xi) = e^{-\pi |\xi|^2}$ となる（自分自身に写る）。
+
+	      線形変換 $A: \mathbb{R} \to \mathbb{R}$, $A(x) = ax$ ($a > 0$) を考えると：
+	      \begin{align*}
+		      A^*g(x)                       & = g(ax) = e^{-\pi a^2 x^2}                       \\
+		      \mathcal{F}(A^*g)(\xi)        & = \frac{1}{a} e^{-\pi \xi^2/a^2}                 \\
+		      (A^{-T})^*\mathcal{F}(g)(\xi) & = \mathcal{F}(g)(a^{-1}\xi) = e^{-\pi \xi^2/a^2}
+	      \end{align*}
+	      確かに $\mathcal{F}(A^*g) = \frac{1}{a} (A^{-T})^*\mathcal{F}(g)$ が成り立つ。
+
+
+	      \paragraph{シュワルツ空間の特徴}
+	      シュワルツ空間は、フーリエ解析において理想的な関数空間として機能する：
+	      \begin{itemize}
+		      \item フーリエ変換が自己同型（全単射）となる
+		      \item 微分・積分・線形変換との整合性が良い
+		      \item 分布の理論（超関数）の自然な枠組みを提供する
+	      \end{itemize}
+
+	      このように、シュワルツ空間ではフーリエ変換の準自然性が明確に表現される。
+	\item \textbf{ポントリャーギン双対性}:
+	      局所コンパクトアーベル群の圏では、フーリエ変換は群とその双対群（指標群）の間の自然同型として捉えることができる。これは、圏論における双対性の概念そのものになる。
+
+	\item \textbf{自然変換と普遍性}:
+	      この場合、フーリエ変換は、双対群という普遍的な構造を構成する自然な方法として理解される。
+
+\end{enumerate}
+
+実際には、関数空間の関手を定義する際、写像 $f: \mathbb{R}^n \to \mathbb{R}^n$ の「押し出し」と「引き戻し」のどちらを採用するかが問題になる。
+フーリエ変換の場合、定義域と値域で異なる関手の組み合わせが必要となるため、自然変換の定式化は自明ではない。
+
+\subsection{まとめ}
+
+フーリエ変換は自然変換の一種であるが、初等的な圏を考えたときには厳密な意味での自然変換の例にならない。
+その背後には関数空間の間の関手的な対応や、数学的構造の深い関係性（ポントリャーギン双対性）が存在する（それは高度な話題なのでこのノートで書かない）。
+
+
+
+
+
+
+
+\section{米田の補題}
+
+\subsection{簡単におさらい}
+
+これまでの議論では、行列式、トレース、二重双対、フーリエ変換といった身近な例を通して、自然変換が単なる抽象的な概念に留まらないことを示してきた。
+
+これらの例は、自然変換が数学的構造の本質を捉えるための強力なツールであることを示唆している。
+
+${}$
+
+行列式は、行列という複雑な対象の乗法構造を、スカラーという単純な対象の乗法構造へと結びつける。
+
+同様に、トレースは行列の加法構造を、スカラーの加法構造へと結びつける。
+
+そして、二重双対の自然同型は、ベクトル空間と、そこから導かれる二重双対空間とが、基底の取り方という人為的な選択に依存せずに、本質的に同一の構造を持つことを保証する。
+（このことは、個人的にはとても神秘的であるように思ってしまいます。）
+
+${}$
+
+これらは異なる数学的構造の間にある深い普遍的な関係性を描いている。
+
+自然変換は、ある構造から別の構造へと情報を変換する際に、無関係な詳細を削ぎ落とし、本当に重要な要素だけを抽出するフィルターとして機能している。
+
+${}$
+
+この自然性の追求は圏論の哲学の中心にある。
+
+自然変換は数学的対象をその内側から理解するのではなく、他の対象との関係性（射）を通じて外側から理解するという、新しい視点が得られる。
+
+この視点によって、個々の対象の特性だけでなく、それらが織りなす構造全体の調和と美しさを見出すことができる。
+
+${}$
+
+この普遍性の概念を、圏論の深い根幹から捉え直したのが\textbf{米田の補題}である。
+
+この補題は、自然変換の集合を通じて対象そのものの構造を完全に記述できるという、驚くべき主張を持っている。
+
+\subsection{米田の補題の主張}
+
+米田の補題は、任意の対象 $A$ が、その対象から出ていくすべての射の構造によって完全に決定されるという（驚くべき）事実を主張する。
+
+対象そのものを調べる代わりに、その対象から射を調べることで、対象の性質を完全に理解できることを意味する。
+
+この補題は、圏論における最も重要な結果の一つであり、多くの数学的構造の普遍性を解き明かす鍵となる。
+
+
+\subsection{前層と米田関手}
+米田の補題を定式化するため、\textbf{前層}（presheaf）の概念を導入する。
+圏 $C$ 上の前層とは、圏 $C$ から集合の圏 $\mathbf{Set}$ への反変関手 $F: C^{\text{op}} \to \mathbf{Set}$ のことである。
+前層は、関手が対象にその性質などの情報を割り当てる一般的な方法と考えることができる。
+
+この前層の最も重要な例は、表現可能関手と呼ばれるものである。
+圏 $C$ から集合の圏 $\textbf{Set}$ への関手 $F$ が表現可能であるとは、ある対象 $A \in C$ が存在して、
+$F$ がホム集合 $\text{Hom}_C(A,-)$ と自然同型になることを言う。
+つまり $F \cong \text{Hom}_C(A,-)$ となる $F$ は表現可能関手（あるいは単に表現可能）と呼ばれる。
+
+特に、$\mathrm{Hom}_C(A, -): C \to \mathbf{Set}$ という形の関手を米田関手と呼ばれる。
+すべての米田関手は表現可能関手だが、すべての表現可能関手が米田関手というわけではない。
+米田関手は、対象 $A$ の観点から圏 $C$ を見るための標準的な方法を与える。
+その見方を通して他の関手を研究できる。
+
+
+
+\subsection{米田埋め込み}
+
+米田の補題を理解する上で重要なのが、米田埋め込みである。
+
+これは、圏$C$から前層の圏 $\mathbf{Set}^{C^{\text{op}}}$ への関手 $h$ であり、各対象 $A$ を表現可能関手 $\mathrm{Hom}_C(A, -)$ に写す。この関手は、任意の対象を、その対象から出ていくすべての射の構造という視点へと変換する。
+
+（ここで前層の圏 $\mathbf{Set}^{C^{\text{op}}}$ はすべての前層（反変関手）$\{ F |F : C^{\text{op}} \to \mathbf{Set} \}$ を対象とし、前層間の自然変換を射とする圏を指す。）
+
+米田の補題は、この関手 $h$ が\textbf{忠実充満}であることを主張する。これは、圏$C$が前層の圏に、射の構造を完全に保ったまま埋め込まれることを意味する。
+この事実から、対象そのものの性質を、その対象が持つ射の構造を通して完全に把握できることが導かれる。
+
+
+
+
+\subsection{米田の補題}
+
+米田の補題は、この表現可能関手と任意の関手との間の自然変換の集合を、元の関手の対象における値と結びつける。
+
+表現可能関手 $\mathrm{Hom}_C(A, -): C \to \mathbf{Set}$ と任意の関手 $F: C \to \mathbf{Set}$ の間の自然変換の集合は、対象 $A$ の要素と1対1に対応する。
+
+$$
+	\text{Nat}(\mathrm{Hom}_C(A, -), F) \cong F(A)
+$$
+
+この同型は自然同型であり、関手 $F$ を自然変換の族によって完全に決定できることを意味する。
+
+この式は、米田関手
+$\mathrm{Hom}_C(A, -)$
+から任意の関手 $F$ への自然変換の集合が、$F$ の対象 $A$ における値に自然に同型であることを示している。
+
+表現可能関手かどうかに関わらず、すべての関手 $F$ に適用できる。
+
+米田関手は、対象 $A$ の観点から圏 $C$ を見るための標準的な方法を与え、
+その見方を通して他の関手について研究ができる。
+
+\subsection{連鎖する前層の圏と米田の補題}
+
+米田の補題を抽象的に捉えると、
+圏 $C$ とその前層の圏 $\mathbf{Set}^{C^{op}}$ との関係を記述するもので、
+シンプルには米田埋め込み $h: C \to \mathbf{Set}^{C^{op}}$ が存在し、これが忠実充満であるという主張である。
+
+圏 $C$ の前層の圏 $\mathbf{Set}^{C^{op}}$ を $\hat{C}$ と書くことにすると、
+さらにその前層の圏 $\hat{\hat{C}}$ が $\hat{C} = \mathbf{Set}^{\hat{C}^{op}}$ から生成される。
+
+そして1階層目の前層の圏 $\hat{C}$ から2階層目の前層の圏 $\hat{\hat{C}}$ への米田埋め込み $\hat{h}$ もまた存在し、忠実充満であるということも米田の補題から得られる。
+そして全く同じ手続きにより3階層目、...、$n$ 階層目へと続いていく。
+
+このプロセスによって、ある圏から生成される前層の圏の系列に連鎖的に米田関手を埋め込むことができる。
+
+米田の補題は圏を前層へと写すプロセスそのものを記述しているようにも見える。
+
+
+\subsection{まとめ}
+
+米田の補題は圏論において重要な定理であることを見た。
+
+この補題は、数学的対象をその内側からではなく、他の対象との関係性という外側から捉えてその本質を完全に記述するという、深い哲学に基づいている。
+
+${}$
+
+二重双対の例が、基底という人為的な選択に依存しない（\textbf{まるで神に与えられたかのような？}）普遍的な構造を明らかにしたように、
+米田の補題は、任意の対象を、その対象から出る射の構造という人為的な要素を含まない（天与の）普遍的な視点へと持ち上げる。
+
+
+このプロセスによって圏論の対象を前層の圏という豊かな世界に埋め込むことが可能になる。
+
+${}$
+
+この米田の補題の核心は、自然変換が持つ普遍性の洗練された形にある。
+
+この補題は、抽象的な圏論と、数学的構造の調和と美しさ（対象と射の関係性）を具体的に結びつけるツールとなる。
+
+\end{document}
