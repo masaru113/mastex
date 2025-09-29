@@ -539,7 +539,7 @@ ${}$
 この関係を可換図式で表現すると、以下のように記述できる。
 
 $$
-	\begin{tikzcd}
+	\begin{tikzcd}[column sep=6em]
 		\text{状態} |\psi(t)\rangle_S \arrow[r, "\text{時間発展}"] \arrow[d, "\mathbf{F}_{S \to H}"] & \text{状態} |\psi(t')\rangle_S \arrow[d, "\mathbf{F}_{S \to H}"] \\
 		\text{状態} |\psi\rangle_H \arrow[r, "\text{恒等写像}"] & \text{状態} |\psi\rangle_H
 	\end{tikzcd}
@@ -563,7 +563,7 @@ $$
 この関係を可換図式で表現する。
 
 $$
-	\begin{tikzcd}
+	\begin{tikzcd}[column sep=6em]
 		\text{演算子 } A_H(t) \arrow[r, "\text{時間発展}"] \arrow[d, "\mathbf{F}_{H \to S}"] & \text{演算子 } A_H(t') \arrow[d, "\mathbf{F}_{H \to S}"] \\
 		\text{演算子 } A_S \arrow[r, "\text{恒等写像}"] & \text{演算子 } A_S
 	\end{tikzcd}
@@ -585,7 +585,7 @@ $$
 シュレーディンガー描像から相互作用描像への対応を関手として表現する。
 
 $$
-	\begin{tikzcd}
+	\begin{tikzcd}[column sep=8em]
 		\text{状態} |\psi(t)\rangle_S \arrow[r, "\text{全時間発展}"] \arrow[d, "\mathbf{F}_{S \to I}"] & \text{状態} |\psi(t')\rangle_S \arrow[d, "\mathbf{F}_{S \to I}"] \\
 		\text{状態} |\psi(t)\rangle_I \arrow[r, "\text{相互作用発展}"] & \text{状態} |\psi(t')\rangle_I
 	\end{tikzcd}

@@ -12,7 +12,7 @@ Functors Connecting Physics and Finance
 }
 
 \author{
-mastex
+Masaru Okada
 }
 
 \begin{document}
@@ -32,15 +32,15 @@ We will confirm the definition and examples of functors.
 Consider two categories $C$ and $D$.
 
 In category $C$, there are objects $X,Y,Z$ and morphisms between them,
-$f: X \to Y , \ g: Y \to Z$,
+$f: X \to Y , \ g: Y \to Z$
 and a composite morphism
-$gf: X \to  Z$
+$gf: X \to Z$
 exists.
 
 In this case, a functor $F$ maps:
 
 The objects $X,Y,Z$ of category $C$ to objects $F(X),F(Y),F(Z)$ in category $D$,
-and also maps the morphisms in $D$.
+and also maps the morphisms to morphisms in $D$.
 $F(f): F(X) \to F(Y) , \ F(g): F(Y) \to F(Z)$
 
 It also preserves the composition of morphisms in the target category:
@@ -189,7 +189,7 @@ $g : B \to B'$
 in category $C$, is induced from the definition as follows.
 \[
 	\begin{array}{ccc}
-		{\rm Hom}_{C}(A,g)     & :       & {\rm Hom}_{C}(A,B) \to {\rm Hom}_{C}(A,B') \\
+		{\rm Hom}_{C}(A,g)      & :       & {\rm Hom}_{C}(A,B) \to {\rm Hom}_{C}(A,B') \\
 		\rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$}                    \\
 		(f : A \to B)           & \mapsto & (g \circ f : A \to B \to B')
 	\end{array}
@@ -200,7 +200,7 @@ Furthermore, by extending the notation, we can view the hom-set with a variable 
 	{\rm Hom}_{C}(A,-) : C \to \mathbf{Set}
 \]
 
-This is given the name **representable functor** by $A$.
+This is given the name \textbf{representable functor} by $A$.
 
 Let's confirm that this is indeed a functor.
 To satisfy the functor axioms, the following must hold:
@@ -214,17 +214,17 @@ Considering an arbitrary variable (morphism)
 $x: A \to X$,
 \[
 	\begin{array}{rcl}
-		{\rm Hom}_{C}(A,1_{X})(x) & = & 1_{X} \circ x          \\
-		                         & = & x                      \\
-		                         & = & 1_{{\rm Hom}_{C} (A,X)}
+		{\rm Hom}_{C}(A,1_{X})(x) & = & 1_{X} \circ x           \\
+		                          & = & x                       \\
+		                          & = & 1_{{\rm Hom}_{C} (A,X)}
 	\end{array}
 \]
 Identity maps to identity, which is OK. Also,
 \[
 	\begin{array}{rcl}
-		{\rm Hom}_{C}(A,g \circ f)(x) & = & (g \circ f) \circ x                      \\
-		                             & = & g \circ (f \circ x)                      \\
-		                             & = & {\rm Hom}_{C}(A,g) \Big( {\rm Hom}_{C}(A,f) \Big)
+		{\rm Hom}_{C}(A,g \circ f)(x) & = & (g \circ f) \circ x                               \\
+		                              & = & g \circ (f \circ x)                               \\
+		                              & = & {\rm Hom}_{C}(A,g) \Big( {\rm Hom}_{C}(A,f) \Big)
 	\end{array}
 \]
 Composition maps to composition, which is also OK. This confirms that
@@ -273,7 +273,7 @@ is expressed by the following commutative diagram.
 This diagram shows that the path from ${\rm Hom}_{C}(A,X)$ to ${\rm Hom}_{C}(A,Z)$ via ${\rm Hom}_{C}(A,Y)$ is equal to the direct path.
 This means that the functor has the property of faithfully "translating" the structure of category $C$ (especially the composition of morphisms) into the structure of the category of sets, $\mathbf{Set}$.
 
-Similarly, we can consider the **contravariant Hom functor**.
+Similarly, we can consider the \textbf{contravariant Hom functor}.
 This is a functor where the first argument is a variable:
 $$
 	{\rm Hom}_{C}(-,A) : C^{op} \to \mathbf{Set}
@@ -309,8 +309,8 @@ This diagram implies ${\rm Hom}_{C}(f \circ g, A) = {\rm Hom}_{C}(f,A) \circ {\r
 In financial markets, mathematical tools called probability measures are sometimes used to describe the future movement of stock or asset prices.
 
 \begin{itemize}
-	\item The **Physical Measure** ($P$) is a measure that describes the probability distribution of asset prices in the real world. Under this measure, the expected return of an asset includes a risk premium. In other words, assets with more risk are expected to have a higher average return. (This is the measure under which we see low-risk, low-return and high-risk, high-return dynamics).
-	\item The **Risk-Neutral Measure** ($Q$) is a hypothetical, theoretical probability measure. Under this measure, the expected return of all assets is equal to the risk-free interest rate. This measure is derived under the assumption that market participants are neutral to risk, and is therefore called "risk-neutral."
+	\item The \textbf{Physical Measure} ($P$) is a measure that describes the probability distribution of asset prices in the real world. Under this measure, the expected return of an asset includes a risk premium. In other words, assets with more risk are expected to have a higher average return. (This is the measure under which we see low-risk, low-return and high-risk, high-return dynamics).
+	\item The \textbf{Risk-Neutral Measure} ($Q$) is a hypothetical, theoretical probability measure. Under this measure, the expected return of all assets is equal to the risk-free interest rate. This measure is derived under the assumption that market participants are neutral to risk, and is therefore called "risk-neutral."
 \end{itemize}
 
 \subsection{Measure Transformation as a Functor}
@@ -321,7 +321,7 @@ The relationship between the physical measure $P$ and the risk-neutral measure $
 
 Consider two categories:
 
-**Category $C_{P}$**: The category of stochastic financial models under the physical measure $P$.
+\textbf{Category $C_{P}$}: The category of stochastic financial models under the physical measure $P$.
 \begin{itemize}
 	\item Objects: Asset price processes $S_{P}$ on a probability space (e.g., stock prices under the physical measure $P$).
 	\item Morphisms: Maps between stochastic financial models $f$. For example, portfolio rebalancing or derivation relationships from one asset to another.
@@ -329,7 +329,7 @@ Consider two categories:
 
 \medskip
 
-**Category $C_{Q}$**: The category of stochastic financial models under the risk-neutral measure $Q$.
+\textbf{Category $C_{Q}$}: The category of stochastic financial models under the risk-neutral measure $Q$.
 \begin{itemize}
 	\item Objects: Asset price processes $S_{Q}$ on a probability space (e.g., stock prices under the risk-neutral measure $Q$).
 	\item Morphisms: Maps between stochastic financial models $g$.
@@ -337,7 +337,7 @@ Consider two categories:
 
 We can define a functor $F$ as a map from category $C_{P}$ to category $C_{Q}$.
 
-**Object Correspondence**:
+\textbf{Object Correspondence}:
 The functor maps an asset price process $S_{P}$ under the physical measure $P$ to an asset price process $F(S_{P}) = S_{Q}$ under the risk-neutral measure $Q$. This correspondence is performed by the Girsanov's theorem.
 
 ${}$
@@ -413,17 +413,17 @@ In one-particle quantum mechanics, the state of a particle is described as a vec
 A functor abstractly represents this "lifting" operation. Here, we consider the following two categories:
 
 \begin{itemize}
-	\item **Category $\mathcal{C}_{1p}$**: The category of one-particle quantum mechanics
-	  \begin{itemize}
-		  \item Objects: Hilbert spaces $H$ for a one-particle system.
-		  \item Morphisms: Linear operators $A: H_1 \to H_2$ on a Hilbert space (e.g., a Hamiltonian).
-	  \end{itemize}
+	\item \textbf{Category $\mathcal{C}_{1p}$}: The category of one-particle quantum mechanics
+	      \begin{itemize}
+		      \item Objects: Hilbert spaces $H$ for a one-particle system.
+		      \item Morphisms: Linear operators $A: H_1 \to H_2$ on a Hilbert space (e.g., a Hamiltonian).
+	      \end{itemize}
 
-	\item **Category $\mathcal{C}_{mp}$**: The category of many-particle quantum mechanics (field theory)
-	  \begin{itemize}
-		  \item Objects: Fock spaces $\mathcal{F}(H)$. These are spaces of many-particle states constructed from a one-particle Hilbert space $H$.
-		  \item Morphisms: Linear operators $B$ on a Fock space (e.g., creation and annihilation operators).
-	  \end{itemize}
+	\item \textbf{Category $\mathcal{C}_{mp}$}: The category of many-particle quantum mechanics (field theory)
+	      \begin{itemize}
+		      \item Objects: Fock spaces $\mathcal{F}(H)$. These are spaces of many-particle states constructed from a one-particle Hilbert space $H$.
+		      \item Morphisms: Linear operators $B$ on a Fock space (e.g., creation and annihilation operators).
+	      \end{itemize}
 \end{itemize}
 
 \subsection{Correspondence via a Functor}
@@ -467,7 +467,7 @@ $$
 
 ${}$
 
-This diagram shows how the selection of a state in the one-particle space (projection $P$) is transformed into a creation or annihilation operator in the many-particle Fock space. This provides a unified way to understand how quantum mechanical properties of a one-particle system (e.g., momentum conservation) are inherited by properties of the many-particle field theory (e.g., total momentum operator).
+This diagram shows how the selection of a state in the one-particle space (projection $P$) is transformed into a creation or annihilation operator in the many-particle Fock space. This provides a unified way to understand how quantum mechanical properties of a one-particle system (e.g., momentum conservation) are inherited by properties of the many-particle field theory (e.g., total momentum operator) in a unified manner.
 
 
 
@@ -483,17 +483,17 @@ The different pictures of quantum mechanics (Schrödinger, Heisenberg, and inter
 For this representation, we define the following two categories:
 
 \begin{itemize}
-	\item **Category of Physical Systems $\mathcal{C}_{Sys}$**:
-	  \begin{itemize}
-		  \item Objects: Hilbert spaces $H$ that describe the state of a physical system.
-		  \item Morphisms: Unitary operators $U(t, t_0): H \to H$ that represent state transformations.
-	  \end{itemize}
+	\item \textbf{Category of Physical Systems $\mathcal{C}_{Sys}$}:
+	      \begin{itemize}
+		      \item Objects: Hilbert spaces $H$ that describe the state of a physical system.
+		      \item Morphisms: Unitary operators $U(t, t_0): H \to H$ that represent state transformations.
+	      \end{itemize}
 
-	\item **Category of Observables and Time Evolution $\mathcal{C}_{Evol}$**:
-	  \begin{itemize}
-		  \item Objects: The set of time-dependent observables (operators) $\mathcal{O}(t)$.
-		  \item Morphisms: Maps that describe the transformations between pictures.
-	  \end{itemize}
+	\item \textbf{Category of Observables and Time Evolution $\mathcal{C}_{Evol}$}:
+	      \begin{itemize}
+		      \item Objects: The set of time-dependent observables (operators) $\mathcal{O}(t)$.
+		      \item Morphisms: Maps that describe the transformations between pictures.
+	      \end{itemize}
 \end{itemize}
 
 \subsection{The Three Pictures and Functors}
@@ -503,16 +503,16 @@ For this representation, we define the following two categories:
 In the Schrödinger picture, the state vector $|\psi(t)\rangle_S$ evolves with time, while the operator $A_S$ does not. We consider the correspondence from this picture to the Heisenberg picture as a functor $\mathbf{F}_{S \to H}$.
 
 \begin{itemize}
-	\item **Object Correspondence**:
-	  $|\psi(t)\rangle_S \mapsto |\psi\rangle_H = U(t_0, t)|\psi(t)\rangle_S$
-	\item **Morphism Correspondence**:
-	  $A_S \mapsto A_H(t) = U(t, t_0)A_S U(t_0, t)$
+	\item \textbf{Object Correspondence}:
+	      $|\psi(t)\rangle_S \mapsto |\psi\rangle_H = U(t_0, t)|\psi(t)\rangle_S$
+	\item \textbf{Morphism Correspondence}:
+	      $A_S \mapsto A_H(t) = U(t, t_0)A_S U(t_0, t)$
 \end{itemize}
 
 This relationship can be expressed with a commutative diagram as follows:
 
 $$
-	\begin{tikzcd}
+	\begin{tikzcd}[column sep=8em]
 		\text{State } |\psi(t)\rangle_S \arrow[r, "\text{Time Evolution}"] \arrow[d, "\mathbf{F}_{S \to H}"] & \text{State } |\psi(t')\rangle_S \arrow[d, "\mathbf{F}_{S \to H}"] \\
 		\text{State } |\psi\rangle_H \arrow[r, "\text{Identity Map}"] & \text{State } |\psi\rangle_H
 	\end{tikzcd}
@@ -527,16 +527,16 @@ This diagram shows that the time evolution of a state in the Schrödinger pictur
 In the Heisenberg picture, the state vector $|\psi\rangle_H$ is time-independent, while the operator $A_H(t)$ evolves with time. We consider the correspondence from the Heisenberg picture to the Schrödinger picture as a functor $\mathbf{F}_{H \to S}$.
 
 \begin{itemize}
-	\item **Object Correspondence**:
-	  $|\psi\rangle_H \mapsto |\psi(t)\rangle_S = U(t, t_0)|\psi\rangle_H$
-	\item **Morphism Correspondence**:
-	  $A_H(t) \mapsto A_S = U(t_0, t)A_H(t)U(t, t_0)$
+	\item \textbf{Object Correspondence}:
+	      $|\psi\rangle_H \mapsto |\psi(t)\rangle_S = U(t, t_0)|\psi\rangle_H$
+	\item \textbf{Morphism Correspondence}:
+	      $A_H(t) \mapsto A_S = U(t_0, t)A_H(t)U(t, t_0)$
 \end{itemize}
 
 This relationship can be expressed with a commutative diagram.
 
 $$
-	\begin{tikzcd}
+	\begin{tikzcd}[column sep=8em]
 		\text{Operator } A_H(t) \arrow[r, "\text{Time Evolution}"] \arrow[d, "\mathbf{F}_{H \to S}"] & \text{Operator } A_H(t') \arrow[d, "\mathbf{F}_{H \to S}"] \\
 		\text{Operator } A_S \arrow[r, "\text{Identity Map}"] & \text{Operator } A_S
 	\end{tikzcd}
@@ -551,17 +551,17 @@ This diagram shows that the time evolution of an operator in the Heisenberg pict
 The interaction picture is positioned between the Schrödinger and Heisenberg pictures. It separates the Hamiltonian $H$ into a free Hamiltonian $H_0$ and an interaction Hamiltonian $V(t)$.
 
 \begin{itemize}
-	\item **State Vector**: $|\psi(t)\rangle_I = e^{iH_0 t/\hbar}|\psi(t)\rangle_S$
-	\item **Operator**: $A_I(t) = e^{iH_0 t/\hbar}A_S e^{-iH_0 t/\hbar}$
+	\item \textbf{State Vector}: $|\psi(t)\rangle_I = e^{iH_0 t/\hbar}|\psi(t)\rangle_S$
+	\item \textbf{Operator}: $A_I(t) = e^{iH_0 t/\hbar}A_S e^{-iH_0 t/\hbar}$
 \end{itemize}
 
 The correspondence from the Schrödinger picture to the interaction picture is represented as a functor.
 
 $$
-	\begin{tikzcd}
-		\text{State } |\psi(t)\rangle_S \arrow[r, "\text{Total Time Evolution}"] \arrow[d, "\mathbf{F}_{S \to I}"] & \text{State } |\psi(t')\rangle_S \arrow[d, "\mathbf{F}_{S \to I}"] \\
-		\text{State } |\psi(t)\rangle_I \arrow[r, "\text{Interaction Evolution}"] & \text{State } |\psi(t')\rangle_I
-	\end{tikzcd}
+\begin{tikzcd}[column sep=10em]
+	\text{State } |\psi(t)\rangle_S \arrow[r, "\text{Total Time Evolution}"] \arrow[d, "\mathbf{F}_{S \to I}"] & \text{State } |\psi(t')\rangle_S \arrow[d, "\mathbf{F}_{S \to I}"] \\
+	\text{State } |\psi(t)\rangle_I \arrow[r, "\text{Interaction Evolution}"] & \text{State } |\psi(t')\rangle_I
+\end{tikzcd}
 $$
 
 This diagram shows that the total time evolution in the Schrödinger picture corresponds to time evolution due to interaction in the interaction picture. In this way, the three pictures of quantum mechanics are connected in a consistent manner by functors.
