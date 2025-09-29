@@ -1,0 +1,186 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage[dvipdfmx]{graphicx}
+
+\title{
+\textbf{Notes on the Derivation of the Chern-Simons Form}
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	A memorandum. My goal is to be able to derive the Chern-Simons 3-form
+	$\omega_{3} = {\rm tr} \left( {AdA + \dfrac{2}{3}A^{3}} \right) $
+	from scratch.
+\end{abstract}
+
+\section{\textbf{Covariant Derivative of a $p$-form}}
+
+
+We write the exterior derivative as $d$, the connection as $A$,
+the covariant derivative as $D=d+A$,
+and the curvature as $F=D^{2} = dA+A^{2}$.
+
+For a $p$-form $C$ and an appropriate differential form $\phi$, we have:
+
+$$
+	d(C\phi)
+	=(dC)\phi + (-1)^{p}Cd\phi
+$$
+
+Now, if we introduce the connection $A$ and replace the exterior derivative with the covariant derivative, $d \to D$, we get:
+
+$$
+	D(C\phi)
+	=(DC)\phi + (-1)^{p}CD\phi
+$$
+
+Rearranging the terms, we get:
+
+$$
+	(DC)\phi
+	= D(C\phi) - (-1)^{p}CD\phi
+$$
+
+$$
+	= (dC) \phi + (AC) \phi - (-1)^{p}CA\phi
+$$
+
+$$
+	= \big( dC + [A,C] \big) \phi
+$$
+
+where we have defined
+$$
+	[A,C]
+	=
+	AC - (-1)^{p}CA
+$$
+Therefore, the covariant derivative $D$ acting on a $p$-form $C$ is
+$$
+	DC = dC + [A,C]
+$$
+This is the result.
+
+
+\section{\textbf{Introduction of a Parameterized Connection}}
+
+Here, we introduce a parameter $s \in \mathbb{R}$ and set $A_{s} = sA$.
+
+Correspondingly, we have:
+$$
+	\left\{
+	\begin{array}{rcl}
+		 D_{s} &=& d + sA\\
+		 F_{s} = (D_{s})^{2} &=& sdA + s^{2} A^{2}
+	\end{array}
+	\right.
+$$
+
+In this case, we also get
+$$
+	\left\{
+	\begin{matrix}
+		 & \dfrac{dF_{s}}{ds} = dA + 2sA^{2} = D_{s} A \\
+		 & \hspace{-70pt} D_{s} F_{s} = 0
+	\end{matrix}
+	\right.
+$$
+and so on.
+
+
+\section{\textbf{Derivation of the Chern-Simons $2n-1$ Form}}
+
+The Chern-Simons $2n-1$ form $\omega_{2n-1}$ is defined by
+$$
+	d \omega_{2n-1}
+	=
+	{\rm tr} F^{n}
+$$
+
+Here we use the fact that
+$$
+	{\rm tr} F^{n}
+	=
+	\int^{1}_{0} ds \dfrac{d}{ds} {\rm tr} F^{n}_{s}
+$$
+The integrand of the right-hand side is
+$$
+	\dfrac{d}{ds} {\rm tr} F^{n}_{s}
+		=
+		{\rm tr}
+	\dfrac{d F^{n}_{s}}{ds} n F^{n-1}_{s}
+$$
+$$
+	=
+	n
+	\ {\rm tr}
+	(D_{s} A) F^{n-1}_{s}
+$$
+$$
+	=
+	n
+	\ {\rm tr}
+	D_{s} (A F^{n-1}_{s})
+$$
+
+Here we used
+$$
+	D_{s} F^{n-1}_{s}
+	=
+	0
+$$
+Furthermore, using
+$$
+	D_{s} C = dC + [A_{s},C]
+$$
+we get
+$$
+	n
+	\ {\rm tr}
+	D_{s} (A F^{n-1}_{s})
+	=
+	n
+	\ {\rm tr}
+	D_{s} (A F^{n-1}_{s})
+	+
+	[D_{s}, (A F^{n-1}_{s})]
+$$
+The second term is zero, so we finally get
+$$
+	\dfrac{d}{ds} \ {\rm tr} F^{n}_{s}
+	=
+	d
+	\Big( n \ {\rm tr} (A F^{n-1}_{s}) \Big)
+$$
+
+Returning to the definition of the Chern-Simons form,
+$$
+	d \omega_{2n-1}
+	=
+	d
+	\Big( \int^{1}_{0} ds \ n \ {\rm tr} (A F^{n-1}_{s}) \Big)
+$$
+
+
+$$
+	\omega_{2n-1} = \int_0^1 ds \, n \, \text{tr} (A F_s^{n-1}) \quad \text{+ exact form}
+$$
+This can be written.
+
+When $n=2$,
+$$
+	\omega_{3}
+	=
+	\int^{1}_{0} ds \ 2 \ {\rm tr} A (sdA + s^{2} A^{2})
+	=
+	{\rm tr} \left( AdA + \dfrac{2}{3} A^{3} \right)
+$$
+\end{document}

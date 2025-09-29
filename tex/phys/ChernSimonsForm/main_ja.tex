@@ -1,0 +1,195 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage[dvipdfmx]{graphicx}
+
+\title{
+Chern-Simons形式の導出のメモ
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	忘備録。Chern-Simons 3-形式
+	$\omega_{3} = {\rm tr} \left( {AdA + \dfrac{2}{3}A^{3}} \right) $
+	を空で導出できるようにメモ。
+\end{abstract}
+
+\section{$p$-形式の共変微分}
+
+
+外微分$d$,接続$A$,
+共変微分$D=d+A$,
+曲率$F=D^{2} = dA+A^{2}$
+のように書く。
+
+$p$-形式$C$、
+適当な微分形式$\phi$に対して、
+
+$$
+	d(C\phi)
+	=(dC)\phi + (-1)^{p}Cd\phi
+$$
+
+ここで接続$A$を入れて外微分を共変微分に$d \to D$と置き換えると、
+
+$$
+	D(C\phi)
+	=(DC)\phi + (-1)^{p}CD\phi
+$$
+
+移行して整理すると、
+
+$$
+	(DC)\phi
+	= D(C\phi) - (-1)^{p}CD\phi
+$$
+
+$$
+	= (dC) \phi + (AC) \phi - (-1)^{p}CA\phi
+$$
+
+$$
+	= \big( dC + [A,C] \big) \phi
+$$
+
+ここで、
+$$
+	[A,C]
+	=
+	AC - (-1)^{p}CA
+$$
+と置いた。
+
+よって、$p$-形式$C$に共変微分$D$を作用させたものは
+$$
+	DC = dC + [A,C]
+$$
+となる。
+
+
+\section{パラメータ付き接続の導入}
+
+ここで、$s \in \mathbb{R}$ として、 $A_{s} = sA$ とする。
+
+対応して、
+$$
+	\left\{
+	\begin{matrix}
+		 & \hspace{-57pt} D_{s} = d + sA           \\
+		 & F_{s} = (D_{s})^{2} = sdA + s^{2} A^{2}
+	\end{matrix}
+	\right.
+$$
+
+このとき、
+$$
+	\left\{
+	\begin{matrix}
+		 & \dfrac{dF_{s}}{ds} = dA + 2sA^{2} = D_{s} A \\
+		 & \hspace{-70pt} D_{s} F_{s} = 0
+	\end{matrix}
+	\right.
+$$
+なども得られる。
+
+
+\section{Chern-Simons $2n-1$ 形式の導出}
+
+Chern-Simons $2n-1$ 形式 $\omega_{2n-1}$ の定義は
+$$
+	d \omega_{2n-1}
+	=
+	{\rm tr} F^{n}
+$$
+
+ここで
+$$
+	{\rm tr} F^{n}
+	=
+	\int^{1}_{0} ds \dfrac{d}{ds} {\rm tr} F^{n}_{s}
+$$
+と書けることを用いる。
+
+右辺の積分の中身は
+$$
+	\dfrac{d}{ds} {\rm tr} F^{n}_{s}
+		=
+		{\rm tr}
+	\dfrac{d F^{n}_{s}}{ds} n F^{n-1}_{s}
+$$
+$$
+	=
+	n
+	\ {\rm tr}
+	(D_{s} A) F^{n-1}_{s}
+$$
+$$
+	=
+	n
+	\ {\rm tr}
+	D_{s} (A F^{n-1}_{s})
+$$
+
+ここで、
+$$
+	D_{s} F^{n-1}_{s}
+	=
+	0
+$$
+を用いた。
+
+さらに
+$$
+	D_{s} C = dC + [A_{s},C]
+$$
+を用いると、
+$$
+	n
+	\ {\rm tr}
+	D_{s} (A F^{n-1}_{s})
+	=
+	n
+	\ {\rm tr}
+	D_{s} (A F^{n-1}_{s})
+	+
+	[D_{s}, (A F^{n-1}_{s})]
+$$
+第2項はゼロなので、結局
+$$
+	\dfrac{d}{ds} \ {\rm tr} F^{n}_{s}
+	=
+	d
+	\Big( n \ {\rm tr} (A F^{n-1}_{s}) \Big)
+$$
+
+Chern-Simons形式の定義に戻ると
+$$
+	d \omega_{2n-1}
+	=
+	d
+	\Big( \int^{1}_{0} ds \ n \ {\rm tr} (A F^{n-1}_{s}) \Big)
+$$
+
+
+$$
+	\omega_{2n-1} = \int_0^1 ds \, n \, \text{tr} (A F_s^{n-1}) \quad \text{+ 完全形式}
+$$
+と書ける。
+
+$n=2$
+のとき、
+$$
+	\omega_{3}
+	=
+	\int^{1}_{0} ds \ 2 \ {\rm tr} A (sdA + s^{2} A^{2})
+	=
+	{\rm tr} \left( AdA + \dfrac{2}{3} A^{3} \right)
+$$
+\end{document}
