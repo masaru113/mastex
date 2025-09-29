@@ -6,7 +6,7 @@
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
 \title{
-Massless Real Scalar Field in 5D Minkowski Space \newline Gaining Mass Upon Compactification of One Spatial Dimension
+5次元ミンコフスキー空間上の質量の無い実スカラー場が \newline 空間1次元だけコンパクト化すると質量を獲得する話
 }
 
 \author{
@@ -18,15 +18,25 @@ mastex
 
 \begin{abstract}
 	%UZUZだけに、空間が渦を巻いた理論を考えてみましょう。
-	These are notes from a chat I had with a friend.
+	友達と雑談している中で出てきた話の覚書。
 
-	I'll make a note of how a massless real scalar field acquires mass when one spatial dimension is compactified in 5D Minkowski spacetime.
+	5次元ミンコフスキー時空において空間1次元だけコンパクトにすると
+	ゼロ質量だった実スカラー場が質量を獲得する話をメモしておきます。
 \end{abstract}
 
 \section{Set Up}
 
-Let $\mu,\nu = 0,1,2,3$ and $M,N=0,1,2,3,4$.
-We define the metric $\eta_{\mu \nu}$ for 4D Minkowski space $M_{4}$ and the metric $\eta_{MN}$ for 5D Minkowski space with the following signatures:
+$\mu,\nu = 0,1,2,3$、
+$M,N=0,1,2,3,4$
+として、
+4次元ミンコフスキー空間
+$M_{4}$
+の計量
+$\eta_{\mu \nu}$
+と
+5次元ミンコフスキー空間の計量
+$\eta_{MN}$
+の符号をそれぞれ次のように定める。
 
 $$
 	\eta_{\mu \nu}
@@ -49,17 +59,25 @@ $$
 	\end{pmatrix}
 $$
 
-We compactify the 5th component (the 4th spatial dimension) into a circle with radius $a$.
-That is, we parameterize the 5th component, which has become a circle, with an angle $\theta$.
-Then the coordinates become:
+第5成分（空間の4次元目の成分）を半径 $a$ の円周に丸めてコンパクト化する。
+すなわち円周になった第5成分のパラメータを角度
+$\theta$
+でパラメトライズする。
+そうするとパラメータは
 $$
 	(x^0, x^1, x^2, x^3, x^4)
 	\to
 	(x^0, x^1, x^2, x^3, \theta)
 $$
 
-The infinitesimal element of the 5th component is $dx^{4} = a d \theta$, so
-the line element $ds$ of this space $M_{4} \times S^{1}$ is
+第5成分の微小量は
+$dx^{4} = a d \theta$
+となるので、
+この空間
+$M_{4} \times S^{1}$
+の線素
+$ds$
+は
 $$
 	ds^{2}
 	=
@@ -68,7 +86,9 @@ $$
 	+
 	a^{2} d \theta^{2}
 $$
-The metric $g_{MN}$ of this space is
+この空間の計量
+$g_{MN}$
+は、
 $$
 	g_{MN}
 	=
@@ -92,12 +112,22 @@ $$
 $$
 
 \section{
-  How does a Massless Scalar Field $\phi$ Change When Compactified from $M_{5} \to M_{4} \times S^{1}$?
+  $M_{5} \to M_{4} \times S^{1}$
+  のようにコンパクト化するとゼロ質量のスカラー場
+  $\phi$
+  はどのように変化するか？
  }
 
-For simplicity, we'll write the spacetime coordinates as $x$ in 4D and $X$ in 5D.
+時空間の座標は4次元のときは
+$x$
+、5次元のときは
+$X$
+と書くことにして簡略化する。
 
-The action for a massless real scalar field $\phi(x)$ on $M_{4}$ is as follows:
+$M_{4}$
+上の質量が無い実スカラー場
+$\phi(x)$
+は次の作用になる。
 
 $$
 	S
@@ -110,7 +140,9 @@ $$
 	\right)
 $$
 
-For the Lagrangian to be invariant in the general case of $g_{\mu \nu}$, it is necessary to write it as:
+一般の
+$g_{\mu \nu}$
+のときにもラグランジアンが不変になるには
 
 $$
 	S
@@ -127,7 +159,9 @@ $$
 	\ \ \ \
 	g = \det(g_{\mu \nu})
 $$
-We will now consider the action by extending this to the 5D case:
+とする必要がある。
+
+これを5次元の場合に拡張して
 $$
 	S
 	=
@@ -144,8 +178,13 @@ $$
 	\ \ \ \
 	g = \det(g_{MN})
 $$
+という作用についてこれから考えていく。
 
-The 5th component of the scalar field is compactified, and since its period is $2 \pi$, we can perform a Fourier series expansion.
+スカラー場の第5成分はコンパクト化されていて、
+周期が
+$2 \pi$
+なので
+フーリエ級数展開できる。
 
 $$
 	\phi(X)
@@ -162,7 +201,7 @@ $$
 	e^{i n \theta}
 $$
 
-Substituting this into the action:
+これを作用に入れると、
 
 $$
 	S
@@ -191,7 +230,7 @@ $$
 	\right)
 $$
 
-Here,
+ここで、
 $$
 	\det(g_{MN})
 	=
@@ -205,7 +244,10 @@ $$
 	=
 	- a^{2}
 $$
-Furthermore, when we separate the calculation into 4D Minkowski space and $S^{1}$ components, we get:
+であり、
+さらに4次元ミンコフスキー空間と
+$S^{1}$
+に成分を分けて計算を進めると、
 
 $$
 	=
@@ -260,9 +302,9 @@ $$
 	\right\}
 $$
 
-\subsection{Calculation of the First Term of the Action}
+\subsection{作用第1項の計算}
 
-The first term is:
+第1項は
 $$
 	- \dfrac{1}{2}
 	a
@@ -277,7 +319,9 @@ $$
 	\phi_{n}(x)
 $$
 
-Now, let's evaluate the $\theta$ integral.
+ここで
+$\theta$
+の積分を実行する。
 $$
 	\int d \theta
 	e^{i (n+m) \theta}
@@ -285,7 +329,9 @@ $$
 	2 \pi
 	\delta_{n,-m}
 $$
-So we can also perform the summation over $m$ to get:
+なので
+$m$
+についての和も取ることができて、
 $$
 	- \dfrac{1}{2}
 	a
@@ -298,11 +344,13 @@ $$
 	\phi_{-n}(x)
 $$
 
-Since $\phi$ is a real scalar field,
+今、
+$\phi$
+は実スカラー場なので、
 $$
 	\phi(x) = \phi^{*}(x)
 $$
-Therefore,
+したがって、
 $$
 	\sum_{n}
 	\dfrac{1}{\sqrt{ 2 \pi}}
@@ -321,24 +369,29 @@ $$
 	\phi_{-n}^{*}(x)
 	e^{i n \theta}
 $$
-In the last equality, we substituted $n \to -n$.
+最後の等式では
+$n \to -n$
+と置換した。
 
-The set $\left\{ e^{i n \theta} \right\}_{n=0,\pm 1, \pm 2 ,\cdots}$ is an orthonormal basis, so:
+$\left\{ e^{i n \theta} \right\}_{n=0,\pm 1, \pm 2 ,\cdots}$
+は直交系なので、
 
 $$
 	\phi_{n}(x) = \phi^{*}_{-n}(x)
 $$
-In particular, when $n=0$:
+特に
+$n=0$
+のときは
 $$
 	\phi_{0}(x) = \phi^{*}_{0}(x)
 $$
-so
+なので
 $
 	\phi_{0}(x)
 	\in \mathbb{R}
 $
 
-Thus, the first term of the action is:
+よって作用の第1項は
 $$
 	- \dfrac{1}{2}
 	a
@@ -368,11 +421,15 @@ $$
 	\phi_{0}^{*}(x)
 $$
 
-\subsection{Calculation of the Second Term of the Action}
+\subsection{作用第2項の計算}
 
-Let's proceed with the calculation of the second term of the action.
+作用の第2項の計算を進める。
 
-Here, $ g^{\theta \theta} = \dfrac{1}{a^{2}}$, and the $\theta$ derivative is:
+ここで、
+$ g^{\theta \theta} = \dfrac{1}{a^{2}}$
+であり、
+$\theta$
+微分は
 $$
 	\partial_{\theta}
 	\left(
@@ -388,7 +445,8 @@ $$
 	(im)
 	e^{i m \theta}
 $$
-So,
+なので、
+
 $$
 	- \dfrac{1}{2}
 	a
@@ -444,7 +502,8 @@ $$
 	\phi_{m}(x)
 $$
 
-Performing the summation over $m$, we get:
+$m$
+の和を実行して、
 $$
 	=
 	- \dfrac{1}{2}
@@ -468,7 +527,9 @@ $$
 	\phi_{n}^{*}(x)
 $$
 
-From the above, the action for a massless real scalar field on $M_{4} \times S^{1}$ is:
+以上より、
+$M_{4} \times S^{1}$
+上の質量のない実スカラー場の作用は、
 $$
 	S
 	=
@@ -522,9 +583,13 @@ $$
 	\right\}
 $$
 
-\section{Interpretation}
+\section{解釈}
 
-Let's write the integrand of the 4D coordinate $x$ in the action as $L_{4}$:
+作用の4次元座標
+$x$
+の積分の中身を
+$L_{4}$
+と書くと、
 
 $$
 	L_{4}
@@ -556,7 +621,7 @@ $$
 	L_{\rm mass}
 $$
 
-The first term,
+この第1項
 $$
 	L_{\rm free}
 	=
@@ -567,7 +632,9 @@ $$
 	\partial^{\nu}
 	\phi_{0}^{*}(x)
 $$
-is a massless real scalar field on 4D Minkowski space, and the second term,
+は4次元ミンコフスキー空間上の
+質量のない実スカラー場であり、
+第2項
 $$
 	L_{\rm mass}
 	=
@@ -584,37 +651,66 @@ $$
 		\phi_{n}^{*}(x)
 		\right]
 $$
-is the sum of complex scalar fields $\phi_{n}(x) \ ( n=1,2,3, \cdots )$ with an effective mass of $M_{n} = \left| \dfrac{n}{a} \right|$.
+はあたかも質量
+$M_{n} = \left| \dfrac{n}{a} \right|$
+の複素スカラー場
+$\phi_{n}(x) \ ( n=1,2,3, \cdots )$
+の和になっている。
 
-In the end, a massless real scalar field on the compactified space $M_{4} \times S^{1}$ can be seen, from a perspective that ignores the $S^{1}$, as a superposition on $M_{4}$ of:
+結局、5次元ミンコフスキー空間
+$M_{5}$
+を1次元だけコンパクト化した
+$M_{4} \times S^{1}$
+上の質量のない実スカラー場は、
+$S^{1}$
+を見ない立場では、
+$M_{4}$
+上の
 \begin{equation*}
 	\begin{cases}
-		\phi_{0}(x) & \ \ \ \cdots \ \ \text{a massless real scalar field}                                  \\
-		\phi_{n}(x) & \ \ \ \cdots \ \ \text{a complex scalar field with mass } \left| \dfrac{n}{a} \right|
+		\phi_{0}(x) & \ \ \ \cdots \ \ \text{質量の無い実スカラー場}                                  \\
+		\phi_{n}(x) & \ \ \ \cdots \ \ \text{質量 $\left| \dfrac{n}{a} \right|$ を有した複素スカラー場}
 	\end{cases}
 \end{equation*}
 
-In conclusion, it has been shown that when one spatial dimension of a 5D spacetime is compactified, a massless real scalar field from the original theory gives rise to complex scalar fields that have mass.
+の足し合わせになった。
 
-If the radius $a$ of the compactified dimension is very small,
-the mass $M_{n} = \left| \dfrac{n}{a} \right|$ becomes very large,
-so the complex scalar fields $\phi_{n}(x)$ do not affect physical observations,
-and only the massless real scalar field $\phi_{0}(x)$ is observed.
+結論、5次元の時空間のうち空間1次元だけコンパクト化すると、
+もともと質量の無かった実スカラー場から
+質量を持った複素スカラー場が現れることが分かった。
 
-It is known that 5D general relativity, when viewed as a theory on 4D spacetime with a compactified $S^{1}$ like this, gives rise to 4D general relativity and 4D electromagnetism.
+もし仮にコンパクト化された次元の空間の半径
+$a$
+が非常に小さいとき、
+質量
+$M_{n} = \left| \dfrac{n}{a} \right|$
+は非常に大きくなるので、
+複素スカラー場
+$\phi_{n}(x)$
+は物理量の観測に影響を与えず、
+質量の無い実スカラー場
+$\phi_{0}(x)$
+だけが観測される。
 
-It was thought that by extending this to higher dimensions, it might be possible to unify
+5次元時空上の一般相対論は、
+今回のようにコンパクト化された
+$S^{1}$
+を落とすような4次元時空上の理論として見ることで、
+4次元の一般相対論と4次元の電磁気学が現れることが知られている。
+
+より高次元の場合に拡張することで
 \begin{equation*}
 	\begin{cases}
-		\cdot \ \ \text{gravity}          \\
-		\cdot \ \ \text{electromagnetism} \\
-		\cdot \ \ \text{the weak force}   \\
-		\cdot \ \ \text{the strong force}
+		\cdot \ \ \text{重力}  \\
+		\cdot \ \ \text{電磁力} \\
+		\cdot \ \ \text{弱い力} \\
+		\cdot \ \ \text{強い力}
 	\end{cases}
 \end{equation*}
-This idea led to attempts at supergravity theory, but the theory was found to contradict observations.
-Currently, string theory is considered the most promising candidate for a unified theory of the four forces.
+を統一できるのではないかと考えられて超重力理論が試されているが、
+観測に反する理論となっており、
+現在は4つの力の統一理論としては超弦理論が有力視されている。
 
-It is known that supergravity theory is the low-energy limit of superstring theory.
+超重力理論は超弦理論の低エネルギー極限であることが知られている。
 
 \end{document}
