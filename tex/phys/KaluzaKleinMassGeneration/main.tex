@@ -1,0 +1,716 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{
+5次元ミンコフスキー空間上の質量の無い実スカラー場が \newline 空間1次元だけコンパクト化すると質量を獲得する話
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	%UZUZだけに、空間が渦を巻いた理論を考えてみましょう。
+	友達と雑談している中で出てきた話の覚書。
+
+	5次元ミンコフスキー時空において空間1次元だけコンパクトにすると
+	ゼロ質量だった実スカラー場が質量を獲得する話をメモしておきます。
+\end{abstract}
+
+\section{Set Up}
+
+$\mu,\nu = 0,1,2,3$、
+$M,N=0,1,2,3,4$
+として、
+4次元ミンコフスキー空間
+$M_{4}$
+の計量
+$\eta_{\mu \nu}$
+と
+5次元ミンコフスキー空間の計量
+$\eta_{MN}$
+の符号をそれぞれ次のように定める。
+
+$$
+	\eta_{\mu \nu}
+	=
+	\begin{pmatrix}
+		-1 &   &   &   \\
+		   & 1 &   &   \\
+		   &   & 1 &   \\
+		   &   &   & 1 \\
+	\end{pmatrix}
+	\ , \ \
+	\eta_{MN}
+	=
+	\begin{pmatrix}
+		-1 &   &   &   &   \\
+		   & 1 &   &   &   \\
+		   &   & 1 &   &   \\
+		   &   &   & 1 &   \\
+		   &   &   &   & 1 \\
+	\end{pmatrix}
+$$
+
+第5成分（空間の4次元目の成分）を半径 $a$ の円周に丸めてコンパクト化する。
+すなわち円周になった第5成分のパラメータを角度
+$\theta$
+でパラメトライズする。
+そうするとパラメータは
+$$
+	(x^0, x^1, x^2, x^3, x^4)
+	\to
+	(x^0, x^1, x^2, x^3, \theta)
+$$
+
+第5成分の微小量は
+$dx^{4} = a d \theta$
+となるので、
+この空間
+$M_{4} \times S^{1}$
+の線素
+$ds$
+は
+$$
+	ds^{2}
+	=
+	\eta_{\mu \nu}
+	dx^{\mu} dx^{\nu}
+	+
+	a^{2} d \theta^{2}
+$$
+この空間の計量
+$g_{MN}$
+は、
+$$
+	g_{MN}
+	=
+	\begin{pmatrix}
+		-1 &   &   &   &       \\
+		   & 1 &   &   &       \\
+		   &   & 1 &   &       \\
+		   &   &   & 1 &       \\
+		   &   &   &   & a^{2} \\
+	\end{pmatrix}
+	\ , \ \
+	g^{MN}
+	=
+	\begin{pmatrix}
+		-1 &   &   &   &                  \\
+		   & 1 &   &   &                  \\
+		   &   & 1 &   &                  \\
+		   &   &   & 1 &                  \\
+		   &   &   &   & \dfrac{1}{a^{2}} \\
+	\end{pmatrix}
+$$
+
+\section{
+  $M_{5} \to M_{4} \times S^{1}$
+  のようにコンパクト化するとゼロ質量のスカラー場
+  $\phi$
+  はどのように変化するか？
+ }
+
+時空間の座標は4次元のときは
+$x$
+、5次元のときは
+$X$
+と書くことにして簡略化する。
+
+$M_{4}$
+上の質量が無い実スカラー場
+$\phi(x)$
+は次の作用になる。
+
+$$
+	S
+	=
+	\int d^{4} x
+	\left(
+	- \dfrac{1}{2}
+	\partial_{\mu} \phi(x)
+	\partial^{\nu} \phi(x)
+	\right)
+$$
+
+一般の
+$g_{\mu \nu}$
+のときにもラグランジアンが不変になるには
+
+$$
+	S
+	=
+	\int d^{4} x
+	\sqrt{ - g }
+	\left(
+	- \dfrac{1}{2}
+	\partial_{\mu} \phi(x)
+	\partial^{\nu} \phi(x)
+	\right)
+	\ \ \ \
+	{ \rm where }
+	\ \ \ \
+	g = \det(g_{\mu \nu})
+$$
+とする必要がある。
+
+これを5次元の場合に拡張して
+$$
+	S
+	=
+	\int d^{5} X
+	\sqrt{ - g }
+	\left(
+	- \dfrac{1}{2}
+	g^{MN}
+	\partial_{M} \phi(X)
+	\partial_{N} \phi(X)
+	\right)
+	\ \ \ \
+	{ \rm where }
+	\ \ \ \
+	g = \det(g_{MN})
+$$
+という作用についてこれから考えていく。
+
+スカラー場の第5成分はコンパクト化されていて、
+周期が
+$2 \pi$
+なので
+フーリエ級数展開できる。
+
+$$
+	\phi(X)
+	=
+	\phi(x,\theta)
+$$
+$$
+	=
+	\dfrac{1}{
+		\sqrt{ 2 \pi}
+	}
+	\sum_{n}
+	\phi_{n}(x)
+	e^{i n \theta}
+$$
+
+これを作用に入れると、
+
+$$
+	S
+	=
+	- \dfrac{1}{2}
+	\int d^{5} X
+	\sqrt{ - \det(g_{MN}) }
+	g^{MN}
+	\partial_{M}
+	\left(
+	\dfrac{1}{
+		\sqrt{ 2 \pi}
+	}
+	\sum_{m}
+	\phi_{m}(x)
+	e^{i m \theta}
+	\right)
+	\partial_{N}
+	\left(
+	\dfrac{1}{
+		\sqrt{ 2 \pi}
+	}
+	\sum_{n}
+	\phi_{n}(x)
+	e^{i n \theta}
+	\right)
+$$
+
+ここで、
+$$
+	\det(g_{MN})
+	=
+	\begin{vmatrix}
+		-1 &   &   &   &       \\
+		   & 1 &   &   &       \\
+		   &   & 1 &   &       \\
+		   &   &   & 1 &       \\
+		   &   &   &   & a^{2} \\
+	\end{vmatrix}
+	=
+	- a^{2}
+$$
+であり、
+さらに4次元ミンコフスキー空間と
+$S^{1}$
+に成分を分けて計算を進めると、
+
+$$
+	=
+	- \dfrac{1}{2}
+	a
+	\int d^{4} x d \theta
+	\left\{
+	g_{\mu \nu}
+	\partial_{\mu}
+	\left(
+	\dfrac{1}{
+		\sqrt{ 2 \pi}
+	}
+	\sum_{m}
+	\phi_{m}(x)
+	e^{i m \theta}
+	\right)
+	\partial_{\nu}
+	\phi(x)
+	\left(
+	\dfrac{1}{
+		\sqrt{ 2 \pi}
+	}
+	\sum_{n}
+	\phi_{n}(x)
+	e^{i n \theta}
+	\right)
+	\right.
+$$
+$$
+	\left.
+	+
+	g^{\theta \theta}
+	\partial_{\theta}
+	\left(
+	\dfrac{1}{
+		\sqrt{ 2 \pi}
+	}
+	\sum_{m}
+	\phi_{m}(x)
+	e^{i m \theta}
+	\right)
+	\partial_{\theta}
+	\left(
+	\dfrac{1}{
+		\sqrt{ 2 \pi}
+	}
+	\sum_{n}
+	\phi_{n}(x)
+	e^{i n \theta}
+	\right)
+	\right\}
+$$
+
+\subsection{作用第1項の計算}
+
+第1項は
+$$
+	- \dfrac{1}{2}
+	a
+	\int d^{4} x d \theta
+	\sum_{n,m}
+	\dfrac{1}{2 \pi}
+	e^{i (n+m) \theta}
+	\eta^{\mu \nu}
+	\partial_{\mu}
+	\phi_{m}(x)
+	\partial_{\nu}
+	\phi_{n}(x)
+$$
+
+ここで
+$\theta$
+の積分を実行する。
+$$
+	\int d \theta
+	e^{i (n+m) \theta}
+	=
+	2 \pi
+	\delta_{n,-m}
+$$
+なので
+$m$
+についての和も取ることができて、
+$$
+	- \dfrac{1}{2}
+	a
+	\sum_{n}
+	\int d^{4} x
+	\eta^{\mu \nu}
+	\partial_{\mu}
+	\phi_{m}(x)
+	\partial_{\nu}
+	\phi_{-n}(x)
+$$
+
+今、
+$\phi$
+は実スカラー場なので、
+$$
+	\phi(x) = \phi^{*}(x)
+$$
+したがって、
+$$
+	\sum_{n}
+	\dfrac{1}{\sqrt{ 2 \pi}}
+	\phi_{n}(x)
+	e^{i n \theta}
+	=
+	\sum_{n}
+	\dfrac{1}{\sqrt{ 2 \pi}}
+	\phi_{n}^{*}(x)
+	e^{- i n \theta}
+$$
+$$
+	=
+	\sum_{n}
+	\dfrac{1}{\sqrt{ 2 \pi}}
+	\phi_{-n}^{*}(x)
+	e^{i n \theta}
+$$
+最後の等式では
+$n \to -n$
+と置換した。
+
+$\left\{ e^{i n \theta} \right\}_{n=0,\pm 1, \pm 2 ,\cdots}$
+は直交系なので、
+
+$$
+	\phi_{n}(x) = \phi^{*}_{-n}(x)
+$$
+特に
+$n=0$
+のときは
+$$
+	\phi_{0}(x) = \phi^{*}_{0}(x)
+$$
+なので
+$
+	\phi_{0}(x)
+	\in \mathbb{R}
+$
+
+よって作用の第1項は
+$$
+	- \dfrac{1}{2}
+	a
+	\sum_{n \in \mathbb{Z}}
+	\int d^{4} x
+	\partial_{\mu}
+	\phi_{m}(x)
+	\partial^{\nu}
+	\phi_{n}^{*}(x)
+$$
+
+$$
+	=
+	-a
+	\sum_{n=1}^{\infty}
+	\int d^{4} x
+	\partial_{\mu}
+	\phi_{m}(x)
+	\partial^{\nu}
+	\phi_{n}^{*}(x)
+	- \dfrac{1}{2}
+	a
+	\int d^{4} x
+	\partial_{\mu}
+	\phi_{0}(x)
+	\partial^{\nu}
+	\phi_{0}^{*}(x)
+$$
+
+\subsection{作用第2項の計算}
+
+作用の第2項の計算を進める。
+
+ここで、
+$ g^{\theta \theta} = \dfrac{1}{a^{2}}$
+であり、
+$\theta$
+微分は
+$$
+	\partial_{\theta}
+	\left(
+	\dfrac{1}{\sqrt{ 2 \pi}}
+	\sum_{m}
+	\phi_{m}(x)
+	e^{i m \theta}
+	\right)
+	=
+	\dfrac{1}{\sqrt{ 2 \pi}}
+	\sum_{m}
+	\phi_{m}(x)
+	(im)
+	e^{i m \theta}
+$$
+なので、
+
+$$
+	- \dfrac{1}{2}
+	a
+	\int d^{4} x d \theta
+	g^{\theta \theta}
+	\partial_{\theta}
+	\left(
+	\dfrac{1}{\sqrt{ 2 \pi}}
+	\sum_{m}
+	\phi_{m}(x)
+	e^{i m \theta}
+	\right)
+	\partial_{\theta}
+	\left(
+	\dfrac{1}{\sqrt{ 2 \pi}}
+	\sum_{n}
+	\phi_{n}(x)
+	e^{i n \theta}
+	\right)
+$$
+
+$$
+	=
+	- \dfrac{1}{2}
+	a
+	\int d^{4} x
+	\dfrac{1}{a^{2}}
+	\dfrac{1}{2 \pi}
+	\sum_{m,n}
+	\left\{
+	\int d \theta
+	e^{i (n+m) \theta}
+	\right\}
+	( - n m )
+	\phi_{n}(x)
+	\phi_{m}(x)
+$$
+
+$$
+	=
+	- \dfrac{1}{2}
+	a
+	\int d^{4} x
+	\dfrac{1}{a^{2}}
+	\dfrac{1}{2 \pi}
+	\sum_{m,n}
+	\left\{
+	2 \pi
+	\delta_{n,-m}
+	\right\}
+	( - n m )
+	\phi_{n}(x)
+	\phi_{m}(x)
+$$
+
+$m$
+の和を実行して、
+$$
+	=
+	- \dfrac{1}{2}
+	a
+	\int d^{4} x
+	\dfrac{1}{a^{2}}
+	\sum_{n}
+	n^{2}
+	\phi_{n}(x)
+	\phi_{n}^{*}(x)
+$$
+
+$$
+	=
+	- \dfrac{1}{2}
+	a
+	\sum_{n=1}^{\infty}
+	\int d^{4} x
+	\dfrac{ n^{2} }{ a^{2} }
+	\phi_{n}(x)
+	\phi_{n}^{*}(x)
+$$
+
+以上より、
+$M_{4} \times S^{1}$
+上の質量のない実スカラー場の作用は、
+$$
+	S
+	=
+	-a
+	\sum_{n=1}^{\infty}
+	\int d^{4} x
+	\partial_{\mu}
+	\phi_{m}(x)
+	\partial^{\nu}
+	\phi_{n}^{*}(x)
+	-
+	\dfrac{1}{2}
+	a
+	\int d^{4} x
+	\partial_{\mu}
+	\phi_{0}(x)
+	\partial^{\nu}
+	\phi_{0}^{*}(x)
+	- \dfrac{1}{2}
+	a
+	\sum_{n=1}^{\infty}
+	\int d^{4} x
+	\dfrac{ n^{2} }{ a^{2} }
+	\phi_{n}(x)
+	\phi_{n}^{*}(x)
+$$
+
+$$
+	=
+	a
+	\int d^{4} x
+	\left\{
+	-
+	\dfrac{1}{2}
+	\partial_{\mu}
+	\phi_{0}(x)
+	\partial^{\nu}
+	\phi_{0}^{*}(x)
+	-
+	\sum_{n=1}^{\infty}
+	\left[
+		\partial_{\mu}
+		\phi_{m}(x)
+		\partial^{\nu}
+		\phi_{n}^{*}(x)
+		+
+		\dfrac{ n^{2} }{ a^{2} }
+		\phi_{n}(x)
+		\phi_{n}^{*}(x)
+		\right]
+	\right\}
+$$
+
+\section{解釈}
+
+作用の4次元座標
+$x$
+の積分の中身を
+$L_{4}$
+と書くと、
+
+$$
+	L_{4}
+	=
+	-
+	\dfrac{1}{2}
+	\partial_{\mu}
+	\phi_{0}(x)
+	\partial^{\nu}
+	\phi_{0}^{*}(x)
+	-
+	\sum_{n=1}^{\infty}
+	\left[
+		\partial_{\mu}
+		\phi_{m}(x)
+		\partial^{\nu}
+		\phi_{n}^{*}(x)
+		+
+		\dfrac{ n^{2} }{ a^{2} }
+		\phi_{n}(x)
+		\phi_{n}^{*}(x)
+		\right]
+$$
+
+$$
+	=
+	L_{\rm free}
+	+
+	L_{\rm mass}
+$$
+
+この第1項
+$$
+	L_{\rm free}
+	=
+	-
+	\dfrac{1}{2}
+	\partial_{\mu}
+	\phi_{0}(x)
+	\partial^{\nu}
+	\phi_{0}^{*}(x)
+$$
+は4次元ミンコフスキー空間上の
+質量のない実スカラー場であり、
+第2項
+$$
+	L_{\rm mass}
+	=
+	-
+	\sum_{n=1}^{\infty}
+	\left[
+		\partial_{\mu}
+		\phi_{m}(x)
+		\partial^{\nu}
+		\phi_{n}^{*}(x)
+		+
+		\dfrac{ n^{2} }{ a^{2} }
+		\phi_{n}(x)
+		\phi_{n}^{*}(x)
+		\right]
+$$
+はあたかも質量
+$M_{n} = \left| \dfrac{n}{a} \right|$
+の複素スカラー場
+$\phi_{n}(x) \ ( n=1,2,3, \cdots )$
+の和になっている。
+
+結局、5次元ミンコフスキー空間
+$M_{5}$
+を1次元だけコンパクト化した
+$M_{4} \times S^{1}$
+上の質量のない実スカラー場は、
+$S^{1}$
+を見ない立場では、
+$M_{4}$
+上の
+\begin{equation*}
+	\begin{cases}
+		\phi_{0}(x) & \ \ \ \cdots \ \ \text{質量の無い実スカラー場}                                  \\
+		\phi_{n}(x) & \ \ \ \cdots \ \ \text{質量 $\left| \dfrac{n}{a} \right|$ を有した複素スカラー場}
+	\end{cases}
+\end{equation*}
+
+の足し合わせになった。
+
+結論、5次元の時空間のうち空間1次元だけコンパクト化すると、
+もともと質量の無かった実スカラー場から
+質量を持った複素スカラー場が現れることが分かった。
+
+もし仮にコンパクト化された次元の空間の半径
+$a$
+が非常に小さいとき、
+質量
+$M_{n} = \left| \dfrac{n}{a} \right|$
+は非常に大きくなるので、
+複素スカラー場
+$\phi_{n}(x)$
+は物理量の観測に影響を与えず、
+質量の無い実スカラー場
+$\phi_{0}(x)$
+だけが観測される。
+
+5次元時空上の一般相対論は、
+今回のようにコンパクト化された
+$S^{1}$
+を落とすような4次元時空上の理論として見ることで、
+4次元の一般相対論と4次元の電磁気学が現れることが知られている。
+
+より高次元の場合に拡張することで
+\begin{equation*}
+	\begin{cases}
+		\cdot \ \ \text{重力}  \\
+		\cdot \ \ \text{電磁力} \\
+		\cdot \ \ \text{弱い力} \\
+		\cdot \ \ \text{強い力}
+	\end{cases}
+\end{equation*}
+を統一できるのではないかと考えられて超重力理論が試されているが、
+観測に反する理論となっており、
+現在は4つの力の統一理論としては超弦理論が有力視されている。
+
+超重力理論は超弦理論の低エネルギー極限であることが知られている。
+
+\end{document}
