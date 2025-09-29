@@ -1,0 +1,505 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+Sierpinskiの位相空間
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+コンパクトだけど閉集合にならないような例を考えたときに偶然見つけた例がSierpinskiの位相空間と呼ばれるおもしろい空間だったのでナレッジ共有です。
+
+\begin{abstract}
+	位相幾何学において、開集合は空間の性質を研究するための基本的な概念である。しかし、開集合は抽象的で扱いにくい場合がある。本稿では、わずか2つの点 $\{0, 1\}$ と3つの開集合 $\{\emptyset, \{0\}, \{0, 1\}\}$ からなる最も単純な非自明な位相空間であるシェルピンスキー空間 $\mathbf{S}_ {2}$ によって位相空間の開集合と連続写像が対応することを見る。
+
+	シェルピンスキー空間は、任意の位相空間 $X$ の開集合が、この空間 $\mathbf{S}_ {2}$ への連続写像と一対一に対応するという特筆すべき性質を持つ。この対応により、複雑な開集合の概念を、より扱いやすい連続写像の概念へと変換することが可能となる。
+\end{abstract}
+
+\section{位相空間とは}
+
+位相空間という言葉はややこしい。
+
+はじめて位相空間という言葉と出会ったのは学生の頃で物理の文脈で出てきた。
+これは相空間（phase space）とも呼ばれるもので、
+解析力学における文脈の一般化座標 $x$ とその時間微分 $\frac{dx}{dt} = \dot{x}$ を座標軸として選んだ空間である。
+例えばよくある定数 $k$ の質量 $m$ の調和振動子のハミルトニアン
+$$
+	H(x,\dot{x}) = \frac{1}{2}kx^{2}  + \frac{\dot{x}^{2}}{2m}
+$$
+これが取り得る位相空間の状態の軌道は楕円になっている。
+要するにここで言われる位相空間は、数学ではユークリッド空間に特別な名前を与えたもの。
+
+一方で社会に出てから数学を学ぶ中で位相空間（topological space）というものに出会った。
+これはユークリッド空間に限らない非常に抽象的な概念で、要するには開集合と呼ばれる集合のあつまりのことらしいことが分かってきた。
+これは物理をやっていたときには想像がつかないような空間の概念になっていて、空間と呼ぶよりもある特別な論理構造(topo "logical" space)と認識する方が物理に慣れ親しんだ人からすると合っているかもしれない。
+数学を勉強する人はある特別な論理構造のことも言葉を乱用して空間と呼ぶらしい。
+
+
+\subsection{位相空間の定義}
+
+位相空間の定義するための一つに開集合を用いるものがある。
+（閉集合で位相空間を定義したり、閉包作用素で定義したり、他にも同値な色んな定め方がある。）
+
+めっちゃラフに位相の定義を書くと、集合 $X$ の部分集合 $U,V$について
+
+\begin{enumerate}
+	\item 部分の共通部分がまた部分になること（$U \cap V$）
+	\item 部分の和集合もまた部分になること（$U \cup V$）
+	\item 全体も空集合もまた部分とみなすこと（$X$, $\varnothing$）
+\end{enumerate}
+
+この3条件を満たすものを位相と呼んで、元の集合との組を位相空間と呼ぶ。
+
+開集合(open set)とは直観的には端が含まれない開いた集合で、位相空間の特殊ケースであるユークリッド空間であれば開区間で開集合を定義することは扱いやすい良い例になっている。
+
+${}$
+
+議論を進めるためにもう少しだけ形式的に定義をすると、
+
+$X$ を集合とするとき、その部分集合の全体を $P(X)$ と書く。
+つまり $P(X)$ は(部分)集合を要素にもつような集合（集合の集合）になっている。
+
+$X$ 上の位相とは、次の3条件を満たす $P(X)$ の部分集合 ${\mathcal O}$ のことである。
+集合 $X$ の部分集合 $U,V$に対して
+\begin{enumerate}
+	\item $U,V \in {\mathcal O}$ ならば $U \cap V \in {\mathcal O}$
+	\item $I$ が集合であり、その要素$i \in I$ それぞれに開集合 $U_{i} \in {\mathcal O}$ が与えられたとき、
+	      その和集合もまた開集合。すなわち、$\bigcup_{i} U_{i} \in {\mathcal O}$
+	\item 全体集合 $X \subseteq X$ は開集合（$X \in {\mathcal O}$）、空集合も開集合（$\varnothing \in {\mathcal O}$）
+\end{enumerate}
+
+この3条件を満たす$X$ の部分集合のあつまり ${\mathcal O}$ を位相と呼んで、元の集合とのペア $(X, {\mathcal O})$ を位相空間と呼ぶ。
+
+\subsection{位相空間に頻繁に出てくる言葉の定義}
+
+位相空間論には大量に用語が出てきて初学者を殺しにかかってくる。以下の議論で使いそうなほんの一部だけ言葉を定義しておく。
+
+\subsubsection{閉集合}
+
+開集合の補集合を閉集合という。
+空集合の補集合は全体集合で、全体集合の補集合は空集合なので、全体集合と空集合は閉集合にもなる。
+
+つまり全体集合と空集合は開集合であってなおかつ閉集合になっている。
+
+
+\subsubsection{距離空間}
+
+位相空間にさらに距離の構造を入れると距離空間と呼ばれる。ちょっと具体的な空間になる。
+
+逆に、普通は位相空間を考えているときに距離の構造が入っていないことが前提になっている。
+距離の構造を持たないので、位相空間そのものは図形的なイメージを持っていない。
+
+${}$
+
+例としては、集合 $X$ を実数全体 $\mathbb{R}$ として、 $d(x,y) = |x-y|$ という（普通の、日常的な）距離の構造 $d$ を入れると
+距離空間になる。
+
+\subsubsection{連続}
+
+2つの位相空間 $(X, {\mathcal O}_{X}), (Y, {\mathcal O}_{Y})$ の間の連続写像とは、
+$f: X \to Y$ で、すべての $U \in {\mathcal O}_{Y}$ に対して、その逆像
+$f^{-1}(U)$ が ${\mathcal O}_{X}$ に属すような $f$ のこと。
+
+慣れ親しんだユークリッド空間的な連続とは異なる連続の概念とは違うことが多い。
+
+位相空間に距離の概念が入った距離空間ではいわゆる日常で想像するような「連続」であるが、
+位相空間における連続とは「位相空間の性質を保つ」という抽象的な意味になる。
+
+$f: X \to Y$ が連続でかつ $f^{-1}: Y \to X$ もまた連続となるような写像を位相同型写像という。
+位相同型写像は位相空間の圏 ${\bf Top}$ における射になる。
+
+実際、${\rm id}_{X}: X \to X$ という恒等射があり、
+$f: X \to Y, \ g: Y \to Z$ に対して $g f : X \to Z$ となる。
+
+
+\subsubsection{位相の強弱}
+
+2つの位相空間 $(X, {\mathcal O}_{X}), (Y, {\mathcal O}_{Y})$ に対して、
+${\mathcal O}_{X} \subset {\mathcal O}_{Y}$
+となるとき、
+${\mathcal O}_{X}$ は ${\mathcal O}_{Y}$ よりも弱い、
+または ${\mathcal O}_{Y}$ は ${\mathcal O}_{X}$ よりも強い
+という。
+
+「強い/弱い」のかわりに「細かい/粗い」と言うときもある。
+
+
+\subsubsection{離散位相}
+
+集合 $X$ に対して、その部分集合の全体 $P(X)$ は $X$ の位相の条件を満たす。
+
+この位相を離散位相という。
+
+離散位相は最も細かい位相、つまり最も強い位相になっている。
+
+
+\subsubsection{密着位相}
+
+集合 $X$ に対して、空集合と集合そのものの集合 $\{ \varnothing, X \}$ もまた $X$ の位相の条件を満たす。
+
+この位相を密着位相という。
+
+離散位相は最も粗い位相、つまり最も弱い位相になっている。
+
+自明な位相とも言われる。
+
+数学では「自明」という用語はしばしば「調べてもつまらない」という意味が込められることがある。
+
+${}$
+
+密着位相が位相の条件を満たすかどうか、初学者には自明ではないのでちゃんと位相になっているかどうかを調べてみる。
+
+\ 1. 部分の共通部分がまた部分になることを確認する。
+
+$\varnothing \cap X = \varnothing \in \{ \varnothing, X \}$
+なのでこれはOK。
+
+\ 2. 部分の和集合がまた部分になることを確認する。
+
+$\varnothing \cup X = X \in \{ \varnothing, X \}$
+なのでこれもOK。
+
+\ 3. 全体集合も空集合も含まれていることを確認する。
+
+$\varnothing \in \{ \varnothing, X \} , \ X \in \{ \varnothing, X \}$
+なのでこれもOK。
+
+よって、空集合と集合そのものの集合 $\{ \varnothing, X \}$ もまた $X$ の位相の条件を満たすことが確認できた。
+
+
+
+\subsubsection{被覆}
+
+開集合 $U$ に対して、 $\bigcup_{i} U_{i} = U$ となるような $(U_{i})_{i \in I}$ を $U$ の被覆と呼ぶ。
+
+
+\subsubsection{開基}
+
+開基（basis）は、
+集合 $X$ の部分集合のあつまり $P(X)$ の部分集合 $S$
+（この $S$ もまた部分集合のあつまり）
+について、
+$S \subset {\mathcal O}$
+を満たすものの中で最も弱い位相
+${\mathcal O}_{S}$
+が存在する。
+
+この
+${\mathcal O}_{S}$
+を
+$S$ を含む最弱の位相という。
+
+また、 $S$ は ${\mathcal O}_{S}$ を生成するという。
+
+\subsubsection{位相の生成}
+
+開基 $S$ が位相 $\mathcal{O}_S$ を生成するということは、$\mathcal{O}_S$ のすべての要素（開集合）が $S$ の要素を用いて構成できるということである。
+具体的には、$\mathcal{O}_S$ の任意の開集合 $O$ は、$S$ のいくつかの要素 $B_i$ の和集合（合併）として表すことができる。
+
+$$O = \bigcup_{i \in I} B_i, \quad B_i \in S$$
+
+この性質から、開基 $S$ は位相 $\mathcal{O}_S$ を張り合わせる（被覆する）ための基本構成単位のような役割を果たす。
+
+つまり、開基 $S$ の要素の和集合をとる操作だけで、位相 $\mathcal{O}_S$ 全体を定義できる。
+これは、位相のすべての開集合を一つ一つ指定する代わりに、より小さな集合族 $S$ を指定するだけで位相を定義できるという点で非常に便利になる。
+
+\subsubsection{開基の条件}
+
+任意の集合族 $S$ が位相の開基となるわけではない。
+開基 $S$ が位相 $\mathcal{O}_S$ を生成するためには、以下の2つの条件を満たす必要がある。
+
+\begin{enumerate}
+	\item 集合 $X$ は $S$ の要素の和集合で表せること。
+	\item $S$ の任意の2つの要素 $B_1, B_2$ の共通部分（交わり）は、$S$ のいくつかの要素の和集合で表せること。
+\end{enumerate}
+
+形式的に書くと
+
+\begin{enumerate}
+	\item $X = \bigcup_{B \in S} B$ : これは、位相 $\mathcal{O}_S$ の定義（$X \in \mathcal{O}_S$）を満たすための条件。
+	\item $B_1 \cap B_2 = \bigcup_{B_j \in S} B_j$ : これは、位相 $\mathcal{O}_S$ の定義（開集合の有限個の共通部分は開集合）を満たすための条件
+\end{enumerate}
+
+この2つの条件を満たす集合族 $S$ があれば、そこから\textbf{一意}に位相 $\mathcal{O}_S$ を構成することができる。
+
+\subsubsection{コンパクト}
+
+コンパクトというは日常用語のコンパクトとは全く非なるもので、
+$n$ 次元ユークリッド空間 $\mathbb{R}^{n}$ 上の有界閉集合の性質を一般化したもの。
+位相空間の性質の一つである。
+
+コンパクト性には以下の同値な2種類がある。
+\begin{enumerate}
+	\item ボルツァーノ・ワイエルシュトラス性
+	\item ハイネ・ボレル性
+\end{enumerate}
+
+
+\subsubsection{ボルツァーノ・ワイエルシュトラスによるコンパクト性}
+
+有向集合とは順序が定義された集合であり、有向集合の中のどの2つの要素を取ってきてもそれよりも大きいか等しいと定義できる要素が
+必ず存在するような集合。
+例えば自然数 $\mathbb{N}$ の要素のうち適当に3と7を取ってくると$3 \leq 7$ が言えて、3,7に限らずどの2つの要素を取ってきても等号を含め大小関係が定義できる。
+こういう集合を順序が定義された集合、有向集合という。
+
+その有向集合の要素の集合を有向点族といい、
+ボルツァーノ・ワイエルシュトラスによるコンパクトの定義は以下のように述べられる。
+
+$X$ 上の任意の有向点族 $(x_{\lambda})_{\lambda \in \Lambda}$ に対して、
+$(x_{\lambda})_{\lambda \in \Lambda}$ のある部分有向点族
+$(x_{\gamma})_{\gamma \in \Gamma}$ のうち $x \in X$ に収束するものがある。
+
+${}$
+
+$X \subseteq \mathbb{R}^{n}$ に限定すると想像がしやすくなる。
+
+$X$ 上の任意の点列が収束する部分列を持つとき、空間 $X$ はコンパクトであるという。
+
+${}$
+
+位相空間のような抽象的なものを考えるときに、いきなり抽象度の高いものを考えるのは難しいときに、
+$X \subseteq \mathbb{R}^{n}$ 等として想像しやすくするが、
+これは非常に危険な特殊化をしているということを留意しておく必要がある。
+
+
+\subsubsection{ハイネ・ボレルによるコンパクト性}
+
+$X$ の任意の開被覆 $S$ に対して、$S$ の有限部分集合 $T$ が存在して、$T$ は $X$ を被覆するとき、$X$ はコンパクトであるという。
+
+要するに有限個の開集合で覆いつくせるような集合をハイネ・ボレルによるコンパクトな集合という。
+
+\subsubsection{ハウスドルフ}
+
+Felix Hausdorffは位相空間論の創始者の1人の名前で、偉大な名前を冠したハウスドルフという公理や、その公理を満たす性質のことも指す。
+
+位相空間 $X$ における要素 $p \in X$ の近傍とは、「 $p$ を含む開集合」を含むような部分集合のことを指す。（なので、近傍それ自体は開集合でなくても良くて、特に開集合になるような近傍を開近傍という。）
+
+位相空間 $X$ における2つの異なる要素 $p,q$ に対して、$U \cap V = \varnothing$ となるような
+$p$ の開近傍 $U$ と $q$ の開近傍 $V$ が必ず存在するという性質をハウスドルフ性、またはハウスドルフと呼ぶ。
+ハウスドルフ性を持つ位相空間はハウスドルフ空間、または単にハウスドルフと呼ばれる。
+
+コンパクトかつハウスドルフであるような位相空間は非常に取り扱いがしやすいらしく、単に「コンパクトハウスドルフ」と呼ばれる。
+
+${}$
+
+例えば、連続写像 $f: X \to Y$ で
+$X$ がコンパクトハウスドルフであるとき、
+
+\ ・ $Y$ はハウスドルフである。
+
+\ ・ $f$ は閉写像である。
+
+\ ・ ${\rm ker} f $ は閉集合である。
+
+
+
+\section{位相空間の例}
+
+\subsection{有界閉だけどコンパクトではない例}
+
+整数全体 $\mathbb{Z}$ に離散距離
+
+\begin{align*}
+	d(x, x) & = 0                             \\
+	d(x, y) & = 1 \ \ \ ({\rm if} \ x \neq y)
+\end{align*}
+
+を入れた位相空間は、すべての部分集合が有界な閉集合になるが、コンパクトにならない。
+
+
+\subsection{コンパクトだけど有界閉ではない例: Sierpinskiの位相空間}
+
+以下の位相空間 $(X, \mathcal{O})$ を考える。
+$$X = \{0, 1\}$$
+$$\mathcal{O} = \{\varnothing, \{0\}, X\}$$
+このとき、$\{0\}$ は $X$ のコンパクト集合だが、閉集合ではない。
+
+\subsubsection{位相空間であることの確認}
+
+位相空間であるための3つの条件を確認する。
+\begin{enumerate}
+	\item $\varnothing \in \mathcal{O}$ かつ $X \in \mathcal{O}$
+	\item $\mathcal{O}$ の任意の開集合の和集合が $\mathcal{O}$ の要素であること
+	\item $\mathcal{O}$ の有限個の開集合の共通部分が $\mathcal{O}$ の要素であること
+\end{enumerate}
+
+\subsubsection{条件1（全体と空集合を含むこと）}
+定義より、$\varnothing$ と $X$ は $\mathcal{O}$ の要素。
+
+\subsubsection{条件2（和集合もまた部分集合になること）}
+$\mathcal{O}$ の要素の和集合を考える。
+\begin{itemize}
+	\item $\varnothing \cup \{0\} = \{0\} \in \mathcal{O}$
+	\item $\varnothing \cup X = X \in \mathcal{O}$
+	\item $\{0\} \cup X = X \in \mathcal{O}$
+	\item $\varnothing \cup \{0\} \cup X = X \in \mathcal{O}$
+\end{itemize}
+よって、条件2を満たす。
+
+\subsubsection{条件3（共通部分も部分集合になること）}
+$\mathcal{O}$ の要素の共通部分を考える。
+\begin{itemize}
+	\item $\varnothing \cap \{0\} = \varnothing \in \mathcal{O}$
+	\item $\varnothing \cap X = \varnothing \in \mathcal{O}$
+	\item $\{0\} \cap X = \{0\} \in \mathcal{O}$
+	\item $\varnothing \cap \{0\} \cap X = \varnothing \in \mathcal{O}$
+\end{itemize}
+よって、条件3も満たす。
+
+以上のことから、$(X, \mathcal{O})$ は位相空間になる。
+
+\subsubsection{$\{0\}$ がコンパクトであることの確認}
+コンパクトの定義は、任意の開被覆が有限部分被覆を持つこと。
+\begin{itemize}
+	\item $ \{ 0\} \subseteq \varnothing \cup \{ 0 \}$
+	\item $ \{ 0\} \subseteq \varnothing \cup X$
+	\item $ \{ 0\} \subseteq \{ 0 \} \cup X$
+	\item $ \{ 0\} \subseteq \varnothing \cup \{ 0 \} \cup X$
+\end{itemize}
+
+なので $\{ 0\}$ は $X$ のコンパクト集合。
+
+
+\subsubsection{$\{0\}$ が閉集合ではないことの証明}
+
+閉集合の定義は、その補集合が開集合であること。
+$\{0\}$ の補集合は $X \setminus \{0\} = \{1\}$ であり、この補集合 $\{1\}$ は、位相 $\mathcal{O} = \{\varnothing, \{0\}, X\}$ のどの要素でもない。
+したがって、$\{0\}$ は閉集合ではない。
+
+${}$
+
+以上から、
+$$X = \{0, 1\} , \  \ \mathcal{O} = \{\varnothing, \{0\}, X\}$$
+このような位相空間を考えると、$\{0\}$ は $X$ のコンパクト集合だが、閉集合ではない。
+
+
+\subsection{Sierpinskiの位相空間}
+
+この2点からなる位相空間
+$$X = \{0, 1\} , \  \ \mathcal{O}_{0} = \{\varnothing, \{0\}, X\}$$
+これらはSierpinskiの位相空間と呼ばれる。
+
+例えば以下のものもSierpinskiの位相空間になる。（つまりそれぞれ同型である。）
+$$X = \{0, 1\} , \  \ \mathcal{O}_{1} = \{\varnothing, \{1\}, X\}$$
+
+% また、以下の2つもSierpinskiの位相空間になる。
+% $$X = \{0, 1\} , \  \ \mathcal{O}_{2} = \{ \{0, 1\}, \mathcal{O}_{0} \}$$
+% $$X = \{0, 1\} , \  \ \mathcal{O}_{3} = \{ \{0, 1\}, \mathcal{O}_{1} \}$$
+
+
+\section{Sierpinski位相と圏}
+
+位相空間 $(X, \mathcal{O})$ に対し、位相 $\mathcal{O}$ は部分集合関係 $\subseteq$ を用いた擬順序の構造 $(\mathcal{O}, \subseteq )$ を有する。
+
+一般に、擬順序は集合を対象、順序関係を射とする圏とみなすことができ、$ (\mathcal{O}, \subseteq ) $ は圏をなす。
+
+Sierpinski位相のハッセ図はシンプルであり、以下の短い1本の系列となる。
+$$
+	\emptyset \xrightarrow{\subseteq} \{0\} \xrightarrow{\subseteq} \{0, 1\}
+$$
+
+\subsection{開集合と連続写像の対応}
+
+この位相空間では、任意の開集合 $U \subseteq \mathcal{O}$ に対する連続写像は、特性関数$\chi_{U}: X \to \mathbf{S}_ {2}$ であり、以下で定義される。
+ここで $\mathbf{S}_ {2}$ は2点集合 $\{0,1\}$ にSierpinski位相を入れた空間である。
+
+\begin{align*}
+	\chi_{U}(x) =
+	\begin{cases}
+		1 & (x \in U)    \\
+		0 & (x \notin U)
+	\end{cases}
+\end{align*}
+
+この位相空間では、任意の連続写像 $f: X \to \mathbf{S}_ {2}$ は $U = f^{-1}(1)$ に対して、 $\chi_{U}$ と表現できる。
+
+これにより、任意の開集合 $U \subseteq \mathcal{O}$ と連続写像 $X \to \mathbf{S}_ {2}$ は1対1に対応していることがわかる。
+
+このことは、Sierpinski位相空間が持つ普遍的な性質であり、
+位相空間の圏 $\mathbf{Top}$ において、$\mathbf{S}_ {2}$ が開集合を「テスト」する役割を果たすことを意味する。
+
+これは圏論の言葉で、
+$$
+	\mathrm{Hom}_{\mathbf{Top}}(X, \mathbf{S}_ {2}) \cong \mathcal{O}
+$$
+と表現される。
+ここで $\mathrm{Hom}_{\mathbf{Top}}(X, \mathbf{S}_ {2})$ は、位相空間 $X$ から $\mathbf{S}_ {2}$ への連続写像の集合であり、これが位相 $\mathcal{O}$ と同型であることを示している。
+
+
+\subsection{\texorpdfstring{ちょっと丁寧に確認: $\mathrm{Hom}_{\mathbf{Top}}(X, \mathbf{S}_ {2}) \cong \mathcal{O}$}{ちょっと丁寧に証明: Hom(X, 2) is isomorphic to O}}
+
+Sierpinski位相空間を $(X, \mathcal{O})$、ここで $X = \{0, 1\}$ と $\mathcal{O} = \{\emptyset, \{0\}, X\}$ とする。
+また、$\mathbf{S}_ {2}$ は、2点集合 $\{0, 1\}$ にSierpinski位相を入れた空間であり、 $(X, \mathcal{O})$ と同一の空間である。
+
+定義の確認も込めて、連続写像の集合 $\mathrm{Hom}_{\mathbf{Top}}(X, \mathbf{S}_ {2})$ と、開集合の集合 $\mathcal{O}$ の間に1対1の対応（全単射）があることを示す。
+
+\subsubsection*{写像 $\Phi: \mathrm{Hom}_{\mathbf{Top}}(X, \mathbf{S}_ {2}) \to \mathcal{O}$ の定義}
+
+任意の連続写像 $f: X \to \mathbf{S}_ {2}$ に対して、
+$$ \Phi(f) = f^{-1}(1) $$
+と定義する。
+
+\subsubsection*{$\Phi$ が well-defined であることの確認}
+
+$f: X \to \mathbf{S}_ {2}$ が連続であることの定義から、開集合 $\{1\} \in \mathcal{O}$ の逆像 $f^{-1}(1)$ は、必ず $X$ の開集合、すなわち $\mathcal{O}$ の要素でなければならない。
+したがって、$\Phi(f) \in \mathcal{O}$ であり、$\Phi$ は well-defined である。
+
+\subsubsection*{$\Phi$ が全単射であることの証明}
+
+\begin{enumerate}
+	\item \textbf{単射であること}:
+	      $f, g \in \mathrm{Hom}_{\mathbf{Top}}(X, \mathbf{S}_ {2})$ であり、$\Phi(f) = \Phi(g)$ であると仮定する。
+	      これは、$f^{-1}(1) = g^{-1}(1)$ を意味する。
+	      このとき、両写像は以下の集合で値1をとる。
+	      $$ f^{-1}(1) = g^{-1}(1) $$
+	      また、両写像は以下の集合で値0をとる。
+	      $$ X \setminus f^{-1}(1) = X \setminus g^{-1}(1) $$
+	      したがって、すべての $x \in X$ に対して $f(x) = g(x)$ であり、$f = g$ である。
+	      よって、$\Phi$ は単射である。
+
+	\item \textbf{全射であること}:
+	      任意の開集合 $U \in \mathcal{O}$ をとる。
+	      この $U$ に対して、特性関数 $\chi_U: X \to \mathbf{S}_ {2}$ を以下のように定義する。
+	      $$ \chi_U(x) =
+		      \begin{cases}
+			      1 & (x \in U)    \\
+			      0 & (x \notin U)
+		      \end{cases}
+	      $$
+	      この $\chi_U$ が連続であることを示す。
+	      $\mathbf{S}_ {2}$ の開集合は $\emptyset, \{1\}, \{0, 1\}$ である。
+	      \begin{itemize}
+		      \item $\chi_U^{-1}(\emptyset) = \emptyset \in \mathcal{O}$
+		      \item $\chi_U^{-1}(\{1\}) = U \in \mathcal{O}$
+		      \item $\chi_U^{-1}(\{0, 1\}) = X \in \mathcal{O}$
+	      \end{itemize}
+	      すべての開集合の逆像が $X$ の開集合であるため、$\chi_U$ は連続写像である。
+	      さらに、$\Phi(\chi_U) = \chi_U^{-1}(1) = U$ である。
+	      したがって、任意の $U \in \mathcal{O}$ に対して、$\Phi(\chi_U) = U$ を満たす連続写像 $\chi_U$ が存在するため、$\Phi$ は全射である。
+\end{enumerate}
+
+単射かつ全射であるため、$\Phi$ は全単射である。
+よって、集合として $\mathrm{Hom}_{\mathbf{Top}}(X, \mathbf{S}_ {2})$ と $\mathcal{O}$ は1対1に対応している。
+$$
+	\mathrm{Hom}_{\mathbf{Top}}(X, \mathbf{S}_ {2}) \cong \mathcal{O}
+$$
+この同型は、Sierpinski空間 $\mathbf{S}_ {2}$ が位相空間の圏 $\mathbf{Top}$ において、開集合の情報を符号化する「分類空間」の役割を果たすことを示している。
+
+${}$
+
+位相空間の開集合は、通常、部分集合の集合として扱われる。
+しかし、この同型関係は開集合という静的な部分集合の概念を連続写像という動的な射の概念に変換している。
+
+これにより開集合に関する問題を圏論的な手法を用いて分析することができるという話でした。
+
+\end{document}
