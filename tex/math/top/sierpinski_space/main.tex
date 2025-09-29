@@ -1,10 +1,9 @@
-\documentclass[article,letterpaper,12pt]{jsarticle}
+\documentclass{article}
+\usepackage[english]{babel}
 \usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage{amsmath, amssymb}
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
-\usepackage{fancybox}
-\usepackage{tikz-cd}
 \title{
 Sierpinski Topological Space
 }
@@ -16,7 +15,7 @@ mastex
 \begin{document}
 \maketitle
 
-I stumbled upon this example, known as the Sierpinski topological space, while thinking about a space that's compact but not a closed set. It's a fascinating space, so I wanted to share this knowledge.
+I was thinking about spaces that are compact but not closed, and I came across this example known as a Sierpinski topological space. It's such an interesting space, I wanted to share this knowledge.
 
 \begin{abstract}
 	In topology, open sets are a fundamental concept for studying the properties of a space. However, open sets can sometimes be abstract and difficult to handle. In this paper, we will see how open sets in a topological space correspond to continuous maps to the Sierpinski space $\mathbf{S}_ {2}$, which is the simplest non-trivial topological space consisting of just two points $\{0, 1\}$ and three open sets $\{\emptyset, \{0\}, \{0, 1\}\}$.
@@ -33,7 +32,7 @@ This is also called a phase space,
 which is a space where generalized coordinates $x$ and their time derivatives $\frac{dx}{dt} = \dot{x}$ from analytical mechanics are chosen as the coordinate axes.
 For example, the Hamiltonian for a common harmonic oscillator with mass $m$ and constant $k$
 $$
-	H(x,\dot{x}) = \frac{1}{2}kx^{2}  + \frac{\dot{x}^{2}}{2m}
+	H(x,\dot{x}) = \frac{1}{2}kx^{2} + \frac{\dot{x}^{2}}{2m}
 $$
 The trajectory of the possible states in the phase space is an ellipse.
 In short, the phase space mentioned here is just a special name given to a Euclidean space in mathematics.
