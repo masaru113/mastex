@@ -1,0 +1,206 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+A First Step into Category Theory
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Memos on what the author, who does not specialize in mathematics, thought about when getting started with category theory.
+\end{abstract}
+
+\section{What is a Category?}
+
+\subsection{Definition of a Category}
+
+A category is a structure consisting of three axioms. Roughly speaking, if you have "objects," "morphisms," and "composition of morphisms," you have a category:
+
+\begin{enumerate}
+    \item There are objects.
+    \item There are morphisms between objects.
+    \item Morphisms can be composed.
+\end{enumerate}
+
+More specifically, a category ${\mathcal C}$ is defined as follows:
+
+\begin{enumerate}
+    \item Let $X,Y$ be objects of the category ${\mathcal C}$. There is a morphism $f: X \to Y$ between them.
+    The set of these morphisms is written as ${\mathcal C}(X,Y)$ or ${\rm Hom}_{\mathcal C}(X,Y)$, etc., and is called a hom-set.
+    \item For morphisms $f: X \to Y, g: Y \to Z, h: Z \to W$, the associative law $(hg)f = h(gf): X \to W$ holds.
+    \item An identity morphism ${\rm id}_{X}: X \to X$ exists.
+\end{enumerate}
+
+Categories can be represented by diagrams.
+A diagram is said to be commutative if any paths with the same starting and ending points result in the same morphism.
+For example, in a diagram like this:
+\[
+\begin{tikzcd}
+X \arrow[r,"f"]\arrow[rd,"h"'] & Y \arrow[d,"g"]\\
+& Z
+\end{tikzcd}
+\]
+the diagram is commutative when $gf=h$.
+
+One might feel a slight sense of unease when first learning category theory here, but the elements that have appeared, such as
+$X,Y,Z$
+are not elements of a set; they are objects of a category. Therefore, concrete examples would be mathematical structures themselves, such as vector spaces, topological spaces, groups, or rings.
+
+This means we are focusing on a meta-level one step higher than elementary mathematics, for example, set theory.
+
+\subsection{Examples of Categories}
+
+Frequently encountered categories have established notations.
+For example:
+
+\begin{enumerate}
+    \item When the objects are sets, ${\mathcal C} = {\bf Set}$ is used. In this case, the morphisms are functions.
+    \item When the objects are vector spaces over a field $k$, ${\mathcal C} = {\bf Vekt}_{k}$ is used. The morphisms are linear maps.
+    \item When the objects are topological spaces, ${\mathcal C} = {\bf Top}$ is used. The morphisms are continuous maps.
+    \item When the objects are groups, ${\mathcal C} = {\bf Grp}$ is used. The morphisms are group homomorphisms.
+    \item When the objects are modules over a ring $R$, ${\mathcal C} = R \ {\bf Mod}$ is used. The morphisms are $R$-module homomorphisms.
+\end{enumerate}
+
+As a technical note, it is known that the "collection of all sets" does not form a set.
+Therefore, we restrict ourselves to those "collections that allow for normal discussions in category theory," which are called locally small categories.
+
+\subsection{Opposite Category}
+
+For a category ${\mathcal C}$, the opposite category ${\mathcal C}^{\rm op}$ is one that has the same objects as ${\mathcal C}$ but with the direction of the morphisms reversed.
+
+That is, a category where ${\mathcal C}^{\rm op}(X,Y) = {\mathcal C}(Y,X)$.
+
+Opposite categories also appear in the definition of presheaves and in Yoneda's lemma.
+
+\subsection{Inverse Morphism and Isomorphism}
+
+For a morphism $f: X \to Y$ in a category ${\mathcal C}$, we can consider a reverse morphism $f^{-1}: Y \to X$.
+
+When multiplying from the left gives $f^{-1} f = {\rm id}_{X}$, $f^{-1}$ is said to be left-invertible.
+
+When multiplying from the right gives $ff^{-1} = {\rm id}_{Y}$, $f^{-1}$ is said to be right-invertible.
+
+And when it is both left- and right-invertible, it is said to be invertible.
+In this case, $f$ is called an isomorphism, and the objects $X, Y$ are also called isomorphic, written as $X \simeq Y$.
+
+The terminology is a bit tricky, but an invertible morphism is called an isomorphism, and "isomorphism" is sometimes used as a shorthand for "isomorphic morphism." There is also the concept of isomorphism between objects, distinct from that of a morphism.
+
+Isomorphism between objects is an equivalence relation, satisfying the reflexive, symmetric, and transitive properties.
+
+In some categories, a special name is given to isomorphisms.
+For example:
+
+\begin{enumerate}
+    \item In the category of sets ${\bf Set}$, an isomorphic morphism is called a bijection, and isomorphic objects have the same cardinality.
+    \item In the category of vector spaces over a field $k$, ${\mathcal C} = {\bf Vekt}_{k}$, an isomorphic morphism is called a linear isomorphism, and isomorphic objects have the same dimension.
+    \item In the category of topological spaces ${\mathcal C} = {\bf Top}$, an isomorphic morphism is called a homeomorphism, and isomorphic objects are homeomorphic.
+    \item In the category of groups ${\mathcal C} = {\bf Grp}$, an isomorphic morphism is called a group isomorphism, and isomorphic objects are group isomorphic.
+    \item In the category of modules over a ring $R$, ${\mathcal C} = R \ {\bf Mod}$, an isomorphic morphism is called a module isomorphism, and isomorphic objects are module isomorphic.
+\end{enumerate}
+
+\subsection{Pushforward and Pullback}
+
+For a morphism $f: X \to Y$ and an object $Z$ in a category, the pushforward by $f$, $f_{*} : \mathcal{C}(Z,X) \to \mathcal{C}(Z,Y)$, is defined as follows:
+\[
+\begin{tikzcd}
+\mathcal{C}(Z,X) \arrow[r,"f_{*}"] & \mathcal{C}(Z,Y) \\
+X \arrow[r,"f"] & Y \\
+Z \arrow[u,"g"] \arrow[ur,"f_{*}"'] &
+\end{tikzcd}
+\]
+The pushforward composes $f$ from the front: $f_{*} : g \mapsto fg$.
+
+A concept similar to pushforward is the pullback $f^{*} :\mathcal{C}(Y,Z) \to \mathcal{C}(X,Z)$, which is defined as follows:
+\[
+\begin{tikzcd}
+\mathcal{C}(X,Z) & \mathcal{C}(Y,Z) \arrow[l,"f^{*}"'] \\
+X \arrow[r,"f"] \arrow[dr,"f^{*}"'] & Y \arrow[d,"g"] \\
+& Z
+\end{tikzcd}
+\]
+The pullback composes $f$ from the back: $f^{*} : g \mapsto gf$.
+
+Intuitively, the pushforward is a morphism pushed out from $Z$, while the pullback is one pulled back to $Z$.
+
+\subsubsection{Theorem on Pushforward, Pullback, and Isomorphism}
+
+Regarding pushforward and pullback, the following are equivalent:
+
+\begin{enumerate}
+    \item $f : X \to Y$ is an isomorphism.
+    \item For any object $Z$, the pushforward $f_{*} : \mathcal{C}(Z,X) \to \mathcal{C}(Z,Y)$ is an isomorphism of sets.
+    \item For any object $Z$, the pullback $f^{*} :\mathcal{C}(Y,Z) \to \mathcal{C}(X,Z)$ is an isomorphism of sets.
+\end{enumerate}
+
+This theorem states an important viewpoint in category theory:
+
+\begin{center}
+\fbox{Objects are completely determined by their relationships with other objects}
+\end{center}
+
+Pushforward and pullback describe how a morphism $f: X \to Y$ transforms the relationships (Hom-sets) with other objects $Z$.
+
+If this transformation is "completely isomorphic in its relationship with all objects (i.e., no information is lost)," then there is no longer any distinguishing difference between $X$ and $Y$.
+
+Therefore, an object is not determined by "itself," but its existence is characterized by the "entirety of its relationships with other objects."
+
+This is the meaning of the categorical adage, "Objects are completely determined by their relationships with other objects."
+
+${}$
+
+To summarize the logical flow of this claim from the theorem:
+
+${}$
+
+{\bf 1. Morphisms represent relationships}
+
+In category theory, you cannot directly see the "contents" of an object $X$.
+
+Instead, $X$ is characterized by the morphisms (relationships) it has with other objects.
+
+${}$
+
+{\bf 2. Pushforward and Pullback}
+
+The pushforward $f_{*} : \mathcal{C}(Z,X) \to \mathcal{C}(Z,Y)$ is an operation that pushes a path from $Z$ to $X$ into a path to $Y$.
+
+The pullback $f^{*} :\mathcal{C}(Y,Z) \to \mathcal{C}(X,Z)$ is an operation that pulls back a path to $Z$ into a path from $X$.
+
+Both show how $f$ changes the relationships with other objects.
+
+${}$
+
+{\bf 3. Detecting Isomorphism}
+
+If $f$ is an isomorphism, the set of relationships is completely preserved for every $Z$.
+
+Conversely, if the pushforward and pullback are isomorphic for all objects $Z$, then $f$ loses no information and is, in fact, an isomorphism.
+
+${}$
+
+{\bf 4. Conclusion of the Claim: Relationships define objects}
+
+When asking what an object is, category theory defines the object itself by how it is positioned within a network of relationships with others.
+
+Therefore, the conclusion of the claim is that objects are completely determined by their relationships with other objects.
+
+${}$
+
+It might sound a bit poetic, but something similar could be said about people and their relationships.
+When you can't directly measure a person's character, one way to understand them is through who they have relationships with and what those relationships are like.
+This is similar to how categorical objects are characterized by their network of relationships.
+
+
+
+\end{document}
