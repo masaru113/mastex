@@ -10,47 +10,37 @@ This repository contains my personal notes on a wide range of topics in **mathem
 
 ## Contents
 
-### Mathematics
-- **Category Theory**: A fundamental branch of mathematics that formalizes the relationships between mathematical structures.
-- **Topology**: The study of spaces and their properties, such as continuity and connectivity.
-
-### Physics
-- **Kaluza-Klein Theory**: A framework that unifies gravity and electromagnetism by introducing extra spatial dimensions.
-- **Quantum Field Theory & String Theory**: Topics exploring the fundamental nature of particles and forces.
-- **Condensed Matter Physics**: Notes on advanced topics like high-temperature superconductivity.
-
-### Financial Engineering
-- **Financial Mathematics**: The application of mathematical models to financial markets.
-- **Quantitative Finance**: Notes on derivative pricing and portfolio theory.
-
----
-
-## Repository Structure
-
 The notes are organized within a parent directory named `tex`. All documents are written in LaTeX.
 
 ```
-tex
-├── finance
-│   ├── GaugeTheoryInFinance.tex
-│   └── ReplicatingPortfolioConstruction.tex
-│
-├── math
-│   ├── cat (Category Theory)
-│   │   ├── CategoryTheory_FirstSteps.tex
-│   │   ├── Functor.tex
-│   │   ├── NaturalTransformation.tex
-│   │   └── YonedaLemma.tex
-│   │
-│   └── top (Topology)
-│       └── SierpinskiSpace.tex
-│
-└── phys
-    ├── KaluzaKleinMassGeneration.tex
-    ├── BogoliubovTransformation_as_NaturalTransformation.tex
-    ├── BosonicString.tex
-    ├── ChernSimonsIntro.tex
-    └── FieldDependentRamanScattering_dWaves.tex
+└─tex
+    ├─finance
+    │  └─GaugeTheoryInForex
+    ├─math
+    │  ├─cat
+    │  │  ├─category_first_step
+    │  │  ├─functor
+    │  │  └─natural_transformation
+    │  └─top
+    │      └─sierpinski_space
+    └─phys
+        ├─BogoliubovTrans_as_NaturalTrans
+        ├─ChernSimonsForm
+        └─KaluzaKleinMassGeneration
 ```
+- **tex**: Root directory for documents created with LaTeX.
+    - **finance**: Notes on financial engineering.
+        - **GaugeTheoryInForex**: Notes examining the relationship between arbitrage in the foreign exchange market and gauge theory.
+    - **math**: Notes on mathematics.
+        - **cat**: Foundational notes on category theory.
+            - **category\_first\_step**: Definition of categories and specific examples.
+            - **functor**: Notes on functors and their applications in financial engineering and quantum mechanics.
+            - **natural\_transformation**: Notes on natural transformations.
+        - **top**: Folder for topics related to topological spaces.
+            - **sierpinski\_space**: Notes on Sierpinski space.
+    - **phys**: Notes on physics.
+        - **BogoliubovTrans\_as\_NaturalTrans**: Notes on the relationship between Bogoliubov transformations and natural transformations.
+        - **ChernSimonsForm**: Notes on a simple, from-scratch derivation of the Chern-Simons form.
+        - **KaluzaKleinMassGeneration**: Notes on the mechanism of mass generation via compactification.
 
 (as of 2025-09-29)
