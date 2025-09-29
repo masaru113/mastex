@@ -1,0 +1,571 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+
+\title{
+Functors Connecting Physics and Finance
+}
+
+\author{
+Masaru Okada
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	The definition and examples of functors, with a particular focus on those hidden within financial engineering and physics.
+\end{abstract}
+
+
+\section{Functors}
+
+We will confirm the definition and examples of functors.
+
+\subsection{Definition of a Functor}
+
+Consider two categories $C$ and $D$.
+
+In category $C$, there are objects $X,Y,Z$ and morphisms between them,
+$f: X \to Y , \ g: Y \to Z$,
+and a composite morphism
+$gf: X \to  Z$
+exists.
+
+In this case, a functor $F$ maps:
+
+The objects $X,Y,Z$ of category $C$ to objects $F(X),F(Y),F(Z)$ in category $D$,
+and also maps the morphisms in $D$.
+$F(f): F(X) \to F(Y) , \ F(g): F(Y) \to F(Z)$
+
+It also preserves the composition of morphisms in the target category:
+$F(g \circ f) = F(g) F(f): F(X) \to F(Z)$
+
+Such an $F$ is called a functor from category $C$ to category $D$.
+
+Since a category ("morphisms" and "objects") is mapped to another category ("morphisms" and "objects") while preserving its structure, it can be seen as a two-dimensional morphism.
+
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQANEAX1PU1z5CKchWp0mrdgE0efEBmx4CRUQCZxDFm0QgAWnP5KhRAMxiaWqboBiACg4BKQwoHLhyACwWJ29velnXiNBFRRvDUtJHRB7PSD5RVCPNVJiTWj2FyT3IlTTDL9dbLcTFDJ0qKKQAGES4zCvNMLrEAARHnEYKABzeCJQADMAJwgAWyQyEBwIJFEQRnoAIxhGAAVSsIWYQZwQKtbBlxHxuZoZpFSF5dWNhuFt3f3fVp7j0YnEKYvEK6sYnpHGiLFbrTYPYZYHoACz2wRAJ0+5mms0Q3heMXsg2cNGhMHoUCQYGYjEY8MRSHRPwArMCbmD7uxGDs9gdMXYegkhh8kMiaXTQXdkuxITDWRj-BzsQACAC80vsnKxXIRPMQAHZzqiAGy4-GE3SQMBsclq76o9FwaFYJ6IAC0AA4aCswAbTFMQbdwUyWc9-v5OtwgA
+\[
+	\begin{tikzcd}
+		C           &        & {}          &                  & D            \\
+		X \arrow[r, "f"] \arrow[rd, "gf"'] \arrow[rrrr, "F", bend left, shift left=8] & Y \arrow[d, "g"] &         & F(X) \arrow[r, "F(f)"] \arrow[rd, "F(gf) = F(g)F(f)"'] & F(Y) \arrow[d, "F(g)"] \\
+		& Z          &         &                                  & F(Z)         \\
+		&            & {} \arrow[uuu, no head] &                                  &
+	\end{tikzcd}
+\]
+
+\subsection{Examples of Functors}
+
+\subsubsection{Forgetful Functor}
+
+A simple example is the forgetful functor, which has the effect of removing mathematical structure (making one forget the structure it originally had).
+
+There is a forgetful functor $U$ from the category of groups $\textbf{Grp}$ to the category of sets $\textbf{Set}$.
+$$
+	U : \textbf{Grp} \to \textbf{Set}
+$$
+In this case, for a group $G$, $U(G)$ becomes its underlying set.
+
+For a group homomorphism $f$, $U(f)$ becomes a function.
+
+Other examples include a forgetful functor that forgets the ring operations in the category of rings and maps them to a set:
+
+$$U: \textbf{Ring} \to \textbf{Set}$$
+
+And a forgetful functor that forgets the structure of a topological space and extracts only its underlying set:
+
+$$U: \textbf{Top} \to \textbf{Set}$$
+
+One doesn't have to forget everything down to $\textbf{Set}$. For instance, one can consider a case where a ring's multiplicative operation is forgotten, but its additive group structure is remembered.
+
+$$ U : \textbf{Ring} \to \textbf{Ab} $$
+Here, $\textbf{Ab}$ is the category of abelian groups.
+
+
+\subsubsection{Free Functor}
+
+A free functor is, in a sense, a dual to a forgetful functor. It bestows a richer structure, as if to recover the structure that was forgotten.
+
+As an example of a free functor, consider a functor from the category of sets to the category of vector spaces.
+$$F : \textbf{Set} \to \textbf{Vect}_{k}$$
+This functor $F$ maps a set $S$ to a vector space $F(S)$ that has the formal $k$-linear combinations of its elements as a basis.
+
+Another important example is a free functor from the category of abelian groups to the category of rings. By giving a product structure and its associated axioms to an abelian group, it becomes a ring.
+$$F : \textbf{Ab} \to \textbf{Ring}$$
+
+
+\subsubsection{Functor between Categories with a Single Object (Monoid Homomorphism)}
+
+Let $G$ and $H$ be groups, each considered as a special category with only one object. We denote the category corresponding to group $G$ as $\mathcal{G}$ and the category corresponding to group $H$ as $\mathcal{H}$.
+
+$$F: \mathcal{G} \to \mathcal{H}$$
+
+This functor $F$ is not just a map from one category to another; it has the important property of preserving the category's structure.
+
+The essence of categories $\mathcal{G}$ and $\mathcal{H}$ is that they each consist of a single object and a collection of morphisms from that object to itself. This collection of morphisms, with the operation of composition, forms the structure of a monoid.
+
+$$F: G \to H$$
+
+Therefore, the functor $F$ between the categories can be seen as a map that preserves this monoid structure. For this reason, the functor $F$ can be called a monoid homomorphism from group $G$ to group $H$.
+
+Since a group is a special kind of monoid where every element has an inverse, this homomorphism is also specifically called a group homomorphism.
+
+
+
+
+\subsubsection{Linear Representation of a Group}
+
+Similar to the previous example, let $G$ be a group, and let $\mathcal{G}$ be the category with one object corresponding to it.
+In this case, a functor $F$
+$$F : \mathcal{G} \to \mathbf{Vect}_{k} $$
+is a linear representation of a group.
+The fact that groups can be represented by matrices is thanks to this functor in the background.
+
+
+\subsubsection{The Unique Functor to the Terminal Category}
+
+Let the category $\textbf{1}$ be a category with a single object and only an identity morphism.
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRACoQBfKkGKAObwioAGYAnCAFskZEDgizqDCBDREAnGVGM4MXgzoAjGAwAKmXPkKIQ4rAIAWOENXrNWt4AB1v4qQAEWFBc3BRcQA
+\[
+	\begin{tikzcd}
+		* \arrow["{\rm id}"', loop, distance=2em, in=35, out=325]
+	\end{tikzcd}
+\]
+Such a category is called a discrete category.
+
+A functor from a category $C$ to the category $\textbf{1}$ is uniquely determined as a (trivial) functor that maps all objects of $C$ to $*$ and all morphisms to the identity morphism.
+This functor is written as $!: C \to \mathbf{1}$.
+
+
+\subsubsection{Any Object is a Functor}
+
+A bit like the opposite version of the unique functor to category $\textbf{1}$, consider a functor $\Delta_{C} d$ from category $C$ to a fixed object $d$ in category $D$.
+This functor:
+
+\ - maps every object of $C$ to the fixed object $d$ in category $D$, and
+
+\ - maps every morphism of $C$ to the identity morphism.
+
+Using this, the previous example of the unique functor to category $\textbf{1}$ can be expressed as
+\[
+	! = \Delta_{C} * : C \to \mathbf{1}
+\]
+By the way, a functor $\Delta_{\textbf{1}} d$ from category $\textbf{1}$ to a fixed object $d$ in category $D$ corresponds one-to-one with $d$ itself.
+Through this identification, any object $x$ can be viewed as the functor $\Delta_{\textbf{1}} x$ from category $\textbf{1}$.
+
+
+\subsubsection{Any Collection of Objects is a Functor}
+
+When $C$ is a discrete category, a functor $F: C \to D$ from the discrete category $C$ to category $D$ is determined solely by its mapping to objects, since the morphisms in $C$ are only identity morphisms.
+
+Conversely, for a collection of objects in $D$ indexed by each object in $C$, $\{ d_{c} \in D \}_{c \in C}$, a functor $F: C \to D$ such that $c \mapsto Fc := d_{c}$ is uniquely determined.
+
+A functor is a structure-preserving map between categories.
+In the specific case where $C$ is a discrete category, its structure is trivial, so the functor $F$ can be identified with a map to objects.
+
+\subsection{Representable Functor}
+
+We will extend the use of the hom-set notation to introduce the representable functor.
+This functor is an important one used in the Yoneda lemma.
+
+The set of morphisms $A \to B$ in a category $C$ is written as ${\rm Hom}_{C}(A,B)$, etc., and is called a hom-set.
+$${\rm Hom}_{C}(A,B) = \{ f \in C \ | \ f : A \to B\}$$
+
+An object can be represented by a morphism.
+For example, an object $B$ can be identified with the morphism $1_{B}: B \to B$.
+
+\[
+	{\rm Hom}_{C}(A,1_{B}) = {\rm Hom}_{C}(A,B) = \{ f \in C \ | \ f : A \to B\}
+\]
+
+Using this idea, what is put into the second argument, a morphism
+$g : B \to B'$
+in category $C$, is induced from the definition as follows.
+\[
+	\begin{array}{ccc}
+		{\rm Hom}_{C}(A,g)     & :       & {\rm Hom}_{C}(A,B) \to {\rm Hom}_{C}(A,B') \\
+		\rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$}                    \\
+		(f : A \to B)           & \mapsto & (g \circ f : A \to B \to B')
+	\end{array}
+\]
+
+Furthermore, by extending the notation, we can view the hom-set with a variable argument as a functor.
+\[
+	{\rm Hom}_{C}(A,-) : C \to \mathbf{Set}
+\]
+
+This is given the name **representable functor** by $A$.
+
+Let's confirm that this is indeed a functor.
+To satisfy the functor axioms, the following must hold:
+\[
+	{\rm Hom}_{C}(A,1_{X}) = 1_{{\rm Hom}_{C} (A,X)}
+\]
+\[
+	{\rm Hom}_{C}(A,g \circ f) = {\rm Hom}_{C} (A,g) \circ {\rm Hom}_{C} (A,f)
+\]
+Considering an arbitrary variable (morphism)
+$x: A \to X$,
+\[
+	\begin{array}{rcl}
+		{\rm Hom}_{C}(A,1_{X})(x) & = & 1_{X} \circ x          \\
+		                         & = & x                      \\
+		                         & = & 1_{{\rm Hom}_{C} (A,X)}
+	\end{array}
+\]
+Identity maps to identity, which is OK. Also,
+\[
+	\begin{array}{rcl}
+		{\rm Hom}_{C}(A,g \circ f)(x) & = & (g \circ f) \circ x                      \\
+		                             & = & g \circ (f \circ x)                      \\
+		                             & = & {\rm Hom}_{C}(A,g) \Big( {\rm Hom}_{C}(A,f) \Big)
+	\end{array}
+\]
+Composition maps to composition, which is also OK. This confirms that
+${\rm Hom}_{C}(A,-) : C \to \mathbf{Set}$
+is a functor.
+
+${}$
+
+We can express the properties of a functor using a commutative diagram.
+
+Consider morphisms $f: X \to Y$ and $g: Y \to Z$ in $C$.
+The functor ${\rm Hom}_{C}(A,-)$ maps these morphisms to maps ${\rm Hom}_{C}(A,f)$ and ${\rm Hom}_{C}(A,g)$ in the category $\mathbf{Set}$.
+
+The composite morphism
+$g \circ f: X \to Z$
+also corresponds to the map ${\rm Hom}_{C}(A,g \circ f)$.
+
+The functor property
+${\rm Hom}_{C}(A,g \circ f) = {\rm Hom}_{C} (A,g) \circ {\rm Hom}_{C}(A,f)$
+is expressed by the following commutative diagram.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAVgBoBGAXVJADcBDAGwFcYkRgAdTgJwFsABAAkIfAL4B9YAGExACgCCpABoBKEGNLpMufIRQB2CtTpNW7Lr0EjxU2YtICAmus3bseAkSMBmEwxY2RA5ufmFRSRl5JQEALVctEAwPPSIABmMaAPNg5Q1E5N0vFAAmUj8ssyCQWPz3Iv1kMqpKwPYnOqSdT0byUjT-KvZOwp6iMgHWnJAR7tSUH1IAFkG24NmU4uRFydM1mbETGCgAc3giUAAzHlEkDJAcCCQ+venLMJtI+xjL9RpGegAIxhGAAUdT30QRhhenCqQfsHESZGxxCNTcuDLMJtI+xiOhL6BviGaUZIB7rLa7fapYI8LAdAAWZym2QsoWsETs0UcHQE3AAxlgeNjlt8Lr8kABmAF3G7THIvFELD6OAC0RMuf0Q6VuZIRTwu51ZXM5iAArNyZh0+ST2RSkCLHmKsZxcfjlhKrhzAYhhtSkXM3milszVWzZRqHtrnsj5u90QJDWJKGIgA
+	\begin{tikzcd}
+		& {} \arrow[rrrr, "{{\rm Hom}_{C}(A, -)}", bend left=49, shift right=4] &           & {}              &  & {}                                    &  &                                \\
+		X \arrow[rrdd, "g \circ f"'] \arrow[rr, "f"] &                                  & Y \arrow[dd, "g"] &                 &  & {{\rm Hom}_{C}(A,X)} \arrow[rr, "{{\rm Hom}_{C}(A, f)}"] \arrow[rrdd, "{{\rm Hom}_{C}(A, g \circ f)}"'] &  & {{\rm Hom}_{C}(A, Y)} \arrow[dd, "{{\rm Hom}_{C}(A, g)}"] \\
+		&                                  &                   &                 &  &                                  &  &                                \\
+		&                                  & Z                 &                 &  &                                  &  & {{\rm Hom}_{C}(A, Z)}          \\
+		&                                  &                   & {} \arrow[uuuu, no head, shift right=10] &  &                                  &  &
+	\end{tikzcd}
+\]
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoAWAXVJADcBDAGwFcYkRgAdTgJwFsABAAkIfAL4B9YAGExACgCCpABoBKEGNLpMufIRQAmCtTpNW7Lr0EjxU2YtICAmus3bseAkSMA2EwxY2RA5ufmFRSRl5JQEALVctEAwPPSJyUmJ-MyCQJw1E5N0vQwyswPZlfPci-WR0gzLzYNiNExgoAHN4IlAAMx5RJDIQHAgkAEYaAKaQq3DbKIcBXvUaRnoAIxhGAAUdT30QRhhenCqQfsHESZGxxCNTcuDLMJtI+xiOhL6BviGaUZIB7rLa7fapYI8LAdAAWZym2QsoWsETs0UcHQE3AAxlgeNjlt8Lr8kABmAF3G7THIvFELD6OAC0RMuf0Q6VuZIRTwu51ZXM5iAArNyZh0+ST2RSkCLHmKsZxcfjlhKrhzAYhhtSkXM3milszVWzZRqHtrnsj5u90QJDWJKGIgA
+	\begin{tikzcd}
+		&  & X \arrow[rr, "f"] \arrow[rrdd, "g \circ f"] \arrow[lldddd, "{{\rm Hom}_{C}(A, -)}"] &  & Y \arrow[lldddd, "{{\rm Hom}_{C}(A, -)}"] \arrow[dd, "g"] \\
+		&  &                                  &  &                                \\
+		&  &                                  &  & Z \arrow[lldddd, "{{\rm Hom}_{C}(A, -)}"]          \\
+		&  &                                  &  &                                \\
+		{{\rm Hom}_{C}(A,X)} \arrow[rr, "{{\rm Hom}_{C}(A, f)}"] \arrow[rrdd, "{{\rm Hom}_{C}(A, g \circ f)}"'] &  & {{\rm Hom}_{C}(A, Y)} \arrow[dd, "{{\rm Hom}_{C}(A, g)}"]          &  &                                \\
+		&  &                                  &  &                                \\
+		&  & {{\rm Hom}_{C}(A, Z)}                             &  &
+	\end{tikzcd}
+\]
+
+This diagram shows that the path from ${\rm Hom}_{C}(A,X)$ to ${\rm Hom}_{C}(A,Z)$ via ${\rm Hom}_{C}(A,Y)$ is equal to the direct path.
+This means that the functor has the property of faithfully "translating" the structure of category $C$ (especially the composition of morphisms) into the structure of the category of sets, $\mathbf{Set}$.
+
+Similarly, we can consider the **contravariant Hom functor**.
+This is a functor where the first argument is a variable:
+$$
+	{\rm Hom}_{C}(-,A) : C^{op} \to \mathbf{Set}
+$$
+Here, $C^{op}$ is the category with all morphisms from the original category $C$ reversed.
+
+A morphism $f : B \to B'$ in $C$ becomes $f^{op} : B' \to B$ in $C^{op}$. The functor ${\rm Hom}_{C}(-,A)$ then maps the morphism $f$ to a map
+$f^* : {\rm Hom}_{C}(B',A) \to {\rm Hom}_{C}(B,A)$.
+Specifically, for a morphism $h: B' \to A$,
+$f^*(h) = h \circ f$
+is defined.
+
+For this contravariant functor, the following commutative diagram holds.
+If we consider morphisms $f: X \to Y$ and $g: Y \to Z$ in $C$:
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAVgBoBGAXVJADcBDAGwFcYkRgAdTgJwFsABAAkIfAL4B9YAGExACgBapAIIBKEGNLpMufIRQB2CtTpNW7Lr0EjxU2XICaK9Zu3Y8BIkYDMJhizZEDm5+YVFJGXkADWcNLRAMdz0iAAZjGn9zIIU4t11PFAAmdNMA9gdchJ0PfWRi3wyzQJAoysT82vJSFL8m9jbq5JQANm7esqCNExgoAHN4IlAAMx5RJDSQHAgkLtKs4Ksw20i5WdIBNRAaRnoAIxhGAAVBgpBGGCWcSpW1xF2tpDFN53B7PJKvd6fK57ZqWUI2CL2JaxVwgH58dY0AGIIE3e5PF76EA8LCzAAWX0aEwO8PCdnkSwE3AAxlgeMyBGcLi54uikAAWLHbRDeKn7WbfVYYxBkTbCwUw9hLSW-WXY0WKoKzJmcVnsgTK1F8xCjOVIIwge5gKBIbwbPGgwnsEnkymamnWOknAC050uNDgZKwUMQAA4xJQxEA
+	\begin{tikzcd}
+		& {} \arrow[rrrrr, "{{\rm Hom}_{C}(-, A)}"', bend left, shift right=8] &           &  &  &                          & {} &                          \\
+		Z &                                 & Y \arrow[ll, "g"]          &  &  & {{\rm Hom}_{C}(Z,A)} \arrow[rr, "{{\rm Hom}_{C}(g, A)}"] \arrow[rrdd, "{{\rm Hom}_{C}(f \circ g, A)}"'] &  & {{\rm Hom}_{C}(Y,A)} \arrow[dd, "{{\rm Hom}_{C}(f,A)}"] \\
+		&                                 &                            &  &  &                          &  &                          \\
+		&                                 & X \arrow[uu, "f"] \arrow[lluu, "g \circ f"] &  &  &                          &  & {{\rm Hom}_{C}(X,A)}
+	\end{tikzcd}
+\]
+
+Note that the direction of the arrows is reversed.
+This diagram implies ${\rm Hom}_{C}(f \circ g, A) = {\rm Hom}_{C}(f,A) \circ {\rm Hom}_{C}(g,A)$, showing that the order of composition of morphisms is reversed. This property is why this functor is called **contravariant**.
+
+
+
+\section{Example of Functors in Financial Engineering: The Physical Measure P and Risk-Neutral Measure Q}
+
+In financial markets, mathematical tools called probability measures are sometimes used to describe the future movement of stock or asset prices.
+
+\begin{itemize}
+	\item The **Physical Measure** ($P$) is a measure that describes the probability distribution of asset prices in the real world. Under this measure, the expected return of an asset includes a risk premium. In other words, assets with more risk are expected to have a higher average return. (This is the measure under which we see low-risk, low-return and high-risk, high-return dynamics).
+	\item The **Risk-Neutral Measure** ($Q$) is a hypothetical, theoretical probability measure. Under this measure, the expected return of all assets is equal to the risk-free interest rate. This measure is derived under the assumption that market participants are neutral to risk, and is therefore called "risk-neutral."
+\end{itemize}
+
+\subsection{Measure Transformation as a Functor}
+
+The relationship between the physical measure $P$ and the risk-neutral measure $Q$ can be captured using the concept of a functor.
+
+\medskip
+
+Consider two categories:
+
+**Category $C_{P}$**: The category of stochastic financial models under the physical measure $P$.
+\begin{itemize}
+	\item Objects: Asset price processes $S_{P}$ on a probability space (e.g., stock prices under the physical measure $P$).
+	\item Morphisms: Maps between stochastic financial models $f$. For example, portfolio rebalancing or derivation relationships from one asset to another.
+\end{itemize}
+
+\medskip
+
+**Category $C_{Q}$**: The category of stochastic financial models under the risk-neutral measure $Q$.
+\begin{itemize}
+	\item Objects: Asset price processes $S_{Q}$ on a probability space (e.g., stock prices under the risk-neutral measure $Q$).
+	\item Morphisms: Maps between stochastic financial models $g$.
+\end{itemize}
+
+We can define a functor $F$ as a map from category $C_{P}$ to category $C_{Q}$.
+
+**Object Correspondence**:
+The functor maps an asset price process $S_{P}$ under the physical measure $P$ to an asset price process $F(S_{P}) = S_{Q}$ under the risk-neutral measure $Q$. This correspondence is performed by the Girsanov's theorem.
+
+${}$
+
+$$
+	\begin{tikzcd}
+		\text{Price of Product 1 under P } S_{P,1} \arrow[r, "f"] \arrow[d, "F"] & \text{Price of Product 2 under P } S_{P,2} \arrow[d, "F"] \\
+		\text{Price of Product 1 under Q } S_{Q,1} \arrow[r, "F(f)"] & \text{Price of Product 2 under Q } S_{Q,2}
+	\end{tikzcd}
+$$
+
+${}$
+
+The price process $S_{P}(t)$ is a random variable that depends on time $t$ and sample $\omega$, and its map is expressed as follows:
+
+\begin{itemize}
+	\item Domain: The Cartesian product of time and sample space, $[0, T] \times \Omega$
+	\item Codomain: The set of positive real numbers, $\mathbb{R}_{>0}$
+\end{itemize}
+
+$$
+	S_{P}: [0, T] \times \Omega \to \mathbb{R}_{>0}
+$$
+$$
+	(t, \omega) \in [0, T] \times \Omega \mapsto S_{P}(t, \omega) \in \mathbb{R}_{>0}
+$$
+
+The Radon-Nikodym derivative $\frac{dQ}{dP}$ is a random variable defined on the sample space $\Omega$ that is almost surely positive, and its map is expressed as follows:
+
+\begin{itemize}
+	\item Domain: Sample space $\Omega$
+	\item Codomain: The set of positive real numbers, $\mathbb{R}_{>0}$
+\end{itemize}
+
+$$
+	\frac{dQ}{dP}: \Omega \to \mathbb{R}_{>0}
+$$
+$$
+	\omega \in \Omega \mapsto \frac{dQ}{dP}(\omega) \in \mathbb{R}_{>0}
+$$
+
+This functor $F$ is specifically represented by the Radon-Nikodym derivative constructed by Girsanov's theorem.
+For example, when the price $S_{P}$ under measure $P$ follows the following stochastic process:
+
+$$
+	d S_{P} (t)
+	=
+	\mu S_{P} (t) dt
+	+
+	\sigma S_{P} (t) dW_{P}(t)
+$$
+the functor $F$ transforms this stochastic process into a process under the risk-neutral measure $Q$. This transformation is given by the Radon-Nikodym derivative as:
+$$
+	\frac{dQ}{dP}
+	=
+	\exp \Big(
+	- \int_{0}^{t} \lambda(u) d W_{P} (u)
+	- \frac{1}{2} \int^{t}_{0} \lambda^{2} (u) du
+	\Big)
+$$
+
+
+
+
+\section{Second Quantization as a Functor}
+
+The correspondence between one-particle quantum mechanics and many-particle quantum mechanics (field theory) can be expressed using a functor. This correspondence rigorously describes the process that physicists (and physics enthusiasts) call "second quantization" in the language of category theory.
+
+\subsection{The Process of Second Quantization}
+
+In one-particle quantum mechanics, the state of a particle is described as a vector in a Hilbert space. In contrast, in many-particle quantum mechanics, particles are treated as excited states of a field. Second quantization is a mathematical procedure that "lifts" one-particle states to a Fock space, which describes many-particle states.
+
+A functor abstractly represents this "lifting" operation. Here, we consider the following two categories:
+
+\begin{itemize}
+	\item **Category $\mathcal{C}_{1p}$**: The category of one-particle quantum mechanics
+	  \begin{itemize}
+		  \item Objects: Hilbert spaces $H$ for a one-particle system.
+		  \item Morphisms: Linear operators $A: H_1 \to H_2$ on a Hilbert space (e.g., a Hamiltonian).
+	  \end{itemize}
+
+	\item **Category $\mathcal{C}_{mp}$**: The category of many-particle quantum mechanics (field theory)
+	  \begin{itemize}
+		  \item Objects: Fock spaces $\mathcal{F}(H)$. These are spaces of many-particle states constructed from a one-particle Hilbert space $H$.
+		  \item Morphisms: Linear operators $B$ on a Fock space (e.g., creation and annihilation operators).
+	  \end{itemize}
+\end{itemize}
+
+\subsection{Correspondence via a Functor}
+
+We can define a functor $\mathbf{F}$ as a map from category $\mathcal{C}_{1p}$ to category $\mathcal{C}_{mp}$. This functor plays the role of mapping the structure of a one-particle system to the structure of a many-particle system.
+
+\subsubsection{Object Correspondence}
+
+The functor $\mathbf{F}$ maps a one-particle Hilbert space $H$ to a many-particle Fock space $\mathbf{F}(H)$. The Fock space is constructed in the following form:
+$$\mathbf{F}(H) = \bigoplus_{n=0}^{\infty} \left( H^{\otimes n} \right)_S$$
+Here, $H^{\otimes n}$ is the tensor product of $n$ Hilbert spaces, and the subscript $S$ accounts for the statistics of either Bose particles (symmetrization) or Fermi particles (antisymmetrization).
+
+\subsubsection{Morphism Correspondence and Commutative Diagram}
+
+The functor $\mathbf{F}$ maps a linear operator $A: H_1 \to H_2$ on a one-particle Hilbert space to an operator $\mathbf{F}(A): \mathbf{F}(H_1) \to \mathbf{F}(H_2)$ on a Fock space. For example, a one-particle Hamiltonian $H_{1p}$ corresponds to a second-quantized Hamiltonian $H_{mp}$.
+
+This relationship can be expressed with a commutative diagram as follows:
+$$
+	\begin{tikzcd}
+		\text{One-particle Hilbert space } H_1 \arrow[r, "A"] \arrow[d, "\mathbf{F}"] & \text{One-particle Hilbert space } H_2 \arrow[d, "\mathbf{F}"] \\
+		\text{Fock space } \mathbf{F}(H_1) \arrow[r, "\mathbf{F}(A)"] & \text{Fock space } \mathbf{F}(H_2)
+	\end{tikzcd}
+$$
+
+This diagram shows that a physical operation in the one-particle system (morphism $A$) is consistent with the physical operation $\mathbf{F}(A)$ in the many-particle system via the functor $\mathbf{F}$. This functorial perspective allows the physical concept of second quantization to be understood as a more abstract and rigorous mathematical structure.
+
+\subsubsection{Creation and Annihilation Operators and Functors}
+
+As a concrete example of second quantization, we can view the construction of creation and annihilation operators functorially. For any vector $|\psi\rangle \in H$ in a one-particle Hilbert space, a creation operator $a^\dagger(\psi)$ is defined on the Fock space $\mathbf{F}(H)$.
+
+$$a^\dagger(\psi) : \mathbf{F}(H) \to \mathbf{F}(H)$$
+
+This creation operator corresponds to the operation of adding a one-particle state $|\psi\rangle$ to the many-particle system. More strictly, the functor $\mathbf{F}$ maps a projection $P$ in the one-particle Hilbert space $H$ to a corresponding projection $\mathbf{F}(P)$ in the Fock space.
+
+$$
+	\begin{tikzcd}
+		H \arrow[r, "P"] \arrow[d, "\text{Creation}"] & H \arrow[d, "\text{Creation}"] \\
+		\mathbf{F}(H) \arrow[r, "\mathbf{F}(P)"] & \mathbf{F}(H)
+	\end{tikzcd}
+$$
+
+${}$
+
+This diagram shows how the selection of a state in the one-particle space (projection $P$) is transformed into a creation or annihilation operator in the many-particle Fock space. This provides a unified way to understand how quantum mechanical properties of a one-particle system (e.g., momentum conservation) are inherited by properties of the many-particle field theory (e.g., total momentum operator).
+
+
+
+
+
+
+\section{Functorial Representation of Correspondence between Quantum Mechanical Pictures}
+
+The different pictures of quantum mechanics (Schrödinger, Heisenberg, and interaction) can be expressed uniformly using functors. This demonstrates that each picture describes the same physical laws with different mathematical structures.
+
+\subsection{Defining the Categories}
+
+For this representation, we define the following two categories:
+
+\begin{itemize}
+	\item **Category of Physical Systems $\mathcal{C}_{Sys}$**:
+	  \begin{itemize}
+		  \item Objects: Hilbert spaces $H$ that describe the state of a physical system.
+		  \item Morphisms: Unitary operators $U(t, t_0): H \to H$ that represent state transformations.
+	  \end{itemize}
+
+	\item **Category of Observables and Time Evolution $\mathcal{C}_{Evol}$**:
+	  \begin{itemize}
+		  \item Objects: The set of time-dependent observables (operators) $\mathcal{O}(t)$.
+		  \item Morphisms: Maps that describe the transformations between pictures.
+	  \end{itemize}
+\end{itemize}
+
+\subsection{The Three Pictures and Functors}
+
+\subsubsection{Schrödinger Picture (S-picture)}
+
+In the Schrödinger picture, the state vector $|\psi(t)\rangle_S$ evolves with time, while the operator $A_S$ does not. We consider the correspondence from this picture to the Heisenberg picture as a functor $\mathbf{F}_{S \to H}$.
+
+\begin{itemize}
+	\item **Object Correspondence**:
+	  $|\psi(t)\rangle_S \mapsto |\psi\rangle_H = U(t_0, t)|\psi(t)\rangle_S$
+	\item **Morphism Correspondence**:
+	  $A_S \mapsto A_H(t) = U(t, t_0)A_S U(t_0, t)$
+\end{itemize}
+
+This relationship can be expressed with a commutative diagram as follows:
+
+$$
+	\begin{tikzcd}
+		\text{State } |\psi(t)\rangle_S \arrow[r, "\text{Time Evolution}"] \arrow[d, "\mathbf{F}_{S \to H}"] & \text{State } |\psi(t')\rangle_S \arrow[d, "\mathbf{F}_{S \to H}"] \\
+		\text{State } |\psi\rangle_H \arrow[r, "\text{Identity Map}"] & \text{State } |\psi\rangle_H
+	\end{tikzcd}
+$$
+
+This diagram shows that the time evolution of a state in the Schrödinger picture corresponds to the state remaining static in the Heisenberg picture.
+
+
+
+\subsubsection{Heisenberg Picture (H-picture)}
+
+In the Heisenberg picture, the state vector $|\psi\rangle_H$ is time-independent, while the operator $A_H(t)$ evolves with time. We consider the correspondence from the Heisenberg picture to the Schrödinger picture as a functor $\mathbf{F}_{H \to S}$.
+
+\begin{itemize}
+	\item **Object Correspondence**:
+	  $|\psi\rangle_H \mapsto |\psi(t)\rangle_S = U(t, t_0)|\psi\rangle_H$
+	\item **Morphism Correspondence**:
+	  $A_H(t) \mapsto A_S = U(t_0, t)A_H(t)U(t, t_0)$
+\end{itemize}
+
+This relationship can be expressed with a commutative diagram.
+
+$$
+	\begin{tikzcd}
+		\text{Operator } A_H(t) \arrow[r, "\text{Time Evolution}"] \arrow[d, "\mathbf{F}_{H \to S}"] & \text{Operator } A_H(t') \arrow[d, "\mathbf{F}_{H \to S}"] \\
+		\text{Operator } A_S \arrow[r, "\text{Identity Map}"] & \text{Operator } A_S
+	\end{tikzcd}
+$$
+
+This diagram shows that the time evolution of an operator in the Heisenberg picture corresponds to the operator being static in the Schrödinger picture.
+
+
+
+\subsubsection{Interaction Picture (I-picture)}
+
+The interaction picture is positioned between the Schrödinger and Heisenberg pictures. It separates the Hamiltonian $H$ into a free Hamiltonian $H_0$ and an interaction Hamiltonian $V(t)$.
+
+\begin{itemize}
+	\item **State Vector**: $|\psi(t)\rangle_I = e^{iH_0 t/\hbar}|\psi(t)\rangle_S$
+	\item **Operator**: $A_I(t) = e^{iH_0 t/\hbar}A_S e^{-iH_0 t/\hbar}$
+\end{itemize}
+
+The correspondence from the Schrödinger picture to the interaction picture is represented as a functor.
+
+$$
+	\begin{tikzcd}
+		\text{State } |\psi(t)\rangle_S \arrow[r, "\text{Total Time Evolution}"] \arrow[d, "\mathbf{F}_{S \to I}"] & \text{State } |\psi(t')\rangle_S \arrow[d, "\mathbf{F}_{S \to I}"] \\
+		\text{State } |\psi(t)\rangle_I \arrow[r, "\text{Interaction Evolution}"] & \text{State } |\psi(t')\rangle_I
+	\end{tikzcd}
+$$
+
+This diagram shows that the total time evolution in the Schrödinger picture corresponds to time evolution due to interaction in the interaction picture. In this way, the three pictures of quantum mechanics are connected in a consistent manner by functors.
+
+
+
+\end{document}

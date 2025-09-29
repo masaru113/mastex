@@ -1,0 +1,598 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+
+\title{
+物理と金融をつなぐ関手
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	関手の定義と例、特に金融工学や物理に潜む関手について。
+\end{abstract}
+
+
+\section{関手}
+
+関手の定義と例を確認する。
+
+\subsection{関手の定義}
+
+2つの圏 $C,D$ を考える。
+
+圏 $C$ では対象 $X,Y,Z$ があり、それぞれの間に
+$f: X \to Y , \ g: Y \to Z$
+の射があって、
+合成射
+$gf: X \to  Z$
+が存在するとする。
+
+このとき関手 $F$ とは、
+
+圏 $C$ の対象 $X,Y,Z$ を圏 $D$ の対象 $F(X),F(Y),F(Z)$ に移し、
+なおかつ射も $D$ の射も移す。
+$F(f): F(X) \to F(Y) , \ F(g): F(Y) \to F(Z)$
+
+移した先にも射の合成を保つ：
+$F(g \circ f) = F(g) F(f): F(X) \to F(Z)$
+
+このような $F$ を圏 $C$ から $D$ への関手と呼ぶ。
+
+圏（"射" と "対象"）が別の圏（"射" と "対象"）に構造を保ちながら移ることから2次元的な射のようにも見える。
+
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQANEAX1PU1z5CKchWp0mrdgE0efEBmx4CRUQCZxDFm0QgAWnP5KhRAMxiaWqboBiACg4BKQwoHLhyACwWJ29velnXiNBFRRvDUtJHRB7PSD5RVCPNVJiTWj2FyT3IlTTDL9dbLcTFDJ0qKKQAGES4zCvNMLrEAARHnEYKABzeCJQADMAJwgAWyQyEBwIJFEQRnoAIxhGAAVSsIWYQZwQKtbBlxHxuZoZpFSF5dWNhuFt3f3fVp7j0YnEKYvEK6sYnpHGiLFbrTYPYZYHoACz2wRAJ0+5mms0Q3heMXsg2cNGhMHoUCQYGYjEY8MRSHRPwArMCbmD7uxGDs9gdMXYegkhh8kMiaXTQXdkuxITDWRj-BzsQACAC80vsnKxXIRPMQAHZzqiAGy4-GE3SQMBsclq76o9FwaFYJ6IAC0AA4aCswAbTFMQbdwUyWc9-v5OtwgA
+\[
+	\begin{tikzcd}
+		C                                                                             &                  & {}                      &                                                        & D                      \\
+		X \arrow[r, "f"] \arrow[rd, "gf"'] \arrow[rrrr, "F", bend left, shift left=8] & Y \arrow[d, "g"] &                         & F(X) \arrow[r, "F(f)"] \arrow[rd, "F(gf) = F(g)F(f)"'] & F(Y) \arrow[d, "F(g)"] \\
+		& Z                &                         &                                                        & F(Z)                   \\
+		&                  & {} \arrow[uuu, no head] &                                                        &
+	\end{tikzcd}
+\]
+
+\subsection{関手の例}
+
+\subsubsection{忘却関手}
+
+シンプルな例は忘却関手と呼ばれる関手で、これは数学的構造を取り除く（もともと持っていた構造を忘れさせる）ような作用がある。
+
+群の圏
+$\textbf{Grp}$
+から
+集合の圏
+$\textbf{Set}$
+への忘却関手 $U$
+$$
+	U : \textbf{Grp} \to \textbf{Set}
+$$
+がある。
+
+このとき、群 $G$ に対して、 $U(G)$ は台集合になる。
+
+群準同型 $f$ に対して、$U(f)$ は写像になる。
+
+他にも環の圏の環の演算を忘却して集合にする忘却関手
+
+$$U: \textbf{Ring} \to \textbf{Set}$$
+
+位相空間の構造を忘れてその位相空間の台集合だけ取り出す忘却関手
+
+$$U: \textbf{Top} \to \textbf{Set}$$
+
+などもある。
+
+値域が $\textbf{Set}$ になるまで忘れなくても、例えば、環の乗法の演算だけを忘れて加法については群の構造を覚えているケースも考えられる。
+
+$$ U : \textbf{Ring} \to \textbf{Ab} $$
+ここで $\textbf{Ab}$ はアーベル群の圏である。
+
+
+\subsubsection{自由関手}
+
+自由関手は、忘却関手のある意味で双対となる作用を持つ関手である。これは、忘れてしまった構造を取り戻すかのように、より豊かな構造を付与する。
+
+自由関手の例として、集合の圏からベクトル空間の圏への関手を考える。
+$$F : \textbf{Set} \to \textbf{Vekt}_{k}$$
+この関手 $F$ は、集合 $S$ を、その要素の形式的な $k$ 線形結合を基底として持つベクトル空間 $F(S)$ に対応させるものである。
+
+また、アーベル群から環への自由関手も重要な例である。アーベル群に積の構造とそれに伴う公理を与えることで、環になる。
+$$F : \textbf{Ab} \to \textbf{Ring}$$
+
+
+\subsubsection{対象が1つの圏の間の関手（モノイド準同型）}
+
+$G, H$ を群とし、それぞれを対象が1つしかない特別な圏とみなす。このとき、群 $G$ を圏とみなしたものを $\mathcal{G}$、群 $H$ を圏とみなしたものを $\mathcal{H}$ と書く。
+
+$$F: \mathcal{G} \to \mathcal{H}$$
+
+この関手 $F$ は、単に圏から圏への写像というだけでなく、圏の構造を保つという重要な性質を持つ。
+
+圏 $\mathcal{G}$ や $\mathcal{H}$ の実態は、それぞれ単一の対象と、その対象から自身への射の集まりになっている。これらの射の集まりは、合成という操作を持つモノイドの構造をなしている。
+
+$$F: G \to H$$
+
+したがって、圏の間の関手 $F$ は、このモノイドの構造を保つ写像と見なすことができる。このため、関手 $F$ は群 $G$ から群 $H$ へのモノイド準同型であると言うことができる。
+
+群は、すべての要素が逆元を持つ特別なモノイドであるため、この準同型は特に群準同型とも呼ばれる。
+
+
+
+
+\subsubsection{群の線形表現}
+
+さっきの例と同様に
+$G$ を群とし、その1つの対象を持つ圏とみなしたものを $\mathcal{G}$ と置く。
+このとき
+関手 $F$
+$$F : \mathcal{G} \to \mathbf{Vekt}_{k} $$
+は群の線形表現になっている。
+群が行列で表現できているのはこの関手が背後にあるおかげ。
+
+
+\subsubsection{1への唯一の関手}
+
+圏 $\textbf{1}$ を1つの対象と恒等射しか持たない圏とする。
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRACoQBfKkGKAObwioAGYAnCAFskZEDgizqDCBDREAnGVGM4MXgzoAjGAwAKmXPkKIQ4rAIAWOENXrNWt4AB1v4qQAEWFBc3BRcQA
+\[
+	\begin{tikzcd}
+		* \arrow["{\rm id}"', loop, distance=2em, in=35, out=325]
+	\end{tikzcd}
+\]
+このような圏を離散圏と呼ぶ。
+
+圏 $C$ から 圏 $\textbf{1}$ への関手は
+$C$ のすべての対象を $*$ に、すべての射を恒等射に写すような（自明な）関手として唯一に定まる。
+この関手を $!: C \to \mathbf{1}$ と書く。
+
+
+\subsubsection{任意の対象は関手である}
+
+圏 $C$ から 圏 $\textbf{1}$ への関手 $!: C \to \mathbf{1}$ の反対版のようなもので、
+圏 $C$ から圏 $D$ の固定された対象$d$への関手 $\Delta_{C} d$ を考える。
+これは
+
+\ ・$C$ のすべての対象を圏 $D$ の固定された対象$d$に移し、
+
+\ ・$C$ のすべての射を恒等射に移す。
+
+これを用いるとさっきの例の圏 $\textbf{1}$ への唯一の関手は
+\[
+	! = \Delta_{C} * : C \to \mathbf{1}
+\]
+と表せる。
+
+ところで圏 $\textbf{1}$ から圏 $D$ の固定された対象$d$への関手 $\Delta_{\textbf{1}} d$ は $d$ それ自体と一対一に対応する。
+この同一視によって、任意の対象 $x$ は圏 $\textbf{1}$ からの関手$\Delta_{\textbf{1}} x$であるようにみなせる。
+
+
+\subsubsection{任意の対象の集まりは関手である}
+
+$C$ が離散圏のとき、 離散圏 $C$ から圏 $D$ への関手
+$F: C \to D$ は、$C$の射が恒等射のみであるため、その対象への射のみから定まる。
+
+逆に、 $C$ の各対象によって添え字付けられた $D$ の対象の集まり
+$\{ d_{c} \in D \}_{c \in C}$ に対して、
+$c \mapsto Fc := d_{c}$ であるような関手 $F: C \to D$ が一意に定まる。
+
+関手は圏の構造を保つような写像である。
+特に $C$ が離散圏の場合、その構造が自明なため、関手 $F$ は対象への射と同一視できる。
+
+\subsection{表現可能関手}
+
+ホム集合の記号の使い方を拡張して表現可能関手を導入する。
+この関手は米田の補題で利用される重要な関手になる。
+
+圏 $C$ の対象 $A \to B$ 射の集合は ${\rm Hom}_{C}(A,B)$ 等と書かれて、ホム集合と呼ばれていた。
+$${\rm Hom}_{C}(A,B) = \{ f \in C \ | \ f : A \to B\}$$
+
+対象は射で表現できる。
+例えば対象 $B$ は $1_{B}: B \to B$ という射と同一視できる。
+
+\[
+	{\rm Hom}_{C}(A,1_{B}) = {\rm Hom}_{C}(A,B) = \{ f \in C \ | \ f : A \to B\}
+\]
+
+この考え方を用いて、第二引数に
+圏 $C$ の射
+$g : B \to B'$
+を入れたものは定義から次のように誘導される。
+\[
+	\begin{array}{ccc}
+		{\rm Hom}_{C}(A,g)      & :       & {\rm Hom}_{C}(A,B) \to {\rm Hom}_{C}(A,B') \\
+		\rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$}                    \\
+		(f : A \to B)           & \mapsto & (g \circ f : A \to B \to B')
+	\end{array}
+\]
+
+さらに記法を拡張して、ホム集合の引数を変数にしたものを関手とみなす。
+\[
+	{\rm Hom}_{C}(A,-) : C \to \mathbf{Set}
+\]
+
+これは $A$ による表現可能関手という名前が付けられている。
+
+これが実際に関手になっていることを確認する。
+関手の公理を満たすためには
+\[
+	{\rm Hom}_{C}(A,1_{X}) = 1_{{\rm Hom}_{C} (A,X)}
+\]
+\[
+	{\rm Hom}_{C}(A,g \circ f) = {\rm Hom}_{C} (A,g) \circ {\rm Hom}_{C} (A,f)
+\]
+が成り立っていればOK。
+
+任意の
+$x: A \to X$
+という変数（射）を考えると、
+\[
+	\begin{array}{rcl}
+		{\rm Hom}_{C}(A,1_{X})(x) & = & 1_{X} \circ x           \\
+		                          & = & x                       \\
+		                          & = & 1_{{\rm Hom}_{C} (A,X)}
+	\end{array}
+\]
+恒等は恒等に移るのでOK。また、
+\[
+	\begin{array}{rcl}
+		{\rm Hom}_{C}(A,g \circ f)(x) & = & (g \circ f) \circ x                               \\
+		                              & = & g \circ (f \circ x)                               \\
+		                              & = & {\rm Hom}_{C}(A,g) \Big( {\rm Hom}_{C}(A,f) \Big)
+	\end{array}
+\]
+合成も合成に移るのでOK。以上で
+${\rm Hom}_{C}(A,-) : C \to \mathbf{Set}$
+は関手になることが確認できた。
+
+${}$
+
+関手の性質を可換図式で表現する。
+
+$C$ の射 $f: X \to Y$ と $g: Y \to Z$ を考える。
+このとき、${\rm Hom}_{C}(A,-)$ 関手はこれらの射を、$\mathbf{Set}$ 圏内の写像 ${\rm Hom}_{C}(A,f)$ と ${\rm Hom}_{C}(A,g)$ に対応させる。
+
+射の合成
+$g \circ f: X \to Z$
+も同様に、${\rm Hom}_{C}(A,g \circ f)$ という写像に対応する。
+
+関手の性質
+${\rm Hom}_{C}(A,g \circ f) = {\rm Hom}_{C} (A,g) \circ {\rm Hom}_{C}(A,f)$
+は、以下の可換図式で表現される。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAVgBoBGAXVJADcBDAGwFcYkRgAdTgJwFsABAAkIfAL4B9YAGExACgCCpABoBKEGNLpMufIRQB2CtTpNW7Lr0EjxU2YtICAmus3bseAkSMBmEwxY2RA5ufmFRSRl5JQEALVctEAwPPSIABmMaAPNg5Q1E5N0vFAAmUj8ssyCQWPz3Iv1kMqpKwPYnOqSdT0byUjT-KvZOwp6iMgHWnJAR7tSUH1IAFkG24NmU4uRFydM1mbETGCgAc3giUAAzHlEkDJAcCCQ+venLMJtI+xjL9RpGegAIxgjAACnNiiBGDBLjhOtdbogXo8kGVXtV3tYInZoo4Tgkrjc+HcaCjEGiAcCwRD9CAeFgTgALOFTDGhLG2KIOAQnATcADGWB4-IEv3hRKQiweT0QS1Z7F5AqFIsuIH+QJB4M2tPpTLhbhACOJiClZLI6PYqoNRqQ5rJcotwRO4sRADZSTKjCBgWAoEglgBOeXBTHhTnfRwAWj+IDgjKwsP91oliAAHB6kEGQIyYPQ-cFIGA2DQ4wm4Ui0ocxEA
+	\begin{tikzcd}
+		& {} \arrow[rrrr, "{{\rm Hom}_{C}(A, -)}", bend left=49, shift right=4] &                   & {}                                       &  & {}                                                                                                      &  &                                                           \\
+		X \arrow[rrdd, "g \circ f"'] \arrow[rr, "f"] &                                                                       & Y \arrow[dd, "g"] &                                          &  & {{\rm Hom}_{C}(A,X)} \arrow[rr, "{{\rm Hom}_{C}(A, f)}"] \arrow[rrdd, "{{\rm Hom}_{C}(A, g \circ f)}"'] &  & {{\rm Hom}_{C}(A, Y)} \arrow[dd, "{{\rm Hom}_{C}(A, g)}"] \\
+		&                                                                       &                   &                                          &  &                                                                                                         &  &                                                           \\
+		&                                                                       & Z                 &                                          &  &                                                                                                         &  & {{\rm Hom}_{C}(A, Z)}                                     \\
+		&                                                                       &                   & {} \arrow[uuuu, no head, shift right=10] &  &                                                                                                         &  &
+	\end{tikzcd}
+\]
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoAWAXVJADcBDAGwFcYkRgAdTgJwFsABAAkIfAL4B9YAGExACgCCpABoBKEGNLpMufIRQAmCtTpNW7Lr0EjxU2YtICAmus3bseAkSMA2EwxY2RA5ufmFRSRl5JQEALVctEAwPPSJyUmJ-MyCQJw1E5N0vQwyswPZlfPci-WR0gzLzYNiNExgoAHN4IlAAMx5RJDIQHAgkAEYaAKaQq3DbKIcBXvUaRnoAIxhGAAUdT30QRhhenCqQfsHESZGxxCNTcuDLMJtI+xiOhL6BviGaUZIB7rLa7fapYI8LAdAAWZym2QsoWsETs0UcHQE3AAxlgeNjlt8Lr8kABmAF3G7THIvFELD6OAC0RMuf0Q6VuZIRTwu51ZXM5iAArNyZh0+ST2RSkCLHmKsZxcfjlhKrhzAYhhtSkXM3milszVWzZRqHtrnsj5u90QJDWJKGIgA
+	\begin{tikzcd}
+		&  & X \arrow[rr, "f"] \arrow[rrdd, "g \circ f"] \arrow[lldddd, "{{\rm Hom}_{C}(A, -)}"] &  & Y \arrow[lldddd, "{{\rm Hom}_{C}(A, -)}"] \arrow[dd, "g"] \\
+		&  &                                                                                     &  &                                                           \\
+		&  &                                                                                     &  & Z \arrow[lldddd, "{{\rm Hom}_{C}(A, -)}"]                 \\
+		&  &                                                                                     &  &                                                           \\
+		{{\rm Hom}_{C}(A,X)} \arrow[rr, "{{\rm Hom}_{C}(A, f)}"] \arrow[rrdd, "{{\rm Hom}_{C}(A, g \circ f)}"'] &  & {{\rm Hom}_{C}(A, Y)} \arrow[dd, "{{\rm Hom}_{C}(A, g)}"]                           &  &                                                           \\
+		&  &                                                                                     &  &                                                           \\
+		&  & {{\rm Hom}_{C}(A, Z)}                                                               &  &
+	\end{tikzcd}
+\]
+
+この図式は、${\rm Hom}_{C}(A,Y)$ を経由して${\rm Hom}_{C}(A,X)$ から ${\rm Hom}_{C}(A,Z)$ へ行く経路と、直接行く経路が等しいことを示している。
+このことは、関手が圏$C$の構造（特に射の合成）を、$\mathbf{Set}$という集合の圏の構造に忠実に「写し取る」性質を持っていることを意味する。
+
+同様に、反変Hom関手も考えることができる。
+これは、第一引数を変数にした関手
+$$
+	{\rm Hom}_{C}(-,A) : C^{op} \to \mathbf{Set}
+$$
+である。ここで、$C^{op}$ は、元の圏 $C$ の射の向きをすべて反転させた圏である。
+
+$f : B \to B'$
+という射は、$C^{op}$ においては
+$f^{op} : B' \to B$
+となる。このとき、${\rm Hom}_{C}(-,A)$ は射 $f$ を
+$f^* : {\rm Hom}_{C}(B',A) \to {\rm Hom}_{C}(B,A)$
+という写像に対応させる。
+具体的には、$h: B' \to A$ という射に対して、
+$f^*(h) = h \circ f$
+と定義される。
+
+この反変関手に関しても、以下の可換図式が成り立つ。
+$f: X \to Y$ と $g: Y \to Z$ を $C$ の射とすると、
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAVgBoBGAXVJADcBDAGwFcYkRgAdTgJwFsABAAkIfAL4B9YAGExACgBapAIIBKEGNLpMufIRQB2CtTpNW7Lr0EjxU2XICaK9Zu3Y8BIkYDMJhizZEDm5+YVFJGXkADWcNLRAMdz0iAAZjGn9zIIU4t11PFAAmdNMA9gdchJ0PfWRi3wyzQJAoysT82vJSFL8m9jbq5JQANm7esqCNExgoAHN4IlAAMx5RJDSQHAgkLtKs4Ksw20i5WdIBNRAaRnoAIxhGAAVBgpBGGCWcSpW1xF2tpDFN53B7PJKvd6fK57ZqWUI2CL2JaxVwgH58dY0AGIIE3e5PF76EA8LCzAAWX0aEwO8PCdnkSwE3AAxlgeMyBGcLi54uikAAWLHbRDeKn7WbfVYYxBkTbCwUw9hLSW-WXY0WKoKzJmcVnsgTK1F8xCjOVIIwge5gKBIbwbPGgwnsEnkymamnWOknAC050uNDgZKwUMQAA4xJQxEA
+	\begin{tikzcd}
+		& {} \arrow[rrrrr, "{{\rm Hom}_{C}(-, A)}"', bend left, shift right=8] &                                             &  &  &                                                                                                         & {} &                                                         \\
+		Z &                                                                      & Y \arrow[ll, "g"]                           &  &  & {{\rm Hom}_{C}(Z,A)} \arrow[rr, "{{\rm Hom}_{C}(g, A)}"] \arrow[rrdd, "{{\rm Hom}_{C}(f \circ g, A)}"'] &    & {{\rm Hom}_{C}(Y,A)} \arrow[dd, "{{\rm Hom}_{C}(f,A)}"] \\
+		&                                                                      &                                             &  &  &                                                                                                         &    &                                                         \\
+		&                                                                      & X \arrow[uu, "f"] \arrow[lluu, "g \circ f"] &  &  &                                                                                                         &    & {{\rm Hom}_{C}(X,A)}
+	\end{tikzcd}
+\]
+
+矢印の向きが反転していることに注意する。
+${\rm Hom}_{C}(f \circ g, A) = {\rm Hom}_{C}(f,A) \circ {\rm Hom}_{C}(g,A)$ を意味し、射の合成の順序が逆転していることを示している。この性質から、この関手は反変と呼ばれる。
+
+
+
+\section{金融工学における関手の例：実測度 P とリスク中立測度 Q}
+
+金融市場において、確率測度と呼ばれる数学的ツールを用いて将来の株価や資産価格の動きを記述することがある。
+
+\begin{itemize}
+	\item 実測度（Physical Measure）$P$ は、現実の世界における資産価格の確率分布を表す上での測度。この測度のもとでは、資産の期待収益率はリスクプレミアムを含んでいる。つまり、リスクを多く負う資産ほど、平均的に高いリターンが期待される。（ローリスク・ローリターン、またはハイリスク・ハイリターンとなるような測度）。
+	\item リスク中立測度（Risk-Neutral Measure）$Q$ は、理論上の架空の確率測度。この測度のもとでは、すべての資産の期待収益率は無リスク金利と等しくなる。この測度は、市場参加者がリスクに対して中立であるという仮定のもとで導出されるため、「リスク中立」と呼ばれる。
+\end{itemize}
+
+\subsection{関手としての測度変換}
+
+実測度 $P$ とリスク中立測度 $Q$ の間の関係は関手の概念でも捉えることができる。
+
+\medskip
+
+二つの圏を考える。
+
+圏 $C_{P}$ : 実測度 $P$ のもとでの確率的な金融モデルの圏。
+\begin{itemize}
+	\item 対象: 確率空間上の資産価格プロセス$S_{P}$（実測度 $P$ のもとでの株価など）。
+	\item 射: 確率的な金融モデル間の写像$f$。例えば、ポートフォリオの再構築や、ある資産から別の資産への派生関係など。
+\end{itemize}
+
+\medskip
+
+圏 $C_{Q}$ : リスク中立測度 $Q$ のもとでの確率的な金融モデルの圏である。
+\begin{itemize}
+	\item 対象: 確率空間上の資産価格プロセス$S_{Q}$ （リスク中立測度 $Q$ のもとでの株価など）。
+	\item 射: 確率的な金融モデル間の写像$g$。
+\end{itemize}
+
+ここで、関手$F$ を、圏 $C_{P}$ から 圏 $C_{Q}$ への写像として定義する。
+
+対象の対応:
+実測度 $P$ のもとでの資産価格プロセス $S_{P}$ を、リスク中立測度 $Q$ のもとでの資産価格プロセス$F(S_{P}) = S_{Q}$に対応させる。この対応は、ギルサノフの定理によって行われる。
+
+${}$
+
+$$
+	\begin{tikzcd}
+		\text{実測度の商品1の価格 } S_{P,1} \arrow[r, "f"] \arrow[d, "F"] & \text{実測度の商品2の価格 } S_{P,2} \arrow[d, "F"] \\
+		\text{リスク中立測度の商品1の価格 } S_{Q,1} \arrow[r, "F(f)"] & \text{リスク中立測度の商品2の価格 } S_{Q,2}
+	\end{tikzcd}
+$$
+
+${}$
+
+価格プロセス $S_{P}(t)$ は、時刻 $t$ と標本 $\omega$ に依存する確率変数であり、その写像は以下で表される。
+
+\begin{itemize}
+	\item 定義域: 時刻と標本空間の直積集合 $[0, T] \times \Omega$
+	\item 値域: 正の実数の集合 $\mathbb{R}_{>0}$
+\end{itemize}
+
+$$
+	S_{P}: [0, T] \times \Omega \to \mathbb{R}_{>0}
+$$
+$$
+	(t, \omega) \in [0, T] \times \Omega \mapsto S_{P}(t, \omega) \in \mathbb{R}_{>0}
+$$
+
+ラドン＝ニコディム微分 $\frac{dQ}{dP}$ は、標本空間 $\Omega$ 上で定義される、ほとんど確実に正の値を取る確率変数であり、その写像は以下で表される。
+
+\begin{itemize}
+	\item 定義域: 標本空間 $\Omega$
+	\item 値域: 正の実数の集合 $\mathbb{R}_{>0}$
+\end{itemize}
+
+$$
+	\frac{dQ}{dP}: \Omega \to \mathbb{R}_{>0}
+$$
+$$
+	\omega \in \Omega \mapsto \frac{dQ}{dP}(\omega) \in \mathbb{R}_{>0}
+$$
+
+この関手$F$は、ギルサノフの定理によって構成されるラドン・ニコディム微分によって具体的に表現される。
+例えば、測度 $P$ における価格 $S_{P}$ が以下の確率過程
+
+$$
+	d S_{P} (t)
+	=
+	\mu S_{P} (t) dt
+	+
+	\sigma S_{P} (t) dW_{P}(t)
+$$
+に従っているとき、関手 $F$ は、この確率過程をリスク中立測度 $Q$ のもとでの過程に変換する。この変換は、ラドン・ニコディム微分として以下で与えられる。
+$$
+	\frac{dQ}{dP}
+	=
+	\exp \Big(
+	- \int_{0}^{t} \lambda(u) d W_{P} (u)
+	- \frac{1}{2} \int^{t}_{0} \lambda^{2} (u) du
+	\Big)
+$$
+
+
+
+
+\section{関手としての第二量子化}
+
+一粒子量子力学と多粒子量子力学（場の理論）の間の対応関係は、関手を用いて表現できる。この対応は、物理学者（物理愛好家）が第二量子化と呼ぶプロセスを、圏論の言葉で厳密に記述するものである。
+
+\subsection{第二量子化のプロセス}
+
+一粒子量子力学では、粒子の状態はヒルベルト空間のベクトルとして記述される。一方、多粒子系の量子力学では、粒子は場の励起状態として扱われる。第二量子化は、一粒子状態を、多粒子状態を記述するフォック空間に「持ち上げる」数学的な手続きである。
+
+関手は、この「持ち上げ」の操作を抽象的に表現する。ここで、以下の2つの圏を考える。
+
+\begin{itemize}
+	\item 圏 $\mathcal{C}_{1p}$: 一粒子量子力学の圏
+	      \begin{itemize}
+		      \item 対象: 一粒子系のヒルベルト空間 $H$。
+		      \item 射: ヒルベルト空間上の線形作用素 $A: H_1 \to H_2$（例えば、ハミルトニアンなど）。
+	      \end{itemize}
+
+	\item 圏 $\mathcal{C}_{mp}$: 多粒子量子力学（場の理論）の圏
+	      \begin{itemize}
+		      \item 対象: フォック空間 $\mathcal{F}(H)$。これは、一粒子ヒルベルト空間 $H$ から構成される多粒子状態の空間である。
+		      \item 射: フォック空間上の線形作用素 $B$（例えば、生成・消滅演算子）。
+	      \end{itemize}
+\end{itemize}
+
+\subsection{関手による対応}
+
+関手$\mathbf{F}$を、圏 $\mathcal{C}_{1p}$ から 圏 $\mathcal{C}_{mp}$ への写像として定義する。この関手は、一粒子系の構造を多粒子系の構造に対応させる役割を果たす。
+
+\subsubsection{対象の対応}
+
+関手$\mathbf{F}$は、一粒子系のヒルベルト空間 $H$ を、多粒子系のフォック空間 $\mathbf{F}(H)$ に対応させる。フォック空間は、以下の形式で構成される。
+$$\mathbf{F}(H) = \bigoplus_{n=0}^{\infty} \left( H^{\otimes n} \right)_S$$
+ここで、$H^{\otimes n}$は$n$個のヒルベルト空間のテンソル積であり、添字$S$はボーズ粒子（対称化）またはフェルミ粒子（反対称化）の統計性を考慮したものである。
+
+\subsubsection{射の対応と可換図式}
+
+関手$\mathbf{F}$は、一粒子ヒルベルト空間上の線形作用素 $A: H_1 \to H_2$ を、フォック空間上の作用素 $\mathbf{F}(A): \mathbf{F}(H_1) \to \mathbf{F}(H_2)$ に対応させる。例えば、一粒子系のハミルトニアン $H_{1p}$ は、第二量子化されたハミルトニアン $H_{mp}$ に対応する。
+
+この関係を可換図式で表現すると、以下のようになる。
+$$
+	\begin{tikzcd}
+		\text{一粒子ヒルベルト空間 } H_1 \arrow[r, "A"] \arrow[d, "\mathbf{F}"] & \text{一粒子ヒルベルト空間 } H_2 \arrow[d, "\mathbf{F}"] \\
+		\text{フォック空間 } \mathbf{F}(H_1) \arrow[r, "\mathbf{F}(A)"] & \text{フォック空間 } \mathbf{F}(H_2)
+	\end{tikzcd}
+$$
+
+この図式は、一粒子系の物理的操作（射$A$）が、関手$\mathbf{F}$を介して、多粒子系の物理的操作$\mathbf{F}(A)$と一貫していることを示している。この関手的な視点は、第二量子化という物理的概念を、より抽象的かつ厳密な数学的構造として捉えることを可能にする。
+
+\subsubsection{生成・消滅演算子と関手}
+
+第二量子化の具体的な例として、生成・消滅演算子の構成を関手的に捉えることができる。一粒子ヒルベルト空間 $H$ 上の任意のベクトル $|\psi\rangle \in H$ に対して、フォック空間 $\mathbf{F}(H)$ 上の生成演算子 $a^\dagger(\psi)$ が定義される。
+
+$$a^\dagger(\psi) : \mathbf{F}(H) \to \mathbf{F}(H)$$
+
+この生成演算子は、一粒子状態 $|\psi\rangle$ を多粒子系に追加する操作に対応する。より厳密には、関手 $\mathbf{F}$ は、一粒子ヒルベルト空間 $H$ の射影 $P$ を、フォック空間上の対応する射影 $\mathbf{F}(P)$ に写す。
+
+$$
+	\begin{tikzcd}
+		H \arrow[r, "P"] \arrow[d, "\text{生成}"] & H \arrow[d, "\text{生成}"] \\
+		\mathbf{F}(H) \arrow[r, "\mathbf{F}(P)"] & \mathbf{F}(H)
+	\end{tikzcd}
+$$
+
+${}$
+
+この図式は、一粒子空間での状態の選択（射影$P$）が、多粒子フォック空間での生成・消滅演算子にどのように変換されるかを示している。これにより、一粒子系の量子力学的な性質（例：運動量保存則）が、多粒子系の場の理論の性質（例：全運動量演算子）にどのように引き継がれるかを、統一された形で理解することができる。
+
+
+
+
+
+
+\section{量子力学の描像間の対応の関手的表現}
+
+量子力学の異なる描像（シュレーディンガー、ハイゼンベルク、相互作用）は、関手を用いて統一的に表現できる。これは、各描像が同じ物理法則を異なる数学的構造で記述していることを示している。
+
+\subsection{圏の定義}
+
+この表現のために、以下の2つの圏を定義する。
+
+\begin{itemize}
+	\item \textbf{物理系の圏 $\mathcal{C}_{Sys}$}:
+	      \begin{itemize}
+		      \item 対象: 物理系の状態を記述するヒルベルト空間 $H$。
+		      \item 射: 状態の変換を表すユニタリ演算子 $U(t, t_0): H \to H$。
+	      \end{itemize}
+
+	\item \textbf{物理量と時間発展の圏 $\mathcal{C}_{Evol}$}:
+	      \begin{itemize}
+		      \item 対象: 時間依存する物理量（演算子）の集合 $\mathcal{O}(t)$。
+		      \item 射: 描像間の変換を記述する写像。
+	      \end{itemize}
+\end{itemize}
+
+\subsection{3つの描像と関手}
+
+\subsubsection{シュレーディンガー描像 (S-picture)}
+
+シュレーディンガー描像では、状態ベクトル $|\psi(t)\rangle_S$ が時間発展し、演算子 $A_S$ は時間によらない。この描像からハイゼンベルク描像への対応を、関手 $\mathbf{F}_{S \to H}$ として考える。
+
+\begin{itemize}
+	\item \textbf{対象の対応}:
+	      $|\psi(t)\rangle_S \mapsto |\psi\rangle_H = U(t_0, t)|\psi(t)\rangle_S$
+	\item \textbf{射の対応}:
+	      $A_S \mapsto A_H(t) = U(t, t_0)A_S U(t_0, t)$
+\end{itemize}
+
+この関係を可換図式で表現すると、以下のように記述できる。
+
+$$
+	\begin{tikzcd}
+		\text{状態} |\psi(t)\rangle_S \arrow[r, "\text{時間発展}"] \arrow[d, "\mathbf{F}_{S \to H}"] & \text{状態} |\psi(t')\rangle_S \arrow[d, "\mathbf{F}_{S \to H}"] \\
+		\text{状態} |\psi\rangle_H \arrow[r, "\text{恒等写像}"] & \text{状態} |\psi\rangle_H
+	\end{tikzcd}
+$$
+
+この図式は、シュレーディンガー描像での状態の時間発展が、ハイゼンベルク描像では静的な状態を保つことに対応していることを示している。
+
+
+
+\subsubsection{ハイゼンベルク描像 (H-picture)}
+
+ハイゼンベルク描像では、状態ベクトル $|\psi\rangle_H$ は時間によらず、演算子 $A_H(t)$ が時間発展する。ハイゼンベルク描像からシュレーディンガー描像への対応を、関手 $\mathbf{F}_{H \to S}$ として考える。
+
+\begin{itemize}
+	\item \textbf{対象の対応}:
+	      $|\psi\rangle_H \mapsto |\psi(t)\rangle_S = U(t, t_0)|\psi\rangle_H$
+	\item \textbf{射の対応}:
+	      $A_H(t) \mapsto A_S = U(t_0, t)A_H(t)U(t, t_0)$
+\end{itemize}
+
+この関係を可換図式で表現する。
+
+$$
+	\begin{tikzcd}
+		\text{演算子 } A_H(t) \arrow[r, "\text{時間発展}"] \arrow[d, "\mathbf{F}_{H \to S}"] & \text{演算子 } A_H(t') \arrow[d, "\mathbf{F}_{H \to S}"] \\
+		\text{演算子 } A_S \arrow[r, "\text{恒等写像}"] & \text{演算子 } A_S
+	\end{tikzcd}
+$$
+
+この図式は、ハイゼンベルク描像での演算子の時間発展が、シュレーディンガー描像では静的な演算子に対応していることを示している。
+
+
+
+\subsubsection{相互作用描像 (I-picture)}
+
+相互作用描像は、シュレーディンガー描像とハイゼンベルク描像の中間に位置し、ハミルトニアン $H$ を自由ハミルトニアン $H_0$ と相互作用ハミルトニアン $V(t)$ に分ける。
+
+\begin{itemize}
+	\item \textbf{状態ベクトル}: $|\psi(t)\rangle_I = e^{iH_0 t/\hbar}|\psi(t)\rangle_S$
+	\item \textbf{演算子}: $A_I(t) = e^{iH_0 t/\hbar}A_S e^{-iH_0 t/\hbar}$
+\end{itemize}
+
+シュレーディンガー描像から相互作用描像への対応を関手として表現する。
+
+$$
+	\begin{tikzcd}
+		\text{状態} |\psi(t)\rangle_S \arrow[r, "\text{全時間発展}"] \arrow[d, "\mathbf{F}_{S \to I}"] & \text{状態} |\psi(t')\rangle_S \arrow[d, "\mathbf{F}_{S \to I}"] \\
+		\text{状態} |\psi(t)\rangle_I \arrow[r, "\text{相互作用発展}"] & \text{状態} |\psi(t')\rangle_I
+	\end{tikzcd}
+$$
+
+この図式は、シュレーディンガー描像での全時間発展が、相互作用描像での相互作用による時間発展に対応していることを示している。このように、量子力学の3つの描像は、関手によって互いに一貫した形で結びつけられている。
+
+
+
+\end{document}
