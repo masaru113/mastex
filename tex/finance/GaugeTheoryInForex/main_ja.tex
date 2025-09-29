@@ -1,0 +1,348 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{here}
+
+\title{
+裁定取引とゲージ理論
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	裁定取引についての奇妙な思考実験を見つけたのでメモ。
+\end{abstract}
+
+
+
+
+\section{デノミネーション}
+
+政府が現在の1万円を1000円に切り下げるデノミネーション（デノミ）を行ったとする。
+
+これまでは1万円で100個買えていたみかんは切り下げ後に1000円で100個買えることになる。
+
+お金を $\alpha$ 倍にデノミするとは、
+デノミ前のお金1単位の価値と、デノミ後のお金 $\alpha$ の価値を等しくすることである。
+
+$\alpha$ 倍のデノミにより、物の価格は $\alpha$ 倍になる。
+
+$\alpha$ 倍のデノミにより、お金1単位の価格が $1/\alpha$ になる。
+
+1万円を1000円に切り下げる例では、 $\alpha=1/10$ である。
+
+
+
+
+\section{デノミネーションが為替に与える影響}
+
+$R_{ij}$ を $i$ 国の通貨1単位に対する $j$ 国の通貨の価格とする。
+
+ある国 $i$ で通貨のデノミを行ったとき、
+為替レートは
+$$
+	R_{ij} \to R_{ij} / \alpha
+$$
+
+と変化する。
+逆方向の取引では
+$$
+	R_{ji} \to \alpha R_{ji}
+$$
+である。
+
+$i,j,k,l$ の4国の通貨を
+$i \to j \to k \to l \to i$
+の順に取引する。
+
+$i,j$ の間の取引で $i$ 国の通貨1単位あたり、$R_{ij}$
+で取引できる。
+
+$i,j,k$ の間の取引で $i$ 国の通貨1単位あたり、
+$R_{ij} R_{jk}$
+で取引できる。
+
+$i,j,k,j$ の間の取引で $i$ 国の通貨1単位あたり、
+$R_{ij} R_{jk} R_{kl}$
+で取引できる。
+
+最終的に
+$i,j,k,j,i$ の間の取引で $i$ 国の通貨1単位あたり、
+$R_{ij} R_{jk} R_{kl} R_{li}$
+で取引できる。
+
+$i \to j \to k \to l \to i$
+の順に取引したときの利益率を
+$M_{ijkl} = R_{ij} R_{jk} R_{kl} R_{li}$
+と書いて、これを裁定取引の指標にする。
+
+ここで裁定取引とは、
+ある通貨Aで現金を所有しているとき、
+ある特定の時刻の為替相場によりこれを通貨B,C,D,...に次々に換金し、最後に通貨Aに戻したときに最初の金額より増える/減るような取引を指す。
+
+$M_{ijkl}=1$ であれば裁定機会は発生していない。
+$M_{ijkl} \neq 1$ であれば裁定機会が発生している。
+
+$i$ 国が自国通貨を $\alpha$ 倍にデノミしたとき、
+影響を受けるのは
+$R_{ij} \to R_{ij} / \alpha , \ R_{li} \to \alpha R_{li}$
+であるが、
+為替取引の利益率は
+$$
+	M_{ijkl} \to (R_{ij} / \alpha) \times R_{jk} R_{kl} \times (\alpha R_{li}) = M_{ijkl}
+$$
+となるので影響を受けない。
+
+通貨価格の絶対値は各国が任意に設定できるが、
+為替取引による利益率はデノミに依存しないことが分かる。
+
+
+
+
+\section{格子模型の設定}
+
+地球儀上に格子の網目を張るようにイメージして各国を格子状に並べる。
+
+世界は $d+1$ 次元であり、
+国々は格子点上に存在するとする。
+
+格子点の座標は$ n = (t, n_{1},n_{2}, \cdots, n_{d})$
+で表す。
+ここで $t$ は時刻である。
+
+$\mu$ 方向の単位ベクトルを $e_{\mu}$ で表す。
+
+$C(n)$ は格子点 $n$ 上に存在する国の通貨を表す。
+
+$R_{\mu}(n)$ という量を $C(n) / C(n + e_{\mu})$
+で定義する。
+$R_{\mu}(n)$ は $n$ 上の国に対する $n + e_{\mu}$ 上の国の為替レートになる。
+
+さらに
+$A_{\mu}(n) = \log (R_{\mu}(n))$
+という量を定義する。
+
+また、
+$$
+	M_{\mu \nu}(n)
+	=
+	R_{\mu}(n) R_{\nu}(n+e_{\mu})
+	/ R_{\mu}(n+e_{\nu})
+	/ R_{\nu}(n)
+$$
+で定義する。
+$M_{\mu \nu}(n)$ は $\mu \to \nu \to \mu$ のように取引したときの利益率である。
+
+さらに
+$F_{\mu \nu}(n) = \log (M_{\mu \nu}(n))$
+という量を定義する。
+
+
+
+
+\section{連続極限}
+
+これまでは国と国との距離を考えていなかったが、
+例えばどの方向にも格子点の間隔が $a$ であるときに
+$a \to 0$
+の極限をとった
+$$
+	F_{\mu \nu}(n) =
+	A_{\mu}(n) + A_{\nu}(n+e_{\mu})
+	- A_{\mu}(n+e_{\nu})
+	- A_{\nu}(n)
+$$
+がどうなるかを考える。
+
+この極限では各格子点が密集していき、普通の時空点
+$(x_{0},x_{1},x_{2},\cdots,x_{d})$ のように連続的になる。
+この極限で $n$ と書いていた格子点上の座標を $x$ と書く。
+
+このとき、
+$
+	A_{\mu}(n) - A_{\mu}(n+e_{\nu})
+$
+と
+$
+	A_{\nu}(n+e_{\mu}) - A_{\nu}(n)
+$
+はどんどん小さな量になっていく。
+
+この極限において、
+$A_{\mu}(n)$ をテイラー展開することで、
+$\mu$ 方向の偏微分を $\partial_{\mu}$と書くと
+$$
+	A_{\mu}(n) - A_{\mu}(n+e_{\nu})
+	\ \to \
+	- a \partial_{\nu} A_{\mu} (x)
+$$
+$$
+	A_{\nu}(n+e_{\mu}) - A_{\nu}(n)
+	\ \to \
+	a \partial_{\mu} A_{\nu} (x)
+$$
+が得られる。
+
+これを用いると、
+$$
+	F_{\mu \nu}(n)
+	\ \to \
+	F_{\mu \nu}(x)
+	=
+	\partial_{\mu} A_{\nu} (x)
+	-
+	\partial_{\nu} A_{\mu} (x)
+$$
+と表せる。
+ここで、連続極限を取る前の格子点の間隔 $a$ は任意定数なので1とした。
+
+このとき、
+$A_{\mu} (x)$
+は
+「座標 $x$ 上の国の通貨に対する $\mu$ 方向に微小な距離だけ離れた国の通貨の間の為替レートの対数」であり、
+$F_{\mu} (x)$
+は
+「座標 $x$ 上の国の通貨に対する微小な距離だけ離れた2国間について $\mu \to \nu \to \mu$ のように取引したときの利益率の対数」
+を表す。
+
+
+
+
+\section{局所デノミ不変性}
+
+$x$ 上の国が $\Omega(x) = \log (\theta (x))$ 倍のデノミを行ったとき、$x$ 上の国の為替レートは
+$$
+	R_{\mu}(x) \ \to \ \Omega(x + e_{\mu}) R_{\mu}(x) / \Omega(x)
+$$
+のように影響を受ける。
+
+このとき、
+$$
+	\exp (A_{\mu}(x))
+	\ \to \
+	\exp (A_{\mu}(x) + \theta(x+e_{\mu}) - \theta(x))
+$$
+$$
+	\to \ \exp (A_{\mu}(x) + \partial_{\mu} \theta (x))
+$$
+
+一方で
+$F_{\mu \nu}$ は局所デノミによって影響を受けない。
+$$
+	F_{\mu \nu}
+	=
+	\partial_{\mu} A_{\nu}
+	-
+	\partial_{\nu} A_{\mu}
+$$
+$$
+	\to \
+	\partial_{\mu} ( A_{\nu} + \partial_{\nu} \theta )
+	-
+	\partial_{\nu} ( A_{\mu} + \partial_{\mu} \theta )
+$$
+$$
+	= \
+	\partial_{\mu} A_{\nu}
+	-
+	\partial_{\nu} A_{\mu}
+$$
+$$
+	= \
+	F_{\mu \nu}
+$$
+
+為替相場それ自体はデノミ $\theta(x)$ によって影響を受けるが、
+為替交換による利益は影響を受けない。
+
+実際に利益に影響を与える取引は裁定取引であったことを思い出すと、
+$\theta(x)$ で影響を受ける取引は無裁定取引になる。
+
+
+
+
+
+
+
+\section{物理におけるゲージ理論の描像との対応}
+
+デノミに限らず、一般に本質的に価値に影響を与えない相場変動は
+$F_{\mu \nu}$
+を不変にするかもしれない。
+この考え方は物理のゲージ理論に通じる。
+
+裁定取引が起こるとその取引のループに価値の流れが発生する。
+
+そして無裁定取引によって、瞬間的に、買われた通貨は高くなり、売られた通貨は安くなる。
+この無裁定取引により価値の歪みが生じるが、完全市場では裁定機会は直ちに是正される。
+
+これはあたかも場 $A_{\mu}$ に歪み $F_{\mu \nu}$ が生じ、価値に力が働き、
+裁定取引によって価値が流れるような描像になっている。
+
+この描像ではゲージ理論における物質場の流れ（カレント）があたかも価値の流れと対応するように見える。
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		裁定取引                                    & 物理      \\ \hline \hline
+		為替レート $R_{\mu}$ の対数 $A_{\mu}$           & ゲージ場    \\ \hline
+		裁定機会の指標 $M_{\mu \nu}$ の対数 $F_{\mu \nu}$ & 場の強さ    \\ \hline
+		デノミ倍率の対数 $\theta(x)$                    & ゲージ変換関数 \\ \hline
+		裁定機会による「価値」の流れ                          & カレント    \\ \hline
+		為替レート $R_{\mu}$                         & 格子リンク変数 \\ \hline
+		裁定機会の指標 $M_{\mu \nu}$                   & 格子プラケット \\ \hline
+	\end{tabular}
+	\caption{物理におけるゲージ理論の描像との対応表}
+	\label{tab:tab202502281751}
+\end{table}
+
+
+
+
+
+
+\section{続き気が向いたら書きたいこと}
+
+ゲージ対称性を $U(1)$ にとどめると
+電磁気学ベースの物性物理学と対応させることができる。
+
+物性物理の現象は経済的にどういう解釈を与えることができるのか気になる。
+
+例えば、この枠組みで物理におけるゲージ理論のアノマリー（例えば超伝導とか）は経済的にどのような解釈を与えることができるのか気になる。
+
+
+
+\begin{thebibliography}{9}
+
+	\bibitem{Rudin:Schwichtenberg}
+	J.~Schwichtenberg.
+	\newblock Demystifying Gauge Symmetry
+	\newblock arXiv:1901.10420v1 (2019).
+
+	\bibitem{Rudin:Ilinski}
+	K.~Ilinski.
+	\newblock Physics of Finance.
+	\newblock hep-th/9710148 (1997).
+
+	\bibitem{Rudin:Young}
+	K.~Young.
+	\newblock Foreign exchange market as a lattice gauge theory.
+	\newblock American Journal of Physics 67, 862 (1999).
+
+	\bibitem{Rudin:IlinskiKalinin}
+	K.~Ilinski., G.~Kalinin.
+	\newblock Black-Scholes equation from Gauge Theory of Arbitrage
+	\newblock hep-th/9712034 (1997).
+
+\end{thebibliography}
+
+\end{document}

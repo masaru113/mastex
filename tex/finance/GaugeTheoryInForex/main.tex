@@ -1,0 +1,274 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{here}
+
+\title{
+\textbf{Arbitrage and Gauge Theory}
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	I found a strange thought experiment about arbitrage, so I'm writing it down as a memo.
+\end{abstract}
+
+\section{\textbf{Denomination}}
+
+Suppose a government performs a denomination, lowering the value of the current 10,000 yen note to 1,000 yen.
+
+An orange that previously cost 10,000 yen for 100 pieces will now cost 1,000 yen for 100 pieces after the denomination.
+
+To denominate money by a factor of $\alpha$ means to equate the value of one unit of pre-denomination money with $\alpha$ units of post-denomination money.
+
+A denomination by a factor of $\alpha$ causes the price of goods to increase by a factor of $\alpha$.
+
+A denomination by a factor of $\alpha$ causes the value of one unit of money to become $1/\alpha$.
+
+In the example of lowering 10,000 yen to 1,000 yen, $\alpha=1/10$.
+
+
+
+\section{\textbf{Impact of Denomination on Exchange Rates}}
+
+Let $R_{ij}$ be the price of the currency of country $j$ in terms of one unit of the currency of country $i$.
+
+When a country $i$ performs a currency denomination, the exchange rate changes to
+$$
+	R_{ij} \to R_{ij} / \alpha
+$$
+For the inverse transaction,
+$$
+	R_{ji} \to \alpha R_{ji}
+$$
+Consider the currencies of four countries, $i,j,k,l$, and trade them in the order of $i \to j \to k \to l \to i$.
+
+In a transaction between $i$ and $j$, one unit of country $i$'s currency can be traded for $R_{ij}$.
+
+In a transaction between $i,j,$ and $k$, one unit of country $i$'s currency can be traded for
+$R_{ij} R_{jk}$.
+
+In a transaction between $i,j,k,$ and $j$, one unit of country $i$'s currency can be traded for
+$R_{ij} R_{jk} R_{kl}$.
+
+Finally, in a transaction between $i,j,k,j,$ and $i$, one unit of country $i$'s currency can be traded for
+$R_{ij} R_{jk} R_{kl} R_{li}$.
+
+The profit margin for a transaction in the order $i \to j \to k \to l \to i$ is written as
+$M_{ijkl} = R_{ij} R_{jk} R_{kl} R_{li}$, which serves as an index for arbitrage.
+
+Here, arbitrage refers to a transaction where, by owning cash in a certain currency A and successively converting it into currencies B, C, D, ... according to the exchange rates at a specific time, and finally converting it back to currency A, the final amount is greater than or less than the initial amount.
+
+If $M_{ijkl}=1$, no arbitrage opportunity exists.
+If $M_{ijkl} \neq 1$, an arbitrage opportunity exists.
+
+When country $i$ denominates its own currency by a factor of $\alpha$, the affected rates are
+$R_{ij} \to R_{ij} / \alpha , \ R_{li} \to \alpha R_{li}$.
+However, the profit margin for the currency transaction is
+$$
+	M_{ijkl} \to (R_{ij} / \alpha) \times R_{jk} R_{kl} \times (\alpha R_{li}) = M_{ijkl}
+$$
+and is therefore unaffected.
+
+While the absolute value of a currency can be set arbitrarily by each country, it can be seen that the profit margin from exchange transactions is independent of denomination.
+
+
+
+\section{\textbf{Lattice Model Setup}}
+
+Imagine a grid laid over a globe, with each country arranged on a lattice.
+
+The world is a $d+1$ dimensional space, and countries exist on the lattice points.
+
+The coordinates of a lattice point are represented by $n = (t, n_{1},n_{2}, \cdots, n_{d})$, where $t$ is time.
+
+The unit vector in the $\mu$ direction is denoted by $e_{\mu}$.
+
+$C(n)$ represents the currency of the country located at lattice point $n$.
+
+A quantity $R_{\mu}(n)$ is defined as $C(n) / C(n + e_{\mu})$, which represents the exchange rate of the currency of the country at $n + e_{\mu}$ relative to the country at $n$.
+
+Furthermore, a quantity $A_{\mu}(n) = \log (R_{\mu}(n))$ is defined.
+
+Also,
+$$
+	M_{\mu \nu}(n)
+	=
+	R_{\mu}(n) R_{\nu}(n+e_{\mu})
+	/ R_{\mu}(n+e_{\nu})
+	/ R_{\nu}(n)
+$$
+is defined.
+$M_{\mu \nu}(n)$ is the profit margin when trading in the order of $\mu \to \nu \to \mu$.
+
+Furthermore, a quantity $F_{\mu \nu}(n) = \log (M_{\mu \nu}(n))$ is defined.
+
+
+
+\section{\textbf{Continuum Limit}}
+
+Until now, we have not considered the distance between countries. However, let's consider what happens when we take the limit as the spacing between lattice points, say $a$, approaches 0 in every direction.
+$$
+	F_{\mu \nu}(n) =
+	A_{\mu}(n) + A_{\nu}(n+e_{\mu})
+	- A_{\mu}(n+e_{\nu})
+	- A_{\nu}(n)
+$$
+In this limit, each lattice point becomes dense and continuous, like an ordinary spacetime point $(x_{0},x_{1},x_{2},\cdots,x_{d})$.
+In this limit, the lattice point coordinate that was written as $n$ is now written as $x$.
+
+In this case,
+$
+	A_{\mu}(n) - A_{\mu}(n+e_{\nu})
+$
+and
+$
+	A_{\nu}(n+e_{\mu}) - A_{\nu}(n)
+$
+become increasingly small quantities.
+
+In this limit, by Taylor expanding $A_{\mu}(n)$, and writing the partial derivative in the $\mu$ direction as $\partial_{\mu}$, we get
+$$
+	A_{\mu}(n) - A_{\mu}(n+e_{\nu})
+	\ \to \
+	- a \partial_{\nu} A_{\mu} (x)
+$$
+$$
+	A_{\nu}(n+e_{\mu}) - A_{\nu}(n)
+	\ \to \
+	a \partial_{\mu} A_{\nu} (x)
+$$
+Using this,
+$$
+	F_{\mu \nu}(n)
+	\ \to \
+	F_{\mu \nu}(x)
+	=
+	\partial_{\mu} A_{\nu} (x)
+	-
+	\partial_{\nu} A_{\mu} (x)
+$$
+Here, the lattice point spacing $a$ before taking the continuum limit is an arbitrary constant, so it was set to 1.
+
+In this case,
+$A_{\mu} (x)$
+represents the "logarithm of the exchange rate between the currency of the country at coordinate $x$ and the currency of the country at a tiny distance away in the $\mu$ direction," and
+$F_{\mu} (x)$
+represents the "logarithm of the profit margin when trading between two countries a tiny distance apart relative to the currency of the country at coordinate $x$ in the order of $\mu \to \nu \to \mu$."
+
+
+
+\section{\textbf{Local Denomination Invariance}}
+
+When the country at $x$ performs a denomination by a factor of $\Omega(x) = \log (\theta (x))$, the exchange rate of the country at $x$ is affected as follows:
+$$
+	R_{\mu}(x) \ \to \ \Omega(x + e_{\mu}) R_{\mu}(x) / \Omega(x)
+$$
+In this case,
+$$
+	\exp (A_{\mu}(x))
+	\ \to \
+	\exp (A_{\mu}(x) + \theta(x+e_{\mu}) - \theta(x))
+$$
+$$
+	\to \ \exp (A_{\mu}(x) + \partial_{\mu} \theta (x))
+$$
+On the other hand, $F_{\mu \nu}$ is unaffected by local denomination.
+$$
+	F_{\mu \nu}
+	=
+	\partial_{\mu} A_{\nu}
+	-
+	\partial_{\nu} A_{\mu}
+$$
+$$
+	\to \
+	\partial_{\mu} ( A_{\nu} + \partial_{\nu} \theta )
+	-
+	\partial_{\nu} ( A_{\mu} + \partial_{\mu} \theta )
+$$
+$$
+	= \
+	\partial_{\mu} A_{\nu}
+	-
+	\partial_{\nu} A_{\mu}
+$$
+$$
+	= \
+	F_{\mu \nu}
+$$
+While the exchange rates themselves are affected by the denomination $\theta(x)$, the profits from currency exchange are not.
+
+Recalling that the transactions that actually affect profits are arbitrage transactions, the transactions affected by $\theta(x)$ are non-arbitrage transactions.
+
+
+
+\section{\textbf{Correspondence to the Picture of Gauge Theory in Physics}}
+
+Not limited to denomination, in general, a change in exchange rates that does not fundamentally affect value may keep $F_{\mu \nu}$ invariant. This idea is similar to gauge theory in physics.
+
+When arbitrage occurs, a flow of value is generated in that transaction loop.
+
+And through non-arbitrage transactions, the purchased currency instantly becomes more expensive, and the sold currency becomes cheaper. This non-arbitrage transaction creates a distortion in value, but in a perfect market, the arbitrage opportunity is immediately corrected.
+
+This picture is as if a distortion $F_{\mu \nu}$ is created in the field $A_{\mu}$, a force acts on the value, and value flows due to arbitrage.
+
+In this picture, the flow of the matter field (current) in gauge theory seems to correspond to the flow of value.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Arbitrage} & \textbf{Physics} \\ \hline \hline
+		Log of the exchange rate $A_{\mu}$ & Gauge field \\ \hline
+		Log of the arbitrage index $F_{\mu \nu}$ & Field strength \\ \hline
+		Log of the denomination ratio $\theta(x)$ & Gauge transformation function \\ \hline
+		Flow of "value" due to arbitrage opportunity & Current \\ \hline
+		Exchange rate $R_{\mu}$ & Lattice link variable \\ \hline
+		Arbitrage index $M_{\mu \nu}$ & Lattice plaquette \\ \hline
+	\end{tabular}
+	\caption{Correspondence table to the picture of gauge theory in physics}
+	\label{tab:tab202502281751}
+\end{table}
+
+
+\section{\textbf{Things I'd like to write about if I feel like it}}
+
+If we restrict the gauge symmetry to $U(1)$, we can make it correspond to condensed matter physics based on electromagnetism.
+
+I am curious what economic interpretations can be given to phenomena in condensed matter physics.
+
+For example, I wonder what economic interpretations can be given to anomalies in gauge theory (e.g., superconductivity) within this framework.
+
+\begin{thebibliography}{9}
+
+	\bibitem{Rudin:Schwichtenberg}
+	J.~Schwichtenberg.
+	\newblock Demystifying Gauge Symmetry
+	\newblock arXiv:1901.10420v1 (2019).
+
+	\bibitem{Rudin:Ilinski}
+	K.~Ilinski.
+	\newblock Physics of Finance.
+	\newblock hep-th/9710148 (1997).
+
+	\bibitem{Rudin:Young}
+	K.~Young.
+	\newblock Foreign exchange market as a lattice gauge theory.
+	\newblock American Journal of Physics 67, 862 (1999).
+
+	\bibitem{Rudin:IlinskiKalinin}
+	K.~Ilinski., G.~Kalinin.
+	\newblock Black-Scholes equation from Gauge Theory of Arbitrage
+	\newblock hep-th/9712034 (1997).
+
+\end{thebibliography}
+
+\end{document}
