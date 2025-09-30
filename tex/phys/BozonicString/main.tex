@@ -1,0 +1,578 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+
+\title{
+Bosonic Strings Short Introduction
+}
+
+\author{
+Masaru Okada
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	A summary note for myself.
+
+	We consider the theory of bosonic strings (a theory without supersymmetry).
+
+	We will confirm that mass energy arises from the vibrational energy of the string, and that the spacetime dimension becomes 26.
+
+	We will confirm that gauge theory can be derived from Open Strings and general relativity can be derived from Closed Strings.
+
+	We will also confirm that spin arises from the orbital angular momentum originating from the string's vibrations.
+
+\end{abstract}
+
+\section{D-Dimensional Minkowski Spacetime}
+
+Let's consider a $D$-dimensional Minkowski spacetime as
+$\mathbb{R}^{1,D-1}$,
+and its coordinates as
+$\{ X^{\mu} \}_{\mu=0,1,\cdots,D-1}$.
+
+The Minkowski metric is defined as follows:
+
+$$
+	ds^{2} = - \eta_{\mu \nu} dX^{\mu} dX^{\nu}
+$$
+
+
+where
+$\eta_{\mu \nu} = {\rm diag} (-1, 1,1,\cdots,1)$.
+
+\section{The Motion of a String}
+
+A string is a 1-dimensional object that moves in
+$\mathbb{R}^{1,D-1}$.
+
+The trajectory of the string is called the worldsheet, and
+$\mathbb{R}^{1,D-1}$
+is called the target spacetime.
+
+If the worldsheet parameters are
+$(\tau,\sigma)$,
+the position of the string in the target space can be written as
+$X^{\mu}=X^{\mu}(\tau, \sigma)$.
+
+The canonical conjugate momentum
+$P^{\mu}=P^{\mu}(\tau, \sigma)$
+is
+$$
+	P^{\mu}
+	=
+	\frac{1}{2 \pi \alpha'}
+	\partial^{\tau} X^{\mu}
+$$
+and the momentum of the string's center of mass,
+$p^{\mu}$,
+is
+$$
+	p^{\mu}(\tau)
+	=
+	\int^{l}_{0}
+	d \sigma
+	P^{\mu}(\tau, \sigma)
+$$
+where
+$l$
+is the length of the string, and
+$\alpha'=l^{2}$
+is the tension, and these are parameters.
+
+We set up a coordinate system where the momentum of the string's center of mass is
+$p^{\mu} = (p^{0} , p^{1}, 0 , 0 \cdots, 0)$.
+
+\section{Light-Cone Coordinates}
+
+Since the string doesn't vibrate in the
+$X^{0}, X^{1}$
+directions, we use light-cone coordinates in the target space.
+
+$$
+	X^{\pm} = \frac{1}{\sqrt{2}} (X^{0} \pm X^{1})
+$$
+
+In light-cone coordinates, the inner product becomes:
+
+$$
+	A_{\mu} B^{\mu}
+	= - A^{+} B^{-} - A^{-} B^{+} + \sum_{i=2}^{D-1} A^{i} B^{i}
+$$
+
+Furthermore, we set the worldsheet time coordinate as
+$\tau=X^{+}$.
+
+\section{String Equation of Motion}
+
+The string satisfies the wave equation.
+
+$$
+	\left(
+	\frac{\partial^{2}}{\partial \tau^{2}}
+	-
+	\frac{\partial^{2}}{\partial \sigma^{2}}
+	\right)
+	X^{\mu}
+	=0
+$$
+
+
+Note that the string is not yet quantized at this point.
+
+Also, while the string wave equation formally resembles the massless Klein-Gordon equation,
+as we will see later, the string is not necessarily massless.
+Rather, the mass of the string arises from its vibrations.
+
+\section{Solution for the Open String}
+
+By imposing the free endpoint condition
+$$
+	\partial_{\sigma} X^{\mu} |_{\sigma=0,\pi} = 0
+$$
+the solution becomes as follows:
+
+$$
+	X^{i}(\tau, \sigma)
+	=
+	x^{i} + \frac{p^{i}}{\pi p^{+}} \tau
+	+
+	i (2 \alpha')^{1/2} \sum_{n \in \mathbb{Z} \backslash \{ 0 \} }
+	\frac{1}{n}
+	\alpha^{i}_{n} e^{- i n \tau}
+	\cos n \sigma
+$$
+
+Here, we've set $x^{i}$ and $p^{i}$ to be the position and momentum of the string's center of mass.
+
+Recalling high school physics, the motion of a particle with velocity
+$v$
+is
+$x = x_{0} + vt$,
+which corresponds to the first and second terms of the Open String solution.
+The third term, the oscillatory part, is the characteristic feature originating from the string.
+
+\section{Solution for the Closed String}
+
+By imposing the smooth connection conditions at the ends
+$$
+	X^{\mu}(\tau, 0)
+	=
+	X^{\mu}(\tau, 2 \pi)
+$$
+$$
+	\partial_{\sigma} X^{\mu}(\tau, 0)
+	=
+	\partial_{\sigma} X^{\mu}(\tau, 2 \pi)
+$$
+
+the solution becomes as follows:
+
+$$
+	X^{i}(\tau, \sigma)
+	=
+	x^{i} + \frac{p^{i}}{\pi p^{+}} \tau
+	+
+	i \left( \frac{\alpha'}{2} \right)^{1/2} \sum_{n \in \mathbb{Z} \backslash \{ 0 \} }
+	\frac{1}{n}
+	\left(
+	\alpha^{i}_{n} e^{- 2 i n (\tau + \sigma) }
+	+
+	\tilde{\alpha}^{i}_{n} e^{- 2 i n (\tau - \sigma) }
+	\right)
+$$
+
+Unlike the Open String case, the third term, which originates from the string, is separated into clockwise and counter-clockwise parts.
+The Fourier coefficients use different variables for clockwise and counter-clockwise motion.
+
+\section{Canonical Quantization of the String}
+
+Up to this point, we've been considering the classical string.
+From here on, we will consider the quantum string.
+
+Recalling the canonical commutation relation in quantum mechanics,
+
+$$
+	[x^{i} , p^{j}] = \sqrt{-1} \delta^{ij}
+$$
+
+In a similar way, we have
+$$
+	[X^{i}(\tau, \sigma) , P^{j}(\tau, \sigma')] = \sqrt{-1} \delta^{ij} \delta(\sigma - \sigma')
+$$
+
+Here we set
+$\hbar=1$.
+We perform quantization by imposing these canonical commutation relations.
+
+Upon Fourier transforming, the following relations are derived among the coefficients:
+$$
+	[\alpha^{i}_{n} , \alpha^{j}_{m}] = n \delta^{ij} \delta_{n+m, 0}
+$$
+$$
+	[ \tilde{\alpha}^{i}_{n} , \tilde{\alpha}^{j}_{m}] = n \delta^{ij} \delta_{n+m, 0}
+$$
+
+Since these form a Heisenberg algebra, they appear to be creation and annihilation operators for string vibrations in the physical picture.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Open String   & $\alpha^{i}_{n(<0)}$         & Creation operator for $|n|$-th vibration in the $X^{i}$ direction     \\ \hline
+		Open String   & $\alpha^{i}_{n(>0)}$         & Annihilation operator for $n$-th vibration in the $X^{i}$ direction       \\ \hline
+		Closed String & $\alpha^{i}_{n(<0)}$         & Creation operator for clockwise $|n|$-th vibration in the $X^{i}$ direction \\ \hline
+		Closed String & $\alpha^{i}_{n(>0)}$         & Annihilation operator for clockwise $n$-th vibration in the $X^{i}$ direction   \\ \hline
+		Closed String & $\tilde{\alpha}^{i}_{n(<0)}$ & Creation operator for counter-clockwise $|n|$-th vibration in the $X^{i}$ direction \\ \hline
+		Closed String & $\tilde{\alpha}^{i}_{n(>0)}$ & Annihilation operator for counter-clockwise $n$-th vibration in the $X^{i}$ direction   \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{On-Shell Condition}
+
+Now, we have set up a coordinate system where the string's center of mass momentum is
+$p^{\mu} = (p^{0} , p^{1}, 0 , 0 \cdots, 0)$.
+Therefore, if the mass of the string is
+$m$,
+then
+$$
+	m^{2}
+	=
+	- p^{\mu} p_{\mu}
+	=
+	2 p^{+} p^{-}
+$$
+
+Recalling that
+$$
+	p^{\mu}
+	=
+	\int^{l}_{0} d \sigma
+	P^{\mu}(\tau, \sigma)
+$$
+it is clear that
+$m^{2}$
+is determined by the string's vibrations.
+The more vigorously the string vibrates, the heavier it becomes.
+
+Expanding the canonical momentum density,
+$$
+	m^{2}
+	=
+	\frac{1}{2}
+	\sum^{D-1}_{i=2}
+	\int^{l}_{0} d \sigma
+	\left(
+	\partial_{\tau} X^{i} \partial_{\tau} X^{i}
+	+
+	\partial_{\sigma} X^{i} \partial_{\sigma} X^{i}
+	\right)
+$$
+
+Recalling that the Hamiltonian of a harmonic oscillator can be written as
+$
+	\frac{p^{2}}{2m}
+	+
+	\frac{1}{2} m \omega^{2} x^{2}
+$,
+the first and second terms correspond to the kinetic and potential terms, respectively.
+
+\section{Squared Mass of the Open String}
+
+Continuing the calculation for the Open String, we get
+$$
+	m^{2}
+	=
+	\frac{1}{\alpha'}
+	\sum^{\infty}_{n=1}
+	\sum^{D-1}_{i=2}
+	n
+	\left(
+	N_{i,n} + \frac{1}{2}
+	\right)
+$$
+
+$N_{i,n}=\frac{1}{n} \alpha^{i}_{-n} \alpha^{i}_{n}$
+is the number operator.
+The second term in the parenthesis,
+$\frac{1}{2}$,
+represents the zero-point vibration.
+
+An apparent divergence appears here, but we
+\footnote{The discussion to converge this divergence seems very complicated.}
+substitute
+$$
+	\sum^{\infty}_{n=1} n
+	=
+	\sum^{\infty}_{n=1}
+	\frac{1}{n^{-1}}
+	=
+	\zeta(-1)
+$$
+and replace it with the special value of the zeta function:
+$$
+	\zeta(-1)
+	=
+	- \frac{1}{12}
+$$
+From the above procedure, the squared mass of the Open string is
+$$
+	m^{2}
+	=
+	\frac{1}{\alpha'}
+	\left(
+	\sum^{\infty}_{n=1}
+	\sum^{D-1}_{i=2}
+	n N_{i,n}
+	\right)
+	- \frac{D-2}{24 \alpha'}
+$$
+
+\section{Ground State of the Open String}
+
+The ground state of the Open String,
+$| 0 \rangle$,
+is defined for all
+$n>0$
+as follows:
+$$
+	\alpha^{i}_{n}
+	| 0 \rangle
+	= 0
+$$
+
+In this case, the squared mass is determined only by the zero-point vibration.
+
+$$
+	m^{2}
+	= - \frac{D-2}{24 \alpha'}
+$$
+
+If the dimension is
+$D>2$,
+the squared mass becomes negative, and a tachyon with an imaginary mass appears.
+This is a flaw in the theory and one of the reasons why the theory of bosonic strings is considered a toy model that does not describe reality.
+
+\section{First Excited State of the Open String and Dimensional Constraint}
+
+The first excited state of the Open String is the state where only a single vibration is active:
+$$
+	\alpha^{i}_{-1}
+	| 0 \rangle
+	\ , \ \ i = 2,3,\cdots, D-1
+$$
+and there are
+$D-2$
+such states (there is
+$SO(D-2)$
+symmetry).
+
+In this case, the squared mass is
+$$
+	m^{2}
+	=
+	\frac{1}{\alpha'}
+	\left(
+	1 - \frac{D-2}{24}
+	\right)
+	=
+	\frac{26 - D}{24 \alpha'}
+$$
+
+In the discussion so far, Lorentz symmetry appears to be broken during quantization, but for this symmetry to hold, this mass must be zero (Wigner's classification).
+
+In this case, the allowed dimension of the target space is
+$$
+	D=26
+$$
+.
+
+(Although not written in this note, in superstring theory with supersymmetry, only
+$D=10$
+is allowed.)
+
+\section{Squared Mass of the Closed String}
+
+The squared mass of the Closed string is
+$$
+	m^{2}
+	=
+	\frac{2}{\alpha'}
+	\left(
+	\sum^{\infty}_{n=1}
+		(
+		\alpha^{i}_{-n} \alpha^{i}_{n}
+		+
+		\tilde{\alpha}^{i}_{n} \tilde{\alpha}^{i}_{n}
+		)
+	-
+	\frac{D-2}{24}
+	-
+	\frac{D-2}{24}
+	\right)
+$$
+
+Due to translational symmetry, the constraint condition
+$$
+	\sum^{\infty}_{n=1}
+	\alpha^{i}_{-n} \alpha^{i}_{n}
+	=
+	\sum^{\infty}_{n=1}
+	\tilde{\alpha}^{i}_{-n} \tilde{\alpha}^{i}_{n}
+$$
+is imposed.
+
+\section{Ground State of the Closed String}
+
+The ground state of the Closed String,
+$| 0 \rangle$,
+is defined for all
+$n>0$
+by the following equation:
+$$
+	\alpha^{i}_{n}
+	| 0 \rangle
+	=
+	\tilde{\alpha}^{i}_{n}
+	| 0 \rangle
+	=
+	0
+$$
+
+In this case, the mass is
+$$
+	m^{2}
+	= - \frac{D-2}{12 \alpha'}
+$$
+and as with the Open String, a tachyon appears again.
+
+\section{First Excited State of the Closed String and Dimensional Constraint}
+
+The first excited state for the Closed case uses both the clockwise and counter-clockwise creation operators:
+$$
+	\alpha^{i}_{-1}
+	\tilde{\alpha}^{j}_{-1}
+	| 0 \rangle
+	\ , \ \ i, j = 2,3,\cdots, D-1
+$$
+
+In this case, the squared mass is
+$$
+	m^{2}
+	=
+	\frac{2}{\alpha'}
+	\left(
+	1 - \frac{D-2}{24}
+	\right)
+	=
+	\frac{26 - D}{12 \alpha'}
+$$
+
+Following a similar discussion to the Open String, a dimensional constraint on the target spacetime of
+$$
+	D=26
+$$
+is also obtained for the Closed case.
+
+\section{Correspondence to the Standard Model and General Relativity}
+
+The first excited state of the Open String,
+$
+	\alpha^{i}_{-1}
+	| 0 \rangle
+$,
+has a single dimensional index and is a vector. This corresponds to the
+gauge field
+$A_{\mu}$.
+
+
+On the other hand, the first excited state of the Closed String,
+$
+	\alpha^{i}_{-1}
+	\tilde{\alpha}^{j}_{-1}
+	| 0 \rangle
+$,
+has two dimensional indices and is a rank-2 tensor.
+A rank-2 tensor can be irreducibly decomposed into a scalar, a rank-2 antisymmetric tensor, and a rank-2 symmetric tensor.
+These correspond to the scalar field $\phi$, the field curvature (antisymmetric tensor) $F_{\mu \nu}$, and the gravitational field (symmetric tensor) $G_{\mu \nu}$ respectively.
+
+This is the reason why it is said that gauge theory and gravity theory emerge from string theory.
+
+\section{Spin}
+
+In string theory, spin is naturally derived by evaluating the orbital angular momentum of the string.
+
+Let's consider the Open String.
+The orbital angular momentum density of the string is
+$$
+	L^{ij}(\tau, \sigma)
+	=
+	X^{i} P^{j}
+	-
+	P^{i} X^{j}
+$$
+and the total angular momentum of the string is,
+$$
+	l^{ij}
+	=
+	\int^{\pi}_{0} d \sigma
+	L^{ij}
+$$
+Calculating this, we get,
+$$
+	l^{ij}
+	=
+	x^{i} p^{j}
+	-
+	p^{i} x^{j}
+	+
+	S^{ij}
+$$
+Here we've set
+$$
+	S^{ij}
+	=
+	-i \sum_{n=1}^{\infty} \frac{1}{n}
+	(
+	\alpha^{i}_{-n} \alpha^{j}_{n}
+	-
+	\alpha^{j}_{-n} \alpha^{i}_{n}
+	)
+$$
+.
+
+The first and second terms of
+$l^{ij}$
+are quantities originating from the center of mass position and momentum, while the third term
+$S^{ij}$
+is the orbital angular momentum originating from the string's vibrations, which does not depend on the center of mass position and momentum.
+$S^{ij}$
+satisfies the definition of the spin operator.
+
+\section{Particularly Important Omissions in This Note}
+
+Discussion of the Nambu-Goto action and the Polyakov action.
+
+Discussion that in addition to light-cone quantization, there are also canonical quantization and BRST quantization which preserve covariance.
+
+Discussion of zeta function regularization.
+
+
+\begin{thebibliography}{9}
+
+	\bibitem{Rudin:Zwiebach}
+	Barton Zwiebach.
+	\newblock A First Course in String Theory 2nd Edition.
+
+	\bibitem{Rudin:Ilinski}
+	David McMahon.
+	\newblock String Theory Demystified.
+
+\end{thebibliography}
+
+\end{document}

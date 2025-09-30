@@ -1,0 +1,596 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+
+\title{
+ボゾンの弦のお話
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	自分用まとめノート。
+
+	ボゾンの弦の理論（超対称性は持たない理論）を考える。
+
+	弦の振動のエネルギーから質量エネルギーが出てきて、時空の次元が26になることを確認する。
+
+	Open Stringからゲージ理論、Closed Stringから重力理論（一般相対論）が出せることを確認する。
+
+	弦の振動由来の軌道角運動量からスピンが出てくることも確認する。
+
+\end{abstract}
+
+\section{$D$ 次元ミンコフスキー時空}
+
+$D$ 次元ミンコフスキー時空を
+$\mathbb{R}^{1,D-1}$
+として、
+その座標を
+$\{ X^{\mu} \}_{\mu=0,1,\cdots,D-1}$
+とする。
+
+ミンコフスキー計量は以下のように入れる。
+
+$$
+	ds^{2} = - \eta_{\mu \nu} dX^{\mu} dX^{\nu}
+$$
+
+
+ただし、
+$\eta_{\mu \nu} = {\rm diag} (-1, 1,1,\cdots,1)$
+
+\section{弦の運動}
+
+弦は
+$\mathbb{R}^{1,D-1}$
+を動く1次元の図形である。
+
+弦の軌跡を世界面といい、
+$\mathbb{R}^{1,D-1}$
+をターゲット時空という。
+
+世界面のパラメータを
+$(\tau,\sigma)$
+とすると、
+ターゲットにおける弦の位置は
+$X^{\mu}=X^{\mu}(\tau, \sigma)$
+と書ける。
+
+正準共役な運動量
+$P^{\mu}=P^{\mu}(\tau, \sigma)$
+は
+$$
+	P^{\mu}
+	=
+	\frac{1}{2 \pi \alpha'}
+	\partial^{\tau} X^{\mu}
+$$
+であり、弦の重心の運動量
+$p^{\mu}$
+は
+$$
+	p^{\mu}(\tau)
+	=
+	\int^{l}_{0}
+	d \sigma
+	P^{\mu}(\tau, \sigma)
+$$
+である。
+
+$l$
+は弦の長さ、
+$\alpha'=l^{2}$
+は張力であり、これらはパラメータである。
+
+弦の重心の運動量が
+$p^{\mu} = (p^{0} , p^{1}, 0 , 0 \cdots, 0)$
+となるような座標を設定する。
+
+\section{光円錐座標}
+
+弦は
+$X^{0}, X^{1}$
+方向には振動しないので、ターゲットで光円錐座標を用いる。
+
+$$
+	X^{\pm} = \frac{1}{\sqrt{2}} (X^{0} \pm X^{1})
+$$
+
+光円錐座標では内積は次のようになる。
+
+$$
+	A_{\mu} B^{\mu}
+	= - A^{+} B^{-} - A^{-} B^{+} + \sum_{i=2}^{D-1} A^{i} B^{i}
+$$
+
+さらに世界面の時間座標は、
+$\tau=X^{+}$
+のように設定する。
+
+\section{弦の運動方程式}
+
+弦は波動方程式を満たす。
+
+$$
+	\left(
+	\frac{\partial^{2}}{\partial \tau^{2}}
+	-
+	\frac{\partial^{2}}{\partial \sigma^{2}}
+	\right)
+	X^{\mu}
+	=0
+$$
+
+
+弦はまだこの時点は量子化されていないことに注意する。
+
+また、弦の波動方程式だけ見るとmasslessのKlein-Gordonと形式的には同じだが、
+後で見るように弦がmasslessとは限らない。
+むしろ弦の質量は弦の振動によって生じる。
+
+\section{Open Stringの解}
+
+自由端条件
+$$
+	\partial_{\sigma} X^{\mu} |_{\sigma=0,\pi} = 0
+$$
+を課すと、解は次のようになる。
+
+$$
+	X^{i}(\tau, \sigma)
+	=
+	x^{i} + \frac{p^{i}}{\pi p^{+}} \tau
+	+
+	i (2 \alpha')^{1/2} \sum_{n \in \mathbb{Z} \backslash \{ 0 \} }
+	\frac{1}{n}
+	\alpha^{i}_{n} e^{- i n \tau}
+	\cos n \sigma
+$$
+
+ここで、$x^{i},p^{i}$は弦の重心の位置と運動量とした。
+
+高校物理を思い出すと、速度
+$v$
+を持つ質点の運動は
+$x = x_{0} + vt$
+であり、それぞれOpen Stringの解の1,2項目が対応している。
+3項目の振動部分が弦由来の特徴である。
+
+\section{Closed Stringの解}
+
+滑らかに端が繋がる条件
+$$
+	X^{\mu}(\tau, 0)
+	=
+	X^{\mu}(\tau, 2 \pi)
+$$
+$$
+	\partial_{\sigma} X^{\mu}(\tau, 0)
+	=
+	\partial_{\sigma} X^{\mu}(\tau, 2 \pi)
+$$
+
+これらを課すと、解は次のようになる。
+
+$$
+	X^{i}(\tau, \sigma)
+	=
+	x^{i} + \frac{p^{i}}{\pi p^{+}} \tau
+	+
+	i \left( \frac{\alpha'}{2} \right)^{1/2} \sum_{n \in \mathbb{Z} \backslash \{ 0 \} }
+	\frac{1}{n}
+	\left(
+	\alpha^{i}_{n} e^{- 2 i n (\tau + \sigma) }
+	+
+	\tilde{\alpha}^{i}_{n} e^{- 2 i n (\tau - \sigma) }
+	\right)
+$$
+
+Open Stringの場合と異なり、弦由来の3項目は右回り、左回りに分かれている。
+Fourier係数は右回りと左回りで異なる変数を用いた。
+
+\section{弦の正準量子化}
+
+ここまでは古典弦を考えていたが、
+ここからは量子弦を考える。
+
+量子力学の正準交換関係を思い出すと、
+
+$$
+	[x^{i} , p^{j}] = \sqrt{-1} \delta^{ij}
+$$
+
+これと同様に
+
+$$
+	[X^{i}(\tau, \sigma) , P^{j}(\tau, \sigma')] = \sqrt{-1} \delta^{ij} \delta(\sigma - \sigma')
+$$
+
+ただし
+$\hbar=1$
+と置いている。
+このように正準交換関係の条件を課すことで量子化する。
+
+Fourier変換すると係数の間で次の関係式が導出される。
+$$
+	[\alpha^{i}_{n} , \alpha^{j}_{m}] = n \delta^{ij} \delta_{n+m, 0}
+$$
+$$
+	[ \tilde{\alpha}^{i}_{n} , \tilde{\alpha}^{j}_{m}] = n \delta^{ij} \delta_{n+m, 0}
+$$
+
+これらはHeisenberg代数になっているので、物理の描像としては弦の振動の生成消滅演算子になっているように見える。
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Open String   & $\alpha^{i}_{n(<0)}$         & $X^{i}$ 方向の $|n|$ 倍振動の生成演算子     \\ \hline
+		Open String   & $\alpha^{i}_{n(>0)}$         & $X^{i}$ 方向の $n$ 倍振動の消滅演算子       \\ \hline
+		Closed String & $\alpha^{i}_{n(<0)}$         & $X^{i}$ 方向の右回りの $|n|$ 倍振動の生成演算子 \\ \hline
+		Closed String & $\alpha^{i}_{n(>0)}$         & $X^{i}$ 方向の右回りの $n$ 倍振動の消滅演算子   \\ \hline
+		Closed String & $\tilde{\alpha}^{i}_{n(<0)}$ & $X^{i}$ 方向の左回りの $|n|$ 倍振動の生成演算子 \\ \hline
+		Closed String & $\tilde{\alpha}^{i}_{n(>0)}$ & $X^{i}$ 方向の左回りの $n$ 倍振動の消滅演算子   \\ \hline
+	\end{tabular}
+\end{table}
+
+
+\section{On-Shell条件}
+
+今、弦の重心の運動量が
+$p^{\mu} = (p^{0} , p^{1}, 0 , 0 \cdots, 0)$
+となるような座標を設定していたので
+、
+弦の質量を
+$m$
+とすると、
+$$
+	m^{2}
+	=
+	- p^{\mu} p_{\mu}
+	=
+	2 p^{+} p^{-}
+$$
+
+ところで、
+$$
+	p^{\mu}
+	=
+	\int^{l}_{0} d \sigma
+	P^{\mu}(\tau, \sigma)
+$$
+であったことを思いだすと、
+$m^{2}$
+は弦の振動により決まることが分かる。
+激しく振動するほど弦は重くなる。
+
+正準運動量密度を展開すると、
+$$
+	m^{2}
+	=
+	\frac{1}{2}
+	\sum^{D-1}_{i=2}
+	\int^{l}_{0} d \sigma
+	\left(
+	\partial_{\tau} X^{i} \partial_{\tau} X^{i}
+	+
+	\partial_{\sigma} X^{i} \partial_{\sigma} X^{i}
+	\right)
+$$
+
+調和振動子のハミルトニアンが
+$
+	\frac{p^{2}}{2m}
+	+
+	\frac{1}{2} m \omega^{2} x^{2}
+$
+のようにかけたことを思い出すと、第一項と第二項はそれぞれ
+運動項とポテンシャル項に対応している。
+
+\section{Open Stringの二乗質量}
+
+Open Stringについて計算を続けると、
+$$
+	m^{2}
+	=
+	\frac{1}{\alpha'}
+	\sum^{\infty}_{n=1}
+	\sum^{D-1}_{i=2}
+	n
+	\left(
+	N_{i,n} + \frac{1}{2}
+	\right)
+$$
+
+$N_{i,n}=\frac{1}{n} \alpha^{i}_{-n} \alpha^{i}_{n}$
+は個数演算子である。
+括弧の中の二項目の
+$\frac{1}{2}$
+はゼロ点振動を表す。
+
+ここで顕わに発散が出てきてしまうが、
+$$
+	\sum^{\infty}_{n=1} n
+	=
+	\sum^{\infty}_{n=1}
+	\frac{1}{n^{-1}}
+	=
+	\zeta(-1)
+$$
+と置換して、ゼータ関数の特殊値で置き換える
+\footnote{この発散を収束させる議論は闇が深そう。}
+。
+$$
+	\zeta(-1)
+	=
+	- \frac{1}{12}
+$$
+以上の手続きから、Openな弦の二乗質量は
+$$
+	m^{2}
+	=
+	\frac{1}{\alpha'}
+	\left(
+	\sum^{\infty}_{n=1}
+	\sum^{D-1}_{i=2}
+	n N_{i,n}
+	\right)
+	- \frac{D-2}{24 \alpha'}
+$$
+
+\section{Open Stringの基底状態}
+
+Open Stringの基底状態
+$| 0 \rangle$
+は、すべての
+$n>0$
+について以下で定義される。
+$$
+	\alpha^{i}_{n}
+	| 0 \rangle
+	= 0
+$$
+
+このとき二乗質量は零点振動のみから決まる。
+
+$$
+	m^{2}
+	= - \frac{D-2}{24 \alpha'}
+$$
+
+次元が
+$D>2$
+の場合に二乗質量が負になってしまい、純虚数の質量を持つタキオンが出てきてしまう。
+これは理論の欠陥であり、ボゾンの弦の理論は現実を記述しないトイモデルであるとされる理由の一つである。
+
+\section{Open Stringの第一励起状態と次元の制約}
+
+Open Stringの第一励起状態は1倍振動だけしている状態
+$$
+	\alpha^{i}_{-1}
+	| 0 \rangle
+	\ , \ \ i = 2,3,\cdots, D-1
+$$
+であり、
+$D-2$
+個の状態がある（
+$SO(D-2)$
+の対称性がある
+）。
+
+このとき二乗質量は
+$$
+	m^{2}
+	=
+	\frac{1}{\alpha'}
+	\left(
+	1 - \frac{D-2}{24}
+	\right)
+	=
+	\frac{26 - D}{24 \alpha'}
+$$
+
+ここまでの議論で量子化するときに見かけ上ローレンツ対称性を破っているが、
+この対称性を成り立たせるためにはこの質量はゼロになる必要がある（ウィグナーの分類）。
+
+このとき許されるターゲット空間の次元は
+$$
+	D=26
+$$
+になる。
+
+（このノートでは書かないが、超対称性を入れた超弦理論では
+$D=10$
+のみ許される。
+）
+
+\section{Closed Stringの二乗質量}
+
+Closedな弦の二乗質量は
+$$
+	m^{2}
+	=
+	\frac{2}{\alpha'}
+	\left(
+	\sum^{\infty}_{n=1}
+		(
+		\alpha^{i}_{-n} \alpha^{i}_{n}
+		+
+		\tilde{\alpha}^{i}_{n} \tilde{\alpha}^{i}_{n}
+		)
+	-
+	\frac{D-2}{24}
+	-
+	\frac{D-2}{24}
+	\right)
+$$
+
+並進対称性より、
+拘束条件として
+$$
+	\sum^{\infty}_{n=1}
+	\alpha^{i}_{-n} \alpha^{i}_{n}
+	=
+	\sum^{\infty}_{n=1}
+	\tilde{\alpha}^{i}_{-n} \tilde{\alpha}^{i}_{n}
+$$
+が課される。
+
+\section{Closed Stringの基底状態}
+
+Closed Stringの基底状態
+$| 0 \rangle$
+はすべての
+$n>0$
+について以下の式で定義される。
+$$
+	\alpha^{i}_{n}
+	| 0 \rangle
+	=
+	\tilde{\alpha}^{i}_{n}
+	| 0 \rangle
+	=
+	0
+$$
+
+このとき質量は
+$$
+	m^{2}
+	= - \frac{D-2}{12 \alpha'}
+$$
+となり、Openのときと同じでまたタキオンが出てきてしまう。
+
+\section{Closed Stringの第一励起状態と次元の制約}
+
+Closedの場合の第一励起状態は右回りと左回りの両方の生成演算子を用いて
+$$
+	\alpha^{i}_{-1}
+	\tilde{\alpha}^{j}_{-1}
+	| 0 \rangle
+	\ , \ \ i, j = 2,3,\cdots, D-1
+$$
+
+このとき二乗質量は
+$$
+	m^{2}
+	=
+	\frac{2}{\alpha'}
+	\left(
+	1 - \frac{D-2}{24}
+	\right)
+	=
+	\frac{26 - D}{12 \alpha'}
+$$
+
+Openのときと同様の議論で、Closedな場合も同様に
+$$
+	D=26
+$$
+のターゲット時空の次元の制約が得られる。
+
+\section{標準模型と一般相対論との対応}
+
+Open Stringの第一励起状態
+$
+	\alpha^{i}_{-1}
+	| 0 \rangle
+$
+は次元の添え字の足が1つであり、ベクトルになっている。これは
+ゲージ場
+$A_{\mu}$
+と対応する。
+
+
+一方で、Closed Stringの第一励起状態
+$
+	\alpha^{i}_{-1}
+	\tilde{\alpha}^{j}_{-1}
+	| 0 \rangle
+$
+は次元の添え字の足を2つ持っていて、2階のテンソルになっている。
+2階のテンソルはスカラーと2階反対称テンソルと2階対称テンソルに既約分解できる。
+これらはそれぞれスカラー場 $\phi$、場の曲率（反対称テンソル） $F_{\mu \nu}$ 、重力場（対称テンソル） $G_{\mu \nu}$ に対応する。
+
+このことが弦理論からゲージ理論と重力理論が出てくると言われる所以になっている。
+
+\section{スピン}
+
+弦理論では弦の軌道角運動量を評価することで自然にスピンが導出される。
+
+Open Stringで考える。
+弦の軌道角運動量密度は
+$$
+	L^{ij}(\tau, \sigma)
+	=
+	X^{i} P^{j}
+	-
+	P^{i} X^{j}
+$$
+であり、弦の全角運動量は、
+$$
+	l^{ij}
+	=
+	\int^{\pi}_{0} d \sigma
+	L^{ij}
+$$
+計算すると、
+$$
+	l^{ij}
+	=
+	x^{i} p^{j}
+	-
+	p^{i} x^{j}
+	+
+	S^{ij}
+$$
+ここで、
+$$
+	S^{ij}
+	=
+	-i \sum_{n=1}^{\infty} \frac{1}{n}
+	(
+	\alpha^{i}_{-n} \alpha^{j}_{n}
+	-
+	\alpha^{j}_{-n} \alpha^{i}_{n}
+	)
+$$
+と置いた。
+
+$l^{ij}$
+の第一項と第二項は重心の位置と運動量由来の量であり、第三項
+$S^{ij}$
+は重心の位置と運動量に依らない弦の振動由来の軌道角運動量である。
+$S^{ij}$
+はスピンの演算子の定義を満たす。
+
+\section{このノートで端折った事項の中で特に重要なこと}
+
+南部後藤作用とPolyakov作用の話。
+
+光円錐量子化以外にも共変性を保った正準量子化やBRST量子化があるという話。
+
+ゼータ関数正則化の話。
+
+
+\begin{thebibliography}{9}
+
+	\bibitem{Rudin:Zwiebach}
+	Barton Zwiebach.
+	\newblock A First Course in String Theory 2nd Edition.
+
+	\bibitem{Rudin:Ilinski}
+	David McMahon.
+	\newblock String Theory Demystified.
+
+\end{thebibliography}
+
+\end{document}
