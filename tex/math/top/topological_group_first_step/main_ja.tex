@@ -1,0 +1,112 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+位相群の話
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+	（概要）（後で書く）
+\end{abstract}
+
+\section{位相群}
+
+群と位相空間の構造を合わせて持つ位相群を定義する。
+
+集合 $G$ が位相群であるとは、
+
+\begin{enumerate}
+	\item $G$ は群である。
+	\item $G$ は位相空間である。
+	\item 写像 $\mu: G \times G \to G, \nu: G \to G$ をそれぞれ $\mu(x,y)=xy, \nu(x) = x^{-1}$ と定義するとき、$\mu,\nu$ は連続である。
+\end{enumerate}
+
+最後の条件は、通常の群の条件の積と逆元について、位相空間の連続性を用いた定義になっている。
+積と逆元が連続写像で送っても保たれるというステートメントである。
+
+
+もし $G$ の位相が距離空間から導かれている場合、最後の条件は
+
+\[
+	\left\{
+	\begin{array}{r}
+		\displaystyle \lim_{ m \to \infty } x_{m} \\
+		\displaystyle \lim_{ m \to \infty } y_{m}
+	\end{array}
+	\right.
+	\ \Rightarrow \
+	\left\{
+	\begin{array}{r}
+		\displaystyle \lim_{m \to \infty } x_{m} y_{m} = xy \\
+		\displaystyle \lim_{m \to \infty } x_{m}^{-1} = x^{-1}
+	\end{array}
+	\right.
+\]
+
+と言い換えられる。
+距離が入っていれば積と逆元が極限でも保存されるという条件になる。
+
+
+
+
+
+\subsection{位相群の例}
+
+\subsubsection{円周}
+
+円周 $S^{n} (n=0,1)$ は位相群になるが、球面 $S^{n} (n \neq 3)$ は位相群にならないことが知られている。
+（E. Cartan によって示された。）
+
+\begin{enumerate}
+	\item $S^{0} = \{ -1, 1 \}$
+	\item $S^{1} = \{ x \in \mathbb{C} \ | \ |x| = 1 \}$
+	\item $S^{3} = \{ x \in \mathbb{H} \ | \ |x| = 1 \}$
+\end{enumerate}
+
+はいずれも積に関して位相群になる。
+
+
+\subsubsection{実数}
+
+$\mathbb{R}$は和に関して位相群になる。
+
+\subsubsection{正の実数}
+
+$\mathbb{R}^{+} = \{ x \in \mathbb{R} | x > 0 \}$
+は積に関して位相群になる。
+
+$\mathbb{R}$ と $\mathbb{R}^{+}$ は位相群として同型である：$\mathbb{R} \cong \mathbb{R}^{+}$
+
+実際、
+$f: \mathbb{R} \ni x \to e^{x} \in \mathbb{R}^{+}$
+と
+$g: \mathbb{R}^{+} \ni x \to \log(x) \in \mathbb{R}$
+は
+$gf=1_{\mathbb{R}}$、
+$fg=1_{\mathbb{R}^{+}}$
+を満たす連続な準同型写像になる。
+
+
+\subsubsection{位相加群としての実数全体の自己準同型写像}
+
+$\mathbb{R}$ を実数全体のつくる位相加群としたとき、
+連続な自己準同型写像
+$f: \mathbb{R} \to \mathbb{R}$
+はある $a \in \mathbb{R}$ を用いて、$f(x) = ax$ と表される。
+
+
+
+\end{document}
