@@ -1,0 +1,183 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+Topology of Matrices
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+	(Abstract in progress. To be added later.)
+\end{abstract}
+
+\section{Sets of Matrices}
+
+While a topological space refers to a collection of open sets that satisfy certain conditions, a set of matrices can also form a topological space.
+The abstract concept of an open set can be introduced to matrices as well.
+
+\paragraph{$M_{n}(K)$ : The set of $n \times n$ matrices over $K$}
+
+{}
+
+Let $M_{n}(K)$ be the set of $n \times n$ matrices whose components are all elements of the field $K$.
+
+This set has the structure of a vector space with respect to matrix addition and scalar multiplication.
+
+This set also includes singular matrices, whose determinant is zero.
+
+\paragraph{$GL_{n}(K)$ : The general linear group}
+
+{}
+
+Let $GL_{n}(K)$ be the set of $n \times n$ invertible matrices whose components are all elements of the field $K$.
+
+Unlike $M_{n}(K)$, $GL_{n}(K)$ does not include matrices with a determinant of 0 (singular matrices).
+
+$GL_{n}(K)$ forms a group under matrix multiplication.
+
+\paragraph{$SL_{n}(K)$ : The special linear group}
+
+{}
+
+Let $SL_{n}(K)$ be the set of $n \times n$ matrices whose components are all elements of the field $K$, and whose determinant is equal to 1.
+
+$SL_{n}(K)$ is a more strictly conditioned set than $GL_{n}(K)$.
+
+$SL_{n}(K)$ also forms a group under matrix multiplication.
+
+\paragraph{$O(n)$ : The orthogonal group}
+
+{}
+
+The set of $n \times n$ matrices $A$ that satisfy $A^{-1} = A^{T}$.
+
+Their determinant is 1 or -1.
+
+This set represents transformations corresponding to rotations and reflections centered at the origin.
+
+\paragraph{$SO(n)$ : The special orthogonal group}
+
+{}
+
+The set of matrices in $O(n)$ whose determinant is 1.
+
+Also known as the rotation group.
+$SO(2)$ is the rotation group on a 2-dimensional plane, and
+$SO(3)$ is the rotation group in 3-dimensional space.
+
+\paragraph{$U(n)$ : The unitary group}
+
+{}
+
+The set of $n \times n$ complex matrices $A$ that satisfy $A^{-1} = A^{*}$.
+
+This represents the set of transformations corresponding to rotations and reflections in complex space.
+
+\paragraph{$SU(n)$ : The special unitary group}
+
+{}
+
+The set of matrices in $U(n)$ whose determinant is equal to 1.
+
+$SU(n)$ plays an essential role in physics, particularly in the Standard Model of particle physics, where it is used to describe the internal symmetries of particles.
+
+{}
+
+\textbf{SU(2) and Spin}
+
+In quantum mechanics, the state of a particle is described as a vector in a complex vector space.
+
+Transformations (for example, rotations) in this vector space are represented by unitary matrices.
+
+$SU(2)$ is used to describe spin, a quantum mechanical degree of freedom.
+
+Elementary particles like electrons and protons have a property similar to quantum mechanical self-rotation, which is different from classical rotation; this property is called spin.
+
+The matrices of $SU(2)$ are 2 $\times$ 2 unitary matrices with a determinant of 1.
+
+These matrices represent transformations in the 2-dimensional complex vector space (spinor space) that describes the spin states of an electron.
+
+{}
+
+For example, an electron's spin can take one of two states: \textbf{spin-up and spin-down}.
+
+These states are represented by the 2-dimensional vectors
+$
+	\begin{pmatrix} 1 \\
+		0\end{pmatrix}
+$
+and
+$
+	\begin{pmatrix} 0 \\
+		1\end{pmatrix}
+$.
+
+The elements of the $SU(2)$ group can represent any transformation between these two states.
+They can also describe changes to superposition states.
+
+$SU(2)$ is related to the rotation group in 3-dimensional space, $SO(3)$.
+
+$SU(2)$ is the double cover of $SO(3)$ and is a mathematical structure that naturally appears when dealing with half-integer spin, like spin.
+
+{}
+
+\textbf{SU(3) and Quark Color Charge}
+
+$SU(3)$ is used to describe the strong interaction.
+
+Quarks, which constitute hadrons like protons and neutrons, have a degree of freedom called color charge.
+
+This color charge comes in three types: red, green, and blue, which are quantum numbers completely unrelated to classical colors.
+
+The matrices of $SU(3)$ are 3 $\times$ 3 unitary matrices with a determinant of 1.
+
+These matrices represent transformations in the 3-dimensional complex vector space that describes the three color charge states.
+
+Gluons, which mediate the strong interaction, play the role of mixing these color charge states, and their transformations follow the $SU(3)$ symmetry.
+
+$SU(n)$ groups mathematically describe the states of particles (spin or color charge).
+
+{}
+
+\textbf{SU(5) and Grand Unification Theory}
+
+$SU(5)$ appears in grand unification theories in particle physics.
+
+The Standard Model expresses the fundamental forces of physics using different symmetry groups:
+\begin{itemize}
+	\item Strong force: $SU(3)$
+	\item Weak force: $SU(2)$
+	\item Electromagnetic force: $U(1)$
+\end{itemize}
+
+Grand unification theory is based on the idea that these three forces unify into a single force at high energies.
+
+Models that include $SU(3) \times SU(2) \times U(1)$ as a subgroup of a larger, single group have been proposed.
+
+One of the most natural (simple and elegant) candidates for this was $SU(5)$.
+
+One of the phenomena predicted by the $SU(5)$ theory is proton decay.
+
+Protons are considered stable particles, but $SU(5)$ suggests that they may decay with an extremely long but finite lifespan.
+Many experiments have attempted to observe proton decay, but none have been successful so far.
+
+There are also other inconsistencies with experimental data, so the $SU(5)$ theory is now considered to be incorrect in its simple form.
+
+
+\section{Sets of matrices can also be topological spaces}
+
+(In progress.)
+
+\end{document}
