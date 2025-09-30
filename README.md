@@ -23,6 +23,7 @@ The notes are organized within a parent directory named `tex`. All documents are
     │  │  └─natural_transformation
     │  └─top
     │      └─sierpinski_space
+    │      └─topological_group_first_step
     └─phys
         ├─BogoliubovTrans_as_NaturalTrans
         ├─ChernSimonsForm
@@ -38,9 +39,9 @@ The notes are organized within a parent directory named `tex`. All documents are
             - **natural\_transformation**: Notes on natural transformations.
         - **top**: Folder for topics related to topological spaces.
             - **sierpinski\_space**: Notes on Sierpinski space.
+            - : **topological\_group\_first\_step**: Notes on introduction to topological group
     - **phys**: Notes on physics.
         - **BogoliubovTrans\_as\_NaturalTrans**: Notes on the relationship between Bogoliubov transformations and natural transformations.
         - **ChernSimonsForm**: Notes on a simple, from-scratch derivation of the Chern-Simons form.
         - **KaluzaKleinMassGeneration**: Notes on the mechanism of mass generation via compactification.
 
-(as of 2025-09-29)
