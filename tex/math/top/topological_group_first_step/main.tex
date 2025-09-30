@@ -1,0 +1,306 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+An Introduction to Topological Groups
+}
+
+\author{
+mastex
+}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+	The definition and examples of topological groups
+\end{abstract}
+
+\section{Topological Groups}
+
+We will define a topological group, which has both the structure of a group and a topological space.
+
+A set $G$ is a topological group if:
+
+\begin{enumerate}
+	\item $G$ is a group.
+	\item $G$ is a topological space.
+	\item The maps $\mu: G \times G \to G$ and $\nu: G \to G$, defined as $\mu(x,y)=xy$ and $\nu(x) = x^{-1}$ respectively, are continuous.
+\end{enumerate}
+
+The last condition is a definition that uses the continuity of a topological space for the usual group operations of multiplication and inversion.
+It's a statement that the group operations are continuous maps.
+
+
+If the topology of $G$ is derived from a metric space, the last condition can be rephrased as:
+
+\[
+	\left\{
+	\begin{array}{r}
+		\displaystyle \lim_{ m \to \infty } x_{m} \\
+		\displaystyle \lim_{ m \to \infty } y_{m}
+	\end{array}
+	\right.
+	\ \Rightarrow \
+	\left\{
+	\begin{array}{r}
+		\displaystyle \lim_{m \to \infty } x_{m} y_{m} = xy \\
+		\displaystyle \lim_{m \to \infty } x_{m}^{-1} = x^{-1}
+	\end{array}
+	\right.
+\]
+
+If a metric is present, this condition means that multiplication and inversion are also preserved in the limit.
+
+
+
+
+
+\subsection{Examples of Topological Groups}
+
+\subsubsection{The Circle}
+
+It is known that the circle $S^{n} (n=0,1)$ is a topological group, but the sphere $S^{n} (n \neq 3)$ is not.
+(This was shown by E. Cartan.)
+
+\begin{enumerate}
+	\item $S^{0} = \{ -1, 1 \}$
+	\item $S^{1} = \{ x \in \mathbb{C} \ | \ |x| = 1 \}$
+	\item $S^{3} = \{ x \in \mathbb{H} \ | \ |x| = 1 \}$
+\end{enumerate}
+
+All of these are topological groups with respect to multiplication.
+
+
+\paragraph{Verification that $S^{0}$ is a topological group with respect to multiplication}
+
+{}
+
+(Verification that it is a group)
+
+$$1*1=1 \in S^{0}$$
+$$1*(-1)=(-1) \in S^{0}$$
+$$(-1)*1=(-1) \in S^{0}$$
+$$(-1)*(-1)=1 \in S^{0}$$
+
+It is closed under multiplication, and the inverse of each element is also in $S^{0}$.
+
+	${}$
+
+(Verification that it is a topological space)
+
+The subspaces of $S^{0}$ are
+$$\varnothing, \{ -1 \} , \{ 1 \} , \{ -1 , 1 \}$$
+and we define all four to be open sets.
+
+1. The total space $S^{0}$ and the empty set $\varnothing$ are open sets.
+
+2. The intersection of any finite number of these open sets is an open set.
+For example,
+$$\varnothing \cap \{ -1 \} = \varnothing$$
+$$\varnothing \cap \{ 1 \} = \varnothing$$
+$$\varnothing \cap S^{0} = \varnothing$$
+$$ \{ -1 \} \cap \{ 1 \} = \varnothing$$
+$$ \{ -1 \} \cap S^{0} = \{ -1 \} $$
+$$ \{ 1 \} \cap S^{0} = \{ 1 \} $$
+$$ \{ -1 \} \cap \{ 1 \} \cap S^{0} = \varnothing $$
+
+3. The union of any number of these open sets is also an open set.
+For example,
+$$\varnothing \cup \{ -1 \} = \{ -1 \}$$
+$$\varnothing \cup \{ 1 \} = \{ 1 \}$$
+$$\varnothing \cup S^{0} = S^{0}$$
+$$ \{ -1 \} \cup \{ 1 \} = \{ -1 , 1 \}$$
+$$ \{ -1 \} \cup S^{0} = S^{0} $$
+$$ \{ 1 \} \cup S^{0} = S^{0} $$
+$$ \{ -1 \} \cup \{ 1 \} \cup S^{0} = S^{0} $$
+
+From the above, $S^{0}$ is an open set.
+
+	${}$
+
+\paragraph{Verification that $S^{1}$ is a topological group with respect to multiplication}
+
+${}$
+
+$S^{1}$ is a subset of $\mathbb{C}$, and $\mathbb{C}$ can be identified with $\mathbb{R}^{2}$.
+
+The usual Euclidean topology is defined on $\mathbb{R}^{2}$.
+
+Here, a subset $U$ of $S^{1}$ is an open set if there exists an open set $V$ of $\mathbb{R}^{2}$ such that $U=S^{1} \cap V$.
+
+	${}$
+
+\ \textbullet 1. The empty set and the total set are open sets.
+
+$\varnothing = S^{1} \cap \varnothing$, and since $\varnothing$ is an open set in $\mathbb{R}^{2}$,
+$\varnothing$ is an open set in $S^{1}$.
+
+$S^{1} = S^{1} \cap \mathbb{R}^{2}$, and since $\mathbb{R}^{2}$ is an open set of $\mathbb{R}^{2}$ itself,
+$S^{1}$ is an open set in $S^{1}$.
+
+	${}$
+
+\ \textbullet 2. The intersection of a finite number of open sets is an open set.
+
+Consider the open sets of $S^{1}$,
+$U_{1}, U_{2} , \dots , U_{n}$.
+
+By definition, these can each be expressed as the intersection with open sets of $\mathbb{R}^{2}$,
+$V_{1}, V_{2} , \dots , V_{n}$ ($U_{i} = S^{1} \cap V_{i}$).
+
+\[
+	\begin{array}{rcl}
+		U_{1} \cap U_{2} \cdots \cap U_{n}
+		 & = &
+		(S^{1} \cap V_{1}) \cap (S^{1} \cap V_{2}) \cap \cdots (S^{1} \cap V_{n})
+		\\
+		 & = &
+		S^{1} \cap ( V_{1} \cap  V_{2} \cap \cdots \cap V_{n})
+	\end{array}
+\]
+
+Here, by the axioms of topology in $\mathbb{R}^{2}$,
+$V_{1} \cap  V_{2} \cap \cdots \cap V_{n}$
+is an open set in $\mathbb{R}^{2}$.
+
+Therefore,
+$U_{1} \cap U_{2} \cdots \cap U_{n}$
+is an open set in $S^{1}$.
+
+
+	${}$
+
+\ \textbullet 3. The union of an arbitrary number of open sets is an open set.
+
+Consider a family of open sets of $S^{1}$, $\{ U_{\alpha} \}$.
+
+These can each be expressed as the intersection with open sets of $\mathbb{R}^{2}$,
+$V_{\alpha}$ ($U_{\alpha}=S^{1} \cap V_{\alpha}$).
+
+Therefore, the union of the family of open sets is
+\[
+	\bigcup_{\alpha} U_{\alpha}
+	=
+	\bigcup_{\alpha} (S^{1} \cap V_{\alpha})
+	=
+	S^{1} \cap \left( \bigcup_{\alpha} V_{\alpha} \right)
+\]
+
+Here, by the axioms of topology in $\mathbb{R}^{2}$,
+the union of an arbitrary number of open sets
+$\bigcup_{\alpha} V_{\alpha}$
+is an open set in $\mathbb{R}^{2}$.
+
+Therefore,
+the union of an arbitrary number of open sets of $S^{1}$,
+$\bigcup_{\alpha} U_{\alpha}$, is an open set in $S^{1}$.
+
+	${}$
+
+Through these three verifications, it has been confirmed that $S^{1}$ is a topological space.
+
+	${}$
+
+Furthermore, let $z_{1},z_{2} \in S^{1}$ be defined as
+
+\[
+	z_{i} = \cos \theta_{i} + i \sin \theta_{i} \ \ (i=1,2)
+\]
+Then $z_{1} * z_{2} \in S^{1}$, the identity element is 1, and the inverse of $z$ is $\cos \theta_{i} - i \sin \theta_{i} \in S^{1}$.
+
+Since multiplication is commutative, $S^{1}$ is an abelian group.
+
+\subsubsection{The Real Numbers}
+
+$\mathbb{R}$ is a topological group with respect to addition.
+
+\subsubsection{The Positive Real Numbers}
+
+$\mathbb{R}^{+} = \{ x \in \mathbb{R} | x > 0 \}$
+is a topological group with respect to multiplication.
+
+$\mathbb{R}$ and $\mathbb{R}^{+}$ are isomorphic as topological groups: $\mathbb{R} \cong \mathbb{R}^{+}$
+
+In fact,
+$f: \mathbb{R} \ni x \to e^{x} \in \mathbb{R}^{+}$
+and
+$g: \mathbb{R}^{+} \ni x \to \log(x) \in \mathbb{R}$
+are
+continuous homomorphisms that satisfy
+$gf=1_{\mathbb{R}}$ and
+$fg=1_{\mathbb{R}^{+}}$.
+
+
+\subsubsection{The Continuous Endomorphisms of the Topological Module of All Real Numbers}
+
+When $\mathbb{R}$ is the topological module of all real numbers,
+a continuous endomorphism
+$f: \mathbb{R} \to \mathbb{R}$
+can be expressed as $f(x) = ax$ for some $a \in \mathbb{R}$.
+
+	${}$
+
+(Verification) (Algebraic procedure)
+
+${}$
+
+Since $f$ is a homomorphism, $f(x+y)=f(x)+f(y)$.
+If we set $f(1)=a$, then by induction for integers $n,m$,
+we get $f(\frac{n}{m}) = \frac{n}{m} a$.
+
+From this algebraic procedure, we know that for a rational number $r$, $f(r) = ar$.
+
+	${}$
+
+(Continuation of Verification) (Topological procedure)
+
+${}$
+
+Since any $x \in \mathbb{R}$ can be expressed using a rational number $r_{n}$ as
+$\displaystyle \lim_{n \to \infty} r_{n} = x$,
+by the continuity of $f$,
+$\displaystyle f(x) = f( \lim_{n \to \infty} r_{n}) = \lim_{n \to \infty} a r_{n} = ax$.
+
+	${}$
+
+With the above, it has been verified that a continuous endomorphism
+$f: \mathbb{R} \to \mathbb{R}$
+of the topological module $\mathbb{R}$ of all real numbers can be expressed as $f(x) = ax$ for some $a \in \mathbb{R}$.
+The resulting function is differentiable.
+
+The assumption that the map $f$ is a homomorphism is a group-theoretic (algebraic) assumption,
+and the assumption that it is continuous is a topological assumption.
+
+By including an algebraic assumption and a topological assumption, we find that $f$ becomes differentiable, even though we did not include any analytical assumptions.
+
+Where did this analytical information of differentiability come from?
+
+\paragraph{Generalization}
+
+${}$
+
+The content of this example can be generalized as:
+
+``If $G,G'$ are Lie groups and $f: G \to G'$ is a continuous homomorphism, then $f$ is differentiable."
+
+\paragraph{Further Generalization (Hilbert's Fifth Problem)}
+
+${}$
+
+Hilbert's Fifth Problem:
+``Is a topological group $G$ that is also a topological manifold a Lie group?"
+
+This problem also derives an analytical property from algebraic and topological properties.
+
+This problem was solved affirmatively in 1952 by
+A.M. Gleason, D. Montgomery, L. Zippin, and H. Yamabe.
+
+
+\end{document}
