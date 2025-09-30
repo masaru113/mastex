@@ -12,6 +12,26 @@ This repository contains my personal notes on a wide range of topics in **mathem
 
 The notes are organized within a parent directory named `tex`. All documents are written in LaTeX.
 
+- **tex**: Root directory for documents created with LaTeX.
+    - **finance**: Notes on financial engineering.
+        - **[GaugeTheoryInForex](https://github.com/masaru113/mastex/blob/main/tex/finance/GaugeTheoryInForex/main.pdf)**: Notes examining the relationship between arbitrage in the foreign exchange market and gauge theory.
+    - **math**: Notes on mathematics.
+        - **cat**: Foundational notes on category theory.
+            - **[category\_first\_step](https://github.com/masaru113/mastex/blob/main/tex/math/cat/category_first_step/main.pdf)**: Definition of categories and specific examples.
+            - **[functor](https://github.com/masaru113/mastex/blob/main/tex/math/cat/functor/main.pdf)**: Notes on functors and their applications in financial engineering and quantum mechanics.
+            - **[natural\_transformation](https://github.com/masaru113/mastex/blob/main/tex/math/cat/natural_transformation/main.pdf)**: Notes on natural transformations.
+        - **top**: Folder for topics related to topological spaces.
+            - **[sierpinski\_space](https://github.com/masaru113/mastex/blob/main/tex/math/top/sierpinski_space/main.pdf)**: Notes on Sierpinski space.
+            - : **[topological\_group\_first\_step](https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main.pdf)**: Notes on introduction to topological group
+            - **MatrixTopology**: Notes on topologies on matrices (work in progress)
+    - **phys**: Notes on physics.
+        - **[BogoliubovTrans\_as\_NaturalTrans](https://github.com/masaru113/mastex/blob/main/tex/phys/BogoliubovTrans_as_NaturalTrans/main.pdf)**: Notes on the relationship between Bogoliubov transformations and natural transformations.
+        - **[ChernSimonsForm](https://github.com/masaru113/mastex/blob/main/tex/phys/ChernSimonsForm/main.pdf)**: Notes on a simple, from-scratch derivation of the Chern-Simons form.
+        - **[KaluzaKleinMassGeneration](https://github.com/masaru113/mastex/blob/main/tex/phys/KaluzaKleinMassGeneration/main.pdf)**: Notes on the mechanism of mass generation via compactification.
+
+---
+
+## Structure
 ```
 └─tex
     ├─finance
@@ -29,19 +49,3 @@ The notes are organized within a parent directory named `tex`. All documents are
         ├─ChernSimonsForm
         └─KaluzaKleinMassGeneration
 ```
-- **tex**: Root directory for documents created with LaTeX.
-    - **finance**: Notes on financial engineering.
-        - **GaugeTheoryInForex**: Notes examining the relationship between arbitrage in the foreign exchange market and gauge theory.
-    - **math**: Notes on mathematics.
-        - **cat**: Foundational notes on category theory.
-            - **category\_first\_step**: Definition of categories and specific examples.
-            - **functor**: Notes on functors and their applications in financial engineering and quantum mechanics.
-            - **natural\_transformation**: Notes on natural transformations.
-        - **top**: Folder for topics related to topological spaces.
-            - **sierpinski\_space**: Notes on Sierpinski space.
-            - : **topological\_group\_first\_step**: Notes on introduction to topological group
-    - **phys**: Notes on physics.
-        - **BogoliubovTrans\_as\_NaturalTrans**: Notes on the relationship between Bogoliubov transformations and natural transformations.
-        - **ChernSimonsForm**: Notes on a simple, from-scratch derivation of the Chern-Simons form.
-        - **KaluzaKleinMassGeneration**: Notes on the mechanism of mass generation via compactification.
-
