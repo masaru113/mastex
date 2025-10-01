@@ -17,40 +17,17 @@ The notes are organized within a parent directory named `tex`. All documents are
         - **[Arbitrage and Gauge Theory](https://github.com/masaru113/mastex/blob/main/tex/finance/GaugeTheoryInForex/main.pdf)**: Notes examining the relationship between arbitrage in the foreign exchange market and gauge theory.
         - **[Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio](https://github.com/masaru113/mastex/blob/main/tex/finance/ReplicatingPortfolio/main.pdf)**: Outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
     - **math**: Notes on mathematics.
-        - **category**: Foundational notes on category theory.
+        - **cat**: Foundational notes on category theory.
             - **[A First Step into Category Theory](https://github.com/masaru113/mastex/blob/main/tex/math/cat/category_first_step/main.pdf)**: Definition of categories and specific examples.
             - **[Functors Connecting Physics and Finance](https://github.com/masaru113/mastex/blob/main/tex/math/cat/functor/main.pdf)**: Notes on functors and their applications in financial engineering and quantum mechanics.
             - **[Natural Transformations and the Yoneda Lemma](https://github.com/masaru113/mastex/blob/main/tex/math/cat/natural_transformation/main.pdf)**: Notes on natural transformations.
-        - **topology**: Folder for topics related to topological spaces.
-            - **Topology of Matrices**: Notes on topologies on matrices (work in progress)
+        - **top**: Folder for topics related to topological spaces.
+            - **[Topology of Matrices](https://github.com/masaru113/mastex/blob/main/tex/math/top/MatrixTopology/main.pdf)**: Notes on topologies on matrices.
             - **[Sierpinski Space](https://github.com/masaru113/mastex/blob/main/tex/math/top/sierpinski_space/main.pdf)**: Notes on Sierpinski space.
-            - : **[An Introduction to Topological Groups](https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main.pdf)**: Notes on introduction to topological group
+            - **[An Introduction to Topological Groups](https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main.pdf)**: Notes on introduction to topological group
     - **phys**: Notes on physics.
         - **[Bogoliubov Transformation as a Natural Transformation](https://github.com/masaru113/mastex/blob/main/tex/phys/BogoliubovTrans_as_NaturalTrans/main.pdf)**: Notes on the relationship between Bogoliubov transformations and natural transformations.
         - **[Bosonic Strings Short Introduction](https://github.com/masaru113/mastex/blob/main/tex/phys/BozonicString/main.pdf)**: Notes on short introduction about bosonic string.
         - **[Notes on the Derivation of the Chern-Simons Form](https://github.com/masaru113/mastex/blob/main/tex/phys/ChernSimonsForm/main.pdf)**: Notes on a simple, from-scratch derivation of the Chern-Simons form.
         - **[Massless Real Scalar Field in 5D Minkowski Space Gaining Mass Upon Compactification of One Spatial Dimension](https://github.com/masaru113/mastex/blob/main/tex/phys/KaluzaKleinMassGeneration/main.pdf)**: Notes on the mechanism of mass generation via compactification.
 
----
-
-## Structure
-```
-└─tex
-    ├─finance
-    │  └─GaugeTheoryInForex
-    │  └─ReplicatingPortfolio
-    ├─math
-    │  ├─cat
-    │  │  ├─category_first_step
-    │  │  ├─functor
-    │  │  └─natural_transformation
-    │  └─top
-    │      └─MatrixTopology
-    │      └─sierpinski_space
-    │      └─topological_group_first_step
-    └─phys
-        ├─BogoliubovTrans_as_NaturalTrans
-        ├─BosonicString
-        ├─ChernSimonsForm
-        └─KaluzaKleinMassGeneration
-```
