@@ -1,4 +1,5 @@
 \documentclass[a4j]{jsarticle}
+\usepackage[english]{babel}
 \usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs,url}
 \usepackage{epic,eepic,here}
 \usepackage[dvipdfm]{graphicx}
@@ -16,14 +17,14 @@ Solutions to the Extended Gor'kov Equations for Anisotropic Superconductors and 
 We begin with the BCS mean-field Hamiltonian $\mathcal{H}$.
 \begin{align}
 	\mathcal{H}
-	 & =
+	&=
 	\mathcal{H}_{0}
 	\ + \
 	\mathcal{H}_{\rm BCS}
 	\ \ ,
 	\nonumber \\[2mm]
 	\mathcal{H}_{0}
-	 & =
+	&=
 	\sum_{\bm{k},s}
 	\varepsilon(\bm{k})
 	c_{\bm{k} s}^{\dagger}
@@ -31,7 +32,7 @@ We begin with the BCS mean-field Hamiltonian $\mathcal{H}$.
 	\ \ ,
 	\nonumber \\[2mm]
 	\mathcal{H}_{\rm BCS}
-	 & =
+	&=
 	\dfrac{1}{2}
 	\sum_{\bm{k},s_{1},s_{2}}
 	\Big[
@@ -49,16 +50,16 @@ We begin with the BCS mean-field Hamiltonian $\mathcal{H}$.
 We introduce finite-temperature Green's functions in the Matsubara formalism as follows.
 \begin{align}
 	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
-	 & =
+	&=
 	-
 	\langle T_{\tau} \{ c_{\bm{k}s}(\tau) c_{\bm{k}'s'}^{\dagger}(0) \} \rangle
 	\ \ ,
-	 &                                            \\[3mm]
+	&\\[3mm]
 	F_{ss'}(\bm{k} , \bm{k}' ; \tau)
-	 & =
+	&=
 	\langle T_{\tau} \{ c_{\bm{k}s}(\tau) c_{\bm{k}'s'}(0) \} \rangle
 	\ \ , \ \
-	 & F_{ss'}^{\dagger}(\bm{k} , \bm{k}' ; \tau)
+	&F_{ss'}^{\dagger}(\bm{k} , \bm{k}' ; \tau)
 	=
 	\langle T_{\tau} \{ c_{\bm{k}' s' }^{\dagger}(\tau) c_{\bm{k} s }^{\dagger}(0) \} \rangle
 	\ \ .
@@ -71,13 +72,13 @@ The Fourier transform from the time variable $\tau$ to $i \omega_{n}$ is defined
 
 \begin{align}
 	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
-	 & =
+	&=
 	\dfrac{1}{\beta} \sum_{n}
 	G_{ss'}(\bm{k} , \bm{k}' ; i \omega_{n} )
 	e^{- i \omega_{n} \tau }
 	\ \ , \nonumber \\[2mm]
 	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; \tau)
-	 & =
+	&=
 	\dfrac{1}{\beta} \sum_{n}
 	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; i \omega_{n} )
 	e^{- i \omega_{n} \tau }
@@ -89,7 +90,7 @@ For a homogeneous system, the momentum variables of these Green's functions beco
 
 \begin{align}
 	G_{ss'}(\bm{k} , i \omega_{n} )
-	 & =
+	&=
 	-
 	\int_{0}^{\beta}
 	d \tau
@@ -98,14 +99,14 @@ For a homogeneous system, the momentum variables of these Green's functions beco
 	\ \ ,
 	\\[3mm]
 	F_{ss'}(\bm{k} , i \omega_{n} )
-	 & =
+	&=
 	\int_{0}^{\beta}
 	d \tau
 	\langle T_{\tau} \{ c_{ \bm{k} s }(\tau) c_{-\bm{k} s' }(0) \} \rangle
 	e^{i \omega_{n} \tau}
 	\ \ , \ \
 	F_{ss'}^{\dagger}(\bm{k} , i \omega_{n} )
-	 & =
+	&=
 	\int_{0}^{\beta}
 	d \tau
 	\langle T_{\tau} \{ c_{ - \bm{k} s' }^{\dagger}(\tau) c_{ \bm{k} s }^{\dagger}(0) \} \rangle
@@ -119,7 +120,7 @@ To find the spectral representation of the Green's functions, we determine the t
 
 \begin{align}
 	\partial_{\tau} c_{\bm{k}s} (\tau)
-	 & =
+	&=
 	\left[ \mathcal{H} \ , \ c_{\bm{k}s}(\tau) \right]
 	\ = \
 	e^{\mathcal{H} \tau} \left[ \mathcal{H} \ , \ c_{\bm{k}s} \right] e^{- \mathcal{H} \tau}
@@ -129,7 +130,7 @@ For this calculation, the relationship between commutators and anticommutators
 
 \begin{align}
 	[AB \ , \ C]
-	 & =
+	&=
 	A \{ B \ , \ C \} - \{ A \ , \ C \} B
 	\ \ ,
 \end{align}
@@ -139,7 +140,7 @@ is also useful.
 For $\mathcal{H}_{0}$,
 \begin{align}
 	[ \mathcal{H}_{0} \ , \ c_{\bm{k}s} ]
-	 & =
+	&=
 	\sum_{\bm{k}',s'}
 	\varepsilon(\bm{k}')
 	\left[
@@ -169,7 +170,7 @@ and next, for $\mathcal{H}_{\rm BCS}$,
 
 \begin{align}
 	[ \mathcal{H}_{\rm BCS} \ , \ c_{\bm{k}s} ]
-	 & =
+	&=
 	\left[
 		\dfrac{1}{2}
 		\sum_{\bm{k}',s_{1},s_{2}}
@@ -235,7 +236,7 @@ Specifically, we should carefully perform the index swap on only the second term
 
 \begin{align}
 	[ \mathcal{H}_{\rm BCS} \ , \ c_{\bm{k}s} ]
-	 & =
+	&=
 	\dfrac{1}{2}
 	\sum_{\bm{k}',s_{1},s_{2}}
 	\Delta_{ s_{1} s_{2} }( \bm{k}' )
@@ -294,7 +295,7 @@ From the two terms above, the time evolution of the operator is:
 \begin{align}
 	\partial_{\tau}
 	c_{\bm{k}s} (\tau)
-	 & =
+	&=
 	-
 	\varepsilon( \bm{k} )
 	c_{\bm{k} s} (\tau)
@@ -311,7 +312,7 @@ The time evolution of the Green's functions is:
 
 \begin{align}
 	\partial_{\tau} G_{ss'}(\bm{k} , \tau)
-	 & =
+	&=
 	\partial_{\tau}
 	\left(
 	-
@@ -414,7 +415,7 @@ Fourier transforming both sides so that the variables become $\tau \to i \omega_
 	\partial_{\tau}
 	G_{ss'}(\bm{k} , \tau)
 	e^{i \omega_{n} \tau}
-	 & =
+	&=
 	\int^{\beta}_{0} d \tau
 	\varepsilon( \bm{k} )
 	G_{ss'}(\bm{k} , \tau)
@@ -429,7 +430,7 @@ Fourier transforming both sides so that the variables become $\tau \to i \omega_
 	\longleftrightarrow \ \ \
 	i \omega_{n}
 	G_{ss'}(\bm{k} , i \omega_{n} )
-	 & =
+	&=
 	\varepsilon( \bm{k} )
 	G_{ss'}(\bm{k} , i \omega_{n} )
 	\ + \
@@ -443,7 +444,7 @@ Taking the Hermitian conjugate of equation \ref{eqn:enzansihattenntime}:
 \begin{align}
 	\partial_{\tau}
 	c_{\bm{k}s}^{\dagger} (\tau)
-	 & =
+	&=
 	-
 	\varepsilon( \bm{k} )
 	c_{\bm{k} s}^{\dagger} (\tau)
@@ -459,7 +460,7 @@ and using this relation:
 \begin{align}
 	\partial_{\tau}
 	F_{ss'}^{\dagger} (\bm{k} , \tau)
-	 & =
+	&=
 	\partial_{\tau}
 	\left(
 	\theta(\tau)
@@ -531,7 +532,7 @@ and using this relation:
 	\longleftrightarrow \ \ \
 	i \omega_{n}
 	F_{ss'}^{\dagger} (\bm{k} , i \omega_{n} )
-	 & =
+	&=
 	-
 	\varepsilon( \bm{k} )
 	F_{ss'}^{\dagger} (\bm{k} , i \omega_{n})
@@ -546,7 +547,7 @@ From the above, the simultaneous equations to solve to obtain the spectral repre
 
 \begin{align}
 	G_{ss'}(\bm{k} , i \omega_{n} )
-	 & =
+	&=
 	\sum_{s''}
 	\dfrac{
 		\Delta_{ s s'' }( \bm{k} )
@@ -557,7 +558,7 @@ From the above, the simultaneous equations to solve to obtain the spectral repre
 	\ \ ,
 	\\[4mm]
 	F_{ss'}^{\dagger} (\bm{k} , i \omega_{n} )
-	 & =
+	&=
 	-
 	\sum_{ s'' }
 	\dfrac{
@@ -575,7 +576,7 @@ Let the elementary excitation energy spectrum be
 
 \begin{align}
 	E_{\bm{k}}
-	 & =
+	&=
 	\sqrt{
 		\varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2}
 	}
@@ -586,7 +587,7 @@ then,
 
 \begin{align}
 	\hat{G}(\bm{k} , i \omega_{n})
-	 & =
+	&=
 	-
 	\dfrac{ i \omega_{n} + \varepsilon(\bm{k}) }
 	{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
@@ -594,7 +595,7 @@ then,
 	\ \ ,
 	\\[2mm]
 	\hat{F}(\bm{k},i \omega_{n})
-	 & =
+	&=
 	\dfrac{ i \bm{d}(\bm{k}) \cdot \hat{\bm{\sigma}} \hat{\sigma}_{y} }
 	{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
 	\ = \
@@ -608,13 +609,13 @@ Using the bosonic Matsubara frequency $\nu_{n}=2m\pi k_{B} T$ ($m \in \mathbb{Z}
 
 \begin{align}
 	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{m})
-	 & =
+	&=
 	-
 	\int^{\beta}_{0} d \tau
 	\langle T_{\tau}[ \tilde{\rho}_{\bm{q}}^{\dagger} (\tau) \tilde{\rho}_{\bm{q}} ] \rangle
 	e^{i \nu_{m} \tau}
-	\nonumber          \\[2mm]
-	 & =
+	\nonumber \\[2mm]
+	&=
 	-
 	\int^{\beta}_{0} d \tau
 	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
@@ -627,8 +628,8 @@ Using the bosonic Matsubara frequency $\nu_{n}=2m\pi k_{B} T$ ($m \in \mathbb{Z}
 			c_{ \bm{k}_{2} , s_{2} }
 		] \rangle
 	e^{i \nu_{m} \tau}
-	\nonumber          \\[2mm]
-	 & =
+	\nonumber \\[2mm]
+	&=
 	-
 	\int^{\beta}_{0} d \tau
 	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
@@ -643,8 +644,8 @@ Using the bosonic Matsubara frequency $\nu_{n}=2m\pi k_{B} T$ ($m \in \mathbb{Z}
 			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
 			c_{ \bm{k}_{2} , s_{2} }
 		] \rangle
-	\nonumber          \\[2mm]
-	 & \hspace{25mm} -
+	\nonumber \\[2mm]
+	& \hspace{25mm} -
 	\langle T_{\tau} [
 			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
 			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
@@ -653,8 +654,8 @@ Using the bosonic Matsubara frequency $\nu_{n}=2m\pi k_{B} T$ ($m \in \mathbb{Z}
 			c_{ \bm{k}_{1} , s_{1} } (\tau)
 			c_{ \bm{k}_{2} , s_{2} }
 		] \rangle
-	\nonumber          \\[2mm]
-	 & \hspace{25mm} +
+	\nonumber \\[2mm]
+	& \hspace{25mm} +
 	\langle T_{\tau} [
 			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
 			c_{ \bm{k}_{2} , s_{2} }
@@ -673,7 +674,7 @@ Rearranging the signs:
 
 \begin{align}
 	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{n})
-	 & =
+	&=
 	\int^{\beta}_{0} d \tau
 	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
 	\gamma_{\bm{k}_{1}}
@@ -688,8 +689,8 @@ Rearranging the signs:
 			c_{ \bm{k}_{2} , s_{2} }
 		] \rangle
 	e^{i \nu_{m} \tau}
-	\nonumber          \\[2mm]
-	 & \hspace{25mm} -
+	\nonumber \\[2mm]
+	& \hspace{25mm} -
 	\langle T_{\tau} [
 			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
 			c_{ \bm{k}_{2} , s_{2} }
@@ -708,7 +709,7 @@ We expand the sum over spins $s_{1},s_{2}$.
 The first term inside the curly braces is:
 
 \begin{align}
-	 &
+	&
 	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
 	\gamma_{\bm{k}_{1}}
 	\gamma_{\bm{k}_{2}}
@@ -768,7 +769,7 @@ The sum over momenta only remains when $\bm{k}_{2}=-\bm{k}_{1}$.
 Performing the sum over $\bm{k}_{2}$ yields:
 
 \begin{align}
-	 &
+	&
 	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
 	\gamma_{\bm{k}_{1}}
 	\gamma_{\bm{k}_{2}}
@@ -822,7 +823,7 @@ Performing the sum over $\bm{k}_{2}$ yields:
 		] \rangle
 	\Big\}
 	\nonumber \\[2mm]
-	 & =
+	&=
 	\sum_{ \bm{k} }
 	\gamma_{\bm{k}}
 	\gamma_{-\bm{k}}
@@ -846,7 +847,7 @@ Next, we transform the second term on the right-hand side of equation (\ref{eqn:
 After summing over spins, the sum over momentum $\bm{k}_{2}$ only remains for the case where $\bm{k}_{2} = \bm{k}_{1} + \bm{q}$.
 
 \begin{align}
-	 &
+	&
 	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
 	\gamma_{\bm{k}_{1}}
 	\gamma_{\bm{k}_{2}}
@@ -900,7 +901,7 @@ After summing over spins, the sum over momentum $\bm{k}_{2}$ only remains for th
 		] \rangle
 	\Big\}
 	\nonumber \\[3mm]
-	 & =
+	&=
 	\sum_{ \bm{k} }
 	\gamma_{\bm{k}}
 	\gamma_{\bm{k}+\bm{q}}
@@ -942,7 +943,7 @@ After summing over spins, the sum over momentum $\bm{k}_{2}$ only remains for th
 		] \rangle
 	\Big\}
 	\nonumber \\[3mm]
-	 & =
+	&=
 	-
 	\sum_{ \bm{k} }
 	\gamma_{\bm{k}}
@@ -962,7 +963,7 @@ Here we have used the unitary condition $G_{\uparrow \downarrow} = G_{\downarrow
 In summary,
 
 \begin{align}
-	 &
+	&
 	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{m})
 	\ = \
 	-
@@ -970,7 +971,7 @@ In summary,
 	\langle T_{\tau}[ \tilde{\rho}_{\bm{q}}^{\dagger} (\tau) \tilde{\rho}_{\bm{q}} ] \rangle
 	e^{i \nu_{m} \tau}
 	\nonumber \\[2mm]
-	 & =
+	&=
 	\sum_{ \bm{k} }
 	\int^{\beta}_{0} d \tau
 	\Big\{
@@ -1011,7 +1012,7 @@ For the anomalous Green's functions:
 	F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , \tau )
 	F_{ s s' } ( - \bm{k} , \tau )
 	e^{i \nu_{m} \tau}
-	 & =
+	&=
 	\dfrac{1}{\beta^{2}}
 	\int^{\beta}_{0} d \tau
 	\sum_{n_{1},n_{2}}
@@ -1037,7 +1038,7 @@ Similarly,
 	G_{ s s } ( \bm{k} + \bm{q} , \tau )
 	G_{ s s } ( \bm{k} , - \tau )
 	e^{i \nu_{m} \tau}
-	 & =
+	&=
 	\dfrac{1}{\beta^{2}}
 	\int^{\beta}_{0} d \tau
 	\sum_{n_{1},n_{2}}
@@ -1059,7 +1060,7 @@ Similarly,
 From the above, the response function is as follows.
 
 \begin{align}
-	 &
+	&
 	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{m})
 	\ = \
 	-
@@ -1067,7 +1068,7 @@ From the above, the response function is as follows.
 	\langle T_{\tau}[ \tilde{\rho}_{\bm{q}}^{\dagger} (\tau) \tilde{\rho}_{\bm{q}} ] \rangle
 	e^{i \nu_{m} \tau}
 	\nonumber \\[2mm]
-	 & =
+	&=
 	\dfrac{1}{\beta}
 	\sum_{n}
 	\sum_{ \bm{k} }
@@ -1082,7 +1083,7 @@ From the above, the response function is as follows.
 		\gamma_{\bm{k}+\bm{q}}
 		G_{ s s } ( \bm{k} + \bm{q} , i \nu_{m} + i \omega_{n} )
 		G_{ s' s' } ( \bm{k} , i \omega_{n} )
-		\Big]
+	\Big]
 \end{align}
 
 We consider the limit $\bm{q} \to \bm{0}$.
@@ -1090,7 +1091,7 @@ From now on, we will only consider this case, so we will abbreviate $\chi_{\tild
 
 \begin{align}
 	\chi_{\tilde{\rho} \tilde{\rho}}(i \nu_{m})
-	 & =
+	&=
 	\dfrac{1}{\beta}
 	\sum_{n}
 	\sum_{ \bm{k} }
@@ -1101,12 +1102,12 @@ From now on, we will only consider this case, so we will abbreviate $\chi_{\tild
 		F_{ s' s }^{\dagger}( \bm{k} , i \nu_{m} - i \omega_{n} )
 		F_{ s s' } ( - \bm{k} , i \omega_{n} )
 	\nonumber \\[2mm] & \hspace{15mm} -
-	\gamma_{\bm{k}}^{2}
-	G_{ s s } ( \bm{k} , i \nu_{m} + i \omega_{n} )
-	G_{ s' s' } ( \bm{k} , i \omega_{n} )
+		\gamma_{\bm{k}}^{2}
+		G_{ s s } ( \bm{k} , i \nu_{m} + i \omega_{n} )
+		G_{ s' s' } ( \bm{k} , i \omega_{n} )
 	\Big]
 	\nonumber \\[2mm]
-	 & =
+	&=
 	\dfrac{1}{\beta}
 	\sum_{n}
 	\sum_{ \bm{k} }
