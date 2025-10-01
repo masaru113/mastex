@@ -7,7 +7,7 @@
 \usepackage{fancybox}
 \usepackage{tikz-cd}
 \title{
-Topology of Matrices
+\textbf{The Topology of Matrix Groups}
 }
 
 \author{
@@ -19,101 +19,85 @@ Masaru Okada
 
 
 \begin{abstract}
-	(Abstract in progress. To be added later.)
+	A summary of the topology of matrix groups.
 \end{abstract}
 
 \section{Sets of Matrices}
 
-While a topological space refers to a collection of open sets that satisfy certain conditions, a set of matrices can also form a topological space.
-The abstract concept of an open set can be introduced to matrices as well.
+A topological space refers to a collection of open sets that satisfy certain conditions, and a set of matrices can also form a topological space.
+The abstract concept of an open set can also be introduced to matrices.
 
-\paragraph{$M_{n}(K)$ : The set of $n \times n$ matrices over $K$}
+\subsection{\textbf{$M_{n}(K)$: The set of $n \times n$ square matrices over $K$}}
 
-${}$
+Let $M_{n}(K)$ be the set of $n \times n$ matrices whose components are elements of a field $K$.
 
-Let $M_{n}(K)$ be the set of $n \times n$ matrices whose components are all elements of the field $K$.
-
-This set has the structure of a vector space with respect to matrix addition and scalar multiplication.
+This set has a vector space structure with respect to matrix addition and scalar multiplication.
 
 This set also includes singular matrices, whose determinant is zero.
 
-\paragraph{$GL_{n}(K)$ : The general linear group}
+\subsection{\textbf{$GL_{n}(K)$: General Linear Group}}
 
-${}$
+Let $GL_{n}(K)$ be the set of $n \times n$ invertible matrices whose components are elements of a field $K$.
 
-Let $GL_{n}(K)$ be the set of $n \times n$ invertible matrices whose components are all elements of the field $K$.
-
-Unlike $M_{n}(K)$, $GL_{n}(K)$ does not include matrices with a determinant of 0 (singular matrices).
+Unlike $M_{n}(K)$, $GL_{n}(K)$ does not include matrices whose determinant is 0 (singular matrices).
 
 $GL_{n}(K)$ forms a group under matrix multiplication.
 
-\paragraph{$SL_{n}(K)$ : The special linear group}
+\subsection{\textbf{$SL_{n}(K)$: Special Linear Group}}
 
-${}$
+Let $SL_{n}(K)$ be the set of $n \times n$ square matrices whose components are elements of a field $K$ and whose determinant is equal to 1.
 
-Let $SL_{n}(K)$ be the set of $n \times n$ matrices whose components are all elements of the field $K$, and whose determinant is equal to 1.
+$SL_{n}(K)$ is a set with even stricter conditions than $GL_{n}(K)$.
 
-$SL_{n}(K)$ is a more strictly conditioned set than $GL_{n}(K)$.
+$SL_{n}(K)$ also forms a group with respect to matrix multiplication.
 
-$SL_{n}(K)$ also forms a group under matrix multiplication.
+\subsection{\textbf{$O(n)$: Orthogonal Group}}
 
-\paragraph{$O(n)$ : The orthogonal group}
+The set of $n \times n$ square matrices $A$ that satisfy $A^{-1} = A^{T}$.
 
-${}$
+The determinant is 1 or -1.
 
-The set of $n \times n$ matrices $A$ that satisfy $A^{-1} = A^{T}$.
+It represents a set of transformations corresponding to rotations and reflections centered at the origin.
 
-Their determinant is 1 or -1.
-
-This set represents transformations corresponding to rotations and reflections centered at the origin.
-
-\paragraph{$SO(n)$ : The special orthogonal group}
-
-${}$
+\subsection{\textbf{$SO(n)$: Special Orthogonal Group}}
 
 The set of matrices in $O(n)$ whose determinant is 1.
 
-Also known as the rotation group.
-$SO(2)$ is the rotation group on a 2-dimensional plane, and
+It is also called the rotation group.
+$SO(2)$ is the rotation group in the 2-dimensional plane, and
 $SO(3)$ is the rotation group in 3-dimensional space.
 
-\paragraph{$U(n)$ : The unitary group}
+\subsection{\textbf{$U(n)$: Unitary Group}}
 
-${}$
+The set of $n \times n$ complex square matrices $A$ that satisfy $A^{-1} = A^{*}$.
 
-The set of $n \times n$ complex matrices $A$ that satisfy $A^{-1} = A^{*}$.
+It represents a set of transformations corresponding to rotations and reflections in a complex space.
 
-This represents the set of transformations corresponding to rotations and reflections in complex space.
-
-\paragraph{$SU(n)$ : The special unitary group}
-
-${}$
+\subsection{\textbf{$SU(n)$: Special Unitary Group}}
 
 The set of matrices in $U(n)$ whose determinant is equal to 1.
 
-$SU(n)$ plays an essential role in physics, particularly in the Standard Model of particle physics, where it is used to describe the internal symmetries of particles.
+$SU(n)$ plays an essential role in describing the internal symmetry of particles in physics, especially in the Standard Model of particle physics.
 
-${}$
-
-\textbf{SU(2) and Spin}
+\subsubsection{\textbf{SU(2) and Spin}}
 
 In quantum mechanics, the state of a particle is described as a vector in a complex vector space.
 
-Transformations (for example, rotations) in this vector space are represented by unitary matrices.
+Transformations (for example, rotations) that occur in this vector space are represented by unitary matrices.
 
 $SU(2)$ is used to describe spin, a quantum mechanical degree of freedom.
 
-Elementary particles like electrons and protons have a property similar to quantum mechanical self-rotation, which is different from classical rotation; this property is called spin.
+Elementary particles like electrons and protons possess a quantum mechanical property similar to self-rotation, which is different from rotation in the classical sense, and this is called spin.
 
 The matrices of $SU(2)$ are 2 $\times$ 2 unitary matrices with a determinant of 1.
 
-These matrices represent transformations in the 2-dimensional complex vector space (spinor space) that describes the spin states of an electron.
+These matrices represent transformations of a 2-dimensional complex vector space (spinor space) that describes the spin state of an electron.
 
-${}$
+\ \ 
 
-For example, an electron's spin can take one of two states: \textbf{spin-up and spin-down}.
+For example, an electron's spin can take two states: spin-up and spin-down.
 
-These states are represented by the 2-dimensional vectors
+These states are represented by 2-dimensional vectors
 $
 	\begin{pmatrix} 1 \\
 		0\end{pmatrix}
@@ -122,62 +106,292 @@ and
 $
 	\begin{pmatrix} 0 \\
 		1\end{pmatrix}
-$.
+$
+.
 
-The elements of the $SU(2)$ group can represent any transformation between these two states.
-They can also describe changes to superposition states.
+Elements of the $SU(2)$ group can express any transformation between these two states.
+They can also describe changes to a superposition state.
 
-$SU(2)$ is related to the rotation group in 3-dimensional space, $SO(3)$.
+$SU(2)$ is related to the rotation group $SO(3)$ in 3-dimensional space.
 
-$SU(2)$ is the double cover of $SO(3)$ and is a mathematical structure that naturally appears when dealing with half-integer spin, like spin.
+$SU(2)$ is a double cover of $SO(3)$, and it is a mathematical structure that naturally appears when dealing with half-integer spins like spin.
 
-${}$
+\ \ 
 
-\textbf{SU(3) and Quark Color Charge}
+\subsubsection{\textbf{SU(3) and Quark Color Charge}}
 
 $SU(3)$ is used to describe the strong interaction.
 
-Quarks, which constitute hadrons like protons and neutrons, have a degree of freedom called color charge.
+Quarks, which make up hadrons like protons and neutrons, have a degree of freedom called color charge.
 
-This color charge comes in three types: red, green, and blue, which are quantum numbers completely unrelated to classical colors.
+This color charge has three types: red, green, and blue, which are quantum numbers completely unrelated to classical colors.
 
 The matrices of $SU(3)$ are 3 $\times$ 3 unitary matrices with a determinant of 1.
 
-These matrices represent transformations in the 3-dimensional complex vector space that describes the three color charge states.
+These matrices represent transformations of a 3-dimensional complex vector space that describes the three color charge states.
 
-Gluons, which mediate the strong interaction, play the role of mixing these color charge states, and their transformations follow the $SU(3)$ symmetry.
+Gluons, which mediate the strong interaction, play a role in mixing these color charge states, and their transformations follow the $SU(3)$ symmetry.
 
-$SU(n)$ groups mathematically describe the states of particles (spin or color charge).
+$SU(n)$ groups mathematically describe the states of particles (spin and color charge).
 
-${}$
+\subsubsection{\textbf{SU(5) and Grand Unified Theories}}
 
-\textbf{SU(5) and Grand Unification Theory}
+$SU(5)$ appears in Grand Unified Theories in particle physics.
 
-$SU(5)$ appears in grand unification theories in particle physics.
-
-The Standard Model expresses the fundamental forces of physics using different symmetry groups:
+The Standard Model represents the forces in physics with the following different symmetry groups:
 \begin{itemize}
 	\item Strong force: $SU(3)$
 	\item Weak force: $SU(2)$
 	\item Electromagnetic force: $U(1)$
 \end{itemize}
 
-Grand unification theory is based on the idea that these three forces unify into a single force at high energies.
+Grand Unified Theory is a concept based on the idea that these three forces are unified into a single force in high-energy regimes.
 
-Models that include $SU(3) \times SU(2) \times U(1)$ as a subgroup of a larger, single group have been proposed.
+Models were proposed that contain $SU(3) \times SU(2) \times U(1)$ as a subgroup of a larger, single group.
 
 One of the most natural (simple and elegant) candidates for this was $SU(5)$.
 
+\ \ 
+
+To understand the deeper structure of the $SU(5)$ group that contains $SU(3) \times SU(2) \times U(1)$ as a subgroup, we can split the 5-dimensional complex vector space $\mathbb{C}^{5}$ into two subspaces.
+$$ \mathbb{C}^{5} = \mathbb{C}^{2} \oplus \mathbb{C}^{3} $$
+Corresponding to this split, a matrix $M$ of an element of $SU(5)$ is represented by the following block-diagonal matrix.
+$$
+	M =
+	\left(
+	\begin{array}{cc}
+			M_{2 \times 2} & 0              \\
+			0              & M_{3 \times 3}
+		\end{array}
+	\right)
+$$
+Here, $M_{2 \times 2}$ represents a 2 $\times$ 2 matrix of an element of $SU(2)$, and
+$M_{3 \times 3}$ represents a 3 $\times$ 3 matrix of an element of $SU(3)$.
+
+This decomposition is the reason why $SU(2) \times SU(3)$ is a subgroup of $SU(5)$ with a determinant of 1.
+
+To understand the deeper structure of a Lie group, we need to consider the Lie algebra associated with it.
+
+The Lie algebra $su(N)$ associated with the Lie group $SU(N)$ is the set of $N \times N$ anti-Hermitian matrices with zero trace.
+
+While the Lie group constraint was satisfied with $SU(3) \times SU(2)$,
+considering the rank (number of diagonal symmetries) of the matrices of the elements of the Lie algebra, we find that
+$\text{rank}(su(N))=N-1$
+so,
+
+$\text{rank}(su(5))=4$
+
+$\text{rank}(su(3))=2$
+
+$\text{rank}(su(2))=1$
+
+and the rank is short by 1.
+This missing one diagonal generator corresponds to the generator of $U(1)$.
+
+Looking at the dimension (the total number of generators),
+$\text{dim}(su(N))=N^{2} -1$
+we have,
+
+$\text{dim}(su(5))=24$
+
+$\text{dim}(su(3))=8$
+
+$\text{dim}(su(2))=3$
+
+The dimension of the Lie algebra of the subgroup $SU(2) \times SU(3)$ of $SU(5)$ is only 11, which is short of 13 degrees of freedom.
+
+Of the missing 13, one corresponds to the generator of $U(1)$, and the remaining 12 degrees of freedom correspond to particles like X bosons and Y bosons, which could mediate phenomena such as proton decay.
+
+\ \ 
+
 One of the phenomena predicted by the $SU(5)$ theory is proton decay.
 
-Protons are considered stable particles, but $SU(5)$ suggests that they may decay with an extremely long but finite lifespan.
-Many experiments have attempted to observe proton decay, but none have been successful so far.
+The proton is thought to be a stable particle, but $SU(5)$ suggests that it might decay with an extremely long but finite lifetime.
+Many experiments have tried to observe proton decay, but so far it has not been detected.
 
-There are also other inconsistencies with experimental data, so the $SU(5)$ theory is now considered to be incorrect in its simple form.
+There are also other inconsistencies with experimental data besides proton decay, and it has come to be thought that the $SU(5)$ theory as it is might not be correct.
+
+\section{A Set of Matrices can also be a Topological Space}
 
 
-\section{Sets of matrices can also be topological spaces}
+A set of matrices can also be a topological space.
+We can define "closeness" and "continuity" between elements of a set of matrices.
 
-(In progress.)
+\subsection{\textbf{Introducing Topology}}
+
+A trivial way to make the set of matrices $M_n(\mathbb{R})$ a topological space is simply to identify it with a Euclidean space.
+
+An $n \times n$ matrix $A$ can be regarded as a point in the $n^2$-dimensional real vector space $\mathbb{R}^{n^2}$ by arranging its $n^2$ components.
+$$ A = (a_{ij}) \quad \leftrightarrow \quad (a_{11}, a_{12}, \dots, a_{nn}) \in \mathbb{R}^{n^2} $$
+Through this identification, $M_n(\mathbb{R})$ naturally inherits the topology of $\mathbb{R}^{n^2}$.
+
+This allows for the introduction of concepts like open and closed sets to a set of matrices.
+
+
+Similarly, the set of complex matrices $M_n(\mathbb{C})$ can be identified with the $2n^2$-dimensional real vector space $\mathbb{R}^{2n^2}$ and inherits the topology of this space.
+
+\subsection{\textbf{Examples of Continuous Maps}}
+
+When a topology is defined on a set of matrices, we can discuss whether a function that takes a matrix as an argument is continuous.
+
+\begin{enumerate}
+	\item \textbf{Determinant}: $\det : M_n(\mathbb{K}) \to \mathbb{K}$ is a continuous map, as it is a polynomial of the components of the matrix.
+	\item \textbf{Matrix Multiplication}: $M_n(\mathbb{K}) \times M_n(\mathbb{K}) \to M_n(\mathbb{K})$ is a continuous map, as its components are polynomials of the components of the matrices.
+	\item \textbf{Inverse Map}: The map $A \mapsto A^{-1}$ is continuous on the set of matrices with $\det(A) \neq 0$, which is $GL_n(\mathbb{K})$.
+\end{enumerate}
+
+
+\section{Topological Groups}
+
+
+\subsection{\textbf{The General Linear Group $GL_{n}(K)$ is a topological group.}}
+
+
+
+To show this, we need to demonstrate that:
+
+\begin{enumerate}
+	\item $GL_{n}(K)$ is a topological space.
+	\item $GL_{n}(K)$ is a group.
+	\item The maps $\mu: GL_{n}(K) \times GL_{n}(K) \to GL_{n}(K)$ and $\nu: GL_{n}(K) \to GL_{n}(K)$, defined as $\mu(x,y)=xy$ and $\nu(x) = x^{-1}$ respectively, are continuous.
+\end{enumerate}
+If we can show these, it will be sufficient.
+
+
+\subsubsection{\textbf{The General Linear Group $GL_{n}(K)$ is an open set of $M_{n}(K)$.}}
+
+We identify $M_{n}(K)$ with the Euclidean space $\mathbb{R}^{n^{2}}$ by arranging its components.
+
+This makes $M_{n}(K)$ a natural topological space.
+
+$GL_{n} (K)$ is a subset of $M_{n} (K)$, but its definition is
+$$
+	GL_{n}(K) = \{ A \in M_{n}(K) \ | \ \text{det} A \neq 0 \}
+$$
+and it includes the condition that the determinant is not zero.
+The determinant is a continuous function of the matrix components, and the set of points where a continuous function is not zero is an open set.
+
+Therefore, $GL_{n}(K)$ is an open set of the topological space $M_{n}(K)$, and it becomes a topological space itself.
+
+
+\ \ 
+
+
+In other words, more simply, the image of the open set $K - \{0\}$ under the continuous inverse map $\det^{-1} (K - \{0\})$ is the open set $GL_{n}(K)$.
+
+\subsubsection{\textbf{The operations of the General Linear Group $GL_{n}(K)$ are continuous.}}
+
+The general linear group $GL_{n}(K)$ forms a group under multiplication.
+
+Each component of the product $C=AB$ of two matrices $A,B \in GL_{n}(K)$ is expressed as a polynomial of the components of $A,B$.
+
+Since a polynomial is a continuous function, the multiplication operation is continuous.
+
+\ \ 
+
+Each component of the inverse matrix $A^{-1}$ of a matrix $A$ is expressed by dividing a cofactor by det$A \neq 0$.
+
+Since a cofactor is a polynomial, the operation of taking the inverse is also continuous.
+
+\ \ 
+
+From the above, the general linear group $GL_{n}(K)$ is a topological group.
+
+\subsection{\textbf{$SL_{n}(K),O(n),SO(n),U(n),SU(n)$ are also topological groups.}}
+
+Since they are subgroups of $GL_{n}(K)$, $SL_{n}(K),O(n),SO(n),U(n),SU(n)$ are also topological groups.
+
+
+
+\subsection{\textbf{$O(n),SO(n),U(n),SU(n)$ are compact.}}
+
+\subsubsection{\textbf{$K^{n}$ is not compact.}}
+
+First, as an example, $K^{n}$ itself is not bounded, so it is not compact.
+
+
+\subsubsection{\textbf{The unit sphere $S_{K}^{n-1}$ of $K^{n}$ is compact.}}
+
+The unit sphere $S_{K}^{n-1}$ of $K^{n}$ is compact.
+
+To confirm, if we set
+$f(x) = |x|$
+then $f$ is continuous.
+Since $\{1\} \in \mathbb{R}$ is a closed set,
+$S_{K}^{n-1} = f^{-1}(1)$ is a closed set of $K$ and is also bounded, so
+$S_{K}^{n-1}$ is compact.
+
+
+\subsubsection{\textbf{$O(n),U(n)$ are compact.}}
+
+Let's write $O(n),U(n)$ together as $G(n,K)$ and $SO(n),SU(n)$ as $SG(n,k)$.
+
+The map $f: M_{n}(K) \to M_{n}(K)$ where $f(A) = A A^{*}$ is continuous.
+
+Since $G(n,k) = f^{-1}(1_{G(n,K)})$, $G(n,k)$ becomes a closed set as the inverse image of a single point $1_{G(n,K)}$ (the identity matrix of $G(n,K)$).
+
+Furthermore, $|A| \leq n$ so it is bounded.
+
+Therefore, $G(n,K)$, that is, $O(n),U(n)$, are compact.
+
+
+\subsubsection{\textbf{$SO(n),SU(n)$ are compact.}}
+
+The map det : $M_{n}(K) \to K$ is continuous.
+
+The single point, the identity matrix $1_{M_{n}(K)}$ of $M_{n}(K)$, is a closed set, and
+$SL_{n}(K) = \text{det}^{1}(1_{M_{n}(K)})$ is a closed set.
+
+And $SG(n,k) = G(n,k) \cap SL_{n}(K)$, but the intersection of two closed sets is a closed set.
+
+$SG(n,k)$ is a subset of the bounded set $G(n,K)$, so it is bounded.
+
+From the above, $SG(n,k)$, that is, $SO(n),SU(n)$, are compact.
+
+\ \ 
+
+Note that $GL_{n}(K), SL_{n}(K)$ are not compact.
+
+
+\subsection{\textbf{$O(n),U(n),SO(n),SU(n),GL_{n}(K),SL_{n}(K)$ are locally compact Hausdorff groups with a countable basis.}}
+
+\subsubsection{\textbf{Hausdorff}}
+
+Euclidean space is Hausdorff, and its subspace $M_{n}(K)$ is also Hausdorff.
+
+$O(n),U(n),SO(n),SU(n),GL_{n}(K),SL_{n}(K)$ are subspaces of $M_{n}(K)$, so they are all Hausdorff.
+
+\subsubsection{\textbf{Countable Basis}}
+
+Since $\mathbb{R}$ has a countable basis, its Cartesian product $M_{n}(K)$ also has a countable basis.
+
+Since a subspace of a topological space with a countable basis also has a countable basis,
+$O(n),U(n),SO(n),SU(n),GL_{n}(K),SL_{n}(K)$ have a countable basis.
+
+\subsubsection{\textbf{Locally Compact}}
+
+If a space is compact, it is locally compact, so
+$O(n),U(n),SO(n),SU(n)$ are locally compact.
+
+$GL_{n}(K), SL_{n}(K)$ are not compact.
+
+On the other hand, the Cartesian product of locally compact spaces is also locally compact, so
+the Cartesian product of Euclidean spaces, $M_{n}(K)$, is locally compact.
+
+As a general principle, an open or closed subspace of a locally compact space is locally compact.
+
+From this, an open set of a locally compact space is locally compact, so $GL_{n}(K)$ is locally compact.
+
+$SL_{n}(K)$ is a closed subspace of $GL_{n}(K)$, so it is locally compact.
+
+\ \ 
+
+From the above,
+$O(n),U(n),SO(n),SU(n),GL_{n}(K),SL_{n}(K)$
+are locally compact Hausdorff groups with a countable basis.
+
+In particular,
+$O(n),U(n),SO(n),SU(n)$
+are compact Hausdorff.
 
 \end{document}
