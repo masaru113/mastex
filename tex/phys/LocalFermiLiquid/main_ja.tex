@@ -1,0 +1,1994 @@
+\documentclass[a4j]{jarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\title{\ \\[-35mm] 2-body mechanics in the Local Fermi Liquid
+}
+\author{ 岡田 大(Okada Masaru)}
+% \author{\ \\[-7mm] \hspace{-10mm} Masaru Okada
+% \\[-2mm] \hspace{-7mm} { \small \it Institute for Solid State Physics, University of Tokyo, 5-1-5 % Kashiwanoha, Kashiwa, Chiba 277-8581, Japan} }
+% \date{\hspace{-10mm} March 31, 2015 (ver. 0)}
+\date{\today}
+\begin{document}
+\allowdisplaybreaks
+\maketitle
+
+\ \\[-20mm]
+
+\section*{動機}
+
+
+$\chi_{s}$（スピン感受率）、$\chi_{c}$（電荷感受率）、$R_{W}$（ウィルソン比）などを導出する。
+これらの物理量を理解することで、強相関電子系を特徴づける$f$電子系の振る舞いが分かる。
+
+
+\section*{局所Fermi液体とアンダーソンモデルの双対性}
+まず、最も単純なアンダーソンハミルトニアンについて。
+\begin{align}
+	\hspace{17.3mm}
+	\mathcal{H}
+	=
+	\sum_{\bm{k}\sigma}
+	\varepsilon_{\bm{k}}
+	c^{\dagger}_{\bm{k} \sigma}
+	c_{\bm{k} \sigma}
+	+
+	\sum_{\sigma}
+	\varepsilon_{d}
+	n_{d \sigma}
+	+
+	U
+	n_{d \uparrow}
+	n_{d \downarrow}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k}\sigma}
+	(
+	V_{\bm{k}}
+	c_{\bm{k}\sigma}^{\dagger}
+	d_{\sigma}
+	+
+	{\rm h.c.}
+	)
+\end{align}
+ここで、$c_{\bm{k}\sigma}$は運動量$\bm{k}$とスピン$\sigma(=\uparrow,\downarrow)$を持つ伝導帯の準粒子の消滅演算子を意味し、$\varepsilon_{\bm{k}}$は伝導電子のバンド分散、$\varepsilon_{d}$は$d$準位のエネルギー、$d_{\sigma}$はスピン$\sigma$を持つ$d$電子の消滅演算子、$n_{d \sigma}=d_{\sigma}^{\dagger} d_{\sigma}$はスピン$\sigma$を持つ$d$電子の数、$U$は$d$電子間のクーロン相互作用の強さ、$V_{\bm{k}}$は$d$電子と伝導電子間の相互作用の強さ。
+
+歴史的な経緯によって「$d$電子」と言われるが。
+この「$d$電子」という言葉は「$f$電子」と言い換えても同じ物理になる。
+
+このモデルは伝導電子間の相互作用を無視していることに注意する。
+加えて、1つの$d$バンドのみを考えている。
+実際には、例えば、鉄化合物について知りたい場合は、5つの$d$バンドを考慮する必要があります。
+\footnote{
+	CeやYb化合物は4$f$電子を持っているため、このモデルだけでは理解できない。
+	しかしスピン感受率や電荷感受率、ウィルソン比の意味は同じ枠組みで解釈できます。
+}
+
+${}$
+
+フェルミ液体（FL）モデル
+\footnote{
+	相互作用のある遍歴電子系は、低温で準粒子がフェルミ面の近くに位置する場合、繰り込まれた重みを持つ非相互作用系（フェルミガスモデル）によってうまく記述される。
+	この系は、フェルミガスとの類推からフェルミ液体と呼ばれる。
+}
+は金属の標準的なモデルである。
+FL状態の情報を利用するために、準粒子がフェルミ面の近くにあると仮定する。
+
+$U$項を摂動項とする。
+
+\begin{align}
+	\mathcal{H}_{0}
+	 & =
+	\sum_{\bm{k}\sigma}
+	\varepsilon_{\bm{k}}
+	c^{\dagger}_{\bm{k} \sigma}
+	c_{\bm{k} \sigma}
+	+
+	\sum_{\sigma}
+	\varepsilon_{d}
+	n_{d \sigma}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k}\sigma}
+	(
+	V_{\bm{k}}
+	c_{\bm{k}\sigma}^{\dagger}
+	d_{\sigma}
+	+
+	{\rm h.c.}
+	)
+	\hspace{3mm}
+	,
+	\hspace{5mm}
+	\mathcal{H}
+	-
+	\mathcal{H}_{0}
+	=
+	U
+	n_{d \uparrow}
+	n_{d \downarrow}
+\end{align}
+
+まずはじめに、非摂動項$\mathcal{H}_{0}$を対角化する。
+
+\begin{align}
+	\hspace{10.2mm}
+	\mathcal{H}_{0}
+	=
+	\sum_{\bm{k}\sigma}
+	\varepsilon_{\bm{k}}
+	c^{\dagger}_{\bm{k} \sigma}
+	c_{\bm{k} \sigma}
+	+
+	\sum_{\sigma}
+	\varepsilon_{d}
+	n_{d \sigma}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k}\sigma}
+	(
+	V_{\bm{k}}
+	c_{\bm{k}\sigma}^{\dagger}
+	d_{\sigma}
+	+
+	{\rm h.c.}
+	)
+	\
+	\to
+	\hspace{5mm}
+	\mathcal{H}_{0}
+	=
+	\sum_{n \sigma}
+	\varepsilon_{n}
+	c_{n \sigma}^{\dagger}
+	c_{n \sigma}
+	\hspace{10.2mm}
+\end{align}
+
+対角化するために、係数$( n | \bm{k} )$と$( n | d )$を持つ線形結合を作る。
+
+\begin{align}
+	\hspace{49mm}
+	c^{\dagger}_{n \sigma}
+	=
+	\sum_{\bm{k}}
+	( n | \bm{k} )
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\hspace{49mm}
+\end{align}
+\\[-12mm]
+\begin{align}
+	\hspace{47.4mm}
+	c_{n \sigma}
+	=
+	\sum_{\bm{k}}
+	( n | \bm{k} )^{*}
+	c_{\bm{k} \sigma}
+	+
+	( n | d )^{*}
+	d_{\sigma}
+	\hspace{47.2mm}
+\end{align}
+これらの係数$( n | \bm{k} )$、$( n | d )$と$\varepsilon_{n}$は、交換関係$\displaystyle \big[ \mathcal{H}_{0} , c^{\dagger}_{n \sigma} \big] = \varepsilon_{n} c^{\dagger}_{n \sigma} $によって決まる。
+$
+	\big[
+		c^{(\dagger)}_{\alpha},d^{(\dagger)}_{\alpha}
+		\big]
+	=
+	0$であるという事実を使用できます。
+\begin{align}
+	\begin{split}
+		\bigg[
+			\sum_{\bm{k}\sigma}
+		 & \varepsilon_{\bm{k}}
+			c^{\dagger}_{\bm{k} \sigma}
+			c_{\bm{k} \sigma}
+			+
+			\sum_{\sigma}
+			\varepsilon_{d}
+			n_{d \sigma}
+			+
+			\frac{1}{\sqrt{N_{\rm A}}}
+			\sum_{\bm{k}\sigma}
+			(
+			V_{\bm{k}}
+			c_{\bm{k}\sigma}^{\dagger}
+			d_{\sigma}
+			+
+			{\rm h.c.}
+			)
+			\
+			,
+		\\
+		 & \sum_{\bm{k}'}
+			( n | \bm{k}' )
+			c^{\dagger}_{\bm{k}' \sigma'}
+			+
+			( n | d )
+			d^{\dagger}_{\sigma'}
+			\bigg]
+	\end{split}
+	\nonumber \\[4mm] &=
+	\sum_{\bm{k} \bm{k}' \sigma}
+	\varepsilon_{\bm{k}}
+	( n | \bm{k}' )
+	\Big[
+		c^{\dagger}_{\bm{k} \sigma}
+		c_{\bm{k} \sigma}
+		\
+		,
+		\
+		c^{\dagger}_{\bm{k}' \sigma'}
+		\Big]
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k} \bm{k}' \sigma}
+	V_{\bm{k}}
+	(n | \bm{k})
+	\Big[
+		d_{\sigma}^{\dagger}
+		c_{\bm{k}\sigma}
+		\
+		,
+		\
+		c^{\dagger}_{\bm{k}' \sigma'}
+		\Big]
+	\nonumber \\ &
+	+
+	\sum_{\bm{k}' \sigma}
+	\varepsilon_{d}
+	( n | d )
+	\Big[
+		d^{\dagger}_{\sigma}
+		d_{\sigma}
+		\
+		,
+		\
+		d^{\dagger}_{\sigma'}
+		\Big]
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k} \sigma}
+	V_{\bm{k}} (n | d)
+	\Big[
+		c_{\bm{k}\sigma}^{\dagger}
+		d_{\sigma}
+		\
+		,
+		\
+		d^{\dagger}_{\sigma'}
+		\Big]
+	\nonumber \\[4mm] &=
+	\sum_{\bm{k} \bm{k}' \sigma}
+	\varepsilon_{\bm{k}}
+	( n | \bm{k}' )
+	c^{\dagger}_{\bm{k} \sigma}
+	\delta_{\bm{k}, \bm{k}'}
+	\delta_{\sigma, \sigma'}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k} \bm{k}' \sigma}
+	V_{\bm{k}} (n | \bm{k})
+	d_{\sigma}^{\dagger}
+	\delta_{\bm{k}, \bm{k}'}
+	\delta_{\sigma, \sigma'}
+	\nonumber \\ &
+	+
+	\sum_{\sigma}
+	\varepsilon_{d}
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\delta_{\sigma, \sigma'}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k} \sigma}
+	V_{\bm{k}} (n | d)
+	c_{\bm{k}\sigma}^{\dagger}
+	\delta_{\sigma, \sigma'}
+	\nonumber \\[4mm] &=
+	\sum_{\bm{k}}
+	\bigg[
+		\varepsilon_{\bm{k}}
+		( n | \bm{k} )
+		+
+		\frac{1}{\sqrt{N_{\rm A}}}
+		V_{\bm{k}} (n | d)
+		\bigg]
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	\bigg[
+		\varepsilon_{d}
+		( n | d )
+		+
+		\frac{1}{\sqrt{N_{\rm A}}}
+		\sum_{\bm{k}}
+		V_{\bm{k}} (n | \bm{k})
+		\bigg]
+	d^{\dagger}_{\sigma}
+\end{align}
+
+一方、交換関係$( \displaystyle \big[ \mathcal{H}_{0} , c^{\dagger}_{n \sigma} \big] = \varepsilon_{n} c^{\dagger}_{n \sigma} )$の左辺は、
+
+\begin{align}
+	\varepsilon_{n}
+	c_{n \sigma}^{\dagger}
+	 & =
+	\sum_{\bm{k}}
+	\varepsilon_{n}
+	( n | \bm{k} )
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	\varepsilon_{n}
+	( n | d )
+	d^{\dagger}_{\sigma}
+\end{align}
+
+係数を比較することで関係式が得られる。
+
+\begin{align}
+	\hspace{44.3mm}
+	\varepsilon_{n}
+	( n | \bm{k} )
+	=
+	\varepsilon_{\bm{k}}
+	( n | \bm{k} )
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	V_{\bm{k}} (n | d)
+	\hspace{44.3mm}
+\end{align}
+\\[-10mm]
+\begin{align}
+	\hspace{41.5mm}
+	\varepsilon_{n}
+	( n | d )
+	=
+	\varepsilon_{d}
+	( n | d )
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k}}
+	V_{\bm{k}} (n | \bm{k})
+	\hspace{41.5mm}
+\end{align}
+
+逆に、
+両辺に演算子$\displaystyle \sum_{n} ( n | \bm{k} )^{*}$
+を作用させると、
+
+\begin{align}
+	c^{\dagger}_{n \sigma}
+	 & =
+	\sum_{\bm{k}'}
+	( n | \bm{k}' )
+	c^{\dagger}_{\bm{k}' \sigma}
+	+
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\nonumber \\
+	\hspace{26mm}
+	\sum_{n} ( n | \bm{k} )^{*}
+	c^{\dagger}_{n \sigma}
+	 & =
+	\sum_{\bm{k}'}
+	\sum_{n}
+	( n | \bm{k}' )
+	( n | \bm{k} )^{*}
+	c^{\dagger}_{\bm{k}' \sigma}
+	+
+	\sum_{n} ( n | \bm{k} )^{*}
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\nonumber \\ &=
+	\sum_{\bm{k}'}
+	\sum_{n}
+	( n | \bm{k}' )
+	( \bm{k} | n )
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	\sum_{n}
+	( \bm{k} | n )
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\nonumber \\ &=
+	c^{\dagger}_{\bm{k} \sigma}
+	\nonumber
+	\hspace{80mm}
+	(4.62)
+\end{align}
+
+直交性$\displaystyle
+	(\bm{k}'|\bm{k})=\delta_{\bm{k}' \bm{k}}
+$
+があれば、この演算子の関係式を得る。
+
+同様に、両辺に演算子$\displaystyle \sum_{n} ( n | d )^{*}$を作用させると、
+
+\begin{align}
+	\hspace{26mm}
+	\sum_{n} ( n | d )^{*}
+	c^{\dagger}_{n \sigma}
+	 & =
+	\sum_{\bm{k}}
+	\sum_{n}
+	( n | \bm{k} )
+	( n | d )^{*}
+	c^{\dagger}_{\bm{k}' \sigma}
+	+
+	\sum_{n} ( n | d )^{*}
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\nonumber \\ &=
+	\sum_{\bm{k}}
+	\sum_{n}
+	( d | n )
+	( n | \bm{k} )
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	d^{\dagger}_{\sigma}
+	\sum_{n}
+	\big|
+	( n | d )
+	\big|^{2}
+	\nonumber \\ &=
+	d^{\dagger}_{\sigma}
+	\nonumber
+	\hspace{82mm}
+	(4.63)
+\end{align}
+
+となる。
+ここでは
+$\displaystyle
+	\sum_{n}
+	\big|
+	( n | d )
+	\big|^{2}
+	=1
+$
+を仮定した。
+
+
+Fermi液体の議論で用いたハミルトニアンの相互作用項は次のようなものであった。
+\begin{align}
+	\hspace{33.5mm}
+	\mathcal{H}'_{\rm FL}
+	=
+	\frac{U}{N_{\rm A}}
+	\sum_{\bm{k}_{1} \bm{k}_{2} \bm{k}_{3} \bm{k}_{4}}
+	c_{\bm{k}_{1} \uparrow}^{\dagger}
+	c_{\bm{k}_{2} \downarrow}^{\dagger}
+	c_{\bm{k}_{3} \downarrow}
+	c_{\bm{k}_{4} \uparrow}
+	\delta_{\bm{k}_{1}+\bm{k}_{2} , \bm{k}_{3}+\bm{k}_{4}}
+	\nonumber
+	\hspace{33.5mm}
+	(3.2')
+\end{align}
+実際、(4.63)を代入すると、
+\begin{align}
+	 &
+	\mathcal{H} - \mathcal{H}_{0}
+	=
+	U
+	d_{\uparrow}^{\dagger}
+	d_{\uparrow}
+	d_{\downarrow}^{\dagger}
+	d_{\downarrow}
+	\nonumber \\
+	 & =
+	U
+	\sum_{n_{1},n_{2},n_{3},n_{4}}
+	(n_{1} | d)^{*}
+	(n_{2} | d)
+	(n_{3} | d)^{*}
+	(n_{4} | d)
+	c_{n_{1} \uparrow}^{\dagger}
+	c_{n_{2} \uparrow}
+	c_{n_{3} \downarrow}^{\dagger}
+	c_{n_{4} \downarrow}
+\end{align}
+となり、(3.2)式とのアナロジーから、このように基底を取り替えて表現してやることであたかもFermi液体として取り扱えるように見える。
+
+${}$
+
+本来、Nozi$\acute{\rm e}$resが局所Fermi液体と呼んだ精神は、
+不純物ポテンシャルによる伝導電子の散乱問題において、
+最も重要な物理量はFermi面近傍の伝導電子の位相変化$\eta$であることを
+見出したところにある。
+散乱問題に関する全ての情報は$\eta$に含まれている。
+LandauのFermi液体論に基いて、
+$s$-$d$系の状態はスピン$\sigma$の準粒子の分布関数$n_{\sigma}$
+によって記述できると考えた。
+このときに散乱された準粒子の持つ位相変化は準粒子のエネルギー$\varepsilon_{\sigma}$と分布とに依存する。
+すなわち次のように書ける。
+\begin{align}
+	\eta_{\sigma}(\varepsilon_{\sigma} , n_{\sigma'})
+\end{align}
+この位相変化を分布の基底状態からのズレ
+\begin{align}
+	\delta n_{\sigma} = n_{\sigma} - n_{\sigma}^{(0)}
+\end{align}
+で展開し、その1次までをとって、
+\begin{align}
+	\eta_{\sigma}(\varepsilon)
+	=
+	\eta_{\sigma}^{(0)}(\varepsilon)
+	+
+	\sum_{\sigma',\varepsilon'}
+	\phi_{\sigma,\sigma'}(\varepsilon,\varepsilon')
+	\delta n_{\sigma}(\varepsilon)
+\end{align}
+とする。
+さらに$\eta_{\sigma}^{(0)}(\varepsilon)$
+と展開係数$\phi_{\sigma,\sigma'}(\varepsilon,\varepsilon')$
+とを化学ポテンシャルから測ったエネルギー$\varepsilon$で次のように展開する。
+\begin{align}
+	\eta_{\sigma}^{(0)}(\varepsilon)
+	 & =
+	\eta_{\sigma}^{(0)}
+	+
+	\alpha_{1} \varepsilon
+	+
+	\alpha_{2} \varepsilon^{2}
+	+
+	\cdots
+	\\
+	\phi_{\sigma,\sigma'}(\varepsilon,\varepsilon')
+	 & =
+	\phi_{\sigma,\sigma'}^{(0)}
+	+
+	\beta_{1}
+	\phi_{\sigma,\sigma'}(\varepsilon,\varepsilon')
+	+
+	\cdots
+\end{align}
+ここで問題設定を低温かつ低磁場に限れば$\varepsilon$、$T$、$H$に関して1次まで採用してやればよい。
+これは以前に議論したFermi液体の精神と同様である。
+
+
+${}$
+
+このモチベーションでこのレジュメではFermi液体として取り扱える（低温でFermi面近傍といった）範囲内密度の応答とスピンの応答を調べる。
+これらは2体相関の物理量であり、
+Fermi液体の章で議論した相互作用関数$f_{\sigma\sigma'}(\bm{k},\bm{k}')$
+と関係する。
+（
+摂動展開を考えるとき、Green関数の言葉で言うところのバーテックスを求めることに対応する。
+これに対して、つーじーが議論してくれた$T$-matrixを用いたパートは1体のGreen関数を議論することに対応していて、
+裸の1体のGreen関数からのズレを自己エネルギーを通して議論した。
+ちなみに、AndersonモデルはBethe仮説を用いる厳密解もすでに知られており、その解は$U$の冪級数で展開できる。
+このことは前章のFermi液体の取り扱いと同様に$U$展開して議論できることの妥当性を表している。
+）
+
+\section*{Green function}
+
+温度Green関数による解析は次の点で優れている。
+
+${}$
+
+$\hspace{10mm} \textcircled{\footnotesize 1} $
+Feynman diagramのテクニックが使えるので摂動計算に便利である。
+
+$\hspace{10mm} \textcircled{\footnotesize 2} $
+松原周波数を解析接続することで遅延Green関数を求めることができ、
+
+$\hspace{12mm}$
+これから動的な物理量を計算することができる。
+
+$\hspace{10mm} \textcircled{\footnotesize 3} $
+経路積分法とも結合できる。
+
+${}$
+
+この議論でも温度Green関数を用いるのが便利なので、
+ここで設定しておく。
+
+$d$電子のGreen関数\footnote{温度Green関数の「温度」は以下省略する。}を次で定義する。
+\begin{align}
+	G_{d \sigma}(\tau)
+	=
+	-
+	\big\langle
+	{\rm \hat{T}}_{\tau}
+	\big[
+		d_{\sigma}(\tau)
+		d_{\sigma}^{\dagger}(0)
+		\big]
+	\big\rangle
+\end{align}
+生成消滅演算子の変数は虚時間$\tau=it$である。
+Heisenberg表示を用いて演算子に時間依存性を持たせている。
+\begin{align}
+	d_{\sigma}(\tau)
+	=
+	e^{\mathcal{H}\tau}
+	d_{\sigma}
+	e^{-\mathcal{H}\tau}
+\end{align}
+この$\mathcal{H}$には(摂動項も全て入っている)Andersonハミルトニアンを採用している。
+$
+	{\rm \hat{T}}_{\tau}
+	\big[
+		\cdots
+		\big]
+$
+は時間順序積を表す演算子で、括弧$[\cdots]$内のHeisenberg演算子の時間が若いものを右から並べていく。
+フェルミオンなので並び変わる際に出てくる符号に注意する必要がある。
+相互作用込みの平均$\langle \cdots \rangle$は次のように取る。
+\begin{align}
+	\langle \cdots \rangle
+	=
+	\frac{
+		{\rm Tr} \big[ e^{- \beta \mathcal{H}} \cdots \big]
+	}{
+		{\rm Tr} \big[ e^{- \beta \mathcal{H}} \big]
+	}
+	\label{eqn:12ave}
+\end{align}
+$\beta=(k_{\rm B}T)^{-1}$は逆温度である。
+
+Fourier変換で虚時間からエネルギーへと変数を移らせることができる。
+\begin{align}
+	G_{d \sigma}(i \varepsilon_{n})
+	=
+	\int^{\beta}_{0}
+	d\tau
+	e^{i \varepsilon_{n} \tau}
+	G_{d \sigma}(\tau)
+\end{align}
+この$n$は整数であり、$\varepsilon_{n}=(2n+1)\pi/\beta$は(フェルミオニックな)松原周波数と呼ばれる離散的な値を持つエネルギーである。
+
+同様のセットアップで伝導電子に関するGreen関数も定義する。
+\begin{align}
+	G_{\bm{k}\bm{k}' \sigma}(\tau)
+	 & =
+	-
+	\big\langle
+	{\rm \hat{T}}_{\tau}
+	\big[
+		c_{\bm{k} \sigma}(\tau)
+		c_{\bm{k}' \sigma}^{\dagger}(0)
+		\big]
+	\big\rangle
+	\\
+	G_{\bm{k}\bm{k}' \sigma}(i \varepsilon_{n})
+	 & =
+	\int^{\beta}_{0}
+	d\tau
+	e^{i \varepsilon_{n} \tau}
+	G_{\bm{k}\bm{k}' \sigma}(\tau)
+\end{align}
+それぞれのGreen関数は添字で区別すれば良い。
+
+$G_{\bm{k}\bm{k}' \sigma}(\tau)$
+が従う運動方程式は、
+\begin{align}
+	G_{\bm{k}\bm{k}' \sigma}(\tau)
+	=
+	\frac{\delta_{\bm{k},\bm{k}'}}{
+		i \varepsilon_{n} - \varepsilon_{\bm{k}}
+	}
+	+
+	\frac{1}{
+		i \varepsilon_{n} - \varepsilon_{\bm{k}}
+	}
+	T_{\sigma}(i \varepsilon_{n})
+	\frac{1}{
+		i \varepsilon_{n} - \varepsilon_{\bm{k}'}
+	}
+\end{align}
+と表現できる
+\footnote{
+	桐井くんが作ってくれたレジュメの$T$-matrixのパートを参照。
+}
+。
+第一項は不純物の無いときの電子の運動(裸のGreen関数)を表し、
+第二項は不純物による散乱を表す項になっている。
+この散乱を記述する$T$-matrixは
+\begin{align}
+	T_{\sigma}(i \varepsilon_{n})
+	=
+	|V|^{2}
+	G_{d \sigma}(i \varepsilon_{n})
+\end{align}
+であり、エネルギー表示の$G_{d \sigma}$は
+\begin{align}
+	G_{d \sigma}(i \varepsilon_{n})
+	=
+	\frac{1}{
+		\displaystyle
+		i \varepsilon_{n}
+		-
+		\varepsilon_{d}
+		-
+		|V|^{2}
+		\displaystyle
+		\sum_{\bm{k}}
+		\frac{1}{
+			i \varepsilon_{n} - \varepsilon_{\bm{k}}
+		}
+		-
+		\Sigma_{d\sigma}(i \varepsilon_{n})
+	}
+\end{align}
+で表される
+\footnote{
+	固体の電子論の(4.65)で定義されている$T$-matrixとコンシステント。ただし$N_{\rm A}=1$。
+}
+。
+相互作用の効果は全て$d$電子の自己エネルギー部分
+$\Sigma_{d\sigma}(i \varepsilon_{n})$
+に含まれている。
+
+伝導電子のバンドは幅が広く、
+$\varepsilon_{n}$はそのバンド幅に比べて小さいと仮定すると、
+$G_{d \sigma}(i \varepsilon_{n})$の分母の波数の和が含まれる項
+(自由なGreen関数の波数積分項)は、
+Cauchyの主値積分
+\footnote{
+	次の複素関数に対するCauchyの主値積分は非常に便利でしばしば登場する。
+	\begin{align}
+		\lim_{\mu \to 0}
+		\mathcal{P}
+		\int
+		\frac{dx}{x \pm i \mu}
+		=
+		\mathcal{P}
+		\int
+		\frac{dx}{x}
+		\mp i \pi
+		\delta(x)
+	\end{align}
+}
+の考えから、
+\begin{align}
+	|V|^{2}
+	\sum_{\bm{k}}
+	\frac{1}{
+		i \varepsilon_{n} - \varepsilon_{\bm{k}}
+	}
+	 & \simeq
+	-
+	i
+	\pi
+	|V|^{2}
+	N(\varepsilon_{\rm F})
+	{\rm sgn}(i \varepsilon_{n})
+	\nonumber \\
+	 & =
+	-i \Delta {\rm sgn}(i \varepsilon_{n})
+\end{align}
+としてもよく、
+$d$電子のGreen関数は簡単になる
+\footnote{
+	ここで出てきた符号関数${\rm sgn}$は、
+	\begin{align}
+		{\rm sgn}(x)
+		\ \!
+		{=^{{}^{\hspace{-3mm} \rm def }}}
+		\frac{x}{|x|}
+	\end{align}
+	である。
+	引数を敢えて$i \varepsilon_{n}$と書いているのは、
+	連続的な変数では無く、
+	飛び飛びの松原周波数を変数としていることを明記する為であり、
+	この符号関数は実関数であって複素関数ではない。
+}
+。
+\begin{align}
+	G_{d \sigma}(i \varepsilon_{n})
+	=
+	\frac{1}{
+		\displaystyle
+		i \varepsilon_{n}
+		-
+		\varepsilon_{d}
+		+
+		i \Delta {\rm sgn}(i \varepsilon_{n})
+		-
+		\Sigma_{d\sigma}(i \varepsilon_{n})
+	}
+\end{align}
+
+\section*{Hartree-Fock approx.}
+
+摂動$U$が加わったときのアプローチとしてHartree-Fock(HF)近似の範囲で議論する。
+（本筋から離れるので結果の紹介だけ。）
+
+恒等式
+\begin{align}
+	U
+	n_{d \uparrow}
+	n_{d \downarrow}
+	 & =
+	U
+	\langle n_{d \uparrow} \rangle_{{}_{\rm HF}}
+	n_{d \downarrow}
+	+
+	U
+	\langle n_{d \downarrow} \rangle_{{}_{\rm HF}}
+	n_{d \uparrow}
+	-
+	U
+	\langle n_{d \uparrow} \rangle_{{}_{\rm HF}}
+	\langle n_{d \downarrow} \rangle_{{}_{\rm HF}}
+	\nonumber \\ &+
+	U
+	\Big(
+	n_{d \uparrow}
+	-
+	\langle n_{d \uparrow} \rangle_{{}_{\rm HF}}
+	\Big)
+	\Big(
+	n_{d \downarrow}
+	-
+	\langle n_{d \downarrow} \rangle_{{}_{\rm HF}}
+	\Big)
+	\label{eqn:HF17}
+\end{align}
+において、揺らぎに対応する右辺の最後の一項だけを無視した近似がHF近似である。
+
+右辺第一、第二項を加えることは、それぞれ元のハミルトニアン(4.1)で
+$\varepsilon_{d} \to \varepsilon_{d} + U \langle n_{d \uparrow} \rangle_{{}_{\rm HF}}$
+、
+$\varepsilon_{d} \to \varepsilon_{d} + U \langle n_{d \downarrow} \rangle_{{}_{\rm HF}}$
+と置き直すことと同値である。
+
+右辺第三項は期待値を取るときにオフセットされるもので、物理量に変更を与えない。
+
+係数
+$\langle n_{d \uparrow} \rangle_{{}_{\rm HF}}$、$\langle n_{d \downarrow} \rangle_{{}_{\rm HF}}$
+はそれぞれ次の連立方程式を自己無撞着に回すことで決定する。
+\begin{align}
+	\langle n_{d \sigma} \rangle_{{}_{\rm HF}}
+	 & =
+	\int d \varepsilon
+	f(\varepsilon) N_{d \sigma}(\varepsilon)
+	\label{eqn:motonon}
+	\\
+	N_{d \sigma}(\varepsilon)
+	 & =
+	-
+	\frac{1}{\pi}
+	{\rm Im}G_{d \sigma}(i \varepsilon_{n} \to \varepsilon + i0)
+\end{align}
+
+特に、絶対零度では、
+\begin{align}
+	\langle n_{d \sigma} \rangle_{{}_{\rm HF}}
+	 & =
+	\int d \varepsilon
+	\ \!
+	\theta(- \varepsilon) N_{d \sigma}(\varepsilon)
+	\nonumber \\ &=
+	\frac{1}{\pi}
+	\int^{0}_{-\infty}
+	\!\!
+	d \varepsilon
+	\frac{
+		\Delta
+	}{
+		\big(
+		\varepsilon
+		-
+		\varepsilon_{d}
+		-
+		U
+		\langle n_{d, -\sigma} \rangle_{{}_{\rm HF}}
+		\big)^{2}
+		+
+		\Delta^{2}
+	}
+	\nonumber \\ &=
+	\frac{1}{2}
+	-
+	\frac{1}{\pi}
+	{\rm arctan}
+	\frac{
+		\varepsilon_{d}
+		+
+		U
+		\langle n_{d, -\sigma} \rangle_{{}_{\rm HF}}
+	}{
+		\Delta
+	}
+	\label{eqn:hfnumber}
+\end{align}
+となり、解析的に解が求まる。
+$U$の大きさに対してしきい値$\dfrac{1}{N_{d}(\varepsilon_{\rm F})}$を境に、解は2種類ある。
+
+$U < \dfrac{1}{N_{d}(\varepsilon_{\rm F})}$
+の場合、
+$
+	\langle n_{d \sigma} \rangle_{{}_{\rm HF}}
+	=
+	\langle n_{d, -\sigma} \rangle_{{}_{\rm HF}}
+$
+が解になり、非磁気的状態が安定になることを意味する。
+
+$U > \dfrac{1}{N_{d}(\varepsilon_{\rm F})}$
+の場合、
+$
+	\langle n_{d \sigma} \rangle_{{}_{\rm HF}}
+	\neq
+	\langle n_{d, -\sigma} \rangle_{{}_{\rm HF}}
+$
+が解になり、磁気的状態が解になる。
+
+\ \\[2mm]
+
+HF近似は、式(\ref{eqn:HF17})で落とした揺らぎが小さい場合に妥当である。
+しかし、後で見る不純物の帯磁率$\chi_{ds}$のような量を計算する際にはこの揺らぎの効果が重要である。
+$\chi_{ds}$をHF近似
+（
+厳密にはRPA(乱雑位相近似)
+\footnote{
+	このような2体相関を解こうとするときに、HF近似に対応する枠組みとしてはRPAと呼ばれる方法がある。
+}
+）
+では、無次元化された相互作用$u=\dfrac{U}{\pi \Delta}$を用いて、
+\begin{align}
+	\chi_{ds}
+	\sim
+	1
+	+
+	u
+	+
+	u^{2}
+	+
+	u^{3}
+	+
+	\cdots
+	=
+	\frac{1}{1-u}
+\end{align}
+のような級数になり、RPAの枠組みでは$u=1$で発散してしまうが、
+正しい$\chi_{ds}$は高次の$U$の係数が平均場で求めた$\chi_{ds}$よりも小さくなる。
+すなわちこのような揺らぎを落とした平均場近似の範囲内では$\chi_{ds}$は
+過大評価をしていて、
+揺らぎを取り込んだ計算を行うと高次の寄与が相殺されて次第に収束するようになる。
+このことを次の節で紹介する。
+
+\section*{Ground state}
+
+ゼミの内容から若干だけ離れる項目なので結果だけ紹介する。
+
+$U$を摂動としたHF近似では幾何級数的な発散が出現することを問題に挙げた。
+実際に得られている基底状態の$U = \infty$まで含めた厳密解から揺らぎを無視したHF近似の危険性を紹介する。
+
+電子が$d$軌道に平均して1つ入っている状況、すなわち、
+$
+	\langle n_{d \sigma} \rangle
+	=
+	\langle n_{d, -\sigma} \rangle
+	=
+	\dfrac{1}{2}
+$
+であるような状況を考える。
+
+(4.1)式で$U=0$と置いたAndersonハミルトニアンの基底エネルギー$E_{g}(U=0)$を$\pi \Delta$で割って無次元化した量
+$\varepsilon_{g}(u=0)$
+と、
+相互作用$U$が入った無次元化された基底エネルギー$\varepsilon_{g}(u)$の差は
+\begin{align}
+	\varepsilon_{g}(u)-
+	\varepsilon_{g}(u=0)
+	=
+	\frac{1}{4}
+	u
+	-
+	\bigg[
+		\frac{1}{4}
+		-
+		\frac{7}{4 \pi^{2}}
+		\zeta(3)
+		\bigg]
+	u^{2}
+	+
+	0.000795u^{4}
+	+
+	\mathcal{O}(u^{6})
+	\label{eqn:yamadakousaku}
+\end{align}
+となることが山田耕作
+\footnote{
+	K. Yamada: Prog. Theor. Phys. {\bf 53}, 970 (1975)
+}
+によって示されている。
+
+実は、$U$を摂動としたAndersonモデルはBethe仮説に基づいた厳密解が得られており、
+上田和夫とW. Apelの計算
+によって、
+\begin{align}
+	\hspace{-5mm}
+	\varepsilon_{g}(u)-
+	\varepsilon_{g}(u=0)
+	 & =
+	-
+	\frac{\Delta}{2}
+	u
+	+
+	4 \Delta
+	u
+	\sum_{M=1}^{\infty}
+	C_{2M}
+	u^{2M}
+	+
+	\frac{\Delta}{\pi}
+	\Big[
+	{\rm log}(1 + u^{2})
+	-
+	2 u \ \!
+	{\rm arctan}
+	(u)
+	\Big]
+	\\
+	C_{2M}
+	 & =
+	\sum_{n=0}^{M}
+	(-1)^{2M+n}
+	\frac{(4M-2n)!}{(2n)!(2M-2n)!}
+	\pi^{-2M+2n-2}
+	\Big( 1-2^{-2M+2n-2} \Big)
+	\zeta(2M-2n+2)
+	\hspace{15mm}
+\end{align}
+となることがすでに知られている
+\footnote{
+	K. Ueda and W. Apel: J. Phys. C{\bf 16}, L849 (1983)
+}。
+特に$u$の4次の係数は、
+$
+	\displaystyle \frac{\pi^{2}}{96}
+	-
+	\displaystyle \frac{21}{8}
+	\zeta(3)
+	+
+	\displaystyle \frac{30}{\pi^{2}}
+	\displaystyle \frac{31}{32}
+	\zeta(5)
+$
+であり、式(\ref{eqn:yamadakousaku})と一致する。
+今考えているhalf fillingの場合では$u$の1次の項を除いて、
+電子-正孔の対称性から$u$の偶数次の項しか残らない。
+
+前節で議論したような2体相関の例として、
+$E_{g}$から求まる次の量
+\begin{align}
+	\langle n_{d \uparrow} n_{d \downarrow} \rangle
+	 & =
+	\frac{\partial E_{g}}{\partial U}
+	=
+	\frac{1}{4}
+	-
+	\bigg[
+		\frac{1}{2}
+		-
+		\frac{7}{2 \pi^{2}}
+		\zeta(3)
+		\bigg]
+	u
+	+
+	0.0032 u^{3}
+	+
+	\mathcal{O}(u^{5})
+	\label{eqn:4_4_21}
+\end{align}
+の係数を見る。
+摂動論では$U$の高次の係数を求めることができないが、
+物理的には$U \to \infty$で係数が0に近づくべきであり、
+実際に式(\ref{eqn:4_4_21})は、最大値$\dfrac{1}{4}$
+から単調減少する
+\footnote{
+	すごく大雑把な1体近似として演算子の積をぶった切ってやると、
+	$
+		\langle n_{d \uparrow} n_{d \downarrow} \rangle
+		\to
+		\langle n_{d \uparrow} \rangle
+		\langle n_{d \downarrow} \rangle
+		=
+		\dfrac{1}{4}
+	$
+}
+。
+この数学的な減少は物理的には電子相関効果を表していて、
+例えば揺らぎによる、
+電子-正孔の分極の効果であるThomas-Fermiの遮蔽などによって高次の$U$は相殺され、
+その結果として減少すると考えられる。
+
+${}$
+
+この節は平均場近似の危険性を述べたかったので、
+HF近似やRPAを悪者扱いしてきた。
+虐めてばかりではかわいそうなので最後に言い訳をしておく。
+
+結局はどのような多体系においても、
+まず最初に試みるべき最も基本的なアプローチは平均場近似であり、
+2次摂動やRPAなどの枠組みよりも計算が遥かに軽い上、
+手で解ける可能性すらある。
+（他のどのアプローチに比べても解析的に求まる可能性が高い。）
+
+平均場近似で出来る仕事はまだまだ残されている。
+例えば上田研の先輩の都村さんは1/5欠損のあるHubbardモデルを
+平均場の範囲内で計算し、バンド分散にDiracコーンを見出した
+\footnote{
+	都村正樹　修士論文（東京大学 2013[提出予定]）
+}
+。
+
+\section*{Impurity susceptibility}
+
+Andersonハミルトニアンに摂動項として更に次の項を加える
+\footnote{
+	$n_{d \sigma}=d_{\sigma}^{\dagger}
+		d_{\sigma}$
+	は演算子であり、
+	一方、
+	$n_{\sigma}$
+	はただの$c$-数である。
+	記号が似ていて混同しやすいので注意。
+}
+。
+\begin{align}
+	\hspace{55.5mm}
+	\mathcal{H}'= - \sum_{\sigma}
+	h_{\sigma}
+	d_{\sigma}^{\dagger}
+	d_{\sigma}
+	\nonumber
+	\hspace{55.5mm}
+	(4.73)
+\end{align}
+$h_{\sigma}$はスピンに依存する摂動を表し、具体的には、例えばゼーマンエネルギー
+\begin{align}
+	h_{\sigma}
+	=
+	\frac{\sigma}{2}
+	g
+	\mu_{{}_{\rm B}}
+	H
+\end{align}
+などを念頭に置いている。
+
+電子数の変化分は、$h_{\sigma}$による摂動に対する線形応答の範囲内で級数展開すると、
+\begin{align}
+	\bigg(
+	n_{\sigma}
+	+
+	\frac{\partial n_{\sigma}}{\partial h_{\sigma'}}
+	\bigg|_{h_{\sigma'} \to 0}
+	h_{\sigma'}
+	+
+	\mathcal{O}({h_{\sigma}}^{2})
+	\bigg)
+	-
+	n_{\sigma}
+	 & \simeq
+	\frac{\partial n_{\sigma}}{\partial h_{\sigma'}}
+	\bigg|_{h_{\sigma'} \to 0}
+	h_{\sigma'}
+\end{align}
+となる。この最低次である1次の範囲内で電子数の変化分を考える。
+平均の定義式(\ref{eqn:12ave})を用いて、
+\begin{align}
+	\hspace{35.5mm}
+	\frac{\partial n_{\sigma}}{\partial h_{\sigma'}}
+	\bigg|_{h_{\sigma'} \to 0}
+	=
+	\frac{\partial}{\partial h_{\sigma'}}
+	\frac{
+		{\rm Tr} \big[ e^{- \beta (\mathcal{H}+\mathcal{H}') } n_{d \sigma} \big]
+	}{
+		{\rm Tr} \big[ e^{- (\mathcal{H}+\mathcal{H}') } \big]
+	}
+	\bigg|_{h_{\sigma'} \to 0}
+	\nonumber
+	\hspace{35.5mm}
+	(4.74)
+\end{align}
+(4.74)の右辺を見ていく。密度行列$e^{- \beta (\mathcal{H}+\mathcal{H}')}$は$S$-matrixを用いて次のように展開できる。
+\begin{align}
+	\hspace{22.4mm}
+	e^{- \beta (\mathcal{H}+\mathcal{H}') }
+	 & =
+	e^{- \beta \mathcal{H} }
+	+
+	e^{- \beta \mathcal{H} }
+	\ \!
+	\hat{\rm T}_{\tau}
+	{\rm exp}
+	\bigg[
+		-
+		\int^{\beta}_{0}d \tau
+		\mathcal{H}'(\tau)
+		d \tau
+		\bigg]
+	\nonumber \\
+	 & =
+	e^{- \beta \mathcal{H} }
+	+
+	e^{- \beta \mathcal{H} }
+	\int^{\beta}_{0}d \tau
+	e^{\tau \mathcal{H}}
+	( - \mathcal{H}' )
+	e^{- \tau \mathcal{H}}
+	+
+	\mathcal{O}({h_{\sigma}}^{2})
+	\nonumber
+	\hspace{22.4mm}
+	(4.75)
+\end{align}
+これを用いると、traceの線形性から、
+\begin{align}
+	 &
+	{\rm Tr}
+	\bigg[
+		\Big\{
+		e^{- \beta \mathcal{H} }
+		+
+		e^{- \beta \mathcal{H} }
+		\int^{\beta}_{0}d \tau
+		e^{\tau \mathcal{H}}
+		( - \mathcal{H}' )
+		e^{- \tau \mathcal{H}}
+		\Big\}
+		n_{d \sigma}
+		\bigg]
+	\nonumber \\
+	 & =
+	{\rm Tr}
+	\Big[
+		e^{- \beta \mathcal{H} }
+		n_{d \sigma}
+		\Big]
+	+
+	\sum_{\sigma'}
+	{\rm Tr}
+	\bigg[
+		e^{- \beta \mathcal{H} }
+		\int^{\beta}_{0}d \tau
+		e^{\tau \mathcal{H}}
+		h_{\sigma'}
+		n_{d \sigma'}
+		e^{- \tau \mathcal{H}}
+		n_{d \sigma}
+		\bigg]
+	\nonumber
+	\\
+	 & =
+	{\rm Tr}
+	\Big[
+		e^{- \beta \mathcal{H} }
+		n_{d \sigma}
+		\Big]
+	+
+	\sum_{\sigma'}
+	{\rm Tr}
+	\bigg[
+		e^{- \beta \mathcal{H} }
+		\int^{\beta}_{0}d \tau
+		h_{\sigma'}
+		n_{d \sigma'}(\tau)
+		n_{d \sigma}(0)
+		\bigg]
+\end{align}
+なので、
+\begin{align}
+	\frac{
+		{\rm Tr} \big[ e^{- \beta (\mathcal{H}+\mathcal{H}') } n_{d \sigma} \big]
+	}{
+		{\rm Tr} \big[ e^{- (\mathcal{H}+\mathcal{H}') } \big]
+	}
+	 & =
+	\dfrac{
+		{\rm Tr}
+		\Big[
+			e^{- \beta \mathcal{H} }
+			n_{d \sigma}
+			\Big]
+		+
+		\displaystyle \sum_{\sigma'}
+		{\rm Tr}
+		\bigg[
+			e^{- \beta \mathcal{H} }
+			\int^{\beta}_{0}d \tau
+			h_{\sigma'}
+			n_{d \sigma'}(\tau)
+			n_{d \sigma}(0)
+			\bigg]
+	}{
+		{\rm Tr}
+		\Big[
+			e^{- \beta \mathcal{H} }
+			\Big]
+	}
+	\nonumber \\ &=
+	\langle n_{d \sigma} \rangle
+	+
+	\sum_{\sigma'}
+	\int^{\beta}_{0}d \tau
+	\langle
+	h_{\sigma'}
+	n_{d \sigma'}(\tau)
+	n_{d \sigma}(0)
+	\rangle
+\end{align}
+$h_{\sigma}$で微分すると第一項は定数なので落ちて、
+残る第二項は、
+\begin{align}
+	\frac{\partial}{\partial h_{\sigma'}}
+	\sum_{\sigma''}
+	\int^{\beta}_{0}d \tau
+	\langle
+	h_{\sigma''}
+	n_{d \sigma''}(\tau)
+	n_{d \sigma}(0)
+	\rangle
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	n_{d \sigma'}(\tau)
+	n_{d \sigma}(0)
+	\rangle
+\end{align}
+密度と密度の応答によって感受率が計算できることが分かった。
+
+\section*{Generalized Friedel sum rule}
+
+ (4.74)の左辺を見る。
+不純物による局所的な全電子数の変化は、
+伝導電子の変化分である。
+電子数は状態密度の積分によって計算できる
+\footnote{
+	すごく見通しの悪い書き方になってしまっているのは、
+	途中で$i \varepsilon_{n} \to \omega + i0$に解析接続したい為。
+	だから$i \varepsilon_{n}$は$\omega$-積分の外に出せない。
+}
+。
+\begin{align}
+	n_{\sigma}
+	 & =
+	-
+	\frac{1}{\pi}
+	{\rm Im}
+	\bigg[
+		\int^{\infty}_{-\infty}
+		d \omega
+		f(\omega)
+		G_{d \sigma}(i \varepsilon_{n})
+		\bigg]
+	-
+	\frac{1}{\pi}
+	{\rm Im}
+	\sum_{\bm{k} \bm{k}'}
+	\bigg[
+		\int^{\infty}_{-\infty}
+		d \omega
+		f(\omega)
+		G_{\bm{k} \bm{k}' \sigma}(i \varepsilon_{n})
+		\bigg]
+	\nonumber \\[3mm] &=
+	-
+	\frac{1}{\pi}
+	{\rm Im}
+	\bigg[
+		\int^{\infty}_{-\infty}
+		d \omega
+		f(\omega)
+		G_{d \sigma}(i \varepsilon_{n})
+		\bigg]
+	\nonumber \\ &
+	-
+	\frac{1}{\pi}
+	{\rm Im}
+	\sum_{\bm{k}}
+	\bigg[
+		\int^{\infty}_{-\infty}
+		d \omega
+		f(\omega)
+		\bigg\{
+		\frac{1}{
+			i \varepsilon_{n} - \varepsilon_{\bm{k}}
+		}
+		+
+		\frac{1}{
+			i \varepsilon_{n} - \varepsilon_{\bm{k}}
+		}
+		T_{\sigma}(i \varepsilon_{n})
+		\frac{1}{
+			i \varepsilon_{n} - \varepsilon_{\bm{k}}
+		}
+		\bigg\}
+		\bigg]
+	\nonumber \\[3mm] &=
+	\int^{\infty}_{-\infty}
+	d \omega
+	f(\omega)
+	\bigg(- \frac{1}{\pi} \bigg)
+	{\rm Im}
+	\bigg[
+		\frac{\partial}{\partial i \varepsilon_{n}}
+		{\rm log}
+		\bigg\{
+		- \frac{1}{G_{d \sigma}(i \varepsilon_{n})}
+		\bigg\}
+		+
+		G_{d \sigma}(i \varepsilon_{n})
+		\frac{\partial}{\partial i \varepsilon_{n}}
+		\Sigma_{d \sigma}(i \varepsilon_{n})
+		\bigg]
+\end{align}
+この最後の右辺の虚部の中の第二項は、Luttingerによって得られた等式
+\footnote{
+	J. M. Luttinger: Phys. Rev. {\bf 119}, 1153 (1960) ;
+	J. M. Luttinger and J. C. Ward: Phys. Rev. {\bf 118}, 1417 (1960)
+	\hspace{3mm}
+	この等式を用いてLuttingerの定理(相互作用によってFermi面の囲む体積は変化しない)が証明された。
+}
+\begin{align}
+	\lim_{T \to 0}
+	\int^{\infty}_{-\infty}
+	d \omega
+	f(\omega)
+	\bigg(- \frac{1}{\pi} \bigg)
+	{\rm Im}
+	\bigg[
+		G_{d \sigma}(i \varepsilon_{n})
+		\frac{\partial}{\partial i \varepsilon_{n}}
+		\Sigma_{d \sigma}(i \varepsilon_{n})
+		\bigg]
+	 & =
+	0
+\end{align}
+によって落とすことができる。
+これを用いる為、以下この節では絶対零度を考える。
+$i \varepsilon_{n} \to \omega + i0$と解析接続を施して、
+\begin{align}
+	n_{\sigma}
+	 & =
+	\int^{\infty}_{-\infty}
+	d \omega
+	\theta(-\omega)
+	\bigg(- \frac{1}{\pi} \bigg)
+	{\rm Im}
+	\bigg[
+		\frac{\partial}{\partial i \varepsilon_{n}}
+		{\rm log}
+		\bigg\{
+		- \frac{1}{G_{d \sigma}(i \varepsilon_{n})}
+		\bigg\}
+		\bigg]
+	\nonumber \\[3mm] &=
+	- \frac{1}{\pi}
+	{\rm Im}
+	\bigg[
+		{\rm log}
+		\bigg\{
+		\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+		-
+		i \Delta
+		\bigg\}
+		\bigg]
+\end{align}
+が得られた。この対数関数は主値${\rm log} z = {\rm log} |z| + i \ \! {\rm arg} z$を返すものとして、
+\begin{align}
+	n_{\sigma}
+	 & =
+	- \frac{1}{\pi}
+	{\rm arg}
+	\bigg\{
+	\varepsilon_{d}
+	+
+	\Sigma_{d\sigma}(+i 0)
+	-
+	i \Delta
+	\bigg\}
+	\nonumber \\ &=
+	\frac{1}{\pi}
+	{\rm arctan}
+	\frac{\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+	}{
+		\Delta
+	}
+\end{align}
+
+${}$
+
+Green関数$G_{d \sigma}(i \varepsilon_{n})$は$d_{\sigma}(\tau)$と$d^{\dagger}_{\sigma}(0)$の間に作用する相関の情報を持っている。
+この相関におけるFermi面$(\omega=0)$上の位相のズレ$\eta_{\sigma}$を求めると、
+\begin{align}
+	\eta_{\sigma}
+	 & =
+	{\rm arg}
+	\Big[ G_{d \sigma}(i \varepsilon_{n}) \Big]
+	\ = \
+	{\rm arctan}
+	\frac{
+		{\rm Re} \big\{ G_{d \sigma}(i \varepsilon_{n}) \big\}
+	}{
+		{\rm Im} \big\{ G_{d \sigma}(i \varepsilon_{n}) \big\}
+	}
+	\nonumber \\ &=
+	{\rm arctan}
+	\frac{
+		\varepsilon_{d} + \Sigma_{d \sigma} (+i 0)
+	}{
+		\Delta
+	}
+	\nonumber \\ &=
+	\pi n_{\sigma}
+\end{align}
+となり、相互作用に位相のズレと、相互作用によって変化した電子数が1対1に対応していることが分かる
+\footnote{
+	Friedelの総和則を相互作用のあるものへと拡張したことになる。
+}
+。
+ここがNozi$\acute{\rm e}$resが局所Fermi液体と呼んだ起源になっている。
+LandauによるFermi液体論と同様に、
+位相のズレ$\eta_{\sigma}$を求めることが
+相互作用される全ての物理量を（Fermi液体論に含まれる近似の下で）求めることに繋がる。
+
+\section*{Impurity susceptibility \ 2}
+
+式(4.73)の摂動を与えることで不純物準位が$\varepsilon_{d} \to \varepsilon_{d} - h_{\sigma}$にずれる。
+Friedelの総和則は相互作用が印加されても成り立つので、
+\begin{align}
+	\frac{\partial n_{\sigma}}{\partial h_{\sigma'}}
+	\bigg|_{h_{\sigma'} \to 0}
+	 & =
+	- \frac{1}{\pi}
+	{\rm Im}
+	\frac{\partial }{\partial h_{\sigma'}}
+	{\rm log}
+	\Big\{
+	\varepsilon_{d}
+	-
+	h_{\sigma}
+	+
+	\Sigma_{d\sigma}(+i 0)
+	-
+	i \Delta
+	\Big\}
+	\bigg|_{h_{\sigma'} \to 0}
+	\nonumber \\[3mm] &=
+	\frac{1}{\pi}
+	{\rm Im}
+	\frac{
+		\delta_{\sigma,\sigma'}
+		-
+		\dfrac{\partial \Sigma_{d \sigma}(+i0)}{\partial h_{\sigma'}}
+		\bigg|_{h_{\sigma'} \to 0}
+	}
+	{
+		\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+		-
+		i \Delta
+	}
+	\nonumber \\[3mm] &=
+	\frac{1}{\pi}
+	\frac{
+		\Delta
+	}
+	{
+		\{
+		\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+		\}^{2}
+		+
+		\Delta^{2}
+	}
+	\bigg[
+		\delta_{\sigma,\sigma'}
+		-
+		\dfrac{\partial \Sigma_{d \sigma}(+i0)}{\partial h_{\sigma'}}
+		\bigg|_{h_{\sigma'} \to 0}
+		\bigg]
+\end{align}
+この括弧に掛かる係数は、
+相互作用をfullに入れたFermiエネルギーにおける状態密度を表す。
+\begin{align}
+	\frac{1}{\pi}
+	\frac{
+		\Delta
+	}
+	{
+		\{
+		\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+		\}^{2}
+		+
+		\Delta^{2}
+	}
+	\ = \
+	-
+	\frac{1}{\pi}
+	{\rm Im}G_{d \sigma}(\omega=0)
+	\ = \
+	N_{d}(\varepsilon_{\rm F})
+\end{align}
+前に導いた式
+\begin{align}
+	\hspace{39.4mm}
+	\frac{
+		\partial
+		n_{\sigma}
+	}{
+		\partial
+		h_{\sigma'}
+	}
+	\bigg|_{h_{\sigma'} \to 0}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \sigma'}(\tau)
+	\tilde{n}_{d \sigma}(0)
+	\rangle
+	\nonumber
+	\hspace{39.4mm}
+	(4.76)
+\end{align}
+から、
+\begin{align}
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \sigma'}(\tau)
+	\tilde{n}_{d \sigma}(0)
+	\rangle
+	 & =
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		\delta_{\sigma,\sigma'}
+		-
+		\dfrac{\partial \Sigma_{d \sigma}(+i0)}{\partial h_{\sigma'}}
+		\bigg|_{h_{\sigma'} \to 0}
+		\bigg]
+\end{align}
+が言える。$( \tilde{n}_{d \sigma} = n_{d \sigma} - \langle n_{d \sigma} \rangle $としている。)
+
+${}$
+
+さて、式(4.76)の$n_{\sigma}$に
+$
+	\langle S \rangle
+	=
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} - \tilde{n}_{d \downarrow}
+	\big)
+$
+と
+$
+	\langle N \rangle
+	=
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} + \tilde{n}_{d \downarrow}
+	\big)
+$
+をそれぞれ代入する。
+不純物のスピン帯磁率$\chi_{ds}$と電荷感受率$\chi_{dc}$はそれぞれ次のように定義される。
+\begin{align}
+	\frac{
+		\partial
+		\langle S \rangle
+	}{
+		\partial
+		h_{\sigma'}
+	}
+	\bigg|_{h_{\sigma'} \to 0}
+	 & =
+	\chi_{ds}
+	\\
+	\frac{
+		\partial
+		\langle N \rangle
+	}{
+		\partial
+		h_{\sigma'}
+	}
+	\bigg|_{h_{\sigma'} \to 0}
+	 & =
+	\chi_{dc}
+\end{align}
+磁場$h_{\sigma}$が加わったときに、
+どれだけスピン上向きの電子数と下向きの電子数の差が変化するかを表すのが$\chi_{ds}$であり、
+電子数全体がどれだけ変化するかを示すのが$\chi_{dc}$である（電荷の量は電子数に対応するので）。
+従って、
+\begin{align}
+	\hspace{30.7mm}
+	\chi_{ds}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\Big\langle
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} - \tilde{n}_{d \downarrow}
+	\big)(\tau)
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} - \tilde{n}_{d \downarrow}
+	\big)(0)
+	\Big\rangle
+	\nonumber
+	\hspace{30.7mm}
+	(4.77)
+\end{align}
+\\[-12mm]
+\begin{align}
+	\hspace{30.7mm}
+	\chi_{dc}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\Big\langle
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} + \tilde{n}_{d \downarrow}
+	\big)(\tau)
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} + \tilde{n}_{d \downarrow}
+	\big)(0)
+	\Big\rangle
+	\nonumber
+	\hspace{30.7mm}
+	(4.78)
+\end{align}
+同様に縦磁化率$\chi_{\uparrow \uparrow}$と横磁化率$\chi_{\uparrow \downarrow}$も
+次のように定義される。
+\begin{align}
+	\hspace{36mm}
+	\chi_{\uparrow \uparrow}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \uparrow}(0)
+	\rangle
+	\ = \
+	\chi_{ds} + \chi_{dc}
+	\nonumber
+	\hspace{36mm}
+	(4.79)
+\end{align}
+\\[-12mm]
+\begin{align}
+	\hspace{34.7mm}
+	\chi_{\uparrow \downarrow}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \downarrow}(0)
+	\rangle
+	\ = \
+	- \chi_{ds} + \chi_{dc}
+	\nonumber
+	\hspace{34.7mm}
+	(4.80)
+\end{align}
+
+
+式(44)より縦磁化率$\chi_{\uparrow \uparrow}$と横磁化率$\chi_{\uparrow \downarrow}$は自己エネルギーを用いて表すことができて、
+\begin{align}
+	\chi_{\uparrow \uparrow}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \uparrow}(0)
+	\rangle
+	\ = \
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		1
+		-
+		\frac{\partial \Sigma_{d \uparrow} (+i0) }{\partial h_{\uparrow}}
+		\bigg|_{h_{\uparrow} \to 0}
+		\bigg]
+	\\
+	\chi_{\uparrow \downarrow}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \downarrow}(0)
+	\rangle
+	\ = \
+	-
+	N_{d}(\varepsilon_{\rm F})
+	\frac{\partial \Sigma_{d \uparrow} (+i0) }{\partial h_{\downarrow}}
+	\bigg|_{h_{\downarrow} \to 0}
+\end{align}
+これより、連立方程式を逆に解くことで、
+\begin{align}
+	\chi_{ds}
+	 & =
+	\frac{1}{2}
+	\big(
+	\chi_{\uparrow \uparrow}
+	-
+	\chi_{\uparrow \downarrow}
+	\big)
+	\ = \
+	\frac{1}{2}
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		1
+		-
+		\frac{\partial \big\{ \Sigma_{d \uparrow} (+i0) - \Sigma_{d \downarrow} (+i0) \big\} }{\partial h_{\uparrow}}
+		\bigg|_{h_{\uparrow} \to 0}
+		\bigg]
+	\\
+	\chi_{dc}
+	 & =
+	\frac{1}{2}
+	\big(
+	\chi_{\uparrow \uparrow}
+	+
+	\chi_{\uparrow \downarrow}
+	\big)
+	\ = \
+	\frac{1}{2}
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		1
+		-
+		\frac{\partial\big\{ \Sigma_{d \uparrow} (+i0) + \Sigma_{d \downarrow} (+i0) \big\} }{\partial h_{\uparrow}}
+		\bigg|_{h_{\uparrow} \to 0}
+		\bigg]
+\end{align}
+が得られる。
+
+\section*{Wilson ratio}
+
+不純物による比熱への寄与$C$は
+\footnote{「寄与」を意味する記号$\Delta$を書くのを省略した。$C \to \Delta C$、$\Omega \to \Delta \Omega$のこと。}
+、
+熱力学ポテンシャルへの寄与$\Omega$
+から
+\begin{align}
+	C
+	 & =
+	-T
+	\frac{\partial^{2} \Omega}{\partial T^{2}}
+\end{align}
+で求めることができる。
+比熱への寄与を$T=0$で展開（低温展開）したときの1次の係数（Sommerfeld係数）$\gamma$
+\begin{align}
+	\gamma
+	 & =
+	\frac{C}{T}
+	\
+	+
+	\mathcal{O}(T)
+\end{align}
+と、電荷感受率$\chi_{dc}$の次の比、
+\begin{align}
+	R_{\rm W}
+	 & =
+	\frac{\chi_{ds}/\chi_{ds}^{(0)}}{\gamma/\gamma^{(0)}}
+\end{align}
+をWilson比と呼ぶ。頭の添字の「$^{(0)}$」は$U=0$、すなわち不純物が無い伝導電子のみの寄与を意味する。
+
+$R_{\rm W}$を求めるには結局$\gamma$を求めれば良い。
+熱力学ポテンシャルに対する摂動展開（or バーテックス関数とWard恒等式を用いた計算）
+を遂行すると、Sommerfeld係数は自己エネルギーを用いて次のように表すことが出来る。
+\footnote{
+	斯波弘行「電子相関の物理」、
+	山田耕筰「電子相関」、
+	A. C. Hewson "The Kondo Problem to Heavy Fermions"、 \\
+	A. A. Abrikosov, L. P. Gorkov and I. E. Dzyaloshinski "Methods of Quantum Field Theory in Statistical Physics"
+	等を参照。
+}
+\begin{align}
+	\gamma
+	 & =
+	\frac{2 \pi^{2}}{3}
+	k_{\rm B}^{2}
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		1
+		-
+		\frac{\partial \Sigma_{d \sigma} (i \varepsilon_{n}) }{\partial i \varepsilon_{n}}
+		\bigg|_{\omega \to 0}
+		\bigg]
+	\label{eqn:54num}
+\end{align}
+さらにWard恒等式を通して、
+\begin{align}
+	\frac{\partial \Sigma_{d \sigma} (i \varepsilon_{n}) }{\partial i \varepsilon_{n}}
+	\bigg|_{\omega \to 0}
+	 & =
+	\dfrac{\partial \Sigma_{d \sigma}(+i0)}{\partial h_{\sigma}}
+	\bigg|_{h_{\sigma} \to 0}
+	\label{eqn:55num}
+\end{align}
+であることも言える。$^{\rm 21}$
+これらの関係式(\ref{eqn:54num})、(\ref{eqn:55num})と(4.76)より、
+\begin{align}
+	\bigg(
+	\dfrac{2 \pi^{2}}{3}
+	k_{\rm B}^{2}
+	\bigg)^{-1}
+	\gamma
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \uparrow}(0)
+	\rangle
+	\ = \
+	\chi_{\uparrow \uparrow}
+\end{align}
+であることも分かる。
+
+
+以上から、Wilson比を書き直すと、
+\begin{align}
+	R_{\rm W}
+	 & =
+	\frac{
+		1
+		-
+		\dfrac{\partial\big\{ \Sigma_{d \uparrow} (i \varepsilon_{n}) - \Sigma_{d \downarrow} (i \varepsilon_{n}) \big\} }{\partial i \varepsilon_{n} }
+		\bigg|_{\omega \to 0}
+	}{
+		1
+		-
+		\dfrac{\partial \Sigma_{d \sigma} (i \varepsilon_{n}) }{\partial i \varepsilon_{n}}
+		\bigg|_{\omega \to 0}
+	}
+	\ = \
+	\frac{\chi_{ds} }{\dfrac{1}{2} ( \chi_{dc} + \chi_{ds} ) }
+\end{align}
+となる。
+
+$U=0$では自己エネルギー部分が0になるので、
+$R_{\rm W}=1$である。
+
+また、$U \to \infty$の極限では
+電荷揺らぎは完全に抑えられ、$\chi_{dc}=0$となる
+\footnote{一方、$U \to \infty$の極限では、熱力学極限で$\chi_{ds} \to \infty$となりそうである。}。
+よって、この極限では$R_{\rm W} \to 2$になると予想できる。
+実際、Wilsonは$R_{\rm W}$を実空間数値くりこみ群（実空間NRG）と呼ばれる手法で計算を行い、
+$U \to \infty$の極限で
+$R_{\rm W} \to 2$となることを確かめた
+\footnote{
+	よく見られてる有名な論文は
+	K. G. Wilson: Rev. Mod. Phys. {\bf 47}, 773 (1975).
+	Wilsonはこの業績もあって1982年にノーベル物理学賞を受賞している。
+}
+。
+
+このNRGと呼ばれる手法は以前議論した$J$展開、$U$展開では扱いきれなかった範囲も含めて
+強結合から弱結合まで広くカバーできる手法である。
+
+
+また、Bethe仮説に基づいて、$U$に関してall orderでAndersonモデルの厳密解を最初に求めたのは
+Wiegmannだった
+\footnote{
+	A. M. Tsvelik and O. B. Wiegmann: Adv. Phys. {\bf 32}, 453 (1983).
+}
+。
+しかしこの解はhalf-fillingに限られていたが、より一般的な厳密解は川上-興地
+\footnote{
+	N. Kawakami and A. Okiji: Phys. Lett. {\bf 86A}, 483 (1981) ;
+	N. Kawakami and A. Okiji: J. Appl. Phys. {\bf 55}, 1931 (1984).
+}
+によって求められた。
+この解は川上先生が修士1年、2年の頃に急に閃いたとのこと。
+
+
+\end{document}

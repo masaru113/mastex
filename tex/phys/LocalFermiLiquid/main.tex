@@ -1,0 +1,1905 @@
+\documentclass[a4j]{jarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\title{\ \\[-35mm] 2-body mechanics in the Local Fermi Liquid
+}
+\author{ Masaru Okada}
+% \author{\ \\[-7mm] \hspace{-10mm} Masaru Okada
+% \\[-2mm] \hspace{-7mm} { \small \it Institute for Solid State Physics, University of Tokyo, 5-1-5 % Kashiwanoha, Kashiwa, Chiba 277-8581, Japan} }
+% \date{\hspace{-10mm} March 31, 2015 (ver. 0)}
+\date{\today}
+\begin{document}
+\allowdisplaybreaks
+\maketitle
+
+\ \\[-20mm]
+
+\section*{Motivation}
+
+
+I will derive some physical quantities like $\chi_{s}$ (\textbf{spin susceptibility}), $\chi_{c}$ (\textbf{charge susceptibility}), and $R_{W}$ (\textbf{Wilson ratio}).
+Understanding these quantities helps us characterize strongly correlated electron systems and understand the behavior of $f$-electron systems.
+
+
+\section*{Duality between the local FL and the Anderson model}
+First, we will discuss the simplest Anderson Hamiltonian.
+\begin{align}
+	\hspace{17.3mm}
+	\mathcal{H}
+	=
+	\sum_{\bm{k}\sigma}
+	\varepsilon_{\bm{k}}
+	c^{\dagger}_{\bm{k} \sigma}
+	c_{\bm{k} \sigma}
+	+
+	\sum_{\sigma}
+	\varepsilon_{d}
+	n_{d \sigma}
+	+
+	U
+	n_{d \uparrow}
+	n_{d \downarrow}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k}\sigma}
+	(
+	V_{\bm{k}}
+	c_{\bm{k}\sigma}^{\dagger}
+	d_{\sigma}
+	+
+	{\rm h.c.}
+	)
+\end{align}
+Here, $c_{\bm{k}\sigma}$ is the annihilation operator for a quasiparticle in a conduction band with momentum $\bm{k}$ and spin $\sigma(=\uparrow,\downarrow)$, $\varepsilon_{\bm{k}}$ is the band dispersion of the conduction electron, $\varepsilon_{d}$ is the $d$-level energy, $d_{\sigma}$ is the annihilation operator for a $d$-electron with spin $\sigma$, $n_{d \sigma}=d_{\sigma}^{\dagger} d_{\sigma}$ is the number of $d$-electrons with spin $\sigma$, $U$ is the strength of the Coulomb interaction between $d$-electrons, and $V_{\bm{k}}$ is the strength of the interaction between the $d$-electron and the conduction electron.
+
+The term "$d$-electron" is used for historical reasons.
+We can replace "$d$-electron" with "$f$-electron" and the physics remains the same.
+
+Note that this model neglects the interaction between conduction electrons.
+Furthermore, we consider only a single $d$-band.
+In reality, to understand Fe-compounds, for example, we would need to consider five $d$-bands.
+\footnote{
+	Since Ce and Yb compounds have 4$f$-electrons, this model alone is insufficient for understanding them.
+	However, the meaning of spin susceptibility, charge susceptibility, and Wilson ratio can still be interpreted within the same framework.
+}
+
+${}$
+
+The Fermi liquid (FL) model
+\footnote{
+	An interacting itinerant electron system is well described by a non-interacting system (the Fermi gas model) with renormalized weights when the system is at low temperatures and the quasiparticles are near the Fermi surface.
+	Such a system is called a Fermi liquid, by analogy to the Fermi gas.
+}
+is a standard model for metals.
+To use the information of the FL state, we assume that the quasiparticles are near the Fermi surface.
+
+We now treat the $U$ term as a perturbation.
+
+\begin{align}
+	\mathcal{H}_{0}
+	 & =
+	\sum_{\bm{k}\sigma}
+	\varepsilon_{\bm{k}}
+	c^{\dagger}_{\bm{k} \sigma}
+	c_{\bm{k} \sigma}
+	+
+	\sum_{\sigma}
+	\varepsilon_{d}
+	n_{d \sigma}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k}\sigma}
+	(
+	V_{\bm{k}}
+	c_{\bm{k}\sigma}^{\dagger}
+	d_{\sigma}
+	+
+	{\rm h.c.}
+	)
+	\hspace{3mm}
+	,
+	\hspace{5mm}
+	\mathcal{H}
+	-
+	\mathcal{H}_{0}
+	=
+	U
+	n_{d \uparrow}
+	n_{d \downarrow}
+\end{align}
+
+Our first goal is to diagonalize the non-perturbative term $\mathcal{H}_{0}$.
+
+\begin{align}
+	\hspace{10.2mm}
+	\mathcal{H}_{0}
+	=
+	\sum_{\bm{k}\sigma}
+	\varepsilon_{\bm{k}}
+	c^{\dagger}_{\bm{k} \sigma}
+	c_{\bm{k} \sigma}
+	+
+	\sum_{\sigma}
+	\varepsilon_{d}
+	n_{d \sigma}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k}\sigma}
+	(
+	V_{\bm{k}}
+	c_{\bm{k}\sigma}^{\dagger}
+	d_{\sigma}
+	+
+	{\rm h.c.}
+	)
+	\
+	\to
+	\hspace{5mm}
+	\mathcal{H}_{0}
+	=
+	\sum_{n \sigma}
+	\varepsilon_{n}
+	c_{n \sigma}^{\dagger}
+	c_{n \sigma}
+	\hspace{10.2mm}
+\end{align}
+
+To perform the diagonalization, we create linear combinations with coefficients $( n | \bm{k} )$ and $( n | d )$.
+
+\begin{align}
+	\hspace{49mm}
+	c^{\dagger}_{n \sigma}
+	=
+	\sum_{\bm{k}}
+	( n | \bm{k} )
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\hspace{49mm}
+\end{align}
+\\[-12mm]
+\begin{align}
+	\hspace{47.4mm}
+	c_{n \sigma}
+	=
+	\sum_{\bm{k}}
+	( n | \bm{k} )^{*}
+	c_{\bm{k} \sigma}
+	+
+	( n | d )^{*}
+	d_{\sigma}
+	\hspace{47.2mm}
+\end{align}
+These coefficients, $( n | \bm{k} )$, $( n | d )$, and $\varepsilon_{n}$, are determined by the commutation relation $\displaystyle \big[ \mathcal{H}_{0} , c^{\dagger}_{n \sigma} \big] = \varepsilon_{n} c^{\dagger}_{n \sigma} $.
+We can use the fact that $
+	\big[
+		c^{(\dagger)}_{\alpha},d^{(\dagger)}_{\alpha}
+		\big]
+	=
+	0$.
+\begin{align}
+	\begin{split}
+		\bigg[
+			\sum_{\bm{k}\sigma}
+		 & \varepsilon_{\bm{k}}
+			c^{\dagger}_{\bm{k} \sigma}
+			c_{\bm{k} \sigma}
+			+
+			\sum_{\sigma}
+			\varepsilon_{d}
+			n_{d \sigma}
+			+
+			\frac{1}{\sqrt{N_{\rm A}}}
+			\sum_{\bm{k}\sigma}
+			(
+			V_{\bm{k}}
+			c_{\bm{k}\sigma}^{\dagger}
+			d_{\sigma}
+			+
+			{\rm h.c.}
+			)
+			\
+			,
+		\\
+		 & \sum_{\bm{k}'}
+			( n | \bm{k}' )
+			c^{\dagger}_{\bm{k}' \sigma'}
+			+
+			( n | d )
+			d^{\dagger}_{\sigma'}
+			\bigg]
+	\end{split}
+	\nonumber \\[4mm] &=
+	\sum_{\bm{k} \bm{k}' \sigma}
+	\varepsilon_{\bm{k}}
+	( n | \bm{k}' )
+	\Big[
+		c^{\dagger}_{\bm{k} \sigma}
+		c_{\bm{k} \sigma}
+		\
+		,
+		\
+		c^{\dagger}_{\bm{k}' \sigma'}
+		\Big]
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k} \bm{k}' \sigma}
+	V_{\bm{k}}
+	(n | \bm{k})
+	\Big[
+		d_{\sigma}^{\dagger}
+		c_{\bm{k}\sigma}
+		\
+		,
+		\
+		c^{\dagger}_{\bm{k}' \sigma'}
+		\Big]
+	\nonumber \\ &
+	+
+	\sum_{\bm{k}' \sigma}
+	\varepsilon_{d}
+	( n | d )
+	\Big[
+		d^{\dagger}_{\sigma}
+		d_{\sigma}
+		\
+		,
+		\
+		d^{\dagger}_{\sigma'}
+		\Big]
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k} \sigma}
+	V_{\bm{k}} (n | d)
+	\Big[
+		c_{\bm{k}\sigma}^{\dagger}
+		d_{\sigma}
+		\
+		,
+		\
+		d^{\dagger}_{\sigma'}
+		\Big]
+	\nonumber \\[4mm] &=
+	\sum_{\bm{k} \bm{k}' \sigma}
+	\varepsilon_{\bm{k}}
+	( n | \bm{k}' )
+	c^{\dagger}_{\bm{k} \sigma}
+	\delta_{\bm{k}, \bm{k}'}
+	\delta_{\sigma, \sigma'}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k} \bm{k}' \sigma}
+	V_{\bm{k}} (n | \bm{k})
+	d_{\sigma}^{\dagger}
+	\delta_{\bm{k}, \bm{k}'}
+	\delta_{\sigma, \sigma'}
+	\nonumber \\ &
+	+
+	\sum_{\sigma}
+	\varepsilon_{d}
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\delta_{\sigma, \sigma'}
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k} \sigma}
+	V_{\bm{k}} (n | d)
+	c_{\bm{k}\sigma}^{\dagger}
+	\delta_{\sigma, \sigma'}
+	\nonumber \\[4mm] &=
+	\sum_{\bm{k}}
+	\bigg[
+		\varepsilon_{\bm{k}}
+		( n | \bm{k} )
+		+
+		\frac{1}{\sqrt{N_{\rm A}}}
+		V_{\bm{k}} (n | d)
+		\bigg]
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	\bigg[
+		\varepsilon_{d}
+		( n | d )
+		+
+		\frac{1}{\sqrt{N_{\rm A}}}
+		\sum_{\bm{k}}
+		V_{\bm{k}} (n | \bm{k})
+		\bigg]
+	d^{\dagger}_{\sigma}
+\end{align}
+
+On the other hand, the left-hand side of the commutation relation $( \displaystyle \big[ \mathcal{H}_{0} , c^{\dagger}_{n \sigma} \big] = \varepsilon_{n} c^{\dagger}_{n \sigma} )$ is,
+
+\begin{align}
+	\varepsilon_{n}
+	c_{n \sigma}^{\dagger}
+	 & =
+	\sum_{\bm{k}}
+	\varepsilon_{n}
+	( n | \bm{k} )
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	\varepsilon_{n}
+	( n | d )
+	d^{\dagger}_{\sigma}
+\end{align}
+
+We can obtain the relations by comparing the coefficients.
+
+\begin{align}
+	\hspace{44.3mm}
+	\varepsilon_{n}
+	( n | \bm{k} )
+	=
+	\varepsilon_{\bm{k}}
+	( n | \bm{k} )
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	V_{\bm{k}} (n | d)
+	\hspace{44.3mm}
+\end{align}
+\\[-10mm]
+\begin{align}
+	\hspace{41.5mm}
+	\varepsilon_{n}
+	( n | d )
+	=
+	\varepsilon_{d}
+	( n | d )
+	+
+	\frac{1}{\sqrt{N_{\rm A}}}
+	\sum_{\bm{k}}
+	V_{\bm{k}} (n | \bm{k})
+	\hspace{41.5mm}
+\end{align}
+
+Conversely, if we act the operator $\displaystyle \sum_{n} ( n | \bm{k} )^{*}$ on both sides,
+
+\begin{align}
+	c^{\dagger}_{n \sigma}
+	 & =
+	\sum_{\bm{k}'}
+	( n | \bm{k}' )
+	c^{\dagger}_{\bm{k}' \sigma}
+	+
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\nonumber \\
+	\hspace{26mm}
+	\sum_{n} ( n | \bm{k} )^{*}
+	c^{\dagger}_{n \sigma}
+	 & =
+	\sum_{\bm{k}'}
+	\sum_{n}
+	( n | \bm{k}' )
+	( n | \bm{k} )^{*}
+	c^{\dagger}_{\bm{k}' \sigma}
+	+
+	\sum_{n} ( n | \bm{k} )^{*}
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\nonumber \\ &=
+	\sum_{\bm{k}'}
+	\sum_{n}
+	( n | \bm{k}' )
+	( \bm{k} | n )
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	\sum_{n}
+	( \bm{k} | n )
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\nonumber \\ &=
+	c^{\dagger}_{\bm{k} \sigma}
+	\nonumber
+	\hspace{80mm}
+	(4.62)
+\end{align}
+
+If there is an orthogonality $\displaystyle
+	(\bm{k}'|\bm{k})=\delta_{\bm{k}' \bm{k}}
+$, we can obtain the operator relation.
+
+In the same way, by taking the operator $\displaystyle \sum_{n} ( n | d )^{*}$ on both sides,
+
+\begin{align}
+	\hspace{26mm}
+	\sum_{n} ( n | d )^{*}
+	c^{\dagger}_{n \sigma}
+	 & =
+	\sum_{\bm{k}}
+	\sum_{n}
+	( n | \bm{k} )
+	( n | d )^{*}
+	c^{\dagger}_{\bm{k}' \sigma}
+	+
+	\sum_{n} ( n | d )^{*}
+	( n | d )
+	d^{\dagger}_{\sigma}
+	\nonumber \\ &=
+	\sum_{\bm{k}}
+	\sum_{n}
+	( d | n )
+	( n | \bm{k} )
+	c^{\dagger}_{\bm{k} \sigma}
+	+
+	d^{\dagger}_{\sigma}
+	\sum_{n}
+	\big|
+	( n | d )
+	\big|^{2}
+	\nonumber \\ &=
+	d^{\dagger}_{\sigma}
+	\nonumber
+	\hspace{82mm}
+	(4.63)
+\end{align}
+
+is obtained.
+Here, we have assumed that $\displaystyle
+	\sum_{n}
+	\big|
+	( n | d )
+	\big|^{2}
+	=1
+$.
+
+
+The interaction term of the Hamiltonian used in the discussion of Fermi liquids was as follows.
+\begin{align}
+	\hspace{33.5mm}
+	\mathcal{H}'_{\rm FL}
+	=
+	\frac{U}{N_{\rm A}}
+	\sum_{\bm{k}_{1} \bm{k}_{2} \bm{k}_{3} \bm{k}_{4}}
+	c_{\bm{k}_{1} \uparrow}^{\dagger}
+	c_{\bm{k}_{2} \downarrow}^{\dagger}
+	c_{\bm{k}_{3} \downarrow}
+	c_{\bm{k}_{4} \uparrow}
+	\delta_{\bm{k}_{1}+\bm{k}_{2} , \bm{k}_{3}+\bm{k}_{4}}
+	\nonumber
+	\hspace{33.5mm}
+	(3.2')
+\end{align}
+Indeed, substituting (4.63) gives
+\begin{align}
+	&
+	\mathcal{H} - \mathcal{H}_{0}
+	=
+	U
+	d_{\uparrow}^{\dagger}
+	d_{\uparrow}
+	d_{\downarrow}^{\dagger}
+	d_{\downarrow}
+	\nonumber \\
+	&=
+	U
+	\sum_{n_{1},n_{2},n_{3},n_{4}}
+	(n_{1} | d)^{*}
+	(n_{2} | d)
+	(n_{3} | d)^{*}
+	(n_{4} | d)
+	c_{n_{1} \uparrow}^{\dagger}
+	c_{n_{2} \uparrow}
+	c_{n_{3} \downarrow}^{\dagger}
+	c_{n_{4} \downarrow}
+\end{align}
+By analogy with equation (3.2), by expressing it in terms of a change of basis in this way, it appears as if it can be treated as a Fermi liquid.
+
+${}$
+
+The original spirit of Nozi$\acute{\rm e}$res's local Fermi liquid was to discover that the most important physical quantity in the problem of conduction electron scattering by an impurity potential is the phase shift $\eta$ of the conduction electrons near the Fermi surface.
+All information about the scattering problem is contained in $\eta$.
+Based on Landau's Fermi liquid theory, the state of the $s$-$d$ system can be described by the distribution function $n_{\sigma}$ of quasiparticles with spin $\sigma$.
+The phase shift of the scattered quasiparticles then depends on the quasiparticle energy $\varepsilon_{\sigma}$ and the distribution.
+Specifically, it can be written as follows:
+\begin{align}
+	\eta_{\sigma}(\varepsilon_{\sigma} , n_{\sigma'})
+\end{align}
+We expand this phase shift in terms of the deviation from the ground state distribution,
+\begin{align}
+	\delta n_{\sigma} = n_{\sigma} - n_{\sigma}^{(0)}
+\end{align}
+and take it to the first order:
+\begin{align}
+	\eta_{\sigma}(\varepsilon)
+	=
+	\eta_{\sigma}^{(0)}(\varepsilon)
+	+
+	\sum_{\sigma',\varepsilon'}
+	\phi_{\sigma,\sigma'}(\varepsilon,\varepsilon')
+	\delta n_{\sigma}(\varepsilon)
+\end{align}
+Furthermore, we expand $\eta_{\sigma}^{(0)}(\varepsilon)$ and the expansion coefficients $\phi_{\sigma,\sigma'}(\varepsilon,\varepsilon')$ in terms of the energy $\varepsilon$ measured from the chemical potential as follows:
+\begin{align}
+	\eta_{\sigma}^{(0)}(\varepsilon)
+	 & =
+	\eta_{\sigma}^{(0)}
+	+
+	\alpha_{1} \varepsilon
+	+
+	\alpha_{2} \varepsilon^{2}
+	+
+	\cdots
+	\\
+	\phi_{\sigma,\sigma'}(\varepsilon,\varepsilon')
+	 & =
+	\phi_{\sigma,\sigma'}^{(0)}
+	+
+	\beta_{1}
+	\phi_{\sigma,\sigma'}(\varepsilon,\varepsilon')
+	+
+	\cdots
+\end{align}
+If we restrict the problem to low temperatures and low magnetic fields, we only need to take the first order with respect to $\varepsilon$, $T$, and $H$.
+This is similar to the spirit of Fermi liquid theory discussed earlier.
+
+${}$
+
+With this motivation, this notebook will examine the density and spin responses within a range where the system can be treated as a Fermi liquid (i.e., at low temperatures and near the Fermi surface).
+These are two-body correlation quantities and are related to the interaction function $f_{\sigma\sigma'}(\bm{k},\bm{k}')$ discussed in the chapter on Fermi liquids.
+(
+When considering perturbation theory, this corresponds to finding the vertex in the language of Green's functions.
+In contrast, the part of the discussion on the $T$-matrix that Kirii-kun shared with us corresponds to discussing the one-body Green's function, where the deviation from the bare one-body Green's function was discussed through the self-energy.
+Incidentally, an exact solution for the Anderson model using the Bethe ansatz is also known, and its solution can be expanded in a power series of $U$.
+This supports the validity of discussing the model with a $U$ expansion, similar to the treatment of Fermi liquids in the previous chapter.
+)
+
+\section*{Green function}
+
+The analysis using thermal Green's functions is superior in the following ways.
+
+${}$
+
+$\hspace{10mm} \textcircled{\footnotesize 1} $
+It is convenient for perturbation calculations because we can use the technique of Feynman diagrams.
+
+$\hspace{10mm} \textcircled{\footnotesize 2} $
+By performing analytical continuation of the Matsubara frequency, we can obtain the retarded Green's function,
+
+$\hspace{12mm}$
+from which we can calculate dynamic physical quantities.
+
+$\hspace{10mm} \textcircled{\footnotesize 3} $
+It can also be combined with the path integral method.
+
+${}$
+
+Since it is convenient to use thermal Green's functions for this discussion as well, we will set them up here.
+
+The $d$-electron Green's function\footnote{The word "thermal" for Green's functions will be omitted below.} is defined as follows.
+\begin{align}
+	G_{d \sigma}(\tau)
+	=
+	-
+	\big\langle
+	{\rm \hat{T}}_{\tau}
+	\big[
+		d_{\sigma}(\tau)
+		d_{\sigma}^{\dagger}(0)
+		\big]
+	\big\rangle
+\end{align}
+The variable of the creation and annihilation operators is imaginary time $\tau=it$.
+The operators are given time dependence using the Heisenberg representation.
+\begin{align}
+	d_{\sigma}(\tau)
+	=
+	e^{\mathcal{H}\tau}
+	d_{\sigma}
+	e^{-\mathcal{H}\tau}
+\end{align}
+This $\mathcal{H}$ is the Anderson Hamiltonian (including all perturbative terms).
+$
+	{\rm \hat{T}}_{\tau}
+	\big[
+		\cdots
+		\big]
+$
+is the time-ordering operator, which arranges the Heisenberg operators in the brackets $[\cdots]$ from right to left in order of increasing time.
+Since they are fermions, we must pay attention to the sign that appears when they are reordered.
+The interaction-included average $\langle \cdots \rangle$ is taken as follows.
+\begin{align}
+	\langle \cdots \rangle
+	=
+	\frac{
+		{\rm Tr} \big[ e^{- \beta \mathcal{H}} \cdots \big]
+	}{
+		{\rm Tr} \big[ e^{- \beta \mathcal{H}} \big]
+	}
+	\label{eqn:12ave}
+\end{align}
+$\beta=(k_{\rm B}T)^{-1}$ is the inverse temperature.
+
+We can change the variable from imaginary time to energy via a Fourier transform.
+\begin{align}
+	G_{d \sigma}(i \varepsilon_{n})
+	=
+	\int^{\beta}_{0}
+	d\tau
+	e^{i \varepsilon_{n} \tau}
+	G_{d \sigma}(\tau)
+\end{align}
+Here, $n$ is an integer, and $\varepsilon_{n}=(2n+1)\pi/\beta$ is the energy, which takes on discrete values and is called the fermionic Matsubara frequency.
+
+The Green's function for conduction electrons is defined with a similar setup.
+\begin{align}
+	G_{\bm{k}\bm{k}' \sigma}(\tau)
+	 & =
+	-
+	\big\langle
+	{\rm \hat{T}}_{\tau}
+	\big[
+		c_{\bm{k} \sigma}(\tau)
+		c_{\bm{k}' \sigma}^{\dagger}(0)
+		\big]
+	\big\rangle
+	\\
+	G_{\bm{k}\bm{k}' \sigma}(i \varepsilon_{n})
+	 & =
+	\int^{\beta}_{0}
+	d\tau
+	e^{i \varepsilon_{n} \tau}
+	G_{\bm{k}\bm{k}' \sigma}(\tau)
+\end{align}
+Each Green's function can be distinguished by its index.
+
+The equation of motion that $G_{\bm{k}\bm{k}' \sigma}(\tau)$ obeys can be expressed as,
+\begin{align}
+	G_{\bm{k}\bm{k}' \sigma}(\tau)
+	=
+	\frac{\delta_{\bm{k},\bm{k}'}}{
+		i \varepsilon_{n} - \varepsilon_{\bm{k}}
+	}
+	+
+	\frac{1}{
+		i \varepsilon_{n} - \varepsilon_{\bm{k}}
+	}
+	T_{\sigma}(i \varepsilon_{n})
+	\frac{1}{
+		i \varepsilon_{n} - \varepsilon_{\bm{k}'}
+	}
+\end{align}
+\footnote{
+	Refer to the $T$-matrix section of the notebook that Kirii-kun made for us.
+}
+.
+The first term represents the motion of an electron without an impurity (the bare Green's function), and the second term represents scattering by an impurity.
+The $T$-matrix that describes this scattering is
+\begin{align}
+	T_{\sigma}(i \varepsilon_{n})
+	=
+	|V|^{2}
+	G_{d \sigma}(i \varepsilon_{n})
+\end{align}
+and the energy-represented $G_{d \sigma}$ is
+\begin{align}
+	G_{d \sigma}(i \varepsilon_{n})
+	=
+	\frac{1}{
+		\displaystyle
+		i \varepsilon_{n}
+		-
+		\varepsilon_{d}
+		-
+		|V|^{2}
+		\displaystyle
+		\sum_{\bm{k}}
+		\frac{1}{
+			i \varepsilon_{n} - \varepsilon_{\bm{k}}
+		}
+		-
+		\Sigma_{d\sigma}(i \varepsilon_{n})
+	}
+\end{align}
+\footnote{
+	This is consistent with the $T$-matrix defined in (4.65) of "Solid-State Electron Theory," but with $N_{\rm A}=1$.
+}
+.
+The effects of the interaction are all included in the self-energy part of the $d$-electron, $\Sigma_{d\sigma}(i \varepsilon_{n})$.
+
+Assuming that the conduction electron band is wide and that $\varepsilon_{n}$ is small compared to the bandwidth, the term in the denominator of $G_{d \sigma}(i \varepsilon_{n})$ that contains the sum over wave numbers (the wave number integral term of the free Green's function) can be approximated by the Cauchy principal value integral
+\footnote{
+	The Cauchy principal value integral for the following complex function is very useful and often appears.
+	\begin{align}
+		\lim_{\mu \to 0}
+		\mathcal{P}
+		\int
+		\frac{dx}{x \pm i \mu}
+		=
+		\mathcal{P}
+		\int
+		\frac{dx}{x}
+		\mp i \pi
+		\delta(x)
+	\end{align}
+}
+:
+\begin{align}
+	|V|^{2}
+	\sum_{\bm{k}}
+	\frac{1}{
+		i \varepsilon_{n} - \varepsilon_{\bm{k}}
+	}
+	 & \simeq
+	-
+	i
+	\pi
+	|V|^{2}
+	N(\varepsilon_{\rm F})
+	{\rm sgn}(i \varepsilon_{n})
+	\nonumber \\
+	 & =
+	-i \Delta {\rm sgn}(i \varepsilon_{n})
+\end{align}
+In this case, the $d$-electron Green's function simplifies to
+\footnote{
+	The sign function ${\rm sgn}$ that appears here is defined as
+	\begin{align}
+		{\rm sgn}(x)
+		\ \!
+		{=^{{}^{\hspace{-3mm} \rm def }}}
+		\frac{x}{|x|}
+	\end{align}
+	.
+	We deliberately write the argument as $i \varepsilon_{n}$ to make it clear that the variable is not a continuous variable but a discrete Matsubara frequency, and this sign function is a real function, not a complex one.
+}
+.
+\begin{align}
+	G_{d \sigma}(i \varepsilon_{n})
+	=
+	\frac{1}{
+		\displaystyle
+		i \varepsilon_{n}
+		-
+		\varepsilon_{d}
+		+
+		i \Delta {\rm sgn}(i \varepsilon_{n})
+		-
+		\Sigma_{d\sigma}(i \varepsilon_{n})
+	}
+\end{align}
+
+\section*{Hartree-Fock approx.}
+
+We will discuss an approach for when the perturbation $U$ is added, within the framework of the Hartree-Fock (HF) approximation.
+(We will only introduce the results as this is a digression from the main topic.)
+
+In the identity
+\begin{align}
+	U
+	n_{d \uparrow}
+	n_{d \downarrow}
+	 & =
+	U
+	\langle n_{d \uparrow} \rangle_{{}_{\rm HF}}
+	n_{d \downarrow}
+	+
+	U
+	\langle n_{d \downarrow} \rangle_{{}_{\rm HF}}
+	n_{d \uparrow}
+	-
+	U
+	\langle n_{d \uparrow} \rangle_{{}_{\rm HF}}
+	\langle n_{d \downarrow} \rangle_{{}_{\rm HF}}
+	\nonumber \\ &+
+	U
+	\Big(
+	n_{d \uparrow}
+	-
+	\langle n_{d \uparrow} \rangle_{{}_{\rm HF}}
+	\Big)
+	\Big(
+	n_{d \downarrow}
+	-
+	\langle n_{d \downarrow} \rangle_{{}_{\rm HF}}
+	\Big)
+	\label{eqn:HF17}
+\end{align}
+, the HF approximation neglects only the last term on the right-hand side, which corresponds to fluctuations.
+
+Adding the first and second terms on the right-hand side is equivalent to replacing $\varepsilon_{d}$ with $\varepsilon_{d} + U \langle n_{d \uparrow} \rangle_{{}_{\rm HF}}$ and $\varepsilon_{d} + U \langle n_{d \downarrow} \rangle_{{}_{\rm HF}}$, respectively, in the original Hamiltonian (4.1).
+
+The third term on the right-hand side is an offset term that does not change the physical quantities when taking the expectation value.
+
+The coefficients $\langle n_{d \uparrow} \rangle_{{}_{\rm HF}}$ and $\langle n_{d \downarrow} \rangle_{{}_{\rm HF}}$ are determined by self-consistently solving the following coupled equations.
+\begin{align}
+	\langle n_{d \sigma} \rangle_{{}_{\rm HF}}
+	 & =
+	\int d \varepsilon
+	f(\varepsilon) N_{d \sigma}(\varepsilon)
+	\label{eqn:motonon}
+	\\
+	N_{d \sigma}(\varepsilon)
+	 & =
+	-
+	\frac{1}{\pi}
+	{\rm Im}G_{d \sigma}(i \varepsilon_{n} \to \varepsilon + i0)
+\end{align}
+
+Specifically, at absolute zero,
+\begin{align}
+	\langle n_{d \sigma} \rangle_{{}_{\rm HF}}
+	 & =
+	\int d \varepsilon
+	\ \!
+	\theta(- \varepsilon) N_{d \sigma}(\varepsilon)
+	\nonumber \\ &=
+	\frac{1}{\pi}
+	\int^{0}_{-\infty}
+	\!\!
+	d \varepsilon
+	\frac{
+		\Delta
+	}{
+		\big(
+		\varepsilon
+		-
+		\varepsilon_{d}
+		-
+		U
+		\langle n_{d, -\sigma} \rangle_{{}_{\rm HF}}
+		\big)^{2}
+		+
+		\Delta^{2}
+	}
+	\nonumber \\ &=
+	\frac{1}{2}
+	-
+	\frac{1}{\pi}
+	{\rm arctan}
+	\frac{
+		\varepsilon_{d}
+		+
+		U
+		\langle n_{d, -\sigma} \rangle_{{}_{\rm HF}}
+	}{
+		\Delta
+	}
+	\label{eqn:hfnumber}
+\end{align}
+and an analytical solution can be found.
+Depending on the magnitude of $U$ relative to the threshold $\dfrac{1}{N_{d}(\varepsilon_{\rm F})}$, there are two types of solutions.
+
+For $U < \dfrac{1}{N_{d}(\varepsilon_{\rm F})}$,
+$
+	\langle n_{d \sigma} \rangle_{{}_{\rm HF}}
+	=
+	\langle n_{d, -\sigma} \rangle_{{}_{\rm HF}}
+$
+is the solution, which means that the non-magnetic state is stable.
+
+For $U > \dfrac{1}{N_{d}(\varepsilon_{\rm F})}$,
+$
+	\langle n_{d \sigma} \rangle_{{}_{\rm HF}}
+	\neq
+	\langle n_{d, -\sigma} \rangle_{{}_{\rm HF}}
+$
+is the solution, which means a magnetic state is the solution.
+
+\ \\[2mm]
+
+The HF approximation is valid when the fluctuations neglected in equation (\ref{eqn:HF17}) are small.
+However, these fluctuation effects are crucial when calculating quantities such as the impurity susceptibility $\chi_{ds}$, as we will see later.
+In the HF approximation
+(or more precisely, the Random Phase Approximation (RPA)
+\footnote{
+	When attempting to solve for such two-body correlations, the framework corresponding to the HF approximation is called the RPA.
+}
+), the impurity susceptibility $\chi_{ds}$ is a series that uses the dimensionless interaction $u=\dfrac{U}{\pi \Delta}$,
+\begin{align}
+	\chi_{ds}
+	\sim
+	1
+	+
+	u
+	+
+	u^{2}
+	+
+	u^{3}
+	+
+	\cdots
+	=
+	\frac{1}{1-u}
+\end{align}
+and diverges at $u=1$.
+However, the coefficients of higher-order terms in $U$ for the correct $\chi_{ds}$ are smaller than those calculated by the mean field.
+This means that within the mean-field approximation, which neglects these fluctuations, $\chi_{ds}$ is overestimated, and when fluctuations are included, the higher-order contributions cancel out, and the series gradually converges.
+This will be demonstrated in the next section.
+
+\section*{Ground state}
+
+This is a slight digression from the content of the seminar, so I will only present the results.
+
+We pointed out that the HF approximation, which treats $U$ as a perturbation, leads to a geometric series-like divergence.
+I will now introduce the danger of the HF approximation by discussing the exact solution for the ground state, which includes $U=\infty$.
+
+Let's consider a situation where there is, on average, one electron in the $d$ orbital, i.e., $
+	\langle n_{d \sigma} \rangle
+	=
+	\langle n_{d, -\sigma} \rangle
+	=
+	\dfrac{1}{2}
+$.
+
+Yamada has shown
+\footnote{
+	K. Yamada: Prog. Theor. Phys. {\bf 53}, 970 (1975)
+}
+that the difference between the dimensionless ground state energy $\varepsilon_{g}(u=0)$ of the Anderson Hamiltonian with $U=0$ divided by $\pi \Delta$ and the dimensionless ground state energy $\varepsilon_{g}(u)$ with an interaction $U$ is
+\begin{align}
+	\varepsilon_{g}(u)-
+	\varepsilon_{g}(u=0)
+	=
+	\frac{1}{4}
+	u
+	-
+	\bigg[
+		\frac{1}{4}
+		-
+		\frac{7}{4 \pi^{2}}
+		\zeta(3)
+		\bigg]
+	u^{2}
+	+
+	0.000795u^{4}
+	+
+	\mathcal{O}(u^{6})
+	\label{eqn:yamadakousaku}
+\end{align}
+.
+
+In fact, an exact solution for the Anderson model, treating $U$ as a perturbation, has been obtained based on the Bethe ansatz, and Ueda and Apel's calculations
+\footnote{
+	K. Ueda and W. Apel: J. Phys. C{\bf 16}, L849 (1983)
+}
+have already shown that
+\begin{align}
+	\hspace{-5mm}
+	\varepsilon_{g}(u)-
+	\varepsilon_{g}(u=0)
+	 & =
+	-
+	\frac{\Delta}{2}
+	u
+	+
+	4 \Delta
+	u
+	\sum_{M=1}^{\infty}
+	C_{2M}
+	u^{2M}
+	+
+	\frac{\Delta}{\pi}
+	\Big[
+	{\rm log}(1 + u^{2})
+	-
+	2 u \ \!
+	{\rm arctan}
+	(u)
+	\Big]
+	\\
+	C_{2M}
+	 & =
+	\sum_{n=0}^{M}
+	(-1)^{2M+n}
+	\frac{(4M-2n)!}{(2n)!(2M-2n)!}
+	\pi^{-2M+2n-2}
+	\Big( 1-2^{-2M+2n-2} \Big)
+	\zeta(2M-2n+2)
+	\hspace{15mm}
+\end{align}
+.
+In particular, the coefficient of the fourth-order term in $u$ is $
+	\displaystyle \frac{\pi^{2}}{96}
+	-
+	\displaystyle \frac{21}{8}
+	\zeta(3)
+	+
+	\displaystyle \frac{30}{\pi^{2}}
+	\displaystyle \frac{31}{32}
+	\zeta(5)
+$, which is consistent with equation (\ref{eqn:yamadakousaku}).
+In the case of half-filling we are considering, due to electron-hole symmetry, only even-order terms in $u$ remain, except for the first-order term.
+
+As an example of the two-body correlation discussed in the previous section, let's look at the coefficients of the quantity below, which is obtained from $E_{g}$:
+\begin{align}
+	\langle n_{d \uparrow} n_{d \downarrow} \rangle
+	 & =
+	\frac{\partial E_{g}}{\partial U}
+	=
+	\frac{1}{4}
+	-
+	\bigg[
+		\frac{1}{2}
+		-
+		\frac{7}{2 \pi^{2}}
+		\zeta(3)
+		\bigg]
+	u
+	+
+	0.0032 u^{3}
+	+
+	\mathcal{O}(u^{5})
+	\label{eqn:4_4_21}
+\end{align}
+.
+Perturbation theory cannot find the coefficients of higher-order terms in $U$, but physically, the coefficients should approach 0 as $U \to \infty$.
+In fact, equation (\ref{eqn:4_4_21}) decreases monotonically from its maximum value of $\dfrac{1}{4}$
+\footnote{
+	In a very rough one-body approximation, if we separate the product of operators, we get $
+		\langle n_{d \uparrow} n_{d \downarrow} \rangle
+		\to
+		\langle n_{d \uparrow} \rangle
+		\langle n_{d \downarrow} \rangle
+		=
+		\dfrac{1}{4}
+	$
+}.
+This mathematical decrease represents the physical effect of electron correlation, and it is thought that higher-order terms in $U$ are canceled out by effects such as electron-hole polarization fluctuations (e.g., Thomas-Fermi screening), resulting in a decrease.
+
+${}$
+
+In this section, I wanted to discuss the dangers of the mean-field approximation, so I have portrayed the HF approximation and RPA as villains.
+Since it would be cruel to bully them too much, I will conclude with a defense.
+
+After all, for any many-body system, the most fundamental approach to try first is the mean-field approximation.
+It is computationally much lighter than second-order perturbation theory or RPA and may even be solvable by hand.
+(The possibility of finding an analytical solution is higher than with any other approach.)
+
+There is still work to be done with the mean-field approximation.
+For example, Mr. Tomura, a senior in Professor Ueda's lab, calculated a Hubbard model with 1/5 depletion within the mean-field framework and discovered a Dirac cone in the band dispersion
+\footnote{
+	Masaki Tomura, Master's thesis (University of Tokyo, 2013 [scheduled for submission])
+}.
+
+\section*{Impurity susceptibility}
+
+We will add the following term as a perturbation to the Anderson Hamiltonian
+\footnote{
+	Note that $n_{d \sigma}=d_{\sigma}^{\dagger}
+		d_{\sigma}$
+	is an operator, while
+	$n_{\sigma}$
+	is a c-number.
+	The symbols are similar, so be careful not to confuse them.
+}
+.
+\begin{align}
+	\hspace{55.5mm}
+	\mathcal{H}'= - \sum_{\sigma}
+	h_{\sigma}
+	d_{\sigma}^{\dagger}
+	d_{\sigma}
+	\nonumber
+	\hspace{55.5mm}
+	(4.73)
+\end{align}
+$h_{\sigma}$ represents a spin-dependent perturbation, such as the Zeeman energy
+\begin{align}
+	h_{\sigma}
+	=
+	\frac{\sigma}{2}
+	g
+	\mu_{{}_{\rm B}}
+	H
+\end{align}
+.
+
+The change in the number of electrons, expanded as a power series in the linear response regime with respect to the perturbation $h_{\sigma}$, is
+\begin{align}
+	\bigg(
+	n_{\sigma}
+	+
+	\frac{\partial n_{\sigma}}{\partial h_{\sigma'}}
+	\bigg|_{h_{\sigma'} \to 0}
+	h_{\sigma'}
+	+
+	\mathcal{O}({h_{\sigma}}^{2})
+	\bigg)
+	-
+	n_{\sigma}
+	 & \simeq
+	\frac{\partial n_{\sigma}}{\partial h_{\sigma'}}
+	\bigg|_{h_{\sigma'} \to 0}
+	h_{\sigma'}
+\end{align}
+.
+We consider the change in the number of electrons to the lowest order, which is the first order.
+Using the definition of the average, equation (\ref{eqn:12ave}),
+\begin{align}
+	\hspace{35.5mm}
+	\frac{\partial n_{\sigma}}{\partial h_{\sigma'}}
+	\bigg|_{h_{\sigma'} \to 0}
+	=
+	\frac{\partial}{\partial h_{\sigma'}}
+	\frac{
+		{\rm Tr} \big[ e^{- \beta (\mathcal{H}+\mathcal{H}') } n_{d \sigma} \big]
+	}{
+		{\rm Tr} \big[ e^{- (\mathcal{H}+\mathcal{H}') } \big]
+	}
+	\bigg|_{h_{\sigma'} \to 0}
+	\nonumber
+	\hspace{35.5mm}
+	(4.74)
+\end{align}
+Let's examine the right-hand side of (4.74).
+The density matrix $e^{- \beta (\mathcal{H}+\mathcal{H}')}$ can be expanded using the $S$-matrix as follows:
+\begin{align}
+	\hspace{22.4mm}
+	e^{- \beta (\mathcal{H}+\mathcal{H}') }
+	 & =
+	e^{- \beta \mathcal{H} }
+	+
+	e^{- \beta \mathcal{H} }
+	\ \!
+	\hat{\rm T}_{\tau}
+	{\rm exp}
+	\bigg[
+		-
+		\int^{\beta}_{0}d \tau
+		\mathcal{H}'(\tau)
+		d \tau
+		\bigg]
+	\nonumber \\
+	 & =
+	e^{- \beta \mathcal{H} }
+	+
+	e^{- \beta \mathcal{H} }
+	\int^{\beta}_{0}d \tau
+	e^{\tau \mathcal{H}}
+	( - \mathcal{H}' )
+	e^{- \tau \mathcal{H}}
+	+
+	\mathcal{O}({h_{\sigma}}^{2})
+	\nonumber
+	\hspace{22.4mm}
+	(4.75)
+\end{align}
+Using this, and the linearity of the trace,
+\begin{align}
+	&
+	{\rm Tr}
+	\bigg[
+		\Big\{
+		e^{- \beta \mathcal{H} }
+		+
+		e^{- \beta \mathcal{H} }
+		\int^{\beta}_{0}d \tau
+		e^{\tau \mathcal{H}}
+		( - \mathcal{H}' )
+		e^{- \tau \mathcal{H}}
+		\Big\}
+		n_{d \sigma}
+		\bigg]
+	\nonumber \\
+	 & =
+	{\rm Tr}
+	\Big[
+		e^{- \beta \mathcal{H} }
+		n_{d \sigma}
+		\Big]
+	+
+	\sum_{\sigma'}
+	{\rm Tr}
+	\bigg[
+		e^{- \beta \mathcal{H} }
+		\int^{\beta}_{0}d \tau
+		e^{\tau \mathcal{H}}
+		h_{\sigma'}
+		n_{d \sigma'}
+		e^{- \tau \mathcal{H}}
+		n_{d \sigma}
+		\bigg]
+	\nonumber
+	\\
+	 & =
+	{\rm Tr}
+	\Big[
+		e^{- \beta \mathcal{H} }
+		n_{d \sigma}
+		\Big]
+	+
+	\sum_{\sigma'}
+	{\rm Tr}
+	\bigg[
+		e^{- \beta \mathcal{H} }
+		\int^{\beta}_{0}d \tau
+		h_{\sigma'}
+		n_{d \sigma'}(\tau)
+		n_{d \sigma}(0)
+		\bigg]
+\end{align}
+so
+\begin{align}
+	\frac{
+		{\rm Tr} \big[ e^{- \beta (\mathcal{H}+\mathcal{H}') } n_{d \sigma} \big]
+	}{
+		{\rm Tr} \big[ e^{- (\mathcal{H}+\mathcal{H}') } \big]
+	}
+	 & =
+	\dfrac{
+		{\rm Tr}
+		\Big[
+			e^{- \beta \mathcal{H} }
+			n_{d \sigma}
+			\Big]
+		+
+		\displaystyle \sum_{\sigma'}
+		{\rm Tr}
+		\bigg[
+			e^{- \beta \mathcal{H} }
+			\int^{\beta}_{0}d \tau
+			h_{\sigma'}
+			n_{d \sigma'}(\tau)
+			n_{d \sigma}(0)
+			\bigg]
+	}{
+		{\rm Tr}
+		\Big[
+			e^{- \beta \mathcal{H} }
+			\Big]
+	}
+	\nonumber \\ &=
+	\langle n_{d \sigma} \rangle
+	+
+	\sum_{\sigma'}
+	\int^{\beta}_{0}d \tau
+	\langle
+	h_{\sigma'}
+	n_{d \sigma'}(\tau)
+	n_{d \sigma}(0)
+	\rangle
+\end{align}
+When we differentiate with respect to $h_{\sigma}$, the first term is a constant and disappears.
+The second term that remains is:
+\begin{align}
+	\frac{\partial}{\partial h_{\sigma'}}
+	\sum_{\sigma''}
+	\int^{\beta}_{0}d \tau
+	\langle
+	h_{\sigma''}
+	n_{d \sigma''}(\tau)
+	n_{d \sigma}(0)
+	\rangle
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	n_{d \sigma'}(\tau)
+	n_{d \sigma}(0)
+	\rangle
+\end{align}
+We found that the susceptibility can be calculated from the density-density response.
+
+\section*{Generalized Friedel sum rule}
+
+Let's look at the left-hand side of (4.74).
+The local change in the total number of electrons due to the impurity is the change in the conduction electrons.
+The number of electrons can be calculated by integrating the density of states
+\footnote{
+	The reason for this rather obscure notation is that we want to perform analytical continuation $i \varepsilon_{n} \to \omega + i0$ partway through.
+	Therefore, $i \varepsilon_{n}$ cannot be taken outside of the $\omega$-integral.
+}
+.
+\begin{align}
+	n_{\sigma}
+	 & =
+	-
+	\frac{1}{\pi}
+	{\rm Im}
+	\bigg[
+		\int^{\infty}_{-\infty}
+		d \omega
+		f(\omega)
+		G_{d \sigma}(i \varepsilon_{n})
+		\bigg]
+	-
+	\frac{1}{\pi}
+	{\rm Im}
+	\sum_{\bm{k} \bm{k}'}
+	\bigg[
+		\int^{\infty}_{-\infty}
+		d \omega
+		f(\omega)
+		G_{\bm{k} \bm{k}' \sigma}(i \varepsilon_{n})
+		\bigg]
+	\nonumber \\[3mm] &=
+	-
+	\frac{1}{\pi}
+	{\rm Im}
+	\bigg[
+		\int^{\infty}_{-\infty}
+		d \omega
+		f(\omega)
+		G_{d \sigma}(i \varepsilon_{n})
+		\bigg]
+	\nonumber \\ &
+	-
+	\frac{1}{\pi}
+	{\rm Im}
+	\sum_{\bm{k}}
+	\bigg[
+		\int^{\infty}_{-\infty}
+		d \omega
+		f(\omega)
+		\bigg\{
+		\frac{1}{
+			i \varepsilon_{n} - \varepsilon_{\bm{k}}
+		}
+		+
+		\frac{1}{
+			i \varepsilon_{n} - \varepsilon_{\bm{k}}
+		}
+		T_{\sigma}(i \varepsilon_{n})
+		\frac{1}{
+			i \varepsilon_{n} - \varepsilon_{\bm{k}}
+		}
+		\bigg\}
+		\bigg]
+	\nonumber \\[3mm] &=
+	\int^{\infty}_{-\infty}
+	d \omega
+	f(\omega)
+	\bigg(- \frac{1}{\pi} \bigg)
+	{\rm Im}
+	\bigg[
+		\frac{\partial}{\partial i \varepsilon_{n}}
+		{\rm log}
+		\bigg\{
+		- \frac{1}{G_{d \sigma}(i \varepsilon_{n})}
+		\bigg\}
+		+
+		G_{d \sigma}(i \varepsilon_{n})
+		\frac{\partial}{\partial i \varepsilon_{n}}
+		\Sigma_{d \sigma}(i \varepsilon_{n})
+		\bigg]
+\end{align}
+The second term inside the imaginary part of the last right-hand side can be dropped due to the identity obtained by Luttinger
+\footnote{
+	J. M. Luttinger: Phys. Rev. {\bf 119}, 1153 (1960) ;
+	J. M. Luttinger and J. C. Ward: Phys. Rev. {\bf 118}, 1417 (1960)
+	\hspace{3mm}
+	This identity was used to prove Luttinger's theorem (the volume enclosed by the Fermi surface does not change due to interaction).
+}
+:
+\begin{align}
+	\lim_{T \to 0}
+	\int^{\infty}_{-\infty}
+	d \omega
+	f(\omega)
+	\bigg(- \frac{1}{\pi} \bigg)
+	{\rm Im}
+	\bigg[
+		G_{d \sigma}(i \varepsilon_{n})
+		\frac{\partial}{\partial i \varepsilon_{n}}
+		\Sigma_{d \sigma}(i \varepsilon_{n})
+		\bigg]
+	 & =
+	0
+\end{align}
+To use this, we will assume absolute zero for the rest of this section.
+Applying analytical continuation $i \varepsilon_{n} \to \omega + i0$, we get
+\begin{align}
+	n_{\sigma}
+	 & =
+	\int^{\infty}_{-\infty}
+	d \omega
+	\theta(-\omega)
+	\bigg(- \frac{1}{\pi} \bigg)
+	{\rm Im}
+	\bigg[
+		\frac{\partial}{\partial i \varepsilon_{n}}
+		{\rm log}
+		\bigg\{
+		- \frac{1}{G_{d \sigma}(i \varepsilon_{n})}
+		\bigg\}
+		\bigg]
+	\nonumber \\[3mm] &=
+	- \frac{1}{\pi}
+	{\rm Im}
+	\bigg[
+		{\rm log}
+		\bigg\{
+		\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+		-
+		i \Delta
+		\bigg\}
+		\bigg]
+\end{align}
+.
+Assuming that this logarithmic function returns the principal value ${\rm log} z = {\rm log} |z| + i \ \! {\rm arg} z$, we get
+\begin{align}
+	n_{\sigma}
+	 & =
+	- \frac{1}{\pi}
+	{\rm arg}
+	\bigg\{
+	\varepsilon_{d}
+	+
+	\Sigma_{d\sigma}(+i 0)
+	-
+	i \Delta
+	\bigg\}
+	\nonumber \\ &=
+	\frac{1}{\pi}
+	{\rm arctan}
+	\frac{\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+	}{
+		\Delta
+	}
+\end{align}
+
+${}$
+
+The Green's function $G_{d \sigma}(i \varepsilon_{n})$ contains information about the correlation acting between $d_{\sigma}(\tau)$ and $d^{\dagger}_{\sigma}(0)$.
+When we find the phase shift $\eta_{\sigma}$ on the Fermi surface $(\omega=0)$ in this correlation, we get
+\begin{align}
+	\eta_{\sigma}
+	 & =
+	{\rm arg}
+	\Big[ G_{d \sigma}(i \varepsilon_{n}) \Big]
+	\ = \
+	{\rm arctan}
+	\frac{
+		{\rm Re} \big\{ G_{d \sigma}(i \varepsilon_{n}) \big\}
+	}{
+		{\rm Im} \big\{ G_{d \sigma}(i \varepsilon_{n}) \big\}
+	}
+	\nonumber \\ &=
+	{\rm arctan}
+	\frac{
+		\varepsilon_{d} + \Sigma_{d \sigma} (+i 0)
+	}{
+		\Delta
+	}
+	\nonumber \\ &=
+	\pi n_{\sigma}
+\end{align}
+which shows that the phase shift due to the interaction and the change in the number of electrons due to the interaction correspond one-to-one
+\footnote{
+	This is an extension of the Friedel sum rule from Kirii-kun's section to include interactions.
+}.
+This is the origin of what Nozi$\acute{\rm e}$res called the local Fermi liquid.
+Similar to Landau's Fermi liquid theory, finding the phase shift $\eta_{\sigma}$ leads to finding all physical quantities with interactions (under the approximations included in Fermi liquid theory).
+
+\section*{Impurity susceptibility \ 2}
+
+Applying the perturbation from equation (4.73) shifts the impurity level from $\varepsilon_{d}$ to $\varepsilon_{d} - h_{\sigma}$.
+Since the Friedel sum rule holds even when interactions are applied,
+\begin{align}
+	\frac{\partial n_{\sigma}}{\partial h_{\sigma'}}
+	\bigg|_{h_{\sigma'} \to 0}
+	 & =
+	- \frac{1}{\pi}
+	{\rm Im}
+	\frac{\partial }{\partial h_{\sigma'}}
+	{\rm log}
+	\Big\{
+	\varepsilon_{d}
+	-
+	h_{\sigma}
+	+
+	\Sigma_{d\sigma}(+i 0)
+	-
+	i \Delta
+	\Big\}
+	\bigg|_{h_{\sigma'} \to 0}
+	\nonumber \\[3mm] &=
+	\frac{1}{\pi}
+	{\rm Im}
+	\frac{
+		\delta_{\sigma,\sigma'}
+		-
+		\dfrac{\partial \Sigma_{d \sigma}(+i0)}{\partial h_{\sigma'}}
+		\bigg|_{h_{\sigma'} \to 0}
+	}
+	{
+		\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+		-
+		i \Delta
+	}
+	\nonumber \\[3mm] &=
+	\frac{1}{\pi}
+	\frac{
+		\Delta
+	}
+	{
+		\{
+		\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+		\}^{2}
+		+
+		\Delta^{2}
+	}
+	\bigg[
+		\delta_{\sigma,\sigma'}
+		-
+		\dfrac{\partial \Sigma_{d \sigma}(+i0)}{\partial h_{\sigma'}}
+		\bigg|_{h_{\sigma'} \to 0}
+		\bigg]
+\end{align}
+The coefficient in the parentheses represents the density of states at the Fermi energy with the full interaction included.
+\begin{align}
+	\frac{1}{\pi}
+	\frac{
+		\Delta
+	}
+	{
+		\{
+		\varepsilon_{d}
+		+
+		\Sigma_{d\sigma}(+i 0)
+		\}^{2}
+		+
+		\Delta^{2}
+	}
+	\ = \
+	-
+	\frac{1}{\pi}
+	{\rm Im}G_{d \sigma}(\omega=0)
+	\ = \
+	N_{d}(\varepsilon_{\rm F})
+\end{align}
+From the previously derived equation
+\begin{align}
+	\hspace{39.4mm}
+	\frac{
+		\partial
+		n_{\sigma}
+	}{
+		\partial
+		h_{\sigma'}
+	}
+	\bigg|_{h_{\sigma'} \to 0}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \sigma'}(\tau)
+	\tilde{n}_{d \sigma}(0)
+	\rangle
+	\nonumber
+	\hspace{39.4mm}
+	(4.76)
+\end{align}
+, we can say that
+\begin{align}
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \sigma'}(\tau)
+	\tilde{n}_{d \sigma}(0)
+	\rangle
+	 & =
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		\delta_{\sigma,\sigma'}
+		-
+		\dfrac{\partial \Sigma_{d \sigma}(+i0)}{\partial h_{\sigma'}}
+		\bigg|_{h_{\sigma'} \to 0}
+		\bigg]
+\end{align}
+.
+(Here, we have set $ \tilde{n}_{d \sigma} = n_{d \sigma} - \langle n_{d \sigma} \rangle $.)
+
+${}$
+
+Now, we substitute $
+	\langle S \rangle
+	=
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} - \tilde{n}_{d \downarrow}
+	\big)
+$
+and $
+	\langle N \rangle
+	=
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} + \tilde{n}_{d \downarrow}
+	\big)
+$
+into $n_{\sigma}$ in equation (4.76).
+The impurity spin susceptibility $\chi_{ds}$ and charge susceptibility $\chi_{dc}$ are defined as follows:
+\begin{align}
+	\frac{
+		\partial
+		\langle S \rangle
+	}{
+		\partial
+		h_{\sigma'}
+	}
+	\bigg|_{h_{\sigma'} \to 0}
+	 & =
+	\chi_{ds}
+	\\
+	\frac{
+		\partial
+		\langle N \rangle
+	}{
+		\partial
+		h_{\sigma'}
+	}
+	\bigg|_{h_{\sigma'} \to 0}
+	 & =
+	\chi_{dc}
+\end{align}
+$\chi_{ds}$ represents how much the difference between the number of spin-up and spin-down electrons changes when a magnetic field $h_{\sigma}$ is applied, while $\chi_{dc}$ shows how much the total number of electrons changes (since charge corresponds to the number of electrons).
+Therefore,
+\begin{align}
+	\hspace{30.7mm}
+	\chi_{ds}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\Big\langle
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} - \tilde{n}_{d \downarrow}
+	\big)(\tau)
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} - \tilde{n}_{d \downarrow}
+	\big)(0)
+	\Big\rangle
+	\nonumber
+	\hspace{30.7mm}
+	(4.77)
+\end{align}
+\\[-12mm]
+\begin{align}
+	\hspace{30.7mm}
+	\chi_{dc}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\Big\langle
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} + \tilde{n}_{d \downarrow}
+	\big)(\tau)
+	\dfrac{1}{2}
+	\big(
+	\tilde{n}_{d \uparrow} + \tilde{n}_{d \downarrow}
+	\big)(0)
+	\Big\rangle
+	\nonumber
+	\hspace{30.7mm}
+	(4.78)
+\end{align}
+Similarly, the longitudinal susceptibility $\chi_{\uparrow \uparrow}$ and transverse susceptibility $\chi_{\uparrow \downarrow}$ are defined as follows:
+\begin{align}
+	\hspace{36mm}
+	\chi_{\uparrow \uparrow}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \uparrow}(0)
+	\rangle
+	\ = \
+	\chi_{ds} + \chi_{dc}
+	\nonumber
+	\hspace{36mm}
+	(4.79)
+\end{align}
+\\[-12mm]
+\begin{align}
+	\hspace{34.7mm}
+	\chi_{\uparrow \downarrow}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \downarrow}(0)
+	\rangle
+	\ = \
+	- \chi_{ds} + \chi_{dc}
+	\nonumber
+	\hspace{34.7mm}
+	(4.80)
+\end{align}
+
+From equation (44), the longitudinal susceptibility $\chi_{\uparrow \uparrow}$ and transverse susceptibility $\chi_{\uparrow \downarrow}$ can be expressed using the self-energy:
+\begin{align}
+	\chi_{\uparrow \uparrow}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \uparrow}(0)
+	\rangle
+	\ = \
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		1
+		-
+		\frac{\partial \Sigma_{d \uparrow} (+i0) }{\partial h_{\uparrow}}
+		\bigg|_{h_{\uparrow} \to 0}
+		\bigg]
+	\\
+	\chi_{\uparrow \downarrow}
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \downarrow}(0)
+	\rangle
+	\ = \
+	-
+	N_{d}(\varepsilon_{\rm F})
+	\frac{\partial \Sigma_{d \uparrow} (+i0) }{\partial h_{\downarrow}}
+	\bigg|_{h_{\downarrow} \to 0}
+\end{align}
+By solving these simultaneous equations in reverse, we get
+\begin{align}
+	\chi_{ds}
+	 & =
+	\frac{1}{2}
+	\big(
+	\chi_{\uparrow \uparrow}
+	-
+	\chi_{\uparrow \downarrow}
+	\big)
+	\ = \
+	\frac{1}{2}
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		1
+		-
+		\frac{\partial \big\{ \Sigma_{d \uparrow} (+i0) - \Sigma_{d \downarrow} (+i0) \big\} }{\partial h_{\uparrow}}
+		\bigg|_{h_{\uparrow} \to 0}
+		\bigg]
+	\\
+	\chi_{dc}
+	 & =
+	\frac{1}{2}
+	\big(
+	\chi_{\uparrow \uparrow}
+	+
+	\chi_{\uparrow \downarrow}
+	\big)
+	\ = \
+	\frac{1}{2}
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		1
+		-
+		\frac{\partial\big\{ \Sigma_{d \uparrow} (+i0) + \Sigma_{d \downarrow} (+i0) \big\} }{\partial h_{\uparrow}}
+		\bigg|_{h_{\uparrow} \to 0}
+		\bigg]
+\end{align}
+.
+
+\section*{Wilson ratio}
+
+The contribution of the impurity to the specific heat $C$
+\footnote{We have omitted the symbol $\Delta$ for "contribution." This means $C \to \Delta C$, $\Omega \to \Delta \Omega$.}
+can be found from the contribution to the thermodynamic potential $\Omega$ using
+\begin{align}
+	C
+	 & =
+	-T
+	\frac{\partial^{2} \Omega}{\partial T^{2}}
+\end{align}
+.
+The ratio of the first-order coefficient (Sommerfeld coefficient) $\gamma$ from the low-temperature expansion of the specific heat contribution at $T=0$,
+\begin{align}
+	\gamma
+	 & =
+	\frac{C}{T}
+	\
+	+
+	\mathcal{O}(T)
+\end{align}
+and the charge susceptibility $\chi_{dc}$ is called the Wilson ratio,
+\begin{align}
+	R_{\rm W}
+	 & =
+	\frac{\chi_{ds}/\chi_{ds}^{(0)}}{\gamma/\gamma^{(0)}}
+\end{align}
+. The superscript "($^{(0)}$)" denotes the contribution from only the conduction electrons, i.e., $U=0$.
+
+To find $R_{\rm W}$, we need to find $\gamma$.
+If we perform a perturbation expansion of the thermodynamic potential (or a calculation using vertex functions and the Ward identity), the Sommerfeld coefficient can be expressed using the self-energy as follows:
+\footnote{
+	Refer to Hiroyuki Shiba, "Physics of Electron Correlation";
+	Kousaku Yamada, "Electron Correlation";
+	A. C. Hewson, "The Kondo Problem to Heavy Fermions"; \\
+	A. A. Abrikosov, L. P. Gorkov and I. E. Dzyaloshinski, "Methods of Quantum Field Theory in Statistical Physics," etc.
+}
+\begin{align}
+	\gamma
+	 & =
+	\frac{2 \pi^{2}}{3}
+	k_{\rm B}^{2}
+	N_{d}(\varepsilon_{\rm F})
+	\bigg[
+		1
+		-
+		\frac{\partial \Sigma_{d \sigma} (i \varepsilon_{n}) }{\partial i \varepsilon_{n}}
+		\bigg|_{\omega \to 0}
+		\bigg]
+	\label{eqn:54num}
+\end{align}
+Furthermore, it can be shown through the Ward identity that
+\begin{align}
+	\frac{\partial \Sigma_{d \sigma} (i \varepsilon_{n}) }{\partial i \varepsilon_{n}}
+	\bigg|_{\omega \to 0}
+	 & =
+	\dfrac{\partial \Sigma_{d \sigma}(+i0)}{\partial h_{\sigma}}
+	\bigg|_{h_{\sigma} \to 0}
+	\label{eqn:55num}
+\end{align}
+. $21$
+From these relations, equations (\ref{eqn:54num}), (\ref{eqn:55num}), and (4.76), we can see that
+\begin{align}
+	\bigg(
+	\dfrac{2 \pi^{2}}{3}
+	k_{\rm B}^{2}
+	\bigg)^{-1}
+	\gamma
+	 & =
+	\int^{\beta}_{0}d \tau
+	\langle
+	\tilde{n}_{d \uparrow}(\tau)
+	\tilde{n}_{d \uparrow}(0)
+	\rangle
+	\ = \
+	\chi_{\uparrow \uparrow}
+\end{align}
+.
+
+Based on the above, we can rewrite the Wilson ratio as follows:
+\begin{align}
+	R_{\rm W}
+	 & =
+	\frac{
+		1
+		-
+		\dfrac{\partial\big\{ \Sigma_{d \uparrow} (i \varepsilon_{n}) - \Sigma_{d \downarrow} (i \varepsilon_{n}) \big\} }{\partial i \varepsilon_{n} }
+		\bigg|_{\omega \to 0}
+	}{
+		1
+		-
+		\dfrac{\partial \Sigma_{d \sigma} (i \varepsilon_{n}) }{\partial i \varepsilon_{n}}
+		\bigg|_{\omega \to 0}
+	}
+	\ = \
+	\frac{\chi_{ds} }{\dfrac{1}{2} ( \chi_{dc} + \chi_{ds} ) }
+\end{align}
+.
+
+For $U=0$, the self-energy part becomes 0, so $R_{\rm W}=1$.
+
+Also, in the limit of $U \to \infty$, charge fluctuations are completely suppressed, so $\chi_{dc}=0$
+\footnote{
+	On the other hand, in the thermodynamic limit of $U \to \infty$, it seems that $\chi_{ds} \to \infty$.
+}.
+Therefore, we can expect that in this limit, $R_{\rm W} \to 2$.
+In fact, Wilson calculated $R_{\rm W}$ using a method called Numerical Renormalization Group (NRG) and confirmed that $R_{\rm W} \to 2$ in the limit of $U \to \infty$
+\footnote{
+	A well-known paper is K. G. Wilson: Rev. Mod. Phys. {\bf 47}, 773 (1975).
+	Wilson was awarded the Nobel Prize in Physics in 1982 for this achievement.
+}.
+
+The NRG method can cover a wide range from strong coupling to weak coupling, including areas that could not be handled by the $J$ and $U$ expansions we discussed earlier.
+
+Furthermore, the first person to find an exact solution for the Anderson model for all orders in $U$ based on the Bethe ansatz was Wiegmann
+\footnote{
+	A. M. Tsvelik and O. B. Wiegmann: Adv. Phys. {\bf 32}, 453 (1983).
+}.
+However, this solution was limited to half-filling, and a more general exact solution was later found by Kawakami and Okiji
+\footnote{
+	N. Kawakami and A. Okiji: Phys. Lett. {\bf 86A}, 483 (1981) ;
+	N. Kawakami and A. Okiji: J. Appl. Phys. {\bf 55}, 1931 (1984).
+}.
+It is said that this solution suddenly came to Professor Kawakami when he was in his first or second year of his master's program.
+
+
+\end{document}
