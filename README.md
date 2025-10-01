@@ -22,7 +22,7 @@ The notes are organized within a parent directory named `tex`. All documents are
             - **[Functors Connecting Physics and Finance](https://github.com/masaru113/mastex/blob/main/tex/math/cat/functor/main.pdf)**: Notes on functors and their applications in financial engineering and quantum mechanics.
             - **[Natural Transformations and the Yoneda Lemma](https://github.com/masaru113/mastex/blob/main/tex/math/cat/natural_transformation/main.pdf)**: Notes on natural transformations.
         - **top**: Folder for topics related to topological spaces.
-            - **[Topology of Matrices](https://github.com/masaru113/mastex/blob/main/tex/math/top/MatrixTopology/main.pdf)**: Notes on topologies on matrices.
+            - **[Topology of Matrices](https://github.com/masaru113/mastex/blob/main/tex/math/top/MatrixTopology/main.pdf)**: Notes on topologies on matrices and supplement with a note on unitary groups and quantum mechanics.
             - **[Sierpinski Space](https://github.com/masaru113/mastex/blob/main/tex/math/top/sierpinski_space/main.pdf)**: Notes on Sierpinski space.
             - **[An Introduction to Topological Groups](https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main.pdf)**: Notes on introduction to topological group
     - **phys**: Notes on physics.
