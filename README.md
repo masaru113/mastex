@@ -31,4 +31,5 @@ The notes are organized within a parent directory named `tex`. All documents are
         - **[Bosonic Strings Short Introduction](https://github.com/masaru113/mastex/blob/main/tex/phys/BozonicString/main.pdf)**: Notes on short introduction about bosonic string.
         - **[Notes on the Derivation of the Chern-Simons Form](https://github.com/masaru113/mastex/blob/main/tex/phys/ChernSimonsForm/main.pdf)**: Notes on a simple, from-scratch derivation of the Chern-Simons form.
         - **[Massless Real Scalar Field in 5D Minkowski Space Gaining Mass Upon Compactification of One Spatial Dimension](https://github.com/masaru113/mastex/blob/main/tex/phys/KaluzaKleinMassGeneration/main.pdf)**: Notes on the mechanism of mass generation via compactification.
+        - **[Solutions to the Extended Gor’kov Equations for Anisotropic Superconductors and the Electronic Raman Response Function](https://github.com/masaru113/mastex/blob/main/tex/phys/extended_gorkov_anisotropic_raman/main.pdf)**: A review of the calculations from [JPS Conf. Proc. 3, 015045 (2014)](https://journals.jps.jp/doi/10.7566/JPSCP.3.015045).
 
