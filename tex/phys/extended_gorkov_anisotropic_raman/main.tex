@@ -1,0 +1,1396 @@
+\documentclass[a4j]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs,url}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+% \setlength{\textheight}{270mm}
+% \setlength{\textwidth}{200mm}
+% \setlength{\topmargin}{3mm}
+% \setlength{\headheight}{-20mm}
+% \setlength{\headsep}{0mm}
+% \setlength{\oddsidemargin}{-20mm}
+% \setlength{\evensidemargin}{-20mm}
+% \title{\ \\[-20mm] {\Large \rm
+% Solutions to the Extended Gor'kov Equations for Anisotropic Superconductors and the Electronic Raman Response Function
+% \footnote{ \url{http://} } } }
+\title{
+Solutions to the Extended Gor'kov Equations for Anisotropic Superconductors and the Electronic Raman Response Function
+}
+\author{Masaru Okada}
+% \author{\ \\[-7mm] \hspace{-10mm} Masaru Okada
+% \\[-2mm] \hspace{-7mm} { \small \it Institute for Solid State Physics, University of Tokyo, 5-1-5 Kashiwanoha, Kashiwa, Chiba 277-8581, Japan} }
+% \date{\hspace{-10mm} Nov. 25, 2014}
+\date{\today}
+\begin{document}
+%\allowdisplaybreaks
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ \\[-15mm]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+We begin with the BCS mean-field Hamiltonian $\mathcal{H}$.
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\mathcal{H}
+	&=&
+	\mathcal{H}_{0}
+	\ + \
+	\mathcal{H}_{\rm BCS}
+	\ \ ,
+	\nonumber \\[2mm]
+	\mathcal{H}_{0}
+	&=&
+	\sum_{\bm{k},s}
+	\varepsilon(\bm{k})
+	c_{\bm{k} s}^{\dagger}
+	c_{\bm{k} s}
+	\ \ ,
+	\nonumber \\[2mm]
+	\mathcal{H}_{\rm BCS}
+	&=&
+	\dfrac{1}{2}
+	\sum_{\bm{k},s_{1},s_{2}}
+	\Big[
+		\Delta_{ s_{1} s_{2} }( \bm{k} )
+		c_{\bm{k} s_{1}}^{\dagger}
+		c_{-\bm{k} s_{2}}^{\dagger}
+		\ - \
+		\Delta_{ s_{1} s_{2} }^{*}( - \bm{k} )
+		c_{-\bm{k} s_{1}}
+		c_{\bm{k} s_{2}}
+		\Big]
+	\ \ ,
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+We introduce finite-temperature Green's functions in the Matsubara formalism as follows.
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	-
+	\langle T_{\tau} \{ c_{\bm{k}s}(\tau) c_{\bm{k}'s'}^{\dagger}(0) \} \rangle
+	\ \ ,
+	\\[3mm]
+	F_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	\langle T_{\tau} \{ c_{\bm{k}s}(\tau) c_{\bm{k}'s'}(0) \} \rangle
+	\ \ , \ \
+	F_{ss'}^{\dagger}(\bm{k} , \bm{k}' ; \tau)
+	\ = \
+	\langle T_{\tau} \{ c_{\bm{k}' s' }^{\dagger}(\tau) c_{\bm{k} s }^{\dagger}(0) \} \rangle
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+Although we've written $F_{ss'}^{\dagger}$ here by convention, it's not the Hermitian conjugate of $F_{ss'}$.
+These Green's functions are c-numbers.
+
+
+
+
+
+
+
+The Fourier transform from the time variable $\tau$ to $i \omega_{n}$ is defined as follows.
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	\dfrac{1}{\beta} \sum_{n}
+	G_{ss'}(\bm{k} , \bm{k}' ; i \omega_{n} )
+	e^{- i \omega_{n} \tau }
+	\ \ , \nonumber \\[2mm]
+	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	\dfrac{1}{\beta} \sum_{n}
+	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; i \omega_{n} )
+	e^{- i \omega_{n} \tau }
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+Here, $\omega_{n}=(2n+1)\pi k_{B} T$ ($n \in \mathbb{Z}$) is the fermionic Matsubara frequency.
+For a homogeneous system, the momentum variables of these Green's functions become $\bm{k}=\bm{k}'$ for the $G$ function and $\bm{k}=-\bm{k}'$ for the $F^{(\dagger)}$ function, and can be specified by a single momentum value.
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	&=&
+	-
+	\int_{0}^{\beta}
+	d \tau
+	\langle T_{\tau} \{ c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger}(0) \} \rangle
+	e^{i \omega_{n} \tau}
+	\ \ ,
+	\\[3mm]
+	F_{ss'}(\bm{k} , i \omega_{n} )
+	&=&
+	\int_{0}^{\beta}
+	d \tau
+	\langle T_{\tau} \{ c_{ \bm{k} s }(\tau) c_{-\bm{k} s' }(0) \} \rangle
+	e^{i \omega_{n} \tau}
+	\ \ , \ \
+	F_{ss'}^{\dagger}(\bm{k} , i \omega_{n} )
+	\ = \
+	\int_{0}^{\beta}
+	d \tau
+	\langle T_{\tau} \{ c_{ - \bm{k} s' }^{\dagger}(\tau) c_{ \bm{k} s }^{\dagger}(0) \} \rangle
+	e^{i \omega_{n} \tau}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+In the following, we only consider a homogeneous system.
+
+To find the spectral representation of the Green's functions, we determine the time evolution of the operators. We use the Heisenberg equation of motion.
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau} c_{\bm{k}s} (\tau)
+	&=&
+	\left[ \mathcal{H} \ , \ c_{\bm{k}s}(\tau) \right]
+	\ = \
+	e^{\mathcal{H} \tau} \left[ \mathcal{H} \ , \ c_{\bm{k}s} \right] e^{- \mathcal{H} \tau}
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+For this calculation, the relationship between commutators and anticommutators
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	[AB \ , \ C]
+	&=&
+	A \{ B \ , \ C \} - \{ A \ , \ C \} B
+	\ \ ,
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+is also useful.
+For $\mathcal{H}_{0}$,
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	[ \mathcal{H}_{0} \ , \ c_{\bm{k}s} ]
+	&=&
+	\sum_{\bm{k}',s'}
+	\varepsilon(\bm{k}')
+	\left[
+		c_{\bm{k}' s'}^{\dagger}
+		c_{\bm{k}' s'}
+		\ , \
+		c_{\bm{k}s}
+		\right]
+	\nonumber \\[2mm] &=&
+	-
+	\sum_{\bm{k}',s'}
+	\varepsilon(\bm{k}')
+	\left\{
+	c_{\bm{k}' s'}^{\dagger}
+	\ , \
+	c_{\bm{k}s}
+	\right\}
+	c_{\bm{k}' s'}
+	\nonumber \\[2mm] &=&
+	-
+	\varepsilon( \bm{k} )
+	c_{\bm{k} s}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+and next, for $\mathcal{H}_{\rm BCS}$,
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	[ \mathcal{H}_{\rm BCS} \ , \ c_{\bm{k}s} ]
+	&=&
+	\left[
+		\dfrac{1}{2}
+		\sum_{\bm{k}',s_{1},s_{2}}
+		\Big(
+		\Delta_{ s_{1} s_{2} }( \bm{k}' )
+		c_{\bm{k}' s_{1}}^{\dagger}
+		c_{-\bm{k}' s_{2}}^{\dagger}
+		\ - \
+		\Delta_{ s_{1} s_{2} }^{*}( - \bm{k}' )
+		c_{-\bm{k}' s_{1}}
+		c_{\bm{k}' s_{2}}
+		\Big)
+		\ , \
+		c_{\bm{k}s}
+		\right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	\left[
+		c_{\bm{k}' s_{1}}^{\dagger}
+		c_{-\bm{k}' s_{2}}^{\dagger}
+		\ , \
+		c_{\bm{k}s}
+		\right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	\Big(
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\left\{
+	c_{-\bm{k}' s_{2}}^{\dagger}
+	\ , \
+	c_{\bm{k}s}
+	\right\}
+	-
+	\left\{
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\ , \
+	c_{\bm{k}s}
+	\right\}
+	c_{-\bm{k}' s_{2}}^{\dagger}
+	\Big)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	\Big(
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\ - \
+	c_{-\bm{k}' s_{2}}^{\dagger}
+	\delta_{\bm{k},\bm{k}'}
+	\delta_{s,s_{1}}
+	\Big)
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+By carefully swapping the indices, we can see that the two terms on the right-hand side are equal.
+Specifically, we should carefully perform the index swap on only the second term as follows:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	[ \mathcal{H}_{\rm BCS} \ , \ c_{\bm{k}s} ]
+	&=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\ - \
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( - \bm{k}' )
+	c_{\bm{k}' s_{2}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{1}}
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\ + \
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{2} s_{1} }( \bm{k}' )
+	c_{\bm{k}' s_{2}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{1}}
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\ + \
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\nonumber \\[2mm] &=&
+	\sum_{ s' }
+	\Delta_{ s' s }( - \bm{k} )
+	c_{ - \bm{k} s'}^{\dagger}
+	\nonumber \\[2mm] &=&
+	-
+	\sum_{ s' }
+	\Delta_{ s s' }( \bm{k} )
+	c_{ - \bm{k} s'}^{\dagger}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+From the two terms above, the time evolution of the operator is:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau}
+	c_{\bm{k}s} (\tau)
+	&=&
+	-
+	\varepsilon( \bm{k} )
+	c_{\bm{k} s} (\tau)
+	\ - \
+	\sum_{ s' }
+	\Delta_{ s s' }( \bm{k} )
+	c_{ - \bm{k} s'}^{\dagger} ( \tau )
+	\ \ .
+	\label{eqn:enzansihattenntime}
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+Using this relation, we derive the equation of motion for the Green's functions.
+The time evolution of the Green's functions is:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau} G_{ss'}(\bm{k} , \tau)
+	&=&
+	\partial_{\tau}
+	\left(
+	-
+	\theta(\tau)
+	\langle c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger} \rangle
+	\ + \
+	\theta(- \tau)
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s}(\tau) \rangle
+	\right)
+	\nonumber \\[4mm] &=&
+	-
+	[\partial_{\tau} \theta(\tau) ]
+	\langle c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger} \rangle
+	\ - \
+	\theta(\tau)
+	\langle
+	[
+		\partial_{\tau}
+		c_{\bm{k}s}(\tau)
+	]
+	c_{\bm{k} s'}^{\dagger} \rangle
+	\nonumber \\[2mm] &&
+	\ + \
+	[\partial_{\tau} \theta(- \tau) ]
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s}(\tau) \rangle
+	\ + \
+	\theta(- \tau)
+	\langle c_{\bm{k} s'}^{\dagger}
+		[
+			\partial_{\tau}
+			c_{\bm{k}s}(\tau)
+		]
+	\rangle
+	\nonumber \\[4mm] &=&
+	-
+	\delta(\tau)
+	\langle c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger} \rangle
+	\ + \
+	\theta(\tau)
+	\varepsilon( \bm{k} )
+	\langle
+	c_{\bm{k} s} (\tau)
+	c_{\bm{k} s'}^{\dagger}
+	\rangle
+	\ + \
+	\theta(\tau)
+	\sum_{ s'' }
+	\Delta_{ s s'' }( \bm{k} )
+	\langle
+	c_{ - \bm{k} s''}^{\dagger}(\tau)
+	c_{\bm{k} s'}^{\dagger}
+	\rangle
+	\nonumber \\[2mm] &&
+	\ - \
+	\delta ( \tau )
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s}(\tau) \rangle
+	\ - \
+	\theta(- \tau)
+	\varepsilon( \bm{k} )
+	\langle
+	c_{\bm{k} s'}^{\dagger}
+	c_{\bm{k} s} (\tau)
+	\rangle
+	\ - \
+	\theta(-\tau)
+	\sum_{ s'' }
+	\Delta_{ s s'' }( \bm{k} )
+	\langle
+	c_{\bm{k} s'}^{\dagger}
+	c_{ - \bm{k} s''}^{\dagger}(\tau)
+	\rangle
+	\nonumber \\[2mm] &=&
+	\varepsilon( \bm{k} )
+	G_{ss'}(\bm{k} , \tau)
+	\ + \
+	\sum_{s''}
+	\Delta_{ s s'' }( \bm{k} )
+	F_{ s' s'' }^{\dagger} ( \bm{k} , \tau)
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+The terms proportional to the delta function cancel out due to the mechanism:
+$$
+	\delta ( \tau )
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s}(\tau) \rangle
+	\ = \
+	\delta ( 0 )
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s} \rangle
+	\ = \
+	-
+	\delta ( 0 )
+	\langle c_{\bm{k}s} c_{\bm{k} s'}^{\dagger} \rangle
+	\ = \
+	-
+	\delta ( \tau )
+	\langle c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger} \rangle
+$$
+Fourier transforming both sides so that the variables become $\tau \to i \omega_{n}$:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\int^{\beta}_{0} d \tau
+	\partial_{\tau}
+	G_{ss'}(\bm{k} , \tau)
+	e^{i \omega_{n} \tau}
+	&=&
+	\int^{\beta}_{0} d \tau
+	\varepsilon( \bm{k} )
+	G_{ss'}(\bm{k} , \tau)
+	e^{i \omega_{n} \tau}
+	\ + \
+	\int^{\beta}_{0} d \tau
+	\sum_{s''}
+	\Delta_{ s'' s }( \bm{k} )
+	F_{ s' s'' }^{\dagger} ( \bm{k} , \tau)
+	e^{i \omega_{n} \tau}
+	\nonumber \\[2mm]
+	\longleftrightarrow \ \ \
+	i \omega_{n}
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	&=&
+	\varepsilon( \bm{k} )
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	\ + \
+	\sum_{s''}
+	\Delta_{ s s'' }( \bm{k} )
+	F_{ s' s'' }^{\dagger} ( \bm{k} , i \omega_{n} )
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+This equation is not closed for $G_{ss'}(\bm{k} , i \omega_{n} )$, and we need to set up a similar equation of motion for $F_{ss'}^{\dagger}(\bm{k} , i \omega_{n} )$ and solve them simultaneously.
+Taking the Hermitian conjugate of equation \ref{eqn:enzansihattenntime}:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau}
+	c_{\bm{k}s}^{\dagger} (\tau)
+	&=&
+	-
+	\varepsilon( \bm{k} )
+	c_{\bm{k} s}^{\dagger} (\tau)
+	\ - \
+	\sum_{ s' }
+	\Delta_{ s s' }^{*} ( \bm{k} )
+	c_{ - \bm{k} s'} ( \tau )
+	\ \ ,
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+and using this relation:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau}
+	F_{ss'}^{\dagger} (\bm{k} , \tau)
+	&=&
+	\partial_{\tau}
+	\left(
+	\theta(\tau)
+	\langle c_{-\bm{k}s'}^{\dagger} (\tau) c_{\bm{k}s}^{\dagger} \rangle
+	\ - \
+	\theta(- \tau)
+	\langle c_{\bm{k} s}^{\dagger} c_{- \bm{k} s'}(\tau) \rangle
+	\right)
+	\nonumber \\[4mm] &=&
+	[ \partial_{\tau} \theta(\tau) ]
+	\langle c_{-\bm{k}s'}^{\dagger} (\tau) c_{\bm{k}s}^{\dagger} \rangle
+	\ + \
+	\theta(\tau)
+	\langle [ \partial_{\tau} c_{-\bm{k}s'}^{\dagger} (\tau) ] c_{\bm{k}s}^{\dagger} \rangle
+	\nonumber \\[2mm] &&
+	\ - \
+	[ \partial_{\tau} \theta(- \tau) ]
+	\langle c_{\bm{k} s}^{\dagger} c_{- \bm{k} s'}^{\dagger} (\tau) \rangle
+	\ - \
+	\theta(- \tau)
+	\langle c_{\bm{k} s}^{\dagger} [ \partial_{\tau} c_{- \bm{k} s'}^{\dagger} (\tau) ] \rangle
+	\nonumber \\[4mm] &=&
+	\delta(\tau)
+	\langle c_{-\bm{k}s'}^{\dagger} (\tau) c_{\bm{k}s}^{\dagger} \rangle
+	\ - \
+	\varepsilon( \bm{k} )
+	\theta(\tau)
+	\langle
+	c_{-\bm{k} s'}^{\dagger} (\tau)
+	c_{\bm{k}s}^{\dagger}
+	\rangle
+	\ - \
+	\sum_{ s'' }
+	\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	\theta(\tau)
+	\langle
+	c_{ \bm{k} s''} ( \tau )
+	c_{\bm{k}s}^{\dagger}
+	\rangle
+	\nonumber \\[2mm] &&
+	\ + \
+	\delta(\tau)
+	\langle c_{\bm{k} s}^{\dagger} c_{- \bm{k} s'}^{\dagger} (\tau) \rangle
+	\ + \
+	\theta(- \tau)
+	\varepsilon( \bm{k} )
+	\langle
+	c_{\bm{k} s}^{\dagger}
+	c_{- \bm{k} s'}^{\dagger} (\tau)
+	\rangle
+	\ + \
+	\sum_{ s'' }
+	\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	\theta(- \tau)
+	\langle
+	c_{\bm{k} s}^{\dagger}
+	c_{ \bm{k} s''} ( \tau )
+	\rangle
+	\nonumber \\[2mm] &=&
+	-
+	\varepsilon( \bm{k} )
+	F_{ss'}^{\dagger} (\bm{k} , \tau)
+	\ - \
+	\sum_{ s'' }
+	\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	G_{s''s} (\bm{k} , \tau)
+	\ \ ,
+	\\[5mm]
+	\longleftrightarrow \ \ \
+	i \omega_{n}
+	F_{ss'}^{\dagger} (\bm{k} , i \omega_{n} )
+	&=&
+	-
+	\varepsilon( \bm{k} )
+	F_{ss'}^{\dagger} (\bm{k} , i \omega_{n})
+	\ - \
+	\sum_{ s'' }
+	\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	G_{s''s} (\bm{k} , i \omega_{n} )
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+From the above, the simultaneous equations to solve to obtain the spectral representations of the respective Green's functions are:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	&=&
+	\sum_{s''}
+	\dfrac{
+		\Delta_{ s s'' }( \bm{k} )
+	}{
+		i \omega_{n} - \varepsilon( \bm{k} )
+	}
+	F_{ s' s'' }^{\dagger} ( \bm{k} , i \omega_{n} )
+	\ \ ,
+	\\[4mm]
+	F_{ss'}^{\dagger} (\bm{k} , i \omega_{n} )
+	&=&
+	-
+	\sum_{ s'' }
+	\dfrac{
+		\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	}
+	{
+		i \omega_{n} + \varepsilon( \bm{k} )
+	}
+	G_{s''s} (\bm{k} , i \omega_{n} )
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+
+
+
+The solutions to the Gor'kov equations for the case where the pair potential representation matrix is unitary can be expressed as:
+Let the elementary excitation energy spectrum be
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	E_{\bm{k}}
+	&=&
+	\sqrt{
+		\varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2}
+	}
+	\ \ ,
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+then,
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\hat{G}(\bm{k} , i \omega_{n})
+	&=&
+	-
+	\dfrac{ i \omega_{n} + \varepsilon(\bm{k}) }
+	{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\hat{\sigma}_{0}
+	\ \ ,
+	\\[2mm]
+	\hat{F}(\bm{k},i \omega_{n})
+	&=&
+	\dfrac{ i \bm{d}(\bm{k}) \cdot \hat{\bm{\sigma}} \hat{\sigma}_{y} }
+	{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\ = \
+	\dfrac{ \hat{\Delta}(\bm{k}) }
+	{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+Using these, we calculate the electronic Raman response function.
+Using the bosonic Matsubara frequency $\nu_{n}=2m\pi k_{B} T$ ($m \in \mathbb{Z}$),
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{m})
+	&=&
+	-
+	\int^{\beta}_{0} d \tau
+	\langle T_{\tau}[ \tilde{\rho}_{\bm{q}}^{\dagger} (\tau) \tilde{\rho}_{\bm{q}} ] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&=&
+	-
+	\int^{\beta}_{0} d \tau
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&=&
+	-
+	\int^{\beta}_{0} d \tau
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\nonumber \ \\[2mm]
+	&& \hspace{25mm} - \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\nonumber \ \\[2mm]
+	&& \hspace{25mm} + \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\Big\}
+	e^{i \nu_{m} \tau}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+The term in the first parenthesis on the right-hand side is a Green's function at the same time, so it's a constant and can be dropped.
+Rearranging the signs:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{n})
+	&=&
+	\int^{\beta}_{0} d \tau
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&& \hspace{25mm} - \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\Big\}
+	e^{i \nu_{m} \tau}
+	\ \ .
+	\label{eqn:timeintegralbefore141125}
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+
+
+
+
+
+
+
+
+We expand the sum over spins $s_{1},s_{2}$.
+The first term inside the curly braces is:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\\ &=&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \uparrow } (\tau)
+			c_{ \bm{k}_{2} , \uparrow }
+		] \rangle
+	\nonumber \\ && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \uparrow } (\tau)
+			c_{ \bm{k}_{2} , \downarrow }
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \downarrow } (\tau)
+			c_{ \bm{k}_{2} , \uparrow }
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \downarrow } (\tau)
+			c_{ \bm{k}_{2} , \downarrow }
+		] \rangle
+	\Big\}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+The sum over momenta only remains when $\bm{k}_{2}=-\bm{k}_{1}$.
+Performing the sum over $\bm{k}_{2}$ yields:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\\ &=&
+	\sum_{ \bm{k} }
+	\gamma_{\bm{k}}
+	\gamma_{-\bm{k}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ - \bm{k} + \bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k} - \bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ - \bm{k} , \uparrow } (\tau)
+			c_{ \bm{k} , \uparrow }
+		] \rangle
+	\nonumber \\ && + \ \
+	\langle T_{\tau} [
+			c_{ - \bm{k} + \bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k} - \bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ - \bm{k} , \uparrow } (\tau)
+			c_{ \bm{k} , \downarrow }
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ - \bm{k} + \bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k} - \bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ - \bm{k} , \downarrow } (\tau)
+			c_{ \bm{k} , \uparrow }
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ - \bm{k} + \bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k} - \bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ - \bm{k} , \downarrow } (\tau)
+			c_{ \bm{k} , \downarrow }
+		] \rangle
+	\Big\}
+	\nonumber \\[2mm]
+	&=&
+	\sum_{ \bm{k} }
+	\gamma_{\bm{k}}
+	\gamma_{-\bm{k}}
+	\Big\{
+	F_{ \uparrow \uparrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \uparrow \uparrow } ( - \bm{k} , \tau )
+	\nonumber \\ && + \ \
+	F_{ \downarrow \uparrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \uparrow \downarrow } ( - \bm{k} , \tau )
+	\nonumber \\[2mm] && + \ \
+	F_{ \uparrow \downarrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \downarrow \uparrow } ( - \bm{k} , \tau )
+	\nonumber \\[2mm] && + \ \
+	F_{ \downarrow \downarrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \downarrow \downarrow } ( - \bm{k} , \tau )
+	\Big\}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+
+
+
+
+
+Next, we transform the second term on the right-hand side of equation (\ref{eqn:timeintegralbefore141125}) in the same way.
+After summing over spins, the sum over momentum $\bm{k}_{2}$ only remains for the case where $\bm{k}_{2} = \bm{k}_{1} + \bm{q}$.
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\\ &=&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , \uparrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \uparrow } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , \downarrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \uparrow } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , \uparrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \downarrow } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , \downarrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \downarrow } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\Big\}
+	\nonumber \\[3mm]
+	&=&
+	\sum_{ \bm{k} }
+	\gamma_{\bm{k}}
+	\gamma_{\bm{k}+\bm{q}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}+\bm{q} , \uparrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k} , \uparrow } (\tau)
+			c_{ \bm{k} , \uparrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k} , \downarrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k} , \uparrow } (\tau)
+			c_{ \bm{k} , \downarrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}+\bm{q} , \uparrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k} , \downarrow } (\tau)
+			c_{ \bm{k} , \uparrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}+\bm{q} , \downarrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k} , \downarrow } (\tau)
+			c_{ \bm{k} , \downarrow }^{\dagger}
+		] \rangle
+	\Big\}
+	\nonumber \\[3mm]
+	&=&
+	-
+	\sum_{ \bm{k} }
+	\gamma_{\bm{k}}
+	\gamma_{\bm{k}+\bm{q}}
+	\Big\{
+	G_{\uparrow \uparrow}( \bm{k}+\bm{q} , \tau)
+	G_{\uparrow \uparrow}( \bm{k} , - \tau)
+	\nonumber \\[-1mm] && + \ \
+	G_{\downarrow \downarrow}( \bm{k}+\bm{q} , \tau)
+	G_{\downarrow \downarrow}( \bm{k} , - \tau)
+	\Big\}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+Here we have used the unitary condition $G_{\uparrow \downarrow} = G_{\downarrow \uparrow} = 0$.
+
+In summary,
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{m})
+	\ = \
+	-
+	\int^{\beta}_{0} d \tau
+	\langle T_{\tau}[ \tilde{\rho}_{\bm{q}}^{\dagger} (\tau) \tilde{\rho}_{\bm{q}} ] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&=&
+	\sum_{ \bm{k} }
+	\int^{\beta}_{0} d \tau
+	\Big\{
+	\gamma_{\bm{k}}
+	\gamma_{-\bm{k}}
+	\Big[
+		F_{ \uparrow \uparrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+		F_{ \uparrow \uparrow } ( - \bm{k} , \tau )
+		\ + \
+		F_{ \downarrow \uparrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+		F_{ \uparrow \downarrow } ( - \bm{k} , \tau )
+		\nonumber \ \\[-1mm] && \hspace{29mm} + \
+	F_{ \uparrow \downarrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \downarrow \uparrow } ( - \bm{k} , \tau )
+	\ + \
+	F_{ \downarrow \downarrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \downarrow \downarrow } ( - \bm{k} , \tau )
+	\Big]
+	\nonumber \ \\[1mm] && \hspace{15mm} - \
+	\gamma_{\bm{k}}
+	\gamma_{\bm{k}+\bm{q}}
+	\Big[
+		G_{\uparrow \uparrow}( \bm{k}+\bm{q} , \tau)
+		G_{\uparrow \uparrow}( \bm{k} , - \tau)
+		\ + \
+		G_{\downarrow \downarrow}( \bm{k}+\bm{q} , \tau)
+		G_{\downarrow \downarrow}( \bm{k} , - \tau)
+		\Big]
+	\Big\}
+	e^{i \nu_{m} \tau}
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+Next, we perform the Fourier transform with respect to time.
+For the anomalous Green's functions:
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\int^{\beta}_{0} d \tau
+	F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ s s' } ( - \bm{k} , \tau )
+	e^{i \nu_{m} \tau}
+	&=&
+	\dfrac{1}{\beta^{2}}
+	\int^{\beta}_{0} d \tau
+	\sum_{n_{1},n_{2}}
+	F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , i \omega_{n_{1}} )
+	F_{ s s' } ( - \bm{k} , i \omega_{n_{2}} )
+	e^{i ( \nu_{m} - \omega_{n_{1}} - \omega_{n_{2}} ) \tau }
+	\nonumber \\[2mm] &=&
+	\dfrac{ 1 }{\beta^{2}} \sum_{n_{1},n_{2}}
+	F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , i \omega_{n_{1}} )
+	F_{ s s' } ( - \bm{k} , i \omega_{n_{2}} )
+	\ \ \beta
+	\delta_{ \omega_{n_{1}} , \nu_{m} - \omega_{n_{2}} }
+	\nonumber \\[2mm] &=&
+	\dfrac{ 1 }{\beta} \sum_{n}
+	F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , i \nu_{m} - i \omega_{n} )
+	F_{ s s' } ( - \bm{k} , i \omega_{n} )
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+Similarly,
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\int^{\beta}_{0} d \tau
+	G_{ s s } ( \bm{k} + \bm{q} , \tau )
+	G_{ s s } ( \bm{k} , - \tau )
+	e^{i \nu_{m} \tau}
+	&=&
+	\dfrac{1}{\beta^{2}}
+	\int^{\beta}_{0} d \tau
+	\sum_{n_{1},n_{2}}
+	G_{ s s } ( \bm{k} + \bm{q} , i \omega_{n_{1}} )
+	G_{ s s } ( \bm{k} , i \omega_{n_{2}} )
+	e^{i ( \nu_{m} - \omega_{n_{1}} + \omega_{n_{2}} ) \tau }
+	\nonumber \\[2mm] &=&
+	\dfrac{ 1 }{\beta^{2}} \sum_{n_{1},n_{2}}
+	G_{ s s } ( \bm{k} + \bm{q} , i \omega_{n_{1}} )
+	G_{ s s } ( \bm{k} , i \omega_{n_{2}} )
+	\ \ \beta
+	\delta_{ \omega_{n_{1}} , \nu_{m} + \omega_{n_{2}} }
+	\nonumber \\[2mm] &=&
+	\dfrac{ 1 }{\beta} \sum_{n}
+	G_{ s s } ( \bm{k} + \bm{q} , i \nu_{m} + i \omega_{n} )
+	G_{ s s } ( \bm{k} , i \omega_{n} )
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+From the above, the response function is as follows.
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{m})
+	\ = \
+	-
+	\int^{\beta}_{0} d \tau
+	\langle T_{\tau}[ \tilde{\rho}_{\bm{q}}^{\dagger} (\tau) \tilde{\rho}_{\bm{q}} ] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&=&
+	\dfrac{1}{\beta}
+	\sum_{n}
+	\sum_{ \bm{k} }
+	\sum_{s s'}
+    \\ && \times
+	\Big[
+		\gamma_{\bm{k}}
+		\gamma_{-\bm{k}}
+		F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , i \nu_{m} - i \omega_{n} )
+		F_{ s s' } ( - \bm{k} , i \omega_{n} )
+		-
+		\gamma_{\bm{k}}
+		\gamma_{\bm{k}+\bm{q}}
+		G_{ s s } ( \bm{k} + \bm{q} , i \nu_{m} + i \omega_{n} )
+		G_{ s' s' } ( \bm{k} , i \omega_{n} )
+		\Big]
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+We consider the limit $\bm{q} \to \bm{0}$.
+From now on, we will only consider this case, so we will abbreviate $\chi_{\tilde{\rho} \tilde{\rho}}(\bm{0},i \nu_{m}) = \chi_{\tilde{\rho} \tilde{\rho}}(i \nu_{m})$.
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\chi_{\tilde{\rho} \tilde{\rho}}(i \nu_{m})
+	&=&
+	\dfrac{1}{\beta}
+	\sum_{n}
+	\sum_{ \bm{k} }
+	\sum_{s s'}
+	\Big[
+		\gamma_{\bm{k}}
+		\gamma_{-\bm{k}}
+		F_{ s' s }^{\dagger}( \bm{k} , i \nu_{m} - i \omega_{n} )
+		F_{ s s' } ( - \bm{k} , i \omega_{n} )
+		-
+		\gamma_{\bm{k}}^{2}
+		G_{ s s } ( \bm{k} , i \nu_{m} + i \omega_{n} )
+		G_{ s' s' } ( \bm{k} , i \omega_{n} )
+		\Big]
+	\nonumber \ \\[2mm]
+	&=&
+	\dfrac{1}{\beta}
+	\sum_{n}
+	\sum_{ \bm{k} }
+	\left[
+		\gamma_{\bm{k}}
+		\gamma_{-\bm{k}}
+		\sum_{s s'}
+		\dfrac{ \Delta_{s' s}(\bm{k}) }{ ( \nu_{m} - \omega_{n} )^{2} + E_{\bm{k}}^{2} }
+		\
+		\dfrac{ \Delta_{s s'}(-\bm{k}) }{ \omega_{n}^{2} + E_{-\bm{k}}^{2} }
+		-
+		\gamma_{\bm{k}}^{2}
+		\dfrac{ i \omega_{n} + i \nu_{m} + \varepsilon(\bm{k}) }{ ( \nu_{m} + \omega_{n} )^{2} + E_{\bm{k}}^{2} }
+		\
+		\dfrac{ i \omega_{n} + \varepsilon(\bm{k}) }{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+		\right]
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+\end{document}

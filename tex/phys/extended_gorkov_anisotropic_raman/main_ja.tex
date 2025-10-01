@@ -1,0 +1,1409 @@
+\documentclass[a4j]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs,url}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+% \setlength{\textheight}{270mm}
+% \setlength{\textwidth}{200mm}
+% \setlength{\topmargin}{3mm}
+% \setlength{\headheight}{-20mm}
+% \setlength{\headsep}{0mm}
+% \setlength{\oddsidemargin}{-20mm}
+% \setlength{\evensidemargin}{-20mm}
+% \title{\ \\[-20mm] {\Large \rm
+% 異方的超伝導に拡張されたGor'kov方程式の解と電子Raman応答関数
+% \footnote{ \url{http://} } } }
+\title{
+\hspace{3em} 異方的超伝導に拡張されたGor'kov方程式の解と \newline 電子Raman応答関数
+}
+\author{岡田 大 (Okada Masaru)}
+% \author{\ \\[-7mm] \hspace{-10mm} Masaru Okada
+% \\[-2mm] \hspace{-7mm} { \small \it Institute for Solid State Physics, University of Tokyo, 5-1-5 Kashiwanoha, Kashiwa, Chiba 277-8581, Japan} }
+% \date{\hspace{-10mm} Nov. 25, 2014}
+\date{\today}
+\begin{document}
+%\allowdisplaybreaks
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ \\[-15mm]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+BCS平均場ハミルトニアン$\mathcal{H}$から出発する。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\mathcal{H}
+	&=&
+	\mathcal{H}_{0}
+	\ + \
+	\mathcal{H}_{\rm BCS}
+	\ \ ,
+	\nonumber \\[2mm]
+	\mathcal{H}_{0}
+	&=&
+	\sum_{\bm{k},s}
+	\varepsilon(\bm{k})
+	c_{\bm{k} s}^{\dagger}
+	c_{\bm{k} s}
+	\ \ ,
+	\nonumber \\[2mm]
+	\mathcal{H}_{\rm BCS}
+	&=&
+	\dfrac{1}{2}
+	\sum_{\bm{k},s_{1},s_{2}}
+	\Big[
+		\Delta_{ s_{1} s_{2} }( \bm{k} )
+		c_{\bm{k} s_{1}}^{\dagger}
+		c_{-\bm{k} s_{2}}^{\dagger}
+		\ - \
+		\Delta_{ s_{1} s_{2} }^{*}( - \bm{k} )
+		c_{-\bm{k} s_{1}}
+		c_{\bm{k} s_{2}}
+		\Big]
+	\ \ ,
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+有限温度のGreen関数を松原形式で次のように導入する。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	-
+	\langle T_{\tau} \{ c_{\bm{k}s}(\tau) c_{\bm{k}'s'}^{\dagger}(0) \} \rangle
+	\ \ ,
+	\\[3mm]
+	F_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	\langle T_{\tau} \{ c_{\bm{k}s}(\tau) c_{\bm{k}'s'}(0) \} \rangle
+	\ \ , \ \
+	F_{ss'}^{\dagger}(\bm{k} , \bm{k}' ; \tau)
+	\ = \
+	\langle T_{\tau} \{ c_{\bm{k}' s' }^{\dagger}(\tau) c_{\bm{k} s }^{\dagger}(0) \} \rangle
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+ここで慣例に従って$F_{ss'}^{\dagger}$と書いたが、
+$F_{ss'}$のエルミート共役を取っているわけではない。
+これらのGreen関数は$c-$数である。
+
+
+
+
+
+
+
+座標変数$\tau \to i \omega_{n}$へのFourier変換は次で定義されている。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	\dfrac{1}{\beta} \sum_{n}
+	G_{ss'}(\bm{k} , \bm{k}' ; i \omega_{n} )
+	e^{- i \omega_{n} \tau }
+	\ \ , \nonumber \\[2mm]
+	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	\dfrac{1}{\beta} \sum_{n}
+	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; i \omega_{n} )
+	e^{- i \omega_{n} \tau }
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+ここで、$\omega_{n}=(2n+1)\pi k_{B} T$、($n \in \mathbb{Z}$)はfermionicな松原周波数である。
+系が均一な場合、これらのGreen関数の運動量変数は$G$関数の場合$\bm{k}=\bm{k}'$、$F^{(\dagger)}$関数の場合$\bm{k}=-\bm{k}'$となり、1つの運動量の値で指定できる。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	&=&
+	-
+	\int_{0}^{\beta}
+	d \tau
+	\langle T_{\tau} \{ c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger}(0) \} \rangle
+	e^{i \omega_{n} \tau}
+	\ \ ,
+	\\[3mm]
+	F_{ss'}(\bm{k} , i \omega_{n} )
+	&=&
+	\int_{0}^{\beta}
+	d \tau
+	\langle T_{\tau} \{ c_{ \bm{k} s }(\tau) c_{-\bm{k} s' }(0) \} \rangle
+	e^{i \omega_{n} \tau}
+	\ \ , \ \
+	F_{ss'}^{\dagger}(\bm{k} , i \omega_{n} )
+	\ = \
+	\int_{0}^{\beta}
+	d \tau
+	\langle T_{\tau} \{ c_{ - \bm{k} s' }^{\dagger}(\tau) c_{ \bm{k} s }^{\dagger}(0) \} \rangle
+	e^{i \omega_{n} \tau}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+以下では均一な系に関してのみ考える。
+
+Green関数のスペクトル表現を求める為に演算子の時間発展を求める。
+Heisenbergの運動方程式を用いる。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau} c_{\bm{k}s} (\tau)
+	&=&
+	\left[ \mathcal{H} \ , \ c_{\bm{k}s}(\tau) \right]
+	\ = \
+	e^{\mathcal{H} \tau} \left[ \mathcal{H} \ , \ c_{\bm{k}s} \right] e^{- \mathcal{H} \tau}
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+この算数には交換子と反交換子の関係
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	[AB \ , \ C]
+	&=&
+	A \{ B \ , \ C \} - \{ A \ , \ C \} B
+	\ \ ,
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+も有用である。
+$\mathcal{H}_{0}$に関して、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	[ \mathcal{H}_{0} \ , \ c_{\bm{k}s} ]
+	&=&
+	\sum_{\bm{k}',s'}
+	\varepsilon(\bm{k}')
+	\left[
+		c_{\bm{k}' s'}^{\dagger}
+		c_{\bm{k}' s'}
+		\ , \
+		c_{\bm{k}s}
+		\right]
+	\nonumber \\[2mm] &=&
+	-
+	\sum_{\bm{k}',s'}
+	\varepsilon(\bm{k}')
+	\left\{
+	c_{\bm{k}' s'}^{\dagger}
+	\ , \
+	c_{\bm{k}s}
+	\right\}
+	c_{\bm{k}' s'}
+	\nonumber \\[2mm] &=&
+	-
+	\varepsilon( \bm{k} )
+	c_{\bm{k} s}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+であり、続いて$\mathcal{H}_{\rm BCS}$に関して、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	[ \mathcal{H}_{\rm BCS} \ , \ c_{\bm{k}s} ]
+	&=&
+	\left[
+		\dfrac{1}{2}
+		\sum_{\bm{k}',s_{1},s_{2}}
+		\Big(
+		\Delta_{ s_{1} s_{2} }( \bm{k}' )
+		c_{\bm{k}' s_{1}}^{\dagger}
+		c_{-\bm{k}' s_{2}}^{\dagger}
+		\ - \
+		\Delta_{ s_{1} s_{2} }^{*}( - \bm{k}' )
+		c_{-\bm{k}' s_{1}}
+		c_{\bm{k}' s_{2}}
+		\Big)
+		\ , \
+		c_{\bm{k}s}
+		\right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	\left[
+		c_{\bm{k}' s_{1}}^{\dagger}
+		c_{-\bm{k}' s_{2}}^{\dagger}
+		\ , \
+		c_{\bm{k}s}
+		\right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	\Big(
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\left\{
+	c_{-\bm{k}' s_{2}}^{\dagger}
+	\ , \
+	c_{\bm{k}s}
+	\right\}
+	-
+	\left\{
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\ , \
+	c_{\bm{k}s}
+	\right\}
+	c_{-\bm{k}' s_{2}}^{\dagger}
+	\Big)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	\Big(
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\ - \
+	c_{-\bm{k}' s_{2}}^{\dagger}
+	\delta_{\bm{k},\bm{k}'}
+	\delta_{s,s_{1}}
+	\Big)
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+添字を注意して入れ替えると右辺の二項はそれぞれ等しいことが分かる。
+すなわち、以下のように二項目に関してのみ添字の入れ替えの操作を注意深く行うと良い。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	[ \mathcal{H}_{\rm BCS} \ , \ c_{\bm{k}s} ]
+	&=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\ - \
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( - \bm{k}' )
+	c_{\bm{k}' s_{2}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{1}}
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\ + \
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{2} s_{1} }( \bm{k}' )
+	c_{\bm{k}' s_{2}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{1}}
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\ + \
+	\dfrac{1}{2}
+	\sum_{\bm{k}',s_{1},s_{2}}
+	\Delta_{ s_{1} s_{2} }( \bm{k}' )
+	c_{\bm{k}' s_{1}}^{\dagger}
+	\delta_{\bm{k},-\bm{k}'}
+	\delta_{s,s_{2}}
+	\nonumber \\[2mm] &=&
+	\sum_{ s' }
+	\Delta_{ s' s }( - \bm{k} )
+	c_{ - \bm{k} s'}^{\dagger}
+	\nonumber \\[2mm] &=&
+	-
+	\sum_{ s' }
+	\Delta_{ s s' }( \bm{k} )
+	c_{ - \bm{k} s'}^{\dagger}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+以上の二項より演算子の時間発展は、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau}
+	c_{\bm{k}s} (\tau)
+	&=&
+	-
+	\varepsilon( \bm{k} )
+	c_{\bm{k} s} (\tau)
+	\ - \
+	\sum_{ s' }
+	\Delta_{ s s' }( \bm{k} )
+	c_{ - \bm{k} s'}^{\dagger} ( \tau )
+	\ \ .
+	\label{eqn:enzansihattenntime}
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+この関係を用いてGreen関数の運動方程式を導く。
+Green関数の時間発展は、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau} G_{ss'}(\bm{k} , \tau)
+	&=&
+	\partial_{\tau}
+	\left(
+	-
+	\theta(\tau)
+	\langle c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger} \rangle
+	\ + \
+	\theta(- \tau)
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s}(\tau) \rangle
+	\right)
+	\nonumber \\[4mm] &=&
+	-
+	[\partial_{\tau} \theta(\tau) ]
+	\langle c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger} \rangle
+	\ - \
+	\theta(\tau)
+	\langle
+	[
+		\partial_{\tau}
+		c_{\bm{k}s}(\tau)
+	]
+	c_{\bm{k} s'}^{\dagger} \rangle
+	\nonumber \\[2mm] &&
+	\ + \
+	[\partial_{\tau} \theta(- \tau) ]
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s}(\tau) \rangle
+	\ + \
+	\theta(- \tau)
+	\langle c_{\bm{k} s'}^{\dagger}
+		[
+			\partial_{\tau}
+			c_{\bm{k}s}(\tau)
+		]
+	\rangle
+	\nonumber \\[4mm] &=&
+	-
+	\delta(\tau)
+	\langle c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger} \rangle
+	\ + \
+	\theta(\tau)
+	\varepsilon( \bm{k} )
+	\langle
+	c_{\bm{k} s} (\tau)
+	c_{\bm{k} s'}^{\dagger}
+	\rangle
+	\ + \
+	\theta(\tau)
+	\sum_{ s'' }
+	\Delta_{ s s'' }( \bm{k} )
+	\langle
+	c_{ - \bm{k} s''}^{\dagger}(\tau)
+	c_{\bm{k} s'}^{\dagger}
+	\rangle
+	\nonumber \\[2mm] &&
+	\ - \
+	\delta ( \tau )
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s}(\tau) \rangle
+	\ - \
+	\theta(- \tau)
+	\varepsilon( \bm{k} )
+	\langle
+	c_{\bm{k} s'}^{\dagger}
+	c_{\bm{k} s} (\tau)
+	\rangle
+	\ - \
+	\theta(-\tau)
+	\sum_{ s'' }
+	\Delta_{ s s'' }( \bm{k} )
+	\langle
+	c_{\bm{k} s'}^{\dagger}
+	c_{ - \bm{k} s''}^{\dagger}(\tau)
+	\rangle
+	\nonumber \\[2mm] &=&
+	\varepsilon( \bm{k} )
+	G_{ss'}(\bm{k} , \tau)
+	\ + \
+	\sum_{s''}
+	\Delta_{ s s'' }( \bm{k} )
+	F_{ s' s'' }^{\dagger} ( \bm{k} , \tau)
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+デルタ関数に比例する項は
+$$
+	\delta ( \tau )
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s}(\tau) \rangle
+	\ = \
+	\delta ( 0 )
+	\langle c_{\bm{k} s'}^{\dagger} c_{\bm{k}s} \rangle
+	\ = \
+	-
+	\delta ( 0 )
+	\langle c_{\bm{k}s} c_{\bm{k} s'}^{\dagger} \rangle
+	\ = \
+	-
+	\delta ( \tau )
+	\langle c_{\bm{k}s}(\tau) c_{\bm{k} s'}^{\dagger} \rangle
+$$
+の機構から相殺されている。
+両辺の変数が$\tau \to i \omega_{n}$となるようにFourier変換すると、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\int^{\beta}_{0} d \tau
+	\partial_{\tau}
+	G_{ss'}(\bm{k} , \tau)
+	e^{i \omega_{n} \tau}
+	&=&
+	\int^{\beta}_{0} d \tau
+	\varepsilon( \bm{k} )
+	G_{ss'}(\bm{k} , \tau)
+	e^{i \omega_{n} \tau}
+	\ + \
+	\int^{\beta}_{0} d \tau
+	\sum_{s''}
+	\Delta_{ s'' s }( \bm{k} )
+	F_{ s' s'' }^{\dagger} ( \bm{k} , \tau)
+	e^{i \omega_{n} \tau}
+	\nonumber \\[2mm]
+	\longleftrightarrow \ \ \
+	i \omega_{n}
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	&=&
+	\varepsilon( \bm{k} )
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	\ + \
+	\sum_{s''}
+	\Delta_{ s s'' }( \bm{k} )
+	F_{ s' s'' }^{\dagger} ( \bm{k} , i \omega_{n} )
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+この方程式は$G_{ss'}(\bm{k} , i \omega_{n} )$に関して閉じておらず、
+$F_{ss'}^{\dagger}(\bm{k} , i \omega_{n} )$に関しても同様に運動方程式を立てて、
+それぞれ連立して解く必要がある。
+式\ref{eqn:enzansihattenntime}のエルミート共役を返して、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau}
+	c_{\bm{k}s}^{\dagger} (\tau)
+	&=&
+	-
+	\varepsilon( \bm{k} )
+	c_{\bm{k} s}^{\dagger} (\tau)
+	\ - \
+	\sum_{ s' }
+	\Delta_{ s s' }^{*} ( \bm{k} )
+	c_{ - \bm{k} s'} ( \tau )
+	\ \ ,
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+の関係式を用いる。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\partial_{\tau}
+	F_{ss'}^{\dagger} (\bm{k} , \tau)
+	&=&
+	\partial_{\tau}
+	\left(
+	\theta(\tau)
+	\langle c_{-\bm{k}s'}^{\dagger} (\tau) c_{\bm{k}s}^{\dagger} \rangle
+	\ - \
+	\theta(- \tau)
+	\langle c_{\bm{k} s}^{\dagger} c_{- \bm{k} s'}(\tau) \rangle
+	\right)
+	\nonumber \\[4mm] &=&
+	[ \partial_{\tau} \theta(\tau) ]
+	\langle c_{-\bm{k}s'}^{\dagger} (\tau) c_{\bm{k}s}^{\dagger} \rangle
+	\ + \
+	\theta(\tau)
+	\langle [ \partial_{\tau} c_{-\bm{k}s'}^{\dagger} (\tau) ] c_{\bm{k}s}^{\dagger} \rangle
+	\nonumber \\[2mm] &&
+	\ - \
+	[ \partial_{\tau} \theta(- \tau) ]
+	\langle c_{\bm{k} s}^{\dagger} c_{- \bm{k} s'}^{\dagger} (\tau) \rangle
+	\ - \
+	\theta(- \tau)
+	\langle c_{\bm{k} s}^{\dagger} [ \partial_{\tau} c_{- \bm{k} s'}^{\dagger} (\tau) ] \rangle
+	\nonumber \\[4mm] &=&
+	\delta(\tau)
+	\langle c_{-\bm{k}s'}^{\dagger} (\tau) c_{\bm{k}s}^{\dagger} \rangle
+	\ - \
+	\varepsilon( \bm{k} )
+	\theta(\tau)
+	\langle
+	c_{-\bm{k} s'}^{\dagger} (\tau)
+	c_{\bm{k}s}^{\dagger}
+	\rangle
+	\ - \
+	\sum_{ s'' }
+	\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	\theta(\tau)
+	\langle
+	c_{ \bm{k} s''} ( \tau )
+	c_{\bm{k}s}^{\dagger}
+	\rangle
+	\nonumber \\[2mm] &&
+	\ + \
+	\delta(\tau)
+	\langle c_{\bm{k} s}^{\dagger} c_{- \bm{k} s'}^{\dagger} (\tau) \rangle
+	\ + \
+	\theta(- \tau)
+	\varepsilon( \bm{k} )
+	\langle
+	c_{\bm{k} s}^{\dagger}
+	c_{- \bm{k} s'}^{\dagger} (\tau)
+	\rangle
+	\ + \
+	\sum_{ s'' }
+	\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	\theta(- \tau)
+	\langle
+	c_{\bm{k} s}^{\dagger}
+	c_{ \bm{k} s''} ( \tau )
+	\rangle
+	\nonumber \\[2mm] &=&
+	-
+	\varepsilon( \bm{k} )
+	F_{ss'}^{\dagger} (\bm{k} , \tau)
+	\ - \
+	\sum_{ s'' }
+	\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	G_{s''s} (\bm{k} , \tau)
+	\ \ ,
+	\\[5mm]
+	\longleftrightarrow \ \ \
+	i \omega_{n}
+	F_{ss'}^{\dagger} (\bm{k} , i \omega_{n} )
+	&=&
+	-
+	\varepsilon( \bm{k} )
+	F_{ss'}^{\dagger} (\bm{k} , i \omega_{n})
+	\ - \
+	\sum_{ s'' }
+	\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	G_{s''s} (\bm{k} , i \omega_{n} )
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+以上から、
+それぞれのGreen関数のスペクトル表示を得るために解くべき連立方程式は次のようになる。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	&=&
+	\sum_{s''}
+	\dfrac{
+		\Delta_{ s s'' }( \bm{k} )
+	}{
+		i \omega_{n} - \varepsilon( \bm{k} )
+	}
+	F_{ s' s'' }^{\dagger} ( \bm{k} , i \omega_{n} )
+	\ \ ,
+	\\[4mm]
+	F_{ss'}^{\dagger} (\bm{k} , i \omega_{n} )
+	&=&
+	-
+	\sum_{ s'' }
+	\dfrac{
+		\Delta_{ s' s'' }^{*} ( - \bm{k} )
+	}
+	{
+		i \omega_{n} + \varepsilon( \bm{k} )
+	}
+	G_{s''s} (\bm{k} , i \omega_{n} )
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+
+
+
+対ポテンシャルの表現行列がユニタリーな場合のGor'kov方程式の解は、
+素励起のエネルギースペクトルを
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	E_{\bm{k}}
+	&=&
+	\sqrt{
+		\varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2}
+	}
+	\ \ ,
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+と書いて、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\hat{G}(\bm{k} , i \omega_{n})
+	&=&
+	-
+	\dfrac{ i \omega_{n} + \varepsilon(\bm{k}) }
+	{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\hat{\sigma}_{0}
+	\ \ ,
+	\\[2mm]
+	\hat{F}(\bm{k},i \omega_{n})
+	&=&
+	\dfrac{ i \bm{d}(\bm{k}) \cdot \hat{\bm{\sigma}} \hat{\sigma}_{y} }
+	{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\ = \
+	\dfrac{ \hat{\Delta}(\bm{k}) }
+	{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+と表現できる。
+これらを用いて電子ラマンの応答関数を計算する。
+Bosonicな松原周波数$\nu_{n}=2m\pi k_{B} T$、($m \in \mathbb{Z}$)を用いて、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{m})
+	&=&
+	-
+	\int^{\beta}_{0} d \tau
+	\langle T_{\tau}[ \tilde{\rho}_{\bm{q}}^{\dagger} (\tau) \tilde{\rho}_{\bm{q}} ] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&=&
+	-
+	\int^{\beta}_{0} d \tau
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&=&
+	-
+	\int^{\beta}_{0} d \tau
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\nonumber \ \\[2mm]
+	&& \hspace{25mm} - \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\nonumber \ \\[2mm]
+	&& \hspace{25mm} + \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\Big\}
+	e^{i \nu_{m} \tau}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+最後の右辺一行目の括弧の中は同時刻のGreen関数であり、
+定数となるので落とす。
+符号も整理して、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{n})
+	&=&
+	\int^{\beta}_{0} d \tau
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&& \hspace{25mm} - \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\Big\}
+	e^{i \nu_{m} \tau}
+	\ \ .
+	\label{eqn:timeintegralbefore141125}
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+
+
+
+
+
+
+
+
+スピン$s_{1},s_{2}$に関する和を展開する。
+括弧の中の第一項は、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\\ &=&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \uparrow } (\tau)
+			c_{ \bm{k}_{2} , \uparrow }
+		] \rangle
+	\nonumber \\ && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \uparrow } (\tau)
+			c_{ \bm{k}_{2} , \downarrow }
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \downarrow } (\tau)
+			c_{ \bm{k}_{2} , \uparrow }
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \downarrow } (\tau)
+			c_{ \bm{k}_{2} , \downarrow }
+		] \rangle
+	\Big\}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+運動量に関する和は$\bm{k}_{2}=-\bm{k}_{1}$の場合のみ残り、
+$\bm{k}_{2}$に対する和を実行すると、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\\ &=&
+	\sum_{ \bm{k} }
+	\gamma_{\bm{k}}
+	\gamma_{-\bm{k}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ - \bm{k} + \bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k} - \bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ - \bm{k} , \uparrow } (\tau)
+			c_{ \bm{k} , \uparrow }
+		] \rangle
+	\nonumber \\ && + \ \
+	\langle T_{\tau} [
+			c_{ - \bm{k} + \bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k} - \bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ - \bm{k} , \uparrow } (\tau)
+			c_{ \bm{k} , \downarrow }
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ - \bm{k} + \bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k} - \bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ - \bm{k} , \downarrow } (\tau)
+			c_{ \bm{k} , \uparrow }
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ - \bm{k} + \bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k} - \bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\langle T_{\tau} [
+			c_{ - \bm{k} , \downarrow } (\tau)
+			c_{ \bm{k} , \downarrow }
+		] \rangle
+	\Big\}
+	\nonumber \\[2mm]
+	&=&
+	\sum_{ \bm{k} }
+	\gamma_{\bm{k}}
+	\gamma_{-\bm{k}}
+	\Big\{
+	F_{ \uparrow \uparrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \uparrow \uparrow } ( - \bm{k} , \tau )
+	\nonumber \\ && + \ \
+	F_{ \downarrow \uparrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \uparrow \downarrow } ( - \bm{k} , \tau )
+	\nonumber \\[2mm] && + \ \
+	F_{ \uparrow \downarrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \downarrow \uparrow } ( - \bm{k} , \tau )
+	\nonumber \\[2mm] && + \ \
+	F_{ \downarrow \downarrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \downarrow \downarrow } ( - \bm{k} , \tau )
+	\Big\}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+
+
+
+
+
+次に式(\ref{eqn:timeintegralbefore141125})の右辺第二項も同様に変形する。
+スピンの和を取った後、運動量$\bm{k}_{2}$の和は$\bm{k}_{2} = \bm{k}_{1} + \bm{q}$の場合のみ残る。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} , s_{1} ,s_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , s_{1} }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , s_{2} }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , s_{1} } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , s_{2} }^{\dagger}
+		] \rangle
+	\\ &=&
+	\sum_{\bm{k}_{1} , \bm{k}_{2} }
+	\gamma_{\bm{k}_{1}}
+	\gamma_{\bm{k}_{2}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , \uparrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \uparrow } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , \downarrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \uparrow } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , \uparrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \downarrow } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \uparrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}_{2} , \downarrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k}_{1} , \downarrow } (\tau)
+			c_{ \bm{k}_{2}-\bm{q} , \downarrow }^{\dagger}
+		] \rangle
+	\Big\}
+	\nonumber \\[3mm]
+	&=&
+	\sum_{ \bm{k} }
+	\gamma_{\bm{k}}
+	\gamma_{\bm{k}+\bm{q}}
+	\Big\{
+	\langle T_{\tau} [
+			c_{ \bm{k}+\bm{q} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k}+\bm{q} , \uparrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k} , \uparrow } (\tau)
+			c_{ \bm{k} , \uparrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k} , \uparrow }^{\dagger} (\tau)
+			c_{ \bm{k} , \downarrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k} , \uparrow } (\tau)
+			c_{ \bm{k} , \downarrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}+\bm{q} , \uparrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k} , \downarrow } (\tau)
+			c_{ \bm{k} , \uparrow }^{\dagger}
+		] \rangle
+	\nonumber \\[2mm] && + \ \
+	\langle T_{\tau} [
+			c_{ \bm{k}+\bm{q} , \downarrow }^{\dagger} (\tau)
+			c_{ \bm{k}+\bm{q} , \downarrow }
+		] \rangle
+	\langle T_{\tau} [
+			c_{ \bm{k} , \downarrow } (\tau)
+			c_{ \bm{k} , \downarrow }^{\dagger}
+		] \rangle
+	\Big\}
+	\nonumber \\[3mm]
+	&=&
+	-
+	\sum_{ \bm{k} }
+	\gamma_{\bm{k}}
+	\gamma_{\bm{k}+\bm{q}}
+	\Big\{
+	G_{\uparrow \uparrow}( \bm{k}+\bm{q} , \tau)
+	G_{\uparrow \uparrow}( \bm{k} , - \tau)
+	\nonumber \\[-1mm] && + \ \
+	G_{\downarrow \downarrow}( \bm{k}+\bm{q} , \tau)
+	G_{\downarrow \downarrow}( \bm{k} , - \tau)
+	\Big\}
+	\ \ .
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+ここで
+ユニタリー条件
+$G_{\uparrow \downarrow} = G_{\downarrow \uparrow} = 0$
+を用いた。
+
+まとめると、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{m})
+	\ = \
+	-
+	\int^{\beta}_{0} d \tau
+	\langle T_{\tau}[ \tilde{\rho}_{\bm{q}}^{\dagger} (\tau) \tilde{\rho}_{\bm{q}} ] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&=&
+	\sum_{ \bm{k} }
+	\int^{\beta}_{0} d \tau
+	\Big\{
+	\gamma_{\bm{k}}
+	\gamma_{-\bm{k}}
+	\Big[
+		F_{ \uparrow \uparrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+		F_{ \uparrow \uparrow } ( - \bm{k} , \tau )
+		\ + \
+		F_{ \downarrow \uparrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+		F_{ \uparrow \downarrow } ( - \bm{k} , \tau )
+		\nonumber \ \\[-1mm] && \hspace{29mm} + \
+	F_{ \uparrow \downarrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \downarrow \uparrow } ( - \bm{k} , \tau )
+	\ + \
+	F_{ \downarrow \downarrow }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ \downarrow \downarrow } ( - \bm{k} , \tau )
+	\Big]
+	\nonumber \ \\[1mm] && \hspace{15mm} - \
+	\gamma_{\bm{k}}
+	\gamma_{\bm{k}+\bm{q}}
+	\Big[
+		G_{\uparrow \uparrow}( \bm{k}+\bm{q} , \tau)
+		G_{\uparrow \uparrow}( \bm{k} , - \tau)
+		\ + \
+		G_{\downarrow \downarrow}( \bm{k}+\bm{q} , \tau)
+		G_{\downarrow \downarrow}( \bm{k} , - \tau)
+		\Big]
+	\Big\}
+	e^{i \nu_{m} \tau}
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+続いて時間に関してFourier変換を行う。
+異常Green関数に関して、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\int^{\beta}_{0} d \tau
+	F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , \tau )
+	F_{ s s' } ( - \bm{k} , \tau )
+	e^{i \nu_{m} \tau}
+	&=&
+	\dfrac{1}{\beta^{2}}
+	\int^{\beta}_{0} d \tau
+	\sum_{n_{1},n_{2}}
+	F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , i \omega_{n_{1}} )
+	F_{ s s' } ( - \bm{k} , i \omega_{n_{2}} )
+	e^{i ( \nu_{m} - \omega_{n_{1}} - \omega_{n_{2}} ) \tau }
+	\nonumber \\[2mm] &=&
+	\dfrac{ 1 }{\beta^{2}} \sum_{n_{1},n_{2}}
+	F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , i \omega_{n_{1}} )
+	F_{ s s' } ( - \bm{k} , i \omega_{n_{2}} )
+	\ \ \beta
+	\delta_{ \omega_{n_{1}} , \nu_{m} - \omega_{n_{2}} }
+	\nonumber \\[2mm] &=&
+	\dfrac{ 1 }{\beta} \sum_{n}
+	F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , i \nu_{m} - i \omega_{n} )
+	F_{ s s' } ( - \bm{k} , i \omega_{n} )
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+同様にして、
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\int^{\beta}_{0} d \tau
+	G_{ s s } ( \bm{k} + \bm{q} , \tau )
+	G_{ s s } ( \bm{k} , - \tau )
+	e^{i \nu_{m} \tau}
+	&=&
+	\dfrac{1}{\beta^{2}}
+	\int^{\beta}_{0} d \tau
+	\sum_{n_{1},n_{2}}
+	G_{ s s } ( \bm{k} + \bm{q} , i \omega_{n_{1}} )
+	G_{ s s } ( \bm{k} , i \omega_{n_{2}} )
+	e^{i ( \nu_{m} - \omega_{n_{1}} + \omega_{n_{2}} ) \tau }
+	\nonumber \\[2mm] &=&
+	\dfrac{ 1 }{\beta^{2}} \sum_{n_{1},n_{2}}
+	G_{ s s } ( \bm{k} + \bm{q} , i \omega_{n_{1}} )
+	G_{ s s } ( \bm{k} , i \omega_{n_{2}} )
+	\ \ \beta
+	\delta_{ \omega_{n_{1}} , \nu_{m} + \omega_{n_{2}} }
+	\nonumber \\[2mm] &=&
+	\dfrac{ 1 }{\beta} \sum_{n}
+	G_{ s s } ( \bm{k} + \bm{q} , i \nu_{m} + i \omega_{n} )
+	G_{ s s } ( \bm{k} , i \omega_{n} )
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+以上から応答関数は次のようになる。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	&&
+	\chi_{\tilde{\rho} \tilde{\rho}}(\bm{q},i \nu_{m})
+	\ = \
+	-
+	\int^{\beta}_{0} d \tau
+	\langle T_{\tau}[ \tilde{\rho}_{\bm{q}}^{\dagger} (\tau) \tilde{\rho}_{\bm{q}} ] \rangle
+	e^{i \nu_{m} \tau}
+	\nonumber \ \\[2mm]
+	&=&
+	\dfrac{1}{\beta}
+	\sum_{n}
+	\sum_{ \bm{k} }
+	\sum_{s s'}
+    \\ && \times 
+	\Big[
+		\gamma_{\bm{k}}
+		\gamma_{-\bm{k}}
+		F_{ s' s }^{\dagger}( \bm{k} - \bm{q} , i \nu_{m} - i \omega_{n} )
+		F_{ s s' } ( - \bm{k} , i \omega_{n} )
+		-
+		\gamma_{\bm{k}}
+		\gamma_{\bm{k}+\bm{q}}
+		G_{ s s } ( \bm{k} + \bm{q} , i \nu_{m} + i \omega_{n} )
+		G_{ s' s' } ( \bm{k} , i \omega_{n} )
+		\Big]
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+$\bm{q} \to \bm{0}$の極限を考える。
+これ以降はこの場合のみ考えるので、
+$\chi_{\tilde{\rho} \tilde{\rho}}(\bm{0},i \nu_{m}) = \chi_{\tilde{\rho} \tilde{\rho}}(i \nu_{m})$
+と略記する。
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+	\chi_{\tilde{\rho} \tilde{\rho}}(i \nu_{m})
+	&=&
+	\dfrac{1}{\beta}
+	\sum_{n}
+	\sum_{ \bm{k} }
+	\sum_{s s'}
+	\Big[
+		\gamma_{\bm{k}}
+		\gamma_{-\bm{k}}
+		F_{ s' s }^{\dagger}( \bm{k} , i \nu_{m} - i \omega_{n} )
+		F_{ s s' } ( - \bm{k} , i \omega_{n} )
+		-
+		\gamma_{\bm{k}}^{2}
+		G_{ s s } ( \bm{k} , i \nu_{m} + i \omega_{n} )
+		G_{ s' s' } ( \bm{k} , i \omega_{n} )
+		\Big]
+	\nonumber \ \\[2mm]
+	&=&
+	\dfrac{1}{\beta}
+	\sum_{n}
+	\sum_{ \bm{k} }
+	\left[
+		\gamma_{\bm{k}}
+		\gamma_{-\bm{k}}
+		\sum_{s s'}
+		\dfrac{ \Delta_{s' s}(\bm{k}) }{ ( \nu_{m} - \omega_{n} )^{2} + E_{\bm{k}}^{2} }
+		\
+		\dfrac{ \Delta_{s s'}(-\bm{k}) }{ \omega_{n}^{2} + E_{-\bm{k}}^{2} }
+		-
+		\gamma_{\bm{k}}^{2}
+		\dfrac{ i \omega_{n} + i \nu_{m} + \varepsilon(\bm{k}) }{ ( \nu_{m} + \omega_{n} )^{2} + E_{\bm{k}}^{2} }
+		\
+		\dfrac{ i \omega_{n} + \varepsilon(\bm{k}) }{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+		\right]
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+
+\end{document}
