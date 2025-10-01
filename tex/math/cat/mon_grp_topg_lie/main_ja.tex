@@ -1,0 +1,145 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+モノイド、群、位相群、Lie群の統一的な見方
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+	モノイド、群、位相群、Lie群の定義をおさらいして、圏論的に図式で書くと魔法のように統一的に理解できてしまうことを確認する。
+\end{abstract}
+
+\section{素朴な定義}
+
+まずはじめにモノイド、群、位相群、Lie群を素朴に定義してみる。
+
+\subsection{モノイドの定義}
+
+モノイドは単位元を有する半群であり、結合法則と単位元を有する。
+
+集合 $M$ とその上の二項演算 $\cdot : M \times M \to M$
+
+\begin{enumerate}
+	\item 結合律：$M$ の任意の元について $(a \cdot b) \cdot c = a \cdot (b \cdot c)$ 。
+	\item 単位元の存在：任意の $M$ の元 $a$ について $e \cdot a = a \cdot e = a$ を満たす $M$ の元 $e$ が存在する。
+\end{enumerate}
+
+\subsection{群の定義}
+
+モノイドでなおかつ逆元が存在するものを群という。
+
+集合 $G$ とその上の二項演算 $\cdot : G \times G \to G$
+
+\begin{enumerate}
+	\item 結合律：$G$ の任意の元について $(a \cdot b) \cdot c = a \cdot (b \cdot c)$ 。
+	\item 単位元の存在：任意の $G$ の元 $a$ について $e \cdot a = a \cdot e = a$ を満たす $M$ の元 $e$ が存在する。
+	\item 逆元の存在：任意の $G$ の元 $a$ について $a^{-1} \cdot a = a \cdot a^{-1} = e$ を満たす $a^{-1}$ が存在する。
+\end{enumerate}
+
+\subsection{位相群の定義}
+
+集合 $G$ が位相群であるとは、群でかつ位相空間の公理を満たし、積と逆元に写す連続写像が存在する集合を指す。
+
+\begin{enumerate}
+	\item $G$ は群である。
+	\item $G$ は位相空間である。
+	\item 写像 $\mu: G \times G \to G, \nu: G \to G$ をそれぞれ $\mu(x,y)=xy, \nu(x) = x^{-1}$ と定義するとき、$\mu,\nu$ は連続である。
+\end{enumerate}
+
+\subsection{Lie群の定義}
+
+集合 $G$ がLie群であるとは、$G$ は可微分多様体であり、位相群の公理を満たし、積と逆元に写す写像が微分可能であるような集合を指す。
+
+\begin{enumerate}
+	\item $G$ は可微分多様体である。
+	\item 写像 $\mu: G \times G \to G, \nu: G \to G$ をそれぞれ $\mu(x,y)=xy, \nu(x) = x^{-1}$ と定義するとき、$\mu,\nu$ が微分可能である。
+\end{enumerate}
+
+
+\section{統一的な見方}
+
+\subsection{モノイド}
+
+次に、初歩的な圏論を用いてこれらを統一的に理解してみる。
+
+1点集合 $1 = \{ 0 \}$ は、$\lambda<0,x>=x \ , \ \rho<x,0> = x $ で与えられる全単射
+$$
+	1 \times X \xrightarrow{\lambda} X \xleftarrow{\rho} X \times 1
+$$
+を考えると、積（カルテシアン積）の単位元として働く。
+
+モノイド $M$ は集合 $M$ に2つの関数
+$$
+	\mu : M \times M \to M \ , \ \ \eta : 1 \to M
+$$
+が付随していて、$\mu,\eta$ に関する以下の図式を可換にするものである。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFkACAHW7wFt4nLrwFD2IAL6l0mXPkIoATOSq1GLNiL5ZBcYVJkgM2PASJkla+s1aIOPHXoPTZphURVXqNzfYmSajBQAObwRKAAZgBOEPxIZCA4EEgAjD4adiCpjmL6vPxMhlGx8YiJyUgq6rZsBUy5ukKpxSAxcWnUlYgAzBm19vWt7WXV3X01fiBDgZJAA
+	\begin{tikzcd}
+		M \times M \times M \arrow[rr, "1 \times \mu"] \arrow[dd, "\mu \times 1"] &  & M \times M \arrow[dd, "\mu"] \\
+		&  &                              \\
+		M \times M \arrow[rr, "\mu"]                                              &  & M
+	\end{tikzcd}
+\]
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEYACAHW7wFt4nALIgAvqXSZc+QigBM5KrUYs2wnnyyC4I8ZJAZseAkQAsS6vWatEIDbwFD2+qcdlFF85dbV3RYsowUADm8ESgAGYAThD8SGQgOBBI7FaqtiC8MDh0mk66LhJRsfGIikkpiGkqNmxcjtpC2bkg1Ax0AEYwDAAK0iZyINFYIQAWOK4gMXGp1MlIAMzpdXa8-ExTM2WJC4jLtX5Z3B38nVB0bSAd3X0DHnYj45PF06VIFXsHvpm80WMpQJiIA
+	\begin{tikzcd}
+		1 \times M \arrow[rr, "\eta \times 1"] \arrow[rrdd, "\lambda"'] &  & M \times M \arrow[dd, "\mu"] &  & M \times 1 \arrow[ll, "1 \times \eta"'] \arrow[lldd, "\rho"] \\
+		&  &                              &  &                                                              \\
+		&  & M                            &  &
+	\end{tikzcd}
+\]
+
+\subsection{逆元に写す写像を入れる}
+
+
+群には逆元がある。
+$\xi : M \to M$ で $\xi : x \mapsto x^{-1}$ となる写像を用いて以下の図式を可換するものが群である。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFkQBfU9TXfIRQAmclVqMWbdgAIAOnLwBbeDM48+2PASIAWMdXrNWiDvMVYVcNd14gMWwUTLDxRqaYCMtzQJ0p9V0NJEw5ucRgoAHN4IlAAMwAnCCUkMhAcCCQAZg0QJJS06kykT2DjNgVYBhw6H3zk1MQyjKzEUQkKr3NlVQUADyx6gqaOksR9To8QBSUmYcac4rbJ91CFGFrwriA
+	\begin{tikzcd}
+		M \arrow[dd, "\eta \circ !"] \arrow[rr, "\delta"] &  & M \times M \arrow[rr, "1 \times \xi"] &  & M \times M \arrow[dd, "\mu"] \\
+		&  &                                       &  &                              \\
+		1 \arrow[rrrr, "\eta"]            &  &                                       &  & M
+	\end{tikzcd}
+\]
+
+ただし、$\eta$ が単位元への射で、$!$ は $M$ から1点集合 1 への唯一の射である。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA8QBfU9TXfIRQAmclVqMWbADztS7AHzdeIDNjwEiAFjHV6zVohCz5APWABaAIxclPPusFEyw8fqlHiyhwM0odrnqShhzs5tZc3OIwUADm8ESgAGYAThAAtkhkIDgQSADM1Dh0WAxs6XRocLneIKkZWUV5iFZFJWVGFVU11Ax0AEYwDAAK-BpCIAwwSTi19ZktTUiiOe3lldV59nVpCys1iDqrpevdWyrzBUuHbSedGzVcFFxAA
+	\begin{tikzcd}
+		x \arrow[dd, maps to] \arrow[rr, maps to] &  & {<x,x>} \arrow[rr, maps to] &  & {<x,x^{-1}>} \arrow[dd, maps to] \\
+		&  &                             &  &                                  \\
+		0 \arrow[rrrr, maps to]                   &  &                             &  & xx^{-1}
+	\end{tikzcd}
+\]
+
+ここで $\delta : M \to M \times M$ は $\delta : x \mapsto <x,x> $ となる対角写像である。
+
+\ \
+
+$M$ が集合で、各射が単に関数であって上記の図式を可換にするものを群という。
+
+$M$ が位相空間で、各射が連続写像であって上記の図式を可換にするものを位相群という。
+
+$M$ が可微分多様体で、各射が多様体の滑らかな写像であって上記の図式を可換にするものをLie群という。
+
+
+\end{document}

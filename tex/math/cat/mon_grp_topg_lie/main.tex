@@ -1,0 +1,144 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+\hspace{3em} A Unified View of Monoids, \newline Groups, Topological Groups, and Lie Groups
+}
+
+\author{
+Masaru Okada
+}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+	We'll review the definitions of monoids, groups, topological groups, and Lie groups, and see how writing them in terms of category-theoretic diagrams makes them magically unified and easy to understand.
+\end{abstract}
+
+\section{Naive Definitions}
+
+First, let's define monoids, groups, topological groups, and Lie groups naively.
+
+\subsection{Definition of a Monoid}
+
+A monoid is a semigroup with an identity element, satisfying associativity and having an identity.
+
+A set $M$ with a binary operation $\cdot : M \times M \to M$
+
+\begin{enumerate}
+	\item Associativity: For any elements of $M$, $(a \cdot b) \cdot c = a \cdot (b \cdot c)$.
+	\item Existence of an identity element: There exists an element $e$ in $M$ such that for any element $a$ in $M$, $e \cdot a = a \cdot e = a$.
+\end{enumerate}
+
+\subsection{Definition of a Group}
+
+A group is a monoid that also has an inverse element.
+
+A set $G$ with a binary operation $\cdot : G \times G \to G$
+
+\begin{enumerate}
+	\item Associativity: For any elements of $G$, $(a \cdot b) \cdot c = a \cdot (b \cdot c)$.
+	\item Existence of an identity element: There exists an element $e$ in $M$ such that for any element $a$ in $G$, $e \cdot a = a \cdot e = a$.
+	\item Existence of an inverse element: For any element $a$ in $G$, there exists an element $a^{-1}$ that satisfies $a^{-1} \cdot a = a \cdot a^{-1} = e$.
+\end{enumerate}
+
+\subsection{Definition of a Topological Group}
+
+A set $G$ is a topological group if it is a group and satisfies the axioms of a topological space, and there exist continuous maps for the product and inverse.
+
+\begin{enumerate}
+	\item $G$ is a group.
+	\item $G$ is a topological space.
+	\item The maps $\mu: G \times G \to G$ and $\nu: G \to G$, defined as $\mu(x,y)=xy$ and $\nu(x) = x^{-1}$ respectively, are continuous.
+\end{enumerate}
+
+\subsection{Definition of a Lie Group}
+
+A set $G$ is a Lie group if it is a differentiable manifold, and satisfies the axioms of a topological group, and the maps for the product and inverse are differentiable.
+
+\begin{enumerate}
+	\item $G$ is a differentiable manifold.
+	\item The maps $\mu: G \times G \to G$ and $\nu: G \to G$, defined as $\mu(x,y)=xy$ and $\nu(x) = x^{-1}$ respectively, are differentiable.
+\end{enumerate}
+
+
+\section{A Unified View}
+
+\subsection{Monoid}
+
+Next, let's try to understand these concepts in a unified way using elementary category theory.
+
+A one-point set $1 = \{ 0 \}$ acts as an identity element for the product (Cartesian product), considering the bijections
+$$
+	1 \times X \xrightarrow{\lambda} X \xleftarrow{\rho} X \times 1
+$$
+given by $\lambda<0,x>=x \ , \ \rho<x,0> = x $.
+
+A monoid $M$ is a set $M$ equipped with two functions
+$$
+	\mu : M \times M \to M \ , \ \ \eta : 1 \to M
+$$
+that make the following diagrams commute with respect to $\mu$ and $\eta$.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFkACAHW7wFt4nLrwFD2IAL6l0mXPkIoATOSq1GLNiL5ZBcYVJkgM2PASJkla+s1aIOPHXoPTZphURVXqNzfYmSajBQAObwRKAAZgBOEPxIZCA4EEgAjD4adiCpjmL6vPxMhlGx8YiJyUgq6rZsBUy5ukKpxSAxcWnUlYgAzBm19vWt7WXV3X01fiBDgZJAA
+	\begin{tikzcd}
+		M \times M \times M \arrow[rr, "1 \times \mu"] \arrow[dd, "\mu \times 1"] &  & M \times M \arrow[dd, "\mu"] \\
+		&  &                               \\
+		M \times M \arrow[rr, "\mu"]                                                 &  & M
+	\end{tikzcd}
+\]
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEYACAHW7wFt4nALIgAvqXSZc+QigBM5KrUYs2wnnyyC4I8ZJAZseAkQAsS6vWatEIDbwFD2+qcdlFF85dbV3RYsowUADm8ESgAGYAThD8SGQgOBBI7FaqtiC8MDh0mk66LhJRsfGIikkpiGkqNmxcjtpC2bkg1Ax0AEYwDAAK0iZyINFYIQAWOK4gMXGp1MlIAMzpdXa8-ExTM2WJC4jLtX5Z3B38nVB0bSAd3X0DHnYj45PF06VIFXsHvpm80WMpQJiIA
+	\begin{tikzcd}
+		1 \times M \arrow[rr, "\eta \times 1"] \arrow[rrdd, "\lambda"'] &  & M \times M \arrow[dd, "\mu"] &  & M \times 1 \arrow[ll, "1 \times \eta"'] \arrow[lldd, "\rho"] \\
+		&  &                               &  &                                                               \\
+		&  & M                              &  &
+	\end{tikzcd}
+\]
+
+\subsection{Introducing a Map for the Inverse Element}
+
+
+A group has an inverse element.
+A group is a monoid that makes the following diagram commute using a map $\xi : M \to M$ where $\xi : x \mapsto x^{-1}$.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFkQBfU9TXfIRQAmclVqMWbdgAIAOnLwBbeDM48+2PASIAWMdXrNWiDvMVYVcNd14gMWwUTLDxRqaYCMtzQJ0p9V0NJEw5ucRgoAHN4IlAAMwAnCCUkMhAcCCQAZg0QJJS06kykT2DjNgVYBhw6H3zk1MQyjKzEUQkKr3NlVQUADyx6gqaOksR9To8QBSUmYcac4rbJ91CFGFrwriA
+	\begin{tikzcd}
+		M \arrow[dd, "\eta \circ !"] \arrow[rr, "\delta"] &  & M \times M \arrow[rr, "1 \times \xi"] &  & M \times M \arrow[dd, "\mu"] \\
+		&  &                                        &  &                              \\
+		1 \arrow[rrrr, "\eta"]                               &  &                                        &  & M
+	\end{tikzcd}
+\]
+
+where $\eta$ is the arrow to the identity element and $!$ is the unique arrow from $M$ to the one-point set $1$.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA8QBfU9TXfIRQAmclVqMWbADztS7AHzdeIDNjwEiAFjHV6zVohCz5APWABaAIxclPPusFEyw8fqlHiyhwM0odrnqShhzs5tZc3OIwUADm8ESgAGYAThAAtkhkIDgQSADM1Dh0WAxs6XRocLneIKkZWUV5iFZFJWVGFVU11Ax0AEYwDAAK-BpCIAwwSTi19ZktTUiiOe3lldV59nVpCys1iDqrpevdWyrzBUuHbSedGzVcFFxAA
+	\begin{tikzcd}
+		x \arrow[dd, maps to] \arrow[rr, maps to] &  & {<x,x>} \arrow[rr, maps to] &  & {<x,x^{-1}>} \arrow[dd, maps to] \\
+		&  &                              &  &                                    \\
+		0 \arrow[rrrr, maps to]                       &  &                              &  & xx^{-1}
+	\end{tikzcd}
+\]
+
+Here, $\delta : M \to M \times M$ is the diagonal map given by $\delta : x \mapsto <x,x>$.
+
+\bigskip
+
+A group is what you get when $M$ is a set and each morphism is just a function that makes the above diagrams commute.
+
+A topological group is what you get when $M$ is a topological space and each morphism is a continuous map that makes the diagrams commute.
+
+A Lie group is what you get when $M$ is a differentiable manifold and each morphism is a smooth map of manifolds that makes the diagrams commute.
+
+\end{document}
