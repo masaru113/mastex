@@ -15,6 +15,7 @@ The notes are organized within a parent directory named `tex`. All documents are
 - **tex**: Root directory for documents created with LaTeX.
     - **finance**: Notes on financial engineering.
         - **[Arbitrage and Gauge Theory](https://github.com/masaru113/mastex/blob/main/tex/finance/GaugeTheoryInForex/main.pdf)**: Notes examining the relationship between arbitrage in the foreign exchange market and gauge theory.
+        - **[Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio](https://github.com/masaru113/mastex/blob/main/tex/finance/ReplicatingPortfolio/main.pdf)**: Outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
     - **math**: Notes on mathematics.
         - **category**: Foundational notes on category theory.
             - **[A First Step into Category Theory](https://github.com/masaru113/mastex/blob/main/tex/math/cat/category_first_step/main.pdf)**: Definition of categories and specific examples.
@@ -26,6 +27,7 @@ The notes are organized within a parent directory named `tex`. All documents are
             - : **[An Introduction to Topological Groups](https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main.pdf)**: Notes on introduction to topological group
     - **phys**: Notes on physics.
         - **[Bogoliubov Transformation as a Natural Transformation](https://github.com/masaru113/mastex/blob/main/tex/phys/BogoliubovTrans_as_NaturalTrans/main.pdf)**: Notes on the relationship between Bogoliubov transformations and natural transformations.
+        - **[Bosonic Strings Short Introduction](https://github.com/masaru113/mastex/blob/main/tex/phys/BozonicString/main.pdf)**: Notes on short introduction about bosonic string.
         - **[Notes on the Derivation of the Chern-Simons Form](https://github.com/masaru113/mastex/blob/main/tex/phys/ChernSimonsForm/main.pdf)**: Notes on a simple, from-scratch derivation of the Chern-Simons form.
         - **[Massless Real Scalar Field in 5D Minkowski Space Gaining Mass Upon Compactification of One Spatial Dimension](https://github.com/masaru113/mastex/blob/main/tex/phys/KaluzaKleinMassGeneration/main.pdf)**: Notes on the mechanism of mass generation via compactification.
 
@@ -36,17 +38,19 @@ The notes are organized within a parent directory named `tex`. All documents are
 └─tex
     ├─finance
     │  └─GaugeTheoryInForex
+    │  └─ReplicatingPortfolio
     ├─math
     │  ├─cat
     │  │  ├─category_first_step
     │  │  ├─functor
     │  │  └─natural_transformation
     │  └─top
+    │      └─MatrixTopology
     │      └─sierpinski_space
     │      └─topological_group_first_step
-    │      └─MatrixTopology
     └─phys
         ├─BogoliubovTrans_as_NaturalTrans
+        ├─BosonicString
         ├─ChernSimonsForm
         └─KaluzaKleinMassGeneration
 ```
