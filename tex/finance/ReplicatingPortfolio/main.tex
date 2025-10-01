@@ -1,0 +1,324 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{
+\begin{center}
+	Construction Strategy of a Hedging Portfolio \\
+	Using a Replicating Portfolio
+\end{center}
+}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	This note outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
+\end{abstract}
+
+
+\section{Overview of Replicating Portfolio Construction}
+The replicating strategy to be described proceeds in the following three stages:
+\begin{enumerate}
+	\item Find a martingale measure $\mathbb{Q}$ that makes the discounted stock price process $Z_{t}$ a martingale.
+	\item Transform the contract into a process. $E_{t} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{t})$
+	\item Find a predictable process $\phi_{t}$ such that $dE_{t} = \phi_{t} d Z_{t}$.
+\end{enumerate}
+
+I will summarize these steps roughly.
+
+If a proof of a theorem is needed, please refer to an appropriate textbook or reference accordingly.
+
+This is a memo to check the overall picture, so let's set aside the details for now.
+
+First, I will try these three steps in a simple case where the risk-free interest rate is zero ($r=0$).
+
+Next, I will construct a replicating portfolio in the case where the risk-free interest rate is not zero (by modifying the results derived for $r=0$).
+
+\section{Replicating Portfolio Construction under the Black-Scholes Model}
+
+Pricing a call option according to the Black-Scholes model is a good example of creating a replicating portfolio.
+
+The Black-Scholes model is a model for the price process of a continuously tradable underlying asset (here, assumed to be a stock price) $S_{t}$ and a bond price process $B_{t}$, and is expressed using constants $r, \sigma, \mu$ as follows:
+
+\begin{itemize}
+	\item $S_{t} = S_{0} \exp (\sigma W_{t} + \mu t)$
+	\item $B_{t} = \exp (rt)$
+\end{itemize}
+
+Here, $S_{0}$ is the stock price at the present time ($t=0$) (with the bond as the numeraire) and is a positive value.
+
+$t$ represents time as a real number, and $T$ denotes the contract's expiration time.
+
+$r$ is a real number representing the risk-free interest rate, and $\sigma$ is a non-zero value representing the volatility of the stock (if it were zero, $S_{t}$ would not be a stochastic process).
+
+$\mu$ is the drift (= expected return of a person on the $\mathbb{P}$ measure) and is a real number.
+
+$W_{t}$ is a $\mathbb{P}$ - Brownian motion. That is,
+\begin{enumerate}
+	\item $W_{t}$ is continuous and satisfies $W_{0} = 0$.
+	\item Under the measure $\mathbb{P}$, the distribution of $W_{t}$ follows a normal distribution $N(0,t)$.
+	\item The increment $W_{s+t} - W_{s}$ follows a normal distribution $N(0,t)$ under the probability measure $\mathbb{P}$ and is independent of the history $\mathcal{F}_{s}$ up to time $s$.
+\end{enumerate}
+
+In this Black-Scholes model, the market is assumed to consist of a risk-free cash bond with a fixed interest rate and a stock (which has risk) that follows a geometric Brownian motion.
+
+A model for stock fluctuations that is too complex makes it impossible to find a replicating strategy, while a model that is too simple lacks the validity to represent reality.
+
+The model that represents stock prices as a Brownian motion satisfies the minimum properties necessary to represent the real world.
+
+\subsection{$r=0$: When the risk-free interest rate is zero}
+First, let's try to construct a replicating portfolio in the case where the risk-free interest rate $r=0$.
+In this case, the construction of the replicating strategy is simplified into the following three steps:
+\begin{enumerate}
+	\item Find a measure $\mathbb{Q}$ that makes $S_{t}$ a martingale.
+	\item Transform the contract into a process. $E_{t} = \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{t})$
+	\item Find a predictable process $\phi_{t}$ such that $dE_{t} = \phi_{t} d S_{t}$.
+\end{enumerate}
+At each of these stages, the following theorems are used:
+\begin{itemize}
+	\item Girsanov's Theorem and the Radon-Nikodym Theorem (Stage 1, Stage 2)
+	\item The Martingale Representation Theorem (Stage 3)
+\end{itemize}
+
+\subsection{Step 1: Find a measure $\mathbb{Q}$ that makes $S_{t}$ a martingale.}
+
+We find the stochastic differential equation that $S_{t}$ satisfies.
+This is the task of applying Girsanov's theorem to investigate whether $S_{t}$ is a martingale under a given measure $\mathbb{Q}$.
+
+Based on the assumption of the Black-Scholes model, the stock price is a geometric Brownian motion
+$$S_{t} = \exp (\sigma W_{t} + \mu t)$$
+Therefore, the logarithm of the stock price
+$$Y_{t} = \log S_{t} = \sigma W_{t} + \mu t$$
+is simply a Brownian motion with a drift, so the stochastic differential equation can be found by taking the stochastic differential (applying Itô's lemma).
+
+According to Itô's lemma, the stochastic differential $d f(X_{t})$ of a function $f(X_{t})$ of a stochastic process $X_{t}$ satisfying $d X_{t} = \sigma_{t} d W_{t} + \mu_{t} d t$ is given as follows:
+$$d f(X_{t}) = \sigma_{t} f ' ( X_{t} ) d W_{t} + \left( \mu_{t} f ' ( X_{t} ) + \dfrac{1}{2} \sigma^{2}_{t} f'' (X_{t}) \right) dt$$
+In this case, $S_{t} = f(X_{t}) = \exp X_{t} = \exp (\sigma W_{t} + \mu t)$, so
+\begin{align*}
+	d f(X_{t}) & = \sigma_{t} f ' ( X_{t} ) d W_{t} + \left( \mu_{t} f ' ( X_{t} ) + \dfrac{1}{2} \sigma^{2}_{t} f'' (X_{t}) \right) dt \\
+	d S_{t}   & = \sigma \exp X_{t} d W_{t} + \left( \mu \exp X_{t} + \dfrac{1}{2} \sigma^{2} \exp X_{t} \right) dt \\
+	& = \sigma S_{t} d W_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) S_{t} dt
+\end{align*}
+Dividing both sides by $S_{t}$, we get
+$$ \dfrac{d S_{t}}{S_{t}} = \sigma d W_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) dt $$
+Now, we eliminate the drift of $S_{t}$ by using the inverse of Girsanov's theorem.
+
+That is,
+the inverse of Girsanov's theorem guarantees the existence of a measure $\mathbb{Q}$ such that when $W_{t}$ is a $\mathbb{P}$-Brownian motion, $ \displaystyle \tilde{W}_{t} = W_{t} + \int^{t}_{0} \gamma_{s} ds$ becomes a $\mathbb{Q}$-Brownian motion, and the measure $\mathbb{Q}$ is defined such that its Radon-Nikodym derivative with respect to the measure $\mathbb{P}$ is $\dfrac{d \mathbb{Q}}{d \mathbb{P}} = \exp \left( - \int^{T}_{0} \gamma_{t} d W_{t} - \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)$.
+
+However, the condition for applying Girsanov's theorem, $\mathbb{E}_{\mathbb{P}} \exp \left( \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right) < \infty$, must be satisfied. (This is Novikov's condition. It is a technical requirement, so one often does not need to worry too much about it in actual hedging.)
+
+The $\tilde{W}_{t}$ obtained by this transformation is a $\mathbb{Q}$-Brownian motion, so $S_{t}$ satisfies the following stochastic differential equation:
+$$\dfrac{dS_{t}}{S_{t}} = \sigma d \tilde{W}_{t}$$
+Therefore, the $\mathbb{P}$-Brownian motion and the $\mathbb{Q}$-Brownian motion, $d \tilde{W}_{t}$ and $d W_{t}$, must have the following relationship:
+\begin{align*}
+	\sigma S_{t} d \tilde{W}_{t} & = \sigma S_{t} d W_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) S_{t} dt \\
+	d \tilde{W}_{t} & = d W_{t} + \dfrac{ \mu + \frac{1}{2} \sigma^{2} }{\sigma} dt
+\end{align*}
+
+Thus, from the inverse of Girsanov's theorem, when we set
+$$ \gamma = \dfrac{ \mu + \frac{1}{2} \sigma^{2} }{\sigma} $$
+a measure $\mathbb{Q}$ exists such that
+$$ \tilde{W}_{t} = W_{t} + \int^{t}_{0} \gamma ds = W_{t} + \gamma t $$
+becomes a $\mathbb{Q}$-Brownian motion, and is defined as follows:
+$$ \dfrac{d \mathbb{Q}}{d \mathbb{P}} = \exp \left( - \int^{T}_{0} \gamma d W_{t} - \dfrac{1}{2} \int^{T}_{0} \gamma^{2} dt \right) = \exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right) $$
+
+\subsection{Step 2: Transform the contract into a process. $E_{t} = \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{t})$}
+Next, we transform a certain contract $X$ into a $\mathbb{Q}$-martingale $E_{t}$ under the measure $\mathbb{Q}$ defined in the first stage.
+
+The conditional expectation of the contract $X$ under the filtration $\mathcal{F}_{t}$ and measure $\mathbb{Q}$ is
+$$E_{t} = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{t})$$
+For this to be a $\mathbb{Q}$-martingale, it must satisfy $\mathbb{E}_{\mathbb{Q}}( E_{t} | \mathcal{F}_{s} ) = E_{s}$ for time $s<t$. In fact, for $s<t$,
+$$ \mathbb{E}_{\mathbb{Q}}( E_{t} | \mathcal{F}_{s} ) = \mathbb{E}_{\mathbb{Q}} \Big( \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{t}) \ | \mathcal{F}_{s} \Big) = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{s}) = E_{s} $$
+is true (due to the tower property), so by defining
+$$ E_{t} = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{t}) $$
+the contract $X$ becomes a $\mathbb{Q}$-martingale under the measure $\mathbb{Q}$.
+
+\subsection{Step 3: Find a predictable process $\phi_{t}$ such that $dE_{t} = \phi_{t} d S_{t}$.}
+According to the Martingale Representation Theorem, there exists a predictable process $\phi_{t}$ that satisfies
+$$dE_{t} = \phi_{t} dS_{t}$$
+In integral form, this is
+$$E_{t} = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{t}) = \mathbb{E}_{\mathbb{Q}} X + \int^{t}_{0} \phi_{s} d S_{s}$$
+Now, we are ready to find the specific holdings of stock $\phi_{t}$ and bond $\psi_{t}$ required for the construction of the replicating portfolio.
+
+In conclusion, the following strategies 1 and 2 apply:
+\begin{itemize}
+	\item Strategy 1. Hold $\phi_{t}$ units of stock at time $t$.
+	\item Strategy 2. Hold $\psi_{t} = E_{t} - \phi_{t} S_{t}$ units of bond at time $t$.
+\end{itemize}
+
+To understand this, let's check if a replicating portfolio that satisfies strategies 1 and 2 is self-financing.
+The value of the replicating portfolio at time $t$, $V_{t}$, is (noting that $B_{t} = 1$ since we are considering $r=0$):
+$$V_{t} = \phi_{t} S_{t} + \psi_{t} B_{t} = \phi_{t} S_{t} + (E_{t} - \phi_{t} S_{t}) \times 1 = E_{t}$$
+It is trivially true that $dV_{t} = dE_{t}$. Since $dB_{t} = 0$, by using the Martingale Representation Theorem, we get
+$$dV_{t} = \phi_{t} dS_{t} = \phi_{t} dS_{t} + 0 = \phi_{t} dS_{t} + \psi_{t} dB_{t}$$
+Indeed, it is self-financing.
+
+The value of the replicating portfolio at the end time is
+$$V_{T} = E_{T} = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{T}) = X$$
+Therefore, this strategy $V_{t}$ is the no-arbitrage price of $X$ at all times $t$.
+
+At the start time,
+$$V_{0} = E_{0} = \mathbb{E}_{\mathbb{Q}}X$$
+we can also see that the price of contract $X$ is the expected value under the measure $\mathbb{Q}$ that makes the stock price process $S_{t}$ a martingale.
+
+\subsection{Why must the prices be the same?}
+If the price of the replicating portfolio ($V_t$) and the theoretical price of the derivative ($E_t$) are not the same, an “\textbf{arbitrage opportunity}” exists in the market.
+
+This is a magical trading opportunity to make a profit without taking any risk.
+
+\subsection{Case 1: Replicating portfolio is undervalued ($V_t < E_t$)}
+If the derivative's price is higher than the cost of reproducing that derivative (the replicating portfolio), market participants will act as follows:
+\begin{enumerate}
+	\item \textbf{Sell (short) the expensive derivative.} This brings money into their hands.
+	\item Alternatively, \textbf{buy (long) the cheap replicating portfolio.} They use the money from the sale for this.
+\end{enumerate}
+When this trade is set up, the replicating portfolio will have the same value as the derivative at expiration, so they offset each other's risk. However, the initial price difference remains as a guaranteed profit in their hands.
+
+\subsection{Case 2: Replicating portfolio is overvalued ($V_t > E_t$)}
+Conversely, if the cost of reproducing the derivative is higher than the derivative's price, the same logic applies:
+\begin{enumerate}
+	\item \textbf{Buy (long) the cheap derivative.}
+	\item \textbf{Sell (short) the expensive replicating portfolio.}
+\end{enumerate}
+In this case as well, the risks offset each other at expiration, so the profit gained initially is locked in.
+
+\subsection{The market's self-correcting function}
+Such risk-free profit opportunities are instantly found by arbitrageurs.
+
+They will continue to trade until the opportunity disappears, causing the derivative's price ($E_t$) and the replicating portfolio's price ($V_t$) to quickly converge to be \textbf{equal}.
+
+This mechanism is the reason why the replicating portfolio price is determined as a single no-arbitrage price.
+
+\section{Introducing the Risk-Free Interest Rate}
+I have so far explained that when the interest rate $r$ is zero, any contract $X$ satisfies the no-arbitrage condition and its no-arbitrage price is obtained by taking the expected value under a measure $\mathbb{Q}$ that makes $S_{t}$ a martingale.
+
+If the interest rate $r$ is not zero, the method so far does not work well, and an improvement is needed.
+
+For example, the strike price for which the value of a forward contract with strike $K$ (a contract to exchange funds of $S_{T}-K$ at $t=T$) becomes zero is $K=S_{0} e^{rT}$ (for any other $K$, an arbitrage would occur).
+
+$$ \mathbb{E}_{\mathbb{Q}}(S_{T} - K) = \mathbb{E}_{\mathbb{Q}}(S_{T} - S_{0} e^{rT}) = S_{0} - S_{0} e^{rT} \neq 0 $$
+
+However, this problem can be easily solved.
+
+It would be sufficient to have a new measure $\mathbb{\tilde Q}$ different from the measure $\mathbb{Q}$ considered so far, such that it satisfies $\mathbb{E}_{\mathbb{\tilde Q}}S_{t} = S_{0} e^{rt}$.
+
+This is a new measure $\mathbb{\tilde Q}$ (different from the measure we have been considering) that makes the discounted stock price process $Z_{t} = B^{-1}_{t} S_{t}$, where the discounted process is $B^{-1}_{t}=e^{-rt}$, a martingale.
+
+In economic terms, this is equivalent to thinking about a world where the growth of money's value has stopped (a world where the numeraire is $B_{t}$).
+
+In the following, I will attempt to construct a replicating portfolio in this world.
+
+\subsection{Step 1: Find a measure $\mathbb{Q}$ that makes the discounted stock price process $Z_{t}$ a martingale.}
+Using Itô's lemma,
+\begin{align*}
+	dB_{t} & = \left( \dfrac{\partial B_{t}}{\partial t} + \dfrac{1}{2} \dfrac{\partial^{2} B_{t}}{\partial x^{2}} \right) dt + \dfrac{\partial B_{t}}{\partial x} dW_{t} = r B_{t} dt \\
+	dS_{t} & = \left( \dfrac{\partial S_{t}}{\partial t} + \dfrac{1}{2} \dfrac{\partial^{2} S_{t}}{\partial x^{2}} \right) dt + \dfrac{\partial S_{t}}{\partial x} dW_{t} = \left( \mu + \dfrac{1}{2} \sigma^{2} \right) S_{t} dt + \sigma S_{t} dW_{t}
+\end{align*}
+so
+$$ \dfrac{d \left( \dfrac{S_{t}}{B_{t}} \right) }{ \dfrac{S_{t}}{B_{t}} } = \dfrac{dS_{t}}{S_{t}} - \dfrac{dB_{t}}{B_{t}} - \dfrac{dS_{t}}{S_{t}} \dfrac{dB_{t}}{B_{t}} + \left( \dfrac{dB_{t}}{B_{t}} \right)^{2} = \sigma d W_{t} + \left( \mu - r + \dfrac{1}{2} \sigma^{2} \right) dt $$
+
+We now use Girsanov's theorem. Setting $\theta = \dfrac{\mu - r + \dfrac{1}{2} \sigma^{2}}{\sigma}$, we define a new measure $\mathbb{Q}$ with the Radon-Nikodym derivative
+$$ \dfrac{d \mathbb{Q}}{d \mathbb{P}} = \exp \left( - \int^{T}_{0} \theta d W_{t} - \dfrac{1}{2} \int^{T}_{0} \theta^{2} dt \right) = \exp \left( - \theta W_{T} - \dfrac{1}{2} \theta^{2} T \right) $$
+Under this measure, $Z_{t}$ becomes a martingale.
+
+At this point, the stochastic differential equation to be solved is
+$$ \dfrac{dZ_{t}}{Z_{t}} = \sigma d \tilde{W}_{t} $$
+where we have set the desired process as $d \tilde{W}_{t} = d W_{t} + \theta dt$.
+
+\subsection{Step 2: Transform the contract into a process. $E_{t} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{t})$}
+For $s<t$,
+$$ E_{s} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{s}) = e^{-rT} \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{s}) $$
+and
+$$ \mathbb{E}_{\mathbb{Q}}( E_{t} | \mathcal{F}_{s}) = \mathbb{E}_{\mathbb{Q}} \left( e^{-rT} \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{t}) \Big| \mathcal{F}_{s} \right) = e^{-rT} \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{s}) = E_{s} $$
+Thus, $E_{t} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{t})$ becomes a martingale under the new measure $\mathbb{Q}$.
+
+\subsection{Step 3: Find a predictable process $\phi_{t}$ such that $dE_{t} = \phi_{t} d Z_{t}$.}
+We can proceed in the same way as when we were thinking in a world where the numeraire was not the bond.
+
+The stock holding amount for replication, $\phi_{t}$, and the bond holding amount, $\psi_{t}$, give the price of the replicating portfolio at time $t$ as
+$$V_{t} = \phi_{t} S_{t} + \psi_{t} B_{t}$$
+Since the price of the contract and the price of the replicating portfolio are the same at time $T$,
+$$X = V_{T} = \phi_{T} S_{T} + \psi_{T} B_{T}$$
+On the other hand,
+$$E_{T} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{T}) = B^{-1}_{T} X$$
+Therefore,
+$$V_{t} = B_{t} E_{t}$$
+
+Similar to the $r=0$ case, we consider a replicating portfolio that satisfies strategies 1 and 2:
+\begin{itemize}
+	\item Strategy 1. Hold $\phi_{t}$ units of stock at time $t$.
+	\item Strategy 2. Hold $\psi_{t} = E_{t} - \phi_{t} S_{t}$ units of bond at time $t$.
+\end{itemize}
+\begin{align*}
+	d V_{t} & = d B_{t} E_{t} + B_{t} d E_{t} \\
+	& = d B_{t} B^{-1}_{t} (\phi_{t} S_{t} + \psi_{t} B_{t}) + B_{t} (\phi_{t} dZ_{t} + \psi_{t}) \\
+	& = \phi_{t} (Z_{t} dB_{t} + B_{t} dZ_{t}) + \psi_{t} dB_{t} \\
+	& = \phi_{t} dS_{t} + \psi_{t} dB_{t}
+\end{align*}
+From the above, similar to the $r=0$ case, under this strategy, $(\phi_{t},\psi_{t})$ becomes self-financing.
+
+\section{Concrete Example}
+Finally, as a practice problem to summarize what has been discussed, I will apply the framework described so far to a simple contract.
+
+\subsection{Pricing a European Call Option}
+The contract $X$ for a European call option with maturity $T$ and strike price $K$ is
+$$ X = \mathrm{Max}(S_{T} - K,0) $$
+Therefore, the present value of the replicating portfolio under the no-arbitrage condition can be written as
+$$ V_{0} = e^{-rT} \mathbb{E}_{\mathbb{Q}} \mathrm{Max}(S_{T} - K,0) $$
+Here, the measure $\mathbb{Q}$ is the martingale measure for the process $B^{-1}_{t} S_{t}$.
+
+Representing the underlying asset $S_{t}$ using the $\mathbb{Q}$-Brownian motion $\tilde{W}_{t}$, we have
+\begin{align*}
+	d(\log S_{t}) & = \sigma d \tilde{W}_{t} + \left( r - \dfrac{1}{2} \sigma^{2} \right) dt \\
+	S_{t} & = S_{0} \exp \left[ \sigma \tilde{W}_{t} + \left( r - \dfrac{1}{2} \sigma^{2} \right) t \right]
+\end{align*}
+Therefore, if we write a normal distribution with mean $m$ and variance $v$ as $N(m,v)$, we can see that the marginal distribution of $S_{T}$ is the product of $S_{0}$ and the exponential of $N \left( \left( r - \dfrac{1}{2} \sigma^{2} \right) T , \sigma^{2} T \right)$.
+
+If we let $Z$ be a random variable that follows $N \left( - \dfrac{1}{2} \sigma^{2} T , \sigma^{2} T \right)$, then $S_{T} = S_{0} \exp ( Z + rT )$, so we can express the (usual, not measure-aware) expected value as
+\begin{align*}
+	V_{0} & = e^{-rT} \mathbb{E} \mathrm{Max} \Big( S_{0} \exp ( Z + rT ) - K , 0 \Big) \\
+	& = \dfrac{1}{\sqrt{2 \pi \sigma}} \dfrac{1}{\sqrt{T}} \int^{\infty}_{\log(K/S_{0}) - rT} \left( S_{0} e^{x} - K e^{-rT} \right) \exp \left[ - \dfrac{1}{2 \sigma^{2} T} \left( x + \dfrac{1}{2} \sigma^{2} T \right) \right] dx \\
+	& = S_{0} \Phi(d_{+}) - K e^{-rT} \Phi(d_{-})
+\end{align*}
+and solve it analytically.
+Here, $\Phi(x)$ is the probability that $N(0,1)$ is less than or equal to $x$, and $d_{\pm}$ are
+\begin{align*}
+	d_{\pm} & = \dfrac{ \log \left( \dfrac{S_{0}}{K} \right) + \left( r \pm \dfrac{1}{2} \sigma^{2} \right) T }{ \sigma \sqrt{T} } \\
+	\Phi(x) & = \dfrac{1}{\sqrt{2\pi}} \int^{x}_{- \infty} \exp \left( -\dfrac{y^{2}}{2} \right) dy
+\end{align*}
+The replicating portfolio after a time $t(<T)$ has elapsed from the present ($t=0$) has a value, from the no-arbitrage condition, of
+$$V_{t} = e^{-r(T-t)} \mathbb{E}_{\mathbb{Q}} \left( \mathrm{Max}(S_{T} - K,0) \Big| \mathcal{F}_{t} \right)$$
+which is the present price of the contract if the time to maturity is changed from $T$ to $T-t$, so the no-arbitrage price can be obtained by simply replacing $T$ with $T-t$ in the equation for $V_{0}$.
+
+The holdings of the underlying asset $\phi_{t}$ and the numeraire $\psi_{t}$ required for hedging are
+\begin{align*}
+	\phi_{t} & = \dfrac{\partial V_{t}}{\partial S_{0}} = \Phi \left( \dfrac{ \log \left( \dfrac{S_{0}}{K} \right) + \left( r + \dfrac{1}{2} \sigma^{2} \right) (T-t) }{ \sigma \sqrt{T-t} } \right) \\
+	B_{t} \psi_{t} & = - K e^{r(T-t)} \Phi \left( \dfrac{ \log \left( \dfrac{S_{0}}{K} \right) + \left( r - \dfrac{1}{2} \sigma^{2} \right) (T-t) }{ \sigma \sqrt{T-t} } \right)
+\end{align*}
+By trading in this way, the portfolio becomes self-financing and replication becomes possible.
+
+The above is the pricing of a European option based on replicating portfolio theory.
+There are various other methods for pricing European options besides this approach, such as:
+\begin{itemize}
+	\item Solving the \href{https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_equation}{Black-Scholes equation}.
+	\item Solving the partial differential equation converted from it by \href{https://en.wikipedia.org/wiki/Feynman%E2%80%93Kac_formula}{Feynman-Kac}.
+	\item Taking the continuous limit of the price process of a discrete binomial tree.
+\end{itemize}
+Having multiple alternative solutions that lead to the same phenomenon and conclusion will broaden your understanding. I hope this note serves as an aid to that end.
+
+\subsection{References}
+\begin{itemize}
+	\item Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{itemize}
+
+\end{document}

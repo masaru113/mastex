@@ -1,0 +1,335 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{
+\begin{center}
+複製ポートフォリオを用いた \\ ヘッジポートフォリオの構築戦略
+\end{center}
+}
+\author{岡田 大 (Okada Masaru)}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	複製ポートフォリオを用いたヘッジポートフォリオの構築戦略の概要を述べます。
+\end{abstract}
+
+
+\section{複製ポートフォリオ構築の概略}
+これから述べる複製戦略は以下3段階に沿って進めます。
+\begin{enumerate}
+	\item 割引株価過程 $Z_{t}$ をマルチンゲールにする測度 $\mathbb{Q}$ を見つける。
+	\item 契約を過程に変換する。 $E_{t} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{t})$
+	\item $dE_{t} = \phi_{t} d Z_{t}$ となる可予測過程 $\phi_{t}$ を見つける。
+\end{enumerate}
+
+このステップについてざっくりとまとめます。
+
+定理の証明が必要であればそれに応じて適当な教科書や文献を見てください。
+
+細かいことは置いておいてまずは全体像を確認するためのメモとなります。
+
+最初にこの3ステップを無リスク金利がゼロ（$r=0$）である簡単な場合で試します。
+
+その次に無リスク金利がゼロで無い場合に（$r=0$において導出した結果に修正を加えながら）複製ポートフォリオを構築します。
+
+\section{Black-Scholes模型の下での複製ポートフォリオの構築}
+
+Black-Scholes模型に従ってコール・オプションの価格を求めることは、複製ポートフォリオ作成の好例となります。
+
+Black-Scholes模型とは、連続的に取引可能な原資産の価格（以下では例として株価とする）の過程$S_{t}$と債券価格の過程$B_{t}$に関する模型であり、ある定数 $r, \sigma, \mu$ を用いて、
+
+\begin{itemize}
+	\item $S_{t} = S_{0} \exp (\sigma W_{t} + \mu t)$
+	\item $B_{t} = \exp (rt)$
+\end{itemize}
+
+で表される模型です。
+
+$S_{0}$ は（債券をニューメレールとしたときの）現在($t=0$)における株価であり、正の値。
+
+$t$は時刻を表す実数であり、$T$と書いたときは契約の満期時点を表す。
+
+$r$は無リスクな利子率を表す実数、$\sigma$は株式のボラティリティを表すノンゼロの値（ゼロであれば$S_{t}$は確率過程にならない）。
+
+$\mu$ はドリフト（= $\mathbb{P}$ メジャーの人の期待収益率）であり実数。
+
+$W_{t}$ は $\mathbb{P}$ - Brown運動です。すなわち、
+\begin{enumerate}
+	\item $W_{t}$ は連続でかつ $W_{0} = 0$ を満たす。
+	\item 測度 $\mathbb{P}$ の下で $W_{t}$ の値の分布は正規分布 $N(0,t)$ に従う。
+	\item 増分 $W_{s+t} - W_{s}$ は確率測度 $\mathbb{P}$ の下で正規分布 $N(0,t)$ に従い、時刻 $s$ までの履歴 $\mathcal{F}_{s}$ と独立。
+\end{enumerate}
+
+このBlack-Scholes模型においては、マーケットは無リスクで固定された利子率のキャッシュボンドと、幾何Brown運動に従う（リスクのある）株式から成立すると仮定します。
+
+株式変動の模型は複雑すぎても複製戦略を見つけられなくなってしまうし、単純すぎて現実を表現を実現する模型としての妥当性を欠いても困ります。
+
+株価をBrown運動として表現する模型は現実世界を表すものとして最低限の性質は満たしています。
+
+\subsection{$r=0$ : 無リスク金利の利子率がゼロの場合}
+まずは無リスク金利の利子率 $r=0$ の場合に複製ポートフォリオを構築してみます。
+その場合の複製戦略構築は次の3ステップに単純化されます。
+\begin{enumerate}
+	\item $S_{t}$ をマルチンゲールにする測度 $\mathbb{Q}$ を見つける。
+	\item 契約を過程に変換する。 $E_{t} = \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{t})$
+	\item $dE_{t} = \phi_{t} d S_{t}$ となる可予測過程 $\phi_{t}$ を見つける。
+\end{enumerate}
+これらの各段階でそれぞれ以下の定理を用いる：
+\begin{itemize}
+	\item Girsanovの定理とRadon-Nikodimの定理（段階1., 段階2.）
+	\item マルチンゲール表現定理（段階3.）
+\end{itemize}
+
+\subsection{ステップ1 : $S_{t}$ をマルチンゲールにする測度 $\mathbb{Q}$ を見つける。}
+
+$S_{t}$ が満たす確率微分方程式を求めます。
+Girsanovの定理を適応し、与えられた測度 $\mathbb{Q}$ の下で $S_{t}$ がマルチンゲールかどうかを調べる作業です。
+
+Black-Scholes模型に基づく仮定より株価は幾何Brown運動
+$$S_{t} = \exp (\sigma W_{t} + \mu t)$$
+になる。
+よって株価の対数
+$$Y_{t} = \log S_{t} = \sigma W_{t} + \mu t$$
+は単なるドリフト付きのBrown運動であるので、確率微分をする（伊藤の補題の適応をする）ことで確率微分方程式が求まります。
+
+伊藤の補題によると、$d X_{t} = \sigma_{t} d W_{t} + \mu_{t} d t$ を満たす確率過程 $X_{t}$ の関数 $f(X_{t})$ の確率微分 $d f(X_{t})$ は次のように与えられます。
+$$d f(X_{t}) = \sigma_{t} f ' ( X_{t} ) d W_{t} + \left( \mu_{t} f ' ( X_{t} ) + \dfrac{1}{2} \sigma^{2}_{t} f'' (X_{t}) \right) dt$$
+今回の場合は $S_{t} = f(X_{t}) = \exp X_{t} = \exp (\sigma W_{t} + \mu t)$であるので、
+\begin{align*}
+	d f(X_{t}) & = \sigma_{t} f ' ( X_{t} ) d W_{t} + \left( \mu_{t} f ' ( X_{t} ) + \dfrac{1}{2} \sigma^{2}_{t} f'' (X_{t}) \right) dt \\
+	d S_{t}    & = \sigma \exp X_{t} d W_{t} + \left( \mu \exp X_{t} + \dfrac{1}{2} \sigma^{2} \exp X_{t} \right) dt                    \\
+	           & = \sigma S_{t} d W_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) S_{t} dt
+\end{align*}
+両辺を$S_{t}$で割って、
+$$ \dfrac{d S_{t}}{S_{t}} = \sigma d W_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) dt $$
+となる。
+
+次に $S_{t}$ のドリフトをGirsanovの定理の逆を用いて消去する。
+
+すなわち、
+Girsanovの定理の逆によって $W_{t}$ が $\mathbb{P}$-Brown運動のとき、$ \displaystyle \tilde{W}_{t} = W_{t} + \int^{t}_{0} \gamma_{s} ds$ が $\mathbb{Q}$-Brown運動となるような測度 $\mathbb{Q}$ が存在することが保証され、測度 $\mathbb{Q}$ の測度 $\mathbb{P}$ による Radon-Nikodym微分である $\dfrac{d \mathbb{Q}}{d \mathbb{P}} = \exp \left( - \int^{T}_{0} \gamma_{t} d W_{t} - \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)$となるように測度$\mathbb{Q}$が定められる。
+
+ただし、Girsanovの定理の適用要件として、$\mathbb{E}_{\mathbb{P}} \exp \left( \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right) < \infty$を満足する必要がある。（Novikov's condition. これは技術的な要件なので、あまり気にしなくて良いことが多いです。）
+
+この変換で得られた $\tilde{W}_{t}$ は $\mathbb{Q}$-Brown運動なので$S_{t}$ は次の確率微分方程式を満たします。
+$$\dfrac{dS_{t}}{S_{t}} = \sigma d \tilde{W}_{t}$$
+したがって、$\mathbb{P}$-Brown運動と $\mathbb{Q}$-Brown運動、$d \tilde{W}_{t}$ と $d W_{t}$ は次のような関係を持つ必要があります。
+\begin{align*}
+	\sigma S_{t} d \tilde{W}_{t} & = \sigma S_{t} d W_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) S_{t} dt \\
+	d \tilde{W}_{t}              & = d W_{t} + \dfrac{ \mu + \frac{1}{2} \sigma^{2} }{\sigma} dt
+\end{align*}
+
+よってGirsanovの定理の逆から
+$$ \gamma = \dfrac{ \mu + \frac{1}{2} \sigma^{2} }{\sigma} $$
+としたときに、
+$$ \tilde{W}_{t} = W_{t} + \int^{t}_{0} \gamma ds = W_{t} + \gamma t $$
+が $\mathbb{Q}$ -Brown運動となるような測度 $\mathbb{Q}$ が存在し、次のように定められる。
+$$ \dfrac{d \mathbb{Q}}{d \mathbb{P}} = \exp \left( - \int^{T}_{0} \gamma d W_{t} - \dfrac{1}{2} \int^{T}_{0} \gamma^{2} dt \right) = \exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right) $$
+
+\subsection{ステップ2 : 契約を過程に変換する。 $E_{t} = \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{t})$}
+続いて、第1段階で定めた測度 $\mathbb{Q}$ の下で、ある契約 $X$ を $\mathbb{Q}$-マルチンゲール $E_{t}$ に変換します。
+
+フィルトレーション $\mathcal{F}_{t}$ 、測度 $\mathbb{Q}$ の下での契約 $X$ の条件付き期待値
+$$E_{t} = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{t})$$
+これが $\mathbb{Q}$ -マルチンゲールである為には、時間 $s<t$ に対して、
+$$\mathbb{E}_{\mathbb{Q}}( E_{t} | \mathcal{F}_{s} ) = E_{s}$$
+であれば良い。実際、$s<t$ に対して、
+$$ \mathbb{E}_{\mathbb{Q}}( E_{t} | \mathcal{F}_{s} ) = \mathbb{E}_{\mathbb{Q}} \Big( \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{t}) \ | \mathcal{F}_{s} \Big) = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{s}) = E_{s} $$
+であるので（タワープロパティ）、
+$$ E_{t} = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{t}) $$
+とすることで測度 $\mathbb{Q}$ の下で、契約 $X$ は $\mathbb{Q}$-マルチンゲールになります。
+
+\subsection{ステップ3 : $dE_{t} = \phi_{t} d S_{t}$ となる可予測過程 $\phi_{t}$ を見つける。 }
+マルチンゲール表現定理によって
+$$dE_{t} = \phi_{t} dS_{t}$$
+を満たすような可予測過程 $\phi_{t}$ が存在します。
+積分表現では、
+$$E_{t} = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{t}) = \mathbb{E}_{\mathbb{Q}} X + \int^{t}_{0} \phi_{s} d S_{s}$$
+となります。
+
+最後に具体的に複製ポートフォリオの構築に必要な株式と債券の保有量 $\phi_{t} , \psi_{t}$ をそれぞれ求めて完了です。
+
+結論、次の戦略1,2になります。
+\begin{itemize}
+	\item 戦略1. $t$時点において$\phi_{t}$単位の株式を保有する。
+	\item 戦略2. $t$時点において$\psi_{t} = E_{t} - \phi_{t} S_{t}$単位の債券を保有する。
+\end{itemize}
+
+これを理解するために以上の戦略1,2を満たすような複製ポートフォリオがself-financingになるかを確認します。
+$t$ 時点における複製ポートフォリオの価値 $V_{t}$ は、今は$r=0$を考えているので$B_{t} = 1$であることに注意すると、
+$$V_{t} = \phi_{t} S_{t} + \psi_{t} B_{t} = \phi_{t} S_{t} + (E_{t} - \phi_{t} S_{t}) \times 1 = E_{t}$$
+これで自明に$dV_{t} = dE_{t}$となるが、$dB_{t} = 0$なので、マルチンゲール表現定理を用いることで、
+$$dV_{t} = \phi_{t} dS_{t} = \phi_{t} dS_{t} + 0 = \phi_{t} dS_{t} + \psi_{t} dB_{t}$$
+たしかにself-financingになっています。
+
+終了時点での複製ポートフォリオの価値は
+$$V_{T} = E_{T} = \mathbb{E}_{\mathbb{Q}}(X|\mathcal{F}_{T}) = X$$
+であるので、この戦略$V_{t}$こそが全ての時点$t$における$X$の無裁定価格になっています。
+
+開始時点では
+$$V_{0} = E_{0} = \mathbb{E}_{\mathbb{Q}}X$$
+であるから、契約 $X$ の価格は株価過程 $S_{t}$ がマルチンゲールになるような測度$\mathbb{Q}$の下での期待値になることも分かります。
+
+\subsection{なぜ価格が一致する必要があるのか？}
+もし、複製ポートフォリオの価格（$V_t$）とデリバティブの理論価格（$E_t$）が一致しない場合、市場には「\textbf{裁定機会}（アービトラージ）」が存在することになります。
+
+これは、リスクを一切取らずに利益を上げられる魔法のような取引チャンスのことです。
+
+\subsection{ケース1: 複製ポートフォリオが割安な場合 ($V_t < E_t$)}
+デリバティブの価格が、そのデリバティブを再現するコスト（複製ポートフォリオ）よりも高い場合、市場参加者は以下のように行動します。
+\begin{enumerate}
+	\item \textbf{高価なデリバティブを売る（ショートする）。} これで手元にお金が入ってきます。
+	\item もしくは\textbf{安価な複製ポートフォリオを買う（ロングする）。} これには、売却で得たお金を使います。
+\end{enumerate}
+この取引を組むと、満期時には複製ポートフォリオがデリバティブと同じ価値になるため、互いにリスクを相殺し合います。しかし、最初に価格差があった分だけ、手元に確実な利益が残ります。
+
+\subsection{ケース2: 複製ポートフォリオが割高な場合 ($V_t > E_t$)}
+逆に、デリバティブを再現するコストの方が、デリバティブの価格よりも高い場合も同様です。
+\begin{enumerate}
+	\item \textbf{安価なデリバティブを買う（ロングする）。}
+	\item \textbf{高価な複製ポートフォリオを売る（ショートする）。}
+\end{enumerate}
+この場合も、満期時にリスクが相殺されるため、最初に得た利益がそのまま確定します。
+
+\subsection{市場の自己修正機能}
+このような無リスクな利益機会は、アービトラージャーによって瞬時に見つけ出されます。
+
+彼らはこのチャンスがなくなるまで取引を続けるため、市場ではデリバティブの価格（$E_t$）と複製ポートフォリオの価格（$V_t$）がすぐに\textbf{一致する}ように収斂していきます。
+
+このメカニズムこそが、複製ポートフォリオ価格が無裁定価格として、ひとつの値に決まる理由です。
+
+\section{無リスク金利の導入}
+ここまでで利子率 $r$ がゼロである場合、任意の契約 $X$ は $S_{t}$ がマルチンゲールとなるような測度 $\mathbb{Q}$ の下での期待値を取ることで無裁定条件を満たし、無裁定価格が得られていたことを述べてきました。
+
+利子率 $r$ がゼロでない場合はここまでの上手く機能しなくなり、改善が必要です。
+
+例えば行使価格 $K$ のフォワード契約（ $t=T$ において $S_{T}-K$ の資金を受け渡す契約）の価値がゼロとなるような行使価格は $K=S_{0} e^{rT}$ になります（それ以外の $K$ ではアービトラージが発生する）。
+
+$$ \mathbb{E}_{\mathbb{Q}}(S_{T} - K) = \mathbb{E}_{\mathbb{Q}}(S_{T} - S_{0} e^{rT}) = S_{0} - S_{0} e^{rT} \neq 0 $$
+
+しかしこの問題は簡単に解決できます。
+
+これまでの測度$\mathbb{Q}$とは別の新たな測度$\mathbb{\tilde Q}$が$\mathbb{E}_{\mathbb{\tilde Q}}S_{t} = S_{0} e^{rt}$を満たすような測度であれば良いです。
+
+これは割引過程$B^{-1}_{t}=e^{-rt}$を乗じた株価過程（割引株価過程）$Z_{t} = B^{-1}_{t} S_{t}$がマルチンゲールとなるような（これまで考えてきた測度とは異なる新しい）測度$\mathbb{\tilde Q}$です。
+
+経済的には資金の価値の成長が止まった世界（ニューメレールが$B_{t}$になっている世界）を考えていることに相当します。
+
+以下ではこの世界で複製ポートフォリオの構築を試みます。
+
+\subsection{ステップ1 : 割引株価過程 $Z_{t}$ をマルチンゲールにする測度 $\mathbb{Q}$ を見つける。}
+伊藤の補題を用いると、
+\begin{align*}
+	dB_{t} & = \left( \dfrac{\partial B_{t}}{\partial t} + \dfrac{1}{2} \dfrac{\partial^{2} B_{t}}{\partial x^{2}} \right) dt + \dfrac{\partial B_{t}}{\partial x} dW_{t} = r B_{t} dt                                                                  \\
+	dS_{t} & = \left( \dfrac{\partial S_{t}}{\partial t} + \dfrac{1}{2} \dfrac{\partial^{2} S_{t}}{\partial x^{2}} \right) dt + \dfrac{\partial S_{t}}{\partial x} dW_{t} = \left( \mu + \dfrac{1}{2} \sigma^{2} \right) S_{t} dt + \sigma S_{t} dW_{t}
+\end{align*}
+なので
+$$ \dfrac{d \left( \dfrac{S_{t}}{B_{t}} \right) }{ \dfrac{S_{t}}{B_{t}} } = \dfrac{dS_{t}}{S_{t}} - \dfrac{dB_{t}}{B_{t}} - \dfrac{dS_{t}}{S_{t}} \dfrac{dB_{t}}{B_{t}} + \left( \dfrac{dB_{t}}{B_{t}} \right)^{2} = \sigma d W_{t} + \left( \mu - r + \dfrac{1}{2} \sigma^{2} \right) dt $$
+
+ここにGirsanovの定理を用います。$\theta = \dfrac{\mu - r + \dfrac{1}{2} \sigma^{2}}{\sigma}$と置いて、
+$$ \dfrac{d \mathbb{Q}}{d \mathbb{P}} = \exp \left( - \int^{T}_{0} \theta d W_{t} - \dfrac{1}{2} \int^{T}_{0} \theta^{2} dt \right) = \exp \left( - \theta W_{T} - \dfrac{1}{2} \theta^{2} T \right) $$
+というRadon-Nikodim微分で新しい測度$\mathbb{Q}$を定めればその測度の下で$Z_{t}$はマルチンゲールになります。
+
+このとき、解くべき確率微分方程式は
+$$ \dfrac{dZ_{t}}{Z_{t}} = \sigma d \tilde{W}_{t} $$
+ただし、求めたい過程を $d \tilde{W}_{t} = d W_{t} + \theta dt$ と置いています。
+
+\subsection{ステップ2 : 契約を過程に変換する。 $E_{t} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{t})$}
+$s<t$において、
+$$ E_{s} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{s}) = e^{-rT} \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{s}) $$
+であり、
+$$ \mathbb{E}_{\mathbb{Q}}( E_{t} | \mathcal{F}_{s}) = \mathbb{E}_{\mathbb{Q}} \left( e^{-rT} \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{t}) \Big| \mathcal{F}_{s} \right) = e^{-rT} \mathbb{E}_{\mathbb{Q}}( X | \mathcal{F}_{s}) = E_{s} $$
+よって $E_{t} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{t})$ は新しい測度 $\mathbb{Q}$ の下でマルチンゲールになる。
+
+\subsection{ステップ3 : $dE_{t} = \phi_{t} d Z_{t}$ となる可予測過程 $\phi_{t}$ を見つける。}
+ニューメレールが債券でない世界で考えたときと同様に進められる。
+
+複製の為の株式保有量$\phi_{t}$、債券保有量$\psi_{t}$として、時点$t$における複製ポートフォリオの価格は
+$$V_{t} = \phi_{t} S_{t} + \psi_{t} B_{t}$$
+時点$T$における契約の価格と複製ポートフォリオの価格が一致するので、
+$$X = V_{T} = \phi_{T} S_{T} + \psi_{T} B_{T}$$
+一方、
+$$E_{T} = \mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{T}) = B^{-1}_{T} X$$
+であるので、
+$$V_{t} = B_{t} E_{t}$$
+
+$r=0$の場合と同様に、
+\begin{itemize}
+	\item 戦略1. $t$ 時点において $\phi_{t}$単位の株式を保有する。
+	\item 戦略2. $t$ 時点において $\psi_{t} = E_{t} - \phi_{t} S_{t}$ 単位の債券を保有する。
+\end{itemize}
+以上の戦略1,2を満たすような複製ポートフォリオを考える。
+\begin{align*}
+	d V_{t} & = d B_{t} E_{t} + B_{t} d E_{t}                                                             \\
+	        & = d B_{t} B^{-1}_{t} (\phi_{t} S_{t} + \psi_{t} B_{t}) + B_{t} (\phi_{t} dZ_{t} + \psi_{t}) \\
+	        & = \phi_{t} (Z_{t} dB_{t} + B_{t} dZ_{t}) + \psi_{t} dB_{t}                                  \\
+	        & = \phi_{t} dS_{t} + \psi_{t} dB_{t}
+\end{align*}
+以上から $r=0$ のケースと同様に、この戦略の下で $(\phi_{t},\psi_{t})$ はself-financingになる。
+
+\section{具体例}
+ノートの最後に、ここまでのまとめの練習問題として、単純な契約のケースに今まで述べてきたフレームワークを適応してみます。
+
+\subsection{ヨーロピアン・コールオプションの価格}
+満期 $T$ 、行使価格 $K$ のヨーロピアン・コールオプションの契約 $X$ は、
+$$ X = \mathrm{Max}(S_{T} - K,0) $$
+であるので、無裁定条件の下での複製ポートフォリオの現在価値は、
+$$ V_{0} = e^{-rT} \mathbb{E}_{\mathbb{Q}} \mathrm{Max}(S_{T} - K,0) $$
+と書ける。ただしここで測度 $\mathbb{Q}$ は過程 $B^{-1}_{t} S_{t}$ のマルチンゲール測度である。
+
+原資産 $S_{t}$ を $\mathbb{Q}$ -Brown運動 $\tilde{W}_{t}$ を用いて表すと、
+\begin{align*}
+	d(\log S_{t}) & = \sigma d \tilde{W}_{t} + \left( r - \dfrac{1}{2} \sigma^{2} \right) dt                        \\
+	S_{t}         & = S_{0} \exp \left[ \sigma \tilde{W}_{t} + \left( r - \dfrac{1}{2} \sigma^{2} \right) t \right]
+\end{align*}
+よって、平均$m$、分散$v$の正規分布を$N(m,v)$と書くと、$S_{T}$の周辺分布は、$N \left( \left( r - \dfrac{1}{2} \sigma^{2} \right) T , \sigma^{2} T \right)$の指数を取ったものと$S_{0}$との積であることが分かる。
+
+$Z$を$N \left( - \dfrac{1}{2} \sigma^{2} T , \sigma^{2} T \right)$に従う確率変数とすると、$S_{T} = S_{0} \exp ( Z + rT )$と書けるので、（測度を意識しないような通常の）期待値で表すことができて、
+\begin{align*}
+	V_{0} & = e^{-rT} \mathbb{E} \mathrm{Max} \Big( S_{0} \exp ( Z + rT ) - K , 0 \Big)                                                                                                                                                    \\
+	      & = \dfrac{1}{\sqrt{2 \pi \sigma}} \dfrac{1}{\sqrt{T}} \int^{\infty}_{\log(K/S_{0}) - rT} \left( S_{0} e^{x} - K e^{-rT} \right) \exp \left[ - \dfrac{1}{2 \sigma^{2} T} \left( x + \dfrac{1}{2} \sigma^{2} T \right) \right] dx \\
+	      & = S_{0} \Phi(d_{+}) - K e^{-rT} \Phi(d_{-})
+\end{align*}
+のように解析的に解ける。
+ただし、 $\Phi(x)$ は $N(0,1)$ が $x$ 以下となる確率であり、$d_{\pm}$とそれぞれ、
+\begin{align*}
+	d_{\pm} & = \dfrac{ \log \left( \dfrac{S_{0}}{K} \right) + \left( r \pm \dfrac{1}{2} \sigma^{2} \right) T }{ \sigma \sqrt{T} } \\
+	\Phi(x) & = \dfrac{1}{\sqrt{2\pi}} \int^{x}_{- \infty} \exp \left( -\dfrac{y^{2}}{2} \right) dy
+\end{align*}
+現在($t=0$)から$t(<T)$時間経過後の複製ポートフォリオは、無裁定条件から
+$$V_{t} = e^{-r(T-t)} \mathbb{E}_{\mathbb{Q}} \left( \mathrm{Max}(S_{T} - K,0) \Big| \mathcal{F}_{t} \right)$$
+であるが、これは満期までの期間が $T \to T-t$ に変わった場合の契約の現在価格であるので、単に $V_{0}$ の式の $T$ を $T-t$ に置き換えれば無裁定価格が求まる。
+
+そのヘッジのための原資産とニューメレールの保有量 $\phi_{t}$ 、 $\psi_{t}$ はそれぞれ
+\begin{align*}
+	\phi_{t}       & = \dfrac{\partial V_{t}}{\partial S_{0}} = \Phi \left( \dfrac{ \log \left( \dfrac{S_{0}}{K} \right) + \left( r + \dfrac{1}{2} \sigma^{2} \right) (T-t) }{ \sigma \sqrt{T-t} } \right) \\
+	B_{t} \psi_{t} & = - K e^{r(T-t)} \Phi \left( \dfrac{ \log \left( \dfrac{S_{0}}{K} \right) + \left( r - \dfrac{1}{2} \sigma^{2} \right) (T-t) }{ \sigma \sqrt{T-t} } \right)
+\end{align*}
+のように取引することでポートフォリオはself-financingになり、複製可能になります。
+
+以上が複製ポートフォリオ理論に基づいたヨーロピアン・オプションのプライシングです。
+ヨーロピアン・オプションの価格を求めるにはこの方針以外にも、
+\begin{itemize}
+	\item \href{https://ja.wikipedia.org/wiki/%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E2%80%93%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%AB%E3%82%BA%E6%96%B9%E7%A8%8B%E5%BC%8F}{Black-Scholes方程式}を解いたり、
+	\item それを\href{https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%9E%E3%83%B3%E2%80%93%E3%82%AB%E3%83%83%E3%83%84%E3%81%AE%E5%85%AC%E5%BC%8F}{Feynman-Kac}で変換した偏微分方程式を解いたり、
+	\item 離散的な二項ツリーの価格過程の連続極限を取ったり、
+\end{itemize}
+色々な方法があります。
+
+同じ現象、同じ結論を導く別解を複数手元に用意しておくことで理解の幅が広がります。このノートがその一助になれば幸いです。
+
+\subsection{参考文献}
+\begin{itemize}
+	\item Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{itemize}
+
+\end{document}
