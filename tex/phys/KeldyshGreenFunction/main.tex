@@ -1,0 +1,499 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs,url}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+Keldysh Green Functions
+}
+\author{Okada Masaru}
+\date{\today}
+\def\sla#1{\rlap/#1}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	A note on Keldysh Green functions, which are useful when dealing with non-equilibrium systems.
+\end{abstract}
+
+\ \\
+
+The Keldysh Green function is defined as follows:
+
+\begin{eqnarray}
+	G_{\alpha \beta}(1,2)
+	&=&
+	i \Big\langle \hat{T}_{c} \Big[ \tilde{\psi}_{\alpha}(\vec{r}_{1},t_{1}) \tilde{\psi}_{\beta}^{\dagger}(\vec{r}_{2},t_{2}) \Big] \Big\rangle_{\rm st}
+\end{eqnarray}
+
+(The sign follows Kopnin. It's the opposite of AGD.)
+Each of the notations used here is explained.
+First, the statistical average $\langle \cdots \rangle_{\rm st}$ is defined as:
+
+\begin{eqnarray}
+	{\rm Tr}
+	\left[ {\rm exp} \left( \dfrac{\Omega + \mu \hat{N} - \hat{\mathcal{H}}(t_{0}) }{T} \right)
+		\Big( \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big)
+		\right]
+	&=&
+	\Big\langle \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big\rangle_{\rm st}
+\end{eqnarray}
+
+For variables, a short-hand notation like $1=(\vec{r}_{1},t_{1})$ was used. Also, $\tilde{\psi}_{\alpha}(1)$ is a Heisenberg operator and is defined as:
+
+\begin{eqnarray}
+	\tilde{\psi}_{\alpha}(\vec{r},t)
+	&=&
+	\hat{S}^{-1}(t,t_{0})
+	\tilde{\psi}_{\alpha}(\vec{r},t_{0})
+	\hat{S}(t,t_{0})
+\end{eqnarray}
+
+The S-matrix is:
+
+\begin{eqnarray}
+	\hat{S}(t,t_{0})
+	&=&
+	\hat{T}_{t}
+	{\rm exp} \left[ - i \int^{t}_{t_{0}} ( \hat{\mathcal{H}} - \mu \hat{N} ) dt' \right]
+\end{eqnarray}
+
+Let's assume the temperature is $T$ at time $t=t_{0}$.
+The time when the non-equilibrium interaction is applied is $t_{0} = - \infty$, and the interaction continues to be applied until $t_{0}={\rm max} \{ t_{1},t_{2}\}$.
+The path running in the positive direction of the time axis is denoted by $c_{1}$.
+Conversely, the path running in the reverse direction from $t_{0}={\rm max} \{ t_{1},t_{2}\}$ to $t_{0} = - \infty$ is denoted by $c_{2}$, and all paths are defined as $c=c_{1}+c_{2}$.
+(This is called the Keldysh contour, but it was originally devised by J. Schwinger.)
+Furthermore, we introduce inequalities $>_{c}$ and $<_{c}$ defined along the entire Keldysh contour $c$, and the time-ordering product $\hat{T}_{c}$ on the Keldysh contour is defined as:
+
+\begin{eqnarray}
+	\hat{T}_{c}
+	\Big[ \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big]
+	&=&
+	\left\{
+	\begin{array}{ll}
+		\tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2),     & (t_{1} >_{c} t_{2})
+		\\[3mm]
+		\mp \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1), & (t_{1} <_{c} t_{2})
+	\end{array}
+	\right.
+\end{eqnarray}
+
+The upper sign is for fermions and the lower is for bosons.
+
+We also define the following two new Green functions:
+
+\begin{eqnarray}
+	G^{>}_{\alpha \beta}(1,2)
+	&=&
+	i \Big\langle \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big\rangle_{\rm st}
+	\\[3mm]
+	G^{<}_{\alpha \beta}(1,2)
+	&=&
+	\mp i \Big\langle \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1) \Big\rangle_{\rm st}
+\end{eqnarray}
+
+Using these, we can write:
+
+\begin{eqnarray}
+	G_{\alpha \beta}(1,2)
+	&=&
+	\left\{
+	\begin{array}{ll}
+		G^{>}_{\alpha \beta}(1,2), & (t_{1} >_{c} t_{2})
+		\\[3mm]
+		G^{<}_{\alpha \beta}(1,2), & (t_{1} <_{c} t_{2})
+	\end{array}
+	\right.
+\end{eqnarray}
+
+A function with these functions as matrix elements is defined as follows:
+
+\begin{eqnarray}
+	\check{\underbar{G}}
+	&=&
+	\left(
+	\begin{array}{ll}
+			G^{11} & G^{12}
+			\\
+			G^{21} & G^{22}
+		\end{array}
+	\right)
+\end{eqnarray}
+
+The space formed by this four-component function is called the Keldysh space.
+The components are, respectively:
+
+\begin{eqnarray}
+	\left\{
+	\begin{array}{llc}
+		G^{11}(1,2) & = & i \Big\langle \hat{T}_{t} \Big[ \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big] \Big\rangle_{\rm st}
+		\\
+		G^{12}(1,2) & = & G^{<}_{\alpha \beta}(1,2)
+		\\
+		G^{21}(1,2) & = & G^{>}_{\alpha \beta}(1,2)
+		\\
+		G^{22}(1,2) & = & i \Big\langle \hat{\bar{T}}_{t} \Big[ \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big] \Big\rangle_{\rm st}
+	\end{array}
+	\right.
+\end{eqnarray}
+
+The $\hat{\bar{T}}_{t}$ in the (2,2) component is the anti-time-ordering product, and is defined as:
+
+\begin{eqnarray}
+	\hat{\bar{T}}_{t}
+	\Big[ \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big]
+	&=&
+	\left\{
+	\begin{array}{ll}
+		\tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2),     & (t_{1} < t_{2})
+		\\[3mm]
+		\mp \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1), & (t_{1} > t_{2})
+	\end{array}
+	\right.
+\end{eqnarray}
+
+Similar to the conventional Green function method, we define the retarded Green function and the advanced Green function as follows:
+
+\begin{eqnarray}
+	G^{R}_{\alpha \beta}(1,2)
+	&=&
+	i \theta( t_{1} - t_{2} ) \Big\langle \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \pm \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1) \Big\rangle_{\rm st}
+	\\[3mm]
+	G^{A}_{\alpha \beta}(1,2)
+	&=&
+	- i \theta( t_{2} - t_{1} ) \Big\langle \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \pm \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1) \Big\rangle_{\rm st}
+\end{eqnarray}
+
+In addition to these, we also define the Keldysh Green function:
+
+\begin{eqnarray}
+	G^{K}_{\alpha \beta}(1,2)
+	&=&
+	G^{<}_{\alpha \beta}(1,2)
+	+
+	G^{>}_{\alpha \beta}(1,2)
+	\label{eqn:keldyshg}
+\end{eqnarray}
+
+Using these, the components of the matrix $\check{\underbar{G}}$ in Keldysh space can be expressed as:
+
+\begin{eqnarray}
+	G^{R}
+	&=&
+	G_{11} - G_{12}
+	\ \ = \ \
+	G_{21} - G_{22}
+	\\[1mm]
+	G^{A}
+	&=&
+	G_{11} - G_{21}
+	\ \ = \ \
+	G_{12} - G_{22}
+	\\[1mm]
+	G^{K}
+	&=&
+	G_{12} + G_{21}
+	\ \ = \ \
+	G_{11} + G_{22}
+\end{eqnarray}
+
+Therefore, by performing an operation called the Keldysh transformation (Keldysh rotation) as follows:
+
+\begin{eqnarray}
+	\check{G}
+	&=&
+	\check{L}
+	\check{\tau}_{3}
+	\check{\underbar{G}}
+	\check{L}^{\rm T}
+	\ \ = \ \
+	\left(
+	\begin{array}{ll}
+			G^{R} & G^{K}
+			\\
+			0     & G^{A}
+		\end{array}
+	\right)
+\end{eqnarray}
+
+we can obtain an expression like this. However, we have set:
+
+\begin{eqnarray}
+	\check{L}
+	&=&
+	\dfrac{1}{\sqrt{2}}(\check{1} - i \check{\tau}_{2})
+\end{eqnarray}
+
+While the $G^{ij}$ (where $i,j=1,2$) are dependent on each other, these $G^{R}$, $G^{A}$, and $G^{K}$ are mutually independent.
+When dealing with non-equilibrium Green functions, this choice of basis for the matrix $\check{G}$ is convenient and standard.
+
+\ \\
+
+Using the Keldysh Green function, we count the number of fermions $N$ when an interaction is applied.
+
+\begin{eqnarray}
+	N
+	&=&
+	\sum_{\alpha} \Big\langle \tilde{\psi}_{\alpha}^{\dagger}(1) \tilde{\psi}_{\alpha}(1) \Big\rangle_{\rm st}
+	\nonumber \\[3mm] &=&
+	i \sum_{\alpha} G^{<}_{\alpha \alpha}(1,1)
+\end{eqnarray}
+
+Using the following identity:
+
+\begin{eqnarray}
+	\lim_{t_{1} \to t_{2}} \Big[ G^{>}_{\alpha \beta}(1,2) - G^{<}_{\alpha \beta}(1,2) \Big]
+	&=&
+	i \delta(\vec{r}_{1} - \vec{r}_{2}) \delta_{\alpha \beta}
+\end{eqnarray}
+
+and equation (\ref{eqn:keldyshg}), we get:
+
+\begin{eqnarray}
+	\lim_{t_{1} \to t_{2}}
+	G^{<}_{\alpha \beta}(1,2)
+	&=&
+	\dfrac{1}{2}
+	\lim_{t_{1} \to t_{2}}
+	G^{K}_{\alpha \beta}(1,2)
+	-
+	i \delta(\vec{r}_{1} - \vec{r}_{2}) \delta_{\alpha \beta}
+\end{eqnarray}
+
+Using this, if we write the number of particles without interaction as $N_{0}$ and $N=N_{0}+\delta N$, then:
+
+\begin{eqnarray}
+	N
+	&=&
+	N_{0} +
+	\dfrac{i}{2}
+	\lim_{(\vec{r}_{1} ,t_{1}) \to (\vec{r}_{2},t_{2})}
+	\sum_{\alpha}
+	\delta G^{K}_{\alpha \alpha}(1,2)
+\end{eqnarray}
+
+Here, $\delta G^{K}$ represents the jump of the Green function at the same time, and can be replaced with:
+
+\begin{eqnarray}
+	\delta G^{K}
+	&=&
+	G^{R} - G^{A}
+	\ \ = \ \
+	G^{>} - G^{<}
+\end{eqnarray}
+
+Furthermore, by performing a Fourier transform as follows:
+
+\begin{eqnarray}
+	G^{K} (1,2)
+	&=&
+	\int \!\! \dfrac{d \varepsilon \ d \omega}{(2 \pi)^{2}} \dfrac{d^{3} \vec{p} \ d^{3} \vec{k}}{(2 \pi)^{6}}
+	e^{- i \varepsilon (t_{1} - t_{2})}
+	e^{- i \omega (t_{1} + t_{2})}
+	e^{i \vec{p} (\vec{r}_{1} - \vec{r}_{2})}
+	e^{i \vec{k} (\vec{r}_{1} + \vec{r}_{2})/2}
+	\ \
+	G^{K}_{\varepsilon_{+},\varepsilon_{-}} (\vec{p}_{+},\vec{p}_{-})
+\end{eqnarray}
+
+we can also express it as:
+
+\begin{eqnarray}
+	N(\omega,\vec{k})
+	&=&
+	N_{0} -
+	\dfrac{i}{2}
+	\sum_{\alpha}
+	\int \!\! \dfrac{d \varepsilon}{2 \pi} \dfrac{d^{3} \vec{k}}{(2 \pi)^{3}}
+	G^{K}_{\varepsilon_{+},\varepsilon_{-}} (\vec{p}_{+},\vec{p}_{-})
+\end{eqnarray}
+
+For the sake of notational simplicity, we have written $\vec{p}_{\pm}=\vec{p} \pm \dfrac{\vec{k}}{2}$ and $\varepsilon_{\pm}=\varepsilon \pm \dfrac{\omega}{2}$ here.
+
+Similar to the conventional Green function method, the Dyson equation can also be constructed.
+We define the unperturbed Green function as $G^{(0)}_{\varepsilon}$:
+
+\begin{eqnarray}
+	G^{(0)}_{\varepsilon}
+	&=&
+	\dfrac{1}{\xi_{\vec{p}} - \varepsilon}
+\end{eqnarray}
+
+$\xi_{\vec{p}}$ represents the one-particle band dispersion.
+When an external potential $\check{U}(\vec{r},t)$ is applied, to the first order of $\check{U}$:
+
+\begin{eqnarray}
+	{{G^{ik}}^{(1)}}(1,1')
+	&=&
+	- \int \!\! d^{3} \vec{r}_{2} \int^{\infty}_{-\infty} \!\!\! dt_{2} \
+	{{G^{ij}}^{(0)}} (1,2) U^{jl}(2) {G^{lk}}^{(0)}(2,1')
+\end{eqnarray}
+\footnote{However, this time runs from negative to positive, similar to the usual time evolution, not along the Keldysh contour.}
+
+Here, $i,j,k=1,2$. We assumed that the external potential has a structure like this, using the Pauli matrix $\check{\tau}_{i}$:
+
+\begin{eqnarray}
+	\check{U}
+	&=&
+	U \check{\tau}_{3}
+	\ \ = \ \
+	\left(
+	\begin{array}{ll}
+			U & 0
+			\\
+			0 & -U
+		\end{array}
+	\right)
+\end{eqnarray}
+
+Omitting the matrix component indices and the integral sign, we write:
+
+\begin{eqnarray}
+	\check{\underbar{G}}^{(1)}
+	&=&
+	-
+	\check{\underbar{G}}^{(0)}
+	\check{U}
+	\check{\underbar{G}}^{(0)}
+\end{eqnarray}
+
+By continuing to the second, third, $\cdots$ order, we can see that for all orders:
+
+\begin{eqnarray}
+	\check{\underbar{G}}
+	&=&
+	\check{\underbar{G}}^{(0)}
+	-
+	\check{\underbar{G}}^{(0)}
+	\check{U}
+	\check{\underbar{G}}
+\end{eqnarray}
+
+Applying the Keldysh rotation, we get:
+
+\begin{eqnarray}
+	\check{G}
+	&=&
+	\check{G}^{(0)}
+	-
+	\check{G}^{(0)}
+	(U \check{1})
+	\check{G}
+\end{eqnarray}
+
+Using the inverse operator of the Green function for the non-interacting case:
+
+\begin{eqnarray}
+	{{\check{G}}^{(0)}{}}^{-1}
+	&=&
+	- i \partial_{t} + \xi_{\vec{p}}
+\end{eqnarray}
+
+we can write:
+
+\begin{eqnarray}
+	({{\check{G}}^{(0)}{}}^{-1} + U ) \check{G}
+	&=&
+	\check{1}
+\end{eqnarray}
+
+which is similar to the conventional method.
+The above framework can be applied to, for example, impurity scattering, but even when interactions with phonons and/or electron-electron interactions are applied, the self-energy can be introduced in the Keldysh formalism in the same way and rewritten as follows.
+(The case for phonons will be summarized in a separate note.)
+[Rammer and Smith(1986)]
+
+\begin{eqnarray}
+	({{\check{G}}^{(0)}{}}^{-1} + \check{\mathit{\Sigma}} ) \check{G}
+	&=&
+	\check{1}
+	,
+	\hspace{10mm}
+	\check{\mathit{\Sigma}}
+	\ \ = \ \
+	\left(
+	\begin{array}{ll}
+			\mathit{\Sigma}^{R} & \mathit{\Sigma}^{K}
+			\\
+			0                   & \mathit{\Sigma}^{A}
+		\end{array}
+	\right)
+\end{eqnarray}
+
+
+As an appendix, here are the expressions for the unperturbed Green functions. (Note that the sign definition is the opposite of AGD.)
+
+\begin{eqnarray}
+	&&
+	\left(
+	\begin{array}{ll}
+		{G^{11}{}}^{(0)}_{\varepsilon}(\vec{p}) & {G^{12}{}}^{(0)}_{\varepsilon}(\vec{p})
+		\\
+		{G^{21}{}}^{(0)}_{\varepsilon}(\vec{p}) & {G^{22}{}}^{(0)}_{\varepsilon}(\vec{p})
+	\end{array}\right)
+	\\ = &&
+	\left(
+	\begin{array}{cc}
+		\dfrac{1}{\xi_{\vec{p}} - ( \varepsilon + i0 ) } \mp 2 \pi i n_{\vec{p}} \delta( \xi_{\vec{p}} - \varepsilon )
+		 &
+		\pm 2 \pi i n_{\vec{p}} \delta( \xi_{\vec{p}} - \varepsilon )
+		\\
+		- 2 \pi i ( 1 \mp n_{\vec{p}} ) \delta( \xi_{\vec{p}} - \varepsilon )
+		 &
+		- \dfrac{1}{\xi_{\vec{p}} - ( \varepsilon - i0 ) } \mp 2 \pi i n_{\vec{p}} \delta( \xi_{\vec{p}} - \varepsilon )
+	\end{array}\right)
+\end{eqnarray}
+\begin{eqnarray}
+	\left(
+	\begin{array}{ll}
+		{G^{R}{}}^{(0)}_{\varepsilon}(\vec{p}) & {G^{K}{}}^{(0)}_{\varepsilon}(\vec{p})
+		\\
+		{G^{A}{}}^{(0)}_{\varepsilon}(\vec{p}) & 0
+	\end{array}\right)
+	&=&
+	\left(
+	\begin{array}{cc}
+		\dfrac{1}{\xi_{\vec{p}} - ( \varepsilon + i0 ) }
+		 &
+		- 2 \pi i n_{\vec{p}} \delta( \xi_{\vec{p}} - \varepsilon )
+		\\
+		\dfrac{1}{\xi_{\vec{p}} - ( \varepsilon - i0 )}
+		 &
+		0
+	\end{array}\right)
+\end{eqnarray}
+
+
+
+Furthermore, it can be extended to the BCS superconducting state. We just need to define the inverse Green operator as follows:
+
+\begin{eqnarray}
+	\check{G}^{-1}_{\varepsilon}(\vec{p}-\vec{k}_{1},\varepsilon_{1})
+	&=&
+	\left(
+	\begin{array}{ll}
+		\xi_{\vec{p}} - \varepsilon & 0
+		\\
+		0                           & \xi_{\vec{p}} + \varepsilon
+	\end{array}
+	\right)
+	(2 \pi)^{4}
+	\delta(\varepsilon_{1})
+	\delta(\vec{k}_{1})
+	+
+	\check{H}_{\varepsilon_{1}}
+	\\[3mm]
+	\check{H}_{\varepsilon_{1}}
+	&=&
+	\left(
+	\begin{array}{ll}
+			- \dfrac{e}{c} \vec{v}_{\rm F} \vec{A}(\vec{k}) + e \phi & - \Delta(\vec{k})
+			\\
+			\Delta^{*}(\vec{k})                                      & \dfrac{e}{c} \vec{v}_{\rm F} \vec{A}(\vec{k}) + e \phi
+		\end{array}
+	\right)
+\end{eqnarray}
+
+
+\end{document}

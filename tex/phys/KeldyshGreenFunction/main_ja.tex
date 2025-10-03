@@ -1,0 +1,515 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs,url}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+Keldysh Green関数
+}
+\author{岡田 大 (Okada Masaru)}
+\date{\today}
+\def\sla#1{\rlap/#1}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	非平衡な系を扱うときに有用なKeldysh Green関数のメモ。
+\end{abstract}
+
+\ \\
+
+Keldysh Green関数を次で定義する。
+
+\begin{eqnarray}
+	G_{\alpha \beta}(1,2)
+	&=&
+	i \Big\langle \hat{T}_{c} \Big[ \tilde{\psi}_{\alpha}(\vec{r}_{1},t_{1}) \tilde{\psi}_{\beta}^{\dagger}(\vec{r}_{2},t_{2}) \Big] \Big\rangle_{\rm st}
+\end{eqnarray}
+
+（符号はKopninに従った。AGDとは逆になっている。）
+ここで用いた記法をそれぞれ説明する。
+まず統計平均$\langle \cdots \rangle_{\rm st}$は次のように定義されている。
+
+\begin{eqnarray}
+	{\rm Tr}
+	\left[ {\rm exp} \left( \dfrac{\Omega + \mu \hat{N} - \hat{\mathcal{H}}(t_{0}) }{T} \right)
+		\Big( \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big)
+		\right]
+	&=&
+	\Big\langle \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big\rangle_{\rm st}
+\end{eqnarray}
+
+変数は、$1=(\vec{r}_{1},t_{1})$のようなshort hand notationを使った。また、$\tilde{\psi}_{\alpha}(1)$はHeisenberg演算子であり、
+
+\begin{eqnarray}
+	\tilde{\psi}_{\alpha}(\vec{r},t)
+	&=&
+	\hat{S}^{-1}(t,t_{0})
+	\tilde{\psi}_{\alpha}(\vec{r},t_{0})
+	\hat{S}(t,t_{0})
+\end{eqnarray}
+
+と定義される。S行列は
+
+\begin{eqnarray}
+	\hat{S}(t,t_{0})
+	&=&
+	\hat{T}_{t}
+	{\rm exp} \left[ - i \int^{t}_{t_{0}} ( \hat{\mathcal{H}} - \mu \hat{N} ) dt' \right]
+\end{eqnarray}
+
+時刻$t=t_{0}$のとき温度は$T$であるとする。
+非平衡の相互作用が印加される時刻は$t_{0} = - \infty$であり、
+$t_{0}={\rm max} \{ t_{1},t_{2}\}$まで相互作用は印加され続ける。
+このときの時間軸を正の向きに走る経路を$c_{1}$とする。
+逆に$t_{0}={\rm max} \{ t_{1},t_{2}\}$から$t_{0} = - \infty$まで逆向きに走る経路を$c_{2}$
+とし、全ての経路を$c=c_{1}+c_{2}$と定義する。
+（これはKeldysh経路と呼ばれるが、最初に考案したのはJ. Schwingerである。）
+さらに全Keldysh経路$c$に沿って定義される不等号$>_{c}$、$<_{c}$を導入し、
+Keldysh経路上における時間順序積$\hat{T}_{c}$を
+
+\begin{eqnarray}
+	\hat{T}_{c}
+	\Big[ \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big]
+	&=&
+	\left\{
+	\begin{array}{ll}
+		\tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2),     & (t_{1} >_{c} t_{2})
+		\\[3mm]
+		\mp \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1), & (t_{1} <_{c} t_{2})
+	\end{array}
+	\right.
+\end{eqnarray}
+
+と定義する。複合は上がフェルミオン、下がボゾンである。
+
+新しく次の2つのGreen関数も定義する。
+
+\begin{eqnarray}
+	G^{>}_{\alpha \beta}(1,2)
+	&=&
+	i \Big\langle \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big\rangle_{\rm st}
+	\\[3mm]
+	G^{<}_{\alpha \beta}(1,2)
+	&=&
+	\mp i \Big\langle \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1) \Big\rangle_{\rm st}
+\end{eqnarray}
+
+これを用いると、
+
+\begin{eqnarray}
+	G_{\alpha \beta}(1,2)
+	&=&
+	\left\{
+	\begin{array}{ll}
+		G^{>}_{\alpha \beta}(1,2), & (t_{1} >_{c} t_{2})
+		\\[3mm]
+		G^{<}_{\alpha \beta}(1,2), & (t_{1} <_{c} t_{2})
+	\end{array}
+	\right.
+\end{eqnarray}
+
+と書ける。これらの関数を行列要素に持つ関数を次のように定義する。
+
+\begin{eqnarray}
+	\check{\underbar{G}}
+	&=&
+	\left(
+	\begin{array}{ll}
+			G^{11} & G^{12}
+			\\
+			G^{21} & G^{22}
+		\end{array}
+	\right)
+\end{eqnarray}
+
+この4成分の関数が成す空間はKeldysh空間と呼ばれる。
+成分はそれぞれ
+
+\begin{eqnarray}
+	\left\{
+	\begin{array}{llc}
+		G^{11}(1,2) & = & i \Big\langle \hat{T}_{t} \Big[ \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big] \Big\rangle_{\rm st}
+		\\
+		G^{12}(1,2) & = & G^{<}_{\alpha \beta}(1,2)
+		\\
+		G^{21}(1,2) & = & G^{>}_{\alpha \beta}(1,2)
+		\\
+		G^{22}(1,2) & = & i \Big\langle \hat{\bar{T}}_{t} \Big[ \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big] \Big\rangle_{\rm st}
+	\end{array}
+	\right.
+\end{eqnarray}
+
+(2,2)成分の$\hat{\bar{T}}_{t}$は反時間順序積であり、
+
+\begin{eqnarray}
+	\hat{\bar{T}}_{t}
+	\Big[ \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \Big]
+	&=&
+	\left\{
+	\begin{array}{ll}
+		\tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2),     & (t_{1} < t_{2})
+		\\[3mm]
+		\mp \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1), & (t_{1} > t_{2})
+	\end{array}
+	\right.
+\end{eqnarray}
+
+と定義される。
+
+通常のGreen関数法と同様にretarded Green関数とadvanced Green関数をそれぞれ次のように定義する。
+
+\begin{eqnarray}
+	G^{R}_{\alpha \beta}(1,2)
+	&=&
+	i \theta( t_{1} - t_{2} ) \Big\langle \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \pm \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1) \Big\rangle_{\rm st}
+	\\[3mm]
+	G^{A}_{\alpha \beta}(1,2)
+	&=&
+	- i \theta( t_{2} - t_{1} ) \Big\langle \tilde{\psi}_{\alpha}(1) \tilde{\psi}_{\beta}^{\dagger}(2) \pm \tilde{\psi}_{\beta}^{\dagger}(2) \tilde{\psi}_{\alpha}(1) \Big\rangle_{\rm st}
+\end{eqnarray}
+
+これらに加えてKeldysh Green関数
+
+\begin{eqnarray}
+	G^{K}_{\alpha \beta}(1,2)
+	&=&
+	G^{<}_{\alpha \beta}(1,2)
+	+
+	G^{>}_{\alpha \beta}(1,2)
+	\label{eqn:keldyshg}
+\end{eqnarray}
+
+も定義する。これら3つの関数はさっきのKeldysh空間の行列$\check{\underbar{G}}$の成分を用いて、
+
+\begin{eqnarray}
+	G^{R}
+	&=&
+	G_{11} - G_{12}
+	\ \ = \ \
+	G_{21} - G_{22}
+	\\[1mm]
+	G^{A}
+	&=&
+	G_{11} - G_{21}
+	\ \ = \ \
+	G_{12} - G_{22}
+	\\[1mm]
+	G^{K}
+	&=&
+	G_{12} + G_{21}
+	\ \ = \ \
+	G_{11} + G_{22}
+\end{eqnarray}
+
+と表すこともできる。従って、次のようにKeldysh変換（Keldysh回転）と呼ばれる操作を行うと、
+
+\begin{eqnarray}
+	\check{G}
+	&=&
+	\check{L}
+	\check{\tau}_{3}
+	\check{\underbar{G}}
+	\check{L}^{\rm T}
+	\ \ = \ \
+	\left(
+	\begin{array}{ll}
+			G^{R} & G^{K}
+			\\
+			0     & G^{A}
+		\end{array}
+	\right)
+\end{eqnarray}
+
+のような表式が得られる。ただし、
+
+\begin{eqnarray}
+	\check{L}
+	&=&
+	\dfrac{1}{\sqrt{2}}(\check{1} - i \check{\tau}_{2})
+\end{eqnarray}
+
+と置いた。
+$G^{ij}$（ここで$i,j=1,2$）はそれぞれ従属しているが、
+これら$G^{R}$、$G^{A}$、$G^{K}$はそれぞれ互いに独立である。
+非平衡Green関数を扱う場合、この行列$\check{G}$の基底の取り方が便利であり、標準的である。
+
+
+\ \\
+
+Keldysh Green関数を用いて相互作用が印加された場合のフェルミオンの粒子数$N$を数える。
+
+\begin{eqnarray}
+	N
+	&=&
+	\sum_{\alpha} \Big\langle \tilde{\psi}_{\alpha}^{\dagger}(1) \tilde{\psi}_{\alpha}(1) \Big\rangle_{\rm st}
+	\nonumber \\[3mm] &=&
+	i \sum_{\alpha} G^{<}_{\alpha \alpha}(1,1)
+\end{eqnarray}
+
+これを次の恒等式
+
+\begin{eqnarray}
+	\lim_{t_{1} \to t_{2}} \Big[ G^{>}_{\alpha \beta}(1,2) - G^{<}_{\alpha \beta}(1,2) \Big]
+	&=&
+	i \delta(\vec{r}_{1} - \vec{r}_{2}) \delta_{\alpha \beta}
+\end{eqnarray}
+
+と式(\ref{eqn:keldyshg})を用いて、
+
+\begin{eqnarray}
+	\lim_{t_{1} \to t_{2}}
+	G^{<}_{\alpha \beta}(1,2)
+	&=&
+	\dfrac{1}{2}
+	\lim_{t_{1} \to t_{2}}
+	G^{K}_{\alpha \beta}(1,2)
+	-
+	i \delta(\vec{r}_{1} - \vec{r}_{2}) \delta_{\alpha \beta}
+\end{eqnarray}
+
+であることを用いると、
+相互作用が入っていない場合の粒子数を$N_{0}$として$N=N_{0}+\delta N$と書くと、
+
+\begin{eqnarray}
+	N
+	&=&
+	N_{0} +
+	\dfrac{i}{2}
+	\lim_{(\vec{r}_{1} ,t_{1}) \to (\vec{r}_{2},t_{2})}
+	\sum_{\alpha}
+	\delta G^{K}_{\alpha \alpha}(1,2)
+\end{eqnarray}
+
+と書ける。ここで$\delta G^{K}$は同時刻におけるGreen関数の跳びを表し、
+
+\begin{eqnarray}
+	\delta G^{K}
+	&=&
+	G^{R} - G^{A}
+	\ \ = \ \
+	G^{>} - G^{<}
+\end{eqnarray}
+
+と置き換えることができる。また、
+
+\begin{eqnarray}
+	G^{K} (1,2)
+	&=&
+	\int \!\! \dfrac{d \varepsilon \ d \omega}{(2 \pi)^{2}} \dfrac{d^{3} \vec{p} \ d^{3} \vec{k}}{(2 \pi)^{6}}
+	e^{- i \varepsilon (t_{1} - t_{2})}
+	e^{- i \omega (t_{1} + t_{2})}
+	e^{i \vec{p} (\vec{r}_{1} - \vec{r}_{2})}
+	e^{i \vec{k} (\vec{r}_{1} + \vec{r}_{2})/2}
+	\ \
+	G^{K}_{\varepsilon_{+},\varepsilon_{-}} (\vec{p}_{+},\vec{p}_{-})
+\end{eqnarray}
+
+このようにフーリエ変換すると、
+
+\begin{eqnarray}
+	N(\omega,\vec{k})
+	&=&
+	N_{0} -
+	\dfrac{i}{2}
+	\sum_{\alpha}
+	\int \!\! \dfrac{d \varepsilon}{2 \pi} \dfrac{d^{3} \vec{k}}{(2 \pi)^{3}}
+	G^{K}_{\varepsilon_{+},\varepsilon_{-}} (\vec{p}_{+},\vec{p}_{-})
+\end{eqnarray}
+
+と表すこともできる。ここで表記の簡単のために$\vec{p}_{\pm}=\vec{p} \pm \dfrac{\vec{k}}{2}$、$\varepsilon_{\pm}=\varepsilon \pm \dfrac{\omega}{2}$と書いた。
+
+
+
+従来のGreen関数法と同様にDyson方程式も構成することができる。
+無摂動のGreen関数を$G^{(0)}_{\varepsilon}$と書いて、
+
+\begin{eqnarray}
+	G^{(0)}_{\varepsilon}
+	&=&
+	\dfrac{1}{\xi_{\vec{p}} - \varepsilon}
+\end{eqnarray}
+
+と定義する。$\xi_{\vec{p}}$は1粒子のバンド分散を表す。
+外部ポテンシャル$\check{U}(\vec{r},t)$が印加されたとき、
+$\check{U}$の一次までで、
+
+\begin{eqnarray}
+	{{G^{ik}}^{(1)}}(1,1')
+	&=&
+	- \int \!\! d^{3} \vec{r}_{2} \int^{\infty}_{-\infty} \!\!\! dt_{2} \
+	{{G^{ij}}^{(0)}} (1,2) U^{jl}(2) {G^{lk}}^{(0)}(2,1')
+\end{eqnarray}
+\footnote{ただし、この時間はKeldysh経路ではなく、通常と同様に負から正に向かう時間発展をする。}
+
+$i,j,k=1,2$を表す。ここで外部ポテンシャルは、Pauli行列$\check{\tau}_{i}$を用いて
+
+
+\begin{eqnarray}
+	\check{U}
+	&=&
+	U \check{\tau}_{3}
+	\ \ = \ \
+	\left(
+	\begin{array}{ll}
+			U & 0
+			\\
+			0 & -U
+		\end{array}
+	\right)
+\end{eqnarray}
+
+のような構造を持っているものと仮定した。
+行列成分の添字と積分記号を抜いて、
+
+\begin{eqnarray}
+	\check{\underbar{G}}^{(1)}
+	&=&
+	-
+	\check{\underbar{G}}^{(0)}
+	\check{U}
+	\check{\underbar{G}}^{(0)}
+\end{eqnarray}
+
+と書いて、2次、3次、$\cdots$、と続けていくとall orderで
+
+\begin{eqnarray}
+	\check{\underbar{G}}
+	&=&
+	\check{\underbar{G}}^{(0)}
+	-
+	\check{\underbar{G}}^{(0)}
+	\check{U}
+	\check{\underbar{G}}
+\end{eqnarray}
+
+と書けることが分かる。Keldysh回転を施すと、
+
+\begin{eqnarray}
+	\check{G}
+	&=&
+	\check{G}^{(0)}
+	-
+	\check{G}^{(0)}
+	(U \check{1})
+	\check{G}
+\end{eqnarray}
+
+相互作用の無い場合のGreen関数の逆演算子
+
+\begin{eqnarray}
+	{{\check{G}}^{(0)}{}}^{-1}
+	&=&
+	- i \partial_{t} + \xi_{\vec{p}}
+\end{eqnarray}
+
+を用いて、
+
+\begin{eqnarray}
+	({{\check{G}}^{(0)}{}}^{-1} + U ) \check{G}
+	&=&
+	\check{1}
+\end{eqnarray}
+
+と、従来と同様に書ける。
+以上は、例えば不純物散乱などに応用できる枠組みであるが、
+フォノンとの相互作用 and/or 電子間相互作用が印加された場合であっても同様に、
+自己エネルギーもKeldysh形式で導入することができて次のように書き直せる。
+（フォノンの場合を別のノートにまとめる。）
+[Rammer and Smith(1986)]
+
+\begin{eqnarray}
+	({{\check{G}}^{(0)}{}}^{-1} + \check{\mathit{\Sigma}} ) \check{G}
+	&=&
+	\check{1}
+	,
+	\hspace{10mm}
+	\check{\mathit{\Sigma}}
+	\ \ = \ \
+	\left(
+	\begin{array}{ll}
+			\mathit{\Sigma}^{R} & \mathit{\Sigma}^{K}
+			\\
+			0                   & \mathit{\Sigma}^{A}
+		\end{array}
+	\right)
+\end{eqnarray}
+
+
+付録として、無摂動のGreen関数の表現をそれぞれ示す。（符号の定義はAGDと逆になっていることに注意する。）
+
+\begin{eqnarray}
+	&&
+	\left(
+	\begin{array}{ll}
+		{G^{11}{}}^{(0)}_{\varepsilon}(\vec{p}) & {G^{12}{}}^{(0)}_{\varepsilon}(\vec{p})
+		\\
+		{G^{21}{}}^{(0)}_{\varepsilon}(\vec{p}) & {G^{22}{}}^{(0)}_{\varepsilon}(\vec{p})
+	\end{array}\right)
+	\\ = &&
+	\left(
+	\begin{array}{cc}
+		\dfrac{1}{\xi_{\vec{p}} - ( \varepsilon + i0 ) } \mp 2 \pi i n_{\vec{p}} \delta( \xi_{\vec{p}} - \varepsilon )
+		 &
+		\pm 2 \pi i n_{\vec{p}} \delta( \xi_{\vec{p}} - \varepsilon )
+		\\
+		- 2 \pi i ( 1 \mp n_{\vec{p}} ) \delta( \xi_{\vec{p}} - \varepsilon )
+		 &
+		- \dfrac{1}{\xi_{\vec{p}} - ( \varepsilon - i0 ) } \mp 2 \pi i n_{\vec{p}} \delta( \xi_{\vec{p}} - \varepsilon )
+	\end{array}\right)
+\end{eqnarray}
+\begin{eqnarray}
+	\left(
+	\begin{array}{ll}
+		{G^{R}{}}^{(0)}_{\varepsilon}(\vec{p}) & {G^{K}{}}^{(0)}_{\varepsilon}(\vec{p})
+		\\
+		{G^{A}{}}^{(0)}_{\varepsilon}(\vec{p}) & 0
+	\end{array}\right)
+	&=&
+	\left(
+	\begin{array}{cc}
+		\dfrac{1}{\xi_{\vec{p}} - ( \varepsilon + i0 ) }
+		 &
+		- 2 \pi i n_{\vec{p}} \delta( \xi_{\vec{p}} - \varepsilon )
+		\\
+		\dfrac{1}{\xi_{\vec{p}} - ( \varepsilon - i0 )}
+		 &
+		0
+	\end{array}\right)
+\end{eqnarray}
+
+
+
+また、BCS超伝導状態にも拡張することができる。Green逆演算子を次のように定義すれば良い。
+
+\begin{eqnarray}
+	\check{G}^{-1}_{\varepsilon}(\vec{p}-\vec{k}_{1},\varepsilon_{1})
+	&=&
+	\left(
+	\begin{array}{ll}
+		\xi_{\vec{p}} - \varepsilon & 0
+		\\
+		0                           & \xi_{\vec{p}} + \varepsilon
+	\end{array}
+	\right)
+	(2 \pi)^{4}
+	\delta(\varepsilon_{1})
+	\delta(\vec{k}_{1})
+	+
+	\check{H}_{\varepsilon_{1}}
+	\\[3mm]
+	\check{H}_{\varepsilon_{1}}
+	&=&
+	\left(
+	\begin{array}{ll}
+			- \dfrac{e}{c} \vec{v}_{\rm F} \vec{A}(\vec{k}) + e \phi & - \Delta(\vec{k})
+			\\
+			\Delta^{*}(\vec{k})                                      & \dfrac{e}{c} \vec{v}_{\rm F} \vec{A}(\vec{k}) + e \phi
+		\end{array}
+	\right)
+\end{eqnarray}
+
+
+\end{document}
