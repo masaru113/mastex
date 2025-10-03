@@ -1,0 +1,664 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs}
+\usepackage{epic,eepic,here}
+\usepackage{graphicx}
+\title{The Values of the Riemann Zeta Function at Negative Integers}
+\author{Masaru Okada}
+\date{\today}
+\begin{document}
+\allowdisplaybreaks
+\maketitle
+
+\begin{abstract}
+	A memo on the topic of the divergent infinite series $1+2+3+\cdots$ which is known to be represented as the finite value $-1/12$ via analytic continuation. Still in progress.
+\end{abstract}
+
+\section{Problem}
+
+For a complex number $s$, the Riemann zeta function (hereafter, simply the zeta function) defined for ${\rm Re}(s) > 1$ is given by
+\begin{eqnarray}
+	\zeta(s)
+	&=&
+	1
+	+
+	\dfrac{1}{2^{s}}
+	+
+	\dfrac{1}{3^{s}}
+	+
+	\cdots
+	+
+	\dfrac{1}{n^{s}}
+	+
+	\cdots
+	\ = \
+	\sum_{n=1}^{\infty}
+	\dfrac{1}{n^{s}}
+\end{eqnarray}
+
+It is clear that the function converges for ${\rm Re}(s) > 1$.
+At $s=1$, it becomes the harmonic series and diverges.
+However, it can be analytically continued to ${\rm Re}(s) < 0$ by using the following functional equation:
+\begin{eqnarray}
+	\zeta(s)
+	&=&
+	2^{s}
+	\pi^{s-1}
+	{\rm sin}
+	\left(
+	\dfrac{\pi s}{2}
+	\right)
+	\ \!
+	\Gamma(1-s)
+	\zeta(1-s)
+	\label{eqn:1302112125}
+\end{eqnarray}
+
+\subsection{At $s=-1$}
+
+What about $\zeta(s)$ when $s$ takes a negative value? For example, when $s=-1$,
+\begin{eqnarray}
+	\zeta(-1)
+	&=&
+	1
+	+
+	\dfrac{1}{2^{-1}}
+	+
+	\dfrac{1}{3^{-1}}
+	+
+	\cdots
+	+
+	\dfrac{1}{n^{-1}}
+	+
+	\cdots
+	\nonumber \\[3mm] &=&
+	1+2+3+\cdots+n+\cdots
+\end{eqnarray}
+This can be expressed as an infinite sum that, of course, seems to diverge.
+On the other hand, using the functional equation (\ref{eqn:1302112125}) used for analytic continuation,
+\begin{eqnarray}
+	\zeta(-1)
+	&=&
+	2^{-1}
+	\pi^{-2}
+	{\rm sin}
+	\left(
+	\frac{- \pi}{2}
+	\right)
+	\ \!
+	\Gamma(2)
+	\ \!
+	\zeta(2)
+	\nonumber \\ &=&
+	\frac{1}{2 \pi^{2}}
+	\times
+	(-1)
+	\times
+	(1!)
+	\times
+	\frac{\pi^{2}}{6}
+	\nonumber \\[3mm] &=&
+	- \frac{1}{12}
+\end{eqnarray}
+The value remains finite. It seems as if these equations suggest a contradiction.
+
+\section{Bernoulli number}
+
+As a preparation, let's briefly summarize Bernoulli numbers $B_{n}$.
+$B_{n}$ are defined as the coefficients of the series expansion of the following function:
+\begin{eqnarray}
+	\dfrac{x}{e^{x}-1}
+	&=&
+	\sum_{n=0}^{\infty}
+	B_{n}
+	\dfrac{x^{n}}{n!}
+\end{eqnarray}
+The general term is also known and is given by
+\begin{eqnarray}
+	B_{n}
+	&=&
+	\sum_{k=0}^{n}
+	(-1)^{k}
+	k^{n}
+	\sum_{m=k}^{n}
+	\dfrac{{_{m}}{\rm C}_{r}}{m+1}
+\end{eqnarray}
+
+
+
+
+Here, the binomial coefficient is denoted as
+\begin{eqnarray}
+	{_{n}}{\rm C}_{k}
+	&=&
+	\dfrac{n!}{(n-k)!k!}
+\end{eqnarray}
+However, since it is a double series, using this formula directly can make the calculation heavy.
+Therefore, to actually find $B_{n}$, the following recurrence relation is used:
+\begin{eqnarray}
+	\left\{
+	\begin{array}{l}
+		\\
+		B_{0} = 1 \\
+		B_{0} = -\dfrac{1}{n+1} \displaystyle \sum_{k=0}^{n-1} {_{n+1}}{\rm C}_{k} B_{k}
+	\end{array}
+	\right.
+\end{eqnarray}
+
+All $B_{n}$ are rational numbers. The first few terms are:
+$B_{0}=1$, $B_{1}=-\dfrac{1}{2}$, and $B_{2}=\dfrac{1}{6}$.
+However, as $n$ gets larger, the numerator and denominator of $B_{n}$ become large, making them unsuitable for floating-point arithmetic.
+For example,
+$B_{24}=-\dfrac{236364091}{2730}$,
+$B_{28}=-\dfrac{1869628555}{58}$.
+
+It is also known that $B_{n}=0$ for odd $n \geq 3$ (all odd $n$ except for $n=1$).
+This can be proven as follows:
+\begin{eqnarray}
+	\dfrac{x}{e^{x}-1}
+	-
+	B_{1}
+	\dfrac{x^{1}}{1!}
+	&=&
+	\dfrac{x}{e^{x}-1}
+	+
+	\dfrac{1}{2}x
+	\nonumber \\ &=&
+	\dfrac{2x + x(e^{x} -1)}{2(e^{x}-1)}
+	\nonumber \\ &=&
+	\dfrac{x}{2}
+	\dfrac{(e^{x} +1) \times e^{-x/2}}{(e^{x}-1)\times e^{-x/2}}
+	\nonumber \\ &=&
+	\dfrac{x}{2}
+	{\rm coth}\dfrac{x}{2}
+\end{eqnarray}
+Since the ${\rm coth}$ function is an odd function, the expression above becomes an even function.
+Therefore, when we expand the above expression as a series, only terms of even powers remain.
+That is,
+$B_{n}=0$ for odd $n \geq 3$ (all odd $n$ except for $n=1$).
+
+\subsection{Series expansion of coth}
+
+Solving in reverse,
+\begin{eqnarray}
+	{\rm coth}x
+	&=&
+	\dfrac{2}{2x}
+	\left(
+	-
+	B_{1}
+	\dfrac{(2x)^{1}}{1!}
+	+
+	\dfrac{2x}{e^{2x}-1}
+	\right)
+	\nonumber \\ &=&
+	\dfrac{1}{x}
+	\left(
+	-B_{1}(2x)
+	+
+	\sum_{n=0}^{\infty}
+	B_{n}
+	\dfrac{(2x)^{n}}{n!}
+	\right)
+	\nonumber \\ &=&
+	\dfrac{1}{x}
+	\left(
+	-B_{1}(2x)
+	+
+	B_{0}
+	+
+	(2x)
+	B_{1}
+	+
+	\dfrac{1}{2!}
+	(2x)^{2}
+	B_{2}
+	+
+	\dfrac{1}{3!}
+	(2x)^{3}
+	B_{3}
+	+
+	\cdots
+	+
+	\dfrac{1}{n!}
+	(2x)^{n}
+	B_{n}
+	+
+	\cdots
+	\right)
+	\nonumber \\ &=&
+	\dfrac{1}{x}
+	\left(
+	B_{0}
+	+
+	\dfrac{1}{2!}
+	(2x)^{2}
+	B_{2}
+	+
+	\dfrac{1}{3!}
+	(2x)^{3}
+	B_{3}
+	+
+	\cdots
+	+
+	\dfrac{1}{n!}
+	(2x)^{n}
+	B_{n}
+	+
+	\cdots
+	\right)
+	\label{eqn:1302100637nemui}
+\end{eqnarray}
+$B_{0}=1$. Furthermore, since $B_{n}=0$ for odd $n \geq 3$,
+\begin{eqnarray}
+	{\rm eqn.}(\ref{eqn:1302100637nemui})
+	&=&
+	\dfrac{1}{x}
+	\left(
+	1
+	+
+	\dfrac{1}{2!}
+	(2x)^{2}
+	B_{2}
+	+
+	\dfrac{1}{4!}
+	(2x)^{4}
+	B_{4}
+	+
+	\cdots
+	+
+	\dfrac{1}{(2n)!}
+	(2x)^{2n}
+	B_{2n}
+	+
+	\cdots
+	\right)
+	\nonumber \\ &=&
+	\dfrac{1}{x}
+	+
+	\sum_{n=1}^{\infty}
+	\dfrac{
+		2^{2n}
+		B_{2n}
+	}{(2n)!}
+	x^{2n-1}
+\end{eqnarray}
+
+
+
+
+\subsection{Series expansion of cot}
+\begin{eqnarray}
+	{\rm coth} \ \! x
+	\ = \
+	\dfrac{{\rm cosh} \ \! x}{{\rm sinh} \ \! x}
+	\ = \
+	\dfrac{{\rm cos}(ix)}{-i{\rm sin}(ix)}
+	\ = \
+	i {\rm cot} (ix)
+\end{eqnarray}
+Therefore, substituting $ix \to y$,
+\begin{eqnarray}
+	{\rm cot} \ \! y
+	&=&
+	\dfrac{1}{i} {\rm coth} \dfrac{y}{i}
+	\ = \
+	-i {\rm coth} (-iy)
+	\nonumber \\ &=&
+	i {\rm coth} (iy)
+	\nonumber \\ &=&
+	i
+	\left\{
+	\dfrac{1}{iy}
+	+
+	\left(
+	\dfrac{1}{2!}
+	2^{2} (iy)^{1}
+	B_{2}
+	+
+	\dfrac{1}{4!}
+	2^{4} (iy)^{3}
+	B_{4}
+	+
+	\cdots
+	+
+	\dfrac{1}{(2n)!}
+	2^{2n} (iy)^{2n-1}
+	B_{2n}
+	+
+	\cdots
+	\right)
+	\right\}
+	\nonumber \\ &=&
+	\dfrac{1}{y}
+	+
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} B_{2n} }{(2n)!}
+	y^{2n-1}
+\end{eqnarray}
+
+\subsection{Series expansion of tan}
+
+Taking the reciprocal of both sides of the double-angle formula
+\begin{eqnarray}
+	{\rm tan} (2x)
+	&=&
+	\dfrac{ 2 {\rm tan} \ \! x }{ 1 - {\rm tan}^{2} \ \! x }
+\end{eqnarray}
+we get
+\begin{eqnarray}
+	{\rm cot} (2x)
+	&=&
+	\dfrac{ 1 - {\rm tan}^{2} \ \! x }{2 {\rm tan} \ \! x }
+	\nonumber \\ &=&
+	\dfrac{1}{2 {\rm tan} \ \! x }
+	-
+	\dfrac{{\rm tan} \ \! x}{2}
+\end{eqnarray}
+That is,
+\begin{eqnarray}
+	{\rm tan} \ \! x
+	&=&
+	{ \rm cot } \ \! x
+	-
+	2 { \rm cot } (2x)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{x}
+	+
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} B_{2n} }{(2n)!}
+	x^{2n-1}
+	-
+	2
+	\left(
+	\dfrac{1}{2x}
+	+
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} B_{2n} }{(2n)!}
+		(2x)^{2n-1}
+	\right)
+	\nonumber \\ &=&
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} B_{2n} }{(2n)!}
+	\Big\{
+	x^{2n-1}
+	-
+	2
+	(2x)^{2n-1}
+	\Big\}
+	\nonumber \\ &=&
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} ( 1 - 2^{2n} ) B_{2n} }{(2n)!}
+	x^{2n-1}
+\end{eqnarray}
+Thus, it is clear that $B_{n}$ are basically involved in the series expansion coefficients of trigonometric functions.
+As for the sin and cos functions,
+\begin{eqnarray}
+	{\rm sin} \ \! x
+	&=&
+	\dfrac{e^{ix} - e^{-ix}}{2i}
+	\\
+	{\rm cos} \ \! x
+	&=&
+	\dfrac{e^{ix} + e^{-ix}}{2}
+\end{eqnarray}
+The exponential functions are only in the numerator, not in the denominator, so $B_{n}$ does not appear.
+
+
+
+
+\section{Some special cases}
+
+The value of $\zeta(s)$ for a general $s$ is calculated numerically.
+However, for special values of $s$, the analytic values are known to be as follows.
+
+For any positive even integer $2m$,
+\begin{eqnarray}
+	\zeta(2m)
+	&=&
+	\dfrac{(-1)^{2m} B_{2m} (2 \pi)^{2m} }{(2m)! 2}
+\end{eqnarray}
+
+For any negative integer $-m$,
+\begin{eqnarray}
+	\zeta(-m)
+	&=&
+	-
+	\dfrac{B_{m+1}}{m+1}
+\end{eqnarray}
+
+There is no known elementary expression for the value of $\zeta(s)$ when $s$ is an odd number.
+However, a series representation was given by Ramanujan.
+For any odd number $2m-1$,
+\begin{eqnarray}
+	\zeta(2m-1)
+	&=&
+	-
+	2^{2m} \pi^{2m-1}
+	\sum_{k=0}^{m}
+	(-1)^{k+1}
+	\dfrac{B_{2k}}{(2k)!2}
+	\dfrac{B_{2m-2k}}{(2m-2k)!}
+	-
+	2
+	\sum_{k=1}^{\infty}
+	\dfrac{ k^{-2m+1} }{ e^{2 \pi k} - 1 }
+\end{eqnarray}
+
+${}$
+
+${}$
+
+${}$
+
+\section{Analytic continuation}
+
+In the Gamma function
+\begin{eqnarray}
+	\Gamma(s)
+	&=&
+	\int^{\infty}_{0}
+	\!\! dt
+	\ \! t^{s-1} e^{-t}
+\end{eqnarray}
+by changing the variable to $t=nx$, we get
+\begin{eqnarray}
+	\Gamma(s)
+	&=&
+	\int^{\infty}_{0}
+	\!\! ndx
+	\ \! (nx)^{s-1} e^{-nx}
+	\label{eqn:1302120225hayonena}
+\end{eqnarray}
+Furthermore, by dividing both sides by $n^{s}$ and taking the sum over all natural numbers $n$,
+\begin{eqnarray}
+	\sum_{n=1}^{\infty}
+	\dfrac{ \Gamma(s) }{ n^{s} }
+	&=&
+	\sum_{n=1}^{\infty}
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \! x^{s-1} e^{-nx}
+	\nonumber \\
+	\Gamma(s)
+	\sum_{n=1}^{\infty}
+	\dfrac{ 1 }{ n^{s} }
+	&=&
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \! x^{s-1}
+	\sum_{n=1}^{\infty}
+	e^{-nx}
+\end{eqnarray}
+Thus, the expression
+\begin{eqnarray}
+	\Gamma(s)
+	\zeta(s)
+	&=&
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \!
+	\dfrac{x^{s-1}}{e^{x} - 1}
+	\label{eqn:1302120248nerana}
+\end{eqnarray}
+is obtained.
+
+
+
+
+By the way, using the following identity for alternating series
+\begin{eqnarray}
+	1
+	-
+	\dfrac{1}{2^{s}}
+	+
+	\dfrac{1}{3^{s}}
+	-
+	\cdots
+	+
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	+
+	\cdots
+	&=&
+	\left\{
+	1
+	+
+	\dfrac{1}{2^{s}}
+	+
+	\dfrac{1}{3^{s}}
+	+
+	\cdots
+	+
+	\dfrac{1}{n^{s}}
+	+
+	\cdots
+	\right\}
+	-
+	2
+	\left\{
+	\dfrac{1}{2^{s}}
+	+
+	\dfrac{1}{4^{s}}
+	+
+	\cdots
+	+
+	\dfrac{1}{(2n)^{s}}
+	+
+	\cdots
+	\right\}
+	\nonumber \\
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	&=&
+	\zeta(s)
+	-
+	2
+	\sum_{n=1}^{\infty}
+	\dfrac{1}{(2n)^{s}}
+	\nonumber \\ &=&
+	\zeta(s)
+	-
+	\dfrac{2}{2^{s}}
+	\zeta(s)
+	\nonumber \\ &=&
+	\zeta(s)
+	\left(
+	1
+	-
+	\dfrac{1}{2^{s-1}}
+	\right)
+\end{eqnarray}
+and equation (\ref{eqn:1302120225hayonena}), if we calculate the right and left sides independently,
+\begin{eqnarray}
+	\sum_{n=1}^{\infty}
+	\Gamma(s)
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	&=&
+	\sum_{n=1}^{\infty}
+	\left\{
+	\int^{\infty}_{0}
+	\!\! ndx
+	\ \! (nx)^{s-1} e^{-nx}
+	\right\}
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	\nonumber \\
+	\Gamma(s)
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	&=&
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \! x^{s-1}
+	\sum_{n=1}^{\infty}
+	(-1)^{n+1}
+	e^{-nx}
+	\nonumber \\
+	\Gamma(s)
+	\zeta(s)
+	\left(
+	1
+	-
+	\dfrac{1}{2^{s-1}}
+	\right)
+	&=&
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \! x^{s-1}
+	\frac{1}{e^{x} + 1}
+\end{eqnarray}
+is newly obtained.
+
+${}$
+
+From equation (\ref{eqn:1302120225hayonena}),
+\begin{eqnarray}
+	\dfrac{1}{n^{s}}
+	&=&
+	\dfrac{1}{\Gamma(s)}
+	\int^{\infty}_{0}
+	dt \ \! t^{s-1} e^{-nt}
+\end{eqnarray}
+Using this fact,
+\begin{eqnarray}
+	\pi^{-s/2}
+	\zeta(s)
+	&=&
+	\sum_{n=1}^{\infty}
+	\dfrac{1}{(\pi n )^{s/2}}
+	\nonumber \\ &=&
+	\sum_{n=1}^{\infty}
+	\dfrac{1}{\Gamma(s/2)}
+	\int^{\infty}_{0}
+	dt \ \! t^{s/2 \ \! -1} e^{-(\pi n^{2})t}
+	\nonumber \\ &=&
+	\dfrac{1}{\Gamma(s/2)}
+	\int^{\infty}_{0}
+	dt \ \! t^{s/2 \ \! -1}
+	\sum_{n=1}^{\infty}
+	e^{- \pi n^{2} t}
+\end{eqnarray}
+
+Here, as a special case of the Jacobi theta function, we define $\psi(x)$ as
+\begin{eqnarray}
+	\psi(x)
+	&=&
+	\sum_{n=1}^{\infty}
+	e^{- \pi n^{2} x}
+\end{eqnarray}
+From the Poisson summation formula,
+$\psi(x)$ satisfies the following.
+\begin{eqnarray}
+	2 \psi ( 1/x )
+	+
+	1
+	&=&
+	\sqrt{x}
+	\Big( 2 \psi(x) + 1 \Big)
+\end{eqnarray}
+
+\ \\
+
+(The following is still being written...)
+
+\end{document}

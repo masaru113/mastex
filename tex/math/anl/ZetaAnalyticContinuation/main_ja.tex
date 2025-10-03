@@ -1,0 +1,668 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\title{負数の変数を持つRiemannのゼータ関数の値}
+\author{岡田 大 (Okada Masaru)}
+\date{\today}
+\begin{document}
+\allowdisplaybreaks
+\maketitle
+
+\begin{abstract}
+	発散する無限級数として知られる $1+2+3+\cdots$ が、解析接続によって有限値 $-1/12$ として表される事項の周辺についてのメモ。まだ書きかけ。
+\end{abstract}
+
+\section{Problem}
+
+複素数$s$に対し、${\rm Re}(s) > 1$で定義される
+Riemann zeta function(以降、簡単にゼータ関数と呼ぶ。)は次で定義される。
+\begin{eqnarray}
+	\zeta(s)
+	&=&
+	1
+	+
+	\dfrac{1}{2^{s}}
+	+
+	\dfrac{1}{3^{s}}
+	+
+	\cdots
+	+
+	\dfrac{1}{n^{s}}
+	+
+	\cdots
+	\ = \
+	\sum_{n=1}^{\infty}
+	\dfrac{1}{n^{s}}
+\end{eqnarray}
+
+まず、明らかに${\rm Re}(s) >1$では収束する。
+$s=1$では調和級数になり、発散する。
+しかし${\rm Re}(s) < 0$に対しても次の関数等式を用いることで解析接続することができる。
+\begin{eqnarray}
+	\zeta(s)
+	&=&
+	2^{s}
+	\pi^{s-1}
+	{\rm sin}
+	\left(
+	\dfrac{\pi s}{2}
+	\right)
+	\ \!
+	\Gamma(1-s)
+	\zeta(1-s)
+	\label{eqn:1302112125}
+\end{eqnarray}
+
+\subsection{At $s=-1$}
+
+では、$s$が負の値を持つときの$\zeta(s)$はどうなるであろうか、例えば$s=-1$のとき、
+\begin{eqnarray}
+	\zeta(-1)
+	&=&
+	1
+	+
+	\dfrac{1}{2^{-1}}
+	+
+	\dfrac{1}{3^{-1}}
+	+
+	\cdots
+	+
+	\dfrac{1}{n^{-1}}
+	+
+	\cdots
+	\nonumber \\[3mm] &=&
+	1+2+3+\cdots+n+\cdots
+\end{eqnarray}
+と表現できる。最後の辺の級数は当然、発散するように見える。
+一方、解析接続に用いられた関数等式(\ref{eqn:1302112125})を用いると、
+\begin{eqnarray}
+	\zeta(-1)
+	&=&
+	2^{-1}
+	\pi^{-2}
+	{\rm sin}
+	\left(
+	\frac{- \pi}{2}
+	\right)
+	\ \!
+	\Gamma(2)
+	\ \!
+	\zeta(2)
+	\nonumber \\ &=&
+	\frac{1}{2 \pi^{2}}
+	\times
+	(-1)
+	\times
+	(1!)
+	\times
+	\frac{\pi^{2}}{6}
+	\nonumber \\[3mm] &=&
+	- \frac{1}{12}
+\end{eqnarray}
+となり、有限の値に残る。それぞれの等式は、まるで矛盾を示唆するように見える。
+
+\section{Bernoulli number}
+
+準備としてベルヌーイ数$B_{n}$について簡単にまとめておく。
+$B_{n}$は次の関数の級数展開の係数として定義される。
+\begin{eqnarray}
+	\dfrac{x}{e^{x}-1}
+	&=&
+	\sum_{n=0}^{\infty}
+	B_{n}
+	\dfrac{x^{n}}{n!}
+\end{eqnarray}
+一般項も知られていて、次で与えられる。
+\begin{eqnarray}
+	B_{n}
+	&=&
+	\sum_{k=0}^{n}
+	(-1)^{k}
+	k^{n}
+	\sum_{m=k}^{n}
+	\dfrac{{_{m}}{\rm C}_{r}}{m+1}
+\end{eqnarray}
+
+
+
+
+ここで、二項係数
+\begin{eqnarray}
+	{_{n}}{\rm C}_{k}
+	&=&
+	\dfrac{n!}{(n-k)!k!}
+\end{eqnarray}
+と表記した。
+しかし二重級数になっているので直接この公式を用いると計算が重くなる。
+そこで実際に$B_{n}$を求めるには次の漸化式が用いられる。
+\begin{eqnarray}
+	\left\{
+	\begin{array}{l}
+		\\
+		B_{0} = 1 \\
+		B_{0} = -\dfrac{1}{n+1} \displaystyle \sum_{k=0}^{n-1} {_{n+1}}{\rm C}_{k} B_{k}
+	\end{array}
+	\right.
+\end{eqnarray}
+
+$B_{n}$は全て有理数である。最初の数項を示すと、
+$B_{0}=1$、$B_{1}=-\dfrac{1}{2}$、$B_{2}=\dfrac{1}{6}$となる。
+しかし、$n$が大きくなると$B_{n}$の分子分母が大きくなっていくので、浮動小数点演算には不向きである。
+例えば、
+$B_{24}=-\dfrac{236364091}{2730}$、
+$B_{28}=-\dfrac{1869628555}{58}$。
+
+また、$n \geq 3$以降の奇数（$n=1$以外の奇数）に対して$B_{n}=0$であることが知られている。
+これは次のように証明できる。
+\begin{eqnarray}
+	\dfrac{x}{e^{x}-1}
+	-
+	B_{1}
+	\dfrac{x^{1}}{1!}
+	&=&
+	\dfrac{x}{e^{x}-1}
+	+
+	\dfrac{1}{2}x
+	\nonumber \\ &=&
+	\dfrac{2x + x(e^{x} -1)}{2(e^{x}-1)}
+	\nonumber \\ &=&
+	\dfrac{x}{2}
+	\dfrac{(e^{x} +1) \times e^{-x/2}}{(e^{x}-1)\times e^{-x/2}}
+	\nonumber \\ &=&
+	\dfrac{x}{2}
+	{\rm coth}\dfrac{x}{2}
+\end{eqnarray}
+{\rm coth}関数は奇関数であるので、上の式は偶関数になる。
+従って、上の式を級数展開したときに残る項は偶数次だけである。
+すなわち、
+$n \geq 3$以降の奇数（$n=1$以外の奇数）に対して$B_{n}=0$である。
+
+\subsection{cothの級数展開}
+
+逆に解くと、
+\begin{eqnarray}
+	{\rm coth}x
+	&=&
+	\dfrac{2}{2x}
+	\left(
+	-
+	B_{1}
+	\dfrac{(2x)^{1}}{1!}
+	+
+	\dfrac{2x}{e^{2x}-1}
+	\right)
+	\nonumber \\ &=&
+	\dfrac{1}{x}
+	\left(
+	-B_{1}(2x)
+	+
+	\sum_{n=0}^{\infty}
+	B_{n}
+	\dfrac{(2x)^{n}}{n!}
+	\right)
+	\nonumber \\ &=&
+	\dfrac{1}{x}
+	\left(
+	-B_{1}(2x)
+	+
+	B_{0}
+	+
+	(2x)
+	B_{1}
+	+
+	\dfrac{1}{2!}
+	(2x)^{2}
+	B_{2}
+	+
+	\dfrac{1}{3!}
+	(2x)^{3}
+	B_{3}
+	+
+	\cdots
+	+
+	\dfrac{1}{n!}
+	(2x)^{n}
+	B_{n}
+	+
+	\cdots
+	\right)
+	\nonumber \\ &=&
+	\dfrac{1}{x}
+	\left(
+	B_{0}
+	+
+	\dfrac{1}{2!}
+	(2x)^{2}
+	B_{2}
+	+
+	\dfrac{1}{3!}
+	(2x)^{3}
+	B_{3}
+	+
+	\cdots
+	+
+	\dfrac{1}{n!}
+	(2x)^{n}
+	B_{n}
+	+
+	\cdots
+	\right)
+	\label{eqn:1302100637nemui}
+\end{eqnarray}
+$B_{0}=1$である。さらに、$n \geq 3$以降の奇数$n$に対して$B_{n}=0$であるので、
+\begin{eqnarray}
+	{\rm eqn.}(\ref{eqn:1302100637nemui})
+	&=&
+	\dfrac{1}{x}
+	\left(
+	1
+	+
+	\dfrac{1}{2!}
+	(2x)^{2}
+	B_{2}
+	+
+	\dfrac{1}{4!}
+	(2x)^{4}
+	B_{4}
+	+
+	\cdots
+	+
+	\dfrac{1}{(2n)!}
+	(2x)^{2n}
+	B_{2n}
+	+
+	\cdots
+	\right)
+	\nonumber \\ &=&
+	\dfrac{1}{x}
+	+
+	\sum_{n=1}^{\infty}
+	\dfrac{
+		2^{2n}
+		B_{2n}
+	}{(2n)!}
+	x^{2n-1}
+\end{eqnarray}
+
+
+
+
+\subsection{cotの級数展開}
+\begin{eqnarray}
+	{\rm coth} \ \! x
+	\ = \
+	\dfrac{{\rm cosh} \ \! x}{{\rm sinh} \ \! x}
+	\ = \
+	\dfrac{{\rm cos}(ix)}{-i{\rm sin}(ix)}
+	\ = \
+	i {\rm cot} (ix)
+\end{eqnarray}
+なので、$ix \to y$と置換して、
+\begin{eqnarray}
+	{\rm cot} \ \! y
+	&=&
+	\dfrac{1}{i} {\rm coth} \dfrac{y}{i}
+	\ = \
+	-i {\rm coth} (-iy)
+	\nonumber \\ &=&
+	i {\rm coth} (iy)
+	\nonumber \\ &=&
+	i
+	\left\{
+	\dfrac{1}{iy}
+	+
+	\left(
+	\dfrac{1}{2!}
+	2^{2} (iy)^{1}
+	B_{2}
+	+
+	\dfrac{1}{4!}
+	2^{4} (iy)^{3}
+	B_{4}
+	+
+	\cdots
+	+
+	\dfrac{1}{(2n)!}
+	2^{2n} (iy)^{2n-1}
+	B_{2n}
+	+
+	\cdots
+	\right)
+	\right\}
+	\nonumber \\ &=&
+	\dfrac{1}{y}
+	+
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} B_{2n} }{(2n)!}
+	y^{2n-1}
+\end{eqnarray}
+
+\subsection{tanの級数展開}
+
+倍角公式
+\begin{eqnarray}
+	{\rm tan} (2x)
+	&=&
+	\dfrac{ 2 {\rm tan} \ \! x }{ 1 - {\rm tan}^{2} \ \! x }
+\end{eqnarray}
+の両辺で逆数を取って、
+\begin{eqnarray}
+	{\rm cot} (2x)
+	&=&
+	\dfrac{ 1 - {\rm tan}^{2} \ \! x }{2 {\rm tan} \ \! x }
+	\nonumber \\ &=&
+	\dfrac{1}{2 {\rm tan} \ \! x }
+	-
+	\dfrac{{\rm tan} \ \! x}{2}
+\end{eqnarray}
+すなわち、
+\begin{eqnarray}
+	{\rm tan} \ \! x
+	&=&
+	{ \rm cot } \ \! x
+	-
+	2 { \rm cot } (2x)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{x}
+	+
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} B_{2n} }{(2n)!}
+	x^{2n-1}
+	-
+	2
+	\left(
+	\dfrac{1}{2x}
+	+
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} B_{2n} }{(2n)!}
+		(2x)^{2n-1}
+	\right)
+	\nonumber \\ &=&
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} B_{2n} }{(2n)!}
+	\Big\{
+	x^{2n-1}
+	-
+	2
+	(2x)^{2n-1}
+	\Big\}
+	\nonumber \\ &=&
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n} 2^{2n} ( 1 - 2^{2n} ) B_{2n} }{(2n)!}
+	x^{2n-1}
+\end{eqnarray}
+となる。
+三角関数の級数展開係数には基本的に$B_{n}$が関わってくる。
+sin、cos関数に限っては
+\begin{eqnarray}
+	{\rm sin} \ \! x
+	&=&
+	\dfrac{e^{ix} - e^{-ix}}{2i}
+	\\
+	{\rm cos} \ \! x
+	&=&
+	\dfrac{e^{ix} + e^{-ix}}{2}
+\end{eqnarray}
+指数関数が分母に入らず、分子にしか指数関数が入っていないので$B_{n}$が現れない。
+
+
+
+
+\section{Some special cases}
+
+一般のsで$\zeta(s)$がどのような値を取るかは数値的に計算される。
+しかし、特別な$s$に関しては解析的な値が求められており、次のようになることが知られている。
+
+任意の正の偶数$2m$に対して、
+\begin{eqnarray}
+	\zeta(2m)
+	&=&
+	\dfrac{(-1)^{2m} B_{2m} (2 \pi)^{2m} }{(2m)! 2}
+\end{eqnarray}
+
+任意の負の整数$-m$に対して、
+\begin{eqnarray}
+	\zeta(-m)
+	&=&
+	-
+	\dfrac{B_{m+1}}{m+1}
+\end{eqnarray}
+
+$s$が奇数の場合の$\zeta(s)$の値の初等的な表示は知られていない。
+しかし級数表示はラマヌジャンによって与えられている。
+任意の奇数$2m-1$に対して、
+\begin{eqnarray}
+	\zeta(2m-1)
+	&=&
+	-
+	2^{2m} \pi^{2m-1}
+	\sum_{k=0}^{m}
+	(-1)^{k+1}
+	\dfrac{B_{2k}}{(2k)!2}
+	\dfrac{B_{2m-2k}}{(2m-2k)!}
+	-
+	2
+	\sum_{k=1}^{\infty}
+	\dfrac{ k^{-2m+1} }{ e^{2 \pi k} - 1 }
+\end{eqnarray}
+
+${}$
+
+${}$
+
+${}$
+
+\section{Analytic continuation}
+
+ガンマ関数
+\begin{eqnarray}
+	\Gamma(s)
+	&=&
+	\int^{\infty}_{0}
+	\!\! dt
+	\ \! t^{s-1} e^{-t}
+\end{eqnarray}
+において、$t=nx$として変数変換すると、
+\begin{eqnarray}
+	\Gamma(s)
+	&=&
+	\int^{\infty}_{0}
+	\!\! ndx
+	\ \! (nx)^{s-1} e^{-nx}
+	\label{eqn:1302120225hayonena}
+\end{eqnarray}
+さらに、両辺を$n^{s}$で割って、全ての自然数$n$に関して和を取る。
+\begin{eqnarray}
+	\sum_{n=1}^{\infty}
+	\dfrac{ \Gamma(s) }{ n^{s} }
+	&=&
+	\sum_{n=1}^{\infty}
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \! x^{s-1} e^{-nx}
+	\nonumber \\
+	\Gamma(s)
+	\sum_{n=1}^{\infty}
+	\dfrac{ 1 }{ n^{s} }
+	&=&
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \! x^{s-1}
+	\sum_{n=1}^{\infty}
+	e^{-nx}
+\end{eqnarray}
+よって、
+\begin{eqnarray}
+	\Gamma(s)
+	\zeta(s)
+	&=&
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \!
+	\dfrac{x^{s-1}}{e^{x} - 1}
+	\label{eqn:1302120248nerana}
+\end{eqnarray}
+の表式が得られた。
+
+
+
+
+ところで、次の交代級数に関する恒等式
+\begin{eqnarray}
+	1
+	-
+	\dfrac{1}{2^{s}}
+	+
+	\dfrac{1}{3^{s}}
+	-
+	\cdots
+	+
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	+
+	\cdots
+	&=&
+	\left\{
+	1
+	+
+	\dfrac{1}{2^{s}}
+	+
+	\dfrac{1}{3^{s}}
+	+
+	\cdots
+	+
+	\dfrac{1}{n^{s}}
+	+
+	\cdots
+	\right\}
+	-
+	2
+	\left\{
+	\dfrac{1}{2^{s}}
+	+
+	\dfrac{1}{4^{s}}
+	+
+	\cdots
+	+
+	\dfrac{1}{(2n)^{s}}
+	+
+	\cdots
+	\right\}
+	\nonumber \\
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	&=&
+	\zeta(s)
+	-
+	2
+	\sum_{n=1}^{\infty}
+	\dfrac{1}{(2n)^{s}}
+	\nonumber \\ &=&
+	\zeta(s)
+	-
+	\dfrac{2}{2^{s}}
+	\zeta(s)
+	\nonumber \\ &=&
+	\zeta(s)
+	\left(
+	1
+	-
+	\dfrac{1}{2^{s-1}}
+	\right)
+\end{eqnarray}
+と式(\ref{eqn:1302120225hayonena})を用いて、次の右辺と左辺をそれぞれ独立に計算すると、
+\begin{eqnarray}
+	\sum_{n=1}^{\infty}
+	\Gamma(s)
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	&=&
+	\sum_{n=1}^{\infty}
+	\left\{
+	\int^{\infty}_{0}
+	\!\! ndx
+	\ \! (nx)^{s-1} e^{-nx}
+	\right\}
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	\nonumber \\
+	\Gamma(s)
+	\sum_{n=1}^{\infty}
+	\dfrac{(-1)^{n+1}}{n^{s}}
+	&=&
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \! x^{s-1}
+	\sum_{n=1}^{\infty}
+	(-1)^{n+1}
+	e^{-nx}
+	\nonumber \\
+	\Gamma(s)
+	\zeta(s)
+	\left(
+	1
+	-
+	\dfrac{1}{2^{s-1}}
+	\right)
+	&=&
+	\int^{\infty}_{0}
+	\!\! dx
+	\ \! x^{s-1}
+	\frac{1}{e^{x} + 1}
+\end{eqnarray}
+が新たに得られる。
+
+${}$
+
+式(\ref{eqn:1302120225hayonena})より、
+\begin{eqnarray}
+	\dfrac{1}{n^{s}}
+	&=&
+	\dfrac{1}{\Gamma(s)}
+	\int^{\infty}_{0}
+	dt \ \! t^{s-1} e^{-nt}
+\end{eqnarray}
+である。このことを用いて、
+\begin{eqnarray}
+	\pi^{-s/2}
+	\zeta(s)
+	&=&
+	\sum_{n=1}^{\infty}
+	\dfrac{1}{(\pi n )^{s/2}}
+	\nonumber \\ &=&
+	\sum_{n=1}^{\infty}
+	\dfrac{1}{\Gamma(s/2)}
+	\int^{\infty}_{0}
+	dt \ \! t^{s/2 \ \! -1} e^{-(\pi n^{2})t}
+	\nonumber \\ &=&
+	\dfrac{1}{\Gamma(s/2)}
+	\int^{\infty}_{0}
+	dt \ \! t^{s/2 \ \! -1}
+	\sum_{n=1}^{\infty}
+	e^{- \pi n^{2} t}
+\end{eqnarray}
+
+ここでヤコビのテータ関数の特殊な場合として$\psi(x)$を
+\begin{eqnarray}
+	\psi(x)
+	&=&
+	\sum_{n=1}^{\infty}
+	e^{- \pi n^{2} x}
+\end{eqnarray}
+で定義する。
+Poissonの和の公式より
+$\psi(x)$は次を満たす。
+\begin{eqnarray}
+	2 \psi ( 1/x )
+	+
+	1
+	&=&
+	\sqrt{x}
+	\Big( 2 \psi(x) + 1 \Big)
+\end{eqnarray}
+
+\ \\
+
+（以下、記載中。。。）
+
+\end{document}
