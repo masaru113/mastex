@@ -26,6 +26,8 @@ The notes are organized within a parent directory named `tex`. All documents are
             - **[Topology of Matrices](https://github.com/masaru113/mastex/blob/main/tex/math/top/MatrixTopology/main.pdf)**: Notes on topologies on matrices and supplement with a note on unitary groups and quantum mechanics.
             - **[Sierpinski Space](https://github.com/masaru113/mastex/blob/main/tex/math/top/sierpinski_space/main.pdf)**: Notes on Sierpinski space.
             - **[An Introduction to Topological Groups](https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main.pdf)**: Notes on introduction to topological group
+        - **anl**: Folder for topics related to analysis.
+          - **[The Values of the Riemann Zeta Function at Negative Integers](https://github.com/masaru113/mastex/blob/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf)**: memo on analytic continuation of Riemann zeta to negative integers (work in progress).
     - **phys**: Notes on physics.
         - **[Bogoliubov Transformation as a Natural Transformation](https://github.com/masaru113/mastex/blob/main/tex/phys/BogoliubovTrans_as_NaturalTrans/main.pdf)**: Notes on the relationship between Bogoliubov transformations and natural transformations.
         - **[Bosonic Strings Short Introduction](https://github.com/masaru113/mastex/blob/main/tex/phys/BozonicString/main.pdf)**: Notes on short introduction about bosonic string.
