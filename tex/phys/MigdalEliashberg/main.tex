@@ -1,0 +1,471 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs,url}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{Migdal-Eliashberg Theory in Nonequilibrium}
+\author{Masaru Okada}
+\date{\today}
+\def\sla#1{\rlap/#1}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	Notes on Migdal-Eliashberg theory in nonequilibrium.
+	The superconducting gap equation in the Migdal-Eliashberg model extended to nonequilibrium.
+\end{abstract}
+
+We start from Matsubara space.
+Setting the Matsubara frequency for fermions as $\varepsilon_{n} = 2 \pi i T (n + 1/2)$, the Dyson equation for the Gorkov Green's function is
+
+\begin{eqnarray}
+	\sum_{\varepsilon_{m}}
+	\int \dfrac{ d^{3} \vec{k}_{1} }{ (2 \pi)^{3} }
+	\Big[ \check{G}^{-1}_{\varepsilon_{n}} (\vec{p} - \vec{k}_{1} , \omega_{1} ) - \check{\mathit{\Sigma}}_{\varepsilon_{n},\varepsilon_{m}}(\vec{p},\vec{k}_{1}) \Big]
+	\check{G}_{\varepsilon_{m},\varepsilon_{\vec{k}}} ( \vec{p} - \vec{k}_{1} , \vec{p} - \vec{k} )
+	&=&
+	\check{1} (2 \pi)^{3} \delta(\vec{k}) \delta_{\varepsilon_{n} - \varepsilon_{\vec{k}}}
+	\label{eqn:dysonone}
+\end{eqnarray}
+
+A function with two energy variables as a subscript is a two-particle function.
+$\check{G}^{-1}_{\varepsilon}$ has the following structure:
+
+\begin{eqnarray}
+	\check{G}^{-1}_{\varepsilon}(\vec{p}-\vec{k}_{1},\omega_{1})
+	&=&
+	\left(
+	\begin{array}{cc}
+		\xi_{\vec{p}} - \varepsilon & 0
+		\\
+		0                           & \xi_{\vec{p}} + \varepsilon
+	\end{array}
+	\right)
+	(2 \pi)^{3}
+	\delta(\vec{k}_{1})
+	\delta_{\omega_{1}}
+	+
+	\check{H}_{\omega_{1}}
+\end{eqnarray}
+
+We set $\omega_{1} = \varepsilon_{n} - \varepsilon_{m}$.
+The time-dependent external field $\check{H}_{\omega_{1}}$ is currently assumed to be:
+
+\begin{eqnarray}
+	\check{H}_{\omega_{1}}
+	&=&
+	\left(
+	\begin{array}{cc}
+			- \dfrac{e}{c} \vec{v}_{\rm F} \vec{A}_{\omega_{1}} (\vec{k}_{1}) + e \phi_{\omega_{1}}(\vec{k}_{1}) & - \Delta_{\omega_{1}} (\vec{k}_{1})
+			\\
+			\Delta^{*}_{\omega_{1}} (\vec{k})                                                                    & \dfrac{e}{c} \vec{v}_{\rm F} \vec{A}_{\omega_{1}} (\vec{k}_{1}) + e \phi_{\omega_{1}} (\vec{k}_{1})
+		\end{array}
+	\right)
+\end{eqnarray}
+
+The N-th order electron Green's function $\check{G}^{(N)}$ expanded up to N-th order in $\check{H}_{\omega_{j}}$ is:
+
+\begin{eqnarray}
+	\check{G}^{(N)}_{\varepsilon_{n},\varepsilon_{n} - \omega}
+	&=&
+	(-1)^{N}
+	G^{(0)}_{\varepsilon_{n}}
+	\check{H}_{\omega_{1}}
+	G^{(0)}_{\varepsilon_{n} - \omega_{1}}
+	\check{H}_{\omega_{2}}
+	G^{(0)}_{\varepsilon_{n} - \omega_{1} - \omega_{2} }
+	\ \cdots \
+	\check{H}_{\omega_{N}}
+	G^{(0)}_{\varepsilon_{n} - \omega }
+\end{eqnarray}
+
+Here, we set $\omega = \omega_{1} + \omega_{2} + \cdots + \omega_{N}$. The free electron Green's function $G^{(0)}$ is:
+
+\begin{eqnarray}
+	G^{(0)}_{\varepsilon_{n}}
+	&=&
+	\dfrac{1}{ \xi_{\vec{p}} - \varepsilon_{n} }
+\end{eqnarray}
+
+(This has the opposite sign to AGD, etc.).
+Using the residue theorem, the following equality holds for a complex number $z$:
+
+\begin{eqnarray}
+	T \sum_{n} \check{G}^{(N)}_{\varepsilon_{n},\varepsilon_{n} - \omega}
+	&=&
+	\oint \!\! \dfrac{dz}{4 \pi i}
+	\check{G}^{(N)}_{z,z - \omega}
+	{\rm tanh} \dfrac{z}{2 T}
+\end{eqnarray}
+
+The integration path is a circle of infinite radius centered at the origin, in the clockwise direction.
+When the interaction Hamiltonian does not have time dependence, we only needed to consider the paths around the singularities originating from ${\rm tanh}(z/2 T)$, i.e., $z=2 \pi i T (n + 1/2)$.
+However, in this case, the N-th order electron Green's function also has singular lines originating from $\check{H}_{\omega_{j}}$:
+
+\begin{eqnarray}
+	{\rm Im}
+	\Big( z - \sum^{l}_{j = 0} \omega_{j} \Big)
+	&=&
+	0
+	\label{eqn:tokuisen}
+\end{eqnarray}
+
+Therefore, we split the path into $j$ branches, running from ${\rm Re}(z) = - \infty$ to $\infty$ along the upper side $(+i0)$ of each singular line, and from ${\rm Re}(z) = \infty$ to $-\infty$ along the lower side $(-i0)$.
+(Here, we set $\omega_{0}=0$ for simplicity of notation.)
+In this way, the integral can be expressed using the complex variable $\varepsilon$:
+
+\begin{eqnarray}
+	\oint \!\! \dfrac{dz}{4 \pi i}
+	\check{G}^{(N)}_{z,z - \omega}
+	{\rm tanh} \dfrac{z}{2 T}
+	&=&
+	\int \! \! \dfrac{d \varepsilon}{4 \pi i}
+	\Big(
+	\delta_{0} \check{G}^{(N)}
+	+
+	\delta_{1} \check{G}^{(N)}
+	+
+	\cdots
+	+
+	\delta_{N} \check{G}^{(N)}
+	\Big)
+	{\rm tanh} \dfrac{\varepsilon}{2 T}
+\end{eqnarray}
+
+Here, $\delta_{l} \check{G}^{(N)}$ represents the jump in the Green's function at the l-th singular line (Eq. (\ref{eqn:tokuisen})), and is specifically written as:
+
+\begin{eqnarray}
+	\delta_{l} \check{G}^{(N)}
+	&=&
+	\Big[ \check{G}^{(N)}_{z,z - \omega} \Big]_{z = z_{l} + 0}
+	-
+	\Big[ \check{G}^{(N)}_{z,z - \omega} \Big]_{z = z_{l} - 0}
+	\hspace{10mm}
+	\left( {\rm where} \ \ \ z_{l} = \varepsilon + i \ \! {\rm Im} \sum^{l}_{j=0} \omega_{j} \right)
+\end{eqnarray}
+
+This is where the analyticity differs from that of the equilibrium Green's function, as we consider the jumps on the singular lines originating from the time-dependent external field.
+
+
+
+
+
+
+We perform analytical continuation.
+This jump, for example in the case of $l=1$, is:
+
+\begin{eqnarray}
+	\delta_{1} \check{G}^{(N)}
+	&=&
+	(-1)^{N}
+	G^{(0)}_{\varepsilon + \omega_{1} }
+	\check{H}_{\omega_{1}}
+	\Big( G^{(0)}_{\varepsilon + i 0 } - G^{(0)}_{\varepsilon - i 0 } \Big)
+	\check{H}_{\omega_{2}}
+	G^{(0)}_{\varepsilon - \omega_{2} }
+	\ \cdots \
+	\check{H}_{\omega_{N}}
+	G^{(0)}_{\varepsilon + \omega_{1} - \omega }
+\end{eqnarray}
+
+However, as is conventional, by using the retarded (advanced) Green's function $G^{(0) R(A)}$ where the poles are infinitesimally shifted up (down) along the imaginary axis, we perform the analytical continuation as:
+
+\begin{eqnarray}
+	\delta_{1} \check{G}^{(N)}
+	&=&
+	(-1)^{N}
+	G^{(0)R}_{\varepsilon + \omega_{1} }
+	\check{H}_{\omega_{1}}
+	\Big( G^{(0)R}_{\varepsilon} - G^{(0)A}_{\varepsilon} \Big)
+	\check{H}_{\omega_{2}}
+	G^{(0)A}_{\varepsilon - \omega_{2} }
+	\ \cdots \
+	\check{H}_{\omega_{N}}
+	G^{(0)A}_{\varepsilon + \omega_{1} - \omega }
+\end{eqnarray}
+
+Shifting the integration dummy variable $\varepsilon + \omega \to \varepsilon$ and explicitly writing the variables gives:
+
+\begin{eqnarray}
+	\delta_{1} \check{G}^{(N)}_{\varepsilon , \varepsilon - \omega}
+	&=&
+	(-1)^{N}
+	G^{(0)R}_{\varepsilon }
+	\check{H}_{\omega_{1}}
+	\Big( G^{(0)R}_{\varepsilon - \omega_{1}} - G^{(0)A}_{\varepsilon - \omega_{1}} \Big)
+	\check{H}_{\omega_{2}}
+	G^{(0)A}_{\varepsilon - \omega_{1} - \omega_{2} }
+	\ \cdots \
+	\check{H}_{\omega_{N}}
+	G^{(0)A}_{\varepsilon - \omega }
+\end{eqnarray}
+
+The integral can then be written as:
+
+\begin{eqnarray}
+	\oint \!\! \dfrac{dz}{4 \pi i}
+	\check{G}^{(N)}_{z,z - \omega}
+	{\rm tanh} \dfrac{z}{2 T}
+	&=&
+	\int^{\infty}_{-\infty} \! \dfrac{d \varepsilon}{4 \pi i}
+	\Big[
+	{\rm tanh} \Big( \dfrac{\varepsilon}{2 T} \Big)
+	\delta_{0} \check{G}^{(N)}_{\varepsilon , \varepsilon - \omega}
+	+
+	{\rm tanh} \Big( \dfrac{\varepsilon - \omega_{1}}{2 T} \Big)
+	\delta_{1} \check{G}^{(N)}_{\varepsilon , \varepsilon - \omega}
+	\nonumber \\ &&
+	+
+	{\rm tanh} \Big( \dfrac{\varepsilon - \omega_{1} - \omega_{2}}{2 T} \Big)
+	\delta_{1} \check{G}^{(N)}_{\varepsilon , \varepsilon - \omega}
+	+
+	\cdots
+	+
+	{\rm tanh} \Big( \dfrac{\varepsilon - \omega}{2 T} \Big)
+	\delta_{N} \check{G}^{(N)}_{\varepsilon , \varepsilon - \omega}
+	\Big]
+	\nonumber \\[3mm] &=&
+	\sum_{l=0}^{N}
+	\int^{\infty}_{-\infty} \! \dfrac{d \varepsilon}{4 \pi i}
+	{\rm tanh} \Big( \dfrac{\varepsilon - \sum_{j=0}^{l} \omega_{j} }{2 T} \Big)
+	\delta_{l} \check{G}^{(N)}_{\varepsilon , \varepsilon - \omega}
+\end{eqnarray}
+
+We now denote the integrand as:
+
+\begin{eqnarray}
+	\check{G}^{(N)K}_{\varepsilon , \varepsilon - \omega}
+	&=&
+	\sum_{l=0}^{N}
+	{\rm tanh} \Big( \dfrac{\varepsilon - \sum_{j=0}^{l} \omega_{j} }{2 T} \Big)
+	\delta_{l} \check{G}^{(N)}_{\varepsilon , \varepsilon - \omega}
+\end{eqnarray}
+
+Writing the unperturbed distribution function (Fermi distribution function) as $f^{(0)}(\varepsilon) = {\rm tanh}\dfrac{\varepsilon}{2 T}$,
+(although at this point it's not yet obvious that $\check{G}^{K}$ coincides with the conventional Keldysh Green's function),
+the fully perturbed Keldysh Green's function $\check{G}^{K} = \displaystyle \lim_{N \to \infty} \check{G}^{(N)K}$ can be written as:
+
+\begin{eqnarray}
+	\check{G}^{K}_{\varepsilon , \varepsilon - \omega}
+	&=&
+	\check{G}^{R}_{\varepsilon , \varepsilon - \omega}
+	f^{(0)}(\varepsilon - \omega)
+	-
+	f^{(0)}(\varepsilon)
+	\check{G}^{A}_{\varepsilon , \varepsilon - \omega}
+	+
+	\check{G}^{(a)}_{\varepsilon , \varepsilon - \omega}
+\end{eqnarray}
+
+The remainder function $\check{G}^{(a)}$ is:
+
+\begin{eqnarray}
+	\check{G}^{(N)(a)}_{\varepsilon , \varepsilon - \omega}
+	&=&
+	(-1)^{N-1}
+	G^{(0)R}_{\varepsilon}
+	\check{h}_{\varepsilon , \varepsilon - \omega_{1}}
+	G^{(0)A}_{\varepsilon - \omega_{1}}
+	\ \cdots \
+	\check{H}_{\omega_{N}}
+	G^{(0)A}_{\varepsilon - \omega}
+	\ + \cdots
+	\nonumber \\ && +
+	(-1)^{N-1}
+	G^{(0)R}_{\varepsilon}
+	\check{H}_{\omega_{1}}
+	\ \cdots \
+	G^{(0)R}_{\varepsilon - ( \omega - \omega_{N} )}
+	\check{h}_{\varepsilon - ( \omega - \omega_{N} ) , \varepsilon - \omega}
+	G^{(0)A}_{\varepsilon - \omega}
+\end{eqnarray}
+
+And specifically for an equilibrium system (free system), it can be simply written as:
+
+\begin{eqnarray}
+	\check{G}^{(a)}_{\varepsilon , \varepsilon - \omega} ( \vec{p} , \vec{p} - \vec{k})
+	&=&
+	\int \!\! \dfrac{d \varepsilon'  d \omega' }{ (2 \pi)^{2} } \dfrac{d^{3} \vec{k'}  d^{3} \vec{k''} }{ (2 \pi)^{6} }
+	G^{R}_{\varepsilon , \varepsilon'} (\vec{p} , \vec{p} - \vec{k'})
+	\check{h}_{\varepsilon' , \varepsilon' - \omega'} (\vec{k''})
+	G^{A}_{\varepsilon' - \omega' , \varepsilon - \omega} (\vec{p} - \vec{k'} - \vec{k''} , \vec{p} - \vec{k} )
+\end{eqnarray}
+
+where we abbreviated the product of the external field and the distribution function as $\check{h}_{\varepsilon , \varepsilon - \omega}$:
+
+\begin{eqnarray}
+	\check{h}_{\varepsilon , \varepsilon - \omega}
+	&=&
+	- \check{H}_{\omega} \Big( f^{(0)}(\varepsilon) - f^{(0)}(\varepsilon - \omega) \Big)
+\end{eqnarray}
+
+
+
+
+
+
+
+
+
+
+${}$
+
+
+
+
+
+
+
+
+
+
+
+We now develop the discussion for the case where Migdal's theorem holds.
+In that case, we can assume that the fully perturbed phonon Green's function is equal to the free Green's function.
+We assume that the self-energy $\check{\mathit{\Sigma}}_{\varepsilon_{n},\varepsilon_{m}}$ in Eq. (\ref{eqn:dysonone}) is due only to the electron-phonon interaction.
+If we write the phonon Green's function as $D_{\varepsilon}$:
+
+\begin{eqnarray}
+	D_{\varepsilon' - \varepsilon} ( \vec{p} {\ \!}' - \vec{p} {\ \!} )
+	&=&
+	\dfrac{ \omega^{2}_{ \vec{p}' - \vec{p} } }{ \omega^{2}_{ \vec{p}' - \vec{p} } - ( \varepsilon' - \varepsilon )^{2} }
+\end{eqnarray}
+
+Here, we set $\varepsilon' - \varepsilon=2 \pi i m$.
+Under Migdal's theorem, the phonon self-energy $\check{\mathit{\Sigma}}^{(\rm ph)}_{\varepsilon , \varepsilon - \omega}$ is:
+
+\begin{eqnarray}
+	\check{\mathit{\Sigma}}^{(\rm ph)}_{\varepsilon , \varepsilon - \omega} (\vec{p} , \vec{p} - \vec{k})
+	&=&
+	T
+	\sum_{\varepsilon'}
+	\int \!\! \dfrac{ d^{3} \vec{p {} \ \! '} }{ (2 \pi)^{3} }
+	g^{2}
+	D_{\varepsilon' - \varepsilon} ( \vec{p} {\ \!}' - \vec{p} {\ \!} )
+	\check{G}_{\varepsilon' , \varepsilon' - \omega} (\vec{p {} '} , \vec{p {} '} - \vec{k})
+\end{eqnarray}
+
+Up to the N-th order of the external field,
+
+\begin{eqnarray}
+	\check{\mathit{\Sigma}}^{({\rm ph})(N)}_{\varepsilon , \varepsilon - \omega}
+	&=&
+	g^{2} \oint \!\! \dfrac{d z}{4 \pi i}
+	\Big( D_{z - \varepsilon} \check{G}_{z,z-\varepsilon}^{(N)} \Big)
+	{\rm tanh} \Big( \dfrac{z}{2T} \Big)
+\end{eqnarray}
+
+For simplicity, the $d^{3} \vec{p}$ integral is not written explicitly.
+Let's look at the analyticity that appears in the integrand.
+The singularities (lines) are, firstly, the electron Green's function having ${\rm Im}(z - \omega_{j})=0$, and the phonon Green's function having ${\rm Im}(z - \varepsilon_{n})=0$.
+Now, $\omega_{j} = 2 \pi i T k_{j}$ and $\varepsilon_{n} = 2 \pi i T (n + 1/2)$ are both imaginary, but using a real number $\varepsilon'$, we substitute variables as $z= \varepsilon' + i \ \! {\rm Im} (\varepsilon_{n})$ for $\check{G}$ and $z= \varepsilon' + i \ \! {\rm Im} (\omega_{j})$ for $D$.
+
+\begin{eqnarray}
+	\check{\mathit{\Sigma}}^{(\rm ph)}_{\varepsilon , \varepsilon - \omega}
+	&=&
+	g^{2} \int \!\! \dfrac{d \varepsilon'}{4 \pi i}
+	\Big[
+		{\rm coth} \Big( \dfrac{\varepsilon'}{2T} \Big)
+		\big( D^{R}_{\varepsilon'} - D^{A}_{\varepsilon'} \big)
+		\check{G}_{ \varepsilon' + \varepsilon , \varepsilon' + \varepsilon - \omega }^{(N)} \Big]
+	\nonumber \\ && +
+	g^{2} \int \!\! \dfrac{d \varepsilon'}{4 \pi i}
+	{\rm tanh} \Big( \dfrac{\varepsilon'}{2T} \Big)
+	\Big[
+		D_{\varepsilon' - \varepsilon} \delta_{0} \check{G}^{(N)}_{\varepsilon' , \varepsilon' - \omega}
+		+
+		D_{\varepsilon' - (\varepsilon - \omega_{1})} \delta_{1} \check{G}^{(N)}_{\varepsilon' , \varepsilon' - \omega}
+		+ \cdots +
+		D_{\varepsilon' - (\varepsilon - \omega)} \delta_{N} \check{G}^{(N)}_{\varepsilon' , \varepsilon' - \omega}
+		\Big]
+	\label{eqn:anaricgma}
+\end{eqnarray}
+
+The first term on the left-hand side arose from changing the integration path to be parallel to the real axis around the singularities originating from the $D$ lines, and the second term from the singularities originating from $\check{G}_{z,z-\varepsilon}^{(N)}$ (i.e., from the "external field" $\check{H}_{\omega_{j}}$).
+We consider analytical continuation.
+Looking at the integrand of Eq. (\ref{eqn:anaricgma}), it can be confirmed that the singularities of $\check{\mathit{\Sigma}}^{(\rm ph)}_{\varepsilon , \varepsilon - \omega}$ as a function of $\varepsilon$ coincide with the singularities of $\check{G}_{z,z-\varepsilon}^{(N)}$.
+Therefore, the self-energy can also be analytically continued, just like the total Green's function, for all orders of interaction.
+By performing variable transformations like $\displaystyle \varepsilon' \to \varepsilon' - \sum_{l=0}^{j} \omega_{l}$ for the singularities (lines) of each $\check{G}^{(N)}$ and $\displaystyle \varepsilon' \to \varepsilon' - \varepsilon$ for the singularities (lines) of $D$, we obtain the analytically continued phonon self-energy.
+
+\begin{eqnarray}
+	\check{\mathit{\Sigma}}^{{(\rm ph)} {{R}\atop{A}} }_{\varepsilon , \varepsilon - \omega} (\vec{p} , \vec{p} - \vec{k})
+	&=&
+	g^{2} \int \!\! \dfrac{d \varepsilon'}{4 \pi i} \dfrac{d^{3} \vec{p'}}{ (2 \pi)^{3}}
+	\Big[
+		{\rm coth} \Big( \dfrac{ \varepsilon' - \varepsilon }{2T} \Big)
+		\big( D^{R}_{\varepsilon'} - D^{A}_{\varepsilon'} \big)
+		\check{G}^{ {{R}\atop{A}} }_{ \varepsilon' , \varepsilon'- \omega }
+		+
+		D^{ {{A}\atop{R}} }_{\varepsilon' - \varepsilon} \check{G}^{K}_{ \varepsilon' , \varepsilon'- \omega }
+		\Big]
+\end{eqnarray}
+
+The Keldysh component is:
+
+\begin{eqnarray}
+	\check{\mathit{\Sigma}}^{{(\rm ph)} K }_{\varepsilon , \varepsilon - \omega} (\vec{p} , \vec{p} - \vec{k})
+	&=&
+	g^{2} \int \!\! \dfrac{d \varepsilon'}{4 \pi i} \dfrac{d^{3} \vec{p'}}{ (2 \pi)^{3}}
+	\big( D^{R}_{\varepsilon'} - D^{A}_{\varepsilon'} \big)
+	\Big[
+		{\rm coth} \Big( \dfrac{ \varepsilon' - \varepsilon }{2T} \Big)
+		\check{G}^{K}_{ \varepsilon' , \varepsilon'- \omega }
+		-
+		\big( \check{G}^{R}_{ \varepsilon' , \varepsilon'- \omega } - \check{G}^{A}_{ \varepsilon' , \varepsilon'- \omega } \big)
+		\Big]
+\end{eqnarray}
+
+And by including the Keldysh components in Nambu space, the size of the Green's function matrix becomes $4 \times 4$.
+
+\begin{eqnarray}
+	\breve{G}
+	&=&
+	\left(
+	\begin{array}{cc}
+			\check{G}^{R} & \check{G}^{K}
+			\\
+			0             & \check{G}^{A}
+		\end{array}
+	\right)
+	\ \ = \ \
+	\left(
+	\begin{array}{cccc}
+			G^{R}           & F^{R}               & G^{K}           & F^{K}
+			\\
+			- F^{\dagger R} & \check{\bar{G}}^{R} & - F^{\dagger K} & \check{\bar{G}}^{K}
+			\\
+			0               & 0                   & G^{A}           & F^{A}
+			\\
+			0               & 0                   & - F^{\dagger A} & \check{\bar{G}}^{A}
+		\end{array}
+	\right)
+\end{eqnarray}
+
+The gap equation of the Migdal-Eliashberg model (the nonlinear Eliashberg equation under nonequilibrium conditions) becomes:
+
+\begin{eqnarray}
+	\Delta_{\varepsilon , \varepsilon - \omega}^{(*)} (\vec{p} , \vec{p} - \vec{k})
+	&=&
+	\dfrac{g^{2}}{2}
+	\int \!\! \dfrac{d \varepsilon'}{4 \pi i} \dfrac{d^{3} \vec{p'}}{ (2 \pi)^{3}}
+	\big( D^{R}_{\varepsilon' - \varepsilon} + D^{A}_{\varepsilon' - \varepsilon} \big)
+	F^{(\dagger)K}_{\varepsilon' , \varepsilon' - \omega}
+\end{eqnarray}
+
+Since $F^{K}$ becomes nearly zero and does not remain finite for the region where $\varepsilon \gg \Delta$, the case where $\varepsilon \ll \omega_{\rm D}$ with respect to the Debye frequency $\omega_{\rm D}$ becomes important.
+Furthermore, in this case, $(D^{R} + D^{A})/2 \simeq 1$, and the dependence on $\varepsilon$ and $\omega$ becomes minimal. Then, the linearized Eliashberg equation:
+
+\begin{eqnarray}
+	\Delta_{\omega}^{} (\vec{k})
+	&=&
+	g^{2}
+	\int \!\! \dfrac{d \varepsilon}{4 \pi i} \dfrac{d^{3} \vec{p'}}{ (2 \pi)^{3}}
+	F^{K}_{\varepsilon , \varepsilon - \omega}
+\end{eqnarray}
+
+can also be reduced to an equation similar to the one obtained by assuming an s-wave in a BCS-like manner (i.e., without considering the electron-phonon interaction).
+
+
+\end{document}
