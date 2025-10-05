@@ -20,7 +20,7 @@
 
 
 \begin{abstract}
-圏論における極限についてのメモ。
+	圏論における極限についてのメモ。
 \end{abstract}
 
 \section{集合から新しい集合、圏から新しい圏を作る}
@@ -28,39 +28,39 @@
 集合から新しい集合を作る操作がある。
 
 \begin{enumerate}
-    \item 集合 $X,Y$ から直積集合を作る操作： $X \times Y$
-    \item 集合の要素 $x \in X$ に関する条件 $\phi(x)$ があったときに、部分集合を作る操作：$\{ x \in X | \phi(x) \}$
-    \item 集合 $X,Y$ から直和（非交和）集合を作る操作： $X \coprod Y$
-    \item 集合 $X$ から同値関係 $\sim$ で割って商集合を作る操作： $X / \sim$
+	\item 集合 $X,Y$ から直積集合を作る操作： $X \times Y$
+	\item 集合の要素 $x \in X$ に関する条件 $\phi(x)$ があったときに、部分集合を作る操作：$\{ x \in X | \phi(x) \}$
+	\item 集合 $X,Y$ から直和（非交和）集合を作る操作： $X \coprod Y$
+	\item 集合 $X$ から同値関係 $\sim$ で割って商集合を作る操作： $X / \sim$
 \end{enumerate}
 
 それぞれ圏論では
 
 \begin{enumerate}
-    \item 直積 
-    \item equalizer
-    \item 余直積
-    \item coequalizer
+	\item 直積
+	\item equalizer
+	\item 余直積
+	\item coequalizer
 \end{enumerate}
 
 に対応する。
 さらに、以下の2つとして統一的に理解される。
 
 \begin{enumerate}
-    \item 極限（直積とequalizerの一般化）
-    \item 余極限（余直積とcoequalizerの一般化）
+	\item 極限（直積とequalizerの一般化）
+	\item 余極限（余直積とcoequalizerの一般化）
 \end{enumerate}
 
 
 \begin{table}[H]
-    \centering
-    \begin{tabular}{c|c|c|c}
-    & 集合論の言葉 & 対応する圏論の言葉 & 圏論のさらに統一的な見かた \\ \hline \hline
-    $X \times Y$ & 直積 & 直積 & 極限 \\ \hline
-    $\{ x \in X | \phi(x) \}$ & 部分集合 & イコライザ & 極限 \\ \hline
-    $X \coprod Y$& 非交和 & 余直積 & 余極限 \\ \hline
-    $X / \sim$ & 商集合 & 余イコライザ & 余極限 \\ \hline
-    \end{tabular}
+	\centering
+	\begin{tabular}{c|c|c|c}
+		                          & 集合論の言葉 & 対応する圏論の言葉  & 圏論のさらに統一的な見かた \\ \hline \hline
+		$X \times Y$              & 直積     & 直積         & 極限            \\ \hline
+		$\{ x \in X | \phi(x) \}$ & 部分集合   & equalizer  & 極限            \\ \hline
+		$X \coprod Y$             & 非交和    & 余直積        & 余極限           \\ \hline
+		$X / \sim$                & 商集合    & 余equalizer & 余極限           \\ \hline
+	\end{tabular}
 \end{table}
 
 
@@ -71,26 +71,26 @@
 圏 $C$ の対象 $a,b$ に対して、$a$ と $b$ の直積とは、三つ組み $\langle u,p_{0},p_{1} \rangle$ で以下の2条件を満たすもの。
 
 \[
-% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkRmQBfU9TXfIRTlSxanSat29brxAZseAkQBMo8QxZtEIAEbdxMKAHN4RUADMAThAC2SESBwQkZCVvZoA+sHJcQNIz0ujCMAAr8SkIgVljGABY4spY29oiOzkhq7lI63sDE-lyUXEA
-\begin{tikzcd}
-  & u \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"] &   \\
-a &                                            & b
-\end{tikzcd}
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkRmQBfU9TXfIRTlSxanSat29brxAZseAkQBMo8QxZtEIAEbdxMKAHN4RUADMAThAC2SESBwQkZCVvZoA+sHJcQNIz0ujCMAAr8SkIgVljGABY4spY29oiOzkhq7lI63sDE-lyUXEA
+	\begin{tikzcd}
+		& u \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"] &   \\
+		a &                                            & b
+	\end{tikzcd}
 \]
 
 \begin{enumerate}
-    \item （直積の要素）$u \in C$ で、$p_{0} : u \to a$ 、 $p_{1} : u \to b$
-    \item （普遍性）$\langle v,q_{0},q_{1} \rangle$ が同じ条件を満たすとき、$\exists ! h: v \to u$ で、
-    $p_{0} \circ h = q_{0}, p_{1} \circ h = q_{1}$
+	\item （直積の要素）$u \in C$ で、$p_{0} : u \to a$ 、 $p_{1} : u \to b$
+	\item （普遍性）$\langle v,q_{0},q_{1} \rangle$ が同じ条件を満たすとき、$\exists ! h: v \to u$ で、
+	      $p_{0} \circ h = q_{0}, p_{1} \circ h = q_{1}$
 \end{enumerate}
 
 \[
-% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAAykATFVqMWbOlx4gM2PASKixE+s1aIQAIzm8lAomSEap22lwkwoAc3hFQAMwBOEALZIRIHBCRkklpsaAD6wEKcINQMdLowDAAKfMqCIK5YdgAWOAYgbp7e1H5IakHSOmHAxFHcLu5eiADMxf6IgfFgUEgAtE0+mhUgAI7hkdEgsfFJKcY6Gdm5dfkNSC2+bWWd3c0DFmyj1bXyBY3rJYh7wToAOjcwAB5YcDhwAAQAhG93b1kTDFgwJYoHQ4FlbBNwXQdmAmAwGMU6FgGGxIED-nEEskjCodIDsLAJmCsM5cpdOBROEA
-\begin{tikzcd}
-  & v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "\exists ! \ h" description, dashed] &   \\
-  & u \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]                                                                         &   \\
-a &                                                                                                                    & b
-\end{tikzcd}
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAAykATFVqMWbOlx4gM2PASKixE+s1aIQAIzm8lAomSEap22lwkwoAc3hFQAMwBOEALZIRIHBCRkklpsaAD6wEKcINQMdLowDAAKfMqCIK5YdgAWOAYgbp7e1H5IakHSOmHAxFHcLu5eiADMxf6IgfFgUEgAtE0+mhUgAI7hkdEgsfFJKcY6Gdm5dfkNSC2+bWWd3c0DFmyj1bXyBY3rJYh7wToAOjcwAB5YcDhwAAQAhG93b1kTDFgwJYoHQ4FlbBNwXQdmAmAwGMU6FgGGxIED-nEEskjCodIDsLAJmCsM5cpdOBROEA
+	\begin{tikzcd}
+		& v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "\exists ! \ h" description, dashed] &   \\
+		& u \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]                                                                         &   \\
+		a &                                                                                                                    & b
+	\end{tikzcd}
 \]
 
 
@@ -114,12 +114,12 @@ $\langle x \times y,p_{0},p_{1} \rangle$
 $\langle v ,q_{0},q_{1} \rangle$
 を以下のように取る。
 \[
-% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAA8ACAHW7wFt4nAJ4gAvqXSZc+QigAMpAExVajFm3bjJIDNjwEiS5avrNWiEKIlT9somXmn1F2uNUwoAc3hFQAMwAnCH4kRRAcCCQyNXM2NAB9YHkxEGoGOgAjGAYABWkDORBArC8ACxxtAODQxHDIpGNYjUtE4GJUmxAgkKQAZmoGxBjssCgkAFo+8LMWkABHJJS0kAzsvIL7SxLyyq6e2oGIqMQm0fHEaepZ10X2zp0D-sGTmZc2Xhh2LDgcOE4AIQ8bicMorBhYMCuKB0OBlTwreF0C5gJgMBiDOhYBhsSBQ8FZHL5OyGSyQ7CwFZwrD+Sp1MQUMRAA
-\begin{tikzcd}
-  & v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "h" description, dashed] &   \\
-  & x \times y \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]                                                                &   \\
-x &                                                                                                                    & y
-\end{tikzcd}
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAA8ACAHW7wFt4nAJ4gAvqXSZc+QigAMpAExVajFm3bjJIDNjwEiS5avrNWiEKIlT9somXmn1F2uNUwoAc3hFQAMwAnCH4kRRAcCCQyNXM2NAB9YHkxEGoGOgAjGAYABWkDORBArC8ACxxtAODQxHDIpGNYjUtE4GJUmxAgkKQAZmoGxBjssCgkAFo+8LMWkABHJJS0kAzsvIL7SxLyyq6e2oGIqMQm0fHEaepZ10X2zp0D-sGTmZc2Xhh2LDgcOE4AIQ8bicMorBhYMCuKB0OBlTwreF0C5gJgMBiDOhYBhsSBQ8FZHL5OyGSyQ7CwFZwrD+Sp1MQUMRAA
+	\begin{tikzcd}
+		& v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "h" description, dashed] &   \\
+		& x \times y \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]                                                                &   \\
+		x &                                                                                                                    & y
+	\end{tikzcd}
 \]
 
 つまり、
@@ -143,12 +143,12 @@ $$p_{1} \circ h = q_{1}$$
 
 次に、もし別の $h':v \to x \times y$ があって、
 \[
-% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAA8ACAHW7wFt4nAJ4gAvqXSZc+QigAMpAExVajFm3bjJIDNjwEiS5avrNWiEKIlT9somXmn1F2uNUwoAc3hFQAMwAnCH4kRRAcCCQyNXM2NAB9YHkxEGoGOgAjGAYABWkDORBArC8ACxxtAODQxHDIpGNYjUtE4GJUmxAgkKQAZmoGxBjssCgkAFo+8LMWkABHJJS0kAzsvIL7SxLyyq6e2oGIqMQm0fHEaepZ10X2zp0D-sGTmZc2MoByFYYsMFcoHQ4GVPCsQXQLmAmAwGIM6FgGGxIP8flkcvk7IZLH9sLAVsCsP5KnUxBQxEA
-\begin{tikzcd}
-  & v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "h'" description, dashed] &   \\
-  & x \times y \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]                                                     &   \\
-x &                                                                                                         & y
-\end{tikzcd}
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAA8ACAHW7wFt4nAJ4gAvqXSZc+QigAMpAExVajFm3bjJIDNjwEiS5avrNWiEKIlT9somXmn1F2uNUwoAc3hFQAMwAnCH4kRRAcCCQyNXM2NAB9YHkxEGoGOgAjGAYABWkDORBArC8ACxxtAODQxHDIpGNYjUtE4GJUmxAgkKQAZmoGxBjssCgkAFo+8LMWkABHJJS0kAzsvIL7SxLyyq6e2oGIqMQm0fHEaepZ10X2zp0D-sGTmZc2MoByFYYsMFcoHQ4GVPCsQXQLmAmAwGIM6FgGGxIP8flkcvk7IZLH9sLAVsCsP5KnUxBQxEA
+	\begin{tikzcd}
+		& v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "h'" description, dashed] &   \\
+		& x \times y \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]                                                     &   \\
+		x &                                                                                                         & y
+	\end{tikzcd}
 \]
 
 となると仮定する。
@@ -177,61 +177,132 @@ $$h' = h$$
 よって $h$ は一意であり、直積の普遍性も満たされる。
 
 
-\section{イコライザ}
+\section{equalizer}
 
-\subsection{イコライザの定義}
+\subsection{equalizerの定義}
 
 \[
-% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAEzkqtRizZ0uPEBmx4CRACyjq9Zq0QgARjN4KBRMkLEbJ2mlzEwoAc3hFQAMwBOEALZIAjNRwQkEV0YMCgkMhAGOh0YBgAFPkVBSJhnHBB1CS0QZwyQOAALLDSkAFohbhd3L0RfEH9A6iiY+MSjbVcsOwL0zM02OzzC4vTaypzq8L8A2r6LOX0JzyQAZmmfOeyARzzm2ITDJQ6unsW3ZcQ1+pmIhiwwbKg6Qts882yAHQ+YAA8sOBwcAABABCIFfIEFaycIA
-\begin{tikzcd}
-u \arrow[rr, "p"]                                        &  & a \arrow[rr, "f", shift left=2] \arrow[rr, "g"', shift right] &  & b \\
-                                                         &  &                                                               &  &   \\
-v \arrow[rruu, "q"'] \arrow[uu, "\exists ! \ h", dashed] &  &                                                               &  &  
-\end{tikzcd}
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAEzkqtRizZ0uPEBmx4CRACyjq9Zq0QgARjN4KBRMkLEbJ2mlzEwoAc3hFQAMwBOEALZIAjNRwQkEV0YMCgkMhAGOh0YBgAFPkVBSJhnHBB1CS0QZwyQOAALLDSkAFohbhd3L0RfEH9A6iiY+MSjbVcsOwL0zM02OzzC4vTaypzq8L8A2r6LOX0JzyQAZmmfOeyARzzm2ITDJQ6unsW3ZcQ1+pmIhiwwbKg6Qts882yAHQ+YAA8sOBwcAABABCIFfIEFaycIA
+	\begin{tikzcd}
+		u \arrow[rr, "p"]                                        &  & a \arrow[rr, "f", shift left=2] \arrow[rr, "g"', shift right] &  & b \\
+		&  &                                                               &  &   \\
+		v \arrow[rruu, "q"'] \arrow[uu, "\exists ! \ h", dashed] &  &                                                               &  &
+	\end{tikzcd}
 \]
 
 
-圏 $C$ の射 $f,g : a \to b$ に対して、$f,g$ のイコライザとは、
+圏 $C$ の射 $f,g : a \to b$ に対して、$f,g$ のequalizerとは、
 $\langle u, p \rangle$ の二つ組で
 
 \begin{enumerate}
-    \item （イコライザの要素）$u \in C$、$p: u \to a$、$f \circ p = g \circ p$ となるもの。
-    \item （普遍性） $\langle v, q \rangle$ が同じ条件を満たすとき、$\exists ! h: v \to u$ で、
-    $p_{0} \circ h = q$
+	\item （equalizerの要素）$u \in C$、$p: u \to a$、$f \circ p = g \circ p$ となるもの。
+	\item （普遍性） $\langle v, q \rangle$ が同じ条件を満たすとき、$\exists ! h: v \to u$ で、
+	      $p_{0} \circ h = q$
 \end{enumerate}
 
 
-\subsection{イコライザの例}
+\subsection{equalizerの例}
 
 \textbf{Set} の場合、
 $f,g: x \to y$ が写像であり、
-イコライザは $u = \{ a \in x | f(a) = g(a) \}$、
+equalizerは $u = \{ a \in x | f(a) = g(a) \}$、
 $p : u \hookrightarrow x $
 のようになるもの。
 
 
-\section{極限の極限らしさ}
+\section{極限}
 
-直積やイコライザの定義は、
+\subsection{極限の極限らしさ}
+
+直積やequalizerの定義は、
 まず対象や射が与えられて、
 それに対する $u,p$ のことであり、同じような $v,q$ 等があれば一意に射が出るようなもの。
 
 \[
-% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRDoH1hiBfEH0uky58hFGQCMVWoxZtOwCXwFDseAkTIAmafWatE7LluWCQGNaKITSU6nrmGFAFlOqRGlDcr3ZBo8AAzG7mwupiyIG2un5sTPxmFh4RZM4x+vJcYCFJ4UQArNG+GYY0-NIwUADm8ESgAGYAThAAtkiFIDgQSM7FjuZcwSDUDHQARjAMAAphVoaNWFUAFjgJDc1tiB1dSFEyJQPArsMgoxPTs54gWGDYsGsgTa3t1DuIZPv9aFy8D0+b226iBsIDgSyw9VWiAAtCCJmAoLsPg5-N9FCF-i9OkCtNR4YjEIFkbFDGiTH8Nli3gA2PEwBFIvqorJ8EY3fxQCA4HCVCnPRAAdleQI6DHZbCgdDBvKZbAAOnKYAAPLBwHBwAAEAEINQqNUs+ZshdierLDABHQas07jSYzSxXBbLVYqR6UwXCpC0kD4xmffyW4DZQ1IY1vXE++kEolmkCB8muzGEz3vRPuvZvVxmJO9E2p7PplNKAv8jM4ngUHhAA
-\begin{tikzcd}
-a_{0} & a_{3} \arrow[l]                                 &  &                                                                                                                                                                                                       &  &                                                                                                                                       \\
-a_{1} & a_{4} \arrow[lu] \arrow[u] \arrow[l] \arrow[ld] &  & u \arrow[llu, "p_{3}"'] \arrow[ll, "p_{4}" description] \arrow[lllu, "p_{0}"] \arrow[lll, "p_{1}", bend left, shift left] \arrow[llld, "p_{2}", bend left] \arrow[lllddd, "p_{n}", dotted, bend left] &  & v \arrow[ll, "\exists ! \ h", dashed] \arrow[llllu, "q_{3}"'] \arrow[lllllddd, "q_{n}", bend left] \arrow[llllld, "q_{2}", bend left] \\
-a_{2} &                                                 &  &                                                                                                                                                                                                       &  &                                                                                                                                       \\
-      &                                                 &  &                                                                                                                                                                                                       &  &                                                                                                                                       \\
-a_{n} &                                                 &  &                                                                                                                                                                                                       &  &                                                                                                                                      
-\end{tikzcd}
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBWAXVJADcBDAGwFcYkR6B9YYgXxF6l0mXPkIoAjBWp0mrdl2AT+g4djwEiAJmk0GLNog7ctKoSAzqxRAGy7ZBhdzBm1ozSjIAWGfvlHFAGZXCxENcWQdHz05Q2NgLxDLdwivez84xXIksOsUQNItX1j2ZgFzZPCiAuJixyNacrcqlAB2dJKjAB0ugGMoCBwEXhkYKABzeCJQADMAJwgAWyR2kBwIJDIHfwtuPhAaRnoAIxhGAAVcjxAsMGxYJpB5pZWadaQ07bi0bmCDkCOpwuV3ENzuWAeqieC2WiFW70Q5EOJzOlys11u9zYMXquwSIWesPhG0QUgBKOB6NBmIh2K+7B+SgJMNeaxJdnpRkZ2UehNZCIKnLxLl5LLhbxJOiFjNMopeiAAHBLNjidgBHPb8ZFAtEpdg0yHmPmK5WIT4Zdga4B-bWokH68GG2ZipVspBkwF2qkOrH-C1GK3KOWw10C1VxK0iminMBQJCBPhGl2mjkxuOIBPhy3cHlQ42hyXRmCx+NbT2UvVGA10-0gK2yvPJt2IACcRZLGa2tZ6-UGwyT8uJSDbQp7AyG-zTm0b8oLrMYtzi45wYz9nRAPRgAA8sHAhgACACE+56+4AFv9y7qWmDfSNeEA
+	\begin{tikzcd}
+		&       &       & v \arrow[lllddddd, "q_{0}" description] \arrow[llldddd, "q_{3}" description] \arrow[llddddd, "q_{1}" description] \arrow[rrrddddd, "q_{n}", bend left] \arrow[rddddd, "q_{5}", bend left] \arrow[lddddd, "q_{2}" description, bend left] \arrow[rrrrddddd, "\cdots", bend left] \arrow[dd, "\exists ! \ h" description, dotted] &       &  &       &        \\
+		&       &       &                                                                                                                                                                                                                                                                                                                                 &       &  &       &        \\
+		&       &       & u \arrow[lllddd, "p_{0}" description] \arrow[llldd, "p_{3}" description] \arrow[ldd, "p_{4}" description] \arrow[llddd, "p_{1}" description] \arrow[rddd, "p_{5}"] \arrow[rrrddd, "p_{n}"] \arrow[lddd, "p_{2}"] \arrow[rrrrddd, "\cdots"]                                                                                      &       &  &       &        \\
+		&       &       &                                                                                                                                                                                                                                                                                                                                 &       &  &       &        \\
+		a_{3} &       & a_{4} &                                                                                                                                                                                                                                                                                                                                 &       &  &       &        \\
+		a_{0} & a_{1} & a_{2} &                                                                                                                                                                                                                                                                                                                                 & a_{5} &  & a_{n} & \cdots
+	\end{tikzcd}
 \]
 
 極限は、たくさん対象があったときに、
 それに対する $u,p_{0},p_{1},p_{2}, \cdots$ のことであり、同じような $v,q_{0},q_{1},q_{2},, \cdots$ 等があれば一意に射 $h$ が出るようなもの。
 
+このように無限に対象があるときに、このような $h$ が存在すれば、（無限個の）直積と（無限個の）equalizerの組み合わせで表されるということが知られている。
+
+\subsection{極限の例}
+
+\textbf{Set} における例を考えてみる。
+
+$p$は素数、$X_{n} = \mathbf{Z} / p^{n} \mathbf{Z} = \{ 0, 1, \cdots  p^{n} -1 \}$ と置く。
+
+このとき次のような系列を考える。
+$$
+	X_{0} \xleftarrow{f_{0}} X_{1} \xleftarrow{f_{1}} X_{2} \cdots \xleftarrow{f_{n}} X_{n+1} \cdots
+$$
+
+集合はそれぞれ
+
+$X_{0} = \{ 0 \}$
+
+$X_{1} = \{ 0, 1, \cdots p-1 \}$
+
+$X_{2} = \{ 0, 1, \cdots p^{2}-1 \}$
+
+射は
+
+\[
+	\begin{array}{cccc}
+		f_{n} : & X_{n+1}                 & \to & X_{n}                   \\
+		        & \rotatebox{90}{${\in}$} &     & \rotatebox{90}{${\in}$} \\
+		        & x                       & \to & x \ \text{mod} \ p^{n}
+	\end{array}
+\]
+
+である。
+このとき極限は $\mathbf{Z}_{p}$ と書かれ、
+
+$$
+	\mathbf{Z}_{p}
+	= \left. \left\{ x \in \prod^{\infty}_{n=0} X_{n} \right| \forall n , \ f_{n}(x_{n+1}) = x_{n} \right\}
+$$
+
+例えばこの例であれば、無限個の直積が入っていて、equalizer（等式で部分集合を取る操作）一つで極限が書けている。
 
 
+
+\section{余直積}
+
+直積と射の向きが逆になっているもの。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAAykATFVqMWbOlx4gM2PASKixE+s1aIQAIzm8lAomSEap22lwkwoAc3hFQAMwBOEALZIyIHBCQiklpsaAD6wEKcINQMdLowDAAKfMqCIK5YdgAWOAYgbp5Iar7+iIGa0jphwMRR3C7uXog+fkgAzNTxYFDt5RZsAI7hkdEgsfFJKcY6DDDOufX5jUXUrYgdejDdSAC0bX3BOkM1dfIFTYFrGxWWADq3MAAeWHA4cAAEAITv9+9ZowwsGBLFA6HAsrZRhC6D1EGAmAwGKs6FgGGxIMCAXEEskjCodEDsLBRuCsPMApwKJwgA
+	\begin{tikzcd}
+		& v                                                &                                                        \\
+		& u \arrow[u, "\exists ! \ h" description, dashed] &                                                        \\
+		a \arrow[ru, "p_{0}"'] \arrow[ruu, "q_{0}", bend left] &                                                  & b \arrow[lu, "p_{1}"] \arrow[luu, "q_{1}", bend right]
+	\end{tikzcd}
+\]
+
+
+\section{coequalizer}
+
+equalizerと射の向きが逆になっているもの。
+対象 $a,b$ の位置も入れ替わる。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAEzkqtRizYAjLjxAZseAkQAso6vWatEIOrN6KBRMkLGbJOmlzEwoAc3hFQAMwBOEALZIRIHBCQAjNRSMGBQSGQgDHQhDAAKfEqCIK5YdgAWOCAaEtogztkgcOlYzlmIQtwu7l4V1H6B1NGxCYbKOgwwZYXmeXaFxaXlALQBVfk1jb7+iJG9bGj6E55TDYgAzDlabACOhc0w8YlGHV1Z424rs-Uzm1FYYHlQdMW2PblsADqfMAAeWHAcHAAAQAQmB32B6WsnCAA
+	\begin{tikzcd}
+		u \arrow[dd, "\exists ! \ h", dashed] &  & b \arrow[ll, "p"] \arrow[lldd, "q"] &  & a \arrow[ll, "f"', shift right=2] \arrow[ll, "g", shift left] \\
+		&  &                                     &  &                                                               \\
+		v                                     &  &                                     &  &
+	\end{tikzcd}
+\]
 
 
 \end{document}

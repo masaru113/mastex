@@ -1,0 +1,279 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{here}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+On Limits in Category Theory
+}
+
+\author{
+Masaru Okada
+}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+	Notes on limits in category theory.
+\end{abstract}
+
+\section{Constructing New Sets from Sets, and New Categories from Categories}
+
+There are operations for constructing new sets from existing sets.
+
+\begin{enumerate}
+	\item The operation to create a product set from sets $X$ and $Y$: $X \times Y$
+	\item The operation to create a subset from a condition $\phi(x)$ on an element $x \in X$: $\{ x \in X | \phi(x) \}$
+	\item The operation to create a disjoint union (coproduct) from sets $X$ and $Y$: $X \coprod Y$
+	\item The operation to create a quotient set from a set $X$ by an equivalence relation $\sim$: $X / \sim$
+\end{enumerate}
+
+These correspond in category theory to:
+
+\begin{enumerate}
+	\item Product
+	\item Equalizer
+	\item Coproduct
+	\item Coequalizer
+\end{enumerate}
+
+Furthermore, these are understood uniformly as the following two concepts:
+
+\begin{enumerate}
+	\item Limits (a generalization of products and equalizers)
+	\item Colimits (a generalization of coproducts and coequalizers)
+\end{enumerate}
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|c|c|c}
+		                          & In Set Theory  & In Category Theory & More Unified View \\ \hline \hline
+		$X \times Y$              & Product        & Product            & Limit             \\ \hline
+		$\{ x \in X | \phi(x) \}$ & Subset         & Equalizer          & Limit             \\ \hline
+		$X \coprod Y$             & Disjoint Union & Coproduct          & Colimit           \\ \hline
+		$X / \sim$                & Quotient Set   & Coequalizer        & Colimit           \\ \hline
+	\end{tabular}
+\end{table}
+
+
+\section{Product}
+
+\subsection{Definition of Product}
+
+For objects $a,b$ in a category $C$, a product of $a$ and $b$ is a triple $\langle u,p_{0},p_{1} \rangle$ satisfying the following two conditions.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkRmQBfU9TXfIRTlSxanSat29brxAZseAkQBMo8QxZtEIAEbdxMKAHN4RUADMAThAC2SESBwQkZCVvZoA+sHJcQNIz0ujCMAAr8SkIgVljGABY4spY29oiOzkhq7lI63sDE-lyUXEA
+	\begin{tikzcd}
+		& u \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"] & \\
+		a && b
+	\end{tikzcd}
+\]
+
+\begin{enumerate}
+	\item (Product object) $u \in C$ with morphisms $p_{0} : u \to a$ and $p_{1} : u \to b$.
+	\item (Universal property) For any triple $\langle v,q_{0},q_{1} \rangle$ satisfying the same condition, there exists a unique morphism $\exists ! h: v \to u$ such that $p_{0} \circ h = q_{0}$ and $p_{1} \circ h = q_{1}$.
+\end{enumerate}
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAAykATFVqMWbOlx4gM2PASKixE+s1aIQAIzm8lAomSEap22lwkwoAc3hFQAMwBOEALZIRIHBCRkklpsaAD6wEKcINQMdLowDAAKfMqCIK5YdgAWOAYgbp7e1H5IakHSOmHAxFHcLu5eiADMxf6IgfFgUEgAtE0+mhUgAI7hkdEgsfFJKcY6Gdm5dfkNSC2+bWWd3c0DFmyj1bXyBY3rJYh7wToAOjcwAB5YcDhwAAQAhG93b1kTDFgwJYoHQ4FlbBNwXQdmAmAwGMU6FgGGxIED-nEEskjCodIDsLAJmCsM5cpdOBROEA
+	\begin{tikzcd}
+		& v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "\exists ! \ h" description, dashed] & \\
+		& u \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"] & \\
+		a && b
+	\end{tikzcd}
+\]
+
+
+\subsection{Example of a Product}
+
+In the category of sets, $\textbf{Set}$, for $x,y \in \textbf{Set}$, if we define $p_{0}:x \times y \to x$ by $\langle a,b \rangle \mapsto a$ and $p_{1}:x \times y \to y$ by $\langle a,b \rangle \mapsto b$, then $\langle x \times y,p_{0},p_{1} \rangle$ is the product of $x$ and $y$.
+
+
+
+\subsubsection{Verification}
+
+\paragraph{Checking Commutativity}
+
+Let $\langle v ,q_{0},q_{1} \rangle$ be taken as follows:
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAA8ACAHW7wFt4nAJ4gAvqXSZc+QigAMpAExVajFm3bjJIDNjwEiS5avrNWiEKIlT9somXmn1F2uNUwoAc3hFQAMwAnCH4kRRAcCCQyNXM2NAB9YHkxEGoGOgAjGAYABWkDORBArC8ACxxtAODQxHDIpGNYjUtE4GJUmxAgkKQAZmoGxBjssCgkAFo+8LMWkABHJJS0kAzsvIL7SxLyyq6e2oGIqMQm0fHEaepZ10X2zp0D-sGTmZc2Xhh2LDgcOE4AIQ8bicMorBhYMCuKB0OBlTwreF0C5gJgMBiDOhYBhsSBQ8FZHL5OyGSyQ7CwFZwrD+Sp1MQUMRAA
+	\begin{tikzcd}
+		& v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "h" description, dashed] & \\
+		& x \times y \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]& \\
+		x && y
+	\end{tikzcd}
+\]
+
+That is, for $a \in v$, we take $h(a) = \langle q_{0}(a) , q_{1}(a) \rangle \in x \times y$.
+
+Then for the morphism $h : v \to x \times y$, we have:
+$p_{0} \circ h(a) = p_{0} (\langle q_{0}(a) , q_{1}(a) \rangle) = q_{0}(a)$
+which implies
+
+$$p_{0} \circ h = q_{0}$$
+
+Similarly,
+
+$$p_{1} \circ h = q_{1}$$
+
+Thus, the diagram commutes.
+
+\paragraph{Checking the Universal Property}
+
+Next, suppose there is another $h':v \to x \times y$ such that:
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAA8ACAHW7wFt4nAJ4gAvqXSZc+QigAMpAExVajFm3bjJIDNjwEiS5avrNWiEKIlT9somXmn1F2uNUwoAc3hFQAMwAnCH4kRRAcCCQyNXM2NAB9YHkxEGoGOgAjGAYABWkDORBArC8ACxxtAODQxHDIpGNYjUtE4GJUmxAgkKQAZmoGxBjssCgkAFo+8LMWkABHJJS0kAzsvIL7SxLyyq6e2oGIqMQm0fHEaepZ10X2zp0D-sGTmZc2MoByFYYsMFcoHQ4GVPCsQXQLmAmAwGIM6FgGGxIP8flkcvk7IZLH9sLAVsCsP5KnUxBQxEA
+	\begin{tikzcd}
+		& v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "h'" description, dashed] &\\
+		& x \times y \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]&\\
+		x && y
+	\end{tikzcd}
+\]
+
+If we can show that $h'=h$, then the uniqueness holds, and the universal property is satisfied.
+
+Let $h'(a) = \langle q'_{0}(a) , q'_{1}(a) \rangle \in x \times y$. Then,
+
+$q_{0}(a) = p_{0} \circ h'(a) = p_{0} (\langle q'_{0}(a) , q'_{1}(a) \rangle) = q'_{0}(a)$
+which implies
+
+$$q'_{0} = q_{0}$$
+
+Similarly,
+
+$$q'_{1} = q_{1}$$
+
+Therefore,
+$h'(a) = \langle q'_{0}(a) , q'_{1}(a) \rangle = \langle q_{0}(a) , q_{1}(a) \rangle = h(a)$.
+This holds for any $a$, so
+
+$$h' = h$$
+
+Thus, $h$ is unique, and the universal property of the product is satisfied.
+
+
+\section{Equalizer}
+
+\subsection{Definition of Equalizer}
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAEzkqtRizZ0uPEBmx4CRACyjq9Zq0QgARjN4KBRMkLEbJ2mlzEwoAc3hFQAMwBOEALZIAjNRwQkEV0YMCgkMhAGOh0YBgAFPkVBSJhnHBB1CS0QZwyQOAALLDSkAFohbhd3L0RfEH9A6iiY+MSjbVcsOwL0zM02OzzC4vTaypzq8L8A2r6LOX0JzyQAZmmfOeyARzzm2ITDJQ6unsW3ZcQ1+pmIhiwwbKg6Qts882yAHQ+YAA8sOBwcAABABCIFfIEFaycIA
+	\begin{tikzcd}
+		u \arrow[rr, "p"]&& a \arrow[rr, "f", shift left=2] \arrow[rr, "g"', shift right] && b \\
+		&&&&\\
+		v \arrow[rruu, "q"'] \arrow[uu, "\exists ! \ h", dashed] &&&&
+	\end{tikzcd}
+\]
+
+
+For morphisms $f,g : a \to b$ in a category $C$, an equalizer of $f$ and $g$ is a pair $\langle u, p \rangle$ satisfying:
+
+\begin{enumerate}
+	\item (Equalizer object) $u \in C$ with a morphism $p: u \to a$ such that $f \circ p = g \circ p$.
+	\item (Universal property) For any pair $\langle v, q \rangle$ satisfying the same condition, there exists a unique morphism $\exists ! h: v \to u$ such that $p \circ h = q$.
+\end{enumerate}
+
+
+\subsection{Example of an Equalizer}
+
+In the category of sets, $\textbf{Set}$, where $f,g: x \to y$ are functions, the equalizer is something like $u = \{ a \in x | f(a) = g(a) \}$ and $p : u \hookrightarrow x$.
+
+
+\section{Limit}
+
+\subsection{The "Limit-ness" of a Limit}
+
+The definitions of a product and an equalizer are such that, given some objects and morphisms, there is a certain object and morphism, say $u$ and $p$, and if there is another object and morphism, say $v$ and $q$, that satisfy the same conditions, there exists a unique morphism between them.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBWAXVJADcBDAGwFcYkR6B9YYgXxF6l0mXPkIoAjBWp0mrdl2AT+g4djwEiAJmk0GLNog7ctKoSAzqxRAGy7ZBhdzBm1ozSjIAWGfvlHFAGZXCxENcWQdHz05Q2NgLxDLdwivez84xXIksOsUQNItX1j2ZgFzZPCiAuJixyNacrcqlAB2dJKjAB0ugGMoCBwEXhkYKABzeCJQADMAJwgAWyR2kBwIJDIHfwtuPhAaRnoAIxhGAAVcjxAsMGxYJpB5pZWadaQ07bi0bmCDkCOpwuV3ENzuWAeqieC2WiFW70Q5EOJzOlys11u9zYMXquwSIWesPhG0QUgBKOB6NBmIh2K+7B+SgJMNeaxJdnpRkZ2UehNZCIKnLxLl5LLhbxJOiFjNMopeiAAHBLNjidgBHPb8ZFAtEpdg0yHmPmK5WIT4Zdga4B-bWokH68GG2ZipVspBkwF2qkOrH-C1GK3KOWw10C1VxK0iminMBQJCBPhGl2mjkxuOIBPhy3cHlQ42hyXRmCx+NbT2UvVGA10-0gK2yvPJt2IACcRZLGa2tZ6-UGwyT8uJSDbQp7AyG-zTm0b8oLrMYtzi45wYz9nRAPRgAA8sHAhgACACE+56+4AFv9y7qWmDfSNeEA
+	\begin{tikzcd}
+		& & & v \arrow[lllddddd, "q_{0}" description] \arrow[llldddd, "q_{3}" description] \arrow[llddddd, "q_{1}" description] \arrow[rrrddddd, "q_{n}", bend left] \arrow[rddddd, "q_{5}", bend left] \arrow[lddddd, "q_{2}" description, bend left] \arrow[rrrrddddd, "\cdots", bend left] \arrow[dd, "\exists ! \ h" description, dotted] & && &\\
+		& & & & && &\\
+		& & & u \arrow[lllddd, "p_{0}" description] \arrow[llldd, "p_{3}" description] \arrow[ldd, "p_{4}" description] \arrow[llddd, "p_{1}" description] \arrow[rddd, "p_{5}"] \arrow[rrrddd, "p_{n}"] \arrow[lddd, "p_{2}"] \arrow[rrrrddd, "\cdots"]& && &\\
+		& & & & && &\\
+		a_{3} & & a_{4} & & && &\\
+		a_{0} & a_{1} & a_{2} & & a_{5} && a_{n} & \cdots
+	\end{tikzcd}
+\]
+
+A limit is an object and collection of morphisms, $u,p_{0},p_{1},p_{2}, \cdots$, corresponding to a large number of objects. If there is another object and collection of morphisms, $v,q_{0},q_{1},q_{2},, \cdots$, that satisfy the same conditions, there exists a unique morphism $h$ between them.
+
+It is known that when there are infinitely many objects, a limit can be expressed as a combination of (infinitely many) products and (infinitely many) equalizers.
+
+\subsection{Example of a Limit}
+
+Let's consider an example in $\textbf{Set}$.
+
+Let $p$ be a prime number and $X_{n} = \mathbf{Z} / p^{n} \mathbf{Z} = \{ 0, 1, \cdots p^{n} -1 \}$.
+
+Consider the following sequence:
+$$
+	X_{0} \xleftarrow{f_{0}} X_{1} \xleftarrow{f_{1}} X_{2} \cdots \xleftarrow{f_{n}} X_{n+1} \cdots
+$$
+
+The sets are:
+
+$X_{0} = \{ 0 \}$
+
+$X_{1} = \{ 0, 1, \cdots p-1 \}$
+
+$X_{2} = \{ 0, 1, \cdots p^{2}-1 \}$
+
+The morphisms are:
+
+\[
+	\begin{array}{cccc}
+		f_{n} : & X_{n+1}                 & \to & X_{n}                   \\
+		        & \rotatebox{90}{${\in}$} &     & \rotatebox{90}{${\in}$} \\
+		        & x                       & \to & x \ \text{mod} \ p^{n}
+	\end{array}
+\]
+
+In this case, the limit is denoted as $\mathbf{Z}_{p}$, and
+$$
+	\mathbf{Z}_{p}
+	= \left. \left\{ x \in \prod^{\infty}_{n=0} X_{n} \right| \forall n , \ f_{n}(x_{n+1}) = x_{n} \right\}
+$$
+
+For example, in this case, the limit is written as an infinite product combined with a single equalizer (the operation of taking a subset defined by an equation).
+
+
+
+\section{Coproduct}
+
+This is the dual of a product, with the direction of the morphisms reversed.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAAykATFVqMWbOlx4gM2PASKixE+s1aIQAIzm8lAomSEap22lwkwoAc3hFQAMwBOEALZIyIHBCQiklpsaAD6wEKcINQMdLowDAAKfMqCIK5YdgAWOAYgbp5Iar7+iIGa0jphwMRR3C7uXog+fkgAzNTxYFDt5RZsAI7hkdEgsfFJKcY6DDDOufX5jUXUrYgdejDdSAC0bX3BOkM1dfIFTYFrGxWWADq3MAAeWHA4cAAEAITv9+9ZowwsGBLFA6HAsrZRhC6D1EGAmAwGKs6FgGGxIMCAXEEskjCodEDsLBRuCsPMApwKJwgA
+	\begin{tikzcd}
+		& v&\\
+		& u \arrow[u, "\exists ! \ h" description, dashed] &\\
+		a \arrow[ru, "p_{0}"'] \arrow[ruu, "q_{0}", bend left] && b \arrow[lu, "p_{1}"] \arrow[luu, "q_{1}", bend right]
+	\end{tikzcd}
+\]
+
+
+\section{Coequalizer}
+
+This is the dual of an equalizer, with the direction of the morphisms reversed. The positions of objects $a$ and $b$ are also interchanged.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAEzkqtRizYAjLjxAZseAkQAso6vWatEIOrN6KBRMkLGbJOmlzEwoAc3hFQAMwBOEALZIRIHBCQAjNRSMGBQSGQgDHQhDAAKfEqCIK5YdgAWOCAaEtogztkgcOlYzlmIQtwu7l4V1H6B1NGxCYbKOgwwZYXmeXaFxaXlALQBVfk1jb7+iJG9bGj6E55TDYgAzDlabACOhc0w8YlGHV1Z424rs-Uzm1FYYHlQdMW2PblsADqfMAAeWHAcHAAAQAQmB32B6WsnCAA
+	\begin{tikzcd}
+		u \arrow[dd, "\exists ! \ h", dashed] && b \arrow[ll, "p"] \arrow[lldd, "q"] && a \arrow[ll, "f"', shift right=2] \arrow[ll, "g", shift left] \\
+		&& && \\
+		v && &&
+	\end{tikzcd}
+\]
+
+
+\end{document}
