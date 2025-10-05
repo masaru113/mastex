@@ -1,0 +1,237 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{here}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+圏論における極限について
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+圏論における極限についてのメモ。
+\end{abstract}
+
+\section{集合から新しい集合、圏から新しい圏を作る}
+
+集合から新しい集合を作る操作がある。
+
+\begin{enumerate}
+    \item 集合 $X,Y$ から直積集合を作る操作： $X \times Y$
+    \item 集合の要素 $x \in X$ に関する条件 $\phi(x)$ があったときに、部分集合を作る操作：$\{ x \in X | \phi(x) \}$
+    \item 集合 $X,Y$ から直和（非交和）集合を作る操作： $X \coprod Y$
+    \item 集合 $X$ から同値関係 $\sim$ で割って商集合を作る操作： $X / \sim$
+\end{enumerate}
+
+それぞれ圏論では
+
+\begin{enumerate}
+    \item 直積 
+    \item equalizer
+    \item 余直積
+    \item coequalizer
+\end{enumerate}
+
+に対応する。
+さらに、以下の2つとして統一的に理解される。
+
+\begin{enumerate}
+    \item 極限（直積とequalizerの一般化）
+    \item 余極限（余直積とcoequalizerの一般化）
+\end{enumerate}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c|c}
+    & 集合論の言葉 & 対応する圏論の言葉 & 圏論のさらに統一的な見かた \\ \hline \hline
+    $X \times Y$ & 直積 & 直積 & 極限 \\ \hline
+    $\{ x \in X | \phi(x) \}$ & 部分集合 & イコライザ & 極限 \\ \hline
+    $X \coprod Y$& 非交和 & 余直積 & 余極限 \\ \hline
+    $X / \sim$ & 商集合 & 余イコライザ & 余極限 \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\section{直積}
+
+\subsection{直積の定義}
+
+圏 $C$ の対象 $a,b$ に対して、$a$ と $b$ の直積とは、三つ組み $\langle u,p_{0},p_{1} \rangle$ で以下の2条件を満たすもの。
+
+\[
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkRmQBfU9TXfIRTlSxanSat29brxAZseAkQBMo8QxZtEIAEbdxMKAHN4RUADMAThAC2SESBwQkZCVvZoA+sHJcQNIz0ujCMAAr8SkIgVljGABY4spY29oiOzkhq7lI63sDE-lyUXEA
+\begin{tikzcd}
+  & u \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"] &   \\
+a &                                            & b
+\end{tikzcd}
+\]
+
+\begin{enumerate}
+    \item （直積の要素）$u \in C$ で、$p_{0} : u \to a$ 、 $p_{1} : u \to b$
+    \item （普遍性）$\langle v,q_{0},q_{1} \rangle$ が同じ条件を満たすとき、$\exists ! h: v \to u$ で、
+    $p_{0} \circ h = q_{0}, p_{1} \circ h = q_{1}$
+\end{enumerate}
+
+\[
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAAykATFVqMWbOlx4gM2PASKixE+s1aIQAIzm8lAomSEap22lwkwoAc3hFQAMwBOEALZIRIHBCRkklpsaAD6wEKcINQMdLowDAAKfMqCIK5YdgAWOAYgbp7e1H5IakHSOmHAxFHcLu5eiADMxf6IgfFgUEgAtE0+mhUgAI7hkdEgsfFJKcY6Gdm5dfkNSC2+bWWd3c0DFmyj1bXyBY3rJYh7wToAOjcwAB5YcDhwAAQAhG93b1kTDFgwJYoHQ4FlbBNwXQdmAmAwGMU6FgGGxIED-nEEskjCodIDsLAJmCsM5cpdOBROEA
+\begin{tikzcd}
+  & v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "\exists ! \ h" description, dashed] &   \\
+  & u \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]                                                                         &   \\
+a &                                                                                                                    & b
+\end{tikzcd}
+\]
+
+
+\subsection{直積の例}
+
+集合の圏 $\mathbf{Set}$ で、
+$x,y \in \textbf{Set}$ に対して、
+$p_{0}:x \times y \to x:<a,b> \mapsto a$
+、
+$p_{1}:x \times y \to y:<a,b> \mapsto b$
+とすると、
+$\langle x \times y,p_{0},p_{1} \rangle$
+は$x$ と $y$ の直積。
+
+
+
+\subsubsection{確認}
+
+\paragraph{可換性チェック}
+
+$\langle v ,q_{0},q_{1} \rangle$
+を以下のように取る。
+\[
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAA8ACAHW7wFt4nAJ4gAvqXSZc+QigAMpAExVajFm3bjJIDNjwEiS5avrNWiEKIlT9somXmn1F2uNUwoAc3hFQAMwAnCH4kRRAcCCQyNXM2NAB9YHkxEGoGOgAjGAYABWkDORBArC8ACxxtAODQxHDIpGNYjUtE4GJUmxAgkKQAZmoGxBjssCgkAFo+8LMWkABHJJS0kAzsvIL7SxLyyq6e2oGIqMQm0fHEaepZ10X2zp0D-sGTmZc2Xhh2LDgcOE4AIQ8bicMorBhYMCuKB0OBlTwreF0C5gJgMBiDOhYBhsSBQ8FZHL5OyGSyQ7CwFZwrD+Sp1MQUMRAA
+\begin{tikzcd}
+  & v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "h" description, dashed] &   \\
+  & x \times y \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]                                                                &   \\
+x &                                                                                                                    & y
+\end{tikzcd}
+\]
+
+つまり、
+$a \in v$ に対して、 $h(a) = \langle q_{0}(a) , q_{1}(a) \rangle \in x \times y$ となるように取る。
+
+そうすると、
+$h : v \to x \times y$
+は、
+$p_{0} \circ h(a) = p_{0} (\langle q_{0}(a) , q_{1}(a) \rangle) = q_{0}(a)$
+より、
+
+$$p_{0} \circ h = q_{0}$$
+
+同様に、
+
+$$p_{1} \circ h = q_{1}$$
+
+となるので、図式は可換になる。
+
+\paragraph{普遍性チェック}
+
+次に、もし別の $h':v \to x \times y$ があって、
+\[
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAA8ACAHW7wFt4nAJ4gAvqXSZc+QigAMpAExVajFm3bjJIDNjwEiS5avrNWiEKIlT9somXmn1F2uNUwoAc3hFQAMwAnCH4kRRAcCCQyNXM2NAB9YHkxEGoGOgAjGAYABWkDORBArC8ACxxtAODQxHDIpGNYjUtE4GJUmxAgkKQAZmoGxBjssCgkAFo+8LMWkABHJJS0kAzsvIL7SxLyyq6e2oGIqMQm0fHEaepZ10X2zp0D-sGTmZc2MoByFYYsMFcoHQ4GVPCsQXQLmAmAwGIM6FgGGxIP8flkcvk7IZLH9sLAVsCsP5KnUxBQxEA
+\begin{tikzcd}
+  & v \arrow[ldd, "q_{0}"', bend right] \arrow[rdd, "q_{1}", bend left] \arrow[d, "h'" description, dashed] &   \\
+  & x \times y \arrow[ld, "p_{0}"'] \arrow[rd, "p_{1}"]                                                     &   \\
+x &                                                                                                         & y
+\end{tikzcd}
+\]
+
+となると仮定する。
+
+このときに $h'=h$ となることが言えれば一意であり、普遍性が成り立つ。
+
+$h'(a) = \langle q'_{0}(a) , q'_{1}(a) \rangle \in x \times y$ となるとすると、
+
+$q_{0}(a) = p_{0} \circ h'(a) = p_{0} (\langle q'_{0}(a) , q'_{1}(a) \rangle) = q'_{0}(a)$
+なので、
+
+$$q'_{0} = q_{0}$$
+
+同様に
+
+$$q'_{1} = q_{1}$$
+
+よって、
+$h'(a) = \langle q'_{0}(a) , q'_{1}(a) \rangle = \langle q_{0}(a) , q_{1}(a) \rangle = h(a)$
+すなわち、任意の $a$ に対して
+
+$$h' = h$$
+
+が成り立つ。
+
+よって $h$ は一意であり、直積の普遍性も満たされる。
+
+
+\section{イコライザ}
+
+\subsection{イコライザの定義}
+
+\[
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRCZAF9T1Nd9CKAEzkqtRizZ0uPEBmx4CRACyjq9Zq0QgARjN4KBRMkLEbJ2mlzEwoAc3hFQAMwBOEALZIAjNRwQkEV0YMCgkMhAGOh0YBgAFPkVBSJhnHBB1CS0QZwyQOAALLDSkAFohbhd3L0RfEH9A6iiY+MSjbVcsOwL0zM02OzzC4vTaypzq8L8A2r6LOX0JzyQAZmmfOeyARzzm2ITDJQ6unsW3ZcQ1+pmIhiwwbKg6Qts882yAHQ+YAA8sOBwcAABABCIFfIEFaycIA
+\begin{tikzcd}
+u \arrow[rr, "p"]                                        &  & a \arrow[rr, "f", shift left=2] \arrow[rr, "g"', shift right] &  & b \\
+                                                         &  &                                                               &  &   \\
+v \arrow[rruu, "q"'] \arrow[uu, "\exists ! \ h", dashed] &  &                                                               &  &  
+\end{tikzcd}
+\]
+
+
+圏 $C$ の射 $f,g : a \to b$ に対して、$f,g$ のイコライザとは、
+$\langle u, p \rangle$ の二つ組で
+
+\begin{enumerate}
+    \item （イコライザの要素）$u \in C$、$p: u \to a$、$f \circ p = g \circ p$ となるもの。
+    \item （普遍性） $\langle v, q \rangle$ が同じ条件を満たすとき、$\exists ! h: v \to u$ で、
+    $p_{0} \circ h = q$
+\end{enumerate}
+
+
+\subsection{イコライザの例}
+
+\textbf{Set} の場合、
+$f,g: x \to y$ が写像であり、
+イコライザは $u = \{ a \in x | f(a) = g(a) \}$、
+$p : u \hookrightarrow x $
+のようになるもの。
+
+
+\section{極限の極限らしさ}
+
+直積やイコライザの定義は、
+まず対象や射が与えられて、
+それに対する $u,p$ のことであり、同じような $v,q$ 等があれば一意に射が出るようなもの。
+
+\[
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRDoH1hiBfEH0uky58hFGQCMVWoxZtOwCXwFDseAkTIAmafWatE7LluWCQGNaKITSU6nrmGFAFlOqRGlDcr3ZBo8AAzG7mwupiyIG2un5sTPxmFh4RZM4x+vJcYCFJ4UQArNG+GYY0-NIwUADm8ESgAGYAThAAtkiFIDgQSM7FjuZcwSDUDHQARjAMAAphVoaNWFUAFjgJDc1tiB1dSFEyJQPArsMgoxPTs54gWGDYsGsgTa3t1DuIZPv9aFy8D0+b226iBsIDgSyw9VWiAAtCCJmAoLsPg5-N9FCF-i9OkCtNR4YjEIFkbFDGiTH8Nli3gA2PEwBFIvqorJ8EY3fxQCA4HCVCnPRAAdleQI6DHZbCgdDBvKZbAAOnKYAAPLBwHBwAAEAEINQqNUs+ZshdierLDABHQas07jSYzSxXBbLVYqR6UwXCpC0kD4xmffyW4DZQ1IY1vXE++kEolmkCB8muzGEz3vRPuvZvVxmJO9E2p7PplNKAv8jM4ngUHhAA
+\begin{tikzcd}
+a_{0} & a_{3} \arrow[l]                                 &  &                                                                                                                                                                                                       &  &                                                                                                                                       \\
+a_{1} & a_{4} \arrow[lu] \arrow[u] \arrow[l] \arrow[ld] &  & u \arrow[llu, "p_{3}"'] \arrow[ll, "p_{4}" description] \arrow[lllu, "p_{0}"] \arrow[lll, "p_{1}", bend left, shift left] \arrow[llld, "p_{2}", bend left] \arrow[lllddd, "p_{n}", dotted, bend left] &  & v \arrow[ll, "\exists ! \ h", dashed] \arrow[llllu, "q_{3}"'] \arrow[lllllddd, "q_{n}", bend left] \arrow[llllld, "q_{2}", bend left] \\
+a_{2} &                                                 &  &                                                                                                                                                                                                       &  &                                                                                                                                       \\
+      &                                                 &  &                                                                                                                                                                                                       &  &                                                                                                                                       \\
+a_{n} &                                                 &  &                                                                                                                                                                                                       &  &                                                                                                                                      
+\end{tikzcd}
+\]
+
+極限は、たくさん対象があったときに、
+それに対する $u,p_{0},p_{1},p_{2}, \cdots$ のことであり、同じような $v,q_{0},q_{1},q_{2},, \cdots$ 等があれば一意に射 $h$ が出るようなもの。
+
+
+
+
+
+\end{document}
