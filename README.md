@@ -26,6 +26,7 @@ The notes are organized within a parent directory named `tex`. All documents are
     - **finance**: Notes on financial engineering.
         - **[Arbitrage and Gauge Theory](https://github.com/masaru113/mastex/blob/main/tex/finance/GaugeTheoryInForex/main.pdf)**: Notes examining the relationship between arbitrage in the foreign exchange market and gauge theory.
         - **[Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio](https://github.com/masaru113/mastex/blob/main/tex/finance/ReplicatingPortfolio/main.pdf)**: Outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
+        - **[Finance Cheatsheet (Basic)](https://github.com/masaru113/mastex/blob/main/tex/finance/basic_cheat_sheet/main.pdf)**: A collection of sad formulas.
     - **math**: Notes on mathematics.
         - **cat**: Foundational notes on category theory.
             - **[A First Step into Category Theory](https://github.com/masaru113/mastex/blob/main/tex/math/cat/category_first_step/main.pdf)**: Definition of categories and specific examples.
