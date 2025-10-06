@@ -1,0 +1,297 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{tikz-cd}
+\title{
+米田の補題
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	米田の補題について
+\end{abstract}
+
+\section{米田の補題の主張}
+
+$C$ を圏として、その対象 $a \in C$ があるとき、
+
+$y(a)$ を $y(a) = \text{Hom}_{C}(-,a)$ で定義する
+\footnote{
+	つまり、$y(a) : C^{op} \to \textbf{Set}$ を $y(a)(x) = \text{Hom}_{C}(x,a)$ および任意の射 $f: x \to x'$ に対して $y(a)(f) = \text{Hom}_{C}(f,a)$ で定義する。
+
+	ここで $\text{Hom}_{C}(f,a): \text{Hom}_{C}(x',a) \to \text{Hom}_{C}(x,a)$ は、$\phi \in \text{Hom}_{C}(x',a)$ を $\phi \circ f$ に写すことで定義される。
+}
+：
+
+\[
+	\begin{array}{cccc}
+		y(a) : & C^{op}                  & \to     & \textbf{Set}            \\
+		       & \rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$} \\
+		       & x                       & \mapsto & \text{Hom}_{C}(-,a)
+	\end{array}
+\]
+
+
+$F: C^{op} \to \textbf{Set}$ という関手に対して、
+
+\[
+	\text{Hom}_{C}(y(a),F) \cong Fa
+\]
+が成り立つ。
+
+左辺
+$\text{Hom}_{C}(y(a),F)$
+は $y(a)$ から $F$ への自然変換全体の「集合」。
+
+右辺 $Fa$ は、関手 $F$ で送ると集合になると言っているので「集合」。
+
+集合同士が同型であるということは、左辺と右辺の間に全単射があるということを言っている。
+
+
+
+\subsection{簡単なアナロジー：線形代数の例}
+
+$V$:実線形空間とする。
+
+$V=\mathbb{R}^{3}$ としても差し支えない。
+
+このとき、実数から実線形空間への準同型（つまりここでは線形写像）全体の集合は、実線形空間と同型である。
+
+\[
+	\text{Hom}(\mathbb{R},V) \cong V
+\]
+
+この同型は線形代数における基本的な同型であるが、米田の補題の良いアナロジーになっている。
+
+つまり圏 $C$ を実線形空間 $v$ の圏として、
+$a$ を実数ベクトル空間 $\mathbb{R}$ と置いたものである。
+
+
+詳しく見ると、
+
+\[
+	\begin{array}{ccc}
+		\text{Hom}(\mathbb{R},V) & \cong   & V                       \\
+		\rotatebox{90}{${\in}$}  &         & \rotatebox{90}{${\in}$} \\
+		f                        & \mapsto & f(1)
+	\end{array}
+\]
+
+$\mathbb{R}$ の単位元1を用いて、$f$ を $f(1)$ に対応させる（1を代入する）。
+
+$f$ は線形写像なので、任意の実数 $\lambda$ に対して$f(\lambda) = f(\lambda \cdot 1) = \lambda f(1)$ が成り立つ。
+
+つまり、任意の $\lambda$ に対する $f(\lambda)$ の値は、$\lambda$ という定数と $f(1)$ の値によって一意に決定される。
+
+要するに、 $f$ の値は、ある代表値 $f(1)$ の値を決めると一意に決まってしまう。
+
+これにより、線形写像 $f$ の全体と、$f(1)$ が取り得る値（ベクトル空間 $v$ の元）の全体との間に1対1の対応関係、
+全単射がある。
+
+
+
+
+
+\subsection{簡単なアナロジー：集合の例}
+
+米田の補題は、集合論における要素を写像に置き換えて考えるアナロジーとしても捉えることができる。
+
+通常の考え方では、集合 $A$ の要素 $a$ を特定するには、単に $A$ からその要素を取り出す。
+
+しかし、米田の補題的な観点では、
+集合 $A$ の要素 $a$ を特定するには、
+他の集合から $A$ への写像を考える。
+
+
+具体例として、集合の圏 \textbf{Set} において、対象 $A$ とただ一つの要素からなる集合 $\{*\}$ について考える。
+
+\[
+	\begin{array}{ccc} \text{Hom}(\{*\}, A)& \cong & A \\ \rotatebox{90}{${\in}$} && \rotatebox{90}{${\in}$} \\ f& \mapsto & f(*) \end{array}
+\]
+これは、集合 $A$ への写像$f: \{*\} \to A$ が、$f$ がただ一つの元 $*$ を $A$ のどの元に送るかによって完全に決まることを示している。
+
+つまり、写像 $f$ は $A$ の元 $f( * )$ と一対一に対応している。
+
+\begin{enumerate}
+	\item \textbf{要素の特定}: 集合 $A$ の要素 $a$ は、写像 $f: \{*\} \to A$ で $f(*) = a$ となるものと一対一に対応する。
+	\item \textbf{写像の特定}: 任意の集合 $X$ から $A$ への写像全体の集合を $\text{Hom}(\{*\}, A)$ と表すと、この集合は $A$ と一対一に対応する。
+\end{enumerate}
+
+このアナロジーは、米田の補題の真髄である「対象そのもの」と「その対象への写像」の間の本質的な繋がりを示している。
+
+
+
+
+
+\subsection{簡単なアナロジー：群の例}
+
+米田の補題は、群論における「群の元」を「準同型写像」の言葉で捉え直すアナロジーとして考えることができる。
+
+通常の考え方では、群 $G$ の元 $g$ を特定するには、単に $G$ からその元を取り出す。
+
+しかし、米田の補題的な考え方では、群 $G$ の元 $g$ を特定するには、他の群から $G$ への準同型写像を考えることが本質的である。
+
+具体例として、無限巡回群 $\mathbb{Z}$ から $G$ への準同型写像 $\phi: \mathbb{Z} \to G$ を考える。
+
+群の圏 $\mathbf{Grp}$ において、対象 $G$ を考える。米田の補題のアナロジーを考える上で重要なのは、無限巡回群 $\mathbb{Z}$ である。
+\[
+	\begin{array}{ccc} \text{Hom}_{\mathbf{Grp}}(\mathbb{Z}, G)& \cong & G \\ \rotatebox{90}{${\in}$} && \rotatebox{90}{${\in}$} \\ \phi& \mapsto & \phi(1) \end{array}
+\]
+これは、群の準同型写像 $\phi: \mathbb{Z} \to G$ が、$\phi(1)$ の値によって完全に決まることを示している。
+
+$\mathbb{Z}$ の任意の元 $n$ は $1$ の $n$ 個の和で表せるため、準同型写像の性質から $\phi(n) = n\phi(1)$ となり、$\phi(1)$ が決まると写像全体が決まる。これにより、準同型写像 $\phi$ と群 $G$ の元 $\phi(1)$ との間には一対一の対応関係がある。
+
+なぜこれがアナロジーになるのか？
+
+\begin{enumerate}
+	\item \textbf{元の特定}: 群 $G$ の元 $g$ は、準同型写像 $\phi: \mathbb{Z} \to G$ で $\phi(1) = g$ となるものと一対一に対応する。
+	\item \textbf{写像の特定}: 任意の群 $H$ から $G$ への準同型写像全体の集合を $\text{Hom}_{\mathbf{Grp}}(\mathbb{Z}, G)$ と表すと、この集合は $G$ と一対一に対応する。これは、任意の準同型写像 $\phi$ は、$\phi(1)$ の値によって完全に決定されるためである。
+\end{enumerate}
+
+このアナロジーは、群論の枠組みで、米田の補題の真髄である「対象そのもの」と「その対象への写像」の間の本質的な繋がりを示している。
+
+
+
+
+
+
+
+
+
+\section{米田の補題の証明}
+
+$\text{Hom}_{C}(y(a),F)$ という集合を、集合 $Fa$ に送る射を $\sigma$ とする：
+\[
+	\begin{array}{cccc}
+		\sigma : & \text{Hom}_{C}(y(a),F)  & \to     & Fa                                     \\
+		         & \rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$}                \\
+		         & \phi                    & \mapsto & \sigma(\phi) = \phi_{a}(\text{id}_{a})
+	\end{array}
+\]
+
+ここで、$\phi: y(a) \to F$ は自然変換。
+
+$x \in C$ という対象について、 $x$ 成分が $\phi_{x} : y(a)(x) \to Fx$ となるような準同型であり、
+同じことであるが、$y(a)(x)=\text{Hom}_{C}(x,a)$ なので、 $\phi_{x} : \text{Hom}_{C}(x,a) \to Fx$
+
+特に
+\[
+	\begin{array}{cccc}
+		\phi_{a} : & \text{Hom}_{C}(a,a)     & \to     & Fa                      \\
+		           & \rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$} \\
+		           & \text{id}_{a}           & \mapsto & \phi_{a}(\text{id}_{a})
+	\end{array}
+\]
+
+このようにして置いた $\sigma$ が全単射になっていることを示せば米田の補題が示されたことになる。
+
+\subsection{単射性}
+
+ここで $C$ の任意の対象 $x$ に対して、
+$\text{Hom}_{C}(x,a) \ni p: x \to a$ という射 $p$ を取る。
+
+このとき $\phi_{x}(p)$ を考えることができる。
+
+可換図式では
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAJgBoBGAXVJADcBDAGwFcYkQBPACnoEouAHrxABfUuky58hFABYK1Ok1bsAYgNHiQGbHgJF5AZkUMWbRCFX1NE3dKJljNUyovc+PYWNtT9KMgAMJsrmnJ422pJ6MsjyQc4hahE6vjEBCglm7BrekXZ+yOlOSlkW1iKKMFAA5vBEoABmAE4QALZI6SA4EEiGNIz0AEYwjAAKUfYWTVjVABY4IJmuYR5oXlrNbR003UjkS6EAOodos1gA+sACIhGb7Yh9XT2IZCXLx6cXwPQ3uXd7O2erxcoVUXDWtxa93kTyQAFYDuwPmdIVtEAA2QFIADsiIsaEWIAGwzGEz8IGmcwWFREQA
+	\begin{tikzcd}
+		&  & y(a) \arrow[rr, "\phi"]                               &  & F                     \\
+		x \arrow[dd, "p"'] &  & y(a)(x) \arrow[dd, "y(a)(p)"'] \arrow[rr, "\phi_{x}"] &  & Fx \arrow[dd, "F(p)"] \\
+		&  &                                                       &  &                       \\
+		a                  &  & y(a)(a) \arrow[rr, "\phi_{a}"]                        &  & Fa
+	\end{tikzcd}
+\]
+この図式は $F(p) \circ \phi_{a} = \phi_{x} \circ y(a)(p)$ を示す。
+
+ここで、$y(a)(p)$ は射の合成により定義される写像であり、具体的には、
+$y(a)(p): y(a)(a) \to y(a)(x)$ は、任意の$\varphi \in y(a)(a) = \text{Hom}_{C}(a,a)$ を
+$\varphi \circ p$ に送る写像である。
+
+上の可換図式で $y(a)(a)$ の元 id$_{a}$ を適応すると、
+$F(p)(\phi_{a}(\text{id}_{a})) = \phi_{x}(y(a)(p)(\text{id}_{a}))$
+
+$y(a)(p)(\text{id}_{a}) = \text{id}_{a} \circ p = p$ なので、
+$F(p)(\phi_{a}(\text{id}_{a})) = \phi_{x}(p)$
+
+まとめて整理して書くと
+\[
+	\phi_{x}(p) = \phi_{x}( \text{id}_{a} \circ p) = \phi_{x}( \text{id}_{a} ) * p
+\]
+
+ここで $\phi_{x}( \text{id}_{a} ) \in Fa$ であった。この $F$ は関手であり、$C$-集合である。
+$*p$ は 関手 $F$ による写像 $F(p)$ を意味する。
+
+$\phi_{x}( \text{id}_{a} ) = \sigma(\phi)$ という定義だったので、
+
+\[
+	\phi_{x}(p) = F(p)(\sigma(\phi))
+\]
+
+これは単射性
+\[
+	\sigma(\phi) = \sigma(\phi') \ \ \Rightarrow \ \ \phi = \phi'
+\]
+を示す。
+なぜならば、$\sigma(\phi)$ が決まっていれば $\phi_{x}(p)$ が決まってしまう。
+
+以上から $\sigma$ は単射。
+
+
+
+\subsection{全射性の証明}
+
+$\sigma$ が全射であることを示すには、集合 $Fa$ の任意の要素 $u$ に対して、$\sigma(\phi) = u$ となる自然変換 $\phi: y(a) \to F$ が存在することを示せばよい。
+
+$Fa$ の任意の要素 $u$ をとる。この $u$ を用いて、各対象 $x \in C$ に対して、写像 $\phi_x : y(a)(x) \to Fx$ を以下のように定義する。
+
+任意の射 $p: x \to a$ に対して、
+$$ \phi_x(p) = F(p)(u) $$
+ここで、$F(p)$ は、関手 $F$ が射 $p$ に作用して得られる写像 $F(p): Fa \to Fx$ である。
+
+次に、この定義された写像の族 $\phi = \{\phi_x\}_{x \in C}$ が、実際に $y(a)$ から $F$ への自然変換になっていることを確認する。自然変換の定義により、任意の射 $q: x' \to x$ に対して、以下の可換図式が成り立つ必要がある。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAJgBoBGAXVJADcBDAGwFcYkQBPACnoEouAHgHJeIAL6l0mXPkIoALBWp0mrdgDFh4ySAzY8BIooDMyhizaIQm7VP2yiZUzXNqr3PoNES7MwyjIABjNVS04ebx09PzlkRWCXUI1bXWkDWMClRIt2LR9U+39kTOcVHKsBcWUYKABzeCJQADMAJwgAWyRMkBwIJGMaRnoAIxhGAAU0hysWrFqACxwQbLdwzwBHSOa2zsRu3qRyFbCAHRO0eawAfWBhMRTWjv6aA8QyMtWzi+vb+-zH3ZHHp9N7HDRcTYPHZIRTApAAVjBVi+lyhT0QADYXiCAOxIkDrZYgIajCZTfwgWYLJZiShiIA
+	\begin{tikzcd}
+		&  & y(a) \arrow[rr, "\phi"]                                 &  & F                      \\
+		x' \arrow[dd, "q"'] &  & y(a)(x') \arrow[dd, "y(a)(q)"'] \arrow[rr, "\phi_{x'}"] &  & Fx' \arrow[dd, "F(q)"] \\
+		&  &                                                         &  &                        \\
+		x                   &  & y(a)(x) \arrow[rr, "\phi_{x}"]                          &  & Fx
+	\end{tikzcd}
+\]
+
+この図式が可換であること、つまり $F(q) \circ \phi_{x'} = \phi_x \circ y(a)(q)$ を確認する。
+
+左辺: $F(q) \circ \phi_{x'} = F(q)(\phi_{x'}(p'))$
+ここで、$p'$ は $y(a)(x')$ の任意の元（つまり、射 $p': x' \to a$）である。
+定義より、$\phi_{x'}(p') = F(p')(u)$ であるから、
+$$ F(q)(F(p')(u)) = F(q \circ p')(u) \quad (\text{関手 } F \text{ の性質}) $$
+
+右辺: $\phi_x \circ y(a)(q)$
+$y(a)(q)$ は、射 $p'$ を $p' \circ q$ に送る写像である。
+したがって、
+$$ \phi_x(y(a)(q)(p')) = \phi_x(p' \circ q) $$
+定義により、$\phi_x(p' \circ q) = F(p' \circ q)(u)$ である。
+
+両辺が等しいことが確認できたため、$\phi$ は自然変換である。
+
+最後に、この自然変換 $\phi$ が $\sigma(\phi) = u$ を満たすことを示す。
+$\sigma(\phi)$ の定義により、
+$$ \sigma(\phi) = \phi_a(\text{id}_a) $$
+$\phi_a$ の定義に従って、$\text{id}_a$ を代入すると、
+$$ \phi_a(\text{id}_a) = F(\text{id}_a)(u) = \text{id}_{Fa}(u) = u $$
+よって、$\sigma$ は全射である。
+
+
+
+\end{document}

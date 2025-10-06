@@ -1,0 +1,296 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{tikz-cd}
+\title{
+Yoneda's Lemma, Analogies and Proof
+}
+
+\author{
+Masaru Okada
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	On Yoneda's Lemma. Analogies and proof for a deeper understanding.
+\end{abstract}
+
+\section{Statement of Yoneda's Lemma}
+
+Let $C$ be a category and $a \in C$ be an object.
+
+We define $y(a)$ as $y(a) = \text{Hom}_{C}(-,a)$
+\footnote{
+	In other words, we define $y(a) : C^{op} \to \textbf{Set}$ such that $y(a)(x) = \text{Hom}_{C}(x,a)$ and for any morphism $f: x \to x'$, we define $y(a)(f) = \text{Hom}_{C}(f,a)$.
+
+	Here, $\text{Hom}_{C}(f,a): \text{Hom}_{C}(x',a) \to \text{Hom}_{C}(x,a)$ is defined by mapping $\phi \in \text{Hom}_{C}(x',a)$ to $\phi \circ f$.
+}
+:
+
+\[
+	\begin{array}{cccc}
+		y(a) : & C^{op}                  & \to     & \textbf{Set}            \\
+		       & \rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$} \\
+		       & x                       & \mapsto & \text{Hom}_{C}(-,a)
+	\end{array}
+\]
+
+
+For a functor $F: C^{op} \to \textbf{Set}$,
+
+\[
+	\text{Hom}_{C}(y(a),F) \cong Fa
+\]
+holds.
+
+The left-hand side,
+$\text{Hom}_{C}(y(a),F)$,
+is the "set" of all natural transformations from $y(a)$ to $F$.
+
+The right-hand side, $Fa$, is a "set" because the functor $F$ maps it to a set.
+
+The fact that two sets are isomorphic means that there is a bijection between the left-hand side and the right-hand side.
+
+
+
+\subsection{Simple Analogy: The Example of Linear Algebra}
+
+Let $V$ be a real vector space.
+
+It is fine to take $V=\mathbb{R}^{3}$.
+
+In this case, the set of all homomorphisms (i.e., linear maps here) from real numbers to the real vector space is isomorphic to the real vector space.
+
+\[
+	\text{Hom}(\mathbb{R},V) \cong V
+\]
+
+This isomorphism is a basic one in linear algebra, but it serves as a good analogy for Yoneda's Lemma.
+
+In other words, it is the case where we take the category $C$ to be the category of real vector spaces and $a$ to be the real vector space $\mathbb{R}$.
+
+
+Looking more closely,
+
+\[
+	\begin{array}{ccc}
+		\text{Hom}(\mathbb{R},V) & \cong   & V                       \\
+		\rotatebox{90}{${\in}$}  &         & \rotatebox{90}{${\in}$} \\
+		f                        & \mapsto & f(1)
+	\end{array}
+\]
+
+Using the identity element 1 of $\mathbb{R}$, we map $f$ to $f(1)$ (i.e., we substitute 1).
+
+Since $f$ is a linear map, for any real number $\lambda$, $f(\lambda) = f(\lambda \cdot 1) = \lambda f(1)$ holds.
+
+This means that the value of $f(\lambda)$ for any $\lambda$ is uniquely determined by the constant $\lambda$ and the value of $f(1)$.
+
+In short, the values of $f$ are uniquely determined once we fix a representative value, $f(1)$.
+
+Due to this, there is a one-to-one correspondence, a bijection, between the set of all linear maps $f$ and the set of all possible values of $f(1)$ (i.e., the elements of the vector space $V$).
+
+
+
+
+
+\subsection{Simple Analogy: The Example of Set Theory}
+
+Yoneda's Lemma can also be seen as an analogy that reinterprets elements in set theory as maps.
+
+In the usual way of thinking, to identify an element $a$ of a set $A$, we simply pick that element from $A$.
+
+However, from the perspective of Yoneda's Lemma, to identify an element $a$ of a set $A$, it is essential to consider maps from other sets to $A$.
+
+As a concrete example, we consider the category of sets, \textbf{Set}, and a set $A$ and a set with only a single element, $\{*\}$.
+
+\[
+	\begin{array}{ccc} \text{Hom}(\{*\}, A)& \cong & A \\ \rotatebox{90}{${\in}$} && \rotatebox{90}{${\in}$} \\ f& \mapsto & f(*) \end{array}
+\]
+This shows that a map $f: \{*\} \to A$ is completely determined by which element of $A$ the single element $*$ is mapped to.
+
+In other words, the map $f$ corresponds one-to-one with the element $f(*)$ of $A$.
+
+\begin{enumerate}
+	\item \textbf{Identification of an element}: An element $a$ of a set $A$ corresponds one-to-one with a map $f: \{*\} \to A$ such that $f(*) = a$.
+	\item \textbf{Identification of a map}: The set of all maps from any set $X$ to $A$, denoted as $\text{Hom}(\{*\}, A)$, corresponds one-to-one with $A$.
+\end{enumerate}
+
+This analogy shows the essential connection between "the object itself" and "the maps to that object," which is the essence of Yoneda's Lemma.
+
+
+
+
+
+\subsection{Simple Analogy: The Example of Group Theory}
+
+Yoneda's Lemma can be viewed as an analogy that reinterprets "elements of a group" in terms of "homomorphisms."
+
+In the usual way of thinking, to identify an element $g$ of a group $G$, we simply pick that element from $G$.
+
+However, from the perspective of Yoneda's Lemma, to identify an element $g$ of a group $G$, it is essential to consider a homomorphism from another group to $G$.
+
+As a concrete example, we consider a homomorphism $\phi: \mathbb{Z} \to G$ from the infinite cyclic group $\mathbb{Z}$ to $G$.
+
+In the category of groups, $\mathbf{Grp}$, we consider an object $G$. The important thing to consider for the analogy of Yoneda's Lemma is the infinite cyclic group $\mathbb{Z}$.
+\[
+	\begin{array}{ccc} \text{Hom}_{\mathbf{Grp}}(\mathbb{Z}, G)& \cong & G \\ \rotatebox{90}{${\in}$} && \rotatebox{90}{${\in}$} \\ \phi& \mapsto & \phi(1) \end{array}
+\]
+This shows that a group homomorphism $\phi: \mathbb{Z} \to G$ is completely determined by the value of $\phi(1)$.
+
+Since any element $n$ of $\mathbb{Z}$ can be expressed as the sum of $n$ ones, the property of group homomorphisms means that $\phi(n) = n\phi(1)$. Thus, if $\phi(1)$ is determined, the entire map is determined. This creates a one-to-one correspondence between the homomorphism $\phi$ and the element $\phi(1)$ of the group $G$.
+
+Why does this serve as an analogy?
+
+\begin{enumerate}
+	\item \textbf{Identification of an element}: An element $g$ of a group $G$ corresponds one-to-one with a homomorphism $\phi: \mathbb{Z} \to G$ such that $\phi(1) = g$.
+	\item \textbf{Identification of a map}: The set of all homomorphisms from any group $H$ to $G$, denoted as $\text{Hom}_{\mathbf{Grp}}(\mathbb{Z}, G)$, corresponds one-to-one with $G$. This is because any homomorphism $\phi$ is completely determined by the value of $\phi(1)$.
+\end{enumerate}
+
+This analogy shows the essential connection between "the object itself" and "the maps to that object" within the framework of group theory, which is the essence of Yoneda's Lemma.
+
+
+
+
+
+
+
+
+
+\section{Proof of Yoneda's Lemma}
+
+Let $\sigma$ be the morphism that maps the set $\text{Hom}_{C}(y(a),F)$ to the set $Fa$:
+\[
+	\begin{array}{cccc}
+		\sigma : & \text{Hom}_{C}(y(a),F)  & \to     & Fa                                     \\
+		         & \rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$}                \\
+		         & \phi                    & \mapsto & \sigma(\phi) = \phi_{a}(\text{id}_{a})
+	\end{array}
+\]
+
+Here, $\phi: y(a) \to F$ is a natural transformation.
+
+For an object $x \in C$, the $x$-component is a homomorphism $\phi_{x} : y(a)(x) \to Fx$.
+The same is true for $y(a)(x)=\text{Hom}_{C}(x,a)$, so $\phi_{x} : \text{Hom}_{C}(x,a) \to Fx$.
+
+In particular,
+\[
+	\begin{array}{cccc}
+		\phi_{a} : & \text{Hom}_{C}(a,a)     & \to     & Fa                      \\
+		           & \rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$} \\
+		           & \text{id}_{a}           & \mapsto & \phi_{a}(\text{id}_{a})
+	\end{array}
+\]
+
+If we can show that this defined $\sigma$ is a bijection, Yoneda's Lemma will be proven.
+
+\subsection{Injectivity}
+
+Here, for any object $x$ in $C$, we take a morphism $p: x \to a$ from $\text{Hom}_{C}(x,a)$.
+
+In this case, we can consider $\phi_{x}(p)$.
+
+In the commutative diagram,
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAJgBoBGAXVJADcBDAGwFcYkQBPACnoEouAHrxABfUuky58hFABYK1Ok1bsAYgNHiQGbHgJF5AZkUMWbRCFX1NE3dKJljNUyovc+PYWNtT9KMgAMJsrmnJ422pJ6MsjyQc4hahE6vjEBCglm7BrekXZ+yOlOSlkW1iKKMFAA5vBEoABmAE4QALZI6SA4EEiGNIz0AEYwjAAKUfYWTVjVABY4IJmuYR5oXlrNbR003UjkS6EAOodos1gA+sACIhGb7Yh9XT2IZCXLx6cXwPQ3uXd7O2erxcoVUXDWtxa93kTyQAFYDuwPmdIVtEAA2QFIADsiIsaEWIAGwzGEz8IGmcwWFREQA
+	\begin{tikzcd}
+		&  & y(a) \arrow[rr, "\phi"]              &  & F                  \\
+		x \arrow[dd, "p"'] &  & y(a)(x) \arrow[dd, "y(a)(p)"'] \arrow[rr, "\phi_{x}"] &  & Fx \arrow[dd, "F(p)"] \\
+		&  &                                  &  &                    \\
+		a                  &  & y(a)(a) \arrow[rr, "\phi_{a}"]     &  & Fa
+	\end{tikzcd}
+\]
+This diagram shows that $F(p) \circ \phi_{a} = \phi_{x} \circ y(a)(p)$.
+
+Here, $y(a)(p)$ is a map defined by the composition of morphisms, and specifically,
+$y(a)(p): y(a)(a) \to y(a)(x)$ is the map that sends any $\varphi \in y(a)(a) = \text{Hom}_{C}(a,a)$ to $\varphi \circ p$.
+
+Applying the element $\text{id}_{a}$ of $y(a)(a)$ to the above commutative diagram, we get
+$F(p)(\phi_{a}(\text{id}_{a})) = \phi_{x}(y(a)(p)(\text{id}_{a}))$
+
+Since $y(a)(p)(\text{id}_{a}) = \text{id}_{a} \circ p = p$,
+$F(p)(\phi_{a}(\text{id}_{a})) = \phi_{x}(p)$
+
+Writing it out in a more organized way,
+\[
+	\phi_{x}(p) = \phi_{x}( \text{id}_{a} \circ p) = \phi_{x}( \text{id}_{a} ) * p
+\]
+
+Here, $\phi_{x}( \text{id}_{a} ) \in Fa$. This $F$ is a functor and a $C$-set.
+$-*p$ means the map $F(p)(-)$ induced by the functor $F$.
+
+Since we defined $\phi_{x}( \text{id}_{a} ) = \sigma(\phi)$,
+
+\[
+	\phi_{x}(p) = F(p)(\sigma(\phi))
+\]
+
+This proves injectivity
+\[
+	\sigma(\phi) = \sigma(\phi') \ \ \Rightarrow \ \ \phi = \phi'
+\]
+because if $\sigma(\phi)$ is determined, $\phi_{x}(p)$ is also determined.
+
+Thus, $\sigma$ is injective.
+
+
+
+\subsection{Surjectivity}
+
+To show that $\sigma$ is surjective, we must show that for any element $u$ of the set $Fa$, there exists a natural transformation $\phi: y(a) \to F$ such that $\sigma(\phi) = u$.
+
+Let $u$ be any element of $Fa$. Using this $u$, we define a map $\phi_x : y(a)(x) \to Fx$ for each object $x \in C$ as follows.
+
+For any morphism $p: x \to a$,
+$$ \phi_x(p) = F(p)(u) $$
+Here, $F(p)$ is the map $F(p): Fa \to Fx$ obtained by the action of the functor $F$ on the morphism $p$.
+
+Next, we confirm that this defined family of maps $\phi = \{\phi_x\}_{x \in C}$ is indeed a natural transformation from $y(a)$ to $F$. By the definition of a natural transformation, the following commutative diagram must hold for any morphism $q: x' \to x$.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAJgBoBGAXVJADcBDAGwFcYkQBPACnoEouAHgHJeIAL6l0mXPkIoALBWp0mrdgDFh4ySAzY8BIooDMyhizaIQm7VP2yiZUzXNqr3PoNES7MwyjIABjNVS04ebx09PzlkRWCXUI1bXWkDWMClRIt2LR9U+39kTOcVHKsBcWUYKABzeCJQADMAJwgAWyRMkBwIJGMaRnoAIxhGAAU0hysWrFqACxwQbLdwzwBHSOa2zsRu3qRyFbCAHRO0eawAfWBhMRTWjv6aA8QyMtWzi+vb+-zH3ZHHp9N7HDRcTYPHZIRTApAAVjBVi+lyhT0QADYXiCAOxIkDrZYgIajCZTfwgWYLJZiShiIA
+	\begin{tikzcd}
+		&  & y(a) \arrow[rr, "\phi"]              &  & F                  \\
+		x' \arrow[dd, "q"'] &  & y(a)(x') \arrow[dd, "y(a)(q)"'] \arrow[rr, "\phi_{x'}"] &  & Fx' \arrow[dd, "F(q)"] \\
+		&  &                                  &  &                    \\
+		x                  &  & y(a)(x) \arrow[rr, "\phi_{x}"]     &  & Fx
+	\end{tikzcd}
+\]
+
+We check that this diagram commutes, i.e., $F(q) \circ \phi_{x'} = \phi_x \circ y(a)(q)$.
+
+Left-hand side: $F(q) \circ \phi_{x'} = F(q)(\phi_{x'}(p'))$
+Here, $p'$ is any element of $y(a)(x')$ (i.e., a morphism $p': x' \to a$).
+By definition, $\phi_{x'}(p') = F(p')(u)$, so
+$$ F(q)(F(p')(u)) = F(q \circ p')(u) \quad (\text{property of functor } F) $$
+
+Right-hand side: $\phi_x \circ y(a)(q)$
+$y(a)(q)$ is the map that sends the morphism $p'$ to $p' \circ q$.
+Thus,
+$$ \phi_x(y(a)(q)(p')) = \phi_x(p' \circ q) $$
+By definition, $\phi_x(p' \circ q) = F(p' \circ q)(u)$.
+
+Since both sides are equal, we have confirmed that $\phi$ is a natural transformation.
+
+Finally, we show that this natural transformation $\phi$ satisfies $\sigma(\phi) = u$.
+By the definition of $\sigma(\phi)$,
+$$ \sigma(\phi) = \phi_a(\text{id}_a) $$
+According to the definition of $\phi_a$, substituting $\text{id}_a$, we get
+$$ \phi_a(\text{id}_a) = F(\text{id}_a)(u) = \text{id}_{Fa}(u) = u $$
+Thus, $\sigma$ is surjective.
+
+\ \\
+
+Therefore, $\sigma$ is a bijection, and
+Yoneda's Lemma
+\[
+	\text{Hom}_{C}(y(a),F) \cong Fa
+\]
+is proven.
+
+\end{document}
