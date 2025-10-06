@@ -1,0 +1,180 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{here}
+
+\title{
+数理ファイナンス・チートシート（基礎編）
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	暗記は大嫌いだけど、職業上、反射的に、無意識に言えるようにしておかないといけない悲しい数式集。
+
+	必要に気づいたら適宜追加します。
+\end{abstract}
+
+\ \\
+
+\begin{enumerate}
+	\item BSモデルは？
+	\item BS方程式は？
+	\item ヨーロピアン・コールオプションの解は？
+	\item Futを使ったヨーロピアン・コールオプションの解は？
+	\item Local Volatilityモデルは？
+	\item Dupire's Local Volatilityは？
+	\item ギルザノフの定理の逆は？
+	\item 指数マルチンゲールSDEとその解は？
+\end{enumerate}
+
+\newpage
+
+
+
+\section{BSモデル}
+
+\[
+	\left\{
+	\begin{array}{rcl}
+		\displaystyle \frac{dS}{S} & = & \mu dt + \sigma dW \\
+		\displaystyle \frac{dB}{B} & = & r dt
+	\end{array}
+	\right.
+\]
+
+\section{BS方程式}
+
+\[
+	rf
+	=
+	\frac{\partial f}{\partial t}
+	+
+	(r-q) S \frac{\partial f}{\partial S}
+	+
+	\frac{1}{2} \sigma^{2} S^{2}
+	\frac{\partial^{2} f}{\partial S^{2}}
+\]
+
+
+\section{ヨーロピアン・コールオプションの解}
+
+\[
+	C = e^{-q(T-t)} S \Phi(d_{+}) - e^{-r(T-t)} K \Phi(d_{-})
+\]
+
+ここで、$d_{\pm}$ と $\Phi$ はそれぞれ、
+
+\[
+	d_{\pm} = \frac{ \displaystyle \log \frac{S}{K} + (r-q \pm \frac{1}{2} \sigma^{2} ) (T-t) }{ \sigma \sqrt{ T - t } }
+\]
+
+\[
+	\Phi(x) = \frac{1}{ \sqrt{2 \pi} } \int^{x}_{- \infty} e^{-y^{2}/2} dy
+\]
+
+
+\section{Futを使ったヨーロピアン・コールオプションの解}
+
+Futを使うとシンプルに表現できるだけでなく、金利が定数でなくても使える表式を得る。
+
+\[
+	C = e^{-\int^{T}_{0} r(s) ds} \Big( F \Phi(d_{+}) - K \Phi(d_{-}) \Big)
+\]
+
+ここで、$F$、$d_{\pm}$ はそれぞれ、
+
+\[
+	F = S e^{\int^{T}_{0} r(s) ds }
+\]
+
+\[
+	d_{\pm} = \frac{ \displaystyle \log \frac{F}{K} \pm \frac{1}{2} \sigma^{2} T }{ \sigma \sqrt{ T } }
+\]
+
+\section{Dupire's Local Volatility}
+
+\[
+	\sigma_{\rm LV}^{2}(T,K)
+	=
+	\frac{
+		\displaystyle
+		\frac{\partial C}{\partial T} + r(T) K \frac{\partial C}{\partial K}
+	}{
+		\displaystyle
+		\frac{1}{2} K^{2}
+		\frac{\partial^{2} C}{\partial K^{2}}
+	}
+\]
+
+これはBS方程式と似た形をしているので以下から頭の中で式変形して思い出せば良い。
+
+\[
+	\Longleftrightarrow
+	\ \hspace{5mm}
+	\frac{\partial C}{\partial T} + r(T) K \frac{\partial C}{\partial K}
+	-
+	\frac{1}{2} K^{2}
+	\sigma_{\rm LV}^{2}(T,K)
+	\frac{\partial^{2} C}{\partial K^{2}}
+	=0
+\]
+
+\[
+	c.f., \
+	\text{BS eqn:}
+	\ \hspace{5mm}
+	rf
+	=
+	\frac{\partial f}{\partial t}
+	+
+	r S \frac{\partial f}{\partial S}
+	+
+	\frac{1}{2} \sigma^{2} S^{2}
+	\frac{\partial^{2} f}{\partial S^{2}}
+\]
+
+
+
+\section{ギルザノフの定理の逆}
+
+\[
+	W^{\mathbb{Q}}_{t} = W^{\mathbb{R}}_{t} + \int^{t}_{0} \gamma_{s} ds
+\]
+\[
+	\Longleftrightarrow
+	\ \hspace{5mm}
+	\frac{d \mathbb{Q}}{d \mathbb{P}}
+	=
+	\exp \left( - \int^{T}_{0} \gamma_{t} dW_{t} - \frac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)
+\]
+
+符号に注意。
+
+
+\section{指数マルチンゲールSDEとその解}
+
+\[
+	\frac{d X_{t}}{ dt}
+	=
+	\sigma_{t} d W_{t}
+\]
+\[
+	\Longleftrightarrow
+	\ \hspace{5mm}
+	X_{t}
+	=
+	X_{0}
+	\exp \left( \int^{t}_{0} \sigma_{s} dW_{s} - \frac{1}{2} \int^{T}_{0} \sigma_{s}^{2} dt \right)
+\]
+
+符号に注意。
+
+\end{document}

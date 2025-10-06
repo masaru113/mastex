@@ -1,0 +1,180 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{here}
+
+\title{
+Finance Cheatsheet (Basic)
+}
+
+\author{
+M. O.
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	A collection of sad formulas that, despite hating rote memorization, we must be able to state reflexively and unconsciously for our profession.
+
+	I will add more as I realize they are necessary.
+\end{abstract}
+
+\ \\
+
+\begin{enumerate}
+	\item BS Model?
+	\item BS Equation?
+	\item Solution for European Call Option?
+	\item Solution for European Call Option using Fut?
+	\item Local Volatility Model?
+	\item Dupire's Local Volatility?
+	\item The inverse of Girsanov's Theorem?
+	\item Exponential Martingale SDE and its solution?
+\end{enumerate}
+
+\newpage
+
+
+
+\section{BS Model}
+
+\[
+	\left\{
+	\begin{array}{rcl}
+		\displaystyle \frac{dS}{S} & = & \mu dt + \sigma dW \\
+		\displaystyle \frac{dB}{B} & = & r dt
+	\end{array}
+	\right.
+\]
+
+\section{BS Equation}
+
+\[
+	rf
+	=
+	\frac{\partial f}{\partial t}
+	+
+	(r-q) S \frac{\partial f}{\partial S}
+	+
+	\frac{1}{2} \sigma^{2} S^{2}
+	\frac{\partial^{2} f}{\partial S^{2}}
+\]
+
+
+\section{Solution for European Call Option}
+
+\[
+	C = e^{-q(T-t)} S \Phi(d_{+}) - e^{-r(T-t)} K \Phi(d_{-})
+\]
+
+Here, $d_{\pm}$ and $\Phi$ are, respectively,
+
+\[
+	d_{\pm} = \frac{ \displaystyle \log \frac{S}{K} + (r-q \pm \frac{1}{2} \sigma^{2} ) (T-t) }{ \sigma \sqrt{ T - t } }
+\]
+
+\[
+	\Phi(x) = \frac{1}{ \sqrt{2 \pi} } \int^{x}_{- \infty} e^{-y^{2}/2} dy
+\]
+
+
+\section{Solution for European Call Option using Fut}
+
+Using Fut not only provides a simpler expression but also a formula that can be used even if the interest rate is not constant.
+
+\[
+	C = e^{-\int^{T}_{0} r(s) ds} \Big( F \Phi(d_{+}) - K \Phi(d_{-}) \Big)
+\]
+
+Here, $F$ and $d_{\pm}$ are, respectively,
+
+\[
+	F = S e^{\int^{T}_{0} r(s) ds }
+\]
+
+\[
+	d_{\pm} = \frac{ \displaystyle \log \frac{F}{K} \pm \frac{1}{2} \sigma^{2} T }{ \sigma \sqrt{ T } }
+\]
+
+\section{Dupire's Local Volatility}
+
+\[
+	\sigma_{\rm LV}^{2}(T,K)
+	=
+	\frac{
+		\displaystyle
+		\frac{\partial C}{\partial T} + r(T) K \frac{\partial C}{\partial K}
+	}{
+		\displaystyle
+		\frac{1}{2} K^{2}
+		\frac{\partial^{2} C}{\partial K^{2}}
+	}
+\]
+
+This resembles the BS equation, so you can recall it by mentally transforming the following.
+
+\[
+	\Longleftrightarrow
+	\ \hspace{5mm}
+	\frac{\partial C}{\partial T} + r(T) K \frac{\partial C}{\partial K}
+	-
+	\frac{1}{2} K^{2}
+	\sigma_{\rm LV}^{2}(T,K)
+	\frac{\partial^{2} C}{\partial K^{2}}
+	=0
+\]
+
+\[
+	c.f., \
+	\text{BS eqn:}
+	\ \hspace{5mm}
+	rf
+	=
+	\frac{\partial f}{\partial t}
+	+
+	r S \frac{\partial f}{\partial S}
+	+
+	\frac{1}{2} \sigma^{2} S^{2}
+	\frac{\partial^{2} f}{\partial S^{2}}
+\]
+
+
+
+\section{The inverse of Girsanov's Theorem}
+
+\[
+	W^{\mathbb{Q}}_{t} = W^{\mathbb{R}}_{t} + \int^{t}_{0} \gamma_{s} ds
+\]
+\[
+	\Longleftrightarrow
+	\ \hspace{5mm}
+	\frac{d \mathbb{Q}}{d \mathbb{P}}
+	=
+	\exp \left( - \int^{T}_{0} \gamma_{t} dW_{t} - \frac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)
+\]
+
+Pay attention to the signs.
+
+
+\section{Exponential Martingale SDE and its solution}
+
+\[
+	\frac{d X_{t}}{ dt}
+	=
+	\sigma_{t} d W_{t}
+\]
+\[
+	\Longleftrightarrow
+	\ \hspace{5mm}
+	X_{t}
+	=
+	X_{0}
+	\exp \left( \int^{t}_{0} \sigma_{s} dW_{s} - \frac{1}{2} \int^{T}_{0} \sigma_{s}^{2} dt \right)
+\]
+
+Pay attention to the signs.
+
+\end{document}
