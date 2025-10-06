@@ -29,6 +29,8 @@ We define $y(a)$ as $y(a) = \text{Hom}_{C}(-,a)$
 	In other words, we define $y(a) : C^{op} \to \textbf{Set}$ such that $y(a)(x) = \text{Hom}_{C}(x,a)$ and for any morphism $f: x \to x'$, we define $y(a)(f) = \text{Hom}_{C}(f,a)$.
 
 	Here, $\text{Hom}_{C}(f,a): \text{Hom}_{C}(x',a) \to \text{Hom}_{C}(x,a)$ is defined by mapping $\phi \in \text{Hom}_{C}(x',a)$ to $\phi \circ f$.
+
+    $y$ is often referred to as the Yoneda embedding.
 }
 :
 
@@ -186,7 +188,11 @@ In particular,
 	\end{array}
 \]
 
-If we can show that this defined $\sigma$ is a bijection, Yoneda's Lemma will be proven.
+If we can show that this defined $\sigma$ is a bijection, Yoneda's Lemma will be proven
+\footnote{
+    The bijection $\sigma$ is known as the Yoneda map.
+}
+.
 
 \subsection{Injectivity}
 
@@ -261,7 +267,7 @@ Next, we confirm that this defined family of maps $\phi = \{\phi_x\}_{x \in C}$ 
 	\end{tikzcd}
 \]
 
-We check that this diagram commutes, i.e., $F(q) \circ \phi_{x'} = \phi_x \circ y(a)(q)$.
+We can check that this diagram commutes, i.e., $F(q) \circ \phi_{x'} = \phi_x \circ y(a)(q)$.
 
 Left-hand side: $F(q) \circ \phi_{x'} = F(q)(\phi_{x'}(p'))$
 Here, $p'$ is any element of $y(a)(x')$ (i.e., a morphism $p': x' \to a$).
