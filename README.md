@@ -34,6 +34,7 @@ The notes are organized within a parent directory named `tex`. All documents are
             - **[Unified View of Monoids, Groups, Topological Groups, and Lie Groups](https://github.com/masaru113/mastex/blob/main/tex/math/cat/mon_grp_topg_lie/main.pdf)**: Notes on review the definitions of monoids, groups, topological groups, and Lie groups using category-theoretic diagrams.
             - **[Bogoliubov Transformation as a Natural Transformation](https://github.com/masaru113/mastex/blob/main/tex/math/cat/BogoliubovTrans_as_NaturalTrans/main.pdf)**: Notes on the relationship between Bogoliubov transformations and natural transformations.
             - **[Limits in Category Theory](https://github.com/masaru113/mastex/blob/main/tex/math/cat/limit_intro/main.pdf)**: Notes on limits in category theory.
+            - **[Yoneda's Lemma, Analogies and Proof](https://github.com/masaru113/mastex/blob/main/tex/math/cat/Yoneda/main.pdf)**: Notes on Yoneda's Lemma. Analogies and proof.
         - **top**: Folder for topics related to topological spaces.
             - **[Topology of Matrices](https://github.com/masaru113/mastex/blob/main/tex/math/top/MatrixTopology/main.pdf)**: Notes on topologies on matrices and supplement with a note on unitary groups and quantum mechanics.
             - **[Sierpinski Space](https://github.com/masaru113/mastex/blob/main/tex/math/top/sierpinski_space/main.pdf)**: Notes on Sierpinski space.
