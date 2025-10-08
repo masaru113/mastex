@@ -1,0 +1,249 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+
+\title{
+AR Model
+}
+
+\author{
+Masaru Okada
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	An overview of the AR model, which is used for analyzing linear time series data, is provided.
+\end{abstract}
+
+\section{Linear Prediction Models}
+
+There are various types of linear prediction models, including:
+
+\begin{enumerate}
+	\item AR (\textbf{A}uto \textbf{R}egression) Model
+	\item MA (\textbf{M}oving \textbf{A}verage) Model
+	\item ARMA (\textbf{A}utoregressive \textbf{M}oving \textbf{A}verage) Model, a combination of AR and MA
+	\item ARIMA (\textbf{A}utoregressive \textbf{I}ntegrated \textbf{M}oving \textbf{A}verage) Model, which includes differencing
+\end{enumerate}
+
+While these linear prediction models are useful for analyzing time series data within a linear framework, they have a major drawback: they cannot handle nonlinear dynamics, such as chaos.
+
+This note will focus on one of the most fundamental linear prediction models, the AR model.
+
+
+\section{Stochastic and Deterministic Processes}
+
+A time series consisting of $N$ observations is represented as:
+
+\[
+	\{ x(t) \}^{N-1}_{0} = \{ x(t_{0}), x(t_{0} + \Delta t) , x(t_{0} + 2\Delta t) , \cdots , x(t_{0} +  (N-1) \Delta t) \}
+\]
+Here, $t$ is an integer value from $0$ to $N-1$.
+
+$\Delta t$ represents the time interval between adjacent observations.
+
+$t_{0}$ is the initial time of observation, and the data ends at $t_{0} +  (N-1) \Delta t$.
+
+This means we are observing only a small part of the possible behaviors. $\{ x(t) \}^{N-1}_{0}$ is just one sample.
+
+Therefore, even if we analyze $\{ x(t) \}^{N-1}_{0}$ to estimate the time series, there is always a possibility that the results deviate from the true underlying properties.
+
+Evaluating how close the estimation results are to the true properties is a significant challenge in itself.
+
+\ \\
+
+Each data point in $\{ x(t) \}^{N-1}_{0}$ is considered a value of a random variable, $X$, realized with a certain probability.
+
+A dynamic process of time evolution modeled by probability is called a \textbf{stochastic process}.
+
+If the probability of realization at each time is equal to 1, the process is said to be \textbf{deterministic}.
+
+\ \\
+
+The state changes of a real system should inherently be deterministic, following physical laws or some causal principles. It seems the only process that is not fundamentally causal is the collapse of the wave function in quantum mechanics.
+
+However, state changes are often determined by a vast number of factors, or by uncontrollable external influences, making it practically impossible to set the internal factors precisely.
+
+In such cases, a lack of knowledge arises when analyzing the dynamics of time evolution based on data. As knowledge decreases, the observed behavior appears to move further away from a deterministic process.
+
+
+
+\section{Stationary States}
+
+A \textbf{stationary stochastic process}, or a system in a \textbf{stationary state}, means the time series doesn't continuously increase or decrease, but rather remains around a constant level, signifying a statistical equilibrium.
+
+A system becomes a stationary stochastic process when its probability density function doesn't depend on time.
+
+Specifically, a process is called (\textbf{strongly}) \textbf{stationary} if a time series starting at time $t_{0}$, $\{ x(t_{0}) \}^{N-1}_{0}$, and a time series starting at a time delayed by $T$, $\{ x(t_{0}-T) \}^{N-1}_{0}$, have the same joint probability distribution.
+
+\[
+	F[ \{ x(t_{0}) \}^{N-1}_{0} ] = F[ \{ x(t_{0}-T) \}^{N-1}_{0} ]
+\]
+
+
+\section{Linear Dynamics}
+
+To simplify notation, let's assume each element of $\{ x(t) \}^{N-1}_{0}$ has a mean of zero, $\mu=0$. In other words, the following processing has already been performed:
+\[
+	x(t) \leftarrow x(t) - \mu
+\]
+
+Next, let's form a vector from the sequence of observations.
+\[
+	\mathbf{x}(t) = \Big( x(t), x(t-1) , x(t-2) , \cdots , x(t -(D-1) \Big)
+\]
+
+$D = \infty$ implies going back to the infinite past.
+
+Suppose the future behavior at $\tau$ steps from the present, $x(t+\tau)$, can be expressed using a mapping $F$ that represents the state change:
+\[
+	x(t+\tau) = F[ \mathbf{x}(t) ]
+\]
+
+This $F$ is a \textbf{linear dynamic} if it satisfies:
+\[
+	F(a \mathbf{x} + b \mathbf{y}) =
+	a F(\mathbf{x}) + b F(\mathbf{y})
+\]
+This is the dynamic process we will analyze.
+
+If $F$ is not a linear dynamic, it's called a \textbf{nonlinear dynamic}. I'll cover this in a separate note.
+
+
+\section{Wold's Decomposition Theorem}
+
+Any stationary process $\{ z(t) \}$ can be expressed as the sum of a deterministic stationary process $\{ y(t) \}$ and a non-deterministic stationary process $\{ x(t) \}$ \cite{BoxJenkins1994}.
+
+\[
+	z(t) = x(t) + y(t)
+\]
+
+
+This is known as Wold's Decomposition Theorem.
+
+Our interest lies in the non-deterministic stationary process, $x(t)$.
+
+
+A non-deterministic stationary process is given by an infinite series of white noise, $\xi(t)$, with a zero mean and a variance of 1.
+
+\[
+	x(t) = \xi(t) + \sum^{\infty}_{i=0} a_{i} \xi(t-i)
+\]
+The coefficients of this infinite series are absolutely convergent:
+\[
+	\sum^{\infty}_{i=0} |a_{i}| < \infty
+\]
+
+Using duality, it can also be rewritten as:
+\[
+	x(t) = \xi(t) + \sum^{\infty}_{i=0} c_{i} x(t-i)
+\]
+The coefficients of this infinite series are also absolutely convergent:
+\[
+	\sum^{\infty}_{i=0} |c_{i}| < \infty
+\]
+
+Both equations contain infinite series, so they cannot be used directly for time series forecasting.
+
+Therefore, we approximate the stochastic process by truncating the series to a finite number of terms. This results in the \textbf{AR process}.
+
+\section{Autoregressive (AR) Model}
+
+An \textbf{autoregressive process} (AR process) is represented by:
+\[
+	x(t) = \xi(t) + c_{1} x(t-1) + c_{2} x(t-2) + \cdots + c_{p} x(t-p)
+\]
+A process with $p$ coefficients like the equation above is called a $p$-th order AR process. These $p$ coefficients are called \textbf{AR parameters}. A model approximated by $p$ AR parameters is called an \textbf{AR($p$) model}.
+
+Specifically, an AR(1) process with a coefficient close to 1 is called a \textbf{unit root}.
+
+
+\section{AR Model Estimation}
+
+\subsection{Yule-Walker Equations}
+
+Starting with the AR($p$) process equation:
+\[
+	x(t) = \xi(t) + c_{1} x(t-1) + c_{2} x(t-2) + \cdots + c_{p} x(t-p)
+\]
+Multiplying both sides by $x(t- \tau )$ gives:
+\[
+	x(t)x(t- \tau ) = \xi(t)x(t- \tau ) + c_{1} x(t-1) x(t- \tau ) + \cdots + c_{p} x(t-p) x(t- \tau )
+\]
+
+We define the autocovariance as:
+\[
+	\gamma(\tau) = E[ x(t) x(t-\tau) ]
+\]
+Taking the expected value $E[ \ \cdot \ ]$ of both sides for $\tau=0$, we get:
+\[
+	x(t)^{2} = \sigma + c_{1} x(t-1) x(t) + c_{2} x(t-2) x(t) + \cdots + c_{p} x(t-p) x(t)
+\]
+which simplifies to:
+\[
+	\gamma(0) = c_{1} \gamma(1) + c_{2} \gamma(2) + \cdots + c_{p} \gamma(p)
+\]
+
+Here, the variance of the white noise is denoted as $E[\xi(t)x(t)]=\sigma$.
+
+Using the fact that $E[\xi(t)x(t-\tau)]=0$ for $\tau>0$, we obtain:
+\[
+	\gamma(\tau) = c_{1} \gamma(\tau-1) + c_{2} \gamma(\tau-2) + \cdots + c_{p} \gamma(\tau-p)
+\]
+By substituting $\tau=1,2,\cdots,p$ into this equation, we can derive the system of linear equations known as the \textbf{Yule-Walker equations}.
+\[
+	\sigma = \gamma(0) - c_{1} \gamma(1) - c_{2} \gamma(2) - \cdots - c_{p} \gamma(p)
+\]
+\[
+	\gamma(1) = c_{1} \gamma(0) + c_{2} \gamma(1) + c_{3} \gamma(2) + \cdots + c_{p} \gamma(p-1)
+\]
+\[
+	\gamma(2) = c_{1} \gamma(1) + c_{2} \gamma(0) + c_{3} \gamma(1) + \cdots + c_{p} \gamma(p-2)
+\]
+\[
+	\vdots
+\]
+\[
+	\gamma(p) = c_{1} \gamma(p-1) + c_{2} \gamma(p-2) + c_{3} \gamma(p-3) + \cdots + c_{p} \gamma(0)
+\]
+Note that the symmetry $\gamma(k)=\gamma(-k)$ has been used.
+
+By solving this system of equations to find the AR parameters, we can determine the AR model.
+
+\ \\
+
+Solving for the AR parameters allows for the best approximation of the \textbf{linear predictor}:
+\[
+	\hat{x}(t) = c_{1} x(t-1) + c_{2} x(t-2) + \cdots + c_{p} x(t-p)
+\]
+The prediction error of the linear predictor is given by:
+\[
+	H_{\rm lin} = \frac{1}{N} \sum^{n-1}_{t=p} \Big( x(t) - \hat{x}(t) \Big)^{2}
+\]
+The AR coefficients that minimize $H_{\rm lin}$ are found by setting the partial derivative with respect to each coefficient to zero, $\frac{\partial H_{\rm lin}}{ \partial c_{i}} = 0$. These coefficients are the same as those obtained by solving the Yule-Walker equations.
+
+\ \\
+
+When the order $p$ is high, a fast algorithm is needed to solve the Yule-Walker equations.
+
+Algorithms like the Levinson-Durbin algorithm are known for their efficiency \cite{Levinson1947}, \cite{Durbin1960}.
+
+
+\begin{thebibliography}{9}
+	\bibitem{BoxJenkins1994} Box, G.E.P., Jenkins, G.M. and Reinsel, G.C. (1994) Time Series Analysis; Forecasting and Control. 3rd Edition, Prentice Hall, Englewood Cliff, New Jersey.
+	\bibitem{Yule1927} Yule, G. Udny (1927), “On a Method of Investigating Periodicities in Disturbed Series, with Special Reference to Wolfer's Sunspot Numbers”, Philosophical Transactions of the Royal Society of London, Ser. A 226: 267–298
+	\bibitem{Walker1931} Walker, Gilbert (1931), “On Periodicity in Series of Related Terms”, Proceedings of the Royal Society of London, Ser. A 131: 518–532 Hamilton (1994), p. 59
+	\bibitem{Levinson1947} Levinson, N. (1947). "The Wiener RMS error criterion in filter design and prediction." J. Math. Phys., v. 25, pp. 261–278.
+	\bibitem{Durbin1960} Durbin, J. (1960). "The fitting of time series models." Rev. Inst. Int. Stat., v. 28, pp. 233–243.
+
+\end{thebibliography}
+
+\end{document}
