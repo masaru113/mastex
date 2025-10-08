@@ -42,3 +42,5 @@ The notes are organized within a parent directory named `tex`. All documents are
             - **[An Introduction to Topological Groups](https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main.pdf)**: Notes on introduction to topological group
         - **anl**: Folder for topics related to analysis.
           - **[The Values of the Riemann Zeta Function at Negative Integers](https://github.com/masaru113/mastex/blob/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf)**: memo on analytic continuation of Riemann zeta to negative integers (work in progress).
+        - **stat**: Folder for topics related to statistics.
+          - **[AR Model](https://github.com/masaru113/mastex/blob/main/tex/math/stat/AR/main.pdf)**: memo on AR model
