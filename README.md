@@ -22,7 +22,7 @@ The notes are organized within a parent directory named `tex`. All documents are
         - **[Keldysh Green Function](https://github.com/masaru113/mastex/blob/main/tex/phys/KeldyshGreenFunction/main.pdf)**: Overview of the Keldysh Green function formalism, a method for analyzing non-equilibrium quantum systems.
         - **[Migdal-Eliashberg Theory in Nonequilibrium](https://github.com/masaru113/mastex/blob/main/tex/phys/MigdalEliashberg/main.pdf)**: This note explores the Migdal-Eliashberg theory in nonequilibrium, deriving the superconducting gap equation within the Keldysh Green's function formalism.
     - **dia**: Misc.
-      - **[Oct. 2025](https://github.com/masaru113/mastex/blob/main/tex/dia/2025/202510.pdf)**
+      - **[Oct. 2025](https://github.com/masaru113/mastex/blob/main/tex/dia/2025/10/main.pdf)**
     - **finance**: Notes on financial engineering.
         - **[Arbitrage and Gauge Theory](https://github.com/masaru113/mastex/blob/main/tex/finance/GaugeTheoryInForex/main.pdf)**: Notes examining the relationship between arbitrage in the foreign exchange market and gauge theory.
         - **[Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio](https://github.com/masaru113/mastex/blob/main/tex/finance/ReplicatingPortfolio/main.pdf)**: Outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
