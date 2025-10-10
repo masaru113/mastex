@@ -26,6 +26,7 @@ The notes are organized within a parent directory named `tex`. All documents are
     - **dia**: Misc.
       - **[Oct. 2025](https://github.com/masaru113/mastex/blob/main/tex/dia/2025/10/main.pdf)**
     - **finance**: Notes on financial engineering.
+        - **[Ito's Lemma](https://github.com/masaru113/mastex/blob/main/tex/finance/ItoLemma/main.pdf)**: This notebook provides a derivation of Ito's Lemma, a fundamental concept in financial mathematics, and shows its application to the Black-Scholes-Merton equation for pricing stock options.
         - **[Arbitrage and Gauge Theory](https://github.com/masaru113/mastex/blob/main/tex/finance/GaugeTheoryInForex/main.pdf)**: Notes examining the relationship between arbitrage in the foreign exchange market and gauge theory.
         - **[American Options Without Dividends](https://github.com/masaru113/mastex/blob/main/tex/finance/NonDividendAmericanOption/main.pdf)**: This note explains that an American option on a non-dividend-paying stock has the same value as a European option.
         - **[Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio](https://github.com/masaru113/mastex/blob/main/tex/finance/ReplicatingPortfolio/main.pdf)**: Outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
