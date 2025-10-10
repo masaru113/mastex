@@ -51,6 +51,8 @@ The notes are organized within a parent directory named `tex`. All documents are
         - **stat**: Folder for topics related to statistics.
           - **[AR Model](https://github.com/masaru113/mastex/blob/main/tex/math/stat/AR/main.pdf)**: memo on AR model
 
+---
+
 ## License and Usage
 
 © 2025 Masaru Okada. All rights reserved.  

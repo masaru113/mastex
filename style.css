@@ -1,21 +1,10 @@
-body {
-  background-color: #0d1117;
-  color: #e6edf3;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  line-height: 1.6;
-  margin: 2rem auto;
-  max-width: 800px;
-  padding: 0 1rem;
+/* Invert all colors to create dark mode */
+html {
+  filter: invert(1) hue-rotate(180deg);
+  background-color: #000;
 }
 
-a {
-  color: #58a6ff;
-}
-a:hover {
-  color: #79c0ff;
-}
-
-code, pre {
-  background-color: #161b22;
-  color: #e6edf3;
+/* Re-invert images and videos (so they appear normal) */
+img, video {
+  filter: invert(1) hue-rotate(180deg);
 }
