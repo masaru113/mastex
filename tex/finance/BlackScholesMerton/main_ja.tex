@@ -1,0 +1,359 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{here}
+
+\title{Black-Scholes-Merton方程式 メモ}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+\maketitle
+
+\section{Black-Scholes-Mertonの微分方程式の基礎となる概念}
+
+Black-Scholes-Mertonの微分方程式は、配当のない株式に対するデリバティブの価格が満たす方程式である。
+
+Black-Scholes-Mertonの微分方程式の導出は、デリバティブと原資産（株式）から成るポートフォリオを考え、裁定機会がない場合、そのポートフォリオの収益率は無リスク金利 $r$ に等しくならなければならないという議論で進められる。
+
+なぜ、デリバティブと原資産（株式）から無リスクなポートフォリオを組めるのか。その理由は、デリバティブと原資産の価格変動は同じ要因に由来する不確実性の影響を受けていることによる。言い換えれば、短時間では、デリバティブとその原資産の価格は完全に相関している。つまり、それぞれの表式に同じウィナー過程が入っていることによる。同じ変数があるので、中学で習う2元連立方程式の加減法なり代入法なりの方法と同じ方法で、ポートフォリオの表式（またはデリバティブの価格の表式）の中のウィナー過程の項を消去することができる。
+
+Black-Scholes-Mertonのモデルは二項モデルとは異なり、微小時間においてのみ無リスクになる。この点が二項モデルとの決定的な違いである。二項モデルでは、無リスクな状態は各時点で構築できる。Black-Scholes-Mertonのモデルでは、微小時間 $dt$ においてのみ瞬間的に無リスクなポートフォリオを構築できる。
+
+\bigskip
+
+例えば、ある1点の時点における株価の微小変化 $dS$ と、それによって生じるヨーロピアンコールオプションの価格の微小変化 $dc$ との関係が
+$$
+	dc = 0.4 dS
+$$
+で与えられているとする。このとき無リスクポートフォリオは
+\begin{enumerate}
+	\item 株式0.4単位の買い
+	\item コールオプション1単位の売り
+\end{enumerate}
+から構成できる。
+
+例えば、次の瞬間に株価が10セントだけ上昇したとすると、そのときのコールオプションの価格は4セント上昇する。株式から得られる利益は $0.4 \times 10 = 4$ セントであり、売っているコールオプションから出る損失も4セントなので、このポートフォリオの損益はゼロになる。
+
+そしてさらに時間が経過して、例えば2週間後には
+$$
+	dc = 0.5 dS
+$$
+に変化したとする。このとき無リスクポートフォリオは
+\begin{enumerate}
+	\item 株式0.5単位の買い
+	\item コールオプション1単位の売り
+\end{enumerate}
+から構成できる。そうすると、$dc = 0.4 dS$ のときに無リスクだったポートフォリオを改めて無リスクにするためには、コールオプションの売り1単位当たり0.1 $(=0.5-0.4)$ 単位の株を追加で購入する必要が生じる。
+
+このようにリバランスが必要だとしても、任意の微小時間においては無リスクポートフォリオの収益率は無リスク金利でなければならない。
+
+\section{Black-Scholes-Mertonの微分方程式の導出}
+
+\subsection{伊藤の補題を用いた無リスクポートフォリオの導出}
+
+伊藤の補題を通してすでに示された以下の等式から出発する。
+$$
+	df = \dfrac{\partial f}{\partial S} \sigma S dz + \left( \dfrac{\partial f}{\partial S} \mu S + \dfrac{\partial f}{\partial t} + \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt
+$$
+が示される。ここで $f=f(S,t)$ は時間 $t$ に依存する原資産を $S$ とするデリバティブであり、原資産 $S$ は以下の過程に従う株価とする。
+$$
+	dS = \mu S dt + \sigma S dz
+$$
+ここで $dz$ はウィナー過程であり、標準正規分布からの無作為抽出 $\varepsilon$ を用いて $dz = \varepsilon \sqrt{dt}$ と表すことができる。$\mu$ はドリフト、$\sigma$ はボラティリティ（標準偏差）である。
+
+\bigskip
+
+デリバティブ $f$ とその原資産 $S$ の確率変動成分であるウィナー過程 $dz$ は同一のものである。このことを用いて、デリバティブを1単位売り持ち、株式を $\dfrac{\partial f}{\partial S}$ 単位買い持ちしたポートフォリオ $\Pi$ を構成することでウィナー過程の成分を落とす。
+
+すなわち、次のようなポートフォリオ $\Pi$ を構成する。
+\begin{align}
+	\Pi & = - f + \dfrac{\partial f}{\partial S} S
+\end{align}
+この微小変化は
+\begin{align}
+	d \Pi & = - df + \dfrac{\partial f}{\partial S} dS                                                                                                                                                                                                                                \\
+	      & = - \dfrac{\partial f}{\partial S} \sigma S dz - \left( \dfrac{\partial f}{\partial S} \mu S + \dfrac{\partial f}{\partial t} + \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt + \dfrac{\partial f}{\partial S} (\mu S dt + \sigma S dz) \\
+	      & = \left( - \dfrac{\partial f}{\partial t} - \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt
+\end{align}
+この表式にはウィナー過程 $dz$ は含まれていない。つまり、このポートフォリオ $\Pi$ はドリフト（$dt$ の係数）が
+$$
+	- \dfrac{\partial f}{\partial t} - \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2}
+$$
+であり、ボラティリティ（$dz$ の係数）は
+$$
+	0
+$$
+である。
+
+ボラティリティがゼロの過程なので、言葉の定義通り無リスクポートフォリオになっている。
+
+\subsection{無裁定条件による無リスクポートフォリオの導出}
+
+このポートフォリオの収益率は、無リスク証券の収益率と等しいという条件を付ける。
+
+復習ついでに無裁定条件をまとめておくと、
+\begin{itemize}
+	\item ポートフォリオの収益率が無リスク証券の収益率より高い場合:お金を借りてポートフォリオを買うことで、無リスクで無限の利益を上げることができる。
+	\item ポートフォリオの収益率が無リスク証券の収益率より低い場合:ポートフォリオを売って換金し、そのお金で無リスク証券を購入することで、無リスクで無限に利益を上げることができる。
+\end{itemize}
+当然ながら、実際には市場で無リスクで無限に利益を上げることができない。（もしも無リスクで無限に利益を上げることができれば、すべての人が大金持ちになれる。）
+
+背理法によって、その無リスクで得られる利益率は無リスク証券の収益率（無リスク金利）と一致しなければならない。
+
+以上から、無リスク金利を $r$ とすると、
+\begin{align}
+	d \Pi & = r \Pi dt                                                   \\
+	      & = r \left( - f + \dfrac{\partial f}{\partial S} S \right) dt
+\end{align}
+を満たすことが分かる。
+
+\subsection{Black-Scholes-Mertonの微分方程式}
+
+前述の伊藤の補題から導かれた $d \Pi$ と、無裁定条件から導かれた $d \Pi$ をそれぞれ連立する。
+\begin{align}
+	\left( - \dfrac{\partial f}{\partial t} - \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt & = r \left( - f + \dfrac{\partial f}{\partial S} S \right) dt
+\end{align}
+両辺を $dt$ で割って、展開して整理すると、Black-Scholes-Mertonの微分方程式が導出される。
+\begin{align}
+	\dfrac{\partial f}{\partial t} + rS \dfrac{\partial f}{\partial S} + \dfrac{1}{2} \sigma^{2} S^{2} \dfrac{\partial^{2} f}{\partial S^{2}} & = rf
+\end{align}
+この微分方程式は多くの解を持つ。この方程式の解 $f$ は、原資産 $S$ のあらゆるデリバティブ $f$ を表現する。どのようなデリバティブであるかは、微分方程式の境界条件によって決まる。例えば、ヨーロピアンコールオプションの価格を求めたい場合、$t=T$ において
+$$
+	f = \max (S-K,0)
+$$
+という境界条件を課せばよい。
+
+\bigskip
+
+無リスクポートフォリオ $\Pi$ は無限小の時間 $dt$ においてのみ無リスクである。$t$ が変化すると $S$ は変化し、それに伴って $\dfrac{\partial f}{\partial S}$ も変化する。$\Pi$ を無リスク状態に保つためには、絶えずデリバティブ $f$ と原資産 $S$ の保有比率を調節する必要がある。
+
+\bigskip
+
+Black-Scholes-Mertonの微分方程式の解となる関数は、取引可能なデリバティブであり、裁定機会をつくらない。逆に、Black-Scholes-Mertonの微分方程式の解とならない関数は、もし裁定機会が存在していないならば取引可能ではない。
+
+単純な反例として価格 $e^{S}$ を考える。この価格はBlack-Scholes-Mertonの微分方程式の解とならない。（$f = e^{S}$ を微分方程式に代入して両辺を比較すると容易に分かる。）従って、株価 $S$ に依存する何らかのデリバティブの価格ではない。もし価格が常に $e^{S}$ であるような商品があるならば、裁定機会が存在することになる。
+
+別の例として、
+$$
+	\dfrac{\exp{[(\sigma^{2} - 2r)(T-t)]}}{S}
+$$
+を考える。一見奇妙な関数だが、実はこの関数はBlack-Scholes-Mertonの微分方程式を満たすので、理論的には何らかの取引可能な商品である。（実はこの価格は時点 $T$ においてペイオフが $1/S_{T}$ となるデリバティブの価格である。）
+
+\section{Black-Scholes-Mertonの公式の証明}
+
+\subsection{主結果}
+
+$V$ が対数正規分布に従い、$\log(V)$ の標準偏差が $\sigma$ であるとき、$\max(V-K,0)$ の期待値は次のようになる。
+\begin{align}
+	E \left[ \max(V-K,0) \right] & = E(V) \Phi (d_{+}) - K \Phi (d_{-})
+\end{align}
+ただし $d_{+},d_{-}$ は以下を満たす。
+
+\begin{align}
+	d_{+} & = \dfrac{ \log \frac{E(V)}{K} + \frac{\sigma^{2}}{2} }{ \sigma } \\
+	d_{-} & = \dfrac{ \log \frac{E(V)}{K} - \frac{\sigma^{2}}{2} }{ \sigma }
+\end{align}
+
+
+\subsection{証明}
+
+\subsubsection{対数正規分布についての有用な事実}
+
+確率変数 $V$ は対数正規分布に従う。このとき $X = \log(V)$ は正規分布に従う。言い換えると、$X$ の確率密度関数 $f(X)$ は正規分布であり、
+
+\begin{align}
+	f(X) & = \dfrac{1}{\sqrt{2 \pi} \sigma } \exp \left( - \dfrac{(X - \mu )^{2}}{2 \sigma^{2}} \right)
+\end{align}
+
+を満たす。従って、$V$ の確率密度関数 $k(V)$ とすると、
+$$
+	\dfrac{dX}{dV} = \dfrac{1}{V}
+$$
+より、
+
+\begin{align}
+	k(V) & = \dfrac{1}{\sqrt{2 \pi} \sigma V} \exp \left( - \dfrac{(\log{(V)}- \mu )^{2}}{2 \sigma^{2}} \right)
+\end{align}
+である。$V$ の $n$次のモーメントを考える。
+
+\begin{align}
+	\int^{\infty}_{0} V^{n} k(V) dV
+\end{align}
+
+$V = \exp(X)$ と置き換えると、
+
+\begin{align}
+	 & \int^{\infty}_{0} V^{n} k(V) dV                                                                                                                                                  \\
+	 & = \int^{\infty}_{-\infty} \dfrac{\exp(nX)}{\sqrt{2 \pi} \sigma V} \exp \left( - \dfrac{(\log{(V)}- \mu )^{2}}{2 \sigma^{2}} \right) (VdX)                                        \\
+	 & = \int^{\infty}_{-\infty} \dfrac{\exp(nX)}{\sqrt{2 \pi} \sigma} \exp \left( - \dfrac{(X- \mu )^{2}}{2 \sigma^{2}} \right) dX                                                     \\
+	 & = \exp(n \mu + \dfrac{1}{2} n^{2} \sigma^{2} ) \int^{\infty}_{-\infty} \dfrac{1}{\sqrt{2 \pi} \sigma } \exp \left( - \dfrac{(X- \mu -n \sigma^{2})^{2}}{2 \sigma^{2}} \right) dX \\
+	 & = \exp(n \mu + \dfrac{1}{2} n^{2} \sigma^{2} )
+\end{align}
+
+$n=1$ のとき、すなわち1次のモーメントは期待値であり、
+$$
+	E(V) = \exp(\mu + \dfrac{1}{2} \sigma^{2} )
+$$
+$n=2$ のとき、すなわち2次のモーメントは、
+$$
+	E(V^{2}) = \exp(2\mu + 2 \sigma^{2} )
+$$
+これより分散は
+
+\begin{align}
+	E(V^{2}) - E(V)^{2} & = \exp(2\mu + 2 \sigma^{2} ) - \left[ \exp(\mu + \dfrac{1}{2} \sigma^{2} ) \right]^{2} \\
+	                    & = \exp(2 \mu + \sigma^{2} ) \left[ \exp( \sigma^{2}) -1 \right]
+\end{align}
+
+
+\subsubsection{ヨーロピアンコールオプションの価格公式}
+
+$g(V)$ を $V$ の確率密度関数とする。このとき、
+
+\begin{align}
+	E \left[ \max(V-K,0) \right] & = \int^{\infty}_{-\infty} \max(V-K,0) g(V) dV \\
+	                             & = \int^{\infty}_{K} (V-K) g(V) dV
+\end{align}
+
+である。
+
+対数正規分布に従う $V = \exp(X)$ の平均（期待値） $\mu$ は前節より、
+
+\begin{align}
+	E(V) & = \exp( \mu + \dfrac{\sigma^{2}}{2} ) \\
+	\mu  & = \log[E(V)] - \dfrac{\sigma^{2}}{2}
+\end{align}
+
+であった。この $\mu$ を用いて新しい変数を
+
+\begin{align}
+	Q & = \dfrac{\log(V) - \mu}{\sigma}
+\end{align}
+
+と置く。この確率変数 $Q$ は標準偏差1.0の正規分布に従う。つまり、$Q$ の密度関数を $h(Q)$ とすると、
+
+\begin{align}
+	h(Q) & = \dfrac{ 1 }{ \sqrt{2 \pi} } e^{ - Q^{2} / 2 }
+\end{align}
+
+この変数を用いて $V$ から $Q$ へと変数変換する。
+
+\begin{align}
+	V & = \exp(\sigma Q + \mu )
+\end{align}
+
+であり、積分区間は $V: [K , \infty)$ が $Q: [ \dfrac{\log(K) - \mu}{\sigma} , \infty)$ となることに注意して、
+
+\begin{align}
+	E \left[ \max(V-K,0) \right] & = \int^{\infty}_{K} (V-K) g(V) dV                                                                                                   \\
+	                             & = \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} ( e^{\sigma Q + \mu } -K) h(Q) dQ                                                    \\
+	                             & = \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} e^{\sigma Q + \mu } h(Q) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ
+\end{align}
+
+第一項の被積分関数を変形する。指数関数の中身を平方完成する。
+
+\begin{align}
+	e^{\sigma Q + \mu } h(Q) & = \dfrac{1}{\sqrt{2 \pi}} \exp(\sigma Q + \mu ) \exp(-\dfrac{1}{2} Q^{2})                           \\
+	                         & = \dfrac{1}{\sqrt{2 \pi}} \exp( -\dfrac{ Q^{2} - 2 \sigma Q - 2 \mu }{2})                           \\
+	                         & = \dfrac{1}{\sqrt{2 \pi}} \exp( -\dfrac{ (Q - \sigma)^{2} - 2 \mu - \sigma^{2} }{2})                \\
+	                         & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \dfrac{1}{\sqrt{2 \pi}} \exp( -\dfrac{ (Q - \sigma)^{2} }{2}) \\
+	                         & = \exp( \mu + \dfrac{\sigma^{2} }{2}) h(Q - \sigma)
+\end{align}
+
+よって、
+
+\begin{align}
+	E \left[ \max(V-K,0) \right] & = \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} e^{\sigma Q + \mu } h(Q) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ                          \\
+	                             & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q - \sigma) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ
+\end{align}
+
+第2項目の積分を評価する。
+
+$\Phi (x)$ を標準正規分布の累積密度関数とする。すなわち、
+
+\begin{align}
+	\int^{x}_{-\infty} h(x) dx & = \Phi (x)
+\end{align}
+
+とする。これを用いると、第2項目の積分は、
+
+\begin{align}
+	K \int^{\infty}_{\frac{\log K - \mu}{\sigma}} h(Q) dQ & = K \int_{-\frac{\log K - \mu}{\sigma}}^{-\infty} h(-Q) d(-Q)                                      \\
+	                                                      & = K \int^{\frac{ \mu - \log K }{\sigma}}_{-\infty} h(Q) dQ                                         \\
+	                                                      & = K \Phi \left( \dfrac{ \mu - \log K }{\sigma} \right)                                             \\
+	                                                      & = K \Phi \left( \dfrac{ \left( \log E(V) - \frac{\sigma^{2}}{2} \right) - \log K }{\sigma} \right) \\
+	                                                      & = K \Phi \left( \frac{\log\frac{E(V)}{K} - \frac{\sigma^{2}}{2} }{\sigma} \right)
+\end{align}
+
+同様に積分を評価する。第1項目の積分は $Q-\sigma \to -Q$ の置換を行うと、
+
+\begin{align}
+	\int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q - \sigma) dQ & = \int^{-\infty}_{\sigma - \frac{\log(K) - \mu}{\sigma}} h(-Q) d(-Q)                                     \\
+	                                                              & = \int_{-\infty}^{\sigma - \frac{\log(K) - \mu}{\sigma}} h(Q) dQ                                         \\
+	                                                              & = \Phi \left( \sigma - \frac{\log(K) - \mu}{\sigma} \right)                                              \\
+	                                                              & = \Phi \left( \sigma - \frac{\log(K) - \left( \log E(V) - \frac{\sigma^{2}}{2} \right) }{\sigma} \right) \\
+	                                                              & = \Phi \left( \frac{ \log \frac{E(V)}{K} + \frac{\sigma^{2}}{2} }{\sigma} \right)
+\end{align}
+
+
+以上から、
+
+\begin{align}
+	E \left[ \max(V-K,0) \right] & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q - \sigma) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ                                              \\
+	                             & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \Phi \left( \frac{ \log \frac{E(V)}{K} + \frac{\sigma^{2}}{2} }{\sigma} \right) - K \Phi \left( \frac{ \log \frac{E(V)}{K} - \frac{\sigma^{2}}{2} }{\sigma} \right)
+\end{align}
+
+表記の簡単のために次のように変数を置換する。
+
+\begin{align}
+	d_{\pm} & = \dfrac{ \log \frac{E(V)}{K} \pm \frac{\sigma^{2}}{2} }{ \sigma }
+\end{align}
+
+簡単に、次のように表示できる。
+
+\begin{align}
+	E \left[ \max(V-K,0) \right] & = E(V) \Phi (d_{+}) - K \Phi (d_{-})
+\end{align}
+
+
+\subsubsection{Black-Scholes-Mertonに基づくヨーロピアンオプションの価格式}
+
+コールオプションの価格 $c$ は、行使価格 $K$、無リスク金利 $r$、時点 $t$ における株価 $S_{t}$、満期時点を $t=T$、ボラティリティ $\sigma$、リスク中立世界における期待値を $E( \cdot )$ で表すと、
+
+\begin{align}
+	c & = e^{-rT} E \left[ \max(S_{T}-K,0) \right]                         \\
+	  & = e^{-rT} \left[ S_{0} e^{rT} \Phi (d_{1}) - K \Phi(d_{2}) \right] \\
+	  & = S_{0} \Phi (d_{+}) - e^{-rT} K \Phi(d_{-})
+\end{align}
+
+権利行使価格の項にのみディスカウントファクターが現れる。これは株価の項が無リスク金利で増大するので、その増大率と相殺することで株価の項はディスカウントファクターが消える。
+
+ここで、
+$E(S_{T}) = S_{0} e^{rT}$、
+$\log(S_{T})$ のボラティリティは $\sigma \sqrt{T}$ であるので、
+
+\begin{align}
+	\sigma & \to \sigma \sqrt{T} \\
+	E(V)   & \to E(S_T)
+\end{align}
+
+の置き換えを行えば求まる。
+
+ゆえに
+
+\begin{align}
+	d_{\pm} & = \dfrac{ \log \frac{E(V)}{K} \pm \frac{\sigma^{2}}{2} }{ \sigma }                             \\
+	        & \to \dfrac{ \log \frac{E(S_{T})}{K} \pm \frac{(\sigma \sqrt{T})^{2}}{2} }{ (\sigma \sqrt{T}) } \\
+	        & = \dfrac{ \log \frac{ e^{rT} S_{0} }{K} \pm \frac{\sigma^{2}}{2}T }{ \sigma \sqrt{T} }         \\
+	        & = \dfrac{ \log \frac{S_{0}}{K} + ( r \pm \frac{\sigma^{2}}{2})T }{ \sigma \sqrt{T} }
+\end{align}
+
+
+\end{document}
