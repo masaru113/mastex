@@ -5,7 +5,7 @@
 \usepackage{graphicx}
 \usepackage{here}
 
-\title{Black-Scholes-Merton方程式 メモ}
+\title{Black-Scholes-Merton方程式}
 
 \author{
 岡田 大 (Okada Masaru)
@@ -14,7 +14,9 @@
 \begin{document}
 \maketitle
 
-\maketitle
+\begin{abstract}
+    This document provides a detailed derivation of the Black-Scholes-Merton differential equation and the corresponding European option pricing formula. It explains the core concepts of constructing a risk-free portfolio and demonstrates the mathematical steps using Ito's lemma and no-arbitrage conditions.
+\end{abstract}
 
 \section{Black-Scholes-Mertonの微分方程式の基礎となる概念}
 
@@ -146,7 +148,7 @@ $$
 $$
 を考える。一見奇妙な関数だが、実はこの関数はBlack-Scholes-Mertonの微分方程式を満たすので、理論的には何らかの取引可能な商品である。（実はこの価格は時点 $T$ においてペイオフが $1/S_{T}$ となるデリバティブの価格である。）
 
-\section{Black-Scholes-Mertonの公式の証明}
+\section{Black-Scholes-Mertonのコールオプション価格公式}
 
 \subsection{主結果}
 
@@ -162,7 +164,7 @@ $V$ が対数正規分布に従い、$\log(V)$ の標準偏差が $\sigma$ で�
 \end{align}
 
 
-\subsection{証明}
+\subsection{確認}
 
 \subsubsection{対数正規分布についての有用な事実}
 

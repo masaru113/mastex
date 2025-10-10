@@ -5,178 +5,180 @@
 \usepackage{graphicx}
 \usepackage{here}
 
-\title{Notes on Black-Scholes-Merton Equation}
+\title{The Black-Scholes-Merton Equation}
 
 \author{
-Masaru Okada
+Okada Masaru
 }
 
 \begin{document}
 \maketitle
 
-\maketitle
+\begin{abstract}
+    This document provides a detailed derivation of the Black-Scholes-Merton differential equation and the corresponding European option pricing formula. It explains the core concepts of constructing a risk-free portfolio and demonstrates the mathematical steps using Ito's lemma and no-arbitrage conditions.
+\end{abstract}
 
 \section{Underlying Concepts of the Black-Scholes-Merton Differential Equation}
 
 The Black-Scholes-Merton differential equation is the equation satisfied by the price of a derivative on a non-dividend-paying stock.
 
-The derivation of the Black-Scholes-Merton differential equation proceeds by considering a portfolio consisting of a derivative and its underlying asset (the stock). The argument posits that, in the absence of arbitrage opportunities, the return on this portfolio must be equal to the risk-free interest rate, $r$.
+The derivation of the Black-Scholes-Merton differential equation proceeds with an argument that, by considering a portfolio consisting of a derivative and its underlying asset (a stock), the portfolio's return must equal the risk-free interest rate $r$ in the absence of arbitrage opportunities.
 
-Why is it possible to construct a risk-free portfolio from a derivative and its underlying asset? This is because the price fluctuations of both the derivative and the underlying asset are subject to the same source of uncertainty. In other words, over a short period, the prices of a derivative and its underlying asset are perfectly correlated. This is because the same Wiener process appears in both of their expressions. Since they share a common variable, the Wiener process term in the portfolio's expression (or the derivative's price expression) can be eliminated using the same methods as solving a system of two linear equations with two variables, like the elimination or substitution methods you learn in middle school.
+Why is it possible to construct a risk-free portfolio from a derivative and its underlying asset? The reason is that price fluctuations of both the derivative and the underlying asset are influenced by the same source of uncertainty. In other words, over a short period, the price of a derivative and its underlying asset are perfectly correlated. This is because the same Wiener process appears in both of their expressions. Since the same variable is present, we can eliminate the Wiener process term from the portfolio expression (or the derivative's price expression) using a method similar to elimination or substitution for systems of two-variable linear equations taught in junior high school.
 
-Unlike the binomial model, the Black-Scholes-Merton model becomes risk-free only over an infinitesimal time period. This is the crucial difference between the two models. In the binomial model, a risk-free state can be constructed at each discrete point in time. In the Black-Scholes-Merton model, a risk-free portfolio can only be constructed instantaneously over a microscopic time interval, $dt$.
+Unlike the binomial model, the Black-Scholes-Merton model is only risk-free over an infinitesimal time period. This is the crucial difference between the two models. In the binomial model, a risk-free state can be constructed at each point in time. In the Black-Scholes-Merton model, a risk-free portfolio can only be constructed instantaneously, over an infinitesimal time $dt$.
 
 \bigskip
 
-For instance, consider a situation where the infinitesimal change in a stock's price, $dS$, at a specific moment in time is related to the infinitesimal change in a European call option's price, $dc$, by the following:
+For example, suppose the relationship between an infinitesimal change in stock price $dS$ at a certain point in time and the resulting infinitesimal change in the price of a European call option $dc$ is given by
 $$
 	dc = 0.4 dS
 $$
-A risk-free portfolio can then be constructed by taking:
+In this case, a risk-free portfolio can be constructed from:
 \begin{enumerate}
-	\item A long position of 0.4 units of the stock.
-	\item A short position of 1 unit of the call option.
+	\item a long position of 0.4 units of the stock
+	\item a short position of 1 unit of the call option
 \end{enumerate}
 
-If the stock price were to rise by 10 cents in the next instant, the call option's price would increase by 4 cents. The profit from the stock position would be $0.4 \times 10 = 4$ cents, while the loss from the short call option position would also be 4 cents, resulting in a net profit/loss of zero for the portfolio.
+If, for instance, the stock price rises by 10 cents in the next instant, the call option's price will rise by 4 cents. The profit from the stock is $0.4 \times 10 = 4$ cents, and the loss from the short call option is also 4 cents, making the profit and loss of this portfolio zero.
 
-As more time elapses, say two weeks later, the relationship changes to:
+Now, let's say some time passes, and after two weeks, for example, the relationship changes to:
 $$
 	dc = 0.5 dS
 $$
-At this point, a new risk-free portfolio can be constructed by taking:
+At this point, a risk-free portfolio can be constructed from:
 \begin{enumerate}
-	\item A long position of 0.5 units of the stock.
-	\item A short position of 1 unit of the call option.
+	\item a long position of 0.5 units of the stock
+	\item a short position of 1 unit of the call option
 \end{enumerate}
-To rebalance the portfolio that was risk-free when $dc = 0.4 dS$, you would need to buy an additional 0.1 $(=0.5-0.4)$ units of the stock for every unit of the short call option position.
+This means that to make the portfolio that was risk-free when $dc = 0.4 dS$ risk-free again, an additional 0.1 $(=0.5-0.4)$ units of the stock must be purchased for every unit of the call option sold.
 
-Even though this rebalancing is required, the return on a risk-free portfolio must equal the risk-free interest rate for any infinitesimal period.
+Even if rebalancing is necessary, the return of a risk-free portfolio must be equal to the risk-free interest rate over any infinitesimal time period.
 
-\section{Derivation of the Black-Scholes-Merton Differential Equation}
+\section{Deriving the Black-Scholes-Merton Differential Equation}
 
 \subsection{Deriving the Risk-Free Portfolio Using Ito's Lemma}
 
-We begin with the following equation, already established through Ito's Lemma:
+We start from the following equation, which has already been shown through Ito's lemma:
 $$
 	df = \dfrac{\partial f}{\partial S} \sigma S dz + \left( \dfrac{\partial f}{\partial S} \mu S + \dfrac{\partial f}{\partial t} + \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt
 $$
-Here, $f=f(S,t)$ is a derivative whose underlying asset, $S$, depends on time, $t$. The underlying asset's price, $S$, follows the process:
+Here, $f=f(S,t)$ is a derivative whose underlying asset is $S$, which depends on time $t$. The underlying asset $S$ is a stock price that follows the process:
 $$
 	dS = \mu S dt + \sigma S dz
 $$
-In this equation, $dz$ is a Wiener process, which can be expressed as $dz = \varepsilon \sqrt{dt}$ using a random draw $\varepsilon$ from a standard normal distribution. $\mu$ represents the drift, and $\sigma$ is the volatility (standard deviation).
+Here, $dz$ is a Wiener process and can be expressed as $dz = \varepsilon \sqrt{dt}$ using a random sample $\varepsilon$ from a standard normal distribution. $\mu$ is the drift and $\sigma$ is the volatility (standard deviation).
 
 \bigskip
 
-The random fluctuation component, the Wiener process $dz$, is the same for both the derivative $f$ and its underlying asset $S$. Using this fact, we can eliminate the Wiener process component by constructing a portfolio $\Pi$ that is long $\dfrac{\partial f}{\partial S}$ units of the stock and short one unit of the derivative.
+The stochastic component of the derivative $f$ and its underlying asset $S$, the Wiener process $dz$, is the same. Using this fact, we can eliminate the Wiener process component by constructing a portfolio $\Pi$ with a short position of 1 unit of the derivative and a long position of $\dfrac{\partial f}{\partial S}$ units of the stock.
 
-The portfolio $\Pi$ is thus defined as:
+Specifically, we construct the following portfolio $\Pi$:
 \begin{align}
 	\Pi & = - f + \dfrac{\partial f}{\partial S} S
 \end{align}
-The infinitesimal change in this portfolio, $d \Pi$, is:
+The infinitesimal change in this portfolio is:
 \begin{align}
-	d \Pi & = - df + \dfrac{\partial f}{\partial S} dS                                                                                                                                                                                                                                               \\
-	      & = - \left[ \dfrac{\partial f}{\partial S} \sigma S dz + \left( \dfrac{\partial f}{\partial S} \mu S + \dfrac{\partial f}{\partial t} + \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt \right] + \dfrac{\partial f}{\partial S} (\mu S dt + \sigma S dz) \\
-	      & = \left( - \dfrac{\partial f}{\partial t} - \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt
+	d \Pi & = - df + \dfrac{\partial f}{\partial S} dS\\
+	& = - \dfrac{\partial f}{\partial S} \sigma S dz - \left( \dfrac{\partial f}{\partial S} \mu S + \dfrac{\partial f}{\partial t} + \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt + \dfrac{\partial f}{\partial S} (\mu S dt + \sigma S dz) \\
+	& = \left( - \dfrac{\partial f}{\partial t} - \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt
 \end{align}
-This expression no longer contains the Wiener process $dz$. This means the portfolio $\Pi$ has a drift (the coefficient of $dt$) of:
+This expression does not contain the Wiener process $dz$. This means that the portfolio $\Pi$ has a drift (the coefficient of $dt$) of
 $$
 	- \dfrac{\partial f}{\partial t} - \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2}
 $$
-and a volatility (the coefficient of $dz$) of:
+and a volatility (the coefficient of $dz$) of
 $$
 	0
 $$
-With a volatility of zero, this process is, by definition, a risk-free portfolio.
+Since the volatility is zero, by definition, this is a risk-free portfolio.
 
-\subsection{Deriving the Risk-Free Portfolio Using the No-Arbitrage Condition}
+\subsection{Deriving the Risk-Free Portfolio Under No-Arbitrage Conditions}
 
-We now impose the condition that the return on this portfolio must be equal to the return on a risk-free security.
+We now impose the condition that the return of this portfolio must be equal to the return of a risk-free security.
 
-As a quick review, the no-arbitrage condition states:
+As a quick review, let's summarize the no-arbitrage conditions:
 \begin{itemize}
-	\item If the portfolio's return is higher than the risk-free rate: You could borrow money to buy the portfolio and generate unlimited, risk-free profit.
-	\item If the portfolio's return is lower than the risk-free rate: You could sell the portfolio, use the proceeds to buy risk-free securities, and also generate unlimited, risk-free profit.
+	\item If the portfolio's return is higher than the risk-free security's return: one could borrow money to buy the portfolio, making infinite risk-free profit.
+	\item If the portfolio's return is lower than the risk-free security's return: one could sell the portfolio, invest the proceeds in the risk-free security, and make infinite risk-free profit.
 \end{itemize}
-Naturally, you can't actually make unlimited, risk-free profit in the market. (If you could, everyone would be a billionaire!)
+Naturally, it's not possible to make infinite risk-free profit in a real market. (If it were, everyone would become infinitely wealthy.)
 
-By contradiction, the risk-free return must be equal to the return on a risk-free security, which is the risk-free interest rate.
+By contradiction, the risk-free rate of return must be equal to the return of the risk-free security (the risk-free interest rate).
 
-Therefore, if the risk-free interest rate is $r$, the following condition must hold:
+From the above, if the risk-free interest rate is $r$, we know that:
 \begin{align}
-	d \Pi & = r \Pi dt                                                   \\
-	      & = r \left( - f + \dfrac{\partial f}{\partial S} S \right) dt
+	d \Pi & = r \Pi dt \\
+	& = r \left( - f + \dfrac{\partial f}{\partial S} S \right) dt
 \end{align}
+must be satisfied.
 
 \subsection{The Black-Scholes-Merton Differential Equation}
 
-Now we equate the expression for $d \Pi$ derived from Ito's Lemma with the one derived from the no-arbitrage condition:
+We equate the $d \Pi$ derived from Ito's lemma with the $d \Pi$ derived from the no-arbitrage condition.
 \begin{align}
 	\left( - \dfrac{\partial f}{\partial t} - \dfrac{1}{2} \dfrac{\partial^{2} f}{\partial S^{2}} \sigma^{2} S^{2} \right) dt & = r \left( - f + \dfrac{\partial f}{\partial S} S \right) dt
 \end{align}
-Dividing both sides by $dt$, expanding, and rearranging the terms gives us the Black-Scholes-Merton differential equation:
+Dividing both sides by $dt$ and rearranging the terms gives us the Black-Scholes-Merton differential equation:
 \begin{align}
 	\dfrac{\partial f}{\partial t} + rS \dfrac{\partial f}{\partial S} + \dfrac{1}{2} \sigma^{2} S^{2} \dfrac{\partial^{2} f}{\partial S^{2}} & = rf
 \end{align}
-This differential equation has many solutions. A solution $f$ to this equation represents any derivative of the underlying asset $S$. The specific derivative is determined by the boundary conditions of the differential equation. For example, to find the price of a European call option, we would impose the boundary condition at time $t=T$:
+This differential equation has many solutions. The solution $f$ to this equation represents any derivative of the underlying asset $S$. The specific type of derivative is determined by the boundary conditions of the differential equation. For example, to find the price of a European call option, we apply the boundary condition that at time $t=T$:
 $$
 	f = \max (S-K,0)
 $$
 
 \bigskip
 
-The risk-free portfolio $\Pi$ is only risk-free over an infinitesimal time interval $dt$. As time $t$ changes, $S$ also changes, and consequently, so does $\dfrac{\partial f}{\partial S}$. To keep $\Pi$ in a risk-free state, the ratio of the derivative $f$ to the underlying asset $S$ must be constantly adjusted.
+The risk-free portfolio $\Pi$ is only risk-free over an infinitesimal time period $dt$. As $t$ changes, $S$ changes, and consequently, $\dfrac{\partial f}{\partial S}$ also changes. To keep $\Pi$ in a risk-free state, the ratio of the holdings of the derivative $f$ and the underlying asset $S$ must be continuously adjusted.
 
 \bigskip
 
-A function that is a solution to the Black-Scholes-Merton differential equation represents a tradable derivative that creates no arbitrage opportunities. Conversely, a function that is not a solution to the Black-Scholes-Merton differential equation is not tradable if no arbitrage opportunities exist.
+Any function that is a solution to the Black-Scholes-Merton differential equation represents a tradable derivative that does not create an arbitrage opportunity. Conversely, any function that is not a solution to the Black-Scholes-Merton differential equation is not tradable if no arbitrage opportunities exist.
 
-A simple counterexample is the price $e^{S}$. This price is not a solution to the Black-Scholes-Merton differential equation. (You can easily verify this by substituting $f = e^{S}$ into the equation and comparing both sides.) Therefore, it's not the price of any derivative that depends on the stock price $S$. If a product whose price was always $e^{S}$ existed, it would create an arbitrage opportunity.
+A simple counterexample is the price $e^{S}$. This price is not a solution to the Black-Scholes-Merton differential equation. (It's easy to see this by substituting $f = e^{S}$ into the differential equation and comparing both sides.) Therefore, it's not the price of any derivative dependent on the stock price $S$. If a product with a price of always $e^{S}$ existed, it would create an arbitrage opportunity.
 
-As another example, consider the function:
+Another example is
 $$
 	\dfrac{\exp{[(\sigma^{2} - 2r)(T-t)]}}{S}
 $$
-Although it looks strange at first, this function actually satisfies the Black-Scholes-Merton differential equation, so it is, in theory, a tradable product. (In fact, this is the price of a derivative that has a payoff of $1/S_{T}$ at time $T$.)
+Although it looks like a strange function, this function actually satisfies the Black-Scholes-Merton differential equation, so it is theoretically a tradable product. (This price is, in fact, the price of a derivative with a payoff of $1/S_{T}$ at time $T$.)
 
-\section{Proof of the Black-Scholes-Merton Formula}
+\section{The Black-Scholes-Merton Call Option Pricing Formula}
 
 \subsection{Main Result}
 
-If a random variable $V$ is log-normally distributed with the standard deviation of $\log(V)$ being $\sigma$, the expected value of $\max(V-K,0)$ is:
+If $V$ follows a lognormal distribution and the standard deviation of $\log(V)$ is $\sigma$, the expected value of $\max(V-K,0)$ is:
 \begin{align}
 	E \left[ \max(V-K,0) \right] & = E(V) \Phi (d_{+}) - K \Phi (d_{-})
 \end{align}
-where $d_{+}$ and $d_{-}$ are defined as:
+where $d_{+}$ and $d_{-}$ satisfy:
 
 \begin{align}
 	d_{+} & = \dfrac{ \log \frac{E(V)}{K} + \frac{\sigma^{2}}{2} }{ \sigma } \\
 	d_{-} & = \dfrac{ \log \frac{E(V)}{K} - \frac{\sigma^{2}}{2} }{ \sigma }
 \end{align}
 
+\subsection{Confirmation}
 
-\subsection{Proof}
+\subsubsection{Useful Facts About Lognormal Distributions}
 
-\subsubsection{Useful Facts About the Lognormal Distribution}
-
-Let a random variable $V$ be log-normally distributed. This means that $X = \log(V)$ is normally distributed. In other words, the probability density function of $X$, $f(X)$, is a normal distribution:
+The random variable $V$ follows a lognormal distribution. This means that $X = \log(V)$ follows a normal distribution. In other words, the probability density function $f(X)$ of $X$ is a normal distribution, and it satisfies:
 
 \begin{align}
 	f(X) & = \dfrac{1}{\sqrt{2 \pi} \sigma } \exp \left( - \dfrac{(X - \mu )^{2}}{2 \sigma^{2}} \right)
 \end{align}
 
-Therefore, if $k(V)$ is the probability density function of $V$, then from the change of variables formula,
+Therefore, if the probability density function of $V$ is $k(V)$, since
 $$
 	\dfrac{dX}{dV} = \dfrac{1}{V}
 $$
-so,
+we have:
 
 \begin{align}
 	k(V) & = \dfrac{1}{\sqrt{2 \pi} \sigma V} \exp \left( - \dfrac{(\log{(V)}- \mu )^{2}}{2 \sigma^{2}} \right)
 \end{align}
-Now, let's consider the $n$-th moment of $V$:
+Let's consider the $n$-th moment of $V$.
 
 \begin{align}
 	\int^{\infty}_{0} V^{n} k(V) dV
@@ -185,42 +187,42 @@ Now, let's consider the $n$-th moment of $V$:
 By substituting $V = \exp(X)$, we get:
 
 \begin{align}
-	 & \int^{\infty}_{0} V^{n} k(V) dV                                                                                                                                                  \\
-	 & = \int^{\infty}_{-\infty} \dfrac{\exp(nX)}{\sqrt{2 \pi} \sigma V} \exp \left( - \dfrac{(\log{(V)}- \mu )^{2}}{2 \sigma^{2}} \right) (VdX)                                        \\
-	 & = \int^{\infty}_{-\infty} \dfrac{\exp(nX)}{\sqrt{2 \pi} \sigma} \exp \left( - \dfrac{(X- \mu )^{2}}{2 \sigma^{2}} \right) dX                                                     \\
+	 & \int^{\infty}_{0} V^{n} k(V) dV\\
+	 & = \int^{\infty}_{-\infty} \dfrac{\exp(nX)}{\sqrt{2 \pi} \sigma V} \exp \left( - \dfrac{(\log{(V)}- \mu )^{2}}{2 \sigma^{2}} \right) (VdX)\\
+	 & = \int^{\infty}_{-\infty} \dfrac{\exp(nX)}{\sqrt{2 \pi} \sigma} \exp \left( - \dfrac{(X- \mu )^{2}}{2 \sigma^{2}} \right) dX \\
 	 & = \exp(n \mu + \dfrac{1}{2} n^{2} \sigma^{2} ) \int^{\infty}_{-\infty} \dfrac{1}{\sqrt{2 \pi} \sigma } \exp \left( - \dfrac{(X- \mu -n \sigma^{2})^{2}}{2 \sigma^{2}} \right) dX \\
 	 & = \exp(n \mu + \dfrac{1}{2} n^{2} \sigma^{2} )
 \end{align}
 
-For $n=1$, the first moment is the expected value:
+When $n=1$, the first moment is the expected value:
 $$
 	E(V) = \exp(\mu + \dfrac{1}{2} \sigma^{2} )
 $$
-For $n=2$, the second moment is:
+When $n=2$, the second moment is:
 $$
 	E(V^{2}) = \exp(2\mu + 2 \sigma^{2} )
 $$
-Therefore, the variance is:
+From this, the variance is:
 
 \begin{align}
 	E(V^{2}) - E(V)^{2} & = \exp(2\mu + 2 \sigma^{2} ) - \left[ \exp(\mu + \dfrac{1}{2} \sigma^{2} ) \right]^{2} \\
-	                    & = \exp(2 \mu + \sigma^{2} ) \left[ \exp( \sigma^{2}) -1 \right]
+	& = \exp(2 \mu + \sigma^{2} ) \left[ \exp( \sigma^{2}) -1 \right]
 \end{align}
-
 
 \subsubsection{European Call Option Pricing Formula}
 
 Let $g(V)$ be the probability density function of $V$. Then,
+
 \begin{align}
 	E \left[ \max(V-K,0) \right] & = \int^{\infty}_{-\infty} \max(V-K,0) g(V) dV \\
-	                             & = \int^{\infty}_{K} (V-K) g(V) dV
+	 & = \int^{\infty}_{K} (V-K) g(V) dV
 \end{align}
 
-From the previous section, the mean (expected value) $\mu$ of the log-normally distributed variable $V = \exp(X)$ is:
+The mean (expected value) $\mu$ of the log-normally distributed variable $V = \exp(X)$ is, from the previous section:
 
 \begin{align}
 	E(V) & = \exp( \mu + \dfrac{\sigma^{2}}{2} ) \\
-	\mu  & = \log[E(V)] - \dfrac{\sigma^{2}}{2}
+	\mu& = \log[E(V)] - \dfrac{\sigma^{2}}{2}
 \end{align}
 
 Using this $\mu$, we define a new variable:
@@ -229,114 +231,116 @@ Using this $\mu$, we define a new variable:
 	Q & = \dfrac{\log(V) - \mu}{\sigma}
 \end{align}
 
-This random variable $Q$ follows a normal distribution with a standard deviation of 1.0. If $h(Q)$ is the density function of $Q$, then:
+This random variable $Q$ follows a normal distribution with a standard deviation of 1.0. This means that if the density function of $Q$ is $h(Q)$, then:
 
 \begin{align}
 	h(Q) & = \dfrac{ 1 }{ \sqrt{2 \pi} } e^{ - Q^{2} / 2 }
 \end{align}
 
-Using this variable, we change variables from $V$ to $Q$.
+Using this variable, we transform from $V$ to $Q$.
+
 \begin{align}
 	V & = \exp(\sigma Q + \mu )
 \end{align}
-Noting that the integration range changes from $V: [K , \infty)$ to $Q: [ \dfrac{\log(K) - \mu}{\sigma} , \infty)$, we get:
+
+Noting that the integration interval $V: [K , \infty)$ becomes $Q: [ \dfrac{\log(K) - \mu}{\sigma} , \infty)$, we get:
 
 \begin{align}
-	E \left[ \max(V-K,0) \right] & = \int^{\infty}_{K} (V-K) g(V) dV                                                                                                   \\
-	                             & = \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} ( e^{\sigma Q + \mu } -K) h(Q) dQ                                                    \\
-	                             & = \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} e^{\sigma Q + \mu } h(Q) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ
+	E \left[ \max(V-K,0) \right] & = \int^{\infty}_{K} (V-K) g(V) dV \\
+	 & = \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} ( e^{\sigma Q + \mu } -K) h(Q) dQ\\
+	 & = \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} e^{\sigma Q + \mu } h(Q) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ
 \end{align}
 
-Let's transform the integrand of the first term. We complete the square of the exponent:
+Now, let's transform the integrand of the first term by completing the square in the exponent:
 
 \begin{align}
-	e^{\sigma Q + \mu } h(Q) & = \dfrac{1}{\sqrt{2 \pi}} \exp(\sigma Q + \mu ) \exp(-\dfrac{1}{2} Q^{2})                           \\
-	                         & = \dfrac{1}{\sqrt{2 \pi}} \exp( -\dfrac{ Q^{2} - 2 \sigma Q - 2 \mu }{2})                           \\
-	                         & = \dfrac{1}{\sqrt{2 \pi}} \exp( -\dfrac{ (Q - \sigma)^{2} - 2 \mu - \sigma^{2} }{2})                \\
-	                         & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \dfrac{1}{\sqrt{2 \pi}} \exp( -\dfrac{ (Q - \sigma)^{2} }{2}) \\
-	                         & = \exp( \mu + \dfrac{\sigma^{2} }{2}) h(Q - \sigma)
+	e^{\sigma Q + \mu } h(Q) & = \dfrac{1}{\sqrt{2 \pi}} \exp(\sigma Q + \mu ) \exp(-\dfrac{1}{2} Q^{2}) \\
+	 & = \dfrac{1}{\sqrt{2 \pi}} \exp( -\dfrac{ Q^{2} - 2 \sigma Q - 2 \mu }{2}) \\
+	 & = \dfrac{1}{\sqrt{2 \pi}} \exp( -\dfrac{ (Q - \sigma)^{2} - 2 \mu - \sigma^{2} }{2})\\
+	 & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \dfrac{1}{\sqrt{2 \pi}} \exp( -\dfrac{ (Q - \sigma)^{2} }{2}) \\
+	 & = \exp( \mu + \dfrac{\sigma^{2} }{2}) h(Q - \sigma)
 \end{align}
 
 Therefore,
+
 \begin{align}
-	E \left[ \max(V-K,0) \right] & = \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} e^{\sigma Q + \mu } h(Q) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ                          \\
-	                             & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q - \sigma) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ
+	E \left[ \max(V-K,0) \right] & = \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} e^{\sigma Q + \mu } h(Q) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ\\
+	 & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q - \sigma) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ
 \end{align}
 
-Let's evaluate the integral of the second term.
+Let's evaluate the second integral.
 
-Let $\Phi (x)$ be the cumulative density function of the standard normal distribution. That is,
+Let $\Phi (x)$ be the cumulative density function of the standard normal distribution, such that:
+
 \begin{align}
 	\int^{x}_{-\infty} h(x) dx & = \Phi (x)
 \end{align}
-Using this, the integral of the second term becomes:
+
+Using this, the second integral becomes:
 
 \begin{align}
-	K \int^{\infty}_{\frac{\log K - \mu}{\sigma}} h(Q) dQ & = K \int_{-\frac{\log K - \mu}{\sigma}}^{-\infty} h(-Q) d(-Q)                                      \\
-	                                                      & = K \int^{\frac{ \mu - \log K }{\sigma}}_{-\infty} h(Q) dQ                                         \\
-	                                                      & = K \Phi \left( \dfrac{ \mu - \log K }{\sigma} \right)                                             \\
-	                                                      & = K \Phi \left( \dfrac{ \left( \log E(V) - \frac{\sigma^{2}}{2} \right) - \log K }{\sigma} \right) \\
-	                                                      & = K \Phi \left( \frac{\log\frac{E(V)}{K} - \frac{\sigma^{2}}{2} }{\sigma} \right)
+	K \int^{\infty}_{\frac{\log K - \mu}{\sigma}} h(Q) dQ & = K \int_{-\frac{\log K - \mu}{\sigma}}^{-\infty} h(-Q) d(-Q)\\
+	& = K \int^{\frac{ \mu - \log K }{\sigma}}_{-\infty} h(Q) dQ \\
+	& = K \Phi \left( \dfrac{ \mu - \log K }{\sigma} \right) \\
+	& = K \Phi \left( \dfrac{ \left( \log E(V) - \frac{\sigma^{2}}{2} \right) - \log K }{\sigma} \right) \\
+	& = K \Phi \left( \frac{\log\frac{E(V)}{K} - \frac{\sigma^{2}}{2} }{\sigma} \right)
 \end{align}
 
-We evaluate the first term's integral in a similar way, performing the substitution $Q-\sigma \to -Q$:
+Similarly, we evaluate the integral of the first term. By substituting $Q-\sigma \to -Q$, we get:
 
 \begin{align}
-	\int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q - \sigma) dQ & = \int^{-\infty}_{\sigma - \frac{\log(K) - \mu}{\sigma}} h(-Q) d(-Q)                                     \\
-	                                                              & = \int_{-\infty}^{\sigma - \frac{\log(K) - \mu}{\sigma}} h(Q) dQ                                         \\
-	                                                              & = \Phi \left( \sigma - \frac{\log(K) - \mu}{\sigma} \right)                                              \\
-	                                                              & = \Phi \left( \sigma - \frac{\log(K) - \left( \log E(V) - \frac{\sigma^{2}}{2} \right) }{\sigma} \right) \\
-	                                                              & = \Phi \left( \frac{ \log \frac{E(V)}{K} + \frac{\sigma^{2}}{2} }{\sigma} \right)
+	\int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q - \sigma) dQ & = \int^{-\infty}_{\sigma - \frac{\log(K) - \mu}{\sigma}} h(-Q) d(-Q) \\
+	& = \int_{-\infty}^{\sigma - \frac{\log(K) - \mu}{\sigma}} h(Q) dQ \\
+	& = \Phi \left( \sigma - \frac{\log(K) - \mu}{\sigma} \right)\\
+	& = \Phi \left( \sigma - \frac{\log(K) - \left( \log E(V) - \frac{\sigma^{2}}{2} \right) }{\sigma} \right) \\
+	& = \Phi \left( \frac{ \log \frac{E(V)}{K} + \frac{\sigma^{2}}{2} }{\sigma} \right)
 \end{align}
 
-
-Putting it all together, we have:
+From the above,
 
 \begin{align}
-	E \left[ \max(V-K,0) \right] & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q - \sigma) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ                                              \\
-	                             & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \Phi \left( \frac{ \log \frac{E(V)}{K} + \frac{\sigma^{2}}{2} }{\sigma} \right) - K \Phi \left( \frac{ \log \frac{E(V)}{K} - \frac{\sigma^{2}}{2} }{\sigma} \right)
+	E \left[ \max(V-K,0) \right] & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q - \sigma) dQ - K \int^{\infty}_{\frac{\log(K) - \mu}{\sigma}} h(Q) dQ\\
+	 & = \exp( \mu + \dfrac{\sigma^{2} }{2}) \Phi \left( \frac{ \log \frac{E(V)}{K} + \frac{\sigma^{2}}{2} }{\sigma} \right) - K \Phi \left( \frac{ \log \frac{E(V)}{K} - \frac{\sigma^{2}}{2} }{\sigma} \right)
 \end{align}
 
-For ease of notation, let's redefine the variables:
+For ease of notation, let's substitute variables as follows:
 
 \begin{align}
 	d_{\pm} & = \dfrac{ \log \frac{E(V)}{K} \pm \frac{\sigma^{2}}{2} }{ \sigma }
 \end{align}
 
-The formula can be expressed concisely as:
+This can be expressed simply as:
 
 \begin{align}
 	E \left[ \max(V-K,0) \right] & = E(V) \Phi (d_{+}) - K \Phi (d_{-})
 \end{align}
 
-
 \subsubsection{European Option Pricing Formula Based on Black-Scholes-Merton}
 
-The price of a call option, $c$, is given by the present value of the expected payoff at maturity. We can express this using the strike price $K$, risk-free rate $r$, stock price at time $t$ of $S_{t}$, maturity at time $t=T$, volatility $\sigma$, and the expectation in the risk-neutral world $E(\cdot)$.
+The price of a call option, $c$, is expressed in terms of the strike price $K$, the risk-free interest rate $r$, the stock price at time $t$, $S_{t}$, the expiration time $t=T$, the volatility $\sigma$, and the risk-neutral expectation $E( \cdot )$ as:
 
 \begin{align}
-	c & = e^{-rT} E \left[ \max(S_{T}-K,0) \right]                         \\
-	  & = e^{-rT} \left[ S_{0} e^{rT} \Phi (d_{1}) - K \Phi(d_{2}) \right] \\
-	  & = S_{0} \Phi (d_{+}) - e^{-rT} K \Phi(d_{-})
+	c & = e^{-rT} E \left[ \max(S_{T}-K,0) \right] \\
+	& = e^{-rT} \left[ S_{0} e^{rT} \Phi (d_{1}) - K \Phi(d_{2}) \right] \\
+	& = S_{0} \Phi (d_{+}) - e^{-rT} K \Phi(d_{-})
 \end{align}
 
-Note that the discount factor only appears in the strike price term. This is because the stock price term grows at the risk-free rate, which cancels out the discount factor, causing it to disappear from the stock price term.
+The discount factor appears only in the strike price term. This is because the stock price term's growth at the risk-free rate cancels out the discount factor, causing it to disappear.
 
-Here, $E(S_{T}) = S_{0} e^{rT}$, and the volatility of $\log(S_{T})$ is $\sigma \sqrt{T}$.
-Thus, we make the substitutions:
+Here, since $E(S_{T}) = S_{0} e^{rT}$ and the volatility of $\log(S_{T})$ is $\sigma \sqrt{T}$, we make the substitutions:
 
 \begin{align}
 	\sigma & \to \sigma \sqrt{T} \\
-	E(V)   & \to E(S_T)
+	E(V) & \to E(S_T)
 \end{align}
 
-This gives us the final expression for $d_{\pm}$:
+Therefore, we find:
 
 \begin{align}
-	d_{\pm} & = \dfrac{ \log \frac{E(V)}{K} \pm \frac{\sigma^{2}}{2} }{ \sigma }                             \\
-	        & \to \dfrac{ \log \frac{E(S_{T})}{K} \pm \frac{(\sigma \sqrt{T})^{2}}{2} }{ (\sigma \sqrt{T}) } \\
-	        & = \dfrac{ \log \frac{ e^{rT} S_{0} }{K} \pm \frac{\sigma^{2}}{2}T }{ \sigma \sqrt{T} }         \\
-	        & = \dfrac{ \log \frac{S_{0}}{K} + ( r \pm \frac{\sigma^{2}}{2})T }{ \sigma \sqrt{T} }
+	d_{\pm} & = \dfrac{ \log \frac{E(V)}{K} \pm \frac{\sigma^{2}}{2} }{ \sigma } \\
+	& \to \dfrac{ \log \frac{E(S_{T})}{K} \pm \frac{(\sigma \sqrt{T})^{2}}{2} }{ (\sigma \sqrt{T}) } \\
+	& = \dfrac{ \log \frac{ e^{rT} S_{0} }{K} \pm \frac{\sigma^{2}}{2}T }{ \sigma \sqrt{T} } \\
+	& = \dfrac{ \log \frac{S_{0}}{K} + ( r \pm \frac{\sigma^{2}}{2})T }{ \sigma \sqrt{T} }
 \end{align}
 
 
