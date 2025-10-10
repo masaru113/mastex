@@ -21,6 +21,7 @@ The notes are organized within a parent directory named `tex`. All documents are
         - **[2-body mechanics in the Local Fermi Liquid](https://github.com/masaru113/mastex/blob/main/tex/phys/LocalFermiLiquid/main.pdf)**: Review of spin and charge susceptibilities and the Wilson ratio in the context of the local Fermi liquid theory for f-electron systems.
         - **[Keldysh Green Function](https://github.com/masaru113/mastex/blob/main/tex/phys/KeldyshGreenFunction/main.pdf)**: Overview of the Keldysh Green function formalism, a method for analyzing non-equilibrium quantum systems.
         - **[Migdal-Eliashberg Theory in Nonequilibrium](https://github.com/masaru113/mastex/blob/main/tex/phys/MigdalEliashberg/main.pdf)**: This note explores the Migdal-Eliashberg theory in nonequilibrium, deriving the superconducting gap equation within the Keldysh Green's function formalism.
+        - **[Anisotropic BCS Theory](https://github.com/masaru113/mastex/blob/main/tex/phys/anisotropic_superconductivity/main.pdf)**: This is a comprehensive overview of anisotropic BCS theory, covering its historical background, theoretical formulation, and key concepts like Bogoliubov transformations and the symmetries of the superconducting gap function.
     - **dia**: Misc.
       - **[Oct. 2025](https://github.com/masaru113/mastex/blob/main/tex/dia/2025/10/main.pdf)**
     - **finance**: Notes on financial engineering.
