@@ -1,0 +1,389 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{
+American Options Without Dividends
+}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	This note is a memo from a discussion I had with a colleague on November 12, 2019. It's about how an American option on a non-dividend-paying stock is never worth more than its European counterpart at expiration.
+\end{abstract}
+
+\section{Definition of a Convex Function}
+
+Consider a real-valued function $h$ of $x$.
+
+The function $h(x)$ is called a convex function if the following holds for any $\lambda$ where $0 \leq \lambda \leq 1$ and for any $x_1, x_2$ where $0 < x_1 < x_2$:
+%
+%
+\begin{eqnarray*}
+	h \Big( (1- \lambda) x_{1} + \lambda x_{2} \Big)
+	&\leq&
+	(1- \lambda) h(x_{1}) + \lambda h(x_{2})
+\end{eqnarray*}
+%
+%
+
+\section{Jensen's Inequality}
+
+If a function $\phi(x)$ is convex, then
+%
+%
+\begin{eqnarray*}
+	\mathbb{E} \Big( \phi(X) \Big| \mathcal{F} \Big)
+	&\geq&
+	\phi \Big( \mathbb{E}(X|\mathcal{F}) \Big)
+\end{eqnarray*}
+%
+%
+holds true.
+Here, $X$ is a random variable and $\mathcal{F}$ is a $\sigma$-algebra generated from a subset of the sample space $\Omega$.
+
+\ \\
+
+Essentially, the expected value of a convex function, $\mathbb{E}(\phi(X))$, is greater than the convex function of the expected value, $\phi(\mathbb{E}(X))$.
+$$
+	\mathbb{E}(\phi(X))
+	\ \geq \
+	\phi(\mathbb{E}(X))
+$$
+
+(A way to remember it: The expectation of the future is greater than the future of the expectation.)
+
+
+\section{Proof of Jensen's Inequality}
+
+(Will read this later.)
+
+\ \\
+
+\section{Martingales}
+
+(Checking the definitions)
+
+A stochastic process $M_t$ is called a \textbf{submartingale} if, for all $u, t$ satisfying $0 \leq u \leq t \leq T$, the following holds:
+%
+%
+\begin{eqnarray*}
+	\mathbb{E}(M_{t}|\mathcal{F}_{u})
+	&\geq&
+	M_{u}
+\end{eqnarray*}
+%
+%
+Conversely, it is called a \textbf{supermartingale} if
+%
+%
+\begin{eqnarray*}
+	\mathbb{E}(M_{t}|\mathcal{F}_{u})
+	&\leq&
+	M_{u}
+\end{eqnarray*}
+%
+%
+In a submartingale, the expected value at a future time $t$, conditional on the history up to time $u$ ($\mathcal{F}_u$), is greater than or equal to the value at the past time $u$. This means the process has an increasing trend.
+
+\ \\
+
+(Even though it has 'sub' or 'inferior' in the name, the expected value of a submartingale is larger in the future.)
+
+\section{Underlying Assets Without Dividends}
+
+Let's consider a stock with a price process $S_t$ given by:
+%
+%
+\begin{eqnarray*}
+	\dfrac{d S_{t}}{S_{t}}
+	&=&
+	r dt + \sigma d \tilde{W}_{t}
+\end{eqnarray*}
+%
+%
+The interest rate $r$ and volatility $\sigma$ are always positive. $W_t$ is a process that becomes a Brownian motion under the risk-neutral probability measure $\tilde{\mathbb{P}}$.
+
+
+\section{Lemma 8.5.1\cite{Shreve2004}}
+
+Consider an American option that pays an amount of $h(S_t)$ upon exercise.
+
+Let's assume the function $h(x)$ is convex for $x \geq 0$.
+
+Also, assume $h(0)=0$.
+
+In this case, the discounted price $e^{-rt} h(S_t)$ is a submartingale.
+
+
+\section{Proof of Lemma 8.5.1\cite{Shreve2004}}
+
+Since $h(x)$ is a convex function, for any $\lambda$ such that $0 \leq \lambda \leq 1$ and for any $x_1, x_2$ such that $0 < x_1 < x_2$, the following holds:
+%
+%
+\begin{eqnarray*}
+	h \Big( (1- \lambda) x_{1} + \lambda x_{2} \Big)
+	&\leq&
+	(1- \lambda) h(x_1) + \lambda h(x_{2})
+\end{eqnarray*}
+%
+%
+Specifically, if we let $x_1=0$ and $x_2=S_t$, we get:
+%
+%
+\begin{eqnarray*}
+	h \Big( (1- \lambda) \times 0 + \lambda S_{t} \Big)
+	&\leq&
+	(1- \lambda) h(0) + \lambda h(S_{t})
+	\\
+	h ( \lambda S_{t} )
+	&\leq&
+	\lambda h(S_{t})
+\end{eqnarray*}
+%
+%
+Here, we've used the assumption $h(0)=0$.
+
+\ \\
+
+Furthermore, for all $u, t$ such that $0 \leq u \leq t \leq T$, $r$ is positive ($0 < r < \infty$), so:
+%
+%
+\begin{eqnarray*}
+	\begin{array}{ccccc}
+		0
+		 & \leq &
+		r(t-u)
+		 & ( <  &
+		\infty )
+		\\
+		(
+		- \infty
+		 & < )  &
+		-r(t-u)
+		 & \leq &
+		0
+		\\
+		0
+		 & \leq &
+		e^{-r(t-u)}
+		 & \leq &
+		1
+	\end{array}
+\end{eqnarray*}
+%
+%
+Since $e^{-r(t-u)}$ has the same range as $\lambda$ ($0 \leq \lambda \leq 1$), we can substitute it for $\lambda$:
+%
+%
+\begin{eqnarray*}
+	\lambda h(S_{t}) &\geq& h ( \lambda S_{t} )
+	\\
+	e^{-r(t-u)} h(S_{t})
+	&\geq&
+	h \Big( e^{-r(t-u)} S_{t} \Big)
+\end{eqnarray*}
+%
+%
+Taking the expected value of both sides under the measure $\tilde{\mathbb{P}}$ and conditional on $\mathcal{F}(u)$, denoted by $\tilde{\mathbb{E}}( \ \cdot \ | \mathcal{F}(u))$, we get:
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-r(t-u)} h(S_{t})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	\tilde{\mathbb{E}} \left[
+		h \Big( e^{-r(t-u)} S_{t} \Big)
+		\Big|
+		\mathcal{F}(u) \right]
+\end{eqnarray*}
+%
+%
+Now, we apply Jensen's inequality to the right-hand side.
+
+Because the expected value of a convex function $\mathbb{E}(h(X))$ is greater than the convex function of the expected value $h(\mathbb{E}(X))$, i.e.,
+$
+	\mathbb{E}(h(X))
+	\geq
+	h(\mathbb{E}(X))
+$
+we have:
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-r(t-u)} h(S_{t})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	\tilde{\mathbb{E}} \left[
+		h \Big( e^{-r(t-u)} S_{t} \Big)
+		\Big|
+		\mathcal{F}(u) \right]
+	\\
+	&\geq&
+	h \left(
+	\tilde{\mathbb{E}} \left[
+		e^{-r(t-u)} S_{t}
+		\Big|
+		\mathcal{F}(u) \right]
+	\right)
+	\\
+	&=&
+	h \left(
+	e^{ru}
+	\tilde{\mathbb{E}} \left[
+		e^{-rt} S_{t}
+		\Big|
+		\mathcal{F}(u) \right]
+	\right)
+\end{eqnarray*}
+%
+%
+The term inside the last expectation, $e^{-rt} S_t$, is the discounted stock price process, which is a $\tilde{\mathbb{P}}$-martingale. Therefore:
+%
+%
+\begin{eqnarray*}
+	h \left(
+	e^{ru}
+	\tilde{\mathbb{E}} \left[
+		e^{-rt} S_{t}
+		\Big|
+		\mathcal{F}(u) \right]
+	\right)
+	&=&
+	h \left(
+	e^{ru}
+	\times
+	e^{-ru} S_{u}
+	\right)
+	\\ &=&
+	h(S_{u})
+\end{eqnarray*}
+%
+%
+Putting the inequalities together from the beginning, we have:
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-r(t-u)} h(S_{t})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	h(S_{u})
+\end{eqnarray*}
+%
+%
+Since a constant multiple of a convex function, $e^{-ru}h(x)$, is also convex, we can replace $h(x) \to e^{-ru}h(x)$ and follow the same logic from the start of the proof. This leads to:
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-rt} h(S_{t})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	e^{-ru}
+	h(S_{u})
+\end{eqnarray*}
+%
+%
+This is precisely the definition of a submartingale.
+
+\ \\
+
+In conclusion, for an American option that pays $h(S_t)$ upon exercise, if the function $h(x)$ is convex for $x \geq 0$ and $h(0)=0$, its discounted price process $e^{-rt} h(S_t)$ becomes a submartingale.
+
+\section{Theorem 8.5.2\cite{Shreve2004} and its Explanation}
+
+
+The previous discussion was general, but let's now apply it to a specific case.
+
+When $t$ is the expiration date $T$, substituting $t=T$ into the derived inequality gives us:
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-rT} h(S_{T})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	e^{-ru}
+	h(S_{u})
+\end{eqnarray*}
+%
+%
+The left side,
+$
+	\tilde{\mathbb{E}} \left[
+		e^{-rT} h(S_{T})
+		\Big| \mathcal{F}(u)
+		\right]
+$
+is the discounted price of a European option at expiration. This price is always higher than (or equal to) the discounted price of the American option on the right side, at any time $u$ before expiration.
+
+In other words, the price of an American option on a non-dividend-paying stock is never more than the price of a European option at expiration.
+
+Intuitively, you might think an American option is more valuable because it gives you the freedom to exercise at any time. However, for a non-dividend-paying stock, its value is always less than or equal to the European option price at expiration.
+
+This is all a consequence of the submartingale property. Since it's a submartingale, the expected value tends to increase.
+
+
+\ \\
+
+(By the way, we haven't discussed a specific functional form for $h$, such as for a 'call,' 'put,' or 'forward' option yet.)
+
+
+\section{Corollary 8.5.3\cite{Shreve2004} and its Explanation}
+
+If we assume the convex function $h$ is $h(S_T) = (S_T - K)^{+}$, we can apply this to the inequality derived in the proof of Lemma 8.5.1:
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-rT} (S_{T} - K)^{+}
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	e^{-ru}
+	(S_{u} - K)^{+}
+\end{eqnarray*}
+%
+%
+As with Theorem 8.5.2, this shows that the discounted process
+$e^{-rT} (S_t - K)^{+}$
+is a submartingale, and because it has an upward trend, the expected value (conditional on a future time) is greater than or equal to the current value.
+
+This means the price is maximized when the option is exercised at expiration $t=T$. Consequently, an American call option on a non-dividend-paying stock will not be exercised before expiration, and thus has the same value as a European call option.
+
+
+\ \\
+
+
+The reason an American option on a non-dividend-paying stock is a submartingale is that the convexity of the function and the assumption that $h(0)=0$ allow Jensen's inequality to hold, leading to the submartingale logic.
+
+
+\ \\
+
+When we apply this line of thinking to an American put option, $h(x)=(K-x)^{+}$, while $h(x)$ is still a convex function, $h(0) = \text{Max}\{K\}$. This doesn't satisfy the condition $h(0)=0$ unless $K \leq 0$, which makes the argument more complex\footnote{Although it says 'the argument becomes more complex,' I haven't yet experimented with what happens when $K > 0$.}.
+
+\begin{thebibliography}{9}
+	\bibitem{Shreve2004} Steven Shreve, "Stochastic Calculus for Finance II: Continuous-Time Models (Springer Finance)" (2004)
+
+\end{thebibliography}
+
+
+\end{document}

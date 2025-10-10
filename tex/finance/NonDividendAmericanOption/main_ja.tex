@@ -1,0 +1,462 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{
+配当支払いの無いアメリカンオプション
+}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	この雑記は2019年11月12日に同僚としていた話のメモ。配当の支払いの無いアメリカンオプションは、常に満期におけるヨーロピアンオプションの価値以下にしかならないという話。
+\end{abstract}
+
+\section{凸関数の定義}
+
+$x$についての実数値関数$h$について考える。
+
+$0 \leq \lambda \leq 1$を満たす$\lambda$および
+$0<x_{1}<x_{2}$を満たす$x_{1},x_{2}$に対して次が成り立つとき、
+$h(x)$は凸関数であると言う。
+%
+%
+\begin{eqnarray*}
+	h \Big( (1- \lambda) x_{1} + \lambda x_{2} \Big)
+	&\leq&
+	(1- \lambda) h(x) + \lambda h(x_{2})
+\end{eqnarray*}
+%
+%
+
+\section{Jensenの不等式}
+
+ある関数$\phi(x)$が凸関数ならば
+%
+%
+\begin{eqnarray*}
+	\mathbb{E} \Big( \phi(X) \Big| \mathcal{F} \Big)
+	&\geq&
+	\phi \Big( \mathbb{E}(X|\mathcal{F}) \Big)
+\end{eqnarray*}
+%
+%
+が成り立つ。
+ただし、$X$は確率変数であり、
+$\mathcal{F}$は標本空間$\Omega$の部分集合から構成される$\sigma$-加法族とする。
+
+\ \\
+
+つまり凸関数$\phi$の期待値$\mathbb{E}(\phi(X))$は、
+期待値$\mathbb{E}(X)$を変数とする凸関数$\phi(\mathbb{E}(X))$よりも大きい。
+$$
+	\mathbb{E}(\phi(X))
+	\ \geq \
+	\phi(\mathbb{E}(X))
+$$
+
+（覚え方：（先の期待より）後の期待の方が大きい。）
+
+
+\section{Jensenの不等式の証明}
+
+（今度読む。）
+
+\ \\
+
+\section{マルチンゲール}
+
+（定義の確認）
+
+$0 \leq u \leq t \leq T$を満たす
+全ての$u,t$について、確率過程$M_{t}$が
+%
+%
+\begin{eqnarray*}
+	\mathbb{E}(M_{t}|\mathcal{F}_{u})
+	&\geq&
+	M_{u}
+\end{eqnarray*}
+%
+%
+であるときに$M_{t}$はサブマルチンゲールであるといい、
+%
+%
+\begin{eqnarray*}
+	\mathbb{E}(M_{t}|\mathcal{F}_{u})
+	&\leq&
+	M_{u}
+\end{eqnarray*}
+%
+%
+であるときは$M_{t}$は優マルチンゲールであるという。
+
+\ \\
+
+$M_{t}$がサブマルチンゲールであるとき、
+その定義から、過去の時点$u$における値$M_{u}$よりも
+その時点$u$までの履歴$\mathcal{F}_{u}$を条件とする未来の時点$t$における期待値
+$\mathbb{E}(M_{t}|\mathcal{F}_{u})$
+の方が大きく、
+過程が取る値は増大する傾向を持っている。
+
+\ \\
+
+（「サブ」とか「劣」が付いているのに、
+サブマルチンゲールであれば将来時点における履歴でとった期待値の方が大きい。）
+
+\section{配当支払いの無い原資産}
+
+価格過程$S_{t}$が次で与えられる株式を考える。
+%
+%
+\begin{eqnarray*}
+	\dfrac{d S_{t}}{S_{t}}
+	&=&
+	r dt + \sigma d \tilde{W}_{t}
+\end{eqnarray*}
+%
+%
+金利$r$とボラティリティ$\sigma$は常に正であり、
+$W_{t}$はリスク中立確率測度$\tilde{\mathbb{P}}$の下でBrown運動になる過程とする。
+
+
+
+
+\section{補題8.5.1\cite{Shreve2004}}
+
+権利行使時に$h(S_{t})$の金額が支払われるアメリカンオプションを考える。
+
+ただし、関数$h(x)$は$x \geq 0$において凸関数であるとする。
+
+また、$h(0)=0$とする。
+
+このとき、割引価格$e^{-rt} h(S_{t})$はサブマルチンゲールになる。
+
+
+
+
+\section{補題8.5.1\cite{Shreve2004}の証明}
+
+
+$h(x)$が凸関数なので、$0 \leq \lambda \leq 1$を満たす$\lambda$および
+$0<x_{1}<x_{2}$を満たす$x_{1},x_{2}$に対して次が成り立つ。
+%
+%
+\begin{eqnarray*}
+	h \Big( (1- \lambda) x_{1} + \lambda x_{2} \Big)
+	&\leq&
+	(1- \lambda) h(x) + \lambda h(x_{2})
+\end{eqnarray*}
+%
+%
+特に
+$x_{1}=0,x_{2}=S_{t}$
+とすると、
+%
+%
+\begin{eqnarray*}
+	h \Big( (1- \lambda) \times 0 + \lambda S_{t} \Big)
+	&\leq&
+	(1- \lambda) h(0) + \lambda h(S_{t})
+	\\
+	h ( \lambda S_{t} )
+	&\leq&
+	\lambda h(S_{t})
+\end{eqnarray*}
+%
+%
+である。
+ただし$h(0)=0$を用いた。
+
+\ \\
+
+さらに$0 \leq u \leq t \leq T$を満たす全ての
+$u,t$について、$r$は正（$0<r<\infty$）であるから、
+%
+%
+\begin{eqnarray*}
+	\begin{array}{ccccc}
+		0
+		 & \leq &
+		r(t-u)
+		 & ( <  &
+		\infty )
+		\\
+		(
+		- \infty
+		 & < )  &
+		-r(t-u)
+		 & \leq &
+		0
+		\\
+		0
+		 & \leq &
+		e^{-r(t-u)}
+		 & \leq &
+		1
+	\end{array}
+\end{eqnarray*}
+%
+%
+この$e^{-r(t-u)}$は$\lambda$と同じ値域（$0 \leq \lambda \leq 1$）を持つので、
+$\lambda$に$e^{-r(t-u)}$を代入して、
+%
+%
+\begin{eqnarray*}
+	\lambda h(S_{t}) &\geq& h ( \lambda S_{t} )
+	\\
+	e^{-r(t-u)} h(S_{t})
+	&\geq&
+	h \Big( e^{-r(t-u)} S_{t} \Big)
+\end{eqnarray*}
+%
+%
+この両辺に測度$\tilde{\mathbb{P}}$、条件$\mathcal{F}(u)$の下での期待値
+$\tilde{\mathbb{E}}( \ \cdot \ | \mathcal{F}(u))$
+を取ると、
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-r(t-u)} h(S_{t})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	\tilde{\mathbb{E}} \left[
+		h \Big( e^{-r(t-u)} S_{t} \Big)
+		\Big|
+		\mathcal{F}(u) \right]
+\end{eqnarray*}
+%
+%
+さらに右辺にJensenの不等式を用いる。
+
+凸関数$h$の期待値$\mathbb{E}(h(X))$は、
+期待値$\mathbb{E}(X)$を変数とする凸関数$h(\mathbb{E}(X))$よりも大きい
+$
+	\mathbb{E}(h(X))
+	\geq
+	h(\mathbb{E}(X))
+$
+ので、
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-r(t-u)} h(S_{t})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	\tilde{\mathbb{E}} \left[
+		h \Big( e^{-r(t-u)} S_{t} \Big)
+		\Big|
+		\mathcal{F}(u) \right]
+	\\
+	&\geq&
+	h \left(
+	\tilde{\mathbb{E}} \left[
+		e^{-r(t-u)} S_{t}
+		\Big|
+		\mathcal{F}(u) \right]
+	\right)
+	\\
+	&=&
+	h \left(
+	e^{ru}
+	\tilde{\mathbb{E}} \left[
+		e^{-rt} S_{t}
+		\Big|
+		\mathcal{F}(u) \right]
+	\right)
+\end{eqnarray*}
+%
+%
+最後の右辺の期待値の中身$e^{-rt} S_{t}$は割引株価過程であり、
+$\tilde{\mathbb{P}}$-マルチンゲールであるので
+%
+%
+\begin{eqnarray*}
+	h \left(
+	e^{ru}
+	\tilde{\mathbb{E}} \left[
+		e^{-rt} S_{t}
+		\Big|
+		\mathcal{F}(u) \right]
+	\right)
+	&=&
+	h \left(
+	e^{ru}
+	\times
+	e^{-ru} S_{u}
+	\right)
+	\\ &=&
+	h(S_{u})
+\end{eqnarray*}
+%
+%
+大小関係を最初からまとめると、
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-r(t-u)} h(S_{t})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	h(S_{u})
+\end{eqnarray*}
+%
+%
+
+凸関数$h(x)$を定数倍した関数$e^{-ru}h(x)$も凸関数であり、
+再度証明の最初から$h(x) \to e^{-ru}h(x)$と置き換えても同様の議論ができるので、
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-rt} h(S_{t})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	e^{-ru}
+	h(S_{u})
+\end{eqnarray*}
+%
+%
+これはサブマルチンゲールの定義である。
+
+\ \\
+
+以上から、
+権利行使時に$h(S_{t})$の金額が支払われるアメリカンオプションは、
+関数$h(x)$が$x \geq 0$において凸関数で
+なおかつ$h(0)=0$であれば、
+その割引価格過程$e^{-rt} h(S_{t})$はサブマルチンゲールになる。
+
+
+
+\section{定理 8.5.2\cite{Shreve2004}とその説明}
+
+
+以上の議論は一般論であったが、
+以下では特殊なケースに落とし込んでいく。
+
+$t$が満期$T$であるとき、
+導出した不等式に$t=T$を代入すると、
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-rT} h(S_{T})
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	e^{-ru}
+	h(S_{u})
+\end{eqnarray*}
+%
+%
+となる。
+
+左辺
+$
+	\tilde{\mathbb{E}} \left[
+		e^{-rT} h(S_{T})
+		\Big| \mathcal{F}(u)
+		\right]
+$
+は満期でのヨーロピアンオプションの割引価格であり、
+その価格は常に（満期までのあらゆる時刻$u$で）
+右辺のアメリカンオプションの割引価格よりも高い
+（または等号成立する場合に限り等しい）。
+
+言い換えると、
+（配当支払いの無い）アメリカンオプションの価格は
+満期でのヨーロピアンオプションの価格以下にしかならない。
+
+権利行使タイミングが自由に決めれる権利がある分、
+直観的にはアメリカンオプションの方が価値があるように感じるが、
+配当支払いの無いアメリカンオプションは常に満期におけるヨーロピアンオプションの価格以下にしかならない。
+
+これはサブマルチンゲールの性質に由来している。
+サブマルチンゲールであるので期待値が上昇する傾向がある。
+
+
+\ \\
+
+（ところで、ここまでで「コール」か「プット」か「フォワード」か等といった、
+$h$についての具体的な関数形はまだ議論していない。）
+
+
+\section{系 8.5.3\cite{Shreve2004}とその説明}
+
+凸関数$h$が$h(S_{T}) = (S_{T} - K)^{+}$
+であるとすると、
+補題8.5.1の証明で導出した不等式にあてはめて、
+%
+%
+\begin{eqnarray*}
+	\tilde{\mathbb{E}} \left[
+		e^{-rT} (S_{T} - K)^{+}
+		\Big| \mathcal{F}(u)
+		\right]
+	&\geq&
+	e^{-ru}
+	(S_{u} - K)^{+}
+\end{eqnarray*}
+%
+%
+となる。
+
+これも定理8.5.2と同様に割引過程
+$e^{-rT} (S_{t} - K)^{+}$
+がサブマルチンゲールであり、
+上昇傾向があることから、
+期待値を（将来の時点での条件付き期待値を）取った値の方が大きく
+（または等号成立する場合に限り等しく）なる。
+
+つまり満期$t=T$で権利行使がなされる場合に価格が最大になるので、
+アメリカンコールオプションは満期まで権利行使がされず、
+結果的にヨーロピアンコールオプションと同じ商品価値になる。
+
+
+\ \\
+
+
+配当支払いの無いアメリカンオプションの場合、
+サブマルチンゲールであるから将来時点で期待値を取った方が大きくなるという
+背景があるが、
+なぜそもそもサブマルチンゲールになるかと言えば、
+関数の凸性と$h(0)=0$を仮定することでJensenの不等式が成立し、
+サブマルチンゲールとなるというロジックである。
+
+
+\ \\
+
+アメリカンプットオプションについて今までの考えを適応すると、
+$h(x)=(K-x)^{+}$
+であるので、
+$h(x)$の凸性は言えたとしても$h(0)={\rm Max} \{ K \} $
+となってしまい、$K \leq 0$の場合でしか$h(0)=0$を満たさないので議論は複雑になる
+\footnote{「議論は複雑になる」と書かれているが、
+	$K > 0$の場合でどうなるのかまだ実験していない。}
+。
+
+
+\begin{thebibliography}{9}
+	\bibitem{Shreve2004} Steven Shreve, "Stochastic Calculus for Finance II: Continuous-Time Models (Springer Finance)" (2004)
+
+\end{thebibliography}
+
+\end{document}
