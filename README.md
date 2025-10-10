@@ -50,3 +50,10 @@ The notes are organized within a parent directory named `tex`. All documents are
           - **[The Values of the Riemann Zeta Function at Negative Integers](https://github.com/masaru113/mastex/blob/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf)**: memo on analytic continuation of Riemann zeta to negative integers (work in progress).
         - **stat**: Folder for topics related to statistics.
           - **[AR Model](https://github.com/masaru113/mastex/blob/main/tex/math/stat/AR/main.pdf)**: memo on AR model
+
+## License and Usage
+
+© 2025 Masaru Okada. All rights reserved.  
+Unauthorized automated scraping or mirroring of this repository is prohibited.  
+You may view and reference this repository for personal or academic purposes,  
+but redistribution or automated collection without permission is not allowed.
