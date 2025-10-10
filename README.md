@@ -29,6 +29,7 @@ The notes are organized within a parent directory named `tex`. All documents are
         - **[Arbitrage and Gauge Theory](https://github.com/masaru113/mastex/blob/main/tex/finance/GaugeTheoryInForex/main.pdf)**: Notes examining the relationship between arbitrage in the foreign exchange market and gauge theory.
         - **[American Options Without Dividends](https://github.com/masaru113/mastex/blob/main/tex/finance/NonDividendAmericanOption/main.pdf)**: This note explains that an American option on a non-dividend-paying stock has the same value as a European option.
         - **[Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio](https://github.com/masaru113/mastex/blob/main/tex/finance/ReplicatingPortfolio/main.pdf)**: Outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
+        - **[Stochastic Volatility and Local Volatility](https://github.com/masaru113/mastex/blob/main/tex/finance/StochasticAndLocalVolatility/main.pdf)**: Note on stochastic volatility model derivation and market price of volatility risk analysis.
         - **[Finance Cheatsheet (Basic)](https://github.com/masaru113/mastex/blob/main/tex/finance/basic_cheat_sheet/main.pdf)**: A collection of sad formulas.
     - **math**: Notes on mathematics.
         - **cat**: Foundational notes on category theory.
