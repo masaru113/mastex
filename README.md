@@ -21,8 +21,8 @@ The notes are organized within a parent directory named `tex`. All documents are
         - **[Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio](https://github.com/masaru113/mastex/blob/main/tex/finance/ReplicatingPortfolio/main.pdf)**: Outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
         - **[Stochastic Volatility and Local Volatility](https://github.com/masaru113/mastex/blob/main/tex/finance/StochasticAndLocalVolatility/main.pdf)**: Note on stochastic volatility model derivation and market price of volatility risk analysis.
         - **[Finance Cheatsheet (Basic)](https://github.com/masaru113/mastex/blob/main/tex/finance/basic_cheat_sheet/main.pdf)**: A collection of sad formulas.
-    - **log**:
-      - **[Oct. 2025](https://github.com/masaru113/mastex/blob/main/tex/dia/2025/10/main.pdf)**
+    - **log**: Misc.
+      - **[Oct. 2025](https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main.pdf)**
     - **math**: Notes on mathematics.
         - **cat**: Foundational notes on category theory.
             - **[A First Step into Category Theory](https://github.com/masaru113/mastex/blob/main/tex/math/cat/category_first_step/main.pdf)**: Definition of categories and specific examples.
