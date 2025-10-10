@@ -1,0 +1,299 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb, bm}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{tikz-cd}
+
+\title{
+Gor'kov Equations Extended for Anisotropic Superconductivity and Their Solutions
+}
+
+\author{
+Masaru Okada
+}
+
+\begin{document}
+\maketitle
+
+\section{Overview of the Derivation of the Anisotropically Extended Gor'kov Equations}
+
+We introduce the Green's function method based on the BCS theory extended to cases where the superconducting gap symmetry is non-s-wave.
+
+First, we use a more general Hamiltonian than the BCS one, given by:
+
+\begin{eqnarray}
+	\mathcal{H}
+	&=&
+	\mathcal{H}_{0} \ \! + \ \! \mathcal{H}_{\rm pair}
+	\nonumber \\[2mm] &=&
+	\sum_{\bm{k},\bm{k}',s,s'}
+	\langle \bm{k} s | \mathcal{H}_{0} | \bm{k}' s' \rangle
+	a_{\bm{k} s}^{\dagger}
+	a_{\bm{k}' s'}
+	\nonumber \\ \ &+& \
+	\sum_{\bm{k},\bm{k}',\bm{q},s_{1},s_{2},s_{3},s_{4}}
+	V_{s_{1}s_{2}s_{3}s_{4}}(\bm{k},\bm{k}')
+	a_{(\bm{q}/2) - \bm{k} , s_{1}}^{\dagger}
+	a_{(\bm{q}/2) + \bm{k} , s_{2}}^{\dagger}
+	a_{(\bm{q}/2) + \bm{k} , s_{3}}
+	a_{(\bm{q}/2) - \bm{k} , s_{4}}
+	\ \ .
+\end{eqnarray}
+
+The first term, $\mathcal{H}_{0}$, represents the single-particle Hamiltonian. This term includes non-uniform effects such as impurity scattering and interface scattering. The second term, the pairing interaction, is expressed with a center-of-mass momentum $\bm{q}$ and is not constrained by anything other than momentum conservation.
+
+We introduce the finite-temperature Green's functions in the Matsubara formalism as follows:
+
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	-
+	\langle T_{\tau} \{ a_{\bm{k}s}(\tau) a_{\bm{k}'s'}^{\dagger}(0) \} \rangle
+	\ \ ,
+	\\[3mm]
+	F_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	\langle T_{\tau} \{ a_{\bm{k}s}(\tau) a_{\bm{k}'s'}(0) \} \rangle
+	\ \ , \ \
+	F_{ss'}^{\dagger}(\bm{k} , \bm{k}' ; \tau)
+	\ = \
+	\langle T_{\tau} \{ a_{\bm{k}s}^{\dagger}(\tau) a_{\bm{k}'s'}^{\dagger}(0) \} \rangle
+	\ \ .
+\end{eqnarray}
+
+Here, $F_{ss'}^{\dagger}$ is written by convention but does not represent the Hermitian conjugate of $F_{ss'}$. It should be noted that this quantity is a c-number.
+
+The usual Minkowski space metric, diag(-1,1,1,1), is inconvenient for calculations. We therefore perform a Wick rotation on the time axis, rotating it by $\pi/2$ in the complex plane to transform the metric from diag(-1,1,1,1) to diag(1,1,1,1), thereby converting to Euclidean space. In this case, the 0-component becomes the imaginary time $\tau=i t$, and the time dependence of the creation and annihilation operators is introduced in the Heisenberg picture.
+
+\begin{eqnarray}
+	a_{\bm{k}s}(\tau)
+	&=&
+	e^{ \mathcal{H} \tau } a_{\bm{k}s} e^{ - \mathcal{H} \tau }
+	\ \ .
+	\nonumber
+\end{eqnarray}
+
+The Fourier transform from the coordinate variable $\tau$ to $i \omega_{n}$ is defined as follows:
+
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	k_{B} T \sum_{n}
+	G_{ss'}(\bm{k} , \bm{k}' ; i \omega_{n} )
+	e^{- i \omega_{n} \tau }
+	\ \ , \nonumber \\[2mm]
+	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	k_{B} T \sum_{n}
+	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; i \omega_{n} )
+	e^{- i \omega_{n} \tau }
+	\ \ .
+\end{eqnarray}
+
+Here, $\omega_{n}=(2n+1)\pi k_{B} T$, with ($n \in \mathbb{Z}$), is the fermionic Matsubara frequency.
+
+Using the equation of motion for operators, for example,
+
+\begin{eqnarray}
+	\partial_{\tau} a_{\bm{k}s}
+	&=&
+	[\mathcal{H},a_{\bm{k}s}]
+	\nonumber
+	\ \ ,
+\end{eqnarray}
+
+we obtain the Gor'kov equations for $G_{ss'}(\bm{k} , \bm{k}' ; i \omega_{n} )$ and $F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; i \omega_{n} )$:
+
+\begin{eqnarray}
+	&&
+	\sum_{\bm{k}'',s''}
+	\Big[
+		\langle \bm{k} s | i \omega_{n} - \mathcal{H}_{0} | \bm{k}'' s'' \rangle
+		G_{s''s'}(\bm{k}'' , \bm{k}' ; i \omega_{n} )
+		\\ && \ - \
+		\sum_{\bm{q}''}
+		\Delta_{s s''}(\bm{k}'',\bm{q}'') F_{s'' s'}^{\dagger}
+		(\dfrac{\bm{q}''}{2} - \bm{k}'' , \bm{k}' ; i \omega_{n})
+		\delta_{(\bm{q}''/2)+\bm{k}'',\bm{k}}
+		\Big]
+	\ = \
+	\delta_{\bm{k},\bm{k}'}
+	\delta_{s,s'}
+	\ \ , \\[2mm]
+	&&
+	\sum_{\bm{k}'',s''}
+	\Big[
+		\langle \bm{k}'' s'' | i \omega_{n} + \mathcal{H}_{0} | \bm{k}' s' \rangle
+		F_{ss'}^{\dagger}(\bm{k} , \bm{k}' ; i \omega_{n} )
+		\\ && \ - \
+		\sum_{\bm{q}''}
+		\Delta_{s s''}^{\dagger}(\bm{k}'',\bm{q}'') G_{s'' s'}
+		(\dfrac{\bm{q}''}{2} + \bm{k}'' , \bm{k}' ; i \omega_{n})
+		\delta_{(\bm{q}''/2)-\bm{k}'',\bm{k}}
+		\Big]
+	\ = \
+	0
+	\ \ , \\[2mm]
+	&&
+	\sum_{\bm{k}'',s''}
+	\Big[
+		\langle \bm{k} s | i \omega_{n} - \mathcal{H}_{0} | \bm{k}'' s'' \rangle
+		F_{s''s'}^{\dagger}(\bm{k}'' , \bm{k}' ; i \omega_{n} )
+		\\ && \ - \
+		\sum_{\bm{q}''}
+		\Delta_{s s''}^{\dagger}(\bm{k}'',\bm{q}'') G_{s' s'}
+		(\bm{k}' , \dfrac{\bm{q}''}{2} - \bm{k}'' ; i \omega_{n})
+		\delta_{(\bm{q}''/2)+\bm{k}'',\bm{k}}
+		\Big]
+	\ = \
+	0
+	\ \ .
+	\label{eqn:B7}
+\end{eqnarray}
+
+The quartic operator form included in $\mathcal{H}_{\rm pair}$ has been truncated using the superconducting mean-field method. The resulting pair potential is:
+
+\begin{eqnarray}
+	\Delta_{ss'}(\bm{k},\bm{q})
+	&=&
+	- \sum_{\bm{k}' , s_{1} , s_{2}}
+	V_{s' s s_{1} s_{2}}(\bm{k},\bm{k}')
+	\langle
+	a_{(\bm{q}/2) + \bm{k}' , s_{1}}
+	a_{(\bm{q}/2) - \bm{k}' , s_{1}}
+	\rangle
+	\ \ ,
+	\nonumber \\[2mm] &=&
+	- k_{B} T
+	\sum_{n}
+	\sum_{\bm{k}' , s_{1} , s_{2}}
+	V_{s' s s_{1} s_{2}}(\bm{k},\bm{k}')
+	\ \!
+	F_{s_{1} s_{2}}(\dfrac{\bm{q}}{2} + \bm{k}' , \dfrac{\bm{q}}{2} - \bm{k}' ; i \omega_{n})
+	\ \ .
+	\label{eqn:B8}
+\end{eqnarray}
+
+\section{Solutions to the Gor'kov Equations for a Uniform System}
+
+In a uniform system, the two momentum variables of the Green's function $G_{ss'}(\bm{k} , \bm{k}' ; \tau)$ are equal, meaning $\bm{k}=\bm{k}'$. For the anomalous Green's function $F_{ss'}(\bm{k} , \bm{k}' ; \tau)$, the sign changes to $\bm{k}=-\bm{k}'$.
+
+Looking at Equation (\ref{eqn:B8}), the Nambu space representation matrix for the pair potential, $\hat{\Delta}(\bm{k},\bm{q})$, becomes independent of $\bm{q}$. Furthermore, the single-particle Hamiltonian term can be simplified by extracting only the diagonal elements of the representation matrix in momentum and spin space as follows:
+
+\begin{eqnarray}
+	\langle \bm{k} s |  \mathcal{H}_{0} | \bm{k}' s' \rangle
+	&=&
+	\varepsilon(\bm{k}) \delta_{\bm{k},\bm{k}'} \delta_{s,s'}
+	\nonumber
+\end{eqnarray}
+
+Using these, the Gor'kov equations can be expressed simply as:
+
+\begin{eqnarray}
+	\Big[
+		i \omega_{n} - \varepsilon(\bm{k})
+		\Big]
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	\ - \
+	\sum_{s''}
+	\Delta_{s s''}(\bm{k})
+	F_{s'' s}^{\dagger}(\bm{k},i \omega_{n})
+	&=&
+	\delta_{s,s'}
+	\ \ ,
+	\\[2mm]
+	\Big[
+		i \omega_{n} + \varepsilon(\bm{k})
+		\Big]
+	F_{ss'}^{\dagger}(\bm{k} , i \omega_{n} )
+	\ - \
+	\sum_{s''}
+	\Delta_{s s''}^{\dagger}(\bm{k})
+	G_{s'' s}(\bm{k},i \omega_{n})
+	&=&
+	0
+	\ \ ,
+	\\[2mm]
+	\Big[
+		i \omega_{n} - \varepsilon(\bm{k})
+		\Big]
+	F_{ss'}(\bm{k} , i \omega_{n} )
+	\ - \
+	\sum_{s''}
+	\Delta_{s s''}(\bm{k})
+	G_{s' s''}( - \bm{k}, - i \omega_{n})
+	&=&
+	0
+	\ \ .
+\end{eqnarray}
+
+Each of these equations can be solved using simple algebra. In the Nambu space representation, for the spin-singlet pair case:
+
+\begin{eqnarray}
+	\hat{G}(\bm{k},i \omega_{n})
+	&=&
+	- \dfrac{ i \omega_{n} + \varepsilon(\bm{k}) }{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\hat{\sigma}_{0}
+	\ \ ,
+	\nonumber \\[2mm]
+	\hat{F}(\bm{k},i \omega_{n})
+	&=&
+	\dfrac{ \hat{\Delta}(\bm{k}) }{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\ \ .
+\end{eqnarray}
+
+In the spin-triplet pair case, including non-unitary states ($\bm{q}(\bm{k}) = i \bm{d}(\bm{k}) \times \bm{d}^{*}(\bm{k}) \neq 0$):
+
+\begin{eqnarray}
+	\hat{G}(\bm{k},i \omega_{n})
+	&=&
+	\dfrac{ \Big[ \omega_{n}^{2} + \varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2} \Big] \hat{\sigma}_{0} + \bm{q} \cdot \hat{\bm{\sigma}} }
+	{ ( \omega_{n}^{2} + E_{\bm{k}+}^{2} ) ( \omega_{n}^{2} + E_{\bm{k}-}^{2} ) }
+	\Big[ i \omega_{n} + \varepsilon(\bm{k}) \Big]
+	\ \ ,
+	\nonumber \\[2mm]
+	\hat{F}(\bm{k},i \omega_{n})
+	&=&
+	\dfrac{ \Big[ \omega_{n}^{2} + \varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2} \Big] \bm{d}(\bm{k}) - i \bm{q} \times \bm{d}(\bm{k}) }
+	{ ( \omega_{n}^{2} + E_{\bm{k}+}^{2} ) ( \omega_{n}^{2} + E_{\bm{k}-}^{2} ) }
+	\cdot
+	(i \hat{\bm{\sigma}} \hat{\sigma}_{y})
+	\ \ .
+\end{eqnarray}
+
+Here, we have used the shorthand $E_{\bm{k} \pm} = \sqrt{ \varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2} \pm | \bm{q}(\bm{k}) |^{2} }$. $|\bm{d}(\bm{k})|^{2}$ represents the magnitude of the extended gap, and $|\bm{q}(\bm{k})|^{2}$ represents the magnitude of the gap splitting that appears when time-reversal symmetry is broken. (Note that the $\bm{q}$ from $\mathcal{H}_{\rm pair}$ is different from the $\bm{q}$ vector that appears when time-reversal symmetry is broken. The former $\bm{q}$ was a dummy variable that vanished upon summation.)
+
+\section{Solutions to the Gor'kov Equations for a General Non-uniform System}
+
+Let's go back to Equation (\ref{eqn:B7}). Solving for the anomalous Green's function gives:
+
+\begin{eqnarray}
+	F_{ss'} ( \bm{k} , \bm{k}' ; i \omega_{n} )
+	&=&
+	\sum_{\bm{k}'' , \bm{q}'' , s_{1} , s_{2}}
+	\Delta_{s_{1} s_{2}}( \bm{k}'' , \bm{q}'' )
+	G_{ss'}^{(0)} ( \bm{k} , \dfrac{\bm{q}''}{2} + \bm{k}'' ; i \omega_{n} )
+	G_{s' s_{2}} ( \bm{k}' , \dfrac{\bm{q}''}{2} - \bm{k}'' ; - i \omega_{n} )
+\end{eqnarray}
+
+Here, the function $\hat{G}^{(0)}$ is the Green's function for the single-particle Hamiltonian $\mathcal{H}_{0}$, defined by:
+
+\begin{eqnarray}
+	\sum_{\bm{k}'' , s''}
+	\langle \bm{k} s |  i \omega_{n} - \mathcal{H}_{0} | \bm{k}'' s'' \rangle
+	G_{s''s'}^{(0)} ( \bm{k}'' , \bm{k}' ; i \omega_{n} )
+	&=&
+	\delta_{s,s'}
+	\delta_{\bm{k},\bm{k}'}
+\end{eqnarray}
+\ \\
+
+Work in Progress...
+
+\begin{thebibliography}{9}
+	\bibitem{SigristUeda1991} M. Sigrist and K. Ueda (1991) Rev. Mod. Phys.
+
+\end{thebibliography}
+\end{document}

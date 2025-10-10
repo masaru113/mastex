@@ -1,0 +1,324 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb, bm}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{tikz-cd}
+
+\title{
+異方的超伝導に拡張されたGor'kov方程式とその解
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+\section{異方的に拡張されたGor'kov方程式の導出の概略}
+
+超伝導ギャップの対称性が非s波の場合にも拡張されたBCS理論を基にGreen関数法を導入する。
+
+まず始めに、ハミルトニアンはBCSのものに拘らず、より一般的な次のものを用いる。
+
+\begin{eqnarray}
+	\mathcal{H}
+	&=&
+	\mathcal{H}_{0} \ \! + \ \! \mathcal{H}_{\rm pair}
+	\nonumber \\[2mm] &=&
+	\sum_{\bm{k},\bm{k}',s,s'}
+	\langle \bm{k} s | \mathcal{H}_{0} | \bm{k}' s' \rangle
+	a_{\bm{k} s}^{\dagger}
+	a_{\bm{k}' s'}
+	\nonumber \\ \ &+& \
+	\sum_{\bm{k},\bm{k}',\bm{q},s_{1},s_{2},s_{3},s_{4}}
+	V_{s_{1}s_{2}s_{3}s_{4}}(\bm{k},\bm{k}')
+	a_{(\bm{q}/2) - \bm{k} , s_{1}}^{\dagger}
+	a_{(\bm{q}/2) + \bm{k} , s_{2}}^{\dagger}
+	a_{(\bm{q}/2) + \bm{k} , s_{3}}
+	a_{(\bm{q}/2) - \bm{k} , s_{4}}
+	\ \ .
+\end{eqnarray}
+
+第一項$\mathcal{H}_{0}$は一粒子のハミルトニアンを表す。
+この第一項は不純物散乱や界面での散乱といった不均一効果も含んでいる。
+第二項の対相互作用に関しては輸送運動量を$\bm{q}$としていて、運動量の保存則以外を課していない。
+
+有限温度のGreen関数を松原形式で次のように導入する。
+
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	-
+	\langle T_{\tau} \{ a_{\bm{k}s}(\tau) a_{\bm{k}'s'}^{\dagger}(0) \} \rangle
+	\ \ ,
+	\\[3mm]
+	F_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	\langle T_{\tau} \{ a_{\bm{k}s}(\tau) a_{\bm{k}'s'}(0) \} \rangle
+	\ \ , \ \
+	F_{ss'}^{\dagger}(\bm{k} , \bm{k}' ; \tau)
+	\ = \
+	\langle T_{\tau} \{ a_{\bm{k}s}^{\dagger}(\tau) a_{\bm{k}'s'}^{\dagger}(0) \} \rangle
+	\ \ .
+\end{eqnarray}
+
+ここで慣例に従って$F_{ss'}^{\dagger}$と書いたが、
+$F_{ss'}$のエルミート共役を取っているわけではない。
+この量は$c-$数であることに注意する。
+
+通常のMinkowski空間の計量はdiag(-1,1,1,1)であり計算に不便である。
+そこで時間軸をWick回転して、すなわち複素平面上$\pi/2$だけ回転させ、diag(-1,1,1,1)$\to$diag(1,1,1,1)とした。
+すなわちEuclidean空間化している。
+このとき第0成分は虚時間$\tau=i t$であり、生成消滅演算子の時間依存性はHeisenberg描像で導入されている。
+
+\begin{eqnarray}
+	a_{\bm{k}s}(\tau)
+	&=&
+	e^{ \mathcal{H} \tau } a_{\bm{k}s} e^{ - \mathcal{H} \tau }
+	\ \ .
+	\nonumber
+\end{eqnarray}
+
+座標変数$\tau \to i \omega_{n}$へのFourier変換は次で定義されている。
+
+\begin{eqnarray}
+	G_{ss'}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	k_{B} T \sum_{n}
+	G_{ss'}(\bm{k} , \bm{k}' ; i \omega_{n} )
+	e^{- i \omega_{n} \tau }
+	\ \ , \nonumber \\[2mm]
+	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; \tau)
+	&=&
+	k_{B} T \sum_{n}
+	F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; i \omega_{n} )
+	e^{- i \omega_{n} \tau }
+	\ \ .
+\end{eqnarray}
+
+ここで、$\omega_{n}=(2n+1)\pi k_{B} T$、($n \in \mathbb{Z}$)はfermionicな松原周波数である。
+
+演算子の運動方程式、例えば
+
+\begin{eqnarray}
+	\partial_{\tau} a_{\bm{k}s}
+	&=&
+	[\mathcal{H},a_{\bm{k}s}]
+	\nonumber
+	\ \ ,
+\end{eqnarray}
+
+などを用いて
+$G_{ss'}(\bm{k} , \bm{k}' ; i \omega_{n} )$
+と
+$F_{ss'}^{(\dagger)}(\bm{k} , \bm{k}' ; i \omega_{n} )$
+に対するGor'kov方程式を得る。
+
+\begin{eqnarray}
+	&&
+	\sum_{\bm{k}'',s''}
+	\Big[
+		\langle \bm{k} s | i \omega_{n} - \mathcal{H}_{0} | \bm{k}'' s'' \rangle
+		G_{s''s'}(\bm{k}'' , \bm{k}' ; i \omega_{n} )
+		\\ && \ - \
+		\sum_{\bm{q}''}
+		\Delta_{s s'}(\bm{k}'',\bm{q}'') F_{s'' s'}^{\dagger}
+		(\dfrac{\bm{q}''}{2} - \bm{k}'' , \bm{k}' ; i \omega_{n})
+		\delta_{(\bm{q}''/2)+\bm{k}'',\bm{k}}
+		\Big]
+	\ = \
+	\delta_{\bm{k},\bm{k}'}
+	\delta_{s,s'}
+	\ \ , \\[2mm]
+	&&
+	\sum_{\bm{k}'',s''}
+	\Big[
+		\langle \bm{k}'' s'' | i \omega_{n} + \mathcal{H}_{0} | \bm{k}' s' \rangle
+		F_{ss'}^{\dagger}(\bm{k} , \bm{k}' ; i \omega_{n} )
+		\\ && \ - \
+		\sum_{\bm{q}''}
+		\Delta_{s s'}^{\dagger}(\bm{k}'',\bm{q}'') G_{s'' s'}
+		(\dfrac{\bm{q}''}{2} + \bm{k}'' , \bm{k}' ; i \omega_{n})
+		\delta_{(\bm{q}''/2)-\bm{k}'',\bm{k}}
+		\Big]
+	\ = \
+	0
+	\ \ , \\[2mm]
+	&&
+	\sum_{\bm{k}'',s''}
+	\Big[
+		\langle \bm{k} s | i \omega_{n} - \mathcal{H}_{0} | \bm{k}'' s'' \rangle
+		F_{s''s'}^{\dagger}(\bm{k}'' , \bm{k}' ; i \omega_{n} )
+		\\ && \ - \
+		\sum_{\bm{q}''}
+		\Delta_{s s'}^{\dagger}(\bm{k}'',\bm{q}'') G_{s' s'}
+		(\bm{k}' , \dfrac{\bm{q}''}{2} - \bm{k}'' ; i \omega_{n})
+		\delta_{(\bm{q}''/2)+\bm{k}'',\bm{k}}
+		\Big]
+	\ = \
+	0
+	\ \ .
+	\label{eqn:B7}
+\end{eqnarray}
+
+$\mathcal{H}_{\rm pair}$に含まれる演算子の4次形式は超伝導平均場の手法で切断した。
+このときに出てくる対ポテンシャルは、
+
+\begin{eqnarray}
+	\Delta_{ss'}(\bm{k},\bm{q})
+	&=&
+	- \sum_{\bm{k}' , s_{1} , s_{2}}
+	V_{s' s s_{1} s_{2}}(\bm{k},\bm{k}')
+	\langle
+	a_{(\bm{q}/2) + \bm{k}' , s_{1}}
+	a_{(\bm{q}/2) - \bm{k}' , s_{1}}
+	\rangle
+	\ \ ,
+	\nonumber \\[2mm] &=&
+	- k_{B} T
+	\sum_{n}
+	\sum_{\bm{k}' , s_{1} , s_{2}}
+	V_{s' s s_{1} s_{2}}(\bm{k},\bm{k}')
+	\ \!
+	F_{s_{1} s_{2}}(\dfrac{\bm{q}}{2} + \bm{k}' , \dfrac{\bm{q}}{2} - \bm{k}' ; i \omega_{n})
+	\ \ .
+	\label{eqn:B8}
+\end{eqnarray}
+
+\section{系が一様な場合のGor'kov方程式の解}
+
+系が一様な場合、Green関数$G_{ss'}(\bm{k} , \bm{k}' ; \tau)$の2つの運動量の変数は等しい。
+すなわち、$\bm{k}=\bm{k}'$である。
+異常Green関数$F_{ss'}(\bm{k} , \bm{k}' ; \tau)$場合は符号が変わって$\bm{k}=-\bm{k}'$となる。
+
+このとき式(\ref{eqn:B8})を見ると、
+対ポテンシャルの南部空間における表現行列$\hat{\Delta}(\bm{k},\bm{q})$は
+$\bm{q}$に依存しなくなる。
+また、一粒子ハミルトニアンの項は、
+運動量空間とスピン空間の表現行列に対する要素の対角成分のみ抽出して次のように置ける。
+
+\begin{eqnarray}
+	\langle \bm{k} s |  \mathcal{H}_{0} | \bm{k}' s' \rangle
+	&=&
+	\varepsilon(\bm{k}) \delta_{\bm{k},\bm{k}'} \delta_{s,s'}
+	\nonumber
+\end{eqnarray}
+
+これらを用いるとGor'kov方程式は単純に表現できて、
+
+\begin{eqnarray}
+	\Big[
+		i \omega_{n} - \varepsilon(\bm{k})
+		\Big]
+	G_{ss'}(\bm{k} , i \omega_{n} )
+	\ - \
+	\sum_{s''}
+	\Delta_{s s''}(\bm{k})
+	F_{s'' s}^{\dagger}(\bm{k},i \omega_{n})
+	&=&
+	\delta_{s,s'}
+	\ \ ,
+	\\[2mm]
+	\Big[
+		i \omega_{n} + \varepsilon(\bm{k})
+		\Big]
+	F_{ss'}^{\dagger}(\bm{k} , i \omega_{n} )
+	\ - \
+	\sum_{s''}
+	\Delta_{s s''}^{\dagger}(\bm{k})
+	G_{s'' s}(\bm{k},i \omega_{n})
+	&=&
+	0
+	\ \ ,
+	\\[2mm]
+	\Big[
+		i \omega_{n} - \varepsilon(\bm{k})
+		\Big]
+	F_{ss'}(\bm{k} , i \omega_{n} )
+	\ - \
+	\sum_{s''}
+	\Delta_{s s''}(\bm{k})
+	G_{s' s''}( - \bm{k}, - i \omega_{n})
+	&=&
+	0
+	\ \ .
+\end{eqnarray}
+
+それぞれの方程式は加減乗除するだけで解ける。
+南部空間の表現で、スピン一重項対の場合、
+
+\begin{eqnarray}
+	\hat{G}(\bm{k},i \omega_{n})
+	&=&
+	- \dfrac{ i \omega_{n} + \varepsilon(\bm{k}) }{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\hat{\sigma}_{0}
+	\ \ ,
+	\nonumber \\[2mm]
+	\hat{F}(\bm{k},i \omega_{n})
+	&=&
+	\dfrac{ \hat{\Delta}(\bm{k}) }{ \omega_{n}^{2} + E_{\bm{k}}^{2} }
+	\ \ .
+\end{eqnarray}
+
+また、スピン三重項対の場合、非ユニタリー状態（$\bm{q}(\bm{k}) = i \bm{d}(\bm{k}) \times \bm{d}^{*}(\bm{k}) \neq 0$）の場合も含めて、
+
+\begin{eqnarray}
+	\hat{G}(\bm{k},i \omega_{n})
+	&=&
+	\dfrac{ \Big[ \omega_{n}^{2} + \varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2} \Big] \hat{\sigma}_{0} + \bm{q} \cdot \hat{\bm{\sigma}} }
+	{ ( \omega_{n}^{2} + E_{\bm{k}+}^{2} ) ( \omega_{n}^{2} + E_{\bm{k}-}^{2} ) }
+	\Big[ i \omega_{n} + \varepsilon(\bm{k}) \Big]
+	\ \ ,
+	\nonumber \\[2mm]
+	\hat{F}(\bm{k},i \omega_{n})
+	&=&
+	\dfrac{ \Big[ \omega_{n}^{2} + \varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2} \Big] \bm{d}(\bm{k}) - i \bm{q} \times \bm{d}(\bm{k}) }
+	{ ( \omega_{n}^{2} + E_{\bm{k}+}^{2} ) ( \omega_{n}^{2} + E_{\bm{k}-}^{2} ) }
+	\cdot
+	(i \hat{\bm{\sigma}} \hat{\sigma}_{y})
+	\ \ .
+\end{eqnarray}
+
+ただし、
+$E_{\bm{k} \pm} = \sqrt{ \varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2} \pm | \bm{q}(\bm{k}) |^{2} }$
+と略記した。
+$|\bm{d}(\bm{k})|^{2}$は拡張されたギャップの大きさ、
+$|\bm{q}(\bm{k})|^{2}$は時間反転対称性が破れた場合に出現するギャップの分裂の大きさをそれぞれ表している。
+（$\mathcal{H}_{\rm pair}$に含まれていた$\bm{q}$と、時間反転対称性が破れた場合に出現する$q$ベクトルは異なる。
+そもそも前者の$\bm{q}$は和を取ると消えるダミー変数であった。）
+\section{系が一般に非一様な場合のGor'kov方程式の解}
+
+式(\ref{eqn:B7})まで遡る。
+異常Green関数に関して解くと、
+
+\begin{eqnarray}
+	F_{ss'} ( \bm{k} , \bm{k}' ; i \omega_{n} )
+	&=&
+	\sum_{\bm{k}'' , \bm{q}'' , s_{1} , s_{2}}
+	\Delta_{s_{1} s_{2}}( \bm{k}'' , \bm{q}'' )
+	G_{ss'}^{(0)} ( \bm{k} , \dfrac{\bm{q}''}{2} + \bm{k}'' ; i \omega_{n} )
+	G_{s' s_{2}} ( \bm{k}' , \dfrac{\bm{q}''}{2} - \bm{k}'' ; - i \omega_{n} )
+\end{eqnarray}
+
+ここで関数$\hat{G}^{(0)}$は一体のハミルトニアン$\mathcal{H}_{0}$に対するGreen関数であり次で定義されている。
+
+\begin{eqnarray}
+	\sum_{\bm{k}'' , s''}
+	\langle \bm{k} s |  i \omega_{n} - \mathcal{H}_{0} | \bm{k}'' s'' \rangle
+	G_{s''s'}^{(0)} ( \bm{k}'' , \bm{k}' ; i \omega_{n} )
+	&=&
+	\delta_{s,s'}
+	\delta_{\bm{k},\bm{k}'}
+\end{eqnarray}
+\ \\
+
+Work in Progress...
+
+\begin{thebibliography}{9}
+	\bibitem{SigristUeda1991} M. Sigrist and K. Ueda (1991) Rev. Mod. Phys.
+
+\end{thebibliography}
+\end{document}
