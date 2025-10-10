@@ -13,18 +13,6 @@ This repository contains my personal notes on a wide range of topics in **mathem
 The notes are organized within a parent directory named `tex`. All documents are written in LaTeX.
 
 - **tex**: Root directory for documents created with LaTeX.
-    - **phys**: Notes on physics.
-        - **[Bosonic Strings Short Introduction](https://github.com/masaru113/mastex/blob/main/tex/phys/BozonicString/main.pdf)**: Notes on short introduction about bosonic string.
-        - **[Notes on the Derivation of the Chern-Simons Form](https://github.com/masaru113/mastex/blob/main/tex/phys/ChernSimonsForm/main.pdf)**: Notes on a simple, from-scratch derivation of the Chern-Simons form.
-        - **[Massless Real Scalar Field in 5D Minkowski Space Gaining Mass Upon Compactification of One Spatial Dimension](https://github.com/masaru113/mastex/blob/main/tex/phys/KaluzaKleinMassGeneration/main.pdf)**: Notes on the mechanism of mass generation via compactification.
-        - **[Keldysh Green Function](https://github.com/masaru113/mastex/blob/main/tex/phys/KeldyshGreenFunction/main.pdf)**: Overview of the Keldysh Green function formalism, a method for analyzing non-equilibrium quantum systems.
-        - **[2-body mechanics in the Local Fermi Liquid](https://github.com/masaru113/mastex/blob/main/tex/phys/LocalFermiLiquid/main.pdf)**: Review of spin and charge susceptibilities and the Wilson ratio in the context of the local Fermi liquid theory for f-electron systems.
-        - **[Migdal-Eliashberg Theory in Nonequilibrium](https://github.com/masaru113/mastex/blob/main/tex/phys/MigdalEliashberg/main.pdf)**: This note explores the Migdal-Eliashberg theory in nonequilibrium, deriving the superconducting gap equation within the Keldysh Green's function formalism.
-        - **[Gor'kov Equations Extended for Anisotropic Superconductivity and Their Solutions](https://github.com/masaru113/mastex/blob/main/tex/phys/anisotropic_gorkov/main.pdf)**: This note provides a theoretical derivation of the Gor'kov equations, extending them for application to anisotropic superconductivity, and presents solutions for both uniform (and non-uniform systems, work in progress).
-        - **[Anisotropic BCS Theory](https://github.com/masaru113/mastex/blob/main/tex/phys/anisotropic_superconductivity/main.pdf)**: This is a comprehensive overview of anisotropic BCS theory, covering its historical background, theoretical formulation, and key concepts like Bogoliubov transformations and the symmetries of the superconducting gap function.
-        - **[Solutions to the Extended Gor’kov Equations for Anisotropic Superconductors and the Electronic Raman Response Function](https://github.com/masaru113/mastex/blob/main/tex/phys/extended_gorkov_anisotropic_raman/main.pdf)**: notes for review of the calculations from JPS Conf. Proc. 3, 015045 (2014)[.](https://journals.jps.jp/doi/10.7566/JPSCP.3.015045)
-    - **dia**: Misc.
-      - **[Oct. 2025](https://github.com/masaru113/mastex/blob/main/tex/dia/2025/10/main.pdf)**
     - **finance**: Notes on financial engineering.
         - **[The Black-Scholes-Merton Equation](https://github.com/masaru113/mastex/blob/main/tex/finance/BlackScholesMerton/main.pdf)**: This document explains the Black-Scholes-Merton model, detailing its derivation and formula.
         - **[Ito's Lemma](https://github.com/masaru113/mastex/blob/main/tex/finance/ItoLemma/main.pdf)**: This notebook provides a derivation of Ito's Lemma, a fundamental concept in financial mathematics, and shows its application to the Black-Scholes-Merton equation for pricing stock options.
@@ -33,6 +21,8 @@ The notes are organized within a parent directory named `tex`. All documents are
         - **[Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio](https://github.com/masaru113/mastex/blob/main/tex/finance/ReplicatingPortfolio/main.pdf)**: Outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
         - **[Stochastic Volatility and Local Volatility](https://github.com/masaru113/mastex/blob/main/tex/finance/StochasticAndLocalVolatility/main.pdf)**: Note on stochastic volatility model derivation and market price of volatility risk analysis.
         - **[Finance Cheatsheet (Basic)](https://github.com/masaru113/mastex/blob/main/tex/finance/basic_cheat_sheet/main.pdf)**: A collection of sad formulas.
+    - **log**:
+      - **[Oct. 2025](https://github.com/masaru113/mastex/blob/main/tex/dia/2025/10/main.pdf)**
     - **math**: Notes on mathematics.
         - **cat**: Foundational notes on category theory.
             - **[A First Step into Category Theory](https://github.com/masaru113/mastex/blob/main/tex/math/cat/category_first_step/main.pdf)**: Definition of categories and specific examples.
@@ -50,7 +40,16 @@ The notes are organized within a parent directory named `tex`. All documents are
           - **[The Values of the Riemann Zeta Function at Negative Integers](https://github.com/masaru113/mastex/blob/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf)**: memo on analytic continuation of Riemann zeta to negative integers (work in progress).
         - **stat**: Folder for topics related to statistics.
           - **[AR Model](https://github.com/masaru113/mastex/blob/main/tex/math/stat/AR/main.pdf)**: memo on AR model
-
+    - **phys**: Notes on physics.
+        - **[Bosonic Strings Short Introduction](https://github.com/masaru113/mastex/blob/main/tex/phys/BozonicString/main.pdf)**: Notes on short introduction about bosonic string.
+        - **[Notes on the Derivation of the Chern-Simons Form](https://github.com/masaru113/mastex/blob/main/tex/phys/ChernSimonsForm/main.pdf)**: Notes on a simple, from-scratch derivation of the Chern-Simons form.
+        - **[Massless Real Scalar Field in 5D Minkowski Space Gaining Mass Upon Compactification of One Spatial Dimension](https://github.com/masaru113/mastex/blob/main/tex/phys/KaluzaKleinMassGeneration/main.pdf)**: Notes on the mechanism of mass generation via compactification.
+        - **[Keldysh Green Function](https://github.com/masaru113/mastex/blob/main/tex/phys/KeldyshGreenFunction/main.pdf)**: Overview of the Keldysh Green function formalism, a method for analyzing non-equilibrium quantum systems.
+        - **[2-body mechanics in the Local Fermi Liquid](https://github.com/masaru113/mastex/blob/main/tex/phys/LocalFermiLiquid/main.pdf)**: Review of spin and charge susceptibilities and the Wilson ratio in the context of the local Fermi liquid theory for f-electron systems.
+        - **[Migdal-Eliashberg Theory in Nonequilibrium](https://github.com/masaru113/mastex/blob/main/tex/phys/MigdalEliashberg/main.pdf)**: This note explores the Migdal-Eliashberg theory in nonequilibrium, deriving the superconducting gap equation within the Keldysh Green's function formalism.
+        - **[Gor'kov Equations Extended for Anisotropic Superconductivity and Their Solutions](https://github.com/masaru113/mastex/blob/main/tex/phys/anisotropic_gorkov/main.pdf)**: This note provides a theoretical derivation of the Gor'kov equations, extending them for application to anisotropic superconductivity, and presents solutions for both uniform (and non-uniform systems, work in progress).
+        - **[Anisotropic BCS Theory](https://github.com/masaru113/mastex/blob/main/tex/phys/anisotropic_superconductivity/main.pdf)**: This is a comprehensive overview of anisotropic BCS theory, covering its historical background, theoretical formulation, and key concepts like Bogoliubov transformations and the symmetries of the superconducting gap function.
+        - **[Solutions to the Extended Gor’kov Equations for Anisotropic Superconductors and the Electronic Raman Response Function](https://github.com/masaru113/mastex/blob/main/tex/phys/extended_gorkov_anisotropic_raman/main.pdf)**: notes for review of the calculations from JPS Conf. Proc. 3, 015045 (2014)[.](https://journals.jps.jp/doi/10.7566/JPSCP.3.015045)
 ---
 
 ## License and Usage
