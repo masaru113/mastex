@@ -1,0 +1,738 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb, bm}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{tikz-cd}
+
+\title{
+異方的BCS理論
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+\section{BCS理論の概略}
+
+1957年にBardeen, Cooper, Schriefferが初めて超伝導現象の起源に迫る微視的な理論の確立に成功した。
+この理論はBCS理論と呼ばれる。
+
+1956年、引力的な相互作用をするfermionが存在することでFermi気体は不安定になるという事実をCooperが発見した。
+
+すなわち、Fermi面上に引力的な相互作用をするfermionが存在すると、Fermi気体の状態よりもエネルギーの低い基底状態が存在するということになる。
+
+この基底状態はコヒーレントな状態になり、電子は対を成す。
+この対のことをCooper対と呼ぶ。
+この対はFermi気体の状態における相関長よりも空間的に大きな広がりを持ち、
+全運動量はゼロである。
+
+実効的には実空間よりもむしろ運動量空間で対を成していると考えるのが自然である。
+
+電子格子相互作用の起源になっているポテンシャルは、
+運動量空間におけるFermi面に近い薄い層に引力的になる領域が存在する。
+
+ポテンシャルの内、
+このチャンネルは等方的な引力相互作用として機能し、
+電子対の波動関数は軌道角運動量 $l=0$ 、
+すなわち $s$ 波のスピン一重項状態（シングレット）になる。
+
+超伝導体として知られているほとんどの物質はこのBCS理論から得られる結論と一致している。
+
+\section{対波動関数が非s波に一般化されたBCS理論の概略}
+
+電子格子相互作用が唯一のfermion間に働く引力相互作用というわけではない。
+
+他の機構の引力相互作用は異方的な対形成を起こすことがある。
+例えばスピン三重項状態（トリプレット）超伝導の場合も異方的な対波動関数になる。
+
+1961年にAndersonとMorelが、
+1963年にはBalianとWerthamerが
+このような異方的に拡張されたBCS理論を調べている。
+
+これが1960年代を代表する問題提起の先駆けとなった。
+後にこれらの問題は超流動 $^{3}$ Heの理論構築へと繋がり、
+スピン揺動機構を仮定するとトリプレットの $p$ 波対が形成されることが分かった。
+
+以下では簡単にこのような異方的対へと拡張されたBCS理論を概説する。
+特に今後の研究の基礎になるであろう超伝導対の対称性についてまとめる。
+
+\section{定式化}
+
+\subsection{平均場のハミルトニアン}
+
+まず始めに、
+有効ハミルトニアンとして次のものを考える
+
+$$
+	\mathcal{H}
+	=
+	\sum_{\bm{k},s}
+	\varepsilon(\bm{k})
+	a_{\bm{k} s}^{\dagger}
+	a_{\bm{k} s}
+	\ + \
+	\dfrac{1}{2}
+	\sum_{\bm{k},\bm{k}',s_{1},s_{2},s_{3},s_{4}}
+	V_{s_{1} s_{2} s_{3} s_{4}}(\bm{k},\bm{k}')
+	a_{-\bm{k} s_{1}}^{\dagger}
+	a_{\bm{k} s_{2}}^{\dagger}
+	a_{\bm{k}' s_{3}}
+	a_{-\bm{k}' s_{4}}
+	\ .
+$$
+
+ここで$\varepsilon(\bm{k})$は化学ポテンシャル$\mu$から測ったバンドエネルギーであり、
+\[
+	V_{s_{1} s_{2} s_{3} s_{4}}(\bm{k},\bm{k}')
+	=
+	\langle
+	- \bm{k} , s_{1} ; \bm{k} , s_{2}
+	|
+	\hat{V}
+	|
+	- \bm{k}' , s_{4} ; \bm{k}' , s_{3}
+	\rangle
+\]
+は行列要素を表す。
+特に次のような対称性を持つことに留意する。
+\[
+	V_{s_{1} s_{2} s_{3} s_{4}}(\bm{k},\bm{k}')
+	\ = \
+	- V_{s_{2} s_{1} s_{3} s_{4}}( - \bm{k},\bm{k}')
+	\ = \
+	- V_{s_{1} s_{2} s_{4} s_{3}}(\bm{k}, - \bm{k}')
+	\ = \
+	V_{s_{4} s_{3} s_{2} s_{1}}( \bm{k}' , \bm{k})
+	\ .
+\]
+この$\hat{V}$は一般的な有効電子-電子相互作用であり、
+Fermi面上の狭い領域で引力として機能する。
+具体的には切断エネルギーを$\varepsilon_{c}$と置いて
+\[
+	-
+	\varepsilon_{c}
+	\leq
+	\varepsilon(\bm{k})
+	\leq
+	\varepsilon_{c}
+\]
+と考えれば良い。
+この物理的な起源はここでは省略する。
+引力的な相互作用の存在により、
+縮退したFermi気体は不安定になる。
+式(2.1)のハミルトニアンを多体問題の技法を用いて取り扱う。
+
+まずは平均場の手法で扱うのが筋である。
+後にギャップ関数と呼ばれる平均場、対ポテンシャルを次で定義する。
+\[
+	\Delta_{s s'}(\bm{k})
+	=
+	- \sum_{ \bm{k}' , s_{3} , s_{4} }
+	V_{s s' s_{3} s_{4} }(\bm{k},\bm{k}')
+	\langle
+	a_{ \bm{k}' s_{3} }
+	a_{ - \bm{k}' s_{4} }
+	\rangle
+	\ ,
+\]\[
+	\Delta_{s s'}^{*}( - \bm{k} )
+	=
+	\sum_{ \bm{k}' , s_{1} , s_{2} }
+	V_{ s_{1} s_{2} s s' }(\bm{k}',\bm{k})
+	\langle
+	a_{ - \bm{k}' s_{1} }^{\dagger}
+	a_{ \bm{k}' s_{2} }^{\dagger}
+	\rangle
+	\ .
+\]
+ここで$\langle A \rangle$のように囲われる括弧は期待値
+\[
+	\langle A \rangle
+	=
+	\dfrac{ {\rm tr} [ {\rm exp} ( - \beta \mathcal{H} ) A ]  }{ {\rm tr} [ {\rm exp} ( - \beta \mathcal{H} ) ] }
+	\ ,
+\]
+を表す。$\beta = (k_{B} T)^{-1}$は逆温度である。
+
+式(2.1)で表されるハミルトニアンの中の因子
+$
+	a_{\bm{k}s}^{(\dagger)}
+	a_{-\bm{k}s'}^{(\dagger)}
+$
+を置き換えることを考えていく。
+まずは単純な恒等式、
+\[
+	a_{\bm{k}s}^{(\dagger)}
+	a_{-\bm{k}s'}^{(\dagger)}
+	\ = \
+	\langle
+	a_{\bm{k}s}^{(\dagger)}
+	a_{-\bm{k}s'}^{(\dagger)}
+	\rangle
+	\ + \
+	\Big(
+	a_{\bm{k}s}^{(\dagger)}
+	a_{-\bm{k}s'}^{(\dagger)}
+	\ - \
+	\langle
+	a_{\bm{k}s}^{(\dagger)}
+	a_{-\bm{k}s'}^{(\dagger)}
+	\rangle
+	\Big)
+	\ ,
+\]
+を考える。
+この丸括弧$ ( \cdots )$で囲われた項は、
+平均場の期待値に対する演算子の揺らぎを表している。
+
+この揺らぎが平均場に比べて無視できる程度に小さい場合、
+すなわち平均場に対する高次項（微小項）と考えて無視する。
+
+このときハミルトニアン$\mathcal{H}$は一粒子ハミルトニアン$\tilde{\mathcal{H}}$に還元される。
+\[
+	\tilde{\mathcal{H}}
+	=
+	\sum_{\bm{k},s}
+	\varepsilon(\bm{k})
+	a_{\bm{k} s}^{\dagger}
+	a_{\bm{k} s}
+	\ + \
+	\dfrac{1}{2}
+	\sum_{\bm{k},s_{1},s_{2}}
+	\Big[
+		\Delta_{ s_{1} s_{2} }( \bm{k} )
+		a_{\bm{k} s_{1}}^{\dagger}
+		a_{-\bm{k} s_{2}}^{\dagger}
+		\ - \
+		\Delta_{ s_{1} s_{2} }^{*}( - \bm{k} )
+		a_{-\bm{k} s_{1}}
+		a_{\bm{k} s_{2}}
+		\Big]
+	\ .
+\]
+ここで演算子が含まれない平均場のみの定数項を無視した。
+この無視した定数項は基底状態のエネルギーのシフトにしか効かず、
+すなわち化学ポテンシャルに繰り込まれるので無視する。
+\subsection{Bogoliubov変換（対角化）}
+この一粒子の有効ハミルトニアンを対角化して固有値、固有演算子を探すのは簡単である。
+この固有演算子を$\alpha_{a}^{\dagger}$または$\alpha_{b}$と置くと次の運動方程式に従う。
+\[
+	\partial_{t} \alpha_{a}^{\dagger}
+	=
+	i [ \tilde{\mathcal{H}} , \alpha_{a}^{\dagger} ]
+	\ = \
+	E_{a} \alpha_{a}^{\dagger}
+	\ ,
+\]\[
+	\partial_{t} \alpha_{b}
+	=
+	i [ \tilde{\mathcal{H}} , \alpha_{b} ]
+	\ = \
+	- E_{b} \alpha_{b}
+	\ .
+\]
+定数$E_{a}$、$-E_{b}$は固有値である。
+
+固有値および固有演算子は次の正準ユニタリー変換（Bogoliubov変換）より得られる。
+\[
+	a_{\bm{k} s}
+	=
+	\sum_{s'}
+	(
+	u_{\bm{k} s s'}
+	\alpha_{\bm{k} s'}
+	\ + \
+	v_{\bm{k} s s'}
+	\alpha_{ - \bm{k} s'}^{\dagger}
+	)
+	\ .
+\]
+
+ここで現れた新しい演算子$\alpha_{\bm{k}s}^{(\dagger)}$
+はfermionであり反交換関係に従い、
+新たな基底状態の素励起に対応する。
+
+成分に演算子を持つスピノールをそれぞれ次のように定義する。
+\[
+	\bm{a}_{\bm{k} s}
+	=
+	(
+	a_{\bm{k} \uparrow}
+	,
+	a_{\bm{k} \downarrow}
+	,
+	a_{- \bm{k} \uparrow}^{\dagger}
+	,
+	a_{- \bm{k} \downarrow}^{\dagger}
+	)
+	\ , \]\[
+	\bm{\alpha}_{\bm{k} s}
+	=
+	(
+	\alpha_{\bm{k} \uparrow}
+	,
+	\alpha_{\bm{k} \downarrow}
+	,
+	\alpha_{- \bm{k} \uparrow}^{\dagger}
+	,
+	\alpha_{- \bm{k} \downarrow}^{\dagger}
+	)
+	\ .
+\]
+これらを用いるとBogoliubov変換(式2.4)は
+\[
+	\bm{a}_{\bm{k}}
+	=
+	U_{\bm{k}}
+	\bm{\alpha}_{\bm{k}}
+	\ ,
+\]
+のように、より一層コンパクトに書き下すことができる。
+ここで$4 \times 4$行列$U_{\bm{k}}$は
+\[
+	U_{\bm{k}}
+	=
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\bm{k}}      & \hat{v}_{\bm{k}}      \\
+			\hat{v}_{-\bm{k}}^{*} & \hat{u}_{-\bm{k}}^{*}
+		\end{array}
+	\right)
+	\ ,
+\]
+の形式の成分を持ち、
+ユニタリー条件から
+$U_{\bm{k}} U_{\bm{k}}^{\dagger} = 1$
+を満たす。
+$2 \times 2$行列
+$\hat{u}_{\bm{k}} , \hat{v}_{\bm{k}}$
+はそれぞれ式(2.4)で定義されている。
+
+この表現を用いて$\tilde{\mathcal{H}}$を対角化する。
+\[
+	\hat{E}_{\bm{k}}
+	=
+	U_{\bm{k}}^{\dagger}
+	\hat{\mathcal{E}}_{\bm{k}}
+	U_{\bm{k}}
+	\ .
+\]
+両辺の$4 \times 4$行列はそれぞれ次のように表現される。
+\[
+	\hat{E}_{\bm{k}}
+	=
+	\left(
+	\begin{array}{cccc}
+			E_{\bm{k} +} & 0            & 0               & 0               \\
+			0            & E_{\bm{k} -} & 0               & 0               \\
+			0            & 0            & - E_{-\bm{k} +} & 0               \\
+			0            & 0            & 0               & - E_{-\bm{k} -}
+		\end{array}
+	\right)
+	\ , \]\[
+	\hat{\mathcal{E}}_{\bm{k}}
+	=
+	\left(
+	\begin{array}{cc}
+			\varepsilon(\bm{k}) \hat{\sigma}_{0} & \hat{\Delta}(\bm{k})                   \\[2mm]
+			- \hat{\Delta}^{*}(-\bm{k})          & - \varepsilon(\bm{k}) \hat{\sigma}_{0}
+		\end{array}
+	\right)
+	\ .
+\]
+$\hat{E}_{\bm{k}}$の成分はそれぞれ系の素励起のスペクトルに対応する。
+また、$\hat{\mathcal{E}}_{\bm{k}}$は$\tilde{\mathcal{H}}$の表現行列であり、
+$\hat{\sigma}_{0}$は$2 \times 2$の単位行列である。
+$\hat{\Delta}(\bm{k})$は式2.2で定義された行列である。
+\subsection{Bogoliubov変換（表現行列）}
+変換行列$U_{\bm{k}}^{\dagger}$の一般形を求めるためには
+$\hat{\Delta}(\bm{k})$に関して考える必要がある。
+
+fermionの交換関係と
+式2.2および式2.3より明らかに
+$\hat{\Delta}(\bm{k})$
+は次の対称性を有している。
+\[
+	\hat{\Delta}(\bm{k})
+	=
+	- \hat{\Delta}^{T}(-\bm{k})
+	\ .
+\]
+
+スピンシングレット対の場合、
+$\hat{\Delta}(\bm{k})$
+は$\bm{k}$に関して偶のパリティを持つ必要がある。
+従って、
+$\hat{\Delta}(\bm{k})$
+は反対称行列
+であり、
+$\bm{k}$に関して偶関数である$\psi(\bm{k})$を用いて次のように表される。
+\[
+	\hat{\Delta}(\bm{k})
+	=
+	i \hat{\sigma}_{y} \psi(\bm{k})
+	\ = \
+	\left(
+	\begin{array}{cc}
+			0              & \psi(\bm{k}) \\
+			- \psi(\bm{k}) & 0
+		\end{array}
+	\right)
+	\ = \
+	- \hat{\Delta}^{T}(\bm{k})
+	\ .
+\]
+
+一方でスピントリプレットの場合、
+$\hat{\Delta}(\bm{k})$は$\bm{k}$に関して奇のパリティを持たなければならない。
+このとき$\hat{\Delta}(\bm{k})$は対称行列である。
+BalianとWerthamerの1963年の論文に従うと、
+ベクトル値の奇関数$\bm{d}(\bm{k})$を媒介変数とする次の表記で書ける。
+\[
+	\hat{\Delta}(\bm{k})
+	=
+	i \Big( \bm{d}(\bm{k}) \cdot \hat{\bm{\sigma}} \Big) \hat{\sigma}_{y}
+	\ = \
+	\left(
+	\begin{array}{cc}
+			- d_{x}(\bm{k}) + i d_{y}(\bm{k}) & d_{z}(\bm{k})                   \\
+			d_{z}(\bm{k})                     & d_{x}(\bm{k}) + i d_{y}(\bm{k})
+		\end{array}
+	\right)
+	\ = \
+	\hat{\Delta}^{T}(\bm{k})
+	\ .
+\]
+$\hat{\bm{\sigma}}$はパウリ行列を成分に持つベクトルである。
+
+この行列表現は実用的である。
+スピンを回転させる演算に関して$\bm{d}(\bm{k})$は3次元ベクトルの回転のように振る舞う。
+回転以外のその他の変換に対しても単純に取り扱うことが出来ることを章末の表1で見る。
+
+行列$\hat{\Delta}(\bm{k})$は2つのパターンに区別して考えることが出来る。
+まず$\hat{\Delta}(\bm{k})$がユニタリーと呼ばれる場合、
+積$\hat{\Delta}(\bm{k}) \hat{\Delta}^{\dagger}(\bm{k})$は単位行列$\hat{\sigma}_{0}$に比例する。
+そうでない場合は行列$\hat{\Delta}(\bm{k})$は非ユニタリーと呼ばれ、
+この場合はスピントリプレットの場合にのみ起こり、
+次のような等式が成り立つ。
+\[
+	\hat{\Delta}(\bm{k}) \hat{\Delta}^{\dagger}(\bm{k})
+	=
+	|\bm{d}(\bm{k})|^{2} \hat{\sigma}_{0}
+	\ + \
+	\bm{q} \cdot \hat{\bm{\sigma}}
+	\ .
+\]
+このベクトル$\bm{q}=i [ \bm{d}(\bm{k}) \times \bm{d}^{*}(\bm{k}) ]$は
+$\bm{d}(\bm{k}) \neq \bm{d}^{*}(\bm{k})$の場合、すなわち$d$ベクトルの全ての成分が実数でない場合にのみ有限になる。
+
+${}$
+
+少し議論を先取りするが、
+章末の表1によると
+$\bm{d}(\bm{k})$は時間反転の演算に対して不変ではない。
+
+$\bm{q}(\bm{k})$は、
+$\bm{k}$で指定される対状態の
+全スピンの平均値
+${\rm tr}[\hat{\Delta}^{\dagger}(\bm{k}) \hat{\bm{\sigma}} \hat{\Delta}(\bm{k}) ]$
+で記述される。
+すなわち$\bm{q}(\bm{k})$のFermi面全体で取った平均値が有限であるという興味深いことを示している。
+
+通常、Fermi面全体で取った平均値はゼロになるべきである。
+$\bm{q}(\bm{k})$が有限であるということは、
+運動量$\bm{k}$における電子対に対する相互作用の強さがスピンの向きによって異なっていることを示している。
+この場合、時間反転対称性が破れていることは明らかである。
+先の5章では$\bm{q}(\bm{k})$が有限であることにより電子対が磁場と結合する場合を取り扱う。
+このような効果は非ユニタリーA相の超流動$^{3}$Heですでに知られている現象である。
+式2.6の解は行列$\hat{\Delta}(\bm{k})$がユニタリーかどうかで2つの場合に区別される。
+
+行列$\hat{\Delta}(\bm{k})$がユニタリーである場合、
+Bogoliubov変換の表現行列の要素は単純になる。
+\[
+	\hat{u}_{\bm{k}}
+	=
+	\dfrac{ [ E_{\bm{k}} + \varepsilon(\bm{k}) ] \hat{\sigma}_{0} }
+	{ \left\{ [ E_{\bm{k}} + \varepsilon(\bm{k}) ]^{2} + \dfrac{1}{2} {\rm tr} \hat{\Delta} \hat{\Delta}^{\dagger}(\bm{k}) \right\}^{1/2} }
+	\ \ ,
+\]\[
+	\hat{v}_{\bm{k}}
+	=
+	\dfrac{ - \hat{\Delta}(\bm{k}) }
+	{ \left\{ [ E_{\bm{k}} + \varepsilon(\bm{k}) ]^{2} + \dfrac{1}{2} {\rm tr} \hat{\Delta} \hat{\Delta}^{\dagger}(\bm{k}) \right\}^{1/2} }
+	\ \ .
+\]
+ユニタリーな場合は素励起のエネルギースペクトル$E_{\bm{k}}$は二重縮退している。
+\[
+	E_{\bm{k}+}
+	\ = \
+	E_{\bm{k}-}
+	\ = \
+	E_{\bm{k}}
+	\ = \
+	\left[ \varepsilon^{2}(\bm{k}) + \dfrac{1}{2} {\rm tr} \hat{\Delta} \hat{\Delta}^{\dagger}(\bm{k}) \right]^{1/2}
+\]
+素励起には運動量$\bm{k}$に依存するエネルギーギャップ
+$$
+	\left[ \dfrac{1}{2} {\rm tr} \hat{\Delta} \hat{\Delta}^{\dagger}(\bm{k}) \right]^{1/2}
+$$
+が存在する。
+
+${}$
+
+非ユニタリーな場合、
+Bogoliubov変換の表現行列の要素はより複雑になる。
+\[
+	\hat{u}_{\bm{k}}
+	\!\!
+	=
+	\!\!
+	Q
+	\left\{
+	\left[
+		\dfrac{ E_{\bm{k} + } + \varepsilon(\bm{k}) }
+		{ E_{\bm{k} + } }
+		\right]^{1/2}
+	(
+	| \bm{q} | \hat{\sigma}_{0} + \bm{q} \cdot \hat{\bm{\sigma}}
+	)
+	(
+	\hat{\sigma}_{0} + \hat{\sigma}_{z}
+	)
+	+
+	\left[
+		\dfrac{ E_{\bm{k} - } + \varepsilon(\bm{k}) }
+		{ E_{\bm{k} - } }
+		\right]^{1/2}
+	(
+	| \bm{q} | \hat{\sigma}_{0} - \bm{q} \cdot \hat{\bm{\sigma}}
+	)
+	(
+	\hat{\sigma}_{0} - \hat{\sigma}_{z}
+	)
+	\right\}
+	\ \ ,
+\]\[
+	\hat{v}_{\bm{k}}
+	\!\!
+	=
+	\!\!
+	- i Q
+	\left\{
+	\dfrac{1}{\sqrt{ E_{\bm{k} +} [ E_{\bm{k} +} + \varepsilon(\bm{k}) ] }}
+	\left[
+		| \bm{q} | \bm{d} - i ( \bm{d} \times \bm{q} )
+		\right]
+	\cdot
+	\hat{\bm{\sigma}}
+	\hat{\sigma}_{y}
+	(
+	\hat{\sigma}_{0} + \hat{\sigma}_{z}
+	)
+	+
+	\dfrac{1}{\sqrt{ E_{\bm{k} -} [ E_{\bm{k} -} + \varepsilon(\bm{k}) ] }}
+	\left[
+		| \bm{q} | \bm{d} + i ( \bm{d} \times \bm{q} )
+		\right]
+	\cdot
+	\hat{\bm{\sigma}}
+	\hat{\sigma}_{y}
+	(
+	\hat{\sigma}_{0} - \hat{\sigma}_{z}
+	)
+	\right\}
+	\ \ .
+	\\
+\]
+ここで$Q$、$E_{\bm{k} \pm}$はそれぞれ
+\[
+	Q^{-2}
+	=
+	8 | \bm{q} | ( | \bm{q} | + q_{z} )
+	\ \ ,
+\]\[
+	E_{\bm{k} \pm}
+	=
+	\sqrt{ \varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2} \pm | \bm{q}(\bm{k}) |^{2} }
+	\ \ ,
+\]
+を略記したものである。
+
+非ユニタリーの場合は$\bm{q}$が有限になり、
+ユニタリー状態において二重縮退していたエネルギースペクトルが分裂する。
+
+運動量$\bm{k}$に依存する2つのエネルギーギャップ
+\[
+	| \bm{d}(\bm{k}) |^{2} \pm | \bm{d}(\bm{k}) \times \bm{d}^{*}(\bm{k}) |
+\]
+が存在することになる。
+
+このようにエネルギースペクトルの縮退が解けることは、
+時間反転対称性が破れることで理解できる。
+このことと$\bm{q}$が有限、すなわちCooper対に対する相互作用の強さがスピンの向きによって異なっているということはコンシステントである。
+\subsection{自己無撞着なギャップ方程式}
+
+$\alpha_{\bm{k}s}^{(\dagger)}$がfermionであるということと平均場ポテンシャルの定義式(2.2)を用いて
+エネルギーギャップに対する自己無撞着な方程式（ギャップ方程式）が得られる。
+\[
+	\Delta_{ss'}(\bm{k})
+	=
+	- \sum_{\bm{k}',s_{3},s_{4}}
+	V_{s' s s_{3} s_{4}}
+	(\bm{k},\bm{k}')
+	\mathcal{F}_{s_{3} s_{4}}(\bm{k}',\beta)
+	\ \ .
+\]
+行列$\hat{\mathcal{F}}(\bm{k},\beta)$は、
+対ポテンシャルの表現行列$\hat{\Delta}(\bm{k})$がユニタリーか非ユニタリーかによって場合分けされる。
+すなわち、ユニタリーの場合、
+\[
+	\hat{\mathcal{F}}(\bm{k},\beta)
+	=
+	\dfrac{ \hat{\Delta}(\bm{k}) }{ 2 E_{\bm{k}} }
+	{\rm tanh}\dfrac{\beta E_{\bm{k}}}{2}
+	\ \ ,
+\]
+非ユニタリーの場合、
+\[
+	\hat{\mathcal{F}}(\bm{k},\beta)
+	=
+	\left[
+		\dfrac{ 1 }{ 2 E_{\bm{k} +} }
+		\left(
+		\bm{d}(\bm{k})
+		+
+		\dfrac{\bm{q}(\bm{k}) \times \bm{d}(\bm{k})}{|\bm{q}(\bm{k})|}
+		\right)
+		{\rm tanh}\dfrac{\beta E_{\bm{k}+}}{2}
+		\ + \
+		\dfrac{ 1 }{ 2 E_{\bm{k} -} }
+		\left(
+		\bm{d}(\bm{k})
+		-
+		\dfrac{\bm{q}(\bm{k}) \times \bm{d}(\bm{k})}{|\bm{q}(\bm{k})|}
+		\right)
+		{\rm tanh}\dfrac{\beta E_{\bm{k}-}}{2}
+		\right]
+	i \hat{\bm{\sigma}} \hat{\sigma}_{y}
+	\ \ .
+\]
+これらの自己無撞着な方程式によって
+対ポテンシャルの表現行列$\hat{\Delta}(\bm{k})$の温度依存性と、
+超伝導転移温度$T_{c}$が決まる。
+
+温度が$T_{c}$の近くではギャップの大きさは十分に小さく、
+方程式を線形化して単純化することが許される。
+\[
+	v \Delta_{s_{1} s_{2}}(\bm{k})
+	=
+	- \sum_{s_{3} s_{4}}
+	\left\langle
+	V_{ s_{2} s_{1} s_{3} s_{4} } (\bm{k} , \bm{k}')
+	\Delta_{s_{3} s_{4}} (\bm{k}')
+	\right\rangle_{\bm{k}'}
+	\ \ .
+\]
+ここで運動量$\bm{k}$の添字が付いた括弧$\langle \cdots \rangle_{\bm{k}}$はFermi面全体で平均を取った量を表す。
+定数$v$は弱結合の場合、Fermi面上の状態密度$N(0)$を用いて次のように近似できる。
+\[
+	\dfrac{1}{v}
+	=
+	N(0)
+	\int^{\varepsilon_{c}}_{0}
+	\!\!\! d \varepsilon
+	\dfrac{{\rm tanh}\dfrac{\beta_{c} \varepsilon(\bm{k})}{2}}{\varepsilon(\bm{k})}
+	\ = \
+	{\rm ln}(1.14 \beta_{c} \varepsilon_{c})
+	\ \ .
+\]
+
+式(2.18)は対ポテンシャルの表現行列$\hat{\Delta}(\bm{k})$の固有方程式になっている。
+
+最大固有値$v$によって超伝導不安定性、実数の$T_{c}$、状態の様子$\hat{\Delta}(\bm{k})$を定義できる。
+
+式(2.18)の解を求めるにあたり、
+普通に考えると、対生成ポテンシャル$\hat{V}$の具体的な表式が必要だと考える。
+
+しかし実は正確な$\hat{V}$の表現を知らなくとも解を求めることができるということを次の節で見る。
+このとき、群論が非常に重要な道具になる。
+\subsection{対ポテンシャルの対称性}
+式(2.1)で記述されるハミルトニアンは対称性を有している。
+この対称性を不変にする操作を元とする群を$\mathcal{G}$と書くことにする。
+
+この群$\mathcal{G}$は部分群として結晶の点群$G$と、
+スピンが持つ3次元の回転対称性SU(2)、
+時間反転対称性$\mathcal{K}$、
+ゲージ場の持つ対称性U(1)
+から構成されている。
+
+群$\mathcal{G}$の要素を$g$と書くと、
+\[
+	g
+	\mathcal{H}
+	=
+	\mathcal{H}
+	\ \ ,
+	\ \]\[
+	g
+	\ \in \
+	\mathcal{G}
+	=
+	G \ \! \times \ \! {\rm SU(2)} \ \! \times \ \! \mathcal{K} \ \! \times \ \! {\rm U(1)}
+	\ \ .
+\]
+以下で他の群の要素として同じ文字$g$を用いるが、
+どの群に属するかは逐一文章中で指定する。
+
+$\mathcal{G}$の元となる対称操作を$\hat{\Delta}(\bm{k})$に施したときの変換性を知るには、
+$\tilde{\mathcal{H}}$に対する変換性を知れば良い。
+
+要素$g \in G$はベクトル$\bm{k}$に対してのみ作用する。
+\[
+	g a_{\bm{k},s}^{\dagger}
+	\ = \
+	a_{ \hat{D}_{(G)}^{(-)}(g) \bm{k},s}^{\dagger}
+	\ \ \longrightarrow \ \
+	g \hat{\Delta}(\bm{k})
+	\ = \
+	\hat{\Delta}(\hat{D}_{(G)}^{(-)}(g) (\bm{k}))
+\]
+ここで記号$\hat{D}_{(G)}^{(-)}(g)$は
+$\bm{k}$空間における群$G$の3次元表現である。
+
+また、3次元のスピンの回転対称性の群SU(2)に対して、
+その元である対称操作の表現行列を改めて$g$と書くと、
+SU(2)に対する$\hat{\Delta}(\bm{k})$の変換性は、
+\[
+	g a_{\bm{k},s}^{\dagger}
+	\ = \
+	\sum_{s'}
+	\hat{D}_{(S)} (g)_{s,s'}
+	a_{\bm{k},s}^{\dagger}
+	\ \ \longrightarrow \ \
+	g \hat{\Delta}(\bm{k})
+	\ = \
+	\hat{D}_{(S)}^{T} (g) \ \!
+	\hat{\Delta}(\bm{k}) \ \!
+	\hat{D}_{(S)} (g)
+\]
+
+$2 \times 2$行列$\hat{D}_{S}$はスピン1/2空間のSU(2)の表現行列である。
+$\hat{D}^{T}$は$\hat{D}$の転置行列を表す。
+\ \\
+
+\ \\
+
+Work in Progress...
+
+\begin{thebibliography}{9}
+	\bibitem{SigristUeda1991} M. Sigrist and K. Ueda (1991) Rev. Mod. Phys.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,744 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb, bm}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{tikz-cd}
+
+\title{
+Anisotropic BCS Theory
+}
+
+\author{
+Okada Masaru
+}
+
+\begin{document}
+\maketitle
+
+\section{Outline of BCS Theory}
+
+In 1957, Bardeen, Cooper, and Schrieffer successfully established the first microscopic theory to approach the origin of superconductivity.
+This theory is known as the \textbf{BCS theory}.
+
+In 1956, Cooper discovered that a Fermi gas becomes unstable in the presence of an attractive interaction between fermions.
+
+Specifically, when two fermions on the Fermi surface experience an attractive interaction, a ground state with lower energy than the Fermi gas exists.
+
+This ground state becomes a coherent state, and electrons form pairs.
+These pairs are called \textbf{Cooper pairs}.
+These pairs are spatially more extended than the correlation length of the Fermi gas state, and their total momentum is zero.
+
+It is more natural to think of the pairing as occurring in momentum space rather than real space.
+
+The potential that originates from the electron-lattice interaction contains a region of attractive interaction in a thin layer near the Fermi surface in momentum space.
+
+Within this potential, the channel functions as an isotropic attractive interaction, and the electron pair wavefunction takes on an orbital angular momentum of $l=0$.
+This is an s-wave spin-singlet state.
+
+Most known superconducting materials have conclusions that are consistent with the BCS theory.
+
+
+\section{An Outline of BCS Theory Generalized to Non-S-Wave Pair Wavefunctions}
+
+The electron-lattice interaction is not the only source of attractive interaction between fermions.
+
+Other mechanisms can lead to anisotropic pair formation.
+For example, in the case of spin-triplet superconductivity, the pair wavefunction is also anisotropic.
+
+In 1961, Anderson and Morel, and in 1963, Balian and Werthamer, investigated this type of anisotropically generalized BCS theory.
+
+This work was a precursor to major questions of the 1960s.
+These questions later led to the construction of the theory of superfluid $^3$He, where it was discovered that p-wave triplet pairs are formed when assuming a spin fluctuation mechanism.
+
+Below, I will briefly outline this extended BCS theory for anisotropic pairs.
+In particular, I will summarize the symmetry of superconducting pairs, which is expected to be foundational for future research.
+
+\section{Formulation}
+
+\subsection{Mean-Field Hamiltonian}
+
+First, let's consider the following effective Hamiltonian:
+
+$$
+	\mathcal{H}
+	=
+	\sum_{\bm{k},s}
+	\varepsilon(\bm{k})
+	a_{\bm{k} s}^{\dagger}
+	a_{\bm{k} s}
+	\ + \
+	\dfrac{1}{2}
+	\sum_{\bm{k},\bm{k}',s_{1},s_{2},s_{3},s_{4}}
+	V_{s_{1} s_{2} s_{3} s_{4}}(\bm{k},\bm{k}')
+	a_{-\bm{k} s_{1}}^{\dagger}
+	a_{\bm{k} s_{2}}^{\dagger}
+	a_{\bm{k}' s_{3}}
+	a_{-\bm{k}' s_{4}}
+	\ .
+$$
+
+Here, $\varepsilon(\bm{k})$ is the band energy measured from the chemical potential $\mu$, and
+
+\[
+	V_{s_{1} s_{2} s_{3} s_{4}}(\bm{k},\bm{k}')
+	=
+	\langle
+	- \bm{k} , s_{1} ; \bm{k} , s_{2}
+	|
+	\hat{V}
+	|
+	- \bm{k}' , s_{4} ; \bm{k}' , s_{3}
+	\rangle
+	\nonumber
+\]
+
+
+represents the matrix element.
+It's important to note that it has the following symmetries:
+
+\[
+	V_{s_{1} s_{2} s_{3} s_{4}}(\bm{k},\bm{k}')
+	\ = \
+	- V_{s_{2} s_{1} s_{3} s_{4}}( - \bm{k},\bm{k}')
+	\ = \
+	- V_{s_{1} s_{2} s_{4} s_{3}}(\bm{k}, - \bm{k}')
+	\ = \
+	V_{s_{4} s_{3} s_{2} s_{1}}( \bm{k}' , \bm{k})
+	\ .
+	\nonumber
+\]
+
+This $\hat{V}$ represents a general effective electron-electron interaction that functions as an attraction in a narrow region on the Fermi surface.
+Specifically, by setting the cutoff energy to $\varepsilon_{c}$, we can consider
+
+\[
+	-
+	\varepsilon_{c}
+	\leq
+	\varepsilon(\bm{k})
+	\leq
+	\varepsilon_{c}
+	\nonumber
+\]
+
+The physical origin of this is omitted here.
+The presence of an attractive interaction causes the degenerate Fermi gas to become unstable.
+
+The Hamiltonian in equation (2.1) is treated using many-body techniques.
+
+The first step is to use the mean-field approach.
+We define the mean field, or pair potential, later called the gap function, as follows:
+
+\[
+	\Delta_{s s'}(\bm{k})
+	=
+	- \sum_{ \bm{k}' , s_{3} , s_{4} }
+	V_{s s' s_{3} s_{4} }(\bm{k},\bm{k}')
+	\langle
+	a_{ \bm{k}' s_{3} }
+	a_{ - \bm{k}' s_{4} }
+	\rangle
+	\ ,
+\]\[
+	\Delta_{s s'}^{*}( - \bm{k} )
+	=
+	\sum_{ \bm{k}' , s_{1} , s_{2} }
+	V_{ s_{1} s_{2} s s' }(\bm{k}',\bm{k})
+	\langle
+	a_{ - \bm{k}' s_{1} }^{\dagger}
+	a_{ \bm{k}' s_{2} }^{\dagger}
+	\rangle
+	\ .
+\]
+
+Here, the bracket notation $\langle A \rangle$ represents the expectation value
+
+\[
+	\langle A \rangle
+	=
+	\dfrac{ {\rm tr} [ {\rm exp} ( - \beta \mathcal{H} ) A ]  }{ {\rm tr} [ {\rm exp} ( - \beta \mathcal{H} ) ] }
+	\ ,
+	\nonumber
+\]
+
+where $\beta = (k_{B} T)^{-1}$ is the inverse temperature.
+
+Now, let's consider replacing the factor $a_{\bm{k}s}^{(\dagger)} a_{-\bm{k}s'}^{(\dagger)}$ within the Hamiltonian (2.1).
+First, consider the simple identity,
+
+\[
+	a_{\bm{k}s}^{(\dagger)}
+	a_{-\bm{k}s'}^{(\dagger)}
+	\ = \
+	\langle
+	a_{\bm{k}s}^{(\dagger)}
+	a_{-\bm{k}s'}^{(\dagger)}
+	\rangle
+	\ + \
+	\Big(
+	a_{\bm{k}s}^{(\dagger)}
+	a_{-\bm{k}s'}^{(\dagger)}
+	\ - \
+	\langle
+	a_{\bm{k}s}^{(\dagger)}
+	a_{-\bm{k}s'}^{(\dagger)}
+	\rangle
+	\Big)
+	\nonumber
+	\ .
+\]
+
+The term enclosed in parentheses represents the fluctuations of the operator around its mean-field expectation value.
+
+We assume these fluctuations are negligible compared to the mean field, treating them as higher-order (infinitesimal) terms that can be ignored.
+
+The Hamiltonian $\mathcal{H}$ is then reduced to a single-particle Hamiltonian, $\tilde{\mathcal{H}}$.
+
+\[
+	\tilde{\mathcal{H}}
+	=
+	\sum_{\bm{k},s}
+	\varepsilon(\bm{k})
+	a_{\bm{k} s}^{\dagger}
+	a_{\bm{k} s}
+	\ + \
+	\dfrac{1}{2}
+	\sum_{\bm{k},s_{1},s_{2}}
+	\Big[
+		\Delta_{ s_{1} s_{2} }( \bm{k} )
+		a_{\bm{k} s_{1}}^{\dagger}
+		a_{-\bm{k} s_{2}}^{\dagger}
+		\ - \
+		\Delta_{ s_{1} s_{2} }^{*}( - \bm{k} )
+		a_{-\bm{k} s_{1}}
+		a_{\bm{k} s_{2}}
+		\Big]
+	\ .
+\]
+
+Here, we've ignored the constant term containing only the mean field.
+This constant only shifts the ground state energy, meaning it is renormalized into the chemical potential, so it can be omitted.
+\subsection{Bogoliubov Transformation (Diagonalization)}
+It's straightforward to diagonalize this single-particle effective Hamiltonian to find its eigenvalues and eigenoperators.
+Let's call these eigenoperators $\alpha_{a}^{\dagger}$ and $\alpha_{b}$, which obey the following equations of motion:
+
+\[
+	\partial_{t} \alpha_{a}^{\dagger}
+	=
+	i [ \tilde{\mathcal{H}} , \alpha_{a}^{\dagger} ]
+	\ = \
+	E_{a} \alpha_{a}^{\dagger}
+	\ ,
+\]\[
+	\partial_{t} \alpha_{b}
+	=
+	i [ \tilde{\mathcal{H}} , \alpha_{b} ]
+	\ = \
+	- E_{b} \alpha_{b}
+	\ .
+	\nonumber
+\]
+
+The constants $E_{a}$ and $-E_{b}$ are the eigenvalues.
+
+The eigenvalues and eigenoperators can be obtained via the following canonical unitary transformation (the \textbf{Bogoliubov transformation}):
+
+\[
+	a_{\bm{k} s}
+	=
+	\sum_{s'}
+	(
+	u_{\bm{k} s s'}
+	\alpha_{\bm{k} s'}
+	\ + \
+	v_{\bm{k} s s'}
+	\alpha_{ - \bm{k} s'}^{\dagger}
+	)
+	\ .
+\]
+
+
+The new operators $\alpha_{\bm{k}s}^{(\dagger)}$ are fermions and obey anticommutation relations, corresponding to the elementary excitations of the new ground state.
+
+If we define the spinors with operator components as follows:
+
+\[
+	\bm{a}_{\bm{k} s}
+	=
+	(
+	a_{\bm{k} \uparrow}
+	,
+	a_{\bm{k} \downarrow}
+	,
+	a_{- \bm{k} \uparrow}^{\dagger}
+	,
+	a_{- \bm{k} \downarrow}^{\dagger}
+	)
+	\ , \]\[
+	\bm{\alpha}_{\bm{k} s}
+	=
+	(
+	\alpha_{\bm{k} \uparrow}
+	,
+	\alpha_{\bm{k} \downarrow}
+	,
+	\alpha_{- \bm{k} \uparrow}^{\dagger}
+	,
+	\alpha_{- \bm{k} \downarrow}^{\dagger}
+	)
+	\ .
+	\nonumber
+\]
+
+The Bogoliubov transformation (equation 2.4) can be written more compactly as:
+
+\[
+	\bm{a}_{\bm{k}}
+	=
+	U_{\bm{k}}
+	\bm{\alpha}_{\bm{k}}
+	\ ,
+	\nonumber
+\]
+
+where the $4 \times 4$ matrix $U_{\bm{k}}$ has the form
+
+\[
+	U_{\bm{k}}
+	=
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\bm{k}}      & \hat{v}_{\bm{k}}      \\
+			\hat{v}_{-\bm{k}}^{*} & \hat{u}_{-\bm{k}}^{*}
+		\end{array}
+	\right)
+	\ ,
+\]
+
+and satisfies the unitary condition $U_{\bm{k}} U_{\bm{k}}^{\dagger} = 1$.
+The $2 \times 2$ matrices $\hat{u}_{\bm{k}}$ and $\hat{v}_{\bm{k}}$ are defined in equation (2.4).
+
+Using this representation, we can diagonalize $\tilde{\mathcal{H}}$.
+
+\[
+	\hat{E}_{\bm{k}}
+	=
+	U_{\bm{k}}^{\dagger}
+	\hat{\mathcal{E}}_{\bm{k}}
+	U_{\bm{k}}
+	\ .
+\]
+
+The $4 \times 4$ matrices on both sides are expressed as:
+
+\[
+	\hat{E}_{\bm{k}}
+	=
+	\left(
+	\begin{array}{cccc}
+			E_{\bm{k} +} & 0            & 0               & 0               \\
+			0            & E_{\bm{k} -} & 0               & 0               \\
+			0            & 0            & - E_{-\bm{k} +} & 0               \\
+			0            & 0            & 0               & - E_{-\bm{k} -}
+		\end{array}
+	\right)
+	\ , \]\[
+	\hat{\mathcal{E}}_{\bm{k}}
+	=
+	\left(
+	\begin{array}{cc}
+			\varepsilon(\bm{k}) \hat{\sigma}_{0} & \hat{\Delta}(\bm{k})                   \\[2mm]
+			- \hat{\Delta}^{*}(-\bm{k})          & - \varepsilon(\bm{k}) \hat{\sigma}_{0}
+		\end{array}
+	\right)
+	\ .
+\]
+
+The components of $\hat{E}_{\bm{k}}$ correspond to the elementary excitation spectrum of the system.
+$\hat{\mathcal{E}}_{\bm{k}}$ is the matrix representation of $\tilde{\mathcal{H}}$, $\hat{\sigma}_{0}$ is the $2 \times 2$ identity matrix, and $\hat{\Delta}(\bm{k})$ is the matrix defined in equation 2.2.
+
+
+\subsection{Bogoliubov Transformation (Matrix Representation)}
+To find the general form of the transformation matrix $U_{\bm{k}}^{\dagger}$, we need to consider $\hat{\Delta}(\bm{k})$.
+
+From the fermionic anticommutation relations and equations 2.2 and 2.3, $\hat{\Delta}(\bm{k})$ obviously has the following symmetry:
+
+\[
+	\hat{\Delta}(\bm{k})
+	=
+	- \hat{\Delta}^{T}(-\bm{k})
+	\ .
+\]
+
+For spin-singlet pairs, $\hat{\Delta}(\bm{k})$ must have even parity with respect to $\bm{k}$.
+Therefore, $\hat{\Delta}(\bm{k})$ is an antisymmetric matrix and can be expressed using an even function of $\bm{k}$, $\psi(\bm{k})$, as follows:
+
+\[
+	\hat{\Delta}(\bm{k})
+	=
+	i \hat{\sigma}_{y} \psi(\bm{k})
+	\ = \
+	\left(
+	\begin{array}{cc}
+			0              & \psi(\bm{k}) \\
+			- \psi(\bm{k}) & 0
+		\end{array}
+	\right)
+	\ = \
+	- \hat{\Delta}^{T}(\bm{k})
+	\ .
+\]
+
+On the other hand, for spin-triplet pairs, $\hat{\Delta}(\bm{k})$ must have odd parity with respect to $\bm{k}$.
+In this case, $\hat{\Delta}(\bm{k})$ is a symmetric matrix.
+According to the 1963 paper by Balian and Werthamer, it can be written using a vector-valued odd function $\bm{d}(\bm{k})$ as a parameter:
+
+\[
+	\hat{\Delta}(\bm{k})
+	=
+	i \Big( \bm{d}(\bm{k}) \cdot \hat{\bm{\sigma}} \Big) \hat{\sigma}_{y}
+	\ = \
+	\left(
+	\begin{array}{cc}
+			- d_{x}(\bm{k}) + i d_{y}(\bm{k}) & d_{z}(\bm{k})                   \\
+			d_{z}(\bm{k})                     & d_{x}(\bm{k}) + i d_{y}(\bm{k})
+		\end{array}
+	\right)
+	\ = \
+	\hat{\Delta}^{T}(\bm{k})
+	\ .
+\]
+
+$\hat{\bm{\sigma}}$ is a vector with Pauli matrices as its components.
+
+This matrix representation is quite practical.
+Under spin rotation operations, $\bm{d}(\bm{k})$ behaves like a rotation of a 3D vector.
+It also simplifies other transformations, as will be shown in Table 1 at the end of the chapter.
+
+The matrix $\hat{\Delta}(\bm{k})$ can be classified into two patterns.
+First, a matrix $\hat{\Delta}(\bm{k})$ is called \textbf{unitary} if the product $\hat{\Delta}(\bm{k}) \hat{\Delta}^{\dagger}(\bm{k})$ is proportional to the identity matrix $\hat{\sigma}_{0}$.
+If not, the matrix $\hat{\Delta}(\bm{k})$ is called \textbf{non-unitary}.
+This only occurs in the case of spin triplets and yields the following equality:
+
+\[
+	\hat{\Delta}(\bm{k}) \hat{\Delta}^{\dagger}(\bm{k})
+	=
+	|\bm{d}(\bm{k})|^{2} \hat{\sigma}_{0}
+	\ + \
+	\bm{q} \cdot \hat{\bm{\sigma}}
+	\ .
+\]
+
+The vector $\bm{q}=i [ \bm{d}(\bm{k}) \times \bm{d}^{*}(\bm{k}) ]$ is non-zero only if $\bm{d}(\bm{k}) \neq \bm{d}^{*}(\bm{k})$, which is the case when not all components of the d-vector are real.
+
+${}$
+
+Looking ahead slightly, according to Table 1 at the end of the chapter, $\bm{d}(\bm{k})$ is not invariant under time-reversal operations.
+
+$\bm{q}(\bm{k})$ is described by the mean value of the total spin of the paired state specified by $\bm{k}$, ${\rm tr}[\hat{\Delta}^{\dagger}(\bm{k}) \hat{\bm{\sigma}} \hat{\Delta}(\bm{k}) ]$.
+This shows the intriguing fact that the average value of $\bm{q}(\bm{k})$ over the entire Fermi surface can be non-zero.
+
+Typically, the average value over the entire Fermi surface should be zero.
+A non-zero $\bm{q}(\bm{k})$ indicates that the strength of the interaction for electron pairs at a given momentum $\bm{k}$ differs depending on the spin direction.
+In this case, time-reversal symmetry is clearly broken.
+In the next section (Chapter 5), we will discuss the case where a non-zero $\bm{q}(\bm{k})$ causes the electron pairs to couple with a magnetic field.
+Such effects are already known phenomena in non-unitary A-phase superfluid $^3$He.
+
+
+The solution to equation 2.6 is divided into two cases depending on whether the matrix $\hat{\Delta}(\bm{k})$ is unitary or not.
+
+When the matrix $\hat{\Delta}(\bm{k})$ is unitary, the elements of the Bogoliubov transformation's matrix representation become simple.
+
+\[
+	\hat{u}_{\bm{k}}
+	=
+	\dfrac{ [ E_{\bm{k}} + \varepsilon(\bm{k}) ] \hat{\sigma}_{0} }
+	{ \left\{ [ E_{\bm{k}} + \varepsilon(\bm{k}) ]^{2} + \dfrac{1}{2} {\rm tr} \hat{\Delta} \hat{\Delta}^{\dagger}(\bm{k}) \right\}^{1/2} }
+	\ \ ,
+	\nonumber
+\]\[
+	\hat{v}_{\bm{k}}
+	=
+	\dfrac{ - \hat{\Delta}(\bm{k}) }
+	{ \left\{ [ E_{\bm{k}} + \varepsilon(\bm{k}) ]^{2} + \dfrac{1}{2} {\rm tr} \hat{\Delta} \hat{\Delta}^{\dagger}(\bm{k}) \right\}^{1/2} }
+	\ \ .
+\]
+
+In the unitary case, the energy spectrum of the elementary excitations $E_{\bm{k}}$ is doubly degenerate.
+
+\[
+	E_{\bm{k}+}
+	\ = \
+	E_{\bm{k}-}
+	\ = \
+	E_{\bm{k}}
+	\ = \
+	\left[ \varepsilon^{2}(\bm{k}) + \dfrac{1}{2} {\rm tr} \hat{\Delta} \hat{\Delta}^{\dagger}(\bm{k}) \right]^{1/2}
+	\nonumber
+\]
+
+A momentum-dependent energy gap exists for the elementary excitations:
+$$
+	\left[ \dfrac{1}{2} {\rm tr} \hat{\Delta} \hat{\Delta}^{\dagger}(\bm{k}) \right]^{1/2}
+$$
+
+${}$
+
+In the non-unitary case, the elements of the Bogoliubov transformation's matrix representation become more complex.
+
+\[
+	\hat{u}_{\bm{k}}
+	\!\!
+	=
+	\!\!
+	Q
+	\left\{
+	\left[
+		\dfrac{ E_{\bm{k} + } + \varepsilon(\bm{k}) }
+		{ E_{\bm{k} + } }
+		\right]^{1/2}
+	(
+	| \bm{q} | \hat{\sigma}_{0} + \bm{q} \cdot \hat{\bm{\sigma}}
+	)
+	(
+	\hat{\sigma}_{0} + \hat{\sigma}_{z}
+	)
+	+
+	\left[
+		\dfrac{ E_{\bm{k} - } + \varepsilon(\bm{k}) }
+		{ E_{\bm{k} - } }
+		\right]^{1/2}
+	(
+	| \bm{q} | \hat{\sigma}_{0} - \bm{q} \cdot \hat{\bm{\sigma}}
+	)
+	(
+	\hat{\sigma}_{0} - \hat{\sigma}_{z}
+	)
+	\right\}
+	\ \ ,
+	\nonumber
+\]\[
+	\hat{v}_{\bm{k}}
+	\!\!
+	=
+	\!\!
+	- i Q
+	\left\{
+	\dfrac{1}{\sqrt{ E_{\bm{k} +} [ E_{\bm{k} +} + \varepsilon(\bm{k}) ] }}
+	\left[
+		| \bm{q} | \bm{d} - i ( \bm{d} \times \bm{q} )
+		\right]
+	\cdot
+	\hat{\bm{\sigma}}
+	\hat{\sigma}_{y}
+	(
+	\hat{\sigma}_{0} + \hat{\sigma}_{z}
+	)
+	+
+	\dfrac{1}{\sqrt{ E_{\bm{k} -} [ E_{\bm{k} -} + \varepsilon(\bm{k}) ] }}
+	\left[
+		| \bm{q} | \bm{d} + i ( \bm{d} \times \bm{q} )
+		\right]
+	\cdot
+	\hat{\bm{\sigma}}
+	\hat{\sigma}_{y}
+	(
+	\hat{\sigma}_{0} - \hat{\sigma}_{z}
+	)
+	\right\}
+	\ \ .
+	\\
+\]
+
+Here, $Q$ and $E_{\bm{k} \pm}$ are shorthand notations for:
+
+\[
+	Q^{-2}
+	=
+	8 | \bm{q} | ( | \bm{q} | + q_{z} )
+	\ \ ,
+\]\[
+	E_{\bm{k} \pm}
+	=
+	\sqrt{ \varepsilon^{2}(\bm{k}) + | \bm{d}(\bm{k}) |^{2} \pm | \bm{q}(\bm{k}) |^{2} }
+	\ \ ,
+	\nonumber
+\]
+
+In the non-unitary case, $\bm{q}$ is non-zero, and the energy spectrum that was doubly degenerate in the unitary state splits.
+
+There are now two momentum-dependent energy gaps:
+
+\[
+	| \bm{d}(\bm{k}) |^{2} \pm | \bm{d}(\bm{k}) \times \bm{d}^{*}(\bm{k}) |
+	\nonumber
+\]
+
+This lifting of the degeneracy in the energy spectrum can be understood as a consequence of broken time-reversal symmetry.
+This is consistent with $\bm{q}$ being non-zero, which means the strength of the interaction for a Cooper pair depends on its spin orientation.
+\subsection{Self-Consistent Gap Equation}
+
+Using the fact that $\alpha_{\bm{k}s}^{(\dagger)}$ are fermions and the definition of the mean-field potential (equation 2.2), we can derive a self-consistent equation for the energy gap (the gap equation).
+
+\[
+	\Delta_{ss'}(\bm{k})
+	=
+	- \sum_{\bm{k}',s_{3},s_{4}}
+	V_{s' s s_{3} s_{4}}
+	(\bm{k},\bm{k}')
+	\mathcal{F}_{s_{3} s_{4}}(\bm{k}',\beta)
+	\ \ .
+\]
+
+The matrix $\hat{\mathcal{F}}(\bm{k},\beta)$ depends on whether the pair potential's matrix representation, $\hat{\Delta}(\bm{k})$, is unitary or non-unitary.
+For the unitary case,
+
+\[
+	\hat{\mathcal{F}}(\bm{k},\beta)
+	=
+	\dfrac{ \hat{\Delta}(\bm{k}) }{ 2 E_{\bm{k}} }
+	{\rm tanh}\dfrac{\beta E_{\bm{k}}}{2}
+	\ \ ,
+\]
+
+and for the non-unitary case,
+
+\[
+	\hat{\mathcal{F}}(\bm{k},\beta)
+	=
+	\left[
+		\dfrac{ 1 }{ 2 E_{\bm{k} +} }
+		\left(
+		\bm{d}(\bm{k})
+		+
+		\dfrac{\bm{q}(\bm{k}) \times \bm{d}(\bm{k})}{|\bm{q}(\bm{k})|}
+		\right)
+		{\rm tanh}\dfrac{\beta E_{\bm{k}+}}{2}
+		\ + \
+		\dfrac{ 1 }{ 2 E_{\bm{k} -} }
+		\left(
+		\bm{d}(\bm{k})
+		-
+		\dfrac{\bm{q}(\bm{k}) \times \bm{d}(\bm{k})}{|\bm{q}(\bm{k})|}
+		\right)
+		{\rm tanh}\dfrac{\beta E_{\bm{k}-}}{2}
+		\right]
+	i \hat{\bm{\sigma}} \hat{\sigma}_{y}
+	\ \ .
+\]
+
+These self-consistent equations determine the temperature dependence of the pair potential's matrix representation $\hat{\Delta}(\bm{k})$ and the superconducting transition temperature $T_{c}$.
+
+Near the transition temperature $T_{c}$, the magnitude of the gap is sufficiently small, which allows us to linearize and simplify the equation.
+
+\[
+	v \Delta_{s_{1} s_{2}}(\bm{k})
+	=
+	- \sum_{s_{3} s_{4}}
+	\left\langle
+	V_{ s_{2} s_{1} s_{3} s_{4} } (\bm{k} , \bm{k}')
+	\Delta_{s_{3} s_{4}} (\bm{k}')
+	\right\rangle_{\bm{k}'}
+	\ \ .
+\]
+
+Here, the bracket notation with the momentum subscript $\langle \cdots \rangle_{\bm{k}}$ denotes an average over the entire Fermi surface.
+In the weak-coupling limit, the constant $v$ can be approximated using the density of states at the Fermi surface, $N(0)$, as follows:
+
+\[
+	\dfrac{1}{v}
+	=
+	N(0)
+	\int^{\varepsilon_{c}}_{0}
+	\!\!\! d \varepsilon
+	\dfrac{{\rm tanh}\dfrac{\beta_{c} \varepsilon(\bm{k})}{2}}{\varepsilon(\bm{k})}
+	\ = \
+	{\rm ln}(1.14 \beta_{c} \varepsilon_{c})
+	\ \ .
+\]
+
+
+Equation (2.18) is the eigenvalue equation for the pair potential's matrix representation $\hat{\Delta}(\bm{k})$.
+
+The largest eigenvalue $v$ defines the superconducting instability, the real $T_{c}$, and the nature of the state, $\hat{\Delta}(\bm{k})$.
+
+To solve equation (2.18), we might naturally think we need the explicit expression for the pair-creation potential $\hat{V}$.
+
+However, the next section will show that we can actually find the solution without knowing the precise form of $\hat{V}$.
+In this case, group theory becomes an incredibly important tool.
+\subsection{Symmetry of the Pair Potential}
+
+The Hamiltonian described in equation (2.1) has symmetry.
+Let's call the group whose elements are the operations that leave this symmetry invariant $\mathcal{G}$.
+
+This group $\mathcal{G}$ is composed of subgroups: the point group of the crystal $G$, the 3D spin rotation symmetry SU(2), the time-reversal symmetry $\mathcal{K}$, and the gauge symmetry U(1).
+
+If we write the elements of group $\mathcal{G}$ as $g$, then
+
+\[
+	g
+	\mathcal{H}
+	=
+	\mathcal{H}
+	\ \ ,
+	\ \]\[
+	g
+	\ \in \
+	\mathcal{G}
+	=
+	G \ \! \times \ \! {\rm SU(2)} \ \! \times \ \! \mathcal{K} \ \! \times \ \! {\rm U(1)}
+	\ \ .
+	\nonumber
+\]
+
+The same letter $g$ will be used for elements of other groups below, but the group it belongs to will be specified in the text.
+
+To know how $\hat{\Delta}(\bm{k})$ transforms under a symmetry operation that is an element of $\mathcal{G}$, we need to know how $\tilde{\mathcal{H}}$ transforms.
+
+An element $g \in G$ acts only on the vector $\bm{k}$.
+
+\[
+	g a_{\bm{k},s}^{\dagger}
+	\ = \
+	a_{ \hat{D}_{(G)}^{(-)}(g) \bm{k},s}^{\dagger}
+	\ \ \longrightarrow \ \
+	g \hat{\Delta}(\bm{k})
+	\ = \
+	\hat{\Delta}(\hat{D}_{(G)}^{(-)}(g) (\bm{k}))
+\]
+
+Here, the symbol $\hat{D}_{(G)}^{(-)}(g)$ is the 3D representation of the group $G$ in $\bm{k}$-space.
+
+For the 3D spin rotation symmetry group SU(2), let's again write the matrix representation of a symmetry operation as $g$.
+The transformation of $\hat{\Delta}(\bm{k})$ under SU(2) is:
+
+\[
+	g a_{\bm{k},s}^{\dagger}
+	\ = \
+	\sum_{s'}
+	\hat{D}_{(S)} (g)_{s,s'}
+	a_{\bm{k},s}^{\dagger}
+	\ \ \longrightarrow \ \
+	g \hat{\Delta}(\bm{k})
+	\ = \
+	\hat{D}_{(S)}^{T} (g) \ \!
+	\hat{\Delta}(\bm{k}) \ \!
+	\hat{D}_{(S)} (g)
+\]
+
+The $2 \times 2$ matrix $\hat{D}_{S}$ is the representation matrix of SU(2) in spin-1/2 space.
+$\hat{D}^{T}$ represents the transpose of $\hat{D}$.
+\ \\
+
+\ \\
+
+Work in Progress...
+
+\begin{thebibliography}{9}
+	\bibitem{SigristUeda1991} M. Sigrist and K. Ueda (1991) Rev. Mod. Phys.
+
+\end{thebibliography}
+
+\end{document}
