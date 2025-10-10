@@ -1,0 +1,1150 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{
+確率ボラティリティと局所ボラティリティ
+}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{確率ボラティリティ}
+
+\subsection{方程式の導出}
+
+Wilmott(2000)の議論に従って進める。
+
+時刻$t$における株価$S_{t}$とその分散$\nu_{t}$は以下の方程式に従うとする。
+
+
+\begin{eqnarray*}
+	dS_{t}
+	&=&
+	\mu_{t} S_{t} dt
+	\ + \
+	\sqrt{\nu_{t}} S_{t} dZ_{1}
+	\\
+	d \nu_{t}
+	&=&
+	\alpha(S_{t},\nu_{t},t) dt
+	\ + \
+	\eta \beta(S_{t},\nu_{t},t) \sqrt{\nu_{t}} dZ_{2}
+	\\
+	\langle
+	dZ_{1} dZ_{2}
+	\rangle
+	&=&
+	\rho dt
+\end{eqnarray*}
+
+
+
+$\mu_{t}$は決定論的な関数であり、
+株価のリターンの瞬間的なドリフトを表す。
+
+$\eta$はボラティリティのボラティリティを表す。
+
+$dZ_{1}$,$dZ_{2}$はWiener過程であり、
+$\rho$は株価のリターンと$\nu_{t}$の変化の相関である。
+
+1つ目の等式はBlackとScholes(1973)に仮定された。
+
+実際、2つ目の等式で$\eta \to 0$を取ると
+この連立方程式がBlack-Scholesになることは、
+Wilmott(2000)の8.3節で示されている。
+
+\ \\
+
+一方でこの2つ目の等式のように分散$\nu_{t}$を仮定することで
+非常に一般的な議論になる。
+
+今のところ$\alpha$と$\beta$の関数形はそれぞれ決まっていない。
+
+加えて$\sqrt{\nu_{t}}$が従う過程を決めていない。
+（特にWiener過程にする等といった仮定を置いていない。）
+
+\ \\
+
+
+無リスクポートフォリオを構成する際、
+Black-Scholesのフレームワークでは
+ランダム性の源泉は株価のみであり、
+それゆえヘッジに用いる資産は株だけで済んだ。
+
+今回のWilmott(2000)のケースでは
+ボラティリティまでヘッジする必要があることを方程式が示している。
+
+\ \\
+
+価値$V(S,\nu,t)$の資産を含むポートフォリオ$\Pi$を以下のように構成する。
+株$S$の保有量は$(-\Delta)$、
+ボラティリティに依存する資産$V_{1}$の保有量$(-\Delta_{1})$とする。
+
+
+\begin{eqnarray*}
+	\Pi
+	&=&
+	V - \Delta S - \Delta_{1} V_{1}
+\end{eqnarray*}
+
+
+
+微小時間$dt$の間の資産価値の変化$d\Pi$を求めたい。
+伊藤の補題を用いて、
+
+
+\begin{eqnarray*}
+	d \Pi
+	&=&
+	dV - d(\Delta S) - d(\Delta_{1} V_{1})
+	\\ &=&
+	dV - \Delta dS - \Delta_{1} dV_{1}
+\end{eqnarray*}
+
+
+となる。
+各項をそれぞれ展開する。
+
+まず、
+$dS^{2},d\nu^{2},dSd\nu$を展開すると、
+
+
+\begin{eqnarray*}
+	dS^{2}
+	&=&
+	(\sqrt{\nu} S dZ_{1} + \mu S dt)^{2}
+	\\ &=&
+	\nu S^{2} dZ_{1}^{2}
+	+
+	2 \mu S \sqrt{\nu} S dt dZ_{1}
+	+
+	\mu^{2} S^{2} dt^{2}
+	\\ &=&
+	\nu S^{2} dt
+\end{eqnarray*}
+
+
+$o(dt)$より高次の微小量である$dZ_{1}dt,dt^{2}$はゼロとして、
+$dZ_{1}^{2} = dt$を用いた。
+同様に、
+
+
+\begin{eqnarray*}
+	d \nu^{2}
+	&=&
+	( \alpha dt + \eta \beta \sqrt{\nu} dZ_{2} )^{2}
+	\\ &=&
+	\eta^{2} \nu \beta^{2} dt
+	\\[3mm]
+	dS d \nu
+	&=&
+	(\sqrt{\nu} S dZ_{1} + \mu S dt)
+	( \alpha dt + \eta \beta \sqrt{\nu} dZ_{2} )
+	\\ &=&
+	\rho \eta \nu \beta dt
+\end{eqnarray*}
+
+
+以上から、
+
+
+\begin{eqnarray*}
+	dV
+	\!\!\!\!
+	&=&
+	\dfrac{\partial V}{\partial t}
+	dt
+	+
+	\dfrac{\partial V}{\partial S}
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu}
+	d\nu
+	\\　&& \ + \
+	\dfrac{1}{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	dS^{2}
+	+
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	dSd\nu
+	+
+	\dfrac{1}{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	d\nu^{2}
+	\\ &=&
+	\dfrac{\partial V}{\partial t}
+	dt
+	+
+	\dfrac{\partial V}{\partial S}
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu}
+	d\nu
+	\\　&& \ + \
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	dt
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	dt
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	dt
+	\\ &&
+	\hspace{-7.7mm}
+	\begin{array}{l}
+		= \
+		\left(
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\ && \ + \
+	\dfrac{\partial V}{\partial S}
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu}
+	d\nu
+\end{eqnarray*}
+
+
+
+$V_{1}=V_{1}(S,\nu,t)$についても全く同様に、
+
+
+\begin{eqnarray*}
+	&&
+	\begin{array}{l}
+		dV_{1} \ = \
+		\left(
+		\dfrac{\partial V_{1}}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\ && \hspace{10mm} + \
+	\dfrac{\partial V_{1}}{\partial S}
+	dS
+	+
+	\dfrac{\partial V_{1}}{\partial \nu}
+	d\nu
+\end{eqnarray*}
+
+
+となるので、ポートフォリオの確率微分は、
+
+
+\begin{eqnarray*}
+	&&
+	dV - \Delta dS - \Delta_{1} dV_{1}
+	\\[2mm]
+	&&
+	\hspace{-10mm}
+	\begin{array}{l}
+		= \
+		\left(
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\
+	&&
+	\hspace{-5mm}
+	+
+	\dfrac{\partial V}{\partial S}
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu}
+	d\nu
+	\\
+	&&
+	\hspace{-5mm}
+	-
+	\Delta dS
+	\\
+	&&
+	\hspace{-6.6mm}
+	\begin{array}{l}
+		- \
+		\Delta_{1}
+		\left(
+		\dfrac{\partial V_{1}}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\
+	&&
+	\hspace{-5mm}
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial S}
+	dS
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial \nu}
+	d\nu
+\end{eqnarray*}
+
+
+まとめると、
+
+
+\begin{eqnarray*}
+	&&
+	\begin{array}{l}
+		d \Pi \ = \
+		\left(
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\ && \hspace{10mm}
+	\begin{array}{l}
+		- \
+		\left(
+		\dfrac{\partial V_{1}}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\ &&
+	\hspace{10mm} +
+	\left(
+	\dfrac{\partial V}{\partial S}
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial S}
+	-
+	\Delta_{1}
+	\right)
+	dS
+	\\ &&
+	\hspace{10mm} +
+	\left(
+	\dfrac{\partial V}{\partial \nu}
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial \nu}
+	\right)
+	d\nu
+\end{eqnarray*}
+
+
+
+このポートフォリオが瞬間的に無リスクになるようにヘッジする。
+
+$dS$の項と$d\nu$の項を消去する為にそれぞれ次のような拘束条件を選ぶ。
+
+
+\begin{eqnarray*}
+	\dfrac{\partial V}{\partial S}
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial S}
+	-
+	\Delta_{1}
+	&=&
+	0
+	\\
+	\dfrac{\partial V}{\partial \nu}
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial \nu}
+	&=&
+	0
+\end{eqnarray*}
+
+
+これを逆に解くとヘッジすべき量がそれぞれ得られる。
+
+
+\begin{eqnarray*}
+	\Delta
+	&=&
+	\dfrac{\partial V}{\partial S}
+	\ - \
+	\dfrac{
+		\dfrac{\partial V}{\partial \nu}
+		\dfrac{\partial V_{1}}{\partial S}
+	}{
+		\dfrac{\partial V_{1}}{\partial \nu}
+	}
+	\\
+	\Delta_{1}
+	&=&
+	\dfrac{ \ \
+		\dfrac{\partial V}{\partial \nu}
+		\
+	}{ \ \
+		\dfrac{\partial V_{1}}{\partial \nu}
+		\
+	}
+\end{eqnarray*}
+
+
+
+
+この条件の下、
+無リスク金利$r$を用いて以下のように表すことが出来る。
+
+
+\begin{eqnarray*}
+	d \Pi
+	&=&
+	r \Pi dt
+	\\[1mm] &&
+	\hspace{-10mm}
+	= r (V - \Delta S - \Delta_{1} V_{1}) dt
+	\\ &&
+	\hspace{-10mm}
+	= r \left\{
+	V -
+	\left(
+	\dfrac{\partial V}{\partial S}
+	\ - \
+	\dfrac{
+		\dfrac{\partial V}{\partial \nu}
+		\dfrac{\partial V_{1}}{\partial S}
+	}{
+		\dfrac{\partial V_{1}}{\partial \nu}
+	}
+	\right)
+	S
+	-
+	\left(
+	\dfrac{ \
+		\dfrac{\partial V}{\partial \nu}
+		\
+	}{ \ \
+		\dfrac{\partial V_{1}}{\partial \nu}
+		\ \
+	}
+	\right)
+	V_{1}
+	\right\} dt
+\end{eqnarray*}
+
+
+一方で、
+
+
+\begin{eqnarray*}
+	&&
+	\hspace{-5mm}
+	d \Pi
+	\\[3mm] &&
+	\hspace{-10mm}
+	=
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ && \hspace{-10mm} -
+	\Delta_{1}
+	\!\!
+	\left(
+	\dfrac{\partial V_{1}}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+	\right)
+	\!
+	dt
+	\\[3mm] &&
+	\hspace{-10mm}
+	=
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ &-&
+	\!\!\!\!
+	\left(
+	\dfrac{ \
+		\dfrac{\partial V}{\partial \nu}
+		\
+	}{ \ \
+		\dfrac{\partial V_{1}}{\partial \nu}
+		\ \
+	}
+	\right)
+	\\ &&
+	\hspace{-5mm}
+	\times
+	\left(
+	\dfrac{\partial V_{1}}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+	\right)
+	\!
+	dt
+\end{eqnarray*}
+
+
+このそれぞれが等しいので、
+$V$に関する項を左辺、$V_{1}$に関する項を右辺に移行して整理すると、
+
+
+\begin{eqnarray*}
+	&&
+	\dfrac{
+		\left.
+		\begin{array}{l}
+			\dfrac{\partial V}{\partial t}
+			+
+			\dfrac{1}{2}
+			\nu S^{2}
+			\dfrac{\partial^{2} V}{\partial S^{2}}
+			+
+			\rho \eta \nu \beta
+			\dfrac{\partial^{2} V}{\partial S \partial \nu}
+			\\ \hspace{10mm}
+			+
+			\dfrac{1}{2}
+			\eta^{2} \nu \beta^{2}
+			\dfrac{\partial^{2} V}{\partial \nu^{2}}
+			+
+			rS \dfrac{\partial V}{\partial S}
+			-rV
+		\end{array}
+		\right.
+	}{
+		\dfrac{\partial V}{\partial \nu}
+	}
+	\\ &=&
+	\dfrac{
+		\left.
+		\begin{array}{l}
+			\dfrac{\partial V_{1}}{\partial t}
+			+
+			\dfrac{1}{2}
+			\nu S^{2}
+			\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+			+
+			\rho \eta \nu \beta
+			\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+			\\ \hspace{10mm}
+			+
+			\dfrac{1}{2}
+			\eta^{2} \nu \beta^{2}
+			\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+			+
+			rS \dfrac{\partial V_{1}}{\partial S}
+			-rV_{1}
+		\end{array}
+		\right.
+	}{
+		\dfrac{\partial V_{1}}{\partial \nu}
+	}
+\end{eqnarray*}
+
+
+左辺は$V$のみ、右辺は$V_{1}$のみの式となっている。
+
+この等式が恒等的に成立する場合、
+この両辺は$S,\nu,t$とは独立な任意の関数と等しい。
+その関数を
+$$
+	- (\alpha - \phi \beta \sqrt{\nu})
+$$
+と置いても一般性を失うことなく議論できる。すなわち、
+
+
+\begin{eqnarray*}
+	\begin{array}{l}
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		\\[3mm] \hspace{10mm}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		+
+		rS \dfrac{\partial V}{\partial S}
+		-rV
+		\ = \
+		- (\alpha - \phi \beta \sqrt{\nu})
+		\dfrac{\partial V}{\partial \nu}
+	\end{array}
+\end{eqnarray*}
+
+
+ここで
+$\phi = \phi(S,\nu,t)$
+は
+market price of volatility risk
+(ボラティリティリスクの市場価格)
+と呼ばれる。
+
+$\\[-15mm]$
+
+\subsection{ボラティリティリスクの市場価格}
+
+Wilmottの議論に基づいて、
+何故$\phi$に
+「ボラティリティリスクの市場価格」
+という名前が付いているのかを以下で見ていく。
+
+デルタヘッジはされているがベガヘッジはされていないデリバティブの
+$V$で構成されるポートフォリオ$\Pi_{1}$を考える。
+
+
+\begin{eqnarray*}
+	\Pi_{1}
+	&=&
+	V
+	-
+	\dfrac{\partial V}{\partial S} S
+\end{eqnarray*}
+
+
+前節同様に伊藤の補題を用いると、
+
+
+\begin{eqnarray*}
+	&&
+	d\Pi_{1}
+	\\[3mm] &=&
+	dV
+	-
+	S d \left( \dfrac{\partial V}{\partial S} \right)
+	-
+	\dfrac{\partial V}{\partial S} dS
+	\\ &=& \!\!\!
+	\left\{
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\right.
+	\\ && +
+	\left.
+	\dfrac{\partial V}{\partial S} dS
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+	\right\}
+	\\ && -
+	\left(
+	\Delta dS
+	-
+	\dfrac{\partial V}{\partial S} dS
+	\right)
+	\ \
+	-
+	\dfrac{\partial V}{\partial S} dS
+	\\ &=&
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ && +
+	\left(
+	\dfrac{\partial V}{\partial S}
+	-
+	\Delta
+	\right)
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+\end{eqnarray*}
+
+
+
+
+\footnote{疑問。
+
+
+	$
+		d\Pi_{1}
+		=
+		dV
+		-
+		S d \left( \dfrac{\partial V}{\partial S} \right)
+		-
+		\dfrac{\partial V}{\partial S} dS
+	$
+	のように積の微分から
+	$S d \left( \dfrac{\partial V}{\partial S} \right)$
+	の項が出て来るが、テキストではどのように処理をしているのか分からない。
+
+	一方で急に$\Delta dS$の項が出てきている。
+	$\Delta$はどこから来た？
+
+	テキストに合わせる為に（ひとまず読み進める為にやむを得ず）
+	$S d \left( \dfrac{\partial V}{\partial S} \right)
+		=
+		\Delta dS
+		-
+		\dfrac{\partial V}{\partial S} dS
+	$
+	と置いている。
+}
+
+
+今、
+このポートフォリオはデルタヘッジ済みなので
+$dS$の項は落ちる。
+すなわち、
+$$
+	\Delta dS
+	\ = \
+	\dfrac{\partial V}{\partial S} dS
+$$
+となるので、結局、
+
+
+\begin{eqnarray*}
+	&&
+	d\Pi_{1}
+	\\[3mm] &=&
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ &&
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+\end{eqnarray*}
+
+
+である。
+
+デルタヘッジしかしていない（ベガヘッジを怠った）
+ポートフォリオの確率微分と、
+全てヘッジして無リスクとなったポートフォリオ
+の確率微分$r \Pi_{1} dt$
+のそれぞれの価格差は、
+
+
+\begin{eqnarray*}
+	&&
+	d\Pi_{1} - r \Pi_{1} dt
+	\\[3mm] &=&
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ &&
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+	\\ && -
+	\left(
+	rV
+	-
+	r
+	\dfrac{\partial V}{\partial S} dS
+	\right)
+	dt
+	\\ &&
+	\begin{array}{l}
+		\hspace{-7mm}
+		= \
+		\left(
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		\right.
+		\\
+		\left.
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		-
+		rV
+		+
+		r
+		\dfrac{\partial V}{\partial S} dS
+		\right)dt
+	\end{array}
+	\\ &&
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+	\\ &=&
+	-
+	( \alpha - \phi \beta \sqrt{\nu} )
+	\dfrac{\partial V}{\partial \nu}
+	dt
+	\ \
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+\end{eqnarray*}
+
+
+
+\footnote{テキストは$rS\dfrac{\partial V}{\partial S}$の項の符号間違い。
+	（ノートの2つ目と3つ目の等号の間の式。）
+}
+
+ここで、
+基礎方程式の第二式が
+$$
+	d \nu
+	\ = \
+	\alpha dt + \eta \beta \sqrt{\nu} dZ_{2}
+$$
+であることを用いると、
+
+
+\begin{eqnarray*}
+	&&
+	d\Pi_{1} - r \Pi_{1} dt
+	\\ &=&
+	-
+	( \alpha - \phi \beta \sqrt{\nu} )
+	\dfrac{\partial V}{\partial \nu}
+	dt
+	\ + \
+	\dfrac{\partial V}{\partial \nu}
+	( \alpha dt + \eta \beta \sqrt{\nu} dZ_{2} )
+	\\ &=&
+	\beta \sqrt{\nu}
+	\dfrac{\partial V}{\partial \nu}
+	(\phi dt + \eta dZ_{2})
+\end{eqnarray*}
+
+
+
+CAPM(Capital Asset Pricing Model)を思い出すと、
+
+$ \ \ $
+期待収益率$ \ = \ $無リスク金利$ \ + \ $リスクプレミアム
+
+であった。
+
+$$
+	d\Pi_{1}
+	\ = \
+	r \Pi_{1} dt
+	\ + \
+	\beta \sqrt{\nu}
+	\dfrac{\partial V}{\partial \nu}
+	(\phi dt + \eta dZ_{2})
+$$
+
+この式によって、
+CAPM(Capital Asset Pricing Model)
+とのアナロジーから
+$\phi(S,\nu,t)$
+は
+market price of volatility risk
+と呼ばれる。
+
+\ \\
+
+リスク中立なドリフトを
+$$
+	\alpha'
+	\ = \
+	\alpha - \beta \sqrt{\nu} \phi
+$$
+で定義する。
+
+$\\$
+
+（Work in progress ......）
+
+\if0
+
+	$\\$
+
+	このように置くことで、
+	先に導出したポートフォリオの確率微分とヘッジして無リスクとなったポートフォリオの価格差は
+
+
+	\begin{eqnarray*}
+		d\Pi_{1} - r \Pi_{1} dt
+		&=&
+		-
+		( \alpha - \phi \beta \sqrt{\nu} )
+		\dfrac{\partial V}{\partial \nu}
+		dt
+		\ \
+		+
+		\dfrac{\partial V}{\partial \nu} d \nu
+		\\ &=&
+		\dfrac{\partial V}{\partial \nu}
+		(
+		-\tilde{\alpha} dt
+		+
+		d \nu
+		)
+	\end{eqnarray*}
+
+
+	となるが、
+	一方でCAPMとのアナロジーから
+
+	$ \ \ $
+	期待収益率$ \ - \ $無リスク金利
+	$ \ = \ $
+	リスクプレミアム
+	であり
+
+
+	\begin{eqnarray*}
+		d\Pi_{1}
+		-
+		r \Pi_{1} dt
+		&=&
+		\beta \sqrt{\nu}
+		\dfrac{\partial V}{\partial \nu}
+		(\phi dt + \eta dZ_{2})
+	\end{eqnarray*}
+
+
+	だったので、それぞれの右辺が等しいことから、
+
+
+	\begin{eqnarray*}
+		\dfrac{\partial V}{\partial \nu}
+		(
+		-\tilde{\alpha} dt
+		+
+		d \nu
+		)
+		&=&
+		\beta \sqrt{\nu}
+		\dfrac{\partial V}{\partial \nu}
+		(\phi dt + \eta dZ_{2})
+		\\[3mm]
+		d \nu
+		&=&
+		(
+		\tilde{\alpha}
+		+
+		\beta \sqrt{\nu}
+		)
+		\phi dt
+		+
+		\beta \sqrt{\nu}
+		\eta dZ_{2}
+	\end{eqnarray*}
+
+
+
+	$\\$
+
+
+
+	\begin{eqnarray*}
+		d \nu_{t}
+		&=&
+		\alpha dt
+		\ + \
+		\eta \beta \sqrt{\nu_{t}} dZ_{2}
+		\\ &=&
+		(\alpha' + \beta \sqrt{\nu} \phi)
+		dt
+		\ + \
+		\eta \beta \sqrt{\nu_{t}} dZ_{2}
+	\end{eqnarray*}
+
+
+
+
+
+
+	\begin{eqnarray*}
+		\beta \sqrt{\nu}
+		\dfrac{\partial V}{\partial \nu}
+		(\phi dt + \eta dZ_{2})
+		&=&
+		\dfrac{\partial V}{\partial \nu}
+		((\alpha' - \alpha) dt + \beta \sqrt{\nu} \eta dZ_{2})
+	\end{eqnarray*}
+
+
+
+	\footnote{なぜこのように置くとリスク中立になるか今後読む中で意識する。}
+
+\fi
+
+\begin{thebibliography}{9}
+
+	\bibitem{Rudin:Schwichtenberg}
+    Jim Gatheral
+    \newblock (2006)
+    \newblock The Volatility Surface: A Practitioner's Guide (Wiley Finance)
+
+\end{thebibliography}
+
+\end{document}

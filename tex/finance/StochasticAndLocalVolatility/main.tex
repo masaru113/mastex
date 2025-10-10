@@ -1,0 +1,1004 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{
+Stochastic Volatility and Local Volatility
+}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Stochastic Volatility}
+
+\subsection{Derivation of the Equation}
+
+Following the arguments of Wilmott(2000), let's proceed.
+
+Assume that the stock price $S_{t}$ and its variance $\nu_{t}$ at time $t$ follow the following equations:
+
+\begin{eqnarray*}
+	dS_{t}
+	&=&
+	\mu_{t} S_{t} dt
+	\ + \
+	\sqrt{\nu_{t}} S_{t} dZ_{1}
+	\\
+	d \nu_{t}
+	&=&
+	\alpha(S_{t},\nu_{t},t) dt
+	\ + \
+	\eta \beta(S_{t},\nu_{t},t) \sqrt{\nu_{t}} dZ_{2}
+	\\
+	\langle
+	dZ_{1} dZ_{2}
+	\rangle
+	&=&
+	\rho dt
+\end{eqnarray*}
+
+Here, $\mu_{t}$ is a deterministic function, representing the instantaneous drift of the stock's return.
+
+$\eta$ represents the volatility of volatility.
+
+$dZ_{1}$ and $dZ_{2}$ are Wiener processes, and $\rho$ is the correlation between the stock's return and the change in $\nu_{t}$.
+
+The first equation was assumed by Black and Scholes (1973).
+
+In fact, Wilmott(2000) shows in Section 8.3 that this system of equations becomes the Black-Scholes model if we take the limit $\eta \to 0$ in the second equation.
+
+\ \\
+
+Assuming the variance $\nu_{t}$ follows this second equation allows for a very general discussion.
+
+For now, the functional forms of $\alpha$ and $\beta$ are not determined.
+
+Furthermore, we haven't specified the process that $\sqrt{\nu_{t}}$ follows (e.g., assuming it's a Wiener process).
+
+\ \\
+
+When constructing a risk-free portfolio, the source of randomness in the Black-Scholes framework was solely the stock price, so only the stock itself was needed for hedging.
+
+In this case, Wilmott(2000)'s equations show that we must also hedge the volatility.
+
+\ \\
+
+Consider a portfolio $\Pi$ that includes an asset with value $V(S,\nu,t)$. Let the holdings of stock $S$ be $(-\Delta)$ and the holdings of a volatility-dependent asset $V_{1}$ be $(-\Delta_{1})$.
+
+\begin{eqnarray*}
+	\Pi
+	&=&
+	V - \Delta S - \Delta_{1} V_{1}
+\end{eqnarray*}
+
+We want to find the change in the portfolio's value, $d\Pi$, over a small time interval $dt$. Using Itô's lemma, we get:
+
+\begin{eqnarray*}
+	d \Pi
+	&=&
+	dV - d(\Delta S) - d(\Delta_{1} V_{1})
+	\\ &=&
+	dV - \Delta dS - \Delta_{1} dV_{1}
+\end{eqnarray*}
+
+Let's expand each term.
+
+First, expanding $dS^{2}$, $d\nu^{2}$, and $dSd\nu$:
+
+\begin{eqnarray*}
+	dS^{2}
+	&=&
+	(\sqrt{\nu} S dZ_{1} + \mu S dt)^{2}
+	\\ &=&
+	\nu S^{2} dZ_{1}^{2}
+	+
+	2 \mu S \sqrt{\nu} S dt dZ_{1}
+	+
+	\mu^{2} S^{2} dt^{2}
+	\\ &=&
+	\nu S^{2} dt
+\end{eqnarray*}
+
+We use $dZ_{1}^{2} = dt$, as higher-order infinitesimals like $dZ_{1}dt$ and $dt^{2}$ are of order $o(dt)$ and therefore vanish. Similarly,
+
+\begin{eqnarray*}
+	d \nu^{2}
+	&=&
+	( \alpha dt + \eta \beta \sqrt{\nu} dZ_{2} )^{2}
+	\\ &=&
+	\eta^{2} \nu \beta^{2} dt
+	\\[3mm]
+	dS d \nu
+	&=&
+	(\sqrt{\nu} S dZ_{1} + \mu S dt)
+	( \alpha dt + \eta \beta \sqrt{\nu} dZ_{2} )
+	\\ &=&
+	\rho \eta \nu \beta dt
+\end{eqnarray*}
+
+From these, we can express $dV$ as:
+
+\begin{eqnarray*}
+	dV
+	\!\!\!\!
+	&=&
+	\dfrac{\partial V}{\partial t}
+	dt
+	+
+	\dfrac{\partial V}{\partial S}
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu}
+	d\nu
+	\\　&& \ + \
+	\dfrac{1}{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	dS^{2}
+	+
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	dSd\nu
+	+
+	\dfrac{1}{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	d\nu^{2}
+	\\ &=&
+	\dfrac{\partial V}{\partial t}
+	dt
+	+
+	\dfrac{\partial V}{\partial S}
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu}
+	d\nu
+	\\　&& \ + \
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	dt
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	dt
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	dt
+	\\ &&
+	\hspace{-7.7mm}
+	\begin{array}{l}
+		= \
+		\left(
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\ && \ + \
+	\dfrac{\partial V}{\partial S}
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu}
+	d\nu
+\end{eqnarray*}
+
+Similarly, for $V_{1}=V_{1}(S,\nu,t)$, we get:
+
+\begin{eqnarray*}
+	&&
+	\begin{array}{l}
+		dV_{1} \ = \
+		\left(
+		\dfrac{\partial V_{1}}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\ && \hspace{10mm} + \
+	\dfrac{\partial V_{1}}{\partial S}
+	dS
+	+
+	\dfrac{\partial V_{1}}{\partial \nu}
+	d\nu
+\end{eqnarray*}
+
+Substituting these into the portfolio's stochastic differential, we have:
+
+\begin{eqnarray*}
+	&&
+	dV - \Delta dS - \Delta_{1} dV_{1}
+	\\[2mm]
+	&&
+	\hspace{-10mm}
+	\begin{array}{l}
+		= \
+		\left(
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\
+	&&
+	\hspace{-5mm}
+	+
+	\dfrac{\partial V}{\partial S}
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu}
+	d\nu
+	\\
+	&&
+	\hspace{-5mm}
+	-
+	\Delta dS
+	\\
+	&&
+	\hspace{-6.6mm}
+	\begin{array}{l}
+		- \
+		\Delta_{1}
+		\left(
+		\dfrac{\partial V_{1}}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\
+	&&
+	\hspace{-5mm}
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial S}
+	dS
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial \nu}
+	d\nu
+\end{eqnarray*}
+
+Combining the terms:
+
+\begin{eqnarray*}
+	&&
+	\begin{array}{l}
+		d \Pi \ = \
+		\left(
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\ && \hspace{10mm}
+	\begin{array}{l}
+		- \
+		\Delta_{1}
+		\left(
+		\dfrac{\partial V_{1}}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+		\right.
+		\\ \hspace{10mm}
+		\left.
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+		\right)dt
+	\end{array}
+	\\ &&
+	\hspace{10mm} +
+	\left(
+	\dfrac{\partial V}{\partial S}
+	-
+	\Delta
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial S}
+	\right)
+	dS
+	\\ &&
+	\hspace{10mm} +
+	\left(
+	\dfrac{\partial V}{\partial \nu}
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial \nu}
+	\right)
+	d\nu
+\end{eqnarray*}
+
+We now hedge this portfolio to make it instantaneously risk-free. To eliminate the $dS$ and $d\nu$ terms, we choose the following constraints:
+
+\begin{eqnarray*}
+	\dfrac{\partial V}{\partial S}
+	-
+	\Delta
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial S}
+	&=&
+	0
+	\\
+	\dfrac{\partial V}{\partial \nu}
+	-
+	\Delta_{1}
+	\dfrac{\partial V_{1}}{\partial \nu}
+	&=&
+	0
+\end{eqnarray*}
+
+Solving these yields the hedge quantities we need:
+
+\begin{eqnarray*}
+	\Delta
+	&=&
+	\dfrac{\partial V}{\partial S}
+	\ - \
+	\dfrac{
+		\dfrac{\partial V}{\partial \nu}
+		\dfrac{\partial V_{1}}{\partial S}
+	}{
+		\dfrac{\partial V_{1}}{\partial \nu}
+	}
+	\\
+	\Delta_{1}
+	&=&
+	\dfrac{ \ \
+		\dfrac{\partial V}{\partial \nu}
+		\
+	}{ \ \
+		\dfrac{\partial V_{1}}{\partial \nu}
+		\
+	}
+\end{eqnarray*}
+
+Under these conditions, the portfolio can be expressed using the risk-free rate $r$:
+
+\begin{eqnarray*}
+	d \Pi
+	&=&
+	r \Pi dt
+	\\[1mm] &&
+	\hspace{-10mm}
+	= r (V - \Delta S - \Delta_{1} V_{1}) dt
+	\\ &&
+	\hspace{-10mm}
+	= r \left\{
+	V -
+	\left(
+	\dfrac{\partial V}{\partial S}
+	\ - \
+	\dfrac{
+		\dfrac{\partial V}{\partial \nu}
+		\dfrac{\partial V_{1}}{\partial S}
+	}{
+		\dfrac{\partial V_{1}}{\partial \nu}
+	}
+	\right)
+	S
+	-
+	\left(
+	\dfrac{ \
+		\dfrac{\partial V}{\partial \nu}
+		\
+	}{ \ \
+		\dfrac{\partial V_{1}}{\partial \nu}
+		\ \
+	}
+	\right)
+	V_{1}
+	\right\} dt
+\end{eqnarray*}
+
+At the same time, we have:
+
+\begin{eqnarray*}
+	&&
+	\hspace{-5mm}
+	d \Pi
+	\\[3mm] &&
+	\hspace{-10mm}
+	=
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ && \hspace{-10mm} -
+	\Delta_{1}
+	\!\!
+	\left(
+	\dfrac{\partial V_{1}}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+	\right)
+	\!
+	dt
+	\\[3mm] &&
+	\hspace{-10mm}
+	=
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ &-&
+	\!\!\!\!
+	\left(
+	\dfrac{ \
+		\dfrac{\partial V}{\partial \nu}
+		\
+	}{ \ \
+		\dfrac{\partial V_{1}}{\partial \nu}
+		\ \
+	}
+	\right)
+	\\ &&
+	\hspace{-5mm}
+	\times
+	\left(
+	\dfrac{\partial V_{1}}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+	\right)
+	\!
+	dt
+\end{eqnarray*}
+
+Since these expressions for $d\Pi$ are equal, we can rearrange the terms by moving the terms related to $V$ to the left side and those related to $V_{1}$ to the right side:
+
+\begin{eqnarray*}
+	&&
+	\dfrac{
+		\left.
+		\begin{array}{l}
+			\dfrac{\partial V}{\partial t}
+			+
+			\dfrac{1}{2}
+			\nu S^{2}
+			\dfrac{\partial^{2} V}{\partial S^{2}}
+			+
+			\rho \eta \nu \beta
+			\dfrac{\partial^{2} V}{\partial S \partial \nu}
+			\\ \hspace{10mm}
+			+
+			\dfrac{1}{2}
+			\eta^{2} \nu \beta^{2}
+			\dfrac{\partial^{2} V}{\partial \nu^{2}}
+			+
+			rS \dfrac{\partial V}{\partial S}
+			-rV
+		\end{array}
+		\right.
+	}{
+		\dfrac{\partial V}{\partial \nu}
+	}
+	\\ &=&
+	\dfrac{
+		\left.
+		\begin{array}{l}
+			\dfrac{\partial V_{1}}{\partial t}
+			+
+			\dfrac{1}{2}
+			\nu S^{2}
+			\dfrac{\partial^{2} V_{1}}{\partial S^{2}}
+			+
+			\rho \eta \nu \beta
+			\dfrac{\partial^{2} V_{1}}{\partial S \partial \nu}
+			\\ \hspace{10mm}
+			+
+			\dfrac{1}{2}
+			\eta^{2} \nu \beta^{2}
+			\dfrac{\partial^{2} V_{1}}{\partial \nu^{2}}
+			+
+			rS \dfrac{\partial V_{1}}{\partial S}
+			-rV_{1}
+		\end{array}
+		\right.
+	}{
+		\dfrac{\partial V_{1}}{\partial \nu}
+	}
+\end{eqnarray*}
+
+The left side of the equation depends only on $V$, and the right side only on $V_{1}$. For this equation to hold identically, both sides must equal an arbitrary function that is independent of $S, \nu,$ and $t$. Without loss of generality, we can set this function equal to $- (\alpha - \phi \beta \sqrt{\nu})$. Thus, we have:
+
+\begin{eqnarray*}
+	\begin{array}{l}
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		\\[3mm] \hspace{10mm}
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		+
+		rS \dfrac{\partial V}{\partial S}
+		-rV
+		\ = \
+		- (\alpha - \phi \beta \sqrt{\nu})
+		\dfrac{\partial V}{\partial \nu}
+	\end{array}
+\end{eqnarray*}
+
+Here, $\phi = \phi(S,\nu,t)$ is called the \textbf{market price of volatility risk}.
+
+$\\[-15mm]$
+
+\subsection{Market Price of Volatility Risk}
+
+Let's examine why Wilmott's discussion gives $\phi$ the name 'market price of volatility risk'.
+
+Consider a portfolio $\Pi_{1}$ composed of $V$, which is delta-hedged but not vega-hedged:
+
+\begin{eqnarray*}
+	\Pi_{1}
+	&=&
+	V
+	-
+	\dfrac{\partial V}{\partial S} S
+\end{eqnarray*}
+
+Applying Itô's lemma just as before, we find the change in the portfolio's value, $d\Pi_{1}$:
+
+\begin{eqnarray*}
+	&&
+	d\Pi_{1}
+	\\[3mm] &=&
+	dV
+	-
+	S d \left( \dfrac{\partial V}{\partial S} \right)
+	-
+	\dfrac{\partial V}{\partial S} dS
+	\\ &=& \!\!\!
+	\left\{
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\right.
+	\\ && +
+	\left.
+	\dfrac{\partial V}{\partial S} dS
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+	\right\}
+	\\ && -
+	\left(
+	\Delta dS
+	-
+	\dfrac{\partial V}{\partial S} dS
+	\right)
+	\ \
+	-
+	\dfrac{\partial V}{\partial S} dS
+	\\ &=&
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ && +
+	\left(
+	\dfrac{\partial V}{\partial S}
+	-
+	\Delta
+	\right)
+	dS
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+\end{eqnarray*}
+
+\footnote{
+	A point of confusion. The textbook seems to handle the product rule for $S d \left( \frac{\partial V}{\partial S} \right)$ in a non-standard way. I can't figure out the exact reasoning behind the sudden appearance of the $\Delta dS$ term. To follow the text's flow for now, it's assumed that $S d \left( \frac{\partial V}{\partial S} \right) = \Delta dS - \frac{\partial V}{\partial S} dS$.
+}
+
+Since this portfolio is delta-hedged, the $dS$ term should vanish, meaning $ \Delta dS = \frac{\partial V}{\partial S} dS $. This simplifies the expression to:
+
+\begin{eqnarray*}
+	&&
+	d\Pi_{1}
+	\\[3mm] &=&
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ &&
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+\end{eqnarray*}
+
+Now, let's consider the difference in price between this portfolio, which is only delta-hedged (and therefore not vega-hedged), and a fully hedged risk-free portfolio, whose price change is $r \Pi_{1} dt$:
+
+\begin{eqnarray*}
+	&&
+	d\Pi_{1} - r \Pi_{1} dt
+	\\[3mm] &=&
+	\left(
+	\dfrac{\partial V}{\partial t}
+	+
+	\dfrac{1}{2}
+	\nu S^{2}
+	\dfrac{\partial^{2} V}{\partial S^{2}}
+	+
+	\rho \eta \nu \beta
+	\dfrac{\partial^{2} V}{\partial S \partial \nu}
+	+
+	\dfrac{1}{2}
+	\eta^{2} \nu \beta^{2}
+	\dfrac{\partial^{2} V}{\partial \nu^{2}}
+	\right)dt
+	\\ &&
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+	\\ && -
+	\left(
+	rV
+	-
+	r
+	\dfrac{\partial V}{\partial S} S
+	\right)
+	dt
+	\\ &&
+	\begin{array}{l}
+		\hspace{-7mm}
+		= \
+		\left(
+		\dfrac{\partial V}{\partial t}
+		+
+		\dfrac{1}{2}
+		\nu S^{2}
+		\dfrac{\partial^{2} V}{\partial S^{2}}
+		+
+		\rho \eta \nu \beta
+		\dfrac{\partial^{2} V}{\partial S \partial \nu}
+		\right.
+		\\
+		\left.
+		+
+		\dfrac{1}{2}
+		\eta^{2} \nu \beta^{2}
+		\dfrac{\partial^{2} V}{\partial \nu^{2}}
+		-
+		rV
+		+
+		r
+		\dfrac{\partial V}{\partial S} S
+		\right)dt
+	\end{array}
+	\\ &&
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+	\\ &=&
+	-
+	( \alpha - \phi \beta \sqrt{\nu} )
+	\dfrac{\partial V}{\partial \nu}
+	dt
+	\ \
+	+
+	\dfrac{\partial V}{\partial \nu} d \nu
+\end{eqnarray*}
+
+\footnote{The textbook has an incorrect sign for the $rS\dfrac{\partial V}{\partial S}$ term in the equation between the second and third equality signs in my notes. }
+
+Using the second equation from the fundamental set, $ d \nu = \alpha dt + \eta \beta \sqrt{\nu} dZ_{2} $, we can substitute it into the expression:
+
+\begin{eqnarray*}
+	&&
+	d\Pi_{1} - r \Pi_{1} dt
+	\\ &=&
+	-
+	( \alpha - \phi \beta \sqrt{\nu} )
+	\dfrac{\partial V}{\partial \nu}
+	dt
+	\ + \
+	\dfrac{\partial V}{\partial \nu}
+	( \alpha dt + \eta \beta \sqrt{\nu} dZ_{2} )
+	\\ &=&
+	\beta \sqrt{\nu}
+	\dfrac{\partial V}{\partial \nu}
+	(\phi dt + \eta dZ_{2})
+\end{eqnarray*}
+
+Recalling the Capital Asset Pricing Model (CAPM):
+
+$ \ \ $
+Expected Return $ \ = \ $ Risk-Free Rate $ \ + \ $ Risk Premium
+
+This leads to the following equation:
+
+$$
+	d\Pi_{1}
+	\ = \
+	r \Pi_{1} dt
+	\ + \
+	\beta \sqrt{\nu}
+	\dfrac{\partial V}{\partial \nu}
+	(\phi dt + \eta dZ_{2})
+$$
+
+By analogy with CAPM, $\phi(S,\nu,t)$ is called the \textbf{market price of volatility risk}.
+
+\ \\
+
+The risk-neutral drift is defined as:
+
+$$
+	\alpha'
+	\ = \
+	\alpha - \beta \sqrt{\nu} \phi
+$$
+
+(Work in progress ......).
+
+\if0
+
+	$\\$
+
+	With this definition, the price difference between the stochastic differential of the portfolio and the risk-free portfolio is:
+
+
+	\begin{eqnarray*}
+		d\Pi_{1} - r \Pi_{1} dt
+		&=&
+		-
+		( \alpha - \phi \beta \sqrt{\nu} )
+		\dfrac{\partial V}{\partial \nu}
+		dt
+		\ \
+		+
+		\dfrac{\partial V}{\partial \nu} d \nu
+		\\ &=&
+		\dfrac{\partial V}{\partial \nu}
+		(
+		-\tilde{\alpha} dt
+		+
+		d \nu
+		)
+	\end{eqnarray*}
+
+
+	At the same time, by analogy with CAPM,
+
+
+	$ \ \ $
+	Expected Return $ \ - \ $ Risk-Free Rate
+	$ \ = \ $
+	Risk Premium
+	and we had
+
+
+	\begin{eqnarray*}
+		d\Pi_{1}
+		-
+		r \Pi_{1} dt
+		&=&
+		\beta \sqrt{\nu}
+		\dfrac{\partial V}{\partial \nu}
+		(\phi dt + \eta dZ_{2})
+	\end{eqnarray*}
+
+
+	Equating the right-hand sides, we get:
+
+
+	\begin{eqnarray*}
+		\dfrac{\partial V}{\partial \nu}
+		(
+		-\tilde{\alpha} dt
+		+
+		d \nu
+		)
+		&=&
+		\beta \sqrt{\nu}
+		\dfrac{\partial V}{\partial \nu}
+		(\phi dt + \eta dZ_{2})
+		\\[3mm]
+		d \nu
+		&=&
+		(
+		\tilde{\alpha}
+		+
+		\beta \sqrt{\nu}
+		)
+		\phi dt
+		+
+		\beta \sqrt{\nu}
+		\eta dZ_{2}
+	\end{eqnarray*}
+
+
+
+	$\\$
+
+
+
+	\begin{eqnarray*}
+		d \nu_{t}
+		&=&
+		\alpha dt
+		\ + \
+		\eta \beta \sqrt{\nu_{t}} dZ_{2}
+		\\ &=&
+		(\alpha' + \beta \sqrt{\nu} \phi)
+		dt
+		\ + \
+		\eta \beta \sqrt{\nu_{t}} dZ_{2}
+	\end{eqnarray*}
+
+
+
+
+
+
+	\begin{eqnarray*}
+		\beta \sqrt{\nu}
+		\dfrac{\partial V}{\partial \nu}
+		(\phi dt + \eta dZ_{2})
+		&=&
+		\dfrac{\partial V}{\partial \nu}
+		((\alpha' - \alpha) dt + \beta \sqrt{\nu} \eta dZ_{2})
+	\end{eqnarray*}
+
+
+
+	\footnote{I need to keep in mind why this definition makes it risk-neutral as I continue reading. }
+
+\fi
+
+\begin{thebibliography}{9}
+
+	\bibitem{Rudin:Schwichtenberg}
+	Jim Gatheral
+	\newblock (2006)
+	\newblock The Volatility Surface: A Practitioner's Guide (Wiley Finance)
+
+\end{thebibliography}
+
+
+\end{document}
