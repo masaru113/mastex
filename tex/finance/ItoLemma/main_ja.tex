@@ -1,0 +1,302 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{
+伊藤の補題
+}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+株式オプションの価格は原資産の株価と時間の関数である。
+一般的に、全てのデリバティブは原資産の価格の過程と時間の関数であると言える。
+
+確率過程の関数の性質についてある程度理解しておく必要がある。
+1951年に数学者の伊藤清によって発見された伊藤の補題をまとめておく。
+
+$G=G(x,t)$ を考える。
+ここで$G$の$x,t$による変化（この「変化」はここでは特に微小変化でなくても良い）を $\Delta G$ と表すと、 $x,t$ の変化 $\Delta x, \Delta t$ を用いて、次のように表せる。
+（以下はただ単に2変数関数のテイラー展開をしているだけ。）
+\begin{align}
+	\Delta G
+	\ = & \
+	\dfrac{\partial G}{\partial x} \Delta x
+	\ + \
+	\dfrac{1}{2!} \dfrac{\partial^{2} G}{\partial x^{2}} \Delta x^{2}
+	\ + \
+	\dfrac{1}{3!} \dfrac{\partial^{3} G}{\partial x^{3}} \Delta x^{3}
+	\ + \
+	\cdots
+	\\
+	    & \ \ +
+	\dfrac{\partial G}{\partial t} \Delta t
+	\ + \
+	\dfrac{1}{2!} \dfrac{\partial^{2} G}{\partial t^{2}} \Delta t^{2}
+	\ + \
+	\dfrac{1}{3!} \dfrac{\partial^{3} G}{\partial t^{3}} \Delta t^{3}
+	\ + \
+	\cdots
+	\\
+	    & \ \ +
+	\dfrac{ {}_2 {\rm C}_{1} }{2!}
+	\dfrac{\partial^{2} G}{\partial x \partial t } \Delta x \Delta t
+	\ + \
+	\dfrac{ {}_3 {\rm C}_{1} }{3!}
+	\dfrac{\partial^{3} G}{\partial x^{2} \partial t } \Delta x^{2} \Delta t
+	\ + \
+	\dfrac{ {}_3 {\rm C}_{2} }{3!}
+	\dfrac{\partial^{3} G}{\partial x \partial t^{2} } \Delta x \Delta t^{2}
+	\ + \
+	\cdots
+	\\
+	\ = & \
+	\sum_{n=1}^{\infty}
+	\left(
+	\Delta x
+	\dfrac{\partial}{\partial x}
+	\ + \
+	\Delta t
+	\dfrac{\partial}{\partial t}
+	\right)^{n}
+	G
+\end{align}
+この式は微小変化でなくとも一般的な変化の大きさで成り立つ一般的な式である。
+この式を基に変数 $x$ が確率過程の場合でなおかつ$x,t$の変化が微小である場合を考えていきたい。
+
+変数 $x$ が伊藤過程に従い、
+$$
+	dx
+	\ = \
+	a(x,t)dt
+	\ + \
+	b(x,t)dz
+$$
+を満たすとする。
+ここで $dz$ はウィナー過程である。
+$a=a(x,t),b=b(x,t)$ は $x,t$の関数であり、変数 $x$ のドリフト率は $a$ 、 分散は $b^{2}$ である。
+
+この式を離散化すると、
+$$
+	\Delta x
+	\ = \
+	a \Delta t
+	\ + \
+	b \varepsilon \sqrt{\Delta t}
+$$
+ここで $\varepsilon$ は標準正規分布に従う確率変数である。
+（標準正規分布は平均がゼロ、標準偏差が1.0であるような正規分布。）
+
+両辺を二乗すると、
+$$
+	\Delta x^{2}
+	\ = \
+	b^{2} \varepsilon^{2} \Delta t
+	\ + \
+	2 a b \varepsilon \Delta t^{\frac{3}{2}}
+	\ + \
+	a^{2} \Delta t^{2}
+$$
+$\Delta t \to 0$ の極限では
+\begin{align}
+	d x^{2}
+	\ = & \
+	b^{2} \varepsilon^{2} dt
+	\ + \
+	2 a b \varepsilon dt^{\frac{3}{2}}
+	\ + \
+	a^{2} d t^{2}
+	\\
+	\ = & \
+	b^{2} \varepsilon^{2} dt
+\end{align}
+ここで $dt$ における高次の微小量を落とした。
+つまり $dt$ において最低次の項のみ残した。
+$dt$ の高次の微小量を落としても $dx^{2}$ は $dt$ に対して1次（最低次）なので無視できない項になる。
+（もし最低次も無視すると以下で導かれる方程式は確率微分方程式にはならず自明な結論になる。）
+
+この $dx^{2} = b^{2} \varepsilon^{2} dt$ を考える。
+前述のとおり、$\varepsilon$ は標準正規分布に従う確率変数である。
+標準正規分布は平均がゼロ、標準偏差が1であるような正規分布であるので、$\varepsilon$ の期待値を $E(\varepsilon)$ と書くと、分散が1であることより、
+$$
+	E(\varepsilon^{2})
+	\ - \
+	E(\varepsilon)^{2}
+	\ = \
+	1
+$$
+さらに平均（期待値）がゼロより、$E(\varepsilon)=0$
+よって、
+$E(\varepsilon^{2})=1$
+である。
+$\varepsilon^{2} \Delta t$ の期待値は
+$E(\varepsilon^{2} \Delta t) = \Delta t$ であり、
+$\varepsilon^{2} \Delta t$ の分散
+$$
+	E(\varepsilon^{4} \Delta t^{2})
+	\ - \
+	E(\varepsilon^{2} \Delta t)^{2}
+$$
+これは $\Delta t^{2}$ のオーダーになることを示すことができる。
+（一旦この事実を証明抜きに認めて先に進む。今後の課題。）
+$d t^{2}$ のオーダーは落ちるので、
+$\Delta t \to 0$ の極限で
+$\varepsilon^{2} d t$ の分散は落ちる。（ゼロになる。）
+分散がゼロなので $dx^{2}$ はもはや確率的な変数ではなくなり、しかも前述のとおり期待値は
+$E(\varepsilon^{2} d t) = d t$ なので、
+結果として、
+$$
+	dx^{2} = b^{2} dt
+$$
+であることが分かる。
+
+$dx^{2} = b^{2} dt$
+の結果を用いて、 $G=G(x,t)$ を$dx,dt$の最低次までで展開すると、
+\begin{align}
+	d G
+	\ =      & \
+	\dfrac{\partial G}{\partial x} d x
+	\ + \
+	\dfrac{1}{2!} \dfrac{\partial^{2} G}{\partial x^{2}} d x^{2}
+	\ + \
+	\dfrac{1}{3!} \dfrac{\partial^{3} G}{\partial x^{3}} d x^{3}
+	\ + \
+	\cdots
+	\\
+	         & \ \ +
+	\dfrac{\partial G}{\partial t} d t
+	\ + \
+	\dfrac{1}{2!} \dfrac{\partial^{2} G}{\partial t^{2}} d t^{2}
+	\ + \
+	\dfrac{1}{3!} \dfrac{\partial^{3} G}{\partial t^{3}} d t^{3}
+	\ + \
+	\cdots
+	\\
+	         & \ \ +
+	\dfrac{ {}_2 {\rm C}_{1} }{2!}
+	\dfrac{\partial^{2} G}{\partial x \partial t } d x d t
+	\ + \
+	\dfrac{ {}_3 {\rm C}_{1} }{3!}
+	\dfrac{\partial^{3} G}{\partial x^{2} \partial t } d x^{2} d t
+	\ + \
+	\dfrac{ {}_3 {\rm C}_{2} }{3!}
+	\dfrac{\partial^{3} G}{\partial x \partial t^{2} } d x d t^{2}
+	\ + \
+	\cdots
+	\\
+	\ \simeq & \
+	\dfrac{\partial G}{\partial x} d x
+	\ + \
+	\dfrac{\partial G}{\partial t} d t
+	\ + \
+	\dfrac{1}{2!} \dfrac{\partial^{2} G}{\partial x^{2}} d x^{2}
+	\\
+	\ =      & \
+	\dfrac{\partial G}{\partial x} d x
+	\ + \
+	\dfrac{\partial G}{\partial t} d t
+	\ + \
+	\dfrac{1}{2} \dfrac{\partial^{2} G}{\partial x^{2}} b^{2}dt
+	\\
+	\ =      & \
+	\dfrac{\partial G}{\partial x} d x
+	\ + \
+	\left(
+	\dfrac{\partial G}{\partial t}
+	\ + \
+	\dfrac{1}{2} \dfrac{\partial^{2} G}{\partial x^{2}} b^{2}
+	\right)
+	dt
+\end{align}
+この等式が伊藤の補題と呼ばれる等式である。
+
+$x$ は伊藤過程
+$$
+	dx
+	\ = \
+	adt
+	\ + \
+	bdz
+$$
+であり、これを代入して $dx,dt$ の表式から $dt,dz$ の表式に直すと、
+\begin{align}
+	d G
+	\ = & \
+	\dfrac{\partial G}{\partial x} d x
+	\ + \
+	\left(
+	\dfrac{\partial G}{\partial t}
+	\ + \
+	\dfrac{1}{2} \dfrac{\partial^{2} G}{\partial x^{2}} b^{2}
+	\right)
+	dt
+	\\
+	\ = & \
+	\dfrac{\partial G}{\partial x} (adt+bdz)
+	\ + \
+	\left(
+	\dfrac{\partial G}{\partial t}
+	\ + \
+	\dfrac{1}{2} \dfrac{\partial^{2} G}{\partial x^{2}} b^{2}
+	\right)
+	dt
+	\\
+	\ = &
+	\dfrac{\partial G}{\partial x} bdz
+	\ + \
+	\left(
+	\dfrac{\partial G}{\partial x} a
+	\ + \
+	\dfrac{\partial G}{\partial t}
+	\ + \
+	\dfrac{1}{2} \dfrac{\partial^{2} G}{\partial x^{2}} b^{2}
+	\right)
+	dt
+\end{align}
+となる。
+つまり、一般的なデリバティブ $G=G(x,t)$ のドリフト（ $dt$ の係数）は
+$$
+	\dfrac{\partial G}{\partial x} a
+	\ + \
+	\dfrac{\partial G}{\partial t}
+	\ + \
+	\dfrac{1}{2} \dfrac{\partial^{2} G}{\partial x^{2}} b^{2}
+$$
+であり、ボラティリティ（ $dz$ の係数）は
+$$
+	\dfrac{\partial G}{\partial x} b
+$$
+である。
+
+ここで確率過程 $x$ が株価 $S$ の場合を考える。
+つまりデリバティブ $G=G(S,t)$ は原資産を $S$ とするような株式デリバティブである場合を考える。
+株価は $dS = \mu S dt + \sigma S dz$ に従うので、
+$dx=adt+bdz$
+と係数比較すると
+$a= \mu S, b=\sigma S$ であり、
+$$
+	dG
+	\ = \
+	\dfrac{\partial G}{\partial x} \sigma S dz
+	\ + \
+	\left(
+	\dfrac{\partial G}{\partial x} \mu S
+	\ + \
+	\dfrac{\partial G}{\partial t}
+	\ + \
+	\dfrac{1}{2} \dfrac{\partial^{2} G}{\partial x^{2}} \sigma^{2} S^{2}
+	\right)
+	dt
+$$
+が示される。
+この式はBlack-Scholes-Mertonの方程式を導出する際に最初に用いられる表式である。
+\end{document}
