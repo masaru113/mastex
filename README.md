@@ -54,7 +54,6 @@ The notes are organized within a parent directory named `tex`. All documents are
 
 ## License and Usage
 
-© 2025 Masaru Okada. All rights reserved.  
-Unauthorized automated scraping or mirroring of this repository is prohibited.  
-You may view and reference this repository for personal or academic purposes,  
-but redistribution or automated collection without permission is not allowed.
+© 2025 Masaru Okada. All rights reserved.
+Unauthorized automated scraping or mirroring of this repository is prohibited.
+You may view and reference this repository for personal or academic purposes, but redistribution or automated collection without permission is not allowed.
