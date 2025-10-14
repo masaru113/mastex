@@ -1,0 +1,135 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{
+Risk-Neutral Probabilities in a Binomial Tree Model
+}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+The ultimate goal of this book is to explore the limits of arbitrage. To that end, we'll develop a mathematical framework that serves as a realistic model for actual financial markets and allows us to build pricing techniques.
+
+\section{The Binomial Branch Model}
+There are two minimum requirements for our purposes:
+\begin{itemize}
+	\item A representation of the time value of money
+	\item A random element to represent stocks
+\end{itemize}
+Without these two things, no model can be considered relevant to actual financial markets. So, we begin by considering the simplest possible model, one consisting of bonds and stocks.
+
+\subsection{Stocks}
+Let's consider a very short period starting at time $t=0$ and ending at $t=\delta t$. A variable representing a stock price should ideally have an unpredictable, random component. Over this short interval $\delta t$, we'll assume the stock price can only change in two ways: it can either go up or go down.
+
+We'll introduce some structure to this randomness by assigning probabilities to the price going up or down. Let the probability of an upward movement over the short interval $\delta t$ be $p$, and the probability of a downward movement be $(1-p)$. The initial price at $t=0$ is denoted as $s_1$. This is the price at which we can buy or sell any quantity of the stock without limit. We can then hold the stock for the duration of $\delta t$. Nothing happens while we hold the stock; that is, there is no cost to holding any quantity, whether positive or negative. However, after the elapsed time $\delta t$, the stock is assumed to have a new price. The price becomes $s_2$ if it goes down, and $s_3$ if it goes up.
+
+\subsection{Bonds}
+We also need to consider something that represents the time value of money, namely, a cash bond. Just as with the stock, we consider a very short period starting at $t=0$ and ending at $t=\delta t$. We'll assume there is a continuous compound interest rate $r$ such that one dollar at time $t=0$ becomes $\exp(r\delta t)$ after the elapsed time $\delta t$. Any amount can be lent or borrowed at this interest rate. To represent this, we introduce a cash bond B, which can be traded at a price $B_0$ at time $t=0$. The value of this bond becomes $B_0 \exp(r\delta t)$ after the elapsed time $\delta t$.
+
+These two tools are all that our financial world contains. Although simplified, this world still presents uncertainty to investors. For a market participant, only one of the two possible stock prices after $\delta t$ is favorable. (For example, if one is shorting the stock, a price drop is favorable.) Whether the outcome is favorable or not depends on a random result. An investor's demand for a payoff based on the future stock price can be expressed as a function $f$, which maps the two possible stock prices $s_2$ and $s_3$ at $t=\delta t$ to payoffs $f(2)$ and $f(3)$, respectively. For instance, a forward contract with a delivery price of $k$ is represented by $f(2)=s_2 -k$ and $f(3)=s_3 -k$.
+
+\section{Risk-Free Construction}
+Let's consider what specific function $f$ might be provided by a suitable strategy. As mentioned in Chapter 1, in a forward contract, you buy the stock at a price of $s_1$ at $t=0$, sell cash bonds for the same amount $s_1$ to finance the purchase, and hold the position until maturity at $\delta t$. Therefore, the amount to be claimed should be $s_1 \exp(r\delta t)$. This leads to the forward contract price being \[k = s_1 \exp(r\delta t).\] This is price determination through arbitrage.
+
+It may seem at first glance that we can't find a price-building strategy for a more complex $f$. After the very short time $\delta t$, the stock price takes on one of two random values, and similarly, derivatives generally take on a price different from their $t=0$ price. If we knew the probabilities for each derivative payout, we could also find the expected price of $f$ at maturity, which would be $(1-p)f(2) + pf(3)$. But in reality, at time $t=0$, we don't know the probability $p$ of the price transitioning to its future state at time $t=\delta t$.
+
+\subsection{A Bond-Only Strategy}
+Let's consider a portfolio consisting only of cash bonds. Over the elapsed time $\delta t$, this cash bond increases by a factor of $\exp(r\delta t)$. This means that if you buy a cash bond at a price of $\exp(- r\delta t)[(1-p)f(2) + pf(3)]$ at $t=0$, its price will become $(1-p)f(2) + pf(3)$ after $\delta t$. This price is chosen as the target because it is the expected price of the derivative.
+
+Let S be a binomial process with an initial price $s_1$ at time $t=0$, a downward value of $s_2$, and an upward value of $s_3$. Under the upward probability $p$, the expected value (or expected price) of $S_1$ at time 1, $E_p(S_1)$, is:
+\[E_p(S_1) = (1-p)s_2 + ps_3.\]
+The contract $f$ on S is a random variable, just like $S_1$. This means the expected value of the contract $f$ is similarly defined:
+\[E_p[f(1)] = (1-p)f(2) + pf(3).\]
+Also, the expected value discounted by the interest rate, under probability $p$, is \[\exp(-r\delta t)[(1-p)f(2) + pf(3)].\] This is called the discounted expected value (or discounted expected price).
+
+However, this price-building strategy is highly unlikely to be a good one. It's the law of large numbers from Chapter 1 appearing again in a different form, and just as before, it overlooks the price enforcement that comes from arbitrage. We already saw in Chapter 1 that this expectation cannot be applied to a forward contract, at least. The forward price is not expressed by $f(2), f(3)$ (i.e., $s_2, s_3$); rather, it's enforced by the interest rate $r$ associated with the bond, resulting in $s_1 \exp(r\delta t)$.
+
+\subsection{Combining Bonds and Stocks}
+Let's think about a better combination. We'll use both bonds and stocks to construct a short-term portfolio. The tool that is more strongly linked to the performance of both stocks and derivatives than a simple cash bond is, in fact, the stock itself.
+
+As a general portfolio ($\phi$,$\psi$), we assume we hold $\phi$ units of stock S (at a price of $\phi s_1$) and $\psi$ units of cash bond B (at a price of $\psi B_0$). If we purchase this portfolio at $t=0$, the acquisition cost would be $\phi s_1 + \psi B_0$. However, at $t=\delta t$, this portfolio would take one of two possible values:
+Price of contract $f$ if the stock price goes up: \[f(3) = \phi s_3 + \psi B_0\exp(r\delta t)\]
+Price of contract $f$ if the stock price goes down: \[f(2) = \phi s_2 + \psi B_0\exp(r\delta t)\]
+Now, we have two possible prices and two free variables, $\phi$ and $\psi$. Under the condition that the stock moves appropriately, we have the two prices we want to match, $f(3)$ and $f(2)$, in hand. (Note: This is a problem of determining how much stock and cash (bonds) to hold if the values $s_2, s_3, f(2), f(3)$ are already known, and we want to find the values of $\phi$ and $\psi$.) If $s_3 \neq s_2$, we can transform the equations as follows:
+\[\phi = \frac{f(3) - f(2)}{s_3 - s_2}\]
+\[\psi = B_0^{-1} \exp(-r\delta t) \left\{ f(3) - s_3 \frac{f(3) - f(2)}{s_3 - s_2} \right\}\]
+
+\section{Fair Pricing}
+Any derivative $f$ can be constructed from a suitable portfolio of bonds and stocks. This fact should have some influence on the contract, and indeed, the market recognizes this as a rational price, not an expected price. If we purchase this portfolio at $t=0$, its acquisition cost is $V = \phi s_1 + \psi B_0$. Substituting the previous results, we get:
+\[V = \frac{f(3) - f(2)}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ f(3) - s_3 \frac{f(3) - f(2)}{s_3 - s_2} \right\}\]
+Therefore, if we know the continuous compound interest rate $r$, the contract values $f(2), f(3)$, and the future stock prices $s_2, s_3$, we can replicate any derivative.
+
+\subsection{If a derivative is offered for sale at a price lower than V}
+Let's assume a derivative is offered for sale at a price $P$ which is lower than this $V$. Another market participant can buy any quantity of the cheap derivative from them at price $P$. They can also sell a portfolio of ($\phi$, $\psi$) for the same amount as the purchased derivative. After the short period $\delta t$ has passed, no matter what the stock price is, the price $P$ of the derivative can offset the value of the portfolio. This transaction generates a profit of $V-P$ for each unit of the purchased derivative and portfolio traded. This means anyone can earn a risk-free profit of any size. Therefore, $P$ is not a rational price for market participants to accept, and the market will quickly correct to the correct price $V$ in an effort to capture this free profit.
+
+\subsection{If a derivative is offered for sale at a price higher than V}
+Let's assume a derivative is offered for sale at a price $P$ which is higher than this $V$. Another market participant can sell any quantity of the expensive derivative to them at price $P$. They can also buy a portfolio of ($\phi$, $\psi$) for the same amount as the sold derivative. After the short period $\delta t$ has passed, no matter what the stock price is, the price $P$ of the derivative can offset the value of the portfolio. This transaction generates a profit of $P-V$ for each unit of the sold derivative and portfolio traded. This means anyone can earn a risk-free profit of any size. Therefore, $P$ is not a rational price for market participants to accept, and the market will quickly correct to the correct price $V$ in an effort to capture this free profit.
+
+The only way to prevent the counterparty from making a risk-free profit is to offer the price $V$. Thus, only $V$ is the rational price for the derivative at time $t=0$.
+
+\subsection{Example - The Big Picture in One Step}
+\subsubsection{Problem}
+There's a non-interest-bearing bond and a stock, both at 1 dollar at $t=0$. In the future, at $t=\delta t$, the stock price will be either 2 dollars or 0.5 dollars. What is the fair price for a bet that pays 1 dollar if the stock price goes up?
+
+\subsubsection{Solution}
+Let B be the bond price, S be the stock price, and X be the desired payoff for the bet. Referring to the expression for V from earlier, for this problem, we have $r=0$, $f(3)=1$, $f(2)=0$, $s_3=2$, $s_2=0.5$, and $B_0=1$.
+\[X = \frac{f(3) - f(2)}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ f(3) - s_3 \frac{f(3) - f(2)}{s_3 - s_2} \right\}\]
+Substituting the values, we find $X = 1/3$, so the answer to this problem is 0.33 dollars.
+Also, since
+\[\phi = \frac{f(3) - f(2)}{s_3 - s_2}\]
+\[\psi = B_0^{-1} \exp(-r\delta t) \left\{ f(3) - s_3 \frac{f(3) - f(2)}{s_3 - s_2} \right\}\]
+substituting gives us $\phi =2/3$ and $\psi=-1/3$. This means that to replicate this derivative (or "bet"), you should buy 2/3 units of the bond and sell 1/3 units of the stock. Indeed, at $t=0$, the value is $2/3 \times 1 - 1/3 \times 1 = 1/3$ (dollars). If the stock price goes up at $t=\delta t$, the value becomes $2/3 \times 2 - 1/3 \times 1 = 1$ (dollar), and if the stock price goes down, the value becomes $2/3 \times 0.5 - 1/3 \times 1 = 0$, which are exactly the same payouts as the "bet" in this problem.
+
+\section{The Return of Expected Value}
+I've already stated that the approach based on the law of large numbers is futile, and that the expected price calculated using probabilities $p$ and $(1-p)$ would provide an arbitrage opportunity, except by sheer coincidence. Here, let's unexpectedly consider the following number $q$:
+\[q = \frac{s_1 \exp(r\delta t) - s_2}{s_3 - s_2}\]
+We'll assume $s_3 > s_2$ from now on. (This doesn't result in any loss of generality.)
+
+\subsection{The case where $q < 0$}
+If $q<0$, then the inequality $s_1 \exp(r\delta t) < s_2 < s_3$ would hold. However, $s_1 \exp(r\delta t)$ is the price you get when you buy a bond worth $s_1$ at $t=0$. Therefore, if $s_1 \exp(r\delta t) < s_2$, you could sell any quantity of bonds at $t=0$ and use the proceeds to buy any quantity of stock at price $s_1$, thereby earning an infinite profit. In other words, under the assumption of no arbitrage, $q<0$ cannot hold.
+
+\subsection{The case where $q > 1$}
+If $q>1$, then the inequality $s_2 < s_3 < s_1 \exp(r\delta t)$ would hold. $s_1 \exp(r\delta t)$ is the price you get when you buy a bond worth $s_1$ at $t=0$. Therefore, if $s_3 < s_1 \exp(r\delta t)$, you could buy any quantity of bonds at $t=0$ and use the proceeds to sell any quantity of stock at price $s_1$, thereby earning an infinite profit. In other words, under the assumption of no arbitrage, $q>1$ cannot hold.
+
+From the above, in a rational market structure (i.e., under the no-arbitrage condition), the value $q$ must satisfy $0 \le q \le 1$, so we can view $q$ as some kind of probability.
+
+Surprisingly, the price $V$ of the $(\phi,\psi)$ portfolio,
+\[V = \frac{f(3) - f(2)}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ f(3) - s_3 \frac{f(3) - f(2)}{s_3 - s_2} \right\},\]
+can be transformed using $q = \frac{s_1 \exp(r\delta t) - s_2}{s_3 - s_2}$ into the following expression:
+\[V = \exp(-r\delta t) \left\{ (1-q)f(2) + qf(3) \right\}\]
+It's the very same thing, but when we express it using the expected value operator $E_p[f(1)] = \exp(-r\delta t) \left\{ (1-p)f(2) + pf(3) \right\}$ that appeared earlier, we get:
+\[V = E_q[f(1)]\]
+In other words, the rational price $V$ determined by the arbitrage condition of the $(\phi, \psi)$ portfolio was, in fact, the discounted expected price under probability $q$.
+
+\subsection{The payoff for a forward contract with a delivery price of k}
+The payoff for a forward contract with a delivery price of $k$ is:
+\[f(2) = s_2 - k\]
+\[f(3) = s_3 - k\]
+Let's find the correct delivery price $k$. In this transaction, we don't need to hold the portfolio at $t=0$ (we borrow a bond and buy a stock at $t=0$, then get money by delivering the stock to the counterparty at maturity, and finally repay the debt made at $t=0$ with that money). Since $V=0$, we have:
+\[V = \frac{f(3) - f(2)}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ f(3) - s_3 \frac{f(3) - f(2)}{s_3 - s_2} \right\} \]
+\[
+	= \frac{(s_3-k) - (s_2-k)}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ (s_3-k) - s_3 \frac{(s_3-k) - (s_2-k)}{s_3 - s_2} \right\}\]
+\[= \frac{s_3 - s_2}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ s_3 - k - s_3 \frac{s_3 - s_2}{s_3 - s_2} \right\} = s_1 + \exp(-r\delta t) (s_3 - k - s_3) = s_1 - k \exp(-r\delta t)\]
+Therefore, when $V=0$, we get $k = s_1 \exp(r\delta t)$.
+
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+
+\end{document}
