@@ -21,6 +21,7 @@ The notes are organized within a parent directory named `tex`. All documents are
         - **[Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio](https://github.com/masaru113/mastex/raw/main/tex/finance/ReplicatingPortfolio/main.pdf)**: Outlines a strategy for constructing a hedging portfolio using a replicating portfolio.
         - **[Stochastic Volatility and Local Volatility](https://github.com/masaru113/mastex/raw/main/tex/finance/StochasticAndLocalVolatility/main.pdf)**: Note on stochastic volatility model derivation and market price of volatility risk analysis.
         - **[Finance Cheatsheet (Basic)](https://github.com/masaru113/mastex/raw/main/tex/finance/basic_cheat_sheet/main.pdf)**: A collection of sad formulas.
+        - **[Risk-Neutral Probabilities in a Binomial Tree Model](https://github.com/masaru113/mastex/raw/main/tex/finance/risk_neutral_prob_in_binomial_tree/main.pdf)**: In a binomial tree model, any derivative can be priced and replicated by a portfolio of stocks and bonds using a unique risk-neutral probability, which defines the limits of arbitrage.
     - **log**: Misc.
       - **[Oct. 2025](https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main.pdf)**
     - **math**: Notes on mathematics.
