@@ -31,7 +31,7 @@ There are two minimum requirements for our purposes:
 	\item A representation of the time value of money
 	\item A random element to represent stocks
 \end{itemize}
-Without these two things, no model can be considered relevant to actual financial markets. So, we begin by considering the simplest possible model, one consisting of bonds and stocks.
+Without these two things, no model can be considered relevant to actual financial markets. So, we'll start by considering the simplest possible model, one consisting of bonds and stocks.
 
 \subsection{Stocks}
 Let's consider a very short period starting at time $t=0$ and ending at $t=\delta t$. A variable representing a stock price should ideally have an unpredictable, random component. Over this short interval $\delta t$, we'll assume the stock price can only change in two ways: it can either go up or go down.
@@ -41,7 +41,7 @@ We'll introduce some structure to this randomness by assigning probabilities to 
 \subsection{Bonds}
 We also need to consider something that represents the time value of money, namely, a cash bond. Just as with the stock, we consider a very short period starting at $t=0$ and ending at $t=\delta t$. We'll assume there is a continuous compound interest rate $r$ such that one dollar at time $t=0$ becomes $\exp(r\delta t)$ after the elapsed time $\delta t$. Any amount can be lent or borrowed at this interest rate. To represent this, we introduce a cash bond B, which can be traded at a price $B_0$ at time $t=0$. The value of this bond becomes $B_0 \exp(r\delta t)$ after the elapsed time $\delta t$.
 
-These two tools are all that our financial world contains. Although simplified, this world still presents uncertainty to investors. For a market participant, only one of the two possible stock prices after $\delta t$ is favorable. (For example, if one is shorting the stock, a price drop is favorable.) Whether the outcome is favorable or not depends on a random result. An investor's demand for a payoff based on the future stock price can be expressed as a function $f$, which maps the two possible stock prices $s_2$ and $s_3$ at $t=\delta t$ to payoffs $f(2)$ and $f(3)$, respectively. For instance, a forward contract with a delivery price of $k$ is represented by $f(2)=s_2 -k$ and $f(3)=s_3 -k$.
+These two tools are all that our financial world contains. Although simplified, this world still presents uncertainty to investors. For a market participant, only one of the two possible stock prices after $\delta t$ is favorable. (For example, if one is shorting the stock, a price drop is favorable.) Whether the outcome is favorable or not depends on a random result. An investor's demand for a payoff based on the future stock price can be expressed as a function $f$, which maps the two possible stock prices $s_2$ and $s_3$ at $t=\delta t$ to payoffs $f(2)$ and $f(3)$, respectively. For instance, a forward contract with a delivery price of $k$ is represented by $f(2)=s_2-k$ and $f(3)=s_3-k$.
 
 \section{Risk-Free Construction}
 Let's consider what specific function $f$ might be provided by a suitable strategy. As mentioned in Chapter 1, in a forward contract, you buy the stock at a price of $s_1$ at $t=0$, sell cash bonds for the same amount $s_1$ to finance the purchase, and hold the position until maturity at $\delta t$. Therefore, the amount to be claimed should be $s_1 \exp(r\delta t)$. This leads to the forward contract price being \[k = s_1 \exp(r\delta t).\] This is price determination through arbitrage.
@@ -49,7 +49,7 @@ Let's consider what specific function $f$ might be provided by a suitable strate
 It may seem at first glance that we can't find a price-building strategy for a more complex $f$. After the very short time $\delta t$, the stock price takes on one of two random values, and similarly, derivatives generally take on a price different from their $t=0$ price. If we knew the probabilities for each derivative payout, we could also find the expected price of $f$ at maturity, which would be $(1-p)f(2) + pf(3)$. But in reality, at time $t=0$, we don't know the probability $p$ of the price transitioning to its future state at time $t=\delta t$.
 
 \subsection{A Bond-Only Strategy}
-Let's consider a portfolio consisting only of cash bonds. Over the elapsed time $\delta t$, this cash bond increases by a factor of $\exp(r\delta t)$. This means that if you buy a cash bond at a price of $\exp(- r\delta t)[(1-p)f(2) + pf(3)]$ at $t=0$, its price will become $(1-p)f(2) + pf(3)$ after $\delta t$. This price is chosen as the target because it is the expected price of the derivative.
+Let's consider a portfolio consisting only of cash bonds. Over the elapsed time $\delta t$, this cash bond increases by a factor of $\exp(r\delta t)$. This means that if you buy a cash bond at a price of $\exp(-r\delta t)[(1-p)f(2) + pf(3)]$ at $t=0$, its price will become $(1-p)f(2) + pf(3)$ after $\delta t$. This price is chosen as the target because it is the expected price of the derivative.
 
 Let S be a binomial process with an initial price $s_1$ at time $t=0$, a downward value of $s_2$, and an upward value of $s_3$. Under the upward probability $p$, the expected value (or expected price) of $S_1$ at time 1, $E_p(S_1)$, is:
 \[E_p(S_1) = (1-p)s_2 + ps_3.\]
@@ -122,10 +122,126 @@ The payoff for a forward contract with a delivery price of $k$ is:
 \[f(3) = s_3 - k\]
 Let's find the correct delivery price $k$. In this transaction, we don't need to hold the portfolio at $t=0$ (we borrow a bond and buy a stock at $t=0$, then get money by delivering the stock to the counterparty at maturity, and finally repay the debt made at $t=0$ with that money). Since $V=0$, we have:
 \[V = \frac{f(3) - f(2)}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ f(3) - s_3 \frac{f(3) - f(2)}{s_3 - s_2} \right\} \]
-\[
-	= \frac{(s_3-k) - (s_2-k)}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ (s_3-k) - s_3 \frac{(s_3-k) - (s_2-k)}{s_3 - s_2} \right\}\]
+\[= \frac{(s_3-k) - (s_2-k)}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ (s_3-k) - s_3 \frac{(s_3-k) - (s_2-k)}{s_3 - s_2} \right\}\]
 \[= \frac{s_3 - s_2}{s_3 - s_2} s_1 + \exp(-r\delta t) \left\{ s_3 - k - s_3 \frac{s_3 - s_2}{s_3 - s_2} \right\} = s_1 + \exp(-r\delta t) (s_3 - k - s_3) = s_1 - k \exp(-r\delta t)\]
 Therefore, when $V=0$, we get $k = s_1 \exp(r\delta t)$.
+
+\section{Binomial Trees}
+
+We'll continue our discussion by moving from binomial branches to binomial trees. A single time step is easy to analyze, but it only presents the bare minimum of a model. In the binomial branch case, even with a cash bond and a random stock, the stock price after the time step was limited to two patterns. Let's see what we can say when we expand the discussion from binomial branches to binomial trees.
+
+In the following, we'll look at the time evolution over multiple periods, not just one. We'll still assume we only have cash bonds and a random stock, with no transaction costs, no risk of default, and the ability to buy and sell infinitely without a bid-ask spread.
+
+\subsection{Stocks}
+Just as in the previous section, we'll assume the stock price $S$ at $t=0$ has a value of $S_0 = s_1$, and after a minimal time unit $\delta t$ has elapsed, $S_1$ can only take on two values, $s_2$ or $s_3$. However, after $2\delta t$ has passed, $s_2$ can become $S_2=s_4$ or $s_5$, and $s_3$ can become $S_2=s_6$ or $s_7$. For a natural number $i$, the stock can take on $2^i$ values after time $i\delta t$ has elapsed. However, given the value at time $(i-1)$, there are only two possibilities. The next value of $s_j$ is either $s_{2j}$ or $s_{(2j+1)}$. Also, if the probability of a price increase (i.e., $s_j$ becoming $s_{(2j+1)}$) is $p_j$, then the probability of a price decrease (i.e., $s_j$ becoming $s_{2j}$) is $1-p_j$.
+
+\subsection{Cash Bonds}
+\subsubsection{General Theory}
+We can acknowledge that there may be a random element to the performance of a cash bond. (However, we're not particularly interested in its exact shape right now.) In the case of a cash bond, the randomness is completely different from that of a stock. A cash bond has the same structure as the time value of money. The interest rate to be paid can only change with time. However, the value of the cash bond at the next instant is always known. This is because this value depends only on the interest rate, which is known at $t=0$.
+\subsubsection{Assumption}
+Here, we'll introduce a constant interest rate $r$ that is the same everywhere in the tree. This means the value of the cash bond at time $n\delta t$ is $B_0 \exp(rn\delta t)$.
+
+\subsection{The Tree is Complex}
+Our ultimate goal is to understand the limits of risk-free construction when the underlying asset takes on continuous values in continuous time. And in the limit as $\delta t \to 0$, our model aligns very well with this ultimate goal. Rather than giving up because the tree is simple, we should say that it's not so complex for our purpose of advancing the analysis.
+
+\subsection{Backward Induction}
+In fact, most of the groundwork has already been laid in our discussion of the one-period binomial branch. The key point of this multi-period binomial tree is backward induction, where we expand the replicating portfolio by going backward in time, from the final moment when the payoff occurs to the starting time when we want to find the price, in very short time steps. Just as in the one-period binomial branch discussion, we had a payoff function $f$ at the final time (maturity). In a multi-period binomial tree, we can extend our thinking to include contracts that exist at intermediate points between the start time $t=0$ and maturity.
+
+The structure of the binomial tree is one where there is a one-to-one relationship between a 'node' and the 'path the stock takes to reach that node.' If you follow a different path to a certain node, you won't reach that node. This condition allows us to correspond 'a contract's payoff $f$' with 'a specific endpoint.' A general contract can be thought of as a function $f$ on the nodes at the maturity of that contract.
+
+\subsection{Two-Period Example}
+The expected value operator $E_p[]$ was defined for a single branch (a one-period binomial branch). Here, we'll calculate for a two-period tree, which has three branches. We'll also assume the interest rate $r$ is constant for all branches. From the one-period binomial branch discussion, there exists a suitable combination of $q_j$ that gives the derivative price $f(j)$ at node $j$ at time $i$:
+\[f(j) = \exp(-r\delta t) ( q_j f(2j+1) + ( 1 -q_j )f(2j) )\]
+This is the discounted expected value of the contract prices $f(2j+1)$ and $f(2j)$ at time $(i+1)$ under the probability (measure) $q_i$. For $j=3,2$ respectively, we have:
+\[f(3) = \exp(-r\delta t) ( q_3 f(7) + ( 1 -q_3 )f(6) )\]
+\[f(2) = \exp(-r\delta t) ( q_2 f(5) + ( 1 -q_2 )f(4) )\]
+Here, the probability $q_j$ is:
+\[q_j = \frac{s_j \exp(r\delta t) - s_{2j}}{s_{(2j+1)} - s_{2j}}\]
+That is,
+\[q_3 = \frac{s_3 \exp(r\delta t) - s_6}{s_7 - s_6}\]
+\[q_2 = \frac{s_2 \exp(r\delta t) - s_4}{s_5 - s_4}\]
+And since
+\[f(1) = \exp(-r\delta t) ( q_1f(3) + ( 1 -q_1 )f(2) )\]
+substituting everything gives us:
+\[f(1) = \exp(-2r\delta t) \{ q_1 q_3 f(7) + q_1 (1 - q_3) f(6) + (1 - q_1) q_2 f(5) + (1 - q_1) (1 - q_2) f(4) \}\]
+
+From this, we can conclude the following.
+\subsection{Expected Value in a Tree}
+The expected value of the claim $f$ at the final nodes of the tree is the sum of the payoffs multiplied by the probabilities of each path.
+
+In a two-period tree, there were four paths to the final nodes. Therefore, $f(1)$ is composed of four terms. The probabilities of the paths were $q_1 q_3$, $q_1 (1 - q_3)$, $(1 - q_1) q_2$, and $(1 - q_1) (1 - q_2)$, respectively. The corresponding claims were the endpoints $f(7), f(6), f(5), f(4)$. The period is $2\delta t$, and the discount factor $\exp(-2r\delta t)$ is applied.
+
+\subsection{The Inductive Step}
+Consider one node at time $(n-1)$ and the two nodes at time $n$ (a total of three nodes). From the results of the previous section, a risk-free portfolio $(\phi, \psi)$ consisting of stocks and bonds can replicate the claims at time $n$. And when we consider only these three nodes, it's indistinguishable from the one-period binomial branch model. (It's exactly the same as the one-period binomial branch model.)
+
+\subsection{The Result of Induction}
+By induction, by going backward through the tree (i.e., from contract maturity to $t=0$), we can build (replicate) a portfolio $(\phi, \psi)$ for each branch. A single value will arrive at the root of the entire tree at $t=0$. This is the price of the derivative at $t=0$. Just as in the one-period binomial branch model, no matter what path the stock actually takes, we can build (replicate) a unique portfolio $(\phi, \psi)$ under the strong constraint of arbitrage. This portfolio $(\phi, \psi)$ changes with each time unit. This replicating portfolio gives not just one stock holding $\phi$ at one node, but a stock holding $\phi$ for every node. So, when the coin of fate is flipped (a coin that can only land heads or tails), and the stock moves on the tree, this holding (the amount that should be held) $\phi$ also changes. This replicating portfolio $(\phi,\psi)$ is random just like the stock, but the most important difference is that "unlike the stock, the amount of the replicating portfolio $(\phi,\psi)$ that can be traded at that exact moment is known one time unit in advance." (For example, the problem on page 28 of the previous section). All contracts can be replicated by a portfolio of stocks and bonds. And all contracts have a no-arbitrage price.
+
+\subsection{Expected Values, Again}
+Until now, we haven't needed the probabilities $p_j$ (the probabilities of the stock price increasing, i.e., $s_j$ becoming $s_{(2j+1)}$). It's not a coincidence that we didn't need $p_j$ in the formulas; there's a solid logic behind it. We will now see that the conclusion of the previous section is equivalent to saying that the expected value operator, with respect to a suitable 'probability,' provides the correct local (time-dependent) hedge.
+
+\subsection{A Concrete Example}
+Let's consider a 3-period binomial tree where the probability of a stock price increase at each node is 3/4, and the probability of a decrease is 1/4, as shown in Figure 2.5. The problem is to find the price of an option that allows you to buy the stock for a price of 100 at time 3.
+
+The prices at the final time (maturity) in Figure 2.5 are 160, 120, 80, and 40, respectively. Since we'll exercise the option if the price is greater than 100 and abandon it if it's less than 100, the maturity prices of the option in the binomial tree are $60(=160-100)$, $20(=120-100)$, $0$, and $0$.
+
+Here, we need equations for a new probability $q$ and a contract price $f$. They can be found respectively by:
+\[q = \frac{s_{now} - s_{down}}{s_{up} - s_{down}}\]
+\[f_{now} = qf_{up} + (1-q)f_{down}\]
+
+This new probability $q$ is 1/2 at every node. For example, for the branch at time 2 where the stock price is 140,
+\[q = \frac{140 - 120}{160 - 120} = 1/2\]
+And for the branch at time 1 where the stock price is 80,
+\[q = \frac{80 - 60}{100 - 60} = 1/2\]
+
+The contract price, for example, for the node at time 2 where the stock price was 140, is:
+\[f_{now} = (1/2) \times 60 + (1/2) \times 20 = 40\]
+And for the branch at time 1 where the stock price was 80, is:
+\[f_{now} = (1/2) \times 10 + (1/2) \times 0 = 5\]
+
+By proceeding with these steps, we can find the risk-neutral probabilities and contract prices at all nodes.
+
+\subsubsection{On the practical use of q and f}
+Let's consider a specific hedging strategy. We'll calculate $\phi$, which is defined as:
+\[\phi = \frac{f_{up} - f_{down}}{s_{up} - s_{down}}\]
+This is the amount of stock in the replicating portfolio at the beginning (at $t=0$) in the binomial branch model.
+
+\begin{itemize}
+	\item \textbf{Strategy at $t=0$ (Node with stock price=100, option price=15)}
+	      From the previous procedure, the option price at time 0 was found to be 15. (This 'option price' has the same meaning as the 'game entry fee paid to the bookmaker' in the example, where we're the bookmaker.) First, the option has a value of 15. (So, the entry fee for this 'game' is 15.) Now, at this $t=0$, $\phi = (25-5)/(120-80) = 1/2$. The stock price at $t=0$ is 100, and buying 1/2 unit costs 50. This means that (initial option price) - (stock to be held) = $15 - 50 = -35$, so we need to borrow 35 to hold $\phi(=0.5)$ units of stock. Therefore, the borrowing at time 0 is 35.
+
+	\item \textbf{Strategy at $t=1$ (if we reach the node with stock price=120, option price=25)}
+	      The $\phi$ at this node at time 1 is $\phi = (40-10)/(140-100) = 3/4$. Since $\phi$ was 1/2 at $t=0$, to match the new $\phi$, we must increase our stock holding by $3/4 - 1/2 = 1/4$. The stock price at this node is 120, so we want to buy an additional $120 \times (1/4) = 30$ worth of stock to match the new $\phi$. Therefore, to match the new $\phi$, we need to borrow an additional 30. Since we had borrowed 35 at $t=0$, our total borrowing at this node becomes 65.
+
+	\item \textbf{Strategy at $t=2$ (if we reach the node with stock price=140, option price=40)}
+	      The $\phi$ at this node at time 2 is $\phi = (60-20)/(160-120) = 1$. At the previous node, $\phi$ was 3/4, so to match the new $\phi$, we must increase our stock holding by $1-3/4=1/4$. The stock price at this node is 140, so we want to buy an additional $140 \times (1/4) = 35$ worth of stock to match the new $\phi$. Therefore, to match the new $\phi$, we need to borrow an additional 35. Since we had borrowed 65 at the previous node, our total borrowing at this node becomes 100.
+
+	\item \textbf{Strategy at $t=3$ (at maturity, if we reach the node with stock price=120, option price=20)}
+	      Since $120 > 100$ (maturity stock price > option strike price), the option is exercised. We hand over $\phi=1$ unit of stock. To repay the total of 100 that we borrowed at the previous step, we receive 100 in cash from the person to whom we handed over the stock. From the above, we see that the option price must be 15 at $t=0$, otherwise the person selling the option would lose money, so 15 is a reasonable price.
+\end{itemize}
+
+That's how $\phi$ is used. Let's consider another path on the same tree, different from the one in the example above.
+
+\begin{itemize}
+	\item \textbf{Strategy at $t=0$ (Node with stock price=100, option price=15)}
+	      At $t=0$, $\phi = (25-5)/(120-80)=1/2$, and Option Price = Replicating Portfolio Bond + Replicating Portfolio Stock. Bond = Option - Stock = Option - Stock Holding $\phi$ * Stock Price = $15 - (1/2) \times 100 = -35$. This means we first need to borrow 35 at $t=0$ to make $\phi=1/2$. (This is exactly the same argument as in the previous example.)
+
+	\item \textbf{Strategy at $t=1$ (if we reach the node with stock price=80, option price=5)}
+	      $\phi = (10-0)/(100-60)=1/4$. Bond = Option - Stock = $5-80 \times 1/4 = -15$. Our borrowing was 35 at the previous step, but at this node, we reduce our borrowing to 15. (In other words, we partially sell the stock we held for a price of 20 to reduce the borrowed amount to 15.)
+
+	\item \textbf{Strategy at $t=2$ (if we reach the node with stock price=100, option price=10)}
+	      $\phi = (20-0)/(120-80)$. Bond = Option - Stock = $10-100 \times (1/2) = -40$. Our borrowing was 15 at the previous step, but we borrow an additional 25 to increase our borrowing to 40. (This additional 25 in borrowing is spent on buying more stock. Since there are only bonds and stocks in the world, the bonds are exchanged for stocks. So if the amount of our bond assets decreases, the amount of our stock holdings increases.)
+
+	      (Why do we consider just 'stocks' and 'bonds'? Why not 'rocks', 'water', and 'rice', for example? This question can be split into two: first, why are there only two types? And second, why are the types limited to just 'stocks' and 'bonds'? $\to$ First, we're considering the simplest possible model. To exchange things, you only need a minimum number of types greater than one (i.e., two types). Furthermore, the initial derivative price is the contract payoff price reflecting the randomness of the underlying asset. Randomness, from the perspective of a bond, means the bond's price moves randomly. Conversely, from the perspective of a stock, the bond moves randomly. For example, the price of one stock changes from 100 yen in bonds to 110 yen on one day, and 105 yen on another. If you have one asset that moves randomly from the perspective of another asset, you can replicate a cash flow. You could have three types of things, but by not using one of them, you can reduce it to a two-asset model. So, while you could consider $n$ types of goods where $n$ is a natural number greater than or equal to 3, you wouldn't need to use $n-2$ of them in your analysis.)
+
+	\item \textbf{Strategy at $t=3$ (at maturity, if we reach the node with stock price=80, option price=0)}
+	      The option is not exercised. (Stock price=80 < Strike price=100.) Our stock holding from the previous step was $\phi=1/2$, so the value of our stock assets is $80 \times (1/2) = 40$. Our borrowing was 40 at the previous step, so we can close the transaction with no profit or loss.
+\end{itemize}
+
+Here, too, we can use expected values. Under the risk-neutral probability $q$ of an increase, the probabilities of reaching each final node are $1/8, 3/8, 3/8, 1/8$ for the four possible maturity prices. The expected value of $f$ under this probability $q$ becomes the option's no-arbitrage price of 15. However, the probabilities of reaching each final node under the original stock probabilities are $27/64, 27/64, 9/64, 1/64$ for the four possible maturity prices. The expected value of $f$ under this probability $p$ is 33.75. 
+
+The expected value of $S$ under this probability $p$ is $(160 \times 27+120 \times 27+80 \times 9+40 \times 1)/64=130$, which is a value that has never appeared in any previous calculations and is meaningless.
+It seems that only the combination of the expected value of $f$ under probability $q$ is meaningful.
 
 \begin{thebibliography}{9}
 	\bibitem{BaxterRennie}
