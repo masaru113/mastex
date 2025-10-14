@@ -208,40 +208,264 @@ This is the amount of stock in the replicating portfolio at the beginning (at $t
 
 \begin{itemize}
 	\item \textbf{Strategy at $t=0$ (Node with stock price=100, option price=15)}
-	      From the previous procedure, the option price at time 0 was found to be 15. (This 'option price' has the same meaning as the 'game entry fee paid to the bookmaker' in the example, where we're the bookmaker.) First, the option has a value of 15. (So, the entry fee for this 'game' is 15.) Now, at this $t=0$, $\phi = (25-5)/(120-80) = 1/2$. The stock price at $t=0$ is 100, and buying 1/2 unit costs 50. This means that (initial option price) - (stock to be held) = $15 - 50 = -35$, so we need to borrow 35 to hold $\phi(=0.5)$ units of stock. Therefore, the borrowing at time 0 is 35.
+	From the previous procedure, the option price at time 0 was found to be 15. (This 'option price' has the same meaning as the 'game entry fee paid to the bookmaker' in the example, where we're the bookmaker.) First, the option has a value of 15. (So, the entry fee for this 'game' is 15.) Now, at this $t=0$, $\phi = (25-5)/(120-80) = 1/2$. The stock price at $t=0$ is 100, and buying 1/2 unit costs 50. This means that (initial option price) - (stock to be held) = $15 - 50 = -35$, so we need to borrow 35 to hold $\phi(=0.5)$ units of stock. Therefore, the borrowing at time 0 is 35.
 
 	\item \textbf{Strategy at $t=1$ (if we reach the node with stock price=120, option price=25)}
-	      The $\phi$ at this node at time 1 is $\phi = (40-10)/(140-100) = 3/4$. Since $\phi$ was 1/2 at $t=0$, to match the new $\phi$, we must increase our stock holding by $3/4 - 1/2 = 1/4$. The stock price at this node is 120, so we want to buy an additional $120 \times (1/4) = 30$ worth of stock to match the new $\phi$. Therefore, to match the new $\phi$, we need to borrow an additional 30. Since we had borrowed 35 at $t=0$, our total borrowing at this node becomes 65.
+	The $\phi$ at this node at time 1 is $\phi = (40-10)/(140-100) = 3/4$. Since $\phi$ was 1/2 at $t=0$, to match the new $\phi$, we must increase our stock holding by $3/4 - 1/2 = 1/4$. The stock price at this node is 120, so we want to buy an additional $120 \times (1/4) = 30$ worth of stock to match the new $\phi$. Therefore, to match the new $\phi$, we need to borrow an additional 30. Since we had borrowed 35 at $t=0$, our total borrowing at this node becomes 65.
 
 	\item \textbf{Strategy at $t=2$ (if we reach the node with stock price=140, option price=40)}
-	      The $\phi$ at this node at time 2 is $\phi = (60-20)/(160-120) = 1$. At the previous node, $\phi$ was 3/4, so to match the new $\phi$, we must increase our stock holding by $1-3/4=1/4$. The stock price at this node is 140, so we want to buy an additional $140 \times (1/4) = 35$ worth of stock to match the new $\phi$. Therefore, to match the new $\phi$, we need to borrow an additional 35. Since we had borrowed 65 at the previous node, our total borrowing at this node becomes 100.
+	The $\phi$ at this node at time 2 is $\phi = (60-20)/(160-120) = 1$. At the previous node, $\phi$ was 3/4, so to match the new $\phi$, we must increase our stock holding by $1-3/4=1/4$. The stock price at this node is 140, so we want to buy an additional $140 \times (1/4) = 35$ worth of stock to match the new $\phi$. Therefore, to match the new $\phi$, we need to borrow an additional 35. Since we had borrowed 65 at the previous node, our total borrowing at this node becomes 100.
 
 	\item \textbf{Strategy at $t=3$ (at maturity, if we reach the node with stock price=120, option price=20)}
-	      Since $120 > 100$ (maturity stock price > option strike price), the option is exercised. We hand over $\phi=1$ unit of stock. To repay the total of 100 that we borrowed at the previous step, we receive 100 in cash from the person to whom we handed over the stock. From the above, we see that the option price must be 15 at $t=0$, otherwise the person selling the option would lose money, so 15 is a reasonable price.
+	Since $120 > 100$ (maturity stock price > option strike price), the option is exercised. We hand over $\phi=1$ unit of stock. To repay the total of 100 that we borrowed at the previous step, we receive 100 in cash from the person to whom we handed over the stock. From the above, we see that the option price must be 15 at $t=0$, otherwise the person selling the option would lose money, so 15 is a reasonable price.
 \end{itemize}
 
 That's how $\phi$ is used. Let's consider another path on the same tree, different from the one in the example above.
 
 \begin{itemize}
 	\item \textbf{Strategy at $t=0$ (Node with stock price=100, option price=15)}
-	      At $t=0$, $\phi = (25-5)/(120-80)=1/2$, and Option Price = Replicating Portfolio Bond + Replicating Portfolio Stock. Bond = Option - Stock = Option - Stock Holding $\phi$ * Stock Price = $15 - (1/2) \times 100 = -35$. This means we first need to borrow 35 at $t=0$ to make $\phi=1/2$. (This is exactly the same argument as in the previous example.)
+	At $t=0$, $\phi = (25-5)/(120-80)=1/2$, and Option Price = Replicating Portfolio Bond + Replicating Portfolio Stock. Bond = Option - Stock = Option - Stock Holding $\phi$ * Stock Price = $15 - (1/2) \times 100 = -35$. This means we first need to borrow 35 at $t=0$ to make $\phi=1/2$. (This is exactly the same argument as in the previous example.)
 
 	\item \textbf{Strategy at $t=1$ (if we reach the node with stock price=80, option price=5)}
-	      $\phi = (10-0)/(100-60)=1/4$. Bond = Option - Stock = $5-80 \times 1/4 = -15$. Our borrowing was 35 at the previous step, but at this node, we reduce our borrowing to 15. (In other words, we partially sell the stock we held for a price of 20 to reduce the borrowed amount to 15.)
+	$\phi = (10-0)/(100-60)=1/4$. Bond = Option - Stock = $5-80 \times 1/4 = -15$. Our borrowing was 35 at the previous step, but at this node, we reduce our borrowing to 15. (In other words, we partially sell the stock we held for a price of 20 to reduce the borrowed amount to 15.)
 
 	\item \textbf{Strategy at $t=2$ (if we reach the node with stock price=100, option price=10)}
-	      $\phi = (20-0)/(120-80)$. Bond = Option - Stock = $10-100 \times (1/2) = -40$. Our borrowing was 15 at the previous step, but we borrow an additional 25 to increase our borrowing to 40. (This additional 25 in borrowing is spent on buying more stock. Since there are only bonds and stocks in the world, the bonds are exchanged for stocks. So if the amount of our bond assets decreases, the amount of our stock holdings increases.)
+	$\phi = (20-0)/(120-80)$. Bond = Option - Stock = $10-100 \times (1/2) = -40$. Our borrowing was 15 at the previous step, but we borrow an additional 25 to increase our borrowing to 40. (This additional 25 in borrowing is spent on buying more stock. Since there are only bonds and stocks in the world, the bonds are exchanged for stocks. So if the amount of our bond assets decreases, the amount of our stock holdings increases.)
 
-	      (Why do we consider just 'stocks' and 'bonds'? Why not 'rocks', 'water', and 'rice', for example? This question can be split into two: first, why are there only two types? And second, why are the types limited to just 'stocks' and 'bonds'? $\to$ First, we're considering the simplest possible model. To exchange things, you only need a minimum number of types greater than one (i.e., two types). Furthermore, the initial derivative price is the contract payoff price reflecting the randomness of the underlying asset. Randomness, from the perspective of a bond, means the bond's price moves randomly. Conversely, from the perspective of a stock, the bond moves randomly. For example, the price of one stock changes from 100 yen in bonds to 110 yen on one day, and 105 yen on another. If you have one asset that moves randomly from the perspective of another asset, you can replicate a cash flow. You could have three types of things, but by not using one of them, you can reduce it to a two-asset model. So, while you could consider $n$ types of goods where $n$ is a natural number greater than or equal to 3, you wouldn't need to use $n-2$ of them in your analysis.)
+	(Why do we consider just 'stocks' and 'bonds'? Why not 'rocks', 'water', and 'rice', for example? This question can be split into two: first, why are there only two types? And second, why are the types limited to just 'stocks' and 'bonds'? $\to$ First, we're considering the simplest possible model. To exchange things, you only need a minimum number of types greater than one (i.e., two types). Furthermore, the initial derivative price is the contract payoff price reflecting the randomness of the underlying asset. Randomness, from the perspective of a bond, means the bond's price moves randomly. Conversely, from the perspective of a stock, the bond moves randomly. For example, the price of one stock changes from 100 yen in bonds to 110 yen on one day, and 105 yen on another. If you have one asset that moves randomly from the perspective of another asset, you can replicate a cash flow. You could have three types of things, but by not using one of them, you can reduce it to a two-asset model. So, while you could consider $n$ types of goods where $n$ is a natural number greater than or equal to 3, you wouldn't need to use $n-2$ of them in your analysis.)
 
 	\item \textbf{Strategy at $t=3$ (at maturity, if we reach the node with stock price=80, option price=0)}
-	      The option is not exercised. (Stock price=80 < Strike price=100.) Our stock holding from the previous step was $\phi=1/2$, so the value of our stock assets is $80 \times (1/2) = 40$. Our borrowing was 40 at the previous step, so we can close the transaction with no profit or loss.
+	The option is not exercised. (Stock price=80 < Strike price=100.) Our stock holding from the previous step was $\phi=1/2$, so the value of our stock assets is $80 \times (1/2) = 40$. Our borrowing was 40 at the previous step, so we can close the transaction with no profit or loss.
 \end{itemize}
 
-Here, too, we can use expected values. Under the risk-neutral probability $q$ of an increase, the probabilities of reaching each final node are $1/8, 3/8, 3/8, 1/8$ for the four possible maturity prices. The expected value of $f$ under this probability $q$ becomes the option's no-arbitrage price of 15. However, the probabilities of reaching each final node under the original stock probabilities are $27/64, 27/64, 9/64, 1/64$ for the four possible maturity prices. The expected value of $f$ under this probability $p$ is 33.75. 
+Here, too, we can use expected values. Under the risk-neutral probability $q$ of an increase, the probabilities of reaching each final node are $1/8, 3/8, 3/8, 1/8$ for the four possible maturity prices. The expected value of $f$ under this probability $q$ becomes the option's no-arbitrage price of 15. However, the probabilities of reaching each final node under the original stock probabilities are $27/64, 27/64, 9/64, 1/64$ for the four possible maturity prices. The expected value of $f$ under this probability $p$ is 33.75.
 
 The expected value of $S$ under this probability $p$ is $(160 \times 27+120 \times 27+80 \times 9+40 \times 1)/64=130$, which is a value that has never appeared in any previous calculations and is meaningless.
 It seems that only the combination of the expected value of $f$ under probability $q$ is meaningful.
+
+
+\section{The Binomial Martingale Representation Theorem}
+We can summarize our finding—that any derivative can be priced using a simple discounted expected value operator under a risk-neutral up-probability $q_j$ that exists at a given node $j$—as a theorem. This theorem may seem formal, but it's useful when we look at continuous models. In continuous models, things can be counterintuitive. However, the expected value results are still applicable and make things simpler even in continuous models.
+
+\subsection{Definitions Based on Diagrams}
+We'll provide seven definitions for concepts we've been using implicitly.
+
+\subsection{Definition of the Stock Price Process, $S$}
+The possible stock price combinations and their interconnections shown at each node of a tree are called the stock price process, $S$. The random variable $S_i$ represents the value of the stock price process at time $i$. The $S_1$ in Figure 2.9 is a random variable that can be either 60 or 120, depending on whether it's at node 2 or node 3.
+
+\subsection{Definition of Probability Measures $P$ and $Q$}
+Separate from the stock price process, the set of probabilities ($p_i$) or ($q_i$) is called a probability measure $P$ or a probability measure $Q$. This probability measure indicates the rate at which an upward or downward movement occurs at each node. In Figure 2.9, it's defined on the paths between the nodes.
+
+"Probability of an increase" and "magnitude of an increase" are distinct concepts within the binomial tree, and they are independent. We didn't need the real-world probability measure $P$ to find the probability measure that allows for a risk-free construction. The probability measure $Q$ that enables risk-free construction is a function of the stock price process $S$, and the real-world probability measure $P$ was unrelated to it. The real-world probability measure $P$ does not affect the pricing of derivatives. It's the magnitude of the stock price's increase (or decrease) and their interrelationships that affect the derivative price, not the probability (the pre-predicted probability ($p_i$)) of an increase.
+
+The reason the law of large numbers didn't work was because we were focused on the stock price process $S$ and the real-world probability measure $P$. For the purpose of arbitrage-free discussion, we should have discarded the real-world probability measure $P$ and focused only on the stock price process $S$.
+
+\subsection{Definition of Filtration ($F_i$)}
+Filtration ($F_i$) represents the history of stock prices up to time $i$ on the tree. The filtration $F_0$ at time 0 consists of a single node, node 1 (at time 0 it's a node, not a path). For example, $F_1$ is (1,2) if the stock price first moves downwards, and $F_1$ is (1,3) if it first moves upwards.
+
+In a binomial tree, there is only one path to reach a given node. Therefore, filtration $F_i$ can be associated with the node reached at time $i$. Filtration determines the history of a stock price's upward/downward movements. In other words, filtration represents the node. In a non-recombining binomial tree model like the one we're considering, having a given node is equivalent to having a given filtration.
+
+\subsection{Definition of a Contract $X$}
+A contract $X$ is a function on the nodes at maturity $T$. Since the nodes in a non-recombining binomial tree model like the one we're considering correspond one-to-one with the filtrations, it can also be said to be a function on the filtration $F_T$. For example, the stock price $S_2$ at time 2 (maturity) is the contract $X=S_2$.
+
+A contract $X$ is a different concept from the stock price process $S$. The contract $X$ is determined only by the nodes at maturity. The stock price process $S$ is determined by all time points leading up to maturity.
+
+\subsection{Conditional Expectation Operator $E_Q(・|F_i)$}
+The conditional expectation operator $E_Q(・|F_i)$ is different from the traditional expectation $E(・)$ in that it depends on the probability measure $Q$ and the filtration $F_i$. When we used the traditional expectation $E(・)$, for example, we were interested in taking the expectation along the entire path from time 0. The conditional expectation $E_Q(・|F_i)$ is suited for the purpose of taking the expectation with a later time as the starting value.
+
+The conditional expectation $E_Q(X|F_i)$ is the expected value of the contract $X$ along future paths (filtrations) from $F_i$. The conditional expectation $E_Q(X|F_i)$ is itself a random variable. The value of $E_Q(・|F_i)$ at each node at time $i$ is the expected value of $X$ if that node is reached.
+
+\subsection{Examples of Conditional Expectation}
+
+\[E_P( S_0 | F_0=(1) ) = 80\]
+At the time of filtration $F_0=(1)$, the value of $S_0$ is fixed at 80, and the expected value is 80.
+
+\[E_P( S_1 | F_0=(1) ) = (120+60)/2\]
+At the time of filtration $F_0 = (1)$, $S_1$ can only take two values (120,60), so we take the probability average of those two values.
+
+\[E_P( S_1 | F_1=(1,3) ) = 120\]
+At filtration $F_1 = (1,3)$, the value of $S_1$ is fixed at 120.
+
+\[E_P( S_1 | F_1=(1,2) ) = 60\]
+At filtration $F_1 = (1,2)$, the value of $S_1$ is fixed at 60.
+
+\[E_P( S_2 | F_0=(1) ) = (180+80+72+36) \times \frac{1}{2} \times \frac{1}{2} = 92\]
+At filtration $F_0 = (1)$, $S_2$ can only take on four values (180,80,72,36) at maturity, so we take the probability average of those four values.
+
+\[E_P( S_2 | F_1=(1,3) ) = (180+80)/2 = 130\]
+At filtration $F_1 = (1,3)$, $S_2$ can only take on two values (180,80) at maturity, so we take the probability average of those two values.
+
+\[E_P( S_2 | F_1=(1,2) ) = (72+36)/2 = 54\]
+At filtration $F_1 = (1,2)$, $S_2$ can take on two values (72,36), so we take the probability average of those two values.
+
+\[E_P( S_2 | F_2=(1,3,7) ) = 180\]
+At filtration $F_2 = (1,3,7)$, $S_2$ is already fixed at 180.
+
+\[E_P( S_2 | F_2=(1,3,6) ) = 80\]
+At filtration $F_2 = (1,3,6)$, $S_2$ is already fixed at 80.
+
+\[E_P( S_2 | F_2=(1,2,5) ) = 72\]
+At filtration $F_2 = (1,2,5)$, $S_2$ is already fixed at 72.
+
+\[E_P( S_2 | F_2=(1,2,4) ) = 36\]
+At filtration $F_2 = (1,2,4)$, $S_2$ is already fixed at 36.
+
+So, the conditional expectation at $t=0$, $E_{P}(S_{2}|F_{0}=(0))$, is the same value as the expectation we've used before, $E_P(S_2)$. However, the expectation under the filtration $F_2$ that has reached maturity, $E_P(S_2|F_2)$, is the value of $S_2$ itself.
+
+Now, the expectation of a contract $X$ under probability measure $P$ at time $i$, $E_P(X|F_i)$, can itself be regarded as a process at time $i$ (just like the stock price process $S_2$). In fact, as shown in Figure 2.11, the expectation process $E_P(S_2|F_i)$ is a different process from the stock price $S_2$. In this way, by determining some probability measure (for example, $Q$), a contract $X$ can be transformed into a process with index $i$, $E_Q(X|F_i)$.
+
+(Note: A contract only has a value at maturity, whereas a process has values at all nodes of the binomial tree.)
+
+\subsection{Predictable Process $\phi=\phi_{i}$}
+This is a process where the value at a node at time $i$ depends only on the filtration $F_{i-1}$ up to time $(i-1)$. The value at each node is defined for nodes after time 0. For example, the random bond price process $B_i$ ($i \ge 1$) is $B_i = \phi_i = S_{i-1}$, and it's predictable. (Figure 2.12 is the lagged process of Figure 2.9. The value is fixed at each point in time.)
+
+\subsection{Definition of a Martingale}
+A process $S$ is said to be a martingale with respect to a probability measure $P$ and filtration $F_i$ if $E_P( S_j | F_i ) = S_i$ for all $i \le j$. It is also sometimes simply called "$S$ is a $P$-martingale under $F_i$". For a process $S$ to be a martingale with respect to a probability measure $P$, the conditional expectation of the process $S_j$ at time $j$, given the filtration $F_i$ up to time $i$, is simply the process $S_i$ at time $i$. In other words, if $S$ is a $P$-martingale under $F_i$, the process $S$ has no upward or downward bias under the probability measure $P$. If the process $S_i$ is 100 at some point $i$, the $P$-conditional expectation is also 100.
+
+\subsection{Martingale Example 1}
+Trivially, a process that only takes on a constant value is a martingale with respect to any probability measure.
+
+\subsection{Martingale Example 2}
+The process $S$ shown in Figure 2.9 is a martingale under the probability measure $Q$ given in Figure 2.10b.
+
+For example, \[E_Q( S_1 | F_0 = (0) ) = (1/3) \times 120 + (2/3) \times 60 = 80\] and since $S_{0}=80$, $E_Q( S_1 | F_0 = (0) ) = S_0$ holds. Furthermore, \[E_Q( S_2 | F_1 = (1,3) ) = (2/5) \times 180 + (3/5) \times 80 = 120\] and for this filtration, $S_1 =120$. Therefore, $E_Q( S_2 | F_1 = (1,3) ) = S_1$ holds. To show it's a martingale, we must check all cases, starting with the case for $F_1 = (1,2)$.
+
+\subsection{Martingale Example 3}
+The conditional expectation process $N_i = E_P ( S_2 | F_i )$ is a $P$-martingale.
+(Check) We find $N_1$ according to the definition.
+\[N_1 = E_P ( S_2 | F_1 = (1,3) ) = 180 \times (1/2) + 80 \times (1/2) = 130\]
+or,
+\[N_1 = E_P ( S_2 | F_1 = (1,2) ) = 72 \times (1/2) + 36 \times (1/2) = 54\]
+Thus, we find that
+\[E_P( N_1 | F_0 ) = 130 \times (1/2) + 54 \times (1/2) = 92\]
+On the other hand,
+\begin{align*}
+& N_0 = E_P ( S_2 | F_0) \\
+&= 180 \times \frac{1}{4} + 80 \times \frac{1}{4} + 72 \times \frac{1}{4} + 36 \times \frac{1}{4} \\
+&= 92
+\end{align*}
+Therefore, $E_P( N_1 | F_0 ) = N_1$ holds, and $N_i$ is a $P$-martingale.
+
+(Why can we say that all $N_i$ are a $P$-martingale just by showing $E_P( N_1 | F_0 ) = N_1$? Ask someone.)
+
+$\longrightarrow$ Kubo-san explained that this is simply the first step of an inductive proof (testing the case for $n=1$, assuming it holds for $n=k$, and then proving it for $n=k+1$), specifically the case for $n=1$.
+
+\subsection{Conditional Expectation Process of a Contract (Tower Property)}
+For any contract $X$, the process $E_{\bf P}(X|F_i)$ is a ${\bf P}$-martingale. That is, if we set the process $N_i = E_{\bf P} (X|F_i)$, then for any $i \le j$, $E_{\bf P}( N_j | F_i ) = N_i$ holds. To summarize, $E_{\bf P}( E_{\bf P}( X | F_j ) | F_i ) = E_{\bf P}( X | F_i )$ holds.
+Interpreting the Tower property, it means that taking the expectation along the path up to time $j$ and then taking the expectation along the path up to an earlier time $i$ is equivalent to taking the expectation from the beginning along the path going back to time $i$.
+
+Using the Tower property, we can easily check if a process is a ${\bf P}$-martingale. That is, $S_{i}$ is a ${\bf P}$-martingale if and only if the process $S_{i}$ itself is equal to the conditional expectation of the maturity $T$ under the filtration $F_{i}$, $E_{\bf P}( S_{T} | F_i )$.
+
+\[S_{i} = E_{\bf P}( S_{T} | F_i ) \quad \Longleftrightarrow \quad S_{i} \text{ is a } {\bf P}\text{-martingale.}\]
+
+It's important to note that a process that is a martingale with respect to one probability measure may not be a martingale with respect to a different probability measure.
+
+\subsection{Exercise 2.3}
+Prove that the process $S_{i}$ is a ${\bf Q}$-martingale.
+
+We just need to show that $E_{\bf Q}( S_{2} | F_i ) = S_{i}$.
+
+\begin{align*}
+& E_{\bf Q}( S_{2} | F_0 ) \\
+&= \frac{1}{3} \times \frac{2}{5} \times 180 + \frac{1}{3} \times \frac{3}{5} \times 80 + \frac{2}{3} \times \frac{2}{3} \times 72 + \frac{2}{3} \times \frac{1}{3} \times 36 \\
+&= 24 + 16 + 32 + 8 \\
+&= 80 \\
+&= S_{0}
+\end{align*}
+
+\begin{align*}
+E_{\bf Q}( S_{2} | F_1=(1,3) ) &= \frac{2}{5} \times 180 + \frac{3}{5} \times 80 \\
+&= 72 + 48 \\
+&= 120 \\
+&= S_{1} \quad (\text{for } F_{1} = (1,3))
+\end{align*}
+
+\begin{align*}
+E_{\bf Q}( S_{2} | F_1=(1,2) ) &= \frac{2}{3} \times 72 + \frac{1}{3} \times 36 \\
+&= 48+12 \\
+&= 60 \\
+&= S_{1} \quad (\text{for } F_{1} = (1,2))
+\end{align*}
+
+Since $S_{2} = E_{\bf Q}( S_{2} | F_2 ) = E_{\bf Q}( S_{T} | F_{T} ) = S_{T}$, we have confirmed that $E_{\bf Q}( S_{2} | F_i ) = S_{i}$ for all $i(=0,1,2)$. Hence, the process $S_{i}$ is a ${\bf Q}$-martingale.
+
+\subsection{The Binomial Martingale Representation Theorem}
+Let the binomial processes $S$ and $N$ each be a ${\bf Q}$-martingale. Then, by setting $\Delta S_{i} = S_{i} - S_{i-1}$, there exists a predictable process $\phi$ such that \[N_{i} = N_{0} + \sum^{i}_{k=1} \phi_{k} \Delta S_{k}\]
+
+\subsection{Explanation}
+The increments of processes $S$ and $N$ from time $i-1$ to time $i$ are $\Delta S_{i} = S_{i} - S_{i-1}$ and $\Delta N_{i} = N_{i} - N_{i-1}$, respectively. There are two possible values for the next time step. One process can be expressed using the scaling (increasing/decreasing the width) and shifting (matching the offset) of the other.
+
+Let's start with scaling. The magnitude of the difference between the upward and downward jumps is $\delta s_{i} = s_{\rm up} - s_{\rm down}$ for $S$, and similarly, $\delta n_{i} = n_{\rm up} - n_{\rm down}$ for $N$. Both of these are determined only by the filtration $F_{i-1}$.
+
+A process that is determined only by the filtration $F_{i-1}$ is, by definition, a predictable process. So, we define the ratio of these processes by a predictable process $\phi_{i}$: \[\phi_{i} = \frac{\delta n_{i}}{\delta s_{i}}\] Next, let's consider the shift. The respective increments $\Delta S_{i} , \Delta N_{i}$ can be made to match by multiplying by the scaling factor and adding an offset, $k_{i}$. That is, \[\Delta N_{i} = \phi_{i} \Delta S_{i} + k_{i}\] This $k_{i}$ is determined by $F_{i-1}$ just like $\phi$ (it's predictable).
+
+On the other hand, $S$ and $N$ are each a ${\bf Q}$-martingale. This means that \[E_Q(\Delta N_i | F_{i-1}) = E_Q(\Delta S_i | F_{i-1}) = 0\] because, for example, \begin{align*}
+& E_Q(\Delta N_i | F_{i-1}) \\
+&= E_Q( N_i - N_{i-1} | F_{i-1}) \\
+&= E_Q( N_i | F_{i-1}) - E_Q( N_{i-1} | F_{i-1}) \\
+&= E_Q( N_T | F_{i-1}) - E_Q( N_T | F_{i-1}) \\
+&= 0
+\end{align*}
+The same can be shown for $S$. Thus,
+\begin{align*}
+0 &= E_Q(\Delta N_i | F_{i-1}) \\
+&= E_Q(\phi_i \Delta S_{i} + k_{i} | F_{i-1}) \\
+&= 0 + k_{i}
+\end{align*}
+Therefore, $k_{i} = 0$.
+
+From the above, we find that when the binomial processes $S$ and $N$ are each a ${\bf Q}$-martingale, if we consider a general scale and shift for each process, the shift becomes 0, and only the scaling $\phi$ remains. This can be summarized as: \[\Delta N_{i} = \phi_{i} \Delta S_{i}\]
+
+This can then be proven by induction. It holds for $n=1$: \[N_{1} - N_{0} = \phi_{1} ( S_{1} -S_{0} )\] Assuming the above equation holds for $n=k-1$: \[N_{k-1} = N_{0} + \sum^{k-1}_{i=1} \phi_{i} \Delta S_{i}\] we can say that \[N_{k} = N_{0} + \sum^{k}_{i=1} \phi_{i} \Delta S_{i}\] holds, which proves the equation holds for all natural numbers $k$.
+
+\subsection{Application to Finance}
+Up to this point, we have understood a mathematical theorem about binomial tree processes and probability measures. The proof did not include any financial concepts like stocks or bonds, nor did it touch on arbitrage or market implications. In this next part, we'll see how the Binomial Martingale Representation Theorem can be applied to pricing.
+
+The binomial tree model represents a market. We'll assume the stock price fluctuates as a binomial process $S$. If a probability measure ${\bf Q}$ exists that makes this process $S$ a martingale, we can apply this theorem to represent any other ${\bf Q}$ martingale $N_{i}$ in terms of the stock price.
+
+From the Binomial Martingale Representation Theorem, the predictable $\phi_{i}$ can be used in an investment strategy. If we buy the appropriate amount of stock, $\phi_{i}$, at each time point, the profit and loss will follow the ${\bf Q}$ martingale $N_{i}$ (cash flow replication).
+
+Now, note that a contract $X$ is not a stochastic process but a random variable at maturity. Since this is difficult to handle mathematically, we'll take the conditional expectation $E_{i} = \mathbf{E_{Q}}( X | F_{i} )$ under the probability measure ${\bf Q}$ and consider the ${\bf Q}$-martingale $E_{i}$.
+
+The bond price is a stochastic process $B_{i}$ that is predictable and positive. Without loss of generality, we can set $B_{0} = 1$.
+
+Its inverse process $B_{i}^{-1}$ is also predictable and positive. We call $B_{i}^{-1}$ the discounting process.
+
+We define a discounted stock price process $Z_{i} = B_{i}^{-1} S_{i}$. We call this $Z_{i}$ the discounted stock price process.
+
+A contract $X$ discounted by the maturity discounting process, $B_{T}^{-1} X$, is also a contract. We call this $B_{T}^{-1} X$ the discounted contract.
+
+\subsection{The Replicating Strategy}
+For a probability measure ${\bf Q}$ that makes $Z = B_{i}^{-1} S_{i}$ a ${\bf Q}$-martingale, we take the conditional expectation $E_{i} = \mathbf{E_{Q}}( B_{T}^{-1} X | F_{i} )$ for a contract $X$. This $E_{i}$ is a ${\bf Q}$-martingale constructed from $Z$.
+
+Now, both $E_{i}$ and $Z$ are ${\bf Q}$-martingales. Therefore, by the Binomial Martingale Representation Theorem, there exists a predictable process $\phi_{i}$ such that \[E_{k} = E_{0} + \sum^{k}_{i=1} \phi_{i} \Delta Z_{i}\]
+
+Using the above, we'll think about a replicating strategy.
+
+At time $i$, we hold $\phi_{i+1}$ units of stock $S$.
+
+At time $i$, we hold $\psi_{i+1} = ( E_{i} - \phi_{i+1} B_{i}^{-1} S_{i} )$ units of the bond.
+
+Based on these two points, we purchase the portfolio $\Pi_{i}$.
+
+That is, at time $i$, we purchase the following portfolio:\[\Pi_{i} = \phi_{i+1} S_{i} + \psi_{i+1} B_{i}\]
+
+At $t=0$, this portfolio $\Pi_{0}$ has the following value:\[\begin{split} \Pi_{0} &= \phi_{1} S_{0} + \psi_{1} B_{0} \\ &= E_{0} \\ &= \mathbf{E_{Q}}(B_{T}^{-1} X) \\ &= \mathbf{E_{Q}}(B_{T}^{-1} X | F_{0}) \end{split}\]
+
+This value is the cost required to acquire the portfolio from scratch at the beginning of the period. Since $\phi_{1}$ and $\psi_{1}$ are predictable, they can be determined.
+
+At the next time point, $t=1$, the price of $\Pi_{0}$ changes by the following difference in price. (Note that it's $\Pi_{0}$, not $\Pi_{1}$. We're thinking about the price of the portfolio $\Pi_{0}$ which was held at $t=0$ and has simply transitioned to the next state without any buying or selling.) (That is, we're considering the case where the holdings $\phi_{i+1},\psi_{i+1}$ for constructing $\Pi_{i}$ are not changed, and only the processes $S_{i},B_{i}$ change from $i \to i+1$.)
+\[\begin{split} & \quad \phi_{1} S_{1} + \psi_{1} B_{1} \\ =& \quad \phi_{1} S_{1} + \left( E_{0} - \phi_{1} B_{0}^{-1} S_{0} \right) B_{1} \\ =& \quad B_{1} \left\{ E_{0} + \phi_{1} ( B_{1}^{-1} S_{1} - B_{0}^{-1} S_{0} ) \right\} \end{split}\]
+Here, if we set the discounted stock price increment $Z_{1} - Z_{0}$ as $\Delta Z_{1} = B_{1}^{-1} S_{1} - B_{0}^{-1} S_{0}$, we can use the Binomial Martingale Representation Theorem $(k=1)$, $E_{1} = E_{0} + \phi_{1} \Delta Z_{1}$ to write:\[\phi_{1} S_{1} + \psi_{1} B_{1} = B_{1} E_{1}\] (Note that this is not the price of $\Pi_{1}$. The value of $\Pi_{1}$ at $i=1$ is $\phi_{2} S_{1} + \psi_{2} B_{1}$.)
+
+In the replicating strategy, at time $i$, we purchase the portfolio\[\Pi_{i} = \phi_{i+1} S_{i} + \psi_{i+1} B_{i}\]
+
+The value $B_{1} E_{1}$ is the cost required to purchase the replicating portfolio $\Pi_{0}$ when transitioning from time 0 to time 1.
+
+In general, at any time $i$, it costs $B_{i} E_{i}$ to purchase the portfolio $\Pi_{i}$.
+
+Next, if the portfolio $\Pi_{1}$ held at time 1 moves to $t=2$, we have similarly:\[\begin{split} \Pi_{1} \to& \quad \phi_{2} S_{2} + \psi_{2} B_{2} \\ =& \quad \phi_{2} S_{2} + \left( E_{1} - \phi_{2} B_{1}^{-1} S_{1} \right) B_{2} \\ =& \quad B_{2} \left\{ E_{1} + \phi_{2} ( B_{2}^{-1} S_{2} - B_{1}^{-1} S_{1} ) \right\} \\ =& \quad B_{2} \left( E_{1} + \phi_{2} \Delta Z_{1} \right) \\ =& \quad B_{2} E_{2} \end{split}\]
+This shows that at the moment $t=2$, the cost to construct the replicating portfolio $\Pi_{2}$ is $B_{2} E_{2}$.
 
 \begin{thebibliography}{9}
 	\bibitem{BaxterRennie}
