@@ -1,0 +1,485 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+Martingale Representation Theorem
+}
+\author{Masaru Okada}
+
+\date{ \today }
+\begin{document}
+
+\maketitle
+\begin{abstract}
+	These are my self-study notes for Chapter 3 of \textbf{Financial Calculus: An Introduction to Derivative Pricing} by Martin Baxter and Andrew Rennie, written on May 20, 2020.
+\end{abstract}
+
+\section{Current Status and Review of Problems}
+
+In Section 2.3, we saw what a martingale process looks like in the context of discrete processes.
+
+\
+%
+\begin{itembox}[l]{(Review) Definition (vii) from Section 2.3, 'A Diagrammatic Definition'}
+	A process $S$ is said to be a martingale with respect to the probability measure $\mathbb{P}$ and the filtration $\mathcal{F}_{i}$ if, for all $i \leq j$,
+	$$
+		{\bf E}_{\mathbb{P}}( S_{j} | \mathcal{F}_{i} ) = S_{i}
+	$$
+\end{itembox}
+%
+
+\
+In continuous-time processes, the same holds true. Let's see how.
+\section{Martingale Conditions for Continuous-Time Processes}
+
+A stochastic process $M_{t}$ is a martingale with respect to a measure $\mathbb{P}$ if it satisfies the following conditions.
+
+\
+%
+\begin{itembox}[l]{Martingale Conditions}
+	%
+	\begin{enumerate}
+		\item For all $t$, ${\bf E}_{\mathbb{P}}( | M_{t} | ) < \infty$.
+		\item For $s(<t)$, ${\bf E}_{\mathbb{P}}( M_{t} | \mathcal{F}_{s} ) = M_{s}$.
+	\end{enumerate}
+	%
+\end{itembox}
+%
+
+\
+The second condition is the particularly crucial one for a martingale.
+
+Just as with discrete processes, this expresses that the expected value in the future is equal to the present value.
+
+To get a better feel for this, the textbook provides three examples.
+\subsection{Example 1: The Constant Process}
+
+A process where $S_{t}=c$ (a constant) at all times $t$ is a martingale under any measure.
+
+For any future times $s,t$ (where $s(<t)$), we have $S_{t}=S_{s}=c$, so
+%
+\begin{eqnarray*}
+	c
+	&=&
+	{\bf E}_{\mathbb{P}}( S_{t} | \mathcal{F}_{s} )
+	\\ &=&
+	{\bf E}_{\mathbb{P}}( S_{s} | \mathcal{F}_{s} )
+	\\ &=&
+	S_{s}
+\end{eqnarray*}
+%
+This holds true for any measure $\mathbb{P}$.
+\subsection{Example 2: A $\mathbb{P}$-Brownian Motion under Measure $\mathbb{P}$}
+
+Let's confirm that a $\mathbb{P}$-Brownian motion is a $\mathbb{P}$-martingale.
+
+\
+For times $s,t$ ($s<t$), with $W_{t}$ as the $\mathbb{P}$-Brownian motion, we have:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}( W_{t} | \mathcal{F}_{s} )
+	&=&
+	{\bf E}_{\mathbb{P}}( W_{t} + W_{s} - W_{s} | \mathcal{F}_{s} )
+	\\ &=&
+	{\bf E}_{\mathbb{P}}( W_{s} | \mathcal{F}_{s} )
+	+
+	{\bf E}_{\mathbb{P}}( W_{t} - W_{s} | \mathcal{F}_{s} )
+	\\ &=&
+	W_{s}
+	+
+	0
+\end{eqnarray*}
+%
+Here, ${\bf E}_{\mathbb{P}}( W_{t} - W_{s} | \mathcal{F}_{s} ) =0$ because of the property of Brownian motion that $W_{t} - W_{s}$ is independent of $\mathcal{F}_{s}$ and has a $N(0,t-s)$ distribution under $\mathbb{P}$.
+
+Thus, $W_{t}$ is a martingale.
+
+\subsection{Example 3: The Tower Law: The Process of Conditional Expectation under Measure $\mathbb{P}$}
+
+For a contract $X$ with a payoff fixed at maturity $T$, let's confirm that the process $N_{t} = {\bf E}_{\mathbb{P}}( X | \mathcal{F}_{t} )$ is a $\mathbb{P}$-martingale.
+
+\
+To show this, we use the tower law, which holds for times $s,t$ ($s \leq t$):
+$$
+	{\bf E}_{\mathbb{P}}
+	\Big(
+	{\bf E}_{\mathbb{P}}
+	\left(
+	X | \mathcal{F}_{t}
+	\right)
+	\Big| \mathcal{F}_{s} \Big)
+	\ = \
+	{\bf E}_{\mathbb{P}}( X | \mathcal{F}_{s} )
+$$
+This is the same result we saw for discrete processes: the expectation of an expectation, first conditional on the history up to time $t$ and then on the history up to time $s$, is equal to the expectation conditional on the history up to time $s$ from the start.
+
+Using this, we can show that:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}( N_{t} | \mathcal{F}_{s} )
+	&=&
+	{\bf E}_{\mathbb{P}}
+	\Big(
+	{\bf E}_{\mathbb{P}}
+	\left(
+	X | \mathcal{F}_{t}
+	\right)
+	\Big| \mathcal{F}_{s} \Big)
+	\\ &=&
+	{\bf E}_{\mathbb{P}}( X | \mathcal{F}_{s} )
+	\\ &=&
+	N_{s}
+\end{eqnarray*}
+%
+This proves that $N_{t}$ is a martingale.
+
+\section{Exercise 3.10}
+
+\subsection{Problem}
+
+Let $W_{t}$ be a $\mathbb{P}$-Brownian motion. Show that the stochastic process $X_{t}=W_{t} + \gamma t$ is a $\mathbb{P}$-martingale only when $\gamma=0$.
+
+\subsection{Solution}
+
+Taking the expectation under measure $\mathbb{P}$ conditional on the history $\mathcal{F}_{s}$ at time $s(<t)$:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}( X_{t} | \mathcal{F}_{s} )
+	&=&
+	{\bf E}_{\mathbb{P}}( W_{t} + \gamma t | \mathcal{F}_{s} )
+	\\ &=&
+	W_{s}+ \gamma t
+	\\ &=&
+	X_{s} + \gamma ( t - s )
+\end{eqnarray*}
+%
+Therefore, $X_{t}$ is a $\mathbb{P}$-martingale only if $\gamma = 0$.
+\subsection{Digging a Bit Deeper}
+
+What if we introduce a positive constant volatility $\sigma(>0)$ to the process, like $X_{t} = \sigma W_{t} + \gamma t$?
+In this case,
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}( X_{t} | \mathcal{F}_{s} )
+	&=&
+	{\bf E}_{\mathbb{P}}( \sigma W_{t} + \gamma t | \mathcal{F}_{s} )
+	\\ &=&
+	\sigma W_{s}+ \gamma t
+	\\ &=&
+	X_{s} + \gamma ( t - s )
+\end{eqnarray*}
+%
+Similarly, it's not a $\mathbb{P}$-martingale unless the drift $\gamma = 0$.
+
+\
+Right after this, we'll see that "being a martingale is equivalent to having no drift term." The textbook will then discuss the necessary conditions when the drift is not constant but time-dependent.
+\subsection{(Addendum) Martingale of the Square of a Brownian Motion}
+Let $W_{t}$ be a $\mathbb{P}$-Brownian motion. Taking the expectation of $W_{t}^{2}$ under measure $\mathbb{P}$ conditional on the history $\mathcal{F}_{s}$ at time $s(<t)$, we get:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}( W_{t}^{2} | \mathcal{F}_{s} )
+	&=&
+	{\bf E}_{\mathbb{P}}[ \{ W_{s} + (W_{t} - W_{s}) \}^{2} | \mathcal{F}_{s} ]
+	\\ &=&
+	W_{s}^{2}
+	\ + \
+	2 W_{s}
+		{\bf E}_{\mathbb{P}}( W_{t} - W_{s} | \mathcal{F}_{s} )
+	\ + \
+	{\bf E}_{\mathbb{P}}[ ( W_{t} - W_{s} )^{2} | \mathcal{F}_{s} ]
+	\\ &=&
+	W_{s}^{2}
+	\ + \
+	0
+	\ + \
+	(t-s)
+\end{eqnarray*}
+%
+So, by subtracting $t$ from both sides,
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}( W_{t}^{2} - t | \mathcal{F}_{s} )
+	&=&
+	W_{s}^{2} - s
+\end{eqnarray*}
+%
+This shows that $W_{t}^{2} - t$ is a martingale. (This uses the fact that $W_{t} - W_{s}$ is independent of $\mathcal{F}_{s}$ and has variance $(t-s)$.)
+
+\subsection{(Addendum) Exponential Martingale with Constant Volatility}
+
+Let $W_{t}$ be a $\mathbb{P}$-Brownian motion. Taking the expectation of $\exp(\sigma W_{t})$ under measure $\mathbb{P}$ conditional on the history $\mathcal{F}_{s}$ at time $s(<t)$:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}[ e^{\sigma W_{t}} | \mathcal{F}_{s} ]
+	&=&
+	e^{\sigma W_{s}}
+		{\bf E}_{\mathbb{P}}[ e^{\sigma (W_{t} -W_{s})} | \mathcal{F}_{s} ]
+\end{eqnarray*}
+%
+Recalling the moment generating function from the previous section (since $W_{t} - W_{s}$ is independent of $\mathcal{F}_{s}$ and has variance $(t-s)$), we find that:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}[ e^{\sigma W_{t}} | \mathcal{F}_{s} ]
+	&=&
+	e^{\sigma W_{s}}
+	\exp \left( 0 \times \sigma + \dfrac{1}{2} \sigma^{2} (t-s) \right)
+	\\ &=&
+	\exp \left( \dfrac{1}{2} \sigma^{2} t \right)
+	\exp \left( \sigma W_{s} - \dfrac{1}{2} \sigma^{2} s \right)
+\end{eqnarray*}
+%
+Multiplying both sides by $\exp \left( - \dfrac{1}{2} \sigma^{2} t \right)$ gives us:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}[ e^{ ( \sigma W_{t} - \frac{1}{2} \sigma^{2} t ) } | \mathcal{F}_{s} ]
+	&=&
+	e^{ ( \sigma W_{s} - \frac{1}{2} \sigma^{2} s ) }
+\end{eqnarray*}
+%
+Therefore, $e^{ ( \sigma W_{t} - \frac{1}{2} \sigma^{2} t ) }$ is also a martingale.
+\section{Martingale Representation Theorem}
+%
+\begin{itembox}[l]{(Review) Binomial Martingale Representation Theorem}
+	Let the binomial process $M_{i}$ at time $i$ be a $\mathbb{Q}$-martingale. If another process $N_{i}$ is also a $\mathbb{Q}$-martingale, there exists a predictable process $\phi_{i}$ such that $N_{i}$ can be expressed as:
+	$$
+		N_{i} \ = \ N_{0} + \sum_{k=1}^{i} \phi_{k} \Delta M_{k}
+	$$
+	(A predictable process $\phi_{i}$ exists that allows $N_{i}$ to be represented in this way.)
+\end{itembox}
+%
+
+\
+%
+\begin{itembox}[l]{Martingale Representation Theorem}
+	Let the process $M_{t}$ be a $\mathbb{Q}$-martingale, and assume its volatility $\sigma_{t}$ is never zero. If another process $N_{t}$ is also a $\mathbb{Q}$-martingale, there exists a predictable process $\phi_{t}$ that always satisfies:
+	$$
+		\int^{T}_{0} \phi_{t}^{2} \sigma_{t}^{2} d t < \infty
+	$$
+	and $N_{t}$ can be expressed as:
+	$$
+		N_{t} \ = \ N_{0} + \int^{t}_{0} \phi_{s} d M_{s}
+	$$
+\end{itembox}
+%
+
+This is the same theorem as the binomial process version, with the summation replaced by an integral.
+
+\
+Let's consider a point made in the textbook's explanation:
+"If a measure $\mathbb{Q}$ exists such that $M_{t}$ is a $\mathbb{Q}$-martingale, then any other $\mathbb{Q}$-martingale can be expressed using $M_{t}$ as shown above. The process $\phi_{t}$ is simply the ratio of their respective volatilities."
+
+\
+Expressed in differential form, the martingale representation theorem is $d N_{t} = \phi_{t} dM_{t}$.
+
+Since $M_{t}$ is a $\mathbb{Q}$-martingale, we can write $d M_{t} = \sigma^{(M)}_{t} d \tilde{W}_{t}$ using a $\mathbb{Q}$-Brownian motion $\tilde{W}_{t}$ (assuming $M$'s volatility $\sigma^{(M)}_{t} > 0$). Substituting this in, we get $dN_{t} = \phi_{t} \sigma^{(M)}_{t} d \tilde{W}_{t}$.
+
+On the other hand, $N_{t}$ is also a $\mathbb{Q}$-martingale. So, if we denote $N$'s volatility as $\sigma^{(N)}_{t}$, we can express $dN_{t}$ as $dN_{t} = \sigma_{t}^{(N)} d \tilde{W}_{t}$.
+
+Thus, expressing $dN_{t}$ using the volatilities of $M$ and $N$, $\sigma^{(M)}_{t}$ and $\sigma^{(N)}_{t}$, we have:
+$
+	\phi_{t} \sigma^{(M)}_{t} d \tilde{W}_{t}
+	=
+	\sigma_{t}^{(N)} d \tilde{W}_{t}
+$
+This can be rearranged to:
+$$
+	\phi_{t}
+	\ = \
+	\dfrac{\sigma_{t}^{(N)}}{\sigma^{(M)}_{t}}
+$$
+This confirms the textbook's statement: "the process $\phi_{t}$ is simply the ratio of their respective volatilities."
+
+\section{No-Drift Condition}
+
+As we saw briefly in Exercise 3.10, the conditions for a process to be a martingale if it has no drift are stated here in more detail.
+
+\
+A stochastic process $X_{t}$ that satisfies $dX_{t}= \sigma_{t} dW_{t} + \mu_{t} dt$ is a martingale if and only if $\mu_{t} = 0$, provided it meets the condition:
+$$
+	{\bf E}
+	\left[
+		\left(
+		\int^{t}_{0} \sigma_{s}^{2} ds
+		\right)^{\frac{1}{2}}
+		\right]
+	\ < \
+	\infty
+$$
+\
+Processes that do not satisfy the above condition are called local martingales.
+
+\section{Exponential Martingales}
+
+For a geometric Brownian motion with no drift, $ dX_{t} = \sigma_{t} X_{t} dW_{t} $, the condition for $X_{t}$ to be a martingale, when applied directly from the above, would be:
+$$
+	{\bf E}
+	\left[
+		\left(
+		\int^{t}_{0} \sigma_{s}^{2} X_{s}^{2} ds
+		\right)^{\frac{1}{2}}
+		\right]
+	\ < \
+	\infty
+$$
+However, the textbook states that the condition can actually be simplified to the more concise:
+$$
+	{\bf E}
+	\left[
+		\exp
+		\left(
+		\dfrac{1}{2}
+		\int^{t}_{0} \sigma_{s}^{2} ds
+		\right)
+		\right]
+	\ < \
+	\infty
+$$
+is sufficient.
+
+In this case, the solution can be written explicitly as:
+$$
+	X_{t}
+	\ = \
+	X_{0}
+	\exp
+	\left(
+	\int^{t}_{0}
+	\sigma_{s} dW_{s}
+	-
+	\dfrac{1}{2}
+	\int^{t}_{0} \sigma_{s}^{2} ds
+	\right)
+$$
+\
+Let's verify this.
+
+Let $X_{t} = X_{0} e^{Y_{t}}$. We have $Y_{t} = \displaystyle \int^{t}_{0} \sigma_{s} dW_{s} - \dfrac{1}{2} \int^{t}_{0} \sigma_{s}^{2} ds$, so its differential is:
+$$
+	d Y_{t}
+	\ = \
+	\sigma_{t} dW_{t}
+	-
+	\dfrac{1}{2}
+	\sigma_{t}^{2} dt
+$$
+The square of $dY_{t}$ is:
+%
+\begin{eqnarray*}
+	d Y_{t}^{2}
+	&=&
+	\left(
+	\sigma_{t} dW_{t}
+	-
+	\dfrac{1}{2}
+	\sigma_{t}^{2} dt
+	\right)^{2}
+	\\ &=&
+	\sigma_{t}^{2} dt
+\end{eqnarray*}
+%
+Using Itô's formula with the function $f(y)=X_{0} e^{y}$, where $f'(y) = f''(y) = X_{0} e^{y}$, we find:
+%
+\begin{eqnarray*}
+	d X_{t}
+	&=&
+	d f(y)
+	\\ &=&
+	f'(y) dY_{t}
+	\ + \
+	\dfrac{1}{2} f''(y) dY_{t}^{2}
+	\\ &=&
+	X_{0} e^{Y_{t}}
+	\left(
+	\sigma_{t} dW_{t}
+	-
+	\dfrac{1}{2}
+	\sigma_{t}^{2} dt
+	\right)
+	\ + \
+	\dfrac{1}{2}
+	X_{0} e^{Y_{t}}
+	\sigma_{t}^{2} dt
+	\\ &=&
+	X_{0} e^{Y_{t}}
+	\sigma_{t} dW_{t}
+	\\ &=&
+	\sigma_{t} X_{t} dW_{t}
+\end{eqnarray*}
+%
+This confirms that the solution to $dX_{t} = \sigma_{t} X_{t} dW_{t}$ is indeed:
+$$
+	X_{t}
+	\ = \
+	X_{0}
+	\exp
+	\left(
+	\int^{t}_{0}
+	\sigma_{s} dW_{s}
+	-
+	\dfrac{1}{2}
+	\int^{t}_{0} \sigma_{s}^{2} ds
+	\right)
+$$
+\section{Exercise 3.11}
+
+\subsection{Problem}
+
+If $\sigma$ is a function bounded in both time and path, show that $dX_{t} = \sigma_{t} X_{t} dW_{t}$ is a $\mathbb{P}$-martingale.
+\subsection{Solution}
+
+First, since $dX_{t} = \sigma_{t} X_{t} dW_{t}$ has no drift term, it will be a martingale if it satisfies the condition for an exponential martingale:
+$$
+	{\bf E}
+	\left[
+		\exp
+		\left(
+		\dfrac{1}{2}
+		\int^{t}_{0} \sigma_{s}^{2} ds
+		\right)
+		\right]
+	\ < \
+	\infty
+$$
+\
+Let's express $\sigma_{t}$ using time $t$ and path $\omega$ as $\sigma_{t}=\sigma(t,\omega)$. Since it's a function bounded in both time and path, there exists a constant $K$ such that for any $(t,\omega)$, we have $|\sigma(t,\omega)| < K$.
+Squaring this, we get $\sigma^{2}(t,\omega) < K^{2}$.
+Therefore,
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left[
+		\exp
+		\left(
+		\dfrac{1}{2}
+		\int^{t}_{0} \sigma_{s}^{2} ds
+		\right)
+		\
+		\Big|
+		\
+		\omega
+		\right]
+	&<&
+	\exp
+	\left(
+	\dfrac{1}{2}
+	\int^{t}_{0} K^{2} ds
+	\right)
+	\ = \
+	{\rm const.}
+\end{eqnarray*}
+%
+Since this is bounded by a finite value, the condition given in the problem is sufficient to prove that $X_{t}$ is a martingale.
+
+\
+\
+
+This concludes Section 3.5.
+
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+\end{document}
