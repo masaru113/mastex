@@ -1,0 +1,1650 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tocloft}
+\usepackage{titletoc}
+\usepackage{circuitikz}
+
+\title{
+Radon-Nikodym微分を用いた測度変換 と Cameron-Martin-Girsanovの定理
+}
+\author{岡田 大（Okada Masaru）
+}
+\date{ \today }
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{ここまでの現状と課題の整理}
+
+前節は伊藤解析について展開されたが、確率測度について意識していなかった。
+
+つまり、
+$\mathbb{P}$-Brown運動$W_{t}$についての伊藤解析について見てきたが、
+測度$\mathbb{P}$と独立ではない測度$\mathbb{Q}$の下でのBrown運動（教科書では$\tilde{W}_{t}$と書かれる）について取り扱う処方（$\mathbb{P}$と$\mathbb{Q}$の間を互いに行き来する方法）を我々はまだ知らないので、
+これから知見を広げていきたい。
+
+テキストは
+Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\cite{BaxterRennie}
+を用いる。
+
+\section{測度変換とRadon-Nikodym微分}
+
+まずは測度変換の効果についての直感を養うために離散時間の過程を見ていく。
+
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.6\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\normalsize]
+			\draw  (6.25,10) circle (0.5cm);
+			\node [font=\normalsize] at (6.25,10) {0};
+			\draw  (11.25,11.25) circle (0.5cm);
+			\node [font=\normalsize] at (11.25,11.25) {1};
+			\draw  (11.25,8.75) circle (0.5cm);
+			\node [font=\normalsize] at (11.25,8.75) {-1};
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw  (16.25,12.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,12.5) {2};
+			\draw  (16.25,10) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,10) {0};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9.75);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10);
+			\draw  (16.25,7.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,7.5) {-2};
+			\node [font=\normalsize] at (8.75,11.25) {$p_{1}$};
+			\node [font=\normalsize] at (8.5,9) {$1-p_{1}$};
+			\node [font=\normalsize] at (13.25,12.25) {$p_{2}$};
+			\node [font=\normalsize] at (14,7.75) {$1-p_{3}$};
+			\node [font=\normalsize] at (13.5,9.5) {$p_{3}$};
+			\node [font=\normalsize] at (12.75,10.5) {$1-p_{2}$};
+
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+		\end{circuitikz}
+	}%
+
+	\label{fig:my_label}
+\end{figure}
+
+この図で表現される再結合される2期間のランダムウォークを考える。
+
+この図の各頂点は値を表し、道の上下には遷移確率が示されている。
+
+時点0から最終時点までの経路を値で表現すると、
+
+\hspace{20mm}
+\{ 0 , 1 , 2 \}
+、
+\{ 0 , 1 , 0 \}
+、
+\{ 0 , -1 , 0 \}
+、
+\{ 0 , -1 , -2 \}
+
+の計4パターンの取り得る経路がある。
+
+表1にこれらの経路と辿る確率（順に$\pi_{1},\pi_{2},\pi_{3},\pi_{4}$と定義する）がまとめられている。
+
+\begin{center}
+	\begin{tabular}{|c|c|} \hline
+		経路                & 最終時点到達確率                            \\ \hline
+		\{ 0 , 1 , 2 \}   & $　p_{1} p_{2} = \pi_{1} $           \\ \hline
+		\{ 0 , 1 , 0 \}   & $　p_{1} (1 - p_{2}) = \pi_{2} $     \\ \hline
+		\{ 0 , -1 , 0 \}  & $　(1-p_{1}) p_{3} = \pi_{3} $       \\ \hline
+		\{ 0 , -1 , -2 \} & $　(1-p_{1}) (1 - p_{3}) = \pi_{4} $ \\ \hline
+	\end{tabular}
+	\\ 表1： 経路とそれに対応する確率
+\end{center}
+今までの説明の流れ（表3.1の確率のカラム）では$p_{1},p_{2},p_{3}$が与えられると
+$\pi_{1},\pi_{2},\pi_{3},\pi_{4}$
+が求まるとした。
+
+しかし逆に
+$p_{1},p_{2},p_{3}$
+が未知である場合、
+$\pi_{1},\pi_{2},\pi_{3},\pi_{4}$
+が与えられると逆算して
+$p_{1},p_{2},p_{3}$
+が求まる。
+
+${}$
+
+分かりにくいので具体的にやってみると、
+%
+\begin{eqnarray*}
+	\left\{
+	\begin{array}{r}
+		p_{1} p_{2} \ = \ \pi_{1}
+		\\
+		p_{1} (1 - p_{2}) = \pi_{2}
+		\\
+		(1 - p_{1}) p_{3} = \pi_{3}
+		\\
+		(1 - p_{1}) (1 -p_{3}) = \pi_{4}
+	\end{array}
+	\right.
+\end{eqnarray*}
+%
+これらを$p_{1},p_{2},p_{3}$について解くと
+
+\begin{eqnarray*}
+	\left\{
+	\begin{array}{c}
+		p_{1} \ = \ \pi_{1} + \pi_{2}
+		\\[3mm]
+		p_{2} \ = \ \dfrac{\pi_{1}}{ \pi_{1} + \pi_{2} }
+		\\[3mm]
+		p_{3} \ = \ \dfrac{\pi_{3}}{ \pi_{3} + \pi_{4} }
+	\end{array}
+	\right.
+\end{eqnarray*}
+
+のようになる。
+
+つまり最終時点における到達確率
+$\pi_{1},\pi_{2},\pi_{3},\pi_{4}$
+を与えることは
+$p_{1},p_{2},p_{3}$
+を定めること、
+すなわち測度$\mathbb{P}$を定めることと等しい。
+この図では値の経路（各交点が値のツリー）が示されていたが、
+値ではなく、
+最終時点への到達確率に焦点を当てると、ツリーは次の図のようになる。
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.7\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\normalsize]
+			\draw  (6.25,10) circle (0.5cm);
+			\draw  (11.25,11.25) circle (0.5cm);
+			\draw  (11.25,8.75) circle (0.5cm);
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw  (16.25,12.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,12.5) {$\pi_{1}$};
+			\draw  (16.25,10.75) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,10.75) {$\pi_{2}$};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10.75);
+			\draw  (16.25,7.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,7.5) {$\pi_{4}$};
+
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+			\draw  (16.25,9) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,9) {$\pi_{3}$};
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+		\end{circuitikz}
+	}%
+
+	\label{fig:my_label}
+\end{figure}
+
+さっきの図は時点2において再結合されていたが、
+こちらの図では
+\{ 0 , 1 , 0 \}
+、
+\{ 0 , -1 , 0 \}
+が重ならないツリーになることに留意する。
+${}$
+最終時点に到達する確率
+$\pi_{1},\pi_{2},\pi_{3},\pi_{4}$
+を与えることで
+測度$\mathbb{P}$が定まることを見た。
+
+次に、
+$p_{1},p_{2},p_{3}$
+の代わりに
+$q_{1},q_{2},q_{3}$
+で表現されるような測度
+$\mathbb{Q}$
+を考える。
+
+そのときの最終時点に到達する確率をそれぞれ
+$\pi'_{1},\pi'_{2},\pi'_{3},\pi'_{4}$
+と置く。
+
+今までで展開してきた測度$\mathbb{P}$の場合と
+全く同様の議論で、
+$q_{1},q_{2},q_{3}$
+が与えられることと
+$\pi'_{1},\pi'_{2},\pi'_{3},\pi'_{4}$
+が定まることは同じことである。
+
+\ \\
+
+\paragraph{ここまでを一旦整理}
+
+${}$
+
+測度$\mathbb{P}$について、
+頂点間の遷移確率
+$p_{1},p_{2},p_{3}$
+が与えられると
+最終時点における到達確率
+$\pi_{1},\pi_{2},\pi_{3},\pi_{4}$
+が定まる。
+
+逆に、最終時点における到達確率
+$\pi_{1},\pi_{2},\pi_{3},\pi_{4}$
+が与えられることは
+測度$\mathbb{P}$
+が与えられていることと同じこと。
+
+\ \\
+
+測度$\mathbb{Q}$についても記号を変えただけの全く同じ議論で、
+頂点間の遷移確率
+$q_{1},q_{2},q_{3}$
+が与えられると最終時点に到達する確率
+$\pi'_{1},\pi'_{2},\pi'_{3},\pi'_{4}$
+が定まる。
+
+これも逆も同じで、最終時点に到達する確率
+$\pi'_{1},\pi'_{2},\pi'_{3},\pi'_{4}$
+が与えられると
+測度$\mathbb{Q}$
+も定まる。
+${}$
+測度$\mathbb{P}$と測度$\mathbb{Q}$それぞれの
+最終時点の到達確率の比
+$\dfrac{ \pi'_{1} }{ \pi_{1} }$
+,
+$\dfrac{ \pi'_{2} }{ \pi_{2} }$
+,
+$\dfrac{ \pi'_{3} }{ \pi_{3} }$
+,
+$\dfrac{ \pi'_{4} }{ \pi_{4} }$
+を考えてみる。
+
+もし測度$\mathbb{Q}$についての各頂点間の遷移確率$q_{1},q_{2},q_{3}$がはじめに与えられていない場合でも、
+測度$\mathbb{P}$と比の値
+$\dfrac{ \pi'_{i} }{ \pi_{i} }$
+（ただし$i=1,2,3,4$）
+の値が与えられると
+逆算することで
+$q_{1},q_{2},q_{3}$
+が定まる。
+
+この比の値
+$\dfrac{ \pi'_{i} }{ \pi_{i} }$
+は$i=1,2,3,4$の4つの値を取る。
+
+この比の値は各最終到達時点ごとに値が決まる。
+さっきまでのようにツリーで表現すると次の図のようになる。
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.7\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\small]
+			\draw  (6.25,10) circle (0.5cm);
+			\draw  (11.25,11.25) circle (0.5cm);
+			\draw  (11.25,8.75) circle (0.5cm);
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw  (16.25,12.5) circle (0.5cm);
+			\node [font=\small] at (16.25,12.5) {$\pi'_{1} / \pi_{1}$};
+			\draw  (16.25,10.75) circle (0.5cm);
+			\node [font=\small] at (16.25,10.75) {$\pi'_{2} / \pi_{2}$};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10.75);
+			\draw  (16.25,7.5) circle (0.5cm);
+			\node [font=\small] at (16.25,7.5) {$\pi'_{4} / \pi_{4}$};
+
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+			\draw  (16.25,9) circle (0.5cm);
+			\node [font=\small] at (16.25,9) {$\pi'_{3} / \pi_{3}$};
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+		\end{circuitikz}
+	}%
+
+	\label{fig:my_label}
+\end{figure}
+最終到達時点の$i$番目の点に到達したときの値が
+$\dfrac{ \pi'_{i} }{ \pi_{i} }$
+であるような確率変数とみなすことができる。
+
+この確率変数は記号で
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$
+と表現し、
+$\mathbb{P}$に対する$\mathbb{Q}$の
+Radon-Nikodym微分
+と呼ばれている。
+
+\ \\
+
+この新しい記法を使って同じことを繰り返すと、
+
+\ \\
+
+\paragraph{ここまでを一旦整理}
+
+${}$
+
+$\mathbb{P}$と$\mathbb{Q}$が与えられると
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$
+が定まる。
+\ \ \ \
+$\mathbb{P}$
+と
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$
+が与えられると
+$\mathbb{Q}$
+が定まる。
+\ \\
+\section{同値性}
+
+確率の定義から、
+各$p_{i},q_{i}$はそれぞれ0以上1以下の値である。
+（ゼロや1を含む。）
+
+境界値である0や1であった場合に
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$
+が定義できないという問題が起こる。
+
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$
+が取る値は
+最終時点の到達確率の比
+$\dfrac{ \pi'_{1} }{ \pi_{1} }$
+,
+$\dfrac{ \pi'_{2} }{ \pi_{2} }$
+,
+$\dfrac{ \pi'_{3} }{ \pi_{3} }$
+,
+$\dfrac{ \pi'_{4} }{ \pi_{4} }$
+であるので、
+ゼロ除算になってしまい定義ができない。
+
+${}$
+
+例として、
+$p_{1} = 0$、$q_{i}>0$の場合を考えてみる。
+
+$p_{1} p_{2} = \pi_{1}$、
+$p_{1} (1-p_{2}) = \pi_{2}$
+なので、
+$p_{1} = 0$が乗じられると
+最終時点の到達確率
+$\pi_{1},\pi_{2}$もそれぞれ0になってしまう。
+
+この場合、
+最終時点の到達確率の比
+$\dfrac{ \pi'_{1} }{ \pi_{1} }$
+,
+$\dfrac{ \pi'_{2} }{ \pi_{2} }$
+が存在しなくなってしまい定義ができない。
+
+${}$
+
+テキスト\cite{BaxterRennie}では
+
+「もし$\mathbb{P}$の下では起こりえない経路が$\mathbb{Q}$の下で起こり得る場合、
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$は定義できない。
+」
+
+と表現されている。
+
+${}$
+
+この問題を防ぐために確率測度の同値性という概念が導入される。
+
+${}$
+
+\paragraph{確率測度の同値性}
+
+${}$
+
+同じ確率空間上の測度$\mathbb{P}$、$\mathbb{Q}$に対して、
+その確率空間のどんな事象を取ってきたとしても、
+その確率が$\mathbb{P}$についても$\mathbb{Q}$についても常に0にならないとき、
+その二つの確率測度$\mathbb{P}$と$\mathbb{Q}$は同値であると言う。
+\ \\
+
+${}$
+
+$\mathbb{P}$と$\mathbb{Q}$が同値であれば
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$が定義できる。
+
+今までの議論を記号$\mathbb{P}$、$\mathbb{Q}$を入れ替えても同じで、
+$\dfrac{ d \mathbb{P} }{ d \mathbb{Q} }$が存在するためには、
+$\mathbb{P}$と$\mathbb{Q}$はそれぞれ同値な確率測度でなければならない。
+\section{期待値とRadon-Nikodym微分の関係}
+
+2つ前のセクションで、
+「$\mathbb{P}$
+と
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$
+が与えられると
+$\mathbb{Q}$
+が定まる。
+」
+ということを見た。
+これを期待値に着目して振り返ってみる。
+
+${}$
+離散的な確率測度の図のツリーをもう一度見てみる。
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.7\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\normalsize]
+			\draw  (6.25,10) circle (0.5cm);
+			\draw  (11.25,11.25) circle (0.5cm);
+			\draw  (11.25,8.75) circle (0.5cm);
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw  (16.25,12.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,12.5) {$\pi_{1}$};
+			\draw  (16.25,10.75) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,10.75) {$\pi_{2}$};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10.75);
+			\draw  (16.25,7.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,7.5) {$\pi_{4}$};
+
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+			\draw  (16.25,9) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,9) {$\pi_{3}$};
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+		\end{circuitikz}
+	}%
+
+	\label{fig:my_label}
+\end{figure}
+
+期待値を考えるために、確率変数$X$を導入する。
+最終到達時点の$i$番目（$i=1,2,3,4$）の点に到達したときの確率変数$X$の値を$x_{i}$とする。
+
+$X$の$\mathbb{P}$の下での期待値${\bf E}_{\mathbb{P}}(X)$は次のように計算される。
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}(X)
+	\ = \
+	\pi_{1} x_{1}
+	\ + \
+	\pi_{2} x_{2}
+	\ + \
+	\pi_{3} x_{3}
+	\ + \
+	\pi_{4} x_{4}
+\end{eqnarray*}
+%
+
+一方で、
+$X$の$\mathbb{Q}$の下での期待値${\bf E}_{\mathbb{Q}}(X)$は次のように計算される。
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}(X)
+	\ = \
+	\pi'_{1} x_{1}
+	\ + \
+	\pi'_{2} x_{2}
+	\ + \
+	\pi'_{3} x_{3}
+	\ + \
+	\pi'_{4} x_{4}
+\end{eqnarray*}
+%
+
+$\dfrac{ \pi'_{i} }{ \pi_{i} }$
+が出るように変形すると、
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}(X)
+	&=&
+	\pi'_{1} x_{1}
+	\ + \
+	\pi'_{2} x_{2}
+	\ + \
+	\pi'_{3} x_{3}
+	\ + \
+	\pi'_{4} x_{4}
+	\\ &=&
+	\pi_{1}
+	\ \ \!
+	\dfrac{ \pi'_{1} }{ \pi_{1} }
+	x_{1}
+	+
+	\pi_{2}
+	\ \ \!
+	\dfrac{ \pi'_{2} }{ \pi_{2} }
+	x_{2}
+	+
+	\pi_{3}
+	\ \ \!
+	\dfrac{ \pi'_{3} }{ \pi_{3} }
+	x_{3}
+	+
+	\pi_{4}
+	\ \ \!
+	\dfrac{ \pi'_{4} }{ \pi_{4} }
+	x_{4}
+\end{eqnarray*}
+%
+この表示は、
+最終到達時点の$i$番目の座標における値が
+$
+	\dfrac{ \pi'_{i} }{ \pi_{i} }
+	x_{i}
+$
+であるような確率変数
+$
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} } X
+$
+の
+$\mathbb{P}$の下での期待値となっている。
+まとめると、
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}(X)
+	&=&
+	{\bf E}_{\mathbb{P}}
+	\left(
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	X
+	\right)
+\end{eqnarray*}
+%
+となることが確認できた。
+\section{Radon-Nikodym微分の過程}
+
+今見た期待値は条件付き期待値ではない（普通の？）期待値だった。
+
+今考えている2期間の2項モデルでは時点$t$は$t=0,1,2$だけであり、
+終了時点を$T(=2)$と置いて、その時点での確率変数を$X=X_{T}$と書くと、
+あえて今の結果を条件付き期待値として次のように表すことができる。
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}(X_{T} | \mathcal{F}_{0} )
+	&=&
+	{\bf E}_{\mathbb{P}}
+	\left(
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	X_{T} \Big| \mathcal{F}_{0}
+	\right)
+\end{eqnarray*}
+%
+
+（2章で既出の$\mathcal{F}_{t}$は、時点$t$におけるフィルトレーションを表す。2項モデルにおいては、具体的には時点$t$までに辿り得る経路全体の集合である。）
+
+ここからはより一般の時点$t(\neq T)$と$s(\neq 0)$における条件付き期待値
+$$
+	{\bf E}_{\mathbb{Q}}(X_{t} | \mathcal{F}_{s} )
+$$
+が測度$\mathbb{P}$の下での期待値としてどのように表現できるかを見ていく。
+${}$
+
+ここまでは
+Radon-Nikodym微分
+について考えるときは
+$\dfrac{ \pi'_{i} }{ \pi_{i} } \ \ (i=1,2,3,4)$
+といったような、
+最終到達時点（時点$t=T$の1点のみ）における確率の比を見てきた。
+
+さらに考えを拡張して、
+時点$t=T$以外の時点での各径路の遷移確率の比を考えてみる。
+
+$t=1$では遷移確率の比は
+$\dfrac{ q_{1} }{ p_{1} }$
+または
+$\dfrac{ 1 - q_{1} }{ 1 - p_{1} }$
+の値が取り得る。
+
+時点$t=0$では$\mathbb{P}$でも$\mathbb{Q}$でも確率1で初期値1点しか取り得ないので、
+遷移確率の比は$\dfrac{1}{1} = 1$。
+
+これをツリーで表示したのが次の図になる。
+ただし、
+$1-p_{i} = \bar{p}_{i}$、
+$1-q_{i} = \bar{q}_{i}$のように略記されている。
+
+この確率過程を$\zeta_{t}$と置く。
+
+最終時点では
+$\zeta_{T} = \dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$
+であり、
+（時点$t=T$でのみ定義されていた）Radon-Nikodym微分を拡張した確率過程になっている。
+
+時点ゼロにおいて$\mathbb{P},\mathbb{Q}$それぞれ取りうる経路は確率1で現時点の1点 （値をベースにした経路では$\{ 0 \}$のみ）であり、
+$\zeta_{0} = 1$
+とする。
+
+Radon-Nikodym過程、微分過程と呼ばれている。
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.7\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\small]
+			\draw  (6.25,10) circle (0.5cm);
+			\draw  (11.25,11.25) circle (0.5cm);
+			\draw  (11.25,8.75) circle (0.5cm);
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw  (16.25,12.5) circle (0.5cm);
+			\node [font=\small] at (16.25,12.5) {$\frac{ q_{1} q_{2} }{ p_{1} p_{2} }$};
+			\draw  (16.25,10.75) circle (0.5cm);
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10.75);
+			\draw  (16.25,7.5) circle (0.5cm);
+
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+			\draw  (16.25,9) circle (0.5cm);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\node [font=\small] at (6.25,10) {1};
+			\node [font=\normalsize] at (11.25,11.25) {$\frac{ q_{1} }{ p_{1} }$};
+			\node [font=\normalsize] at (11.25,8.75) {$\frac{ \bar{q}_{1} }{ \bar{p}_{1} }$};
+			\node [font=\small] at (16.25,10.75) {$\frac{ q_{1} \bar{q}_{2} }{ p_{1} \bar{p}_{2} }$};
+			\node [font=\small] at (16.25,9) {$\frac{ \bar{q}_{1} {q}_{3} }{ \bar{p}_{1} p_{3} }$};
+			\node [font=\small] at (16.25,7.5) {$\frac{ \bar{q}_{1} \bar{q}_{3} }{ \bar{p}_{1} \bar{p}_{3} }$};
+		\end{circuitikz}
+	}%
+
+	\label{fig:my_label}
+\end{figure}
+\section{例題：離散過程}
+
+\subsection{問題}
+
+今定義した確率過程を$\zeta_{t}$は、
+測度$\mathbb{P}$の下で
+条件$\mathcal{F}_{t}$で取った
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$
+の期待値
+$$
+	\zeta_{t}
+	\ = \
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{t} \right)
+$$
+として表されることを$t=0,1,2$で示せ。
+\subsection{解答}
+\subsubsection{$t=2$のとき}
+
+$t=2(=T)$は最終到達時点なので、そのまま上の取り決めの通り。
+
+あえて確かめると、下の表の通りになる。（ただし$\mathcal{F}_{2}$の表現は図の各頂点の値を使った。）
+
+\begin{center}
+	\begin{tabular}{|c|c|c|} \hline
+		$\mathcal{F}_{2}$                                                             & $\zeta_{2}$                     & ${\bf E}_{\mathbb{P}} \left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{2} \right)$ \\ \hline \hline
+		$\Big\{ 1 , \dfrac{q_{1}}{p_{1}} , \dfrac{ \pi'_{1} }{ \pi_{1} } \Big\} $     & $\dfrac{ \pi'_{1} }{ \pi_{1} }$ & $\dfrac{ \pi'_{1} }{ \pi_{1} }$                                                                    \\ \hline
+		$\Big\{ 1 , \dfrac{q_{1}}{p_{1}} , \dfrac{ \pi'_{2} }{ \pi_{2} } \Big\} $     & $\dfrac{ \pi'_{2} }{ \pi_{2} }$ & $\dfrac{ \pi'_{2} }{ \pi_{2} }$                                                                    \\ \hline
+		$\Big\{ 1 , \dfrac{1-q_{1}}{1-p_{1}} , \dfrac{ \pi'_{3} }{ \pi_{3} } \Big\} $ & $\dfrac{ \pi'_{3} }{ \pi_{3} }$ & $\dfrac{ \pi'_{3} }{ \pi_{3} }$                                                                    \\ \hline
+		$\Big\{ 1 , \dfrac{1-q_{1}}{1-p_{1}} , \dfrac{ \pi'_{4} }{ \pi_{4} } \Big\} $ & $\dfrac{ \pi'_{4} }{ \pi_{4} }$ & $\dfrac{ \pi'_{4} }{ \pi_{4} }$                                                                    \\ \hline
+	\end{tabular}
+\end{center}
+\subsubsection{$t=1$のとき}
+
+$t=1$のときに確認する。
+
+$\mathcal{F}_{1} = \Big\{ 1 , \dfrac{q_{1}}{p_{1}} \Big\} $の場合、
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{1} \right)
+	&=&
+	p_{2} \dfrac{ \pi'_{1} }{ \pi_{1} }
+	\ + \
+	(1-p_{2}) \dfrac{ \pi'_{2} }{ \pi_{2} }
+	\\ &=&
+	p_{2} \dfrac{ q_{1} q_{2} }{ p_{1} p_{2} }
+	\ + \
+	(1-p_{2}) \dfrac{ q_{1} (1-q_{2}) }{ p_{1} (1-p_{2}) }
+	\\ &=&
+	\dfrac{ q_{1} }{ p_{1} }
+	\{ q_{2} + (1-q_{2}) \}
+	\\ &=&
+	\dfrac{ q_{1} }{ p_{1} }
+\end{eqnarray*}
+%
+これは
+$\mathcal{F}_{1} = \Big\{ 1 , \dfrac{q_{1}}{p_{1}} \Big\} $の場合の$\zeta_{1}$の値である。
+
+${}$
+
+次に
+$\mathcal{F}_{1} = \Big\{ 1 , \dfrac{1-q_{1}}{1-p_{1}} \Big\} $の場合、
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{1} \right)
+	&=&
+	p_{3} \dfrac{ \pi'_{3} }{ \pi_{3} }
+	\ + \
+	(1-p_{3}) \dfrac{ \pi'_{4} }{ \pi_{4} }
+	\\ &=&
+	p_{3} \dfrac{ (1-q_{1}) q_{3} }{ (1-p_{1}) p_{3} }
+	\ + \
+	(1-p_{3}) \dfrac{ (1-q_{1}) (1-q_{3}) }{ (1-p_{1}) (1-p_{3}) }
+	\\ &=&
+	\dfrac{1-q_{1}}{ 1-p_{1}}
+	\{ q_{3} + (1-q_{3}) \}
+	\\ &=&
+	\dfrac{1-q_{1}}{ 1-p_{1}}
+\end{eqnarray*}
+%
+これは
+$\mathcal{F}_{1} = \Big\{ 1 , \dfrac{1-q_{1}}{1-p_{1}} \Big\} $の場合の$\zeta_{1}$の値である。
+
+まとめると、
+
+\begin{center}
+	\begin{tabular}{|c|c|c|} \hline
+		$\mathcal{F}_{1}$                 & $\zeta_{1}$                & ${\bf E}_{\mathbb{P}} \left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{1} \right)$ \\ \hline \hline
+		$(1 , \dfrac{q_{1}}{p_{1}} )$     & $\dfrac{q_{1}}{p_{1}}$     & $\dfrac{q_{1}}{p_{1}}$                                                                             \\ \hline
+		$(1 , \dfrac{1-q_{1}}{1-p_{1}} )$ & $\dfrac{1-q_{1}}{1-p_{1}}$ & $\dfrac{1-q_{1}}{1-p_{1}}$                                                                         \\ \hline
+	\end{tabular}
+\end{center}
+\subsubsection{$t=0$のとき}
+
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{0} \right)
+	&=&
+	\pi_{1} \dfrac{ \pi'_{1} }{ \pi_{1} }
+	\ + \
+	\pi_{2} \dfrac{ \pi'_{2} }{ \pi_{2} }
+	\ + \
+	\pi_{3} \dfrac{ \pi'_{3} }{ \pi_{3} }
+	\ + \
+	\pi_{4} \dfrac{ \pi'_{4} }{ \pi_{4} }
+	\\ &=&
+	\pi'_{1}
+	\ + \
+	\pi'_{2}
+	\ + \
+	\pi'_{3}
+	\ + \
+	\pi'_{4}
+	\\ &=& 1
+\end{eqnarray*}
+%
+これはたしかに$\zeta_{0}$の値になっている。
+
+${}$
+
+以上ですべての$t$について
+$$
+	\zeta_{t}
+	\ = \
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{t} \right)
+$$
+が成立することが示された。
+
+\if0
+
+	\section{練習問題3.8}
+
+	\subsection{問題（測度変換の公式の確認）}
+
+	これまで用いてきたツリーで、
+	$\zeta_{t}
+		=
+		{\bf E}_{\mathbb{P}}
+		\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{t} \right)$
+	を用いることで確率過程$X_{t}$に対して次の等式が成り立つことを示す。
+
+	$$
+		{\bf E}_{\mathbb{Q}}
+		\left( X_{t} \Big| \mathcal{F}_{s} \right)
+		\ = \
+		\zeta_{s}^{-1}
+		{\bf E}_{\mathbb{P}}
+		\left( \zeta_{t} X_{t} \Big| \mathcal{F}_{s} \right)
+	$$
+	\subsection{解答}
+
+	条件付き期待値の定義より
+	$s \leq t$の制約があるので
+	6通りの計算をすれば良い。
+
+	\subsubsection{ $s=0$のとき }
+
+	$s=0$では条件付き期待値が通常の期待値になる。
+	$\mathbb{P}$の辺は
+	%
+	\begin{eqnarray*}
+		\zeta_{0}^{-1}
+		{\bf E}_{\mathbb{P}}
+		\left( \zeta_{t} X_{t} \Big| \mathcal{F}_{0} \right)
+		\ = \
+		{\bf E}_{\mathbb{P}}
+		( \zeta_{t} X_{t} )
+	\end{eqnarray*}
+	%
+
+	\ \\
+
+	$\zeta_{0}=1$なので簡単で、
+	$\mathbb{P}$の辺は
+	%
+	\begin{eqnarray*}
+		\zeta_{0}^{-1}
+		{\bf E}_{\mathbb{P}}
+		\left( \zeta_{t} X_{t} \Big| \mathcal{F}_{0} \right)
+		\ = \
+		{\bf E}_{\mathbb{P}}
+		( X_{0} )
+	\end{eqnarray*}
+	%
+	{\bf todo:後で書く}
+
+\fi
+
+\section{Brown運動の同時密度関数}
+離散時間における確率過程の測度変換をこれまでで見てきた。
+ここからはBrown運動を取り扱えるように連続時間における測度変換を見ていく。
+
+最初に標準正規分布を例に挙げて、
+密度関数を或る区間で積分して周辺分布を取る方法だけでは「経路の起こりやすさ」という概念が掴めないことが説明されている。
+
+${}$
+
+まずいきなり連続時間を取り扱うのではなく、
+簡単のために有限個の離散時間を考えることにする。
+ある時点$t_{i}$における
+$\mathbb{P}$-Brown運動
+$W_{t_{i}}$の確率密度関数
+$f^{i}_{\mathbb{P}}(x)$
+は正規分布$N(0,t_{i})$の確率密度関数であり、
+%
+$$
+	\displaystyle
+	f^{i}_{\mathbb{P}}(x)
+	=
+	\dfrac{1}{ \sqrt{2 \pi t_{i} } }
+	\exp \left( {- \frac{x^{2}}{2 t_{i}} } \right)
+$$
+%
+のように書ける。
+
+さらに進めて、
+時刻
+$t_{1},t_{2},...,t_{n}$
+において、$\mathbb{P}$の下で
+それぞれの時点で
+$x_{1},x_{2},...,x_{n}$
+の値を取る同時密度関数
+$f^{n}_{\mathbb{P}} (x_{1} , x_{2} , ... ,x_{n})$
+を考える。
+
+Brown運動の独立増分性を思い出すと、
+$
+	W_{t_{2}} - W_{t_{1}}, \
+	W_{t_{3}} - W_{t_{2}}, \
+	..., \
+	W_{t_{n}} - W_{t_{n-1}}
+$
+は独立でそれぞれ$\mathbb{P}$の下で正規分布に従う。
+
+1より大きい番号$i(<n)$について、
+$W_{t_{i}} - W_{t_{i-1}}$
+の密度関数は
+%
+$$
+	\displaystyle
+	\dfrac{1}{ \sqrt{2 \pi (t_{i} - t_{i-1}) } }
+	\exp \left( {- \frac{ (x_{i} - x_{i-1}  )^{2}}{2 ( t_{i} - t_{i-1})  } } \right)
+$$
+%
+ただし$t_{0},x_{0}$は0とした。
+
+簡略化して
+$\Delta x_{i} = x_{i} - x_{i-1}$、
+$\Delta t_{i} = t_{i} - t_{i-1}$
+として同じ式を書くと、
+%
+$$
+	\displaystyle
+	\dfrac{1}{ \sqrt{2 \pi \Delta t_{i} } }
+	\exp \left( {- \frac{ \Delta  x_{i}^{2}}{ 2 \Delta t_{i}  } } \right)
+$$
+%
+
+各$W_{t_{i}} - W_{t_{i-1}}$（$i=1,2,..,i,..,n$）が互いに独立なので、
+その同時確率密度関数
+$f^{n}_{\mathbb{P}} (x_{1} , x_{2} , ... ,x_{n})$
+は各確率密度関数の積になる。
+%
+\begin{eqnarray*}
+	f^{n}_{\mathbb{P}} (x_{1} , x_{2} , ... ,x_{n})
+	&=&
+	\prod_{i=1}^{n}
+	\dfrac{1}{ \sqrt{2 \pi \Delta t_{i} } }
+	\exp \left( {- \frac{ \Delta  x_{i}^{2}}{ 2 \Delta t_{i}  } } \right)
+\end{eqnarray*}
+%
+
+\section{Radon-Nikodym微分 - 連続型}
+
+$\mathbb{P}$と$\mathbb{Q}$を同値な測度とする。
+経路$\omega$が与えられたとき、
+時刻$(t_{1},t_{2},...,t_{n})$（ただし$t_{n}=T$）に対して、
+$x_{i} = W_{t_{i}}(\omega)$と定義すると、
+時刻$t$までのRadon-Nikodym微分$\dfrac{d \mathbb{Q} }{d \mathbb{P} }$はそれぞれの測度の下でのBrown運動の同時確率密度の比の連続極限
+$$
+	\dfrac{d \mathbb{Q} }{d \mathbb{P} }(\omega)
+	\ = \
+	\lim_{n \to \infty}
+	\dfrac{ f^{n}_{ \mathbb{Q}} (x_{1},x_{2},...,x_{n}) }{ f^{n}_{ \mathbb{P}} (x_{1},x_{2},...,x_{n}) }
+$$
+として得られる。
+$t_{n}=T$は固定したまま、区間$[0,T]$の中で分割数を増やしていくような極限操作をしている。
+
+${}$
+
+連続の場合のRadon-Nikodym微分も、離散過程の場合と同様に
+
+$$
+	{\bf E}_{\mathbb{Q}}
+	(X_{t})
+	\ = \
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{d \mathbb{Q} }{d \mathbb{P} } X_{t} \Big| \mathcal{F}_{t} \right)
+$$
+が成り立つ。
+
+微分の過程も、
+$\zeta_{t} = {\bf E}_{\mathbb{P}} \left( \dfrac{d \mathbb{Q} }{d \mathbb{P} } \Big| \mathcal{F}_{t} \right)$として、
+$s \leq t$に対して、
+$$
+	{\bf E}_{\mathbb{Q}}
+	\left( X_{t} \Big| \mathcal{F}_{s} \right)
+	\ = \
+	\zeta_{s}^{-1}
+	{\bf E}_{\mathbb{P}}
+	\left( \zeta_{t} X_{t} \Big| \mathcal{F}_{s} \right)
+$$
+が成り立つ。
+\section{積率母関数の復習}
+
+確率変数$X$の測度$\mathbb{P}$の下の積率母関数は
+パラメータを$\theta$として、
+${\bf E}_{\mathbb{P}}[ \exp( \theta X ) ]$
+で定義される。
+
+特に$X$が正規分布$N(\mu ,\sigma)$に従うとき、
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}[ \exp( \theta X ) ]
+	&=&
+	\exp( \theta \mu + \dfrac{1}{2} \theta^{2} \sigma^{2} )
+\end{eqnarray*}
+%
+となる。
+
+\section{単純な測度変換 （Brown運動 $+$ 定数ドリフト）}
+
+以前の離散時間のセクションで
+$\mathbb{P}$と
+$\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$
+が定められると
+$\mathbb{Q}$も定まる、ということを見た。
+
+今回は
+%
+\begin{eqnarray*}
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	&=&
+	\exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+\end{eqnarray*}
+%
+のときに$\mathbb{P}$-Brown運動$W_{T}$が$\mathbb{Q}$の下でどのような確率過程になるかを確認する。
+
+そのために$\mathbb{Q}$の下の積率母関数
+${\bf E}_{\mathbb{Q}}[ \exp( \theta W_{T} ) ]$
+を調べる。標準正規分布に従う確率変数を$Z$と置いて計算すると、
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}[ \exp( \theta W_{T} ) ]
+	&=&
+	{\bf E}_{\mathbb{P}} \left[ \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \exp( \theta W_{T} ) \right]
+	\\ &=&
+	{\bf E}_{\mathbb{P}} \left[ \exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T + \theta W_{T} \right) \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	{\bf E}_{\mathbb{P}} \left[ \exp \left\{ ( \theta - \gamma ) W_{T} \right\} \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	{\bf E} \left[ \exp \left\{ ( \theta - \gamma ) \sqrt{T} Z \right\} \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\int^{\infty}_{-\infty}
+	\exp \left\{ ( \theta - \gamma ) \sqrt{T} x \right\} \exp \left( -\dfrac{x^{2}}{2} \right) dx
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\times \sqrt{ 2 \pi }
+	\exp \left( \dfrac{1}{2} (\theta - \gamma)^{2} T \right)
+	\\ &=&
+	\exp \left( - \theta \gamma T + \dfrac{1}{2} \theta^{2} T \right)
+\end{eqnarray*}
+%
+（3行目から5行目の等式変形では、
+$W_{T}$が測度$\mathbb{P}$の下で正規分布$N(0,T)$に従うことを利用して、
+標準正規分布の確率密度で重み付けされた期待値計算（積分計算）に戻した。
+）
+これと正規分布$N(\mu,\sigma)$の積率母関数
+$\exp( \theta \mu + \dfrac{1}{2} \theta^{2} \sigma^{2} )$
+を比較すると、
+平均$\mu = - \gamma T$、分散$\sigma = T$
+の正規分布$N(- \gamma T,T)$
+となっていることがわかる。
+
+測度$\mathbb{Q}$の世界から見た$\mathbb{P}$-Brown運動は、
+Brown運動に定数ドリフト($-\gamma$)が付いた確率過程になることが確認できた。
+
+$\mathbb{Q}$-Brown運動を$\tilde{W}_{T}$と書くと、
+$\mathbb{P}$-Brown運動は
+$\tilde{W}_{T} - \gamma T$と書ける。
+
+Radon-Nikodym微分として
+$
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	=
+	\exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+$
+が与えられた場合、
+$\mathbb{P}$-Brown運動$W_{T}$と、
+$\mathbb{Q}$-Brown運動$\tilde{W}_{T}$との間に
+$\tilde{W}_{T} = W_{T} + \gamma T$
+の関係があることが分かった。
+
+\subsection{時刻$t(<T)$についての確認}
+
+時刻$t(<T)$についても同様に
+Radon-Nikodym微分として
+$
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	=
+	\exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+$
+が与えられた場合、
+$\mathbb{P}$-Brown運動$W_{t}$は測度$\mathbb{Q}$の下では
+Brown運動に定数ドリフトが付いた確率過程$\tilde{W}_{t} - \gamma t$になる
+と書かれている。
+このことを確かめる。
+${}$
+
+\subsubsection{Radon-Nikodym微分過程を得る。}
+
+まず先にRadon-Nikodym微分過程を求めておく
+\footnote{期待値の取り方は、「ファイナンスのための確率解析II（S. E. シュリーヴ）」の2章、5章あたりを参考にしました。}
+。
+%
+\begin{eqnarray*}
+	\zeta_{t}
+	&=&
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{t} \right)
+	\\ &=&
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+		\Big| \mathcal{F}_{t} \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( - \gamma W_{T} \right)
+		\Big| \mathcal{F}_{t} \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	{\bf E}_{\mathbb{P}}
+	\left[
+		\exp \left\{ - \gamma ( W_{T} - W_{t} ) \right\}
+		\exp \left( - \gamma W_{t} \right)
+		\Big| \mathcal{F}_{t} \right]
+\end{eqnarray*}
+%
+ここで期待値の中の因子の一つに着目すると
+%
+\begin{eqnarray*}
+	\exp \left\{ - \gamma ( W_{T} - W_{t} ) \right\}
+	&=&
+	\exp \left( - \gamma \sqrt{T - t} \dfrac{ W_{T} - W_{t} }{ \sqrt{T - t} } \right)
+\end{eqnarray*}
+%
+この
+$$
+	\dfrac{ W_{T} - W_{t} }{ \sqrt{T - t} }
+$$
+は測度$\mathbb{P}$の下で標準正規分布$N(0,1)$に従う確率変数である。
+これを$Z$と置くと、期待値の中身は
+$\mathcal{F}_{t}$-可予測な因子
+$$
+	\exp \left( - \gamma W_{t} \right)
+$$
+と$\mathcal{F}_{t}$-独立な因子
+$$
+	\exp \left( - \gamma \sqrt{T - t} Z \right)
+$$
+の積に分解できて、
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left[
+		\exp \left\{ - \gamma ( W_{T} - W_{t} ) \right\}
+		\exp \left( - \gamma W_{t} \right)
+		\Big| \mathcal{F}_{t} \right]
+	&=&
+	\exp \left( - \gamma W_{t} \right)
+	{\bf E}
+	\left[
+		\exp \left( - \gamma \sqrt{T - t} Z \right)
+		\right]
+	\\ &=&
+	\exp \left( - \gamma W_{t} \right)
+	\dfrac{1}{\sqrt{2\pi}}
+	\int^{\infty}_{-\infty}
+	\exp \left( - \gamma \sqrt{T - t} x \right)
+	e^{-\frac{x^{2}}{2}}
+	dx
+	\\ &=&
+	\exp \left( - \gamma W_{t} \right)
+	\exp \left\{ \dfrac{1}{2} (- \gamma \sqrt{T - t} )^{2} \right\}
+\end{eqnarray*}
+%
+ここまでをまとめると、
+%
+\begin{eqnarray*}
+	\zeta_{t}
+	&=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	\exp \left( - \gamma W_{t} \right)
+	\exp \left\{ \dfrac{1}{2} (- \gamma \sqrt{T - t} )^{2} \right\}
+	\\ &=&
+	\exp \left( - \gamma W_{t} - \dfrac{1}{2} \gamma^{2} t \right)
+\end{eqnarray*}
+%
+となる。
+（時刻$t(<T)$における微分過程は、
+結果的に表式の中の大文字の$T$（満期）が小文字の$t$（満期以前の時刻）に変わっただけになった。）
+${}$
+
+\subsubsection{時刻$t(<T)$における$\tilde{W}_{t}$と$W_{t}$の関係}
+
+$t=T$のときと同様に、
+$\mathbb{Q}$の下での積率母関数を計算する。
+期待値に測度変換を施して$\mathbb{P}$における期待値で計算を進める。
+条件付き期待値の測度変換の公式を用いて、
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp ( \theta W_{t} ) \right]
+	&=&
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp ( \theta W_{t} ) \Big| \mathcal{F}_{0} \right]
+	\\ &=&
+	\zeta_{0}^{-1}
+	{\bf E}_{\mathbb{P}}
+	\left[ \zeta_{t} \exp ( \theta W_{t} ) \Big| \mathcal{F}_{0} \right]
+	\\ &=&
+	1 \times
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( - \gamma W_{t} - \dfrac{1}{2} \gamma^{2} t \right) \exp ( \theta W_{t} ) \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} t \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \Big( ( \theta - \gamma ) W_{t} \Big) \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} t \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( ( \theta - \gamma ) \sqrt{t} \dfrac{ W_{t} }{ \sqrt{t} } \right) \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} t \right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\int^{\infty}_{-\infty}
+	\exp \left\{ ( \theta - \gamma ) \sqrt{t} x \right\} \exp \left( -\dfrac{x^{2}}{2} \right) dx
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} t \right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\times \sqrt{ 2 \pi }
+	\exp \left( \dfrac{1}{2} (\theta - \gamma)^{2} t \right)
+	\\ &=&
+	\exp \left( - \theta \gamma t + \dfrac{1}{2} \theta^{2} t \right)
+\end{eqnarray*}
+%
+$t=T$のときと同様に、
+$W_{t}$は$\mathbb{Q}$の下では平均$(- \gamma t)$、分散が$t$の正規分布$N(- \gamma , t)$に従うことが分かった。
+同じことを言い換えると、$\mathbb{Q}$の下でのBrown運動$\tilde{W}_{t}$との関係は、
+$$
+	\tilde{W}_{t} = W_{t} + \gamma t
+$$
+であることが分かった。
+
+\section{例題：連続過程}
+
+Radon-Nikodym微分過程を用いて、
+$$
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp \Big( \theta (\tilde{W}_{t+s} - \tilde{W}_{s}) \Big) \Big| \mathcal{F}_{s} \right]
+	\ = \
+	\exp \left( \dfrac{1}{2} \theta^{2} t \right)
+$$
+を示し、Brown運動の独立増分性が$\mathbb{Q}$の下でも成立していることを確かめる。
+\subsection{解答}
+
+$\tilde{W}_{t} = W_{t} + \gamma t$の関係を用いる。
+測度変換して$\mathbb{P}$の下で期待値を計算する
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp \Big( \theta (\tilde{W}_{t+s} - \tilde{W}_{s}) \Big) \Big| \mathcal{F}_{s} \right]
+	&=&
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp
+		\left\{
+		\theta \Big( W_{t+s} + \gamma (t+s) - W_{s} - \gamma s \Big)
+		\right\}
+		\Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	{\bf E}_{\mathbb{P}}
+	\left[ \zeta_{t+s} \exp \left\{ \theta \Big( W_{t+s} - W_{s} + \gamma t \Big) \right\} \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( - \gamma W_{t+s} - \dfrac{1}{2} \gamma^{2} (t+s) \right) \exp \left\{ \theta \Big( W_{t+s} - W_{s} + \gamma t \Big) \right\} \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \Big( ( \theta - \gamma ) W_{t+s} - \theta W_{s} \Big) \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \Big( ( \theta - \gamma ) ( W_{t+s} - W_{s} ) - \gamma W_{s} \Big) \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	\exp ( - \gamma W_{s} )
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \Big( ( \theta - \gamma ) ( W_{t+s} - W_{s} ) \Big) \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	\exp ( - \gamma W_{s} )
+	\exp \Big( \dfrac{1}{2} (\theta - \gamma)^{2} t \Big)
+	\\ &=&
+	\exp \left( \gamma W_{s} + \dfrac{1}{2} \gamma^{2} s \right)
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	\exp ( - \gamma W_{s} )
+	\exp \Big( \dfrac{1}{2} (\theta - \gamma)^{2} t \Big)
+	\\ &=&
+	\exp \Big( \dfrac{1}{2} \theta^{2} t \Big)
+\end{eqnarray*}
+%
+
+${}$
+
+% \begin{itembox}[l]{ここまでを一旦整理}
+
+定数$\gamma$、
+$\mathbb{P}$-Brown運動を$W_{t}$と置く。
+同値な測度$\mathbb{P},\mathbb{Q}$があり、そのRadon-Nikodym微分が次のように与えられたとする。
+%
+\begin{eqnarray*}
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	&=&
+	\exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+\end{eqnarray*}
+%
+微分の過程は次のようになる。
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{t} \right)
+	&=&
+	\exp \left( - \gamma W_{t} - \dfrac{1}{2} \gamma^{2} t \right)
+\end{eqnarray*}
+%
+さらに、
+$\mathbb{Q}$-Brown運動を$\tilde{W}_{t}$と置くと、
+$\mathbb{P}$-Brown運動$W_{t}$との間には次のような関係が成り立つ。
+$$
+	\tilde{W}_{t} = W_{t} + \gamma t
+$$
+% \end{itembox}
+\section{Cameron-Martin-Girsanovの定理}
+
+上で見たような同値な測度間の対応関係（Radon-Nikodym微分）が（天下り的に）与えられると、
+ある測度でBrown運動になるような確率過程が、ドリフト付きのBrown運動に変換されることを見た。
+
+教科書では
+「（この教科書で扱う確率過程においては）実はいかなる測度変換によっても、Brown運動はドリフト付きBrown運動にしかならない。」
+と述べられている。
+
+Brown運動がシンプルに変換されるという結果は、
+天下り的に与えらえた測度間の対応関係による偶然の結果ではなかった、ということが以下で展開されていく。
+
+\subsection{Cameron-Martin-Girsanovの定理}
+
+$W_{t}$を$\mathbb{P}$-Brown運動、
+$\gamma_{t}$を条件
+$$
+	{\bf E}_{\mathbb{P}} \exp \left( \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)
+	\ < \
+	\infty
+$$
+を満たす$\mathcal{F}$-可予測過程とする。
+
+このとき以下の条件を満たすような測度$\mathbb{Q}$が存在する。
+
+\begin{enumerate}
+	\item $\mathbb{Q}$は$\mathbb{P}$と同値である。
+	\item $\displaystyle \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } = \exp \left( - \int^{T}_{0} \gamma_{t} dW_{t} - \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)$
+	\item $\displaystyle \tilde{W}_{t} = W_{t} + \int^{T}_{0} \gamma_{s} ds$は$\mathbb{Q}$-Brown運動になる。
+	      一方で$W_{t}$は$\mathbb{Q}$の下では時刻$t$におけるドリフト$(- \gamma_{t})$を持つBrown運動になる。
+\end{enumerate}
+
+${}$
+
+前のセクションで天下り的に与えられた例は$\gamma_{t} = \gamma = {\rm const.}$とした特別なケースだった。
+
+\subsection{Cameron-Martin-Girsanovの定理の逆}
+
+逆も成立する。
+
+${}$
+
+$W_{t}$を$\mathbb{P}$-Brown運動、
+$\mathbb{Q}$を$\mathbb{P}$と同値な測度とすると、
+$$
+	\tilde{W}_{t}
+	\ = \
+	W_{t} + \int^{t}_{0} \gamma_{s} ds
+$$
+が$\mathbb{Q}$-Brown運動になるような$\mathcal{F}$-可予測過程$\gamma_{t}$が存在する。
+さらに、Radon-Nikodym微分は
+$$
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} } = \exp \left( - \int^{T}_{0} \gamma_{t} dW_{t} - \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)
+$$
+になる。
+
+\section{Cameron-Martin-Girsanovの定理と確率微分}
+
+Cameron-Martin-Girsanovの定理の実際の利用例を見る。
+
+このテキストで取り扱う確率過程はすべてBrown運動を変形したものなので
+Cameron-Martin-Girsanovの定理はドリフトを操作するのに便利な道具になる。
+
+微分形が以下のように与えられる確率過程$X$を考える。
+$$
+	dX_{t}
+	\ = \
+	\sigma_{t} dW_{t}
+	+
+	\mu_{t} dt
+$$
+ここで$W_{t}$は$\mathbb{P}$-Brown運動である。
+
+この確率過程のドリフトは$\mu_{t}$という関数形をしているが、
+別の関数形$\nu_{t}$に変更することを考える。
+
+${}$
+
+確率過程$X_{t}$のドリフトが$\nu_{t}$になるような確率測度を$\mathbb{Q}$とする。
+
+$\mathbb{Q}$-Brown運動を$\tilde{W}_{t}$と置くと、
+確率過程$X_{t}$の微分形は以下のように書ける。
+$$
+	dX_{t}
+	\ = \
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\nu_{t} dt
+$$
+測度変換前後でボラティリティ$\sigma_{t}$は変化しないことに注意する。
+
+それぞれの右辺の間で等式を立てると
+$$
+	\sigma_{t} dW_{t}
+	+
+	\mu_{t} dt
+	\ = \
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\nu_{t} dt
+$$
+これから
+$$
+	d \tilde{W}_{t}
+	\ = \
+	d W_{t}
+	+
+	\dfrac{ \mu_{t} - \nu_{t} }{\sigma_{t}}
+	dt
+$$
+このような関係があることがわかる。
+この$dt$の係数を$\gamma_{t}$と書いて、
+$$
+	\gamma_{t}
+	\ = \
+	\dfrac{ \mu_{t} - \nu_{t} }{\sigma_{t}}
+$$
+とする。
+
+これが
+Cameron-Martin-Girsanovの定理
+の適応条件
+$$
+	{\bf E}_{\mathbb{P}} \exp \left( \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)
+	\ < \
+	\infty
+$$
+を満たしていれば
+$$
+	\tilde{W}_{t}
+	\ = \
+	W_{t}
+	+
+	\int^{t}_{0}
+	\dfrac{ \mu_{s} - \nu_{s} }{\sigma_{s}}
+	ds
+$$
+が$\mathbb{Q}$-Brown運動になるような測度$\mathbb{Q}$が存在する。
+\section{例 - 測度変換}
+
+\subsection{例1: $\mathbb{Q}$-Brown運動の定数倍}
+
+$$
+	X_{t}
+	\ = \
+	\sigma W_{t}
+	+
+	\mu t
+$$
+のような確率過程を考える。
+$W_{t}$は$\mathbb{P}$-Brown運動である。
+$\sigma$と$\mu$は定数である。
+
+このとき、$\gamma = \dfrac{\mu}{\sigma}$と置いて
+Cameron-Martin-Girsanovの定理を用いると、
+$$
+	\tilde{W}_{t}
+	\ = \
+	W_{t}
+	+
+	\dfrac{\mu}{\sigma} t
+$$
+が$T$までの$\mathbb{Q}$-Brown運動になる。
+
+$X_{t}$を$\mathbb{Q}$-Brown運動$\tilde{W}_{t}$で表すと、
+
+$$
+	X_{t}
+	\ = \
+	\sigma \tilde{W}_{t}
+$$
+のようになり、ドリフト項が消去される。
+このとき、$X_{t}$は$\mathbb{Q}$-マルチンゲールであると言える。（すぐ後のセクションで登場する。）
+${}$
+
+異なる測度を用いれば異なる期待値が得られる。
+$X_{t}^{2}$のそれぞれの測度の下での期待値を求めてみる。
+
+$\mathbb{P}$-Brown運動を用いると、
+$$
+	X^{2}_{t}
+	\ = \
+	\sigma^{2} W^{2}_{t}
+	+
+	\mu^{2} t^{2}
+	+ 2 \sigma \mu W_{t} t
+$$
+$\mathbb{Q}$-Brown運動を用いると、
+$$
+	X^{2}_{t}
+	\ = \
+	\sigma^{2} \tilde{W}^{2}_{t}
+$$
+なので、
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}} (X^{2}_{t})
+	&=&
+	\mu^{2} t^{2}
+	+
+	\sigma^{2} t
+	\\
+	{\bf E}_{\mathbb{Q}} (X^{2}_{t})
+	&=&
+	\sigma^{2} t
+\end{eqnarray*}
+%
+のように結果が異なる。
+\subsection{例2: 幾何Brown運動}
+
+$$
+	d X_{t}
+	\ = \
+	X_{t}
+	(
+	\sigma dW_{t}
+	+
+	\mu dt
+	)
+$$
+のような確率過程$X_{t}$を考える。
+$W_{t}$は$\mathbb{P}$-Brown運動である。
+$\sigma$と$\mu$は定数である。
+
+別の測度$\mathbb{Q}$におけるBrown運動$\tilde{W}_{t}$
+を用いて、
+$$
+	d X_{t}
+	\ = \
+	X_{t}
+	(
+	\sigma d \tilde{W}_{t}
+	+
+	\nu dt
+	)
+$$
+というような確率微分方程式に変更できないかを調べる。
+
+${}$
+
+これも先ほどまでと同様に、
+$$
+	\sigma W_{t}
+	+
+	\mu t
+	\ = \
+	\sigma \tilde{W}_{t}
+	+
+	\nu t
+$$
+を満たすような$\tilde{W}_{t}$を考えてみると、
+$$
+	d \tilde{W}_{t}
+	\ = \
+	d W_{t}
+	+
+	\dfrac{ \mu - \nu }{\sigma}
+	dt
+$$
+であれば良いことがわかる。
+
+Cameron-Martin-Girsanovの定理
+の適応条件
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}} \exp \left( \dfrac{1}{2} \int^{T}_{0}
+	\left( \dfrac{ \mu - \nu }{\sigma} \right)^{2} dt \right)
+	&=&
+	\dfrac{1}{2}
+	\left( \dfrac{ \mu - \nu }{\sigma} \right)^{2}
+	T
+	\\ &<&
+	\infty
+\end{eqnarray*}
+%
+は満たしているので、
+想定していた通り、
+$\tilde{W}_{t}$がBrown運動になるような測度$\mathbb{Q}$が存在する。
+
+${}$
+
+（
+ゆえに
+測度$\mathbb{Q}$におけるBrown運動$\tilde{W}_{t}$
+を用いて、
+$$
+	d X_{t}
+	\ = \
+	X_{t}
+	(
+	\sigma \tilde{W}_{t}
+	+
+	\nu t
+	)
+$$
+という確率微分方程式に変更できることが分かった。
+）
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+\end{document}

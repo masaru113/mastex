@@ -1,0 +1,1364 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tocloft}
+\usepackage{titletoc}
+\usepackage{circuitikz}
+
+\title{
+Measure Transformation via the Radon-Nikodym Derivative and the Cameron-Martin-Girsanov Theorem
+}
+\author{Masaru Okada
+}
+\date{ \today }
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Current Status and Problem Formulation}
+
+While the previous chapter explored It\=o calculus, it didn't explicitly consider the probability measure.
+
+More specifically, we've focused on It\=o calculus for a $\mathbb{P}$-Brownian motion $W_{t}$, but we still don't have a way to handle a Brownian motion (written as $\tilde{W}_{t}$ in the textbook) under a measure $\mathbb{Q}$ that isn't independent of $\mathbb{P}$. So, we'll now expand our knowledge on methods for moving back and forth between $\mathbb{P}$ and $\mathbb{Q}$.
+
+We'll be using the textbook:
+Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\cite{BaxterRennie}.
+
+\section{Measure Transformation and the Radon-Nikodym Derivative}
+
+To build some intuition for the effects of measure transformation, let's start by looking at a discrete-time process.
+
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.6\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\normalsize]
+			\draw  (6.25,10) circle (0.5cm);
+			\node [font=\normalsize] at (6.25,10) {0};
+			\draw  (11.25,11.25) circle (0.5cm);
+			\node [font=\normalsize] at (11.25,11.25) {1};
+			\draw  (11.25,8.75) circle (0.5cm);
+			\node [font=\normalsize] at (11.25,8.75) {-1};
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw  (16.25,12.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,12.5) {2};
+			\draw  (16.25,10) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,10) {0};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9.75);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10);
+			\draw  (16.25,7.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,7.5) {-2};
+			\node [font=\normalsize] at (8.75,11.25) {$p_{1}$};
+			\node [font=\normalsize] at (8.5,9) {$1-p_{1}$};
+			\node [font=\normalsize] at (13.25,12.25) {$p_{2}$};
+			\node [font=\normalsize] at (14,7.75) {$1-p_{3}$};
+			\node [font=\normalsize] at (13.5,9.5) {$p_{3}$};
+			\node [font=\normalsize] at (12.75,10.5) {$1-p_{2}$};
+
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+		\end{circuitikz}
+	}%
+
+\end{figure}
+
+Let's consider a two-period recombining random walk represented by this diagram.
+
+In this figure, the nodes represent values, and the paths show the transition probabilities.
+
+The four possible paths from time 0 to the final time can be expressed by their values as follows:
+
+\hspace{20mm}
+\{ 0 , 1 , 2 \}
+,
+\{ 0 , 1 , 0 \}
+,
+\{ 0 , -1 , 0 \}
+,
+\{ 0 , -1 , -2 \}
+
+Table 1 summarizes these paths and their corresponding probabilities, which we'll call $\pi_{1},\pi_{2},\pi_{3},\pi_{4}$ in order.
+
+\begin{center}
+	\begin{tabular}{|c|c|} \hline
+		Path              & Probability of reaching the final point \\ \hline
+		\{ 0 , 1 , 2 \}   & $p_{1} p_{2} = \pi_{1} $                \\ \hline
+		\{ 0 , 1 , 0 \}   & $p_{1} (1 - p_{2}) = \pi_{2} $          \\ \hline
+		\{ 0 , -1 , 0 \}  & $(1-p_{1}) p_{3} = \pi_{3} $            \\ \hline
+		\{ 0 , -1 , -2 \} & $(1-p_{1}) (1 - p_{3}) = \pi_{4} $      \\ \hline
+	\end{tabular}
+	\\ Table 1: Paths and their corresponding probabilities
+\end{center}
+
+Following the logic of our previous explanations (and the probability columns in Table 3.1 of the textbook), if $p_{1},p_{2},p_{3}$ are given, then $\pi_{1},\pi_{2},\pi_{3},\pi_{4}$ can be determined.
+
+Conversely, if $p_{1},p_{2},p_{3}$ are unknown and $\pi_{1},\pi_{2},\pi_{3},\pi_{4}$ are given, we can solve for $p_{1},p_{2},p_{3}$ by working backward.
+
+${}$
+
+To make this clearer, let's do it with an example:
+%
+\begin{eqnarray*}
+	\left\{
+	\begin{array}{r}
+		p_{1} p_{2} \ = \ \pi_{1}
+		\\
+		p_{1} (1 - p_{2}) = \pi_{2}
+		\\
+		(1 - p_{1}) p_{3} = \pi_{3}
+		\\
+		(1 - p_{1}) (1 -p_{3}) = \pi_{4}
+	\end{array}
+	\right.
+\end{eqnarray*}
+%
+Solving for $p_{1},p_{2},p_{3}$ gives:
+
+\begin{eqnarray*}
+	\left\{
+	\begin{array}{c}
+		p_{1} \ = \ \pi_{1} + \pi_{2}
+		\\[3mm]
+		p_{2} \ = \ \dfrac{\pi_{1}}{ \pi_{1} + \pi_{2} }
+		\\[3mm]
+		p_{3} \ = \ \dfrac{\pi_{3}}{ \pi_{3} + \pi_{4} }
+	\end{array}
+	\right.
+\end{eqnarray*}
+
+This demonstrates that specifying the final path probabilities $\pi_{1},\pi_{2},\pi_{3},\pi_{4}$ is equivalent to defining $p_{1},p_{2},p_{3}$, which in turn defines the measure $\mathbb{P}$.
+
+The previous diagram showed the path of values (the nodes in the tree represent values), but if we focus on the probabilities of reaching the final point, the tree looks like the following diagram.
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.7\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\normalsize]
+			\draw (6.25,10) circle (0.5cm);
+			\draw (11.25,11.25) circle (0.5cm);
+			\draw (11.25,8.75) circle (0.5cm);
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw (16.25,12.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,12.5) {$\pi_{1}$};
+			\draw (16.25,10.75) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,10.75) {$\pi_{2}$};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10.75);
+			\draw (16.25,7.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,7.5) {$\pi_{4}$};
+
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+			\draw (16.25,9) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,9) {$\pi_{3}$};
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+		\end{circuitikz}
+	}%
+
+\end{figure}
+
+Note that while the previous diagram recombined the paths for \{ 0 , 1 , 0 \} and \{ 0 , -1 , 0 \} at time 2, this diagram shows them as distinct paths.
+${}$
+We've seen that specifying the final path probabilities $\pi_{1},\pi_{2},\pi_{3},\pi_{4}$ defines the measure $\mathbb{P}$.
+
+Next, let's consider a measure $\mathbb{Q}$ expressed by transition probabilities $q_{1},q_{2},q_{3}$ instead of $p_{1},p_{2},p_{3}$.
+
+We'll denote the final path probabilities under this measure as $\pi'_{1},\pi'_{2},\pi'_{3},\pi'_{4}$.
+
+The exact same logic we used for measure $\mathbb{P}$ applies here: defining $q_{1},q_{2},q_{3}$ is the same as determining $\pi'_{1},\pi'_{2},\pi'_{3},\pi'_{4}$.
+
+\ \\
+
+\paragraph{A Summary So Far}
+
+${}$
+
+For measure $\mathbb{P}$, if the transition probabilities between nodes, $p_{1},p_{2},p_{3}$, are given, the final path probabilities $\pi_{1},\pi_{2},\pi_{3},\pi_{4}$ are determined.
+
+Conversely, if the final path probabilities $\pi_{1},\pi_{2},\pi_{3},\pi_{4}$ are given, it's equivalent to having the measure $\mathbb{P}$ specified.
+
+\ \\
+
+The same reasoning applies to measure $\mathbb{Q}$ by simply changing the notation. If the transition probabilities between nodes, $q_{1},q_{2},q_{3}$, are given, the final path probabilities $\pi'_{1},\pi'_{2},\pi'_{3},\pi'_{4}$ are determined.
+
+And again, the reverse is also true: if the final path probabilities $\pi'_{1},\pi'_{2},\pi'_{3},\pi'_{4}$ are given, the measure $\mathbb{Q}$ is also defined.
+${}$
+Let's now consider the ratio of the final path probabilities for measures $\mathbb{P}$ and $\mathbb{Q}$:
+$\dfrac{ \pi'_{1} }{ \pi_{1} }$
+,
+$\dfrac{ \pi'_{2} }{ \pi_{2} }$
+,
+$\dfrac{ \pi'_{3} }{ \pi_{3} }$
+,
+$\dfrac{ \pi'_{4} }{ \pi_{4} }$.
+
+Even if the individual transition probabilities $q_{1},q_{2},q_{3}$ for measure $\mathbb{Q}$ aren't initially given, if we know measure $\mathbb{P}$ and the values of these ratios $\dfrac{ \pi'_{i} }{ \pi_{i} }$ (for $i=1,2,3,4$), we can work backward to determine $q_{1},q_{2},q_{3}$.
+
+This ratio $\dfrac{ \pi'_{i} }{ \pi_{i} }$ takes on four different values, one for each final path.
+If we were to represent this on a tree like before, it would look like the following diagram.
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.7\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\small]
+			\draw (6.25,10) circle (0.5cm);
+			\draw (11.25,11.25) circle (0.5cm);
+			\draw (11.25,8.75) circle (0.5cm);
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw (16.25,12.5) circle (0.5cm);
+			\node [font=\small] at (16.25,12.5) {$\pi'_{1} / \pi_{1}$};
+			\draw (16.25,10.75) circle (0.5cm);
+			\node [font=\small] at (16.25,10.75) {$\pi'_{2} / \pi_{2}$};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10.75);
+			\draw (16.25,7.5) circle (0.5cm);
+			\node [font=\small] at (16.25,7.5) {$\pi'_{4} / \pi_{4}$};
+
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+			\draw (16.25,9) circle (0.5cm);
+			\node [font=\small] at (16.25,9) {$\pi'_{3} / \pi_{3}$};
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+		\end{circuitikz}
+	}%
+
+\end{figure}
+
+This can be viewed as a random variable whose value at the $i$-th final point is $\dfrac{ \pi'_{i} }{ \pi_{i} }$.
+
+This random variable is denoted as $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ and is called the \textbf{Radon-Nikodym derivative} of $\mathbb{Q}$ with respect to $\mathbb{P}$.
+
+\ \\
+
+Using this new notation, let's reiterate what we've learned.
+
+\ \\
+
+\paragraph{A Summary So Far (Revisited)}
+
+${}$
+
+If $\mathbb{P}$ and $\mathbb{Q}$ are given, $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ is determined.
+\ \ \ \
+If $\mathbb{P}$ and $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ are given, $\mathbb{Q}$ is determined.
+\ \\
+\section{Equivalence}
+
+By definition of probability, each $p_{i}, q_{i}$ is a value between 0 and 1, inclusive.
+
+A problem arises when these values are on the boundaries, 0 or 1, since the Radon-Nikodym derivative $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ would be undefined.
+
+The values of $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ are the ratios of the final path probabilities: $\dfrac{ \pi'_{1} }{ \pi_{1} }$, $\dfrac{ \pi'_{2} }{ \pi_{2} }$, $\dfrac{ \pi'_{3} }{ \pi_{3} }$, $\dfrac{ \pi'_{4} }{ \pi_{4} }$.
+If any $\pi_{i}$ is 0, we'd have a division by zero, making the expression undefined.
+
+${}$
+
+For example, consider the case where $p_{1} = 0$ and $q_{i}>0$.
+
+Since $\pi_{1} = p_{1} p_{2}$ and $\pi_{2} = p_{1} (1-p_{2})$, multiplying by $p_{1}=0$ makes the final path probabilities $\pi_{1}$ and $\pi_{2}$ both 0.
+
+In this case, the final path probability ratios $\dfrac{ \pi'_{1} }{ \pi_{1} }$ and $\dfrac{ \pi'_{2} }{ \pi_{2} }$ don't exist and are therefore undefined.
+
+${}$
+
+The textbook \cite{BaxterRennie} states:
+
+'If a path is possible under $\mathbb{Q}$ but impossible under $\mathbb{P}$, $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ cannot be defined.'
+
+${}$
+
+To prevent this issue, the concept of \textbf{equivalence of probability measures} is introduced.
+
+${}$
+
+\paragraph{Equivalence of Probability Measures}
+
+${}$
+
+Two measures $\mathbb{P}$ and $\mathbb{Q}$ on the same probability space are said to be equivalent if for any event in that space, its probability is never 0 under both $\mathbb{P}$ and $\mathbb{Q}$.
+\ \\
+
+${}$
+
+If $\mathbb{P}$ and $\mathbb{Q}$ are equivalent, then $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ can be defined.
+
+The same logic holds if we swap the symbols $\mathbb{P}$ and $\mathbb{Q}$. For $\dfrac{ d \mathbb{P} }{ d \mathbb{Q} }$ to exist, $\mathbb{P}$ and $\mathbb{Q}$ must be equivalent probability measures.
+
+\section{The Relationship Between Expectation and the Radon-Nikodym Derivative}
+
+Two sections ago, we saw that if $\mathbb{P}$ and $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ are given, $\mathbb{Q}$ can be determined. Let's revisit this by focusing on expectation.
+
+${}$
+Let's look at the discrete probability measure tree diagram again.
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.7\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\normalsize]
+			\draw (6.25,10) circle (0.5cm);
+			\draw (11.25,11.25) circle (0.5cm);
+			\draw (11.25,8.75) circle (0.5cm);
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw (16.25,12.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,12.5) {$\pi_{1}$};
+			\draw (16.25,10.75) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,10.75) {$\pi_{2}$};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10.75);
+			\draw (16.25,7.5) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,7.5) {$\pi_{4}$};
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+			\draw (16.25,9) circle (0.5cm);
+			\node [font=\normalsize] at (16.25,9) {$\pi_{3}$};
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+		\end{circuitikz}
+	}%
+
+\end{figure}
+
+To consider expectations, let's introduce a random variable $X$. Let $x_{i}$ be the value of $X$ at the $i$-th final point ($i=1,2,3,4$).
+
+The expectation of $X$ under measure $\mathbb{P}$, ${\bf E}_{\mathbb{P}}(X)$, is calculated as follows:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}(X)
+	\ = \
+	\pi_{1} x_{1}
+	\ + \
+	\pi_{2} x_{2}
+	\ + \
+	\pi_{3} x_{3}
+	\ + \
+	\pi_{4} x_{4}
+\end{eqnarray*}
+%
+
+Conversely, the expectation of $X$ under measure $\mathbb{Q}$, ${\bf E}_{\mathbb{Q}}(X)$, is calculated as:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}(X)
+	\ = \
+	\pi'_{1} x_{1}
+	\ + \
+	\pi'_{2} x_{2}
+	\ + \
+	\pi'_{3} x_{3}
+	\ + \
+	\pi'_{4} x_{4}
+\end{eqnarray*}
+%
+
+If we rearrange this to include the ratios $\dfrac{ \pi'_{i} }{ \pi_{i} }$, we get:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}(X)
+	&=&
+	\pi'_{1} x_{1}
+	\ + \
+	\pi'_{2} x_{2}
+	\ + \
+	\pi'_{3} x_{3}
+	\ + \
+	\pi'_{4} x_{4}
+	\\ &=&
+	\pi_{1}
+	\ \ \!
+	\dfrac{ \pi'_{1} }{ \pi_{1} }
+	x_{1}
+	+
+	\pi_{2}
+	\ \ \!
+	\dfrac{ \pi'_{2} }{ \pi_{2} }
+	x_{2}
+	+
+	\pi_{3}
+	\ \ \!
+	\dfrac{ \pi'_{3} }{ \pi_{3} }
+	x_{3}
+	+
+	\pi_{4}
+	\ \ \!
+	\dfrac{ \pi'_{4} }{ \pi_{4} }
+	x_{4}
+\end{eqnarray*}
+%
+This expression is the expectation under $\mathbb{P}$ of the random variable $
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} } X
+$, whose value at the $i$-th final point is $
+	\dfrac{ \pi'_{i} }{ \pi_{i} }
+	x_{i}
+$.
+In summary, we've confirmed that:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}(X)
+	&=&
+	{\bf E}_{\mathbb{P}}
+	\left(
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	X
+	\right)
+\end{eqnarray*}
+%
+
+\section{The Radon-Nikodym Process}
+
+The expectation we just looked at wasn't a conditional expectation.
+
+In the two-period binomial model we're considering, time $t$ can only be $t=0,1,2$. If we set the final time to $T(=2)$ and the random variable at that time to $X=X_{T}$, we can express our result as a conditional expectation:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}(X_{T} | \mathcal{F}_{0} )
+	&=&
+	{\bf E}_{\mathbb{P}}
+	\left(
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	X_{T} \Big| \mathcal{F}_{0}
+	\right)
+\end{eqnarray*}
+%
+
+($\mathcal{F}_{t}$, which was introduced in Chapter 2, represents the filtration at time $t$. In a binomial model, this is specifically the set of all possible paths up to time $t$.)
+
+From here, we'll see how to express the conditional expectation for more general times $t(\neq T)$ and $s(\neq 0)$, ${\bf E}_{\mathbb{Q}}(X_{t} | \mathcal{F}_{s} )$, as an expectation under measure $\mathbb{P}$.
+${}$
+
+Up to this point, our thinking about the Radon-Nikodym derivative has focused only on the ratio of probabilities at the final time $t=T$, such as $\dfrac{ \pi'_{i} }{ \pi_{i} } \ \ (i=1,2,3,4)$.
+
+Let's expand this concept and consider the ratio of transition probabilities for each path at times other than $t=T$.
+
+At time $t=1$, the possible ratios of transition probabilities are $\dfrac{ q_{1} }{ p_{1} }$ or $\dfrac{ 1 - q_{1} }{ 1 - p_{1} }$.
+
+At time $t=0$, since both $\mathbb{P}$ and $\mathbb{Q}$ only have a single starting point with a probability of 1, the ratio of transition probabilities is $\dfrac{1}{1} = 1$.
+
+The following diagram shows this in a tree. For simplicity, we've used the notation $1-p_{i} = \bar{p}_{i}$ and $1-q_{i} = \bar{q}_{i}$.
+
+Let's call this stochastic process $\zeta_{t}$.
+
+At the final time, $\zeta_{T} = \dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$, meaning this is a stochastic process that extends the Radon-Nikodym derivative (which was only defined at time $t=T$).
+
+At time zero, since the only possible path under both $\mathbb{P}$ and $\mathbb{Q}$ is the single starting point (in the value-based path, this is $\{ 0 \}$) with a probability of 1, we set $\zeta_{0} = 1$.
+
+This is known as the Radon-Nikodym process or derivative process.
+\begin{figure}[!ht]
+	\centering
+	\resizebox{0.7\textwidth}{!}{%
+		\begin{circuitikz}
+			\tikzstyle{every node}=[font=\small]
+			\draw (6.25,10) circle (0.5cm);
+			\draw (11.25,11.25) circle (0.5cm);
+			\draw (11.25,8.75) circle (0.5cm);
+			\draw [->, >=Stealth] (7,10) -- (10.5,11.25);
+			\draw [->, >=Stealth] (7,10) -- (10.5,8.75);
+			\draw (16.25,12.5) circle (0.5cm);
+			\node [font=\small] at (16.25,12.5) {$\frac{ q_{1} q_{2} }{ p_{1} p_{2} }$};
+			\draw (16.25,10.75) circle (0.5cm);
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,12.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,7.5);
+			\draw [->, >=Stealth] (12,8.75) -- (15.5,9);
+			\node [font=\normalsize] at (14,7.5) {};
+			\draw [->, >=Stealth] (12,11.25) -- (15.5,10.75);
+			\draw (16.25,7.5) circle (0.5cm);
+
+			\node [font=\normalsize] at (6.25,6.25) {time = 0};
+			\node [font=\normalsize] at (11.25,6.25) {time = 1};
+			\node [font=\normalsize] at (16.25,6.25) {time = 2};
+			\draw (16.25,9) circle (0.5cm);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\draw [dashed] (16.25,12.5) -- (16.25,12.5);
+			\node [font=\small] at (6.25,10) {1};
+			\node [font=\normalsize] at (11.25,11.25) {$\frac{ q_{1} }{ p_{1} }$};
+			\node [font=\normalsize] at (11.25,8.75) {$\frac{ \bar{q}_{1} }{ \bar{p}_{1} }$};
+			\node [font=\small] at (16.25,10.75) {$\frac{ q_{1} \bar{q}_{2} }{ p_{1} \bar{p}_{2} }$};
+			\node [font=\small] at (16.25,9) {$\frac{ \bar{q}_{1} {q}_{3} }{ \bar{p}_{1} p_{3} }$};
+			\node [font=\small] at (16.25,7.5) {$\frac{ \bar{q}_{1} \bar{q}_{3} }{ \bar{p}_{1} \bar{p}_{3} }$};
+		\end{circuitikz}
+	}%
+
+	\label{fig:my_label}
+\end{figure}
+\section{Example: Discrete Process}
+
+\subsection{Problem}
+
+Show for $t=0,1,2$ that the stochastic process we just defined, $\zeta_{t}$, can be expressed as the expectation of $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ conditioned on $\mathcal{F}_{t}$ under measure $\mathbb{P}$:
+$$
+	\zeta_{t}
+	\ = \
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{t} \right)
+$$
+
+\subsection{Solution}
+
+\subsubsection{Case for $t=2$}
+
+Since $t=2(=T)$ is the final point in time, the relationship holds by our very definition.
+
+To double-check, we can refer to the table below. (Note that $\mathcal{F}_{2}$ is expressed using the values at each node from the diagram.)
+
+\begin{center}
+	\begin{tabular}{|c|c|c|} \hline
+		$\mathcal{F}_{2}$                                                             & $\zeta_{2}$                     & ${\bf E}_{\mathbb{P}} \left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{2} \right)$ \\ \hline \hline
+		$\Big\{ 1 , \dfrac{q_{1}}{p_{1}} , \dfrac{ \pi'_{1} }{ \pi_{1} } \Big\} $     & $\dfrac{ \pi'_{1} }{ \pi_{1} }$ & $\dfrac{ \pi'_{1} }{ \pi_{1} }$                                                                    \\ \hline
+		$\Big\{ 1 , \dfrac{q_{1}}{p_{1}} , \dfrac{ \pi'_{2} }{ \pi_{2} } \Big\} $     & $\dfrac{ \pi'_{2} }{ \pi_{2} }$ & $\dfrac{ \pi'_{2} }{ \pi_{2} }$                                                                    \\ \hline
+		$\Big\{ 1 , \dfrac{1-q_{1}}{1-p_{1}} , \dfrac{ \pi'_{3} }{ \pi_{3} } \Big\} $ & $\dfrac{ \pi'_{3} }{ \pi_{3} }$ & $\dfrac{ \pi'_{3} }{ \pi_{3} }$                                                                    \\ \hline
+		$\Big\{ 1 , \dfrac{1-q_{1}}{1-p_{1}} , \dfrac{ \pi'_{4} }{ \pi_{4} } \Big\} $ & $\dfrac{ \pi'_{4} }{ \pi_{4} }$ & $\dfrac{ \pi'_{4} }{ \pi_{4} }$                                                                    \\ \hline
+	\end{tabular}
+\end{center}
+\subsubsection{Case for $t=1$}
+
+Let's check for $t=1$.
+
+For the case where $\mathcal{F}_{1} = \Big\{ 1 , \dfrac{q_{1}}{p_{1}} \Big\} $:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{1} \right)
+	&=&
+	p_{2} \dfrac{ \pi'_{1} }{ \pi_{1} }
+	\ + \
+	(1-p_{2}) \dfrac{ \pi'_{2} }{ \pi_{2} }
+	\\ &=&
+	p_{2} \dfrac{ q_{1} q_{2} }{ p_{1} p_{2} }
+	\ + \
+	(1-p_{2}) \dfrac{ q_{1} (1-q_{2}) }{ p_{1} (1-p_{2}) }
+	\\ &=&
+	\dfrac{ q_{1} }{ p_{1} }
+	\{ q_{2} + (1-q_{2}) \}
+	\\ &=&
+	\dfrac{ q_{1} }{ p_{1} }
+\end{eqnarray*}
+%
+This matches the value of $\zeta_{1}$ for the case where $\mathcal{F}_{1} = \Big\{ 1 , \dfrac{q_{1}}{p_{1}} \Big\} $.
+
+${}$
+
+Next, for the case where $\mathcal{F}_{1} = \Big\{ 1 , \dfrac{1-q_{1}}{1-p_{1}} \Big\} $:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{1} \right)
+	&=&
+	p_{3} \dfrac{ \pi'_{3} }{ \pi_{3} }
+	\ + \
+	(1-p_{3}) \dfrac{ \pi'_{4} }{ \pi_{4} }
+	\\ &=&
+	p_{3} \dfrac{ (1-q_{1}) q_{3} }{ (1-p_{1}) p_{3} }
+	\ + \
+	(1-p_{3}) \dfrac{ (1-q_{1}) (1-q_{3}) }{ (1-p_{1}) (1-p_{3}) }
+	\\ &=&
+	\dfrac{1-q_{1}}{ 1-p_{1}}
+	\{ q_{3} + (1-q_{3}) \}
+	\\ &=&
+	\dfrac{1-q_{1}}{ 1-p_{1}}
+\end{eqnarray*}
+%
+This also matches the value of $\zeta_{1}$ for the case where $\mathcal{F}_{1} = \Big\{ 1 , \dfrac{1-q_{1}}{1-p_{1}} \Big\} $.
+
+In summary:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|} \hline
+		$\mathcal{F}_{1}$                 & $\zeta_{1}$                & ${\bf E}_{\mathbb{P}} \left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{1} \right)$ \\ \hline \hline
+		$(1 , \dfrac{q_{1}}{p_{1}} )$     & $\dfrac{q_{1}}{p_{1}}$     & $\dfrac{q_{1}}{p_{1}}$                                                                             \\ \hline
+		$(1 , \dfrac{1-q_{1}}{1-p_{1}} )$ & $\dfrac{1-q_{1}}{1-p_{1}}$ & $\dfrac{1-q_{1}}{1-p_{1}}$                                                                         \\ \hline
+	\end{tabular}
+\end{center}
+\subsubsection{Case for $t=0$}
+
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{0} \right)
+	&=&
+	\pi_{1} \dfrac{ \pi'_{1} }{ \pi_{1} }
+	\ + \
+	\pi_{2} \dfrac{ \pi'_{2} }{ \pi_{2} }
+	\ + \
+	\pi_{3} \dfrac{ \pi'_{3} }{ \pi_{3} }
+	\ + \
+	\pi_{4} \dfrac{ \pi'_{4} }{ \pi_{4} }
+	\\ &=&
+	\pi'_{1}
+	\ + \
+	\pi'_{2}
+	\ + \
+	\pi'_{3}
+	\ + \
+	\pi'_{4}
+	\\ &=& 1
+\end{eqnarray*}
+%
+This indeed matches the value of $\zeta_{0}$.
+
+${}$
+
+We've now shown that for all $t$, the relationship
+$$
+	\zeta_{t}
+	\ = \
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{t} \right)
+$$
+holds true.
+
+\if0
+
+	\section{Practice Problem 3.8}
+
+	\subsection{Problem (Verifying the Measure Transformation Formula)}
+
+	Using the tree from before, show that for a stochastic process $X_{t}$, the following equation holds:
+	$$
+		{\bf E}_{\mathbb{Q}}
+		\left( X_{t} \Big| \mathcal{F}_{s} \right)
+		\ = \
+		\zeta_{s}^{-1}
+		{\bf E}_{\mathbb{P}}
+		\left( \zeta_{t} X_{t} \Big| \mathcal{F}_{s} \right)
+	$$
+	\subsection{Solution}
+
+	Based on the definition of conditional expectation, the constraint is $s \leq t$, so we need to perform 6 calculations.
+
+	\subsubsection{ For $s=0$ }
+
+	At $s=0$, the conditional expectation becomes a standard expectation.
+	The $\mathbb{P}$ side is
+	%
+	\begin{eqnarray*}
+		\zeta_{0}^{-1}
+		{\bf E}_{\mathbb{P}}
+		\left( \zeta_{t} X_{t} \Big| \mathcal{F}_{0} \right)
+		\ = \
+		{\bf E}_{\mathbb{P}}
+		( \zeta_{t} X_{t} )
+	\end{eqnarray*}
+	%
+
+	\ \\
+
+	Since $\zeta_{0}=1$, it's simple.
+	The $\mathbb{P}$ side is
+	%
+	\begin{eqnarray*}
+		\zeta_{0}^{-1}
+		{\bf E}_{\mathbb{P}}
+		\left( \zeta_{t} X_{t} \Big| \mathcal{F}_{0} \right)
+		\ = \
+		{\bf E}_{\mathbb{P}}
+		( X_{0} )
+	\end{eqnarray*}
+	%
+	{\bf todo: to be written later}
+
+\fi
+
+\section{The Joint Density Function of Brownian Motion}
+We've been looking at measure transformations for discrete-time stochastic processes. Now, let's look at continuous-time measure transformations so we can work with Brownian motion.
+
+The text begins by using the standard normal distribution as an example to explain why the concept of "path likelihood" can't be grasped simply by integrating a density function over an interval to find a marginal distribution.
+
+${}$
+
+Instead of jumping directly into continuous time, we'll first consider a finite number of discrete time points for simplicity.
+The probability density function for a $\mathbb{P}$-Brownian motion $W_{t_{i}}$ at a given time $t_{i}$, denoted as $f^{i}_{\mathbb{P}}(x)$, is the probability density function for a normal distribution $N(0,t_{i})$, which can be written as:
+%
+$$
+	\displaystyle
+	f^{i}_{\mathbb{P}}(x)
+	=
+	\dfrac{1}{ \sqrt{2 \pi t_{i} } }
+	\exp \left( {- \frac{x^{2}}{2 t_{i}} } \right)
+$$
+%
+Moving forward, let's consider the joint density function $f^{n}_{\mathbb{P}} (x_{1} , x_{2} , ... ,x_{n})$ for a $\mathbb{P}$-Brownian motion taking values $x_{1},x_{2},...,x_{n}$ at times $t_{1},t_{2},...,t_{n}$.
+
+Recalling the independent increments property of Brownian motion, the increments
+$
+	W_{t_{2}} - W_{t_{1}}, \
+	W_{t_{3}} - W_{t_{2}}, \
+	..., \
+	W_{t_{n}} - W_{t_{n-1}}
+$
+are independent and follow a normal distribution under $\mathbb{P}$.
+
+For any $i$ greater than 1 ($i<n$), the density function of $W_{t_{i}} - W_{t_{i-1}}$ is:
+%
+$$
+	\displaystyle
+	\dfrac{1}{ \sqrt{2 \pi (t_{i} - t_{i-1}) } }
+	\exp \left( {- \frac{ (x_{i} - x_{i-1}  )^{2}}{2 ( t_{i} - t_{i-1})  } } \right)
+$$
+%
+where $t_{0}$ and $x_{0}$ are taken to be 0.
+
+To simplify, if we write $\Delta x_{i} = x_{i} - x_{i-1}$ and $\Delta t_{i} = t_{i} - t_{i-1}$, the same equation becomes:
+%
+$$
+	\displaystyle
+	\dfrac{1}{ \sqrt{2 \pi \Delta t_{i} } }
+	\exp \left( {- \frac{ \Delta  x_{i}^{2}}{ 2 \Delta t_{i}  } } \right)
+$$
+%
+
+Since each $W_{t_{i}} - W_{t_{i-1}}$ (for $i=1,2,..,i,..,n$) is independent, their joint probability density function $f^{n}_{\mathbb{P}} (x_{1} , x_{2} , ... ,x_{n})$ is the product of their individual density functions:
+%
+\begin{eqnarray*}
+	f^{n}_{\mathbb{P}} (x_{1} , x_{2} , ... ,x_{n})
+	&=&
+	\prod_{i=1}^{n}
+	\dfrac{1}{ \sqrt{2 \pi \Delta t_{i} } }
+	\exp \left( {- \frac{ \Delta  x_{i}^{2}}{ 2 \Delta t_{i}  } } \right)
+\end{eqnarray*}
+%
+
+\section{The Radon-Nikodym Derivative - Continuous Version}
+
+Let's assume $\mathbb{P}$ and $\mathbb{Q}$ are equivalent measures.
+Given a path $\omega$, and for times $(t_{1},t_{2},...,t_{n})$ (where $t_{n}=T$), if we define $x_{i} = W_{t_{i}}(\omega)$, then the Radon-Nikodym derivative up to time $t$, $\dfrac{d \mathbb{Q} }{d \mathbb{P} }$, is obtained as the continuous limit of the ratio of the joint probability densities of the Brownian motion under each measure:
+$$
+	\dfrac{d \mathbb{Q} }{d \mathbb{P} }(\omega)
+	\ = \
+	\lim_{n \to \infty}
+	\dfrac{ f^{n}_{ \mathbb{Q}} (x_{1},x_{2},...,x_{n}) }{ f^{n}_{ \mathbb{P}} (x_{1},x_{2},...,x_{n}) }
+$$
+This limit is taken by increasing the number of divisions within the interval $[0,T]$ while keeping $t_{n}=T$ fixed.
+
+${}$
+
+Just like in the discrete-time case, the following relationship holds for the continuous Radon-Nikodym derivative:
+
+$$
+	{\bf E}_{\mathbb{Q}}
+	(X_{t})
+	\ = \
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{d \mathbb{Q} }{d \mathbb{P} } X_{t} \right)
+$$
+With the derivative process defined as $\zeta_{t} = {\bf E}_{\mathbb{P}} \left( \dfrac{d \mathbb{Q} }{d \mathbb{P} } \Big| \mathcal{F}_{t} \right)$, the following holds for $s \leq t$:
+$$
+	{\bf E}_{\mathbb{Q}}
+	\left( X_{t} \Big| \mathcal{F}_{s} \right)
+	\ = \
+	\zeta_{s}^{-1}
+	{\bf E}_{\mathbb{P}}
+	\left( \zeta_{t} X_{t} \Big| \mathcal{F}_{s} \right)
+$$
+\section{Reviewing the Moment Generating Function}
+
+The moment generating function of a random variable $X$ under a measure $\mathbb{P}$ is defined as ${\bf E}_{\mathbb{P}}[ \exp( \theta X ) ]$ with a parameter $\theta$.
+
+Specifically, when $X$ follows a normal distribution $N(\mu ,\sigma)$, the moment generating function is:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}[ \exp( \theta X ) ]
+	&=&
+	\exp( \theta \mu + \dfrac{1}{2} \theta^{2} \sigma^{2} )
+\end{eqnarray*}
+%
+
+\section{Simple Measure Transformation (Brownian Motion + Constant Drift)}
+
+In a previous discrete-time section, we saw that if $\mathbb{P}$ and $\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }$ are specified, then $\mathbb{Q}$ is also determined.
+
+This time, let's see what happens to a $\mathbb{P}$-Brownian motion $W_{T}$ under $\mathbb{Q}$ when the Radon-Nikodym derivative is given as:
+%
+\begin{eqnarray*}
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	&=&
+	\exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+\end{eqnarray*}
+%
+To find out, we'll examine the moment generating function under $\mathbb{Q}$, ${\bf E}_{\mathbb{Q}}[ \exp( \theta W_{T} ) ]$. Let $Z$ be a standard normal random variable. The calculation proceeds as follows:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}[ \exp( \theta W_{T} ) ]
+	&=&
+	{\bf E}_{\mathbb{P}} \left[ \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \exp( \theta W_{T} ) \right]
+	\\ &=&
+	{\bf E}_{\mathbb{P}} \left[ \exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T + \theta W_{T} \right) \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	{\bf E}_{\mathbb{P}} \left[ \exp \left\{ ( \theta - \gamma ) W_{T} \right\} \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	{\bf E} \left[ \exp \left\{ ( \theta - \gamma ) \sqrt{T} Z \right\} \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\int^{\infty}_{-\infty}
+	\exp \left\{ ( \theta - \gamma ) \sqrt{T} x \right\} \exp \left( -\dfrac{x^{2}}{2} \right) dx
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\times \sqrt{ 2 \pi }
+	\exp \left( \dfrac{1}{2} (\theta - \gamma)^{2} T \right)
+	\\ &=&
+	\exp \left( - \theta \gamma T + \dfrac{1}{2} \theta^{2} T \right)
+\end{eqnarray*}
+%
+(The transformation from the 3rd to 5th line utilizes the fact that $W_{T}$ follows a normal distribution $N(0,T)$ under measure $\mathbb{P}$ and returns to the expectation calculation (integral) weighted by the standard normal probability density.)
+Comparing this result to the moment generating function for a normal distribution $N(\mu,\sigma)$, which is $\exp( \theta \mu + \dfrac{1}{2} \theta^{2} \sigma^{2} )$, we can see that it's a normal distribution $N(- \gamma T,T)$ with mean $\mu = - \gamma T$ and variance $\sigma = T$.
+
+So, from the perspective of measure $\mathbb{Q}$, the $\mathbb{P}$-Brownian motion becomes a Brownian motion with a constant drift of $(-\gamma)$.
+
+If we write the $\mathbb{Q}$-Brownian motion as $\tilde{W}_{T}$, we can see that the $\mathbb{P}$-Brownian motion can be expressed as $\tilde{W}_{T} - \gamma T$.
+
+This shows that when the Radon-Nikodym derivative is given as
+$
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	=
+	\exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+$,
+there is a relationship between the $\mathbb{P}$-Brownian motion $W_{T}$ and the $\mathbb{Q}$-Brownian motion $\tilde{W}_{T}$ such that $\tilde{W}_{T} = W_{T} + \gamma T$.
+
+\subsection{Verification for Time t(＜T)}
+
+Let's similarly verify this for a time $t(<T)$, given the Radon-Nikodym derivative:
+$
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	=
+	\exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+$.
+The claim is that the $\mathbb{P}$-Brownian motion $W_{t}$ will be a Brownian motion with a constant drift of $-\gamma t$ under measure $\mathbb{Q}$. Let's prove this.
+${}$
+
+\subsubsection{Finding the Radon-Nikodym Derivative Process}
+
+First, we need to find the Radon-Nikodym derivative process.
+\footnote{The method for calculating the expectation is based on Chapter 2 and Chapter 5 of "Stochastic Calculus for Finance II: Continuous-Time Models" by S. E. Shreve.}
+%
+\begin{eqnarray*}
+	\zeta_{t}
+	&=&
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{t} \right)
+	\\ &=&
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+		\Big| \mathcal{F}_{t} \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( - \gamma W_{T} \right)
+		\Big| \mathcal{F}_{t} \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	{\bf E}_{\mathbb{P}}
+	\left[
+		\exp \left\{ - \gamma ( W_{T} - W_{t} ) \right\}
+		\exp \left( - \gamma W_{t} \right)
+		\Big| \mathcal{F}_{t} \right]
+\end{eqnarray*}
+%
+If we focus on one of the factors inside the expectation:
+%
+\begin{eqnarray*}
+	\exp \left\{ - \gamma ( W_{T} - W_{t} ) \right\}
+	&=&
+	\exp \left( - \gamma \sqrt{T - t} \dfrac{ W_{T} - W_{t} }{ \sqrt{T - t} } \right)
+\end{eqnarray*}
+%
+The term
+$$
+	\dfrac{ W_{T} - W_{t} }{ \sqrt{T - t} }
+$$
+is a random variable that follows a standard normal distribution $N(0,1)$ under measure $\mathbb{P}$.
+If we let this be $Z$, the expression inside the expectation can be broken down into a factor that is $\mathcal{F}_{t}$-measurable,
+$$
+	\exp \left( - \gamma W_{t} \right)
+$$
+and a factor that is $\mathcal{F}_{t}$-independent,
+$$
+	\exp \left( - \gamma \sqrt{T - t} Z \right)
+$$
+resulting in:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left[
+		\exp \left\{ - \gamma ( W_{T} - W_{t} ) \right\}
+		\exp \left( - \gamma W_{t} \right)
+		\Big| \mathcal{F}_{t} \right]
+	&=&
+	\exp \left( - \gamma W_{t} \right)
+	{\bf E}
+	\left[
+		\exp \left( - \gamma \sqrt{T - t} Z \right)
+		\right]
+	\\ &=&
+	\exp \left( - \gamma W_{t} \right)
+	\dfrac{1}{\sqrt{2\pi}}
+	\int^{\infty}_{-\infty}
+	\exp \left( - \gamma \sqrt{T - t} x \right)
+	e^{-\frac{x^{2}}{2}}
+	dx
+	\\ &=&
+	\exp \left( - \gamma W_{t} \right)
+	\exp \left\{ \dfrac{1}{2} (- \gamma \sqrt{T - t} )^{2} \right\}
+\end{eqnarray*}
+%
+Putting it all together, we get:
+%
+\begin{eqnarray*}
+	\zeta_{t}
+	&=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} T \right)
+	\exp \left( - \gamma W_{t} \right)
+	\exp \left\{ \dfrac{1}{2} (- \gamma \sqrt{T - t} )^{2} \right\}
+	\\ &=&
+	\exp \left( - \gamma W_{t} - \dfrac{1}{2} \gamma^{2} t \right)
+\end{eqnarray*}
+%
+(It turns out that the derivative process at time $t(<T)$ is the same as the expression for the Radon-Nikodym derivative, just with the capital letter $T$ (the expiration) replaced with the lowercase $t$ (a time before expiration).)
+${}$
+
+\subsubsection{Relationship Between $\tilde{W}_{t}$ and $W_{t}$ at Time $t(<T)$}
+
+Similar to the $t=T$ case, we'll calculate the moment generating function under $\mathbb{Q}$. We'll use the measure transformation formula for conditional expectations to perform the calculation as an expectation under $\mathbb{P}$.
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp ( \theta W_{t} ) \right]
+	&=&
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp ( \theta W_{t} ) \Big| \mathcal{F}_{0} \right]
+	\\ &=&
+	\zeta_{0}^{-1}
+	{\bf E}_{\mathbb{P}}
+	\left[ \zeta_{t} \exp ( \theta W_{t} ) \Big| \mathcal{F}_{0} \right]
+	\\ &=&
+	1 \times
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( - \gamma W_{t} - \dfrac{1}{2} \gamma^{2} t \right) \exp ( \theta W_{t} ) \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} t \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \Big( ( \theta - \gamma ) W_{t} \Big) \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} t \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( ( \theta - \gamma ) \sqrt{t} \dfrac{ W_{t} }{ \sqrt{t} } \right) \right]
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} t \right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\int^{\infty}_{-\infty}
+	\exp \left\{ ( \theta - \gamma ) \sqrt{t} x \right\} \exp \left( -\dfrac{x^{2}}{2} \right) dx
+	\\ &=&
+	\exp \left( - \dfrac{1}{2} \gamma^{2} t \right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\times \sqrt{ 2 \pi }
+	\exp \left( \dfrac{1}{2} (\theta - \gamma)^{2} t \right)
+	\\ &=&
+	\exp \left( - \theta \gamma t + \dfrac{1}{2} \theta^{2} t \right)
+\end{eqnarray*}
+%
+Just as we saw for $t=T$, $W_{t}$ follows a normal distribution $N(- \gamma t, t)$ under $\mathbb{Q}$ with a mean of $(- \gamma t)$ and variance of $t$.
+Rewriting this shows that the relationship between the $\mathbb{Q}$-Brownian motion $\tilde{W}_{t}$ and the $\mathbb{P}$-Brownian motion is:
+$$
+	\tilde{W}_{t} = W_{t} + \gamma t
+$$
+
+\section{Example: Continuous Process}
+
+Using the Radon-Nikodym derivative process, show that
+$$
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp \Big( \theta (\tilde{W}_{t+s} - \tilde{W}_{s}) \Big) \Big| \mathcal{F}_{s} \right]
+	\ = \
+	\exp \left( \dfrac{1}{2} \theta^{2} t \right)
+$$
+and verify that the independent increments property of Brownian motion holds under $\mathbb{Q}$ as well.
+\subsection{Solution}
+
+We'll use the relationship $\tilde{W}_{t} = W_{t} + \gamma t$.
+We'll transform the measure and calculate the expectation under $\mathbb{P}$.
+Using the measure transformation formula for conditional expectations:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp \Big( \theta (\tilde{W}_{t+s} - \tilde{W}_{s}) \Big) \Big| \mathcal{F}_{s} \right]
+	&=&
+	{\bf E}_{\mathbb{Q}}
+	\left[ \exp
+		\left\{
+		\theta \Big( W_{t+s} + \gamma (t+s) - W_{s} - \gamma s \Big)
+		\right\}
+		\Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	{\bf E}_{\mathbb{P}}
+	\left[ \zeta_{t+s} \exp \left\{ \theta \Big( W_{t+s} - W_{s} + \gamma t \Big) \right\} \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \left( - \gamma W_{t+s} - \dfrac{1}{2} \gamma^{2} (t+s) \right) \exp \left\{ \theta \Big( W_{t+s} - W_{s} + \gamma t \Big) \right\} \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \Big( ( \theta - \gamma ) W_{t+s} - \theta W_{s} \Big) \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \Big( ( \theta - \gamma ) ( W_{t+s} - W_{s} ) - \gamma W_{s} \Big) \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	\exp ( - \gamma W_{s} )
+	{\bf E}_{\mathbb{P}}
+	\left[ \exp \Big( ( \theta - \gamma ) ( W_{t+s} - W_{s} ) \Big) \Big| \mathcal{F}_{s} \right]
+	\\ &=&
+	\zeta_{s}^{-1}
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	\exp ( - \gamma W_{s} )
+	\exp \Big( \dfrac{1}{2} (\theta - \gamma)^{2} t \Big)
+	\\ &=&
+	\exp \left( \gamma W_{s} + \dfrac{1}{2} \gamma^{2} s \right)
+	\exp \left( \theta \gamma t - \dfrac{1}{2} \gamma^{2} (t+s) \right)
+	\exp ( - \gamma W_{s} )
+	\exp \Big( \dfrac{1}{2} (\theta - \gamma)^{2} t \Big)
+	\\ &=&
+	\exp \Big( \dfrac{1}{2} \theta^{2} t \Big)
+\end{eqnarray*}
+%
+
+${}$
+
+% \begin{itembox}[l]{Summary So Far}
+
+Let's assume a constant $\gamma$ and a $\mathbb{P}$-Brownian motion $W_{t}$.
+Given equivalent measures $\mathbb{P}$ and $\mathbb{Q}$ and a Radon-Nikodym derivative:
+%
+\begin{eqnarray*}
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} }
+	&=&
+	\exp \left( - \gamma W_{T} - \dfrac{1}{2} \gamma^{2} T \right)
+\end{eqnarray*}
+%
+The derivative process becomes:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}}
+	\left( \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } \Big| \mathcal{F}_{t} \right)
+	&=&
+	\exp \left( - \gamma W_{t} - \dfrac{1}{2} \gamma^{2} t \right)
+\end{eqnarray*}
+%
+Furthermore, if we denote the $\mathbb{Q}$-Brownian motion as $\tilde{W}_{t}$, the relationship with the $\mathbb{P}$-Brownian motion $W_{t}$ is:
+$$
+	\tilde{W}_{t} = W_{t} + \gamma t
+$$
+% \end{itembox}
+\section{The Cameron-Martin-Girsanov Theorem}
+
+We've seen that when a specific relationship (the Radon-Nikodym derivative) is given for equivalent measures, a stochastic process that's a Brownian motion under one measure is transformed into a Brownian motion with drift under the other.
+
+The textbook states that 'for the stochastic processes handled in this textbook, any measure transformation will result in a Brownian motion with drift and nothing else.'
+
+This suggests that the result of a Brownian motion simply transforming in this way wasn't a coincidence due to a special relationship being arbitrarily given. The following sections will expand on this idea.
+
+\subsection{The Cameron-Martin-Girsanov Theorem}
+
+Let $W_{t}$ be a $\mathbb{P}$-Brownian motion, and let $\gamma_{t}$ be an $\mathcal{F}$-adapted process that satisfies the condition:
+$$
+	{\bf E}_{\mathbb{P}} \exp \left( \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)
+	\ < \
+	\infty
+$$
+Then there exists a measure $\mathbb{Q}$ that satisfies the following conditions:
+
+\begin{enumerate}
+	\item $\mathbb{Q}$ is equivalent to $\mathbb{P}$.
+	\item $\displaystyle \dfrac{ d \mathbb{Q} }{ d \mathbb{P} } = \exp \left( - \int^{T}_{0} \gamma_{t} dW_{t} - \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)$
+	\item $\displaystyle \tilde{W}_{t} = W_{t} + \int^{t}_{0} \gamma_{s} ds$ becomes a $\mathbb{Q}$-Brownian motion.
+	      Conversely, $W_{t}$ becomes a Brownian motion with a drift of $(-\gamma_{t})$ at time $t$ under $\mathbb{Q}$.
+\end{enumerate}
+
+${}$
+
+The example we saw in the previous section was a special case where $\gamma_{t} = \gamma = {\rm const.}$
+
+\subsection{The Converse of the Cameron-Martin-Girsanov Theorem}
+
+The converse is also true.
+
+${}$
+
+If $W_{t}$ is a $\mathbb{P}$-Brownian motion and $\mathbb{Q}$ is a measure equivalent to $\mathbb{P}$, then there exists an $\mathcal{F}$-adapted process $\gamma_{t}$ such that:
+$$
+	\tilde{W}_{t}
+	\ = \
+	W_{t} + \int^{t}_{0} \gamma_{s} ds
+$$
+becomes a $\mathbb{Q}$-Brownian motion.
+Furthermore, the Radon-Nikodym derivative will be:
+$$
+	\dfrac{ d \mathbb{Q} }{ d \mathbb{P} } = \exp \left( - \int^{T}_{0} \gamma_{t} dW_{t} - \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)
+$$
+
+\section{The Cameron-Martin-Girsanov Theorem and Stochastic Differentials}
+
+Let's look at a practical application of the Cameron-Martin-Girsanov theorem.
+
+All stochastic processes handled in this textbook are variations of Brownian motion, so the Cameron-Martin-Girsanov theorem is a useful tool for manipulating drift.
+
+Let's consider a stochastic process $X$ whose differential form is given as:
+$$
+	dX_{t}
+	\ = \
+	\sigma_{t} dW_{t}
+	+
+	\mu_{t} dt
+$$
+where $W_{t}$ is a $\mathbb{P}$-Brownian motion.
+
+The drift of this stochastic process has the functional form $\mu_{t}$, but we'd like to change it to another functional form, $\nu_{t}$.
+
+${}$
+
+Let $\mathbb{Q}$ be a probability measure under which the drift of the stochastic process $X_{t}$ is $\nu_{t}$.
+
+If we denote the $\mathbb{Q}$-Brownian motion as $\tilde{W}_{t}$, the differential form of the stochastic process $X_{t}$ can be written as:
+$$
+	dX_{t}
+	\ = \
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\nu_{t} dt
+$$
+Note that the volatility, $\sigma_{t}$, does not change with the measure transformation.
+
+Setting the two right-hand sides equal, we get:
+$$
+	\sigma_{t} dW_{t}
+	+
+	\mu_{t} dt
+	\ = \
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\nu_{t} dt
+$$
+From this, we can see the relationship:
+$$
+	d \tilde{W}_{t}
+	\ = \
+	d W_{t}
+	+
+	\dfrac{ \mu_{t} - \nu_{t} }{\sigma_{t}}
+	dt
+$$
+If we write the coefficient of $dt$ as $\gamma_{t}$, then:
+$$
+	\gamma_{t}
+	\ = \
+	\dfrac{ \mu_{t} - \nu_{t} }{\sigma_{t}}
+$$
+
+If this satisfies the condition of the Cameron-Martin-Girsanov theorem,
+$$
+	{\bf E}_{\mathbb{P}} \exp \left( \dfrac{1}{2} \int^{T}_{0} \gamma_{t}^{2} dt \right)
+	\ < \
+	\infty
+$$
+then a measure $\mathbb{Q}$ exists such that
+$$
+	\tilde{W}_{t}
+	\ = \
+	W_{t}
+	+
+	\int^{t}_{0}
+	\dfrac{ \mu_{s} - \nu_{s} }{\sigma_{s}}
+	ds
+$$
+is a $\mathbb{Q}$-Brownian motion.
+\section{Example - Measure Transformation}
+
+\subsection{Example 1: A Constant Multiple of a Q-Brownian Motion}
+
+Let's consider a stochastic process like:
+$$
+	X_{t}
+	\ = \
+	\sigma W_{t}
+	+
+	\mu t
+$$
+where $W_{t}$ is a $\mathbb{P}$-Brownian motion and $\sigma$ and $\mu$ are constants.
+
+If we set $\gamma = \dfrac{\mu}{\sigma}$ and use the Cameron-Martin-Girsanov theorem, then
+$$
+	\tilde{W}_{t}
+	\ = \
+	W_{t}
+	+
+	\dfrac{\mu}{\sigma} t
+$$
+becomes a $\mathbb{Q}$-Brownian motion up to time $T$.
+
+If we express $X_{t}$ using the $\mathbb{Q}$-Brownian motion $\tilde{W}_{t}$, it becomes:
+
+$$
+	X_{t}
+	\ = \
+	\sigma \tilde{W}_{t}
+$$
+The drift term disappears, and we can say that $X_{t}$ is a $\mathbb{Q}$-martingale (a concept that will be introduced in a later section).
+${}$
+
+Using different measures results in different expectations. Let's find the expectation of $X_{t}^{2}$ under each measure.
+
+Using the $\mathbb{P}$-Brownian motion,
+$$
+	X^{2}_{t}
+	\ = \
+	\sigma^{2} W^{2}_{t}
+	+
+	\mu^{2} t^{2}
+	+ 2 \sigma \mu W_{t} t
+$$
+Using the $\mathbb{Q}$-Brownian motion,
+$$
+	X^{2}_{t}
+	\ = \
+	\sigma^{2} \tilde{W}^{2}_{t}
+$$
+Therefore:
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}} (X^{2}_{t})
+	&=&
+	\mu^{2} t^{2}
+	+
+	\sigma^{2} t
+	\\
+	{\bf E}_{\mathbb{Q}} (X^{2}_{t})
+	&=&
+	\sigma^{2} t
+\end{eqnarray*}
+%
+The results are indeed different.
+\subsection{Example 2: Geometric Brownian Motion}
+
+Let's consider a stochastic process $X_{t}$ whose stochastic differential equation is:
+$$
+	d X_{t}
+	\ = \
+	X_{t}
+	(
+	\sigma dW_{t}
+	+
+	\mu dt
+	)
+$$
+where $W_{t}$ is a $\mathbb{P}$-Brownian motion and $\sigma$ and $\mu$ are constants.
+
+We want to see if we can transform this stochastic differential equation into:
+$$
+	d X_{t}
+	\ = \
+	X_{t}
+	(
+	\sigma d \tilde{W}_{t}
+	+
+	\nu dt
+	)
+$$
+using a different measure, $\mathbb{Q}$, with its Brownian motion $\tilde{W}_{t}$.
+
+${}$
+
+Similar to the previous examples, if we consider a $\tilde{W}_{t}$ that satisfies:
+$$
+	\sigma W_{t}
+	+
+	\mu t
+	\ = \
+	\sigma \tilde{W}_{t}
+	+
+	\nu t
+$$
+we can see that we need:
+$$
+	d \tilde{W}_{t}
+	\ = \
+	d W_{t}
+	+
+	\dfrac{ \mu - \nu }{\sigma}
+	dt
+$$
+to hold.
+
+The condition for the Cameron-Martin-Girsanov theorem to be applicable,
+%
+\begin{eqnarray*}
+	{\bf E}_{\mathbb{P}} \exp \left( \dfrac{1}{2} \int^{T}_{0}
+	\left( \dfrac{ \mu - \nu }{\sigma} \right)^{2} dt \right)
+	&=&
+	\dfrac{1}{2}
+	\left( \dfrac{ \mu - \nu }{\sigma} \right)^{2}
+	T
+	\\ &<&
+	\infty
+\end{eqnarray*}
+%
+is satisfied, as long as $\mu$, $\nu$, and $\sigma$ are constants.
+
+This confirms that a measure $\mathbb{Q}$ exists under which $\tilde{W}_{t}$ is a Brownian motion, just as we hypothesized.
+
+${}$
+
+(Therefore, we've shown that we can transform the stochastic differential equation into:
+$$
+	d X_{t}
+	\ = \
+	X_{t}
+	(
+	\sigma \tilde{W}_{t}
+	+
+	\nu t
+	)
+$$
+using a Brownian motion $\tilde{W}_{t}$ under measure $\mathbb{Q}$.)
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Martin Baxter, Andrew Rennie. \textit{Financial Calculus - An Introduction to Derivative Pricing}.
+\end{thebibliography}
+
+\end{document}
