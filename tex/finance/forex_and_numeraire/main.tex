@@ -1,0 +1,1024 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{Foreign Exchange and Numeraire}
+\author{Masaru Okada
+}
+\date{ \today }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	These are my self-study notes for Chapter 3 of 'Financial Calculus: An Introduction to Derivative Pricing' by Martin Baxter and Andrew Rennie. Written on June 3, 2020.
+\end{abstract}
+
+The fundamental assets in the foreign exchange market are currencies.
+
+Holding currency, just like holding a stock, involves risk.
+
+For example, the exchange rate for one Japanese yen to US dollars, like a stock price, fluctuates from moment to moment.
+
+This inherent risk gives rise to the demand for derivatives.
+
+\section{The Black-Scholes Currency Model}
+
+Let's denote the US dollar bond as $B_{t}$, the Japanese yen bond as $D_{t}$, and the exchange rate as $C_{t}$ (where 1 JPY $= C_{t}$ USD).
+
+The Black-Scholes currency model then gives us the following equations:
+%
+%
+%
+\begin{eqnarray*}
+	B_{t}
+	&=&
+	e^{rt}
+	\\
+	D_{t}
+	&=&
+	e^{ut}
+	\\
+	C_{t}
+	&=&
+	C_{0} \exp (\sigma W_{t} + \mu t )
+\end{eqnarray*}
+%
+%
+%
+Here, $W_{t}$ is a $\mathbb{P}$-Brownian motion, and $r,u,\sigma,\mu$ are constants.
+
+\subsection{For the US Dollar-Based Investor}
+
+A US dollar-based investor can trade two types of assets: the US dollar bond $B_{t}$ and the yen bond converted to dollars, $C_{t}D_{t}$. Just as in the standard Black-Scholes model for stocks and bonds, a replicating portfolio can be constructed.
+
+${}$
+
+While $C_{t}$ represents the dollar price of one yen, the dollar-based investor cannot trade the yen in its raw cash form. If this were possible, it would create an arbitrage opportunity against holding yen bonds. Cash has a zero interest rate, while the yen bond yields an interest rate of $u$. As a result, market participants could make infinite profits by going long on an arbitrary amount of yen bonds and shorting the cash itself.
+
+${}$
+
+The asset $C_{t} D_{t}$ is tradable in dollars. It represents the dollar-denominated price of the yen bond, $D_{t}$.
+
+With these two stochastic processes, $B_{t}$ and $C_{t}D_{t}$, we can construct a replicating portfolio.
+
+\subsubsection{Constructing the Replicating Portfolio}
+
+Using the tradable assets $B_{t}$ and $C_{t}D_{t}$, we can construct a replicating portfolio for a contract $X$ and determine its price using the no-arbitrage principle. This is done in three main steps:
+
+${}$
+
+\ \ \ \ 1. \ \ Find a measure $\mathbb{Q}^{\$}$ under which the process for the yen bond discounted by the dollar bond, $Z_{t} = B^{-1}_{t} C_{t} D_{t}$, becomes a martingale.
+
+\ \ \ \ 2. \ \ Transform the contract $X$ into a process $E_{t} = \mathbb{E}_{\mathbb{Q}^{\$}}(B_{T}^{-1}X|\mathcal{F}_{t})$.
+
+\ \ \ \ 3. \ \ Find a predictable process $\phi_{t}$ such that $dE_{t}=\phi_{t} dZ_{t}$.
+
+${}$
+The process for the yen bond discounted by the dollar bond, $Z_{t}$, is:
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	B^{-1}_{t} C_{t} D_{t}
+	\\ &=&
+	e^{-rt} e^{ut} C_{0} \exp (\sigma W_{t} + \mu t )
+	\\ &=&
+	C_{0} \exp \big[ \sigma W_{t} + (\mu + u - r)t \big]
+\end{eqnarray*}
+%
+%
+Its stochastic differential is:
+%
+%
+\begin{eqnarray*}
+	d Z_{t}
+	&=&
+	\left(
+	\dfrac{\partial Z_{t}}{\partial t}
+	\right)
+	dt
+	+
+	\left(
+	\dfrac{\partial Z_{t}}{\partial x}
+	\right)
+	d W_{t}
+	+
+	\dfrac{1}{2!}
+	\left(
+	\dfrac{\partial^{2} Z_{t}}{\partial x^{2}}
+	\right)
+	(d W_{t})^{2}
+	\\
+	\dfrac{dZ_{t}}{Z_{t}}
+	&=&
+	\left(
+	\mu + u - r + \dfrac{1}{2} \sigma^{2}
+	\right)
+	dt
+	+
+	\sigma d W_{t}
+\end{eqnarray*}
+%
+%
+
+Now, we apply Girsanov's theorem.
+%
+%
+\begin{eqnarray*}
+	\gamma
+	\ = \
+	\dfrac{ \mu + u - r + \dfrac{1}{2} \sigma^{2} }{\sigma}
+\end{eqnarray*}
+%
+%
+By using this $\gamma$, the stochastic differential for the Brownian motion $W^{\$}_{t}$ under the measure $\mathbb{Q}^{\$}$ that makes $Z_{t}$ a martingale should be:
+%
+%
+\begin{eqnarray*}
+	d W^{\$}_{t}
+	&=&
+	d W_{t}
+	+
+	\gamma dt
+\end{eqnarray*}
+%
+%
+Furthermore, according to the Radon-Nikodym theorem, such a measure $\mathbb{Q}^{\$}$ is defined by:
+%
+%
+\begin{eqnarray*}
+	\dfrac{ d \mathbb{Q}^{\$} }{ d \mathbb{P} }
+	&=&
+	\exp
+	\left(
+	- \int^{T}_{0} \gamma dW_{t}
+	- \dfrac{1}{2} \int^{T}_{0} \gamma^{2} dt
+	\right)
+	\\ &=&
+	\exp
+	\left(
+	-\gamma W_{T}
+	- \dfrac{1}{2} \gamma^{2}T
+	\right)
+\end{eqnarray*}
+%
+%
+Under this measure $\mathbb{Q}^{\$}$, we have:
+%
+%
+\begin{eqnarray*}
+	\dfrac{ d Z_{t} }{ Z_{t} }
+	&=&
+	\sigma dW^{\$}_{t}
+	\\
+	Z_{t}
+	&=&
+	Z_{0} \exp
+	\left(
+	\int^{t}_{0} \sigma dW^{\$}_{s}
+	-
+	\dfrac{1}{2}
+	\int^{t}_{0} \sigma^{2} ds
+	\right)
+	\\ &=&
+	C_{0}
+	\exp
+	\left(
+	\sigma W^{\$}_{t}
+	-
+	\dfrac{1}{2}
+	\sigma^{2} t
+	\right)
+	\\
+	C_{t}
+	&=&
+	B_{t} Z_{t} D^{-1}_{t}
+	\\ &=&
+	e^{rt}
+	C_{0}
+	\exp
+	\left(
+	\sigma W^{\$}_{t}
+	-
+	\dfrac{1}{2}
+	\sigma^{2} t
+	\right)
+	e^{-ut}
+	\\ &=&
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{t}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) t
+		\right]
+\end{eqnarray*}
+%
+%
+This holds.
+
+We define the conditional expectation under the measure $\mathbb{Q}^{\$}$ and the filtration $\mathcal{F}_{t}$ as:
+$$
+	E_{t}
+	\ = \
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{t} )
+$$
+For $s(<t)$, we get:
+%
+%
+\begin{eqnarray*}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( E_{t} | \mathcal{F}_{s} )
+	&=&
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	\Big(
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{t} )
+	\Big| \mathcal{F}_{s} \Big)
+	\\ &=&
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{s} )
+	\\ &=&
+	E_{s}
+\end{eqnarray*}
+%
+%
+So, $E_{t}$ is a $\mathbb{Q}^{ \$ }$-martingale. By the martingale representation theorem, a predictable process exists such that:
+$$
+	dE_{t} \ = \ \phi_{t} dZ_{t}
+$$
+We want to find the holdings of dollar-denominated currency, $S_{t} = C_{t} D_{t}$, and the holdings of the dollar bond, $B_{t}$, needed to construct the replicating portfolio at time $t$. Let these be $\phi_{t}$ and $\psi_{t}$, respectively.
+
+The value of the replicating portfolio, $V_{t}$, is:
+$$
+	V_{t}
+	\ = \
+	\phi_{t} S_{t} + \psi_{t} B_{t}
+$$
+At maturity, the portfolio is identical to the contract, so:
+$$
+	X
+	\ = \
+	\phi_{T} S_{T} + \psi_{T} B_{T}
+$$
+The $\mathbb{Q}^{\$}$-martingale $E_{t}$ we constructed earlier becomes at $t=T$:
+%
+%
+\begin{eqnarray*}
+	E_{T}
+	&=&
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{T} )
+	\\ &=&
+	B_{T}^{-1} X
+\end{eqnarray*}
+%
+%
+Which means:
+$$
+	B_{T} E_{T}
+	\ = \
+	X
+	\ = \
+	\phi_{T} S_{T} + \psi_{T} B_{T}
+$$
+If this equality, $B_{t} E_{t} = V_{t} = \phi_{t} S_{t} + \psi_{t} B_{t}$, holds for all $t$, not just at $T$, then the dollar bond holdings $\psi_{t}$ of the replicating portfolio can be found by rearranging the equation:
+$$
+	\psi_{t}
+	\ = \
+	E_{t} - \phi_{t} Z_{t}
+$$
+Let's check if this assumption is correct.
+
+${}$
+
+Taking the stochastic differential of $V_{t} = B_{t} E_{t}$, and using the facts that $dE_{t} = \phi_{t} dZ_{t}$ and $E_{t} = \phi_{t} Z_{t} + \psi_{t}$, we get:
+%
+%
+\begin{eqnarray*}
+	d V_{t}
+	&=&
+	B_{t} d E_{t}
+	+
+	E_{t} d B_{t}
+	\\ &=&
+	B_{t} ( \phi_{t} dZ_{t} )
+	+
+	( \phi_{t} Z_{t} + \psi_{t} ) d B_{t}
+	\\ &=&
+	\phi_{t}
+	(B_{t} dZ_{t} + Z_{t} dB_{t})
+	+
+	\psi_{t}
+	dB_{t}
+	\\ &=&
+	\phi_{t}
+	dS_{t}
+	+
+	\psi_{t}
+	dB_{t}
+\end{eqnarray*}
+%
+%
+The portfolio is indeed self-financing. This confirms that we can construct a replicating portfolio by assuming dollar bond holdings are $\psi_{t} = E_{t} - \phi_{t} Z_{t}$.
+
+${}$
+
+The value of the portfolio that replicates contract $X$ is $V_{t}$. We've found that it can be expressed using the measure $\mathbb{Q}^{ \$ }$ that makes the dollar-denominated currency price $Z_{t}$ a martingale, as follows:
+$$
+	V_{t}
+	=
+	B_{t} E_{t}
+	\ = \
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{t} )
+$$
+\subsection{The Forward Contract}
+
+Let's consider a contract to buy one yen for $k$ dollars at a future time $T(>t)$.
+
+The payoff at time $T$ is:
+%
+%
+\begin{eqnarray*}
+	X
+	&=&
+	C_{T} - k
+	\\ &=&
+	C_{0} \exp (\sigma W_{T} + \mu T) - k
+	\\ &=&
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{T}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	- k
+\end{eqnarray*}
+%
+%
+The value at any time $t$ is:
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( C_{T} - k | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	\Big(
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{T}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	- k
+	\Big| \mathcal{F}_{t} \Big)
+\end{eqnarray*}
+%
+%
+The value of the contract at time zero (the present) should be zero under the no-arbitrage condition.
+%
+%
+\begin{eqnarray*}
+	0
+	&=&
+	V_{0}
+	\\ &=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{T}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	- e^{-rT} k
+\end{eqnarray*}
+%
+%
+Therefore, the no-arbitrage delivery price $F$ (the value of $k$ for which $V_{0}=0$ at $t=0$) is:
+%
+%
+\begin{eqnarray*}
+	F
+	&=&
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{T}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	\\ &=&
+	C_{0}
+	\exp
+	\left[
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	\times
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	\exp
+	\sigma W^{\$}_{T}
+	\\ &=&
+	C_{0}
+	\exp
+	\left[
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	\times
+	\exp
+	\left(
+	\dfrac{1}{2}
+	\sigma^{2} T
+	\right)
+	\\ &=&
+	C_{0}
+	e^{(r-u)T}
+\end{eqnarray*}
+%
+%
+This value is equal to the yen-dollar exchange rate discounted by the interest rate difference between the two currencies.
+
+Using $F$, we can also find the value of the forward contract at time $t$, $V_{t}$.
+
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	(
+	C_{T} - F
+	| \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	(
+	C_{T}
+	| \mathcal{F}_{t} )
+	- e^{-r(T-t)} F
+	\\ &=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	(B_{T}^{-1} C_{T} | \mathcal{F}_{t} )
+	- e^{-r(T-t)} C_{0} e^{(r-u)T}
+	\\ &=&
+	C_{t} - e^{-uT} e^{rt} C_{0}
+	\\ &=&
+	e^{-uT}
+	\left(
+	e^{uT} C_{t}
+	- e^{rt} C_{0}
+	\right)
+\end{eqnarray*}
+%
+%
+
+The discounted value of the portfolio is:
+%
+%
+\begin{eqnarray*}
+	E_{t}
+	&=&
+	B^{-1}_{t} V_{t}
+	\\ &=&
+	e^{-rt}
+	e^{-uT}
+	\left(
+	e^{uT} C_{t}
+	- e^{rt} C_{0}
+	\right)
+	\\ &=&
+	e^{-rt} C_{t} - e^{-uT} C_{0}
+	\\ &=&
+	e^{uT} Z_{t} - e^{-uT} C_{0}
+\end{eqnarray*}
+%
+%
+\footnote{The final equation isn't right. Working backward, we see $e^{uT}Z_{t}=e^{uT}(B_{t}^{-1} C_{t} D_{t})=e^{uT} e^{-rt} C_{t} e^{ut}$. Some calculation must be incorrect.}
+The stochastic differential is $dE_{t} = e^{-uT} dZ_{t}$.
+The holdings of stock $\phi_{t}$ and bonds $\psi_{t}$ needed to construct the replicating portfolio are constant with respect to $t$:
+%
+%
+\begin{eqnarray*}
+	\phi_{t} &=& e^{-uT} = D_{T}^{-1}
+	\\[3mm]
+	\psi_{t} &=& E_{t} - \phi_{t} Z_{t}
+	\\ &=&
+	(e^{uT} Z_{t} - e^{-uT} C_{0}) - e^{-uT} Z_{t}
+	\\ &=&
+	- e^{-uT} C_{0}
+	\\ &=&
+	- D_{T}^{-1} C_{0}
+\end{eqnarray*}
+%
+%
+\footnote{The value for $\psi_{t}$ doesn't match the textbook. The exponent sign for the coefficient of $Z_{t}$ is different.}
+
+\subsection{For the Japanese Yen-Based Investor}
+
+Unlike the US dollar-based investor, the Japanese yen-based investor is interested in the yen-denominated prices of tradable assets.
+
+First, the yen bond $D_{t} = e^{ut}$ is tradable.
+
+Furthermore, the dollar bond denominated in yen, $C^{-1}_{t} B_{t}$, is also tradable.
+
+If we consider the exchange rate of one dollar to yen, $C^{-1}_{t}$, we have:
+%
+%
+\begin{eqnarray*}
+	C^{-1}_{t}
+	&=&
+	C_{0}^{-1}
+	\exp ( - \sigma W_{t} - \mu t )
+\end{eqnarray*}
+%
+%
+With these two assets, the yen bond $D_{t}$ and the yen-denominated dollar bond $C^{-1}_{t} B_{t}$, we can replicate a risk-free portfolio.
+
+The price of the dollar bond discounted by the yen bond is:
+%
+%
+\begin{eqnarray*}
+	Y_{t}
+	&=&
+	D^{-1}_{t}
+	C^{-1}_{t}
+	B_{t}
+	\\ &=&
+	e^{-ut}
+	C_{0}^{-1}
+	\exp ( - \sigma W_{t} - \mu t )
+	e^{rt}
+	\\ &=&
+	C_{0}^{-1}
+	\exp ( - \sigma W_{t} - (\mu + u -r) t )
+\end{eqnarray*}
+%
+%
+The stochastic differential is:
+%
+%
+\begin{eqnarray*}
+	d Y_{t}
+	&=&
+	\dfrac{\partial Y_{t}}{\partial t} dt
+	+
+	\dfrac{\partial Y_{t}}{\partial x} dW_{t}
+	+
+	\dfrac{1}{2!}
+	\dfrac{\partial^{2} Y_{t}}{\partial x^{2}} (dW_{t})^{2}
+	\\ &=&
+	- (\mu + u -r) Y_{t} dt
+	- \sigma Y_{t} d W_{t}
+	+ \dfrac{1}{2} \sigma^{2} Y_{t} dt
+	\\[3mm]
+	\dfrac{dY_{t}}{Y_{t}}
+	&=&
+	- \sigma d W_{t}
+	- \left( \mu + u -r + \dfrac{1}{2} \sigma^{2} \right) dt
+\end{eqnarray*}
+%
+%
+Therefore, for $W^{\tilde{\mathbb{Q}}}_{t}$ to be a $\tilde{\mathbb{Q}}$-Brownian motion, we need to introduce a new measure $\tilde{\mathbb{Q}}$ such that the discounted price $Y_{t}$ becomes a martingale.
+%
+%
+\begin{eqnarray*}
+	d W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	d W_{t}
+	+
+	\dfrac{\mu + u -r + \dfrac{1}{2} \sigma^{2}}{\sigma} dt
+	\\
+	W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	W_{t}
+	+
+	\dfrac{\mu + u -r + \dfrac{1}{2} \sigma^{2}}{\sigma} t
+\end{eqnarray*}
+%
+%
+\subsection*{Option Pricing in the Yen World}
+
+A yen-denominated payoff $X$ at time $T$ has a value at time $t$ of:
+$$
+	U_{t}
+	\ = \
+	D_{t}
+	\mathbb{E}_{\tilde{\mathbb{Q}}}
+	( D^{-1}_{T} X | \mathcal{F}_{t} )
+$$
+Here, $\tilde{\mathbb{Q}}$ is the martingale measure for $Y_{t}$, the asset value discounted by the yen bond.
+
+\subsection{Changing the Numeraire}
+
+A concern arises: will the US dollar-based investor and the Japanese yen-based investor value the same security differently?
+
+In the dollar world, the value of a payoff $X$ at time $t$ is:
+$$
+	V_{t}
+	\ = \
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{\$}}
+	( B^{-1}_{T} X | \mathcal{F}_{t} )
+$$
+The unit is dollars.
+
+In the yen world, the same contract is a payment of $C^{-1}_{T} X$ yen, not $X$ dollars. Therefore, its value at time $t$ is:
+$$
+	U_{t}
+	\ = \
+	D_{t}
+	\mathbb{E}_{\tilde{\mathbb{Q}}}
+	( D^{-1}_{T} ( C^{-1}_{T} X ) | \mathcal{F}_{t} )
+$$
+The unit is yen.
+
+Do these two values actually coincide?
+
+Is the dollar-equivalent value of the price determined in the yen world, $C_{t} U_{t}$, equal to the original $V_{t}$?
+
+${}$
+
+The $\mathbb{Q}^{\$}$-Brownian motion $W^{\mathbb{Q}^{\$}}_{t}$ and the $\tilde{\mathbb{Q}}$-Brownian motion $W^{\tilde{\mathbb{Q}}}_{t}$ are expressed using the $\mathbb{P}$-Brownian motion $W_{t}$ as follows:
+%
+%
+\begin{eqnarray*}
+	W^{\mathbb{Q}^{\$}}_{t}
+	&=&
+	W_{t}
+	+
+	\dfrac{\mu + u -r - \dfrac{1}{2} \sigma^{2}}{\sigma} t
+	\\
+	W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	W_{t}
+	+
+	\dfrac{\mu + u -r + \dfrac{1}{2} \sigma^{2}}{\sigma} t
+\end{eqnarray*}
+%
+%
+This means:
+%
+%
+\begin{eqnarray*}
+	W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	W^{\mathbb{Q}^{\$}}_{t}
+	-
+	\sigma t
+	\\
+	d W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	d W^{\mathbb{Q}^{\$}}_{t}
+	-
+	\sigma d t
+\end{eqnarray*}
+%
+%
+Therefore, by the reverse of Girsanov's theorem, the Radon-Nikodym derivative must be:
+%
+%
+\begin{eqnarray*}
+	\dfrac{d \tilde{\mathbb{Q}}}{d \mathbb{Q}^{\$}}
+	&=&
+	\exp
+	\left(
+	- \int^{T}_{0} (- \sigma) d W^{\mathbb{Q}^{\$}}_{t}
+	- \dfrac{1}{2} \int^{T}_{0} ( - \sigma)^{2} d t
+	\right)
+	\\ &=&
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{T}
+	- \dfrac{1}{2} \sigma^{2} T
+	\right)
+\end{eqnarray*}
+%
+%
+Taking the conditional expectation of this Radon-Nikodym derivative under the measure $\mathbb{Q}^{\$}$ and the filtration $\mathcal{F}_{t}$, we get:
+%
+%
+\begin{eqnarray*}
+	\xi_{t}
+	&=&
+	\mathbb{E}_{Q^{\$}}
+	\left(
+	\left.
+	\dfrac{d \tilde{\mathbb{Q}}}{d \mathbb{Q}^{\$}}
+	\right|
+	\mathcal{F}_{t}
+	\right)
+	\\ &=&
+	\mathbb{E}_{Q^{\$}}
+	\left[
+		\left.
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{T}
+		- \dfrac{1}{2} \sigma^{2} T
+		\right)
+		\right|
+		\mathcal{F}_{t}
+		\right]
+	\\ &=&
+	\exp
+	\left(
+	- \dfrac{1}{2} \sigma^{2} T
+	\right)
+	\\ && \hspace{-5mm} \times \
+	\mathbb{E}_{Q^{\$}}
+	\left[
+		\left.
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\exp
+		\left\{
+		\sigma
+		\left(
+		W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\right\}
+		\right|
+		\mathcal{F}_{t}
+		\right]
+\end{eqnarray*}
+%
+%
+The factor inside the expectation is:
+%
+%
+\begin{eqnarray*}
+	&&
+	\exp
+	\left\{
+	\sigma
+	\left(
+	W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+	\right\}
+	\\ &=&
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	\dfrac{
+		W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+	}
+	{
+		\sqrt{T-t}
+	}
+	\right\}
+\end{eqnarray*}
+%
+%
+This factor,
+$$
+	\dfrac{
+		W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+	}
+	{
+		\sqrt{T-t}
+	}
+$$
+is a standard normal random variable following an $N(0,1)$ distribution under the measure $\mathbb{Q}^{\$}$. Let's call this variable $Z$.
+
+The expectation can then be broken down into a product of a $\mathcal{F}_{t}$-measurable factor,
+$$
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+$$
+and an $\mathcal{F}_{t}$-independent random variable,
+$$
+	\exp
+	\left(
+	Z \sigma \sqrt{T-t}
+	\right)
+$$
+Thus:
+%
+%
+\begin{eqnarray*}
+	&&
+	\hspace{-10mm}
+	\mathbb{E}_{Q^{\$}}
+	\left[
+		\left.
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\exp
+		\left(
+		\sigma
+		\sqrt{T-t}
+		\dfrac{
+			W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+		}
+		{
+			\sqrt{T-t}
+		}
+		\right)
+		\right|
+		\mathcal{F}_{t}
+		\right]
+	\\ &=&
+	\mathbb{E}
+	\left[
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\exp
+		\left(
+		Z \sigma \sqrt{T-t}
+		\right)
+		\right]
+	\\ &=&
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\int^{\infty}_{- \infty}
+	\exp
+	\left(
+	z \sigma \sqrt{T-t}
+	\right)
+	e^{- \frac{1}{2} z^{2}}
+	dz
+	\\ &=&
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+	\exp
+	\left(
+	\dfrac{1}{2} \left( \sigma \sqrt{T-t} \right)^{2}
+	\right)
+\end{eqnarray*}
+%
+%
+From the above, we can derive:
+%
+%
+\begin{eqnarray*}
+	\xi_{t}
+	&=&
+	\mathbb{E}_{Q^{\$}}
+	\left(
+	\left.
+	\dfrac{d \tilde{\mathbb{Q}}}{d \mathbb{Q}^{\$}}
+	\right|
+	\mathcal{F}_{t}
+	\right)
+	\\ &=&
+	\exp
+	\left(
+	- \dfrac{1}{2} \sigma^{2} T
+	\right)
+	\\ && \hspace{-15mm} \times \
+	\mathbb{E}_{Q^{\$}}
+	\left[
+		\left.
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\exp
+		\left\{
+		\sigma
+		\left(
+		W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\right\}
+		\right|
+		\mathcal{F}_{t}
+		\right]
+	\\ &=&
+	\exp
+	\left(
+	- \dfrac{1}{2} \sigma^{2} T
+	\right)
+	\\ && \hspace{-15mm} \times \
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+	\exp
+	\left(
+	\dfrac{1}{2} \left( \sigma \sqrt{T-t} \right)^{2}
+	\right)
+	\\ &=&
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t} - \dfrac{1}{2} \sigma^{2} t
+	\right)
+\end{eqnarray*}
+%
+%
+We have already shown that the price of the yen bond discounted by the dollar bond is:
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	B^{-1}_{t}
+	C_{t}
+	D_{t}
+	\\ &=&
+	C_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t} - \dfrac{1}{2} \sigma^{2} t
+	\right)
+	\\ &=&
+	C_{0} \xi_{t}
+\end{eqnarray*}
+%
+%
+Therefore, the price of the yen bond discounted by the dollar bond, $Z_{t}$, is proportional to the Radon-Nikodym process $\xi_{t}$.
+
+${}$
+
+Using this process, the dollar-converted value of the price set in the yen world, $C_{t} U_{t}$ (where $U_{t}$ is the price for the payoff $C^{-1}_{T} X$ described earlier), is:
+%
+%
+\begin{eqnarray*}
+	C_{t} U_{t}
+	&=&
+	C_{t}
+	D_{t}
+	\mathbb{E}_{\tilde{\mathbb{Q}}}
+	( D^{-1}_{T} ( C^{-1}_{T} X ) | \mathcal{F}_{t} )
+	\\ &=&
+	C_{t} D_{t} \xi^{-1}_{t}
+	\mathbb{E}_{\mathbb{Q}^{\$}}
+	( \xi^{-1}_{T} D^{-1}_{T}  C^{-1}_{T} X | \mathcal{F}_{t} )
+	\\ &=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{\$}}
+	( B^{-1}_{T} X | \mathcal{F}_{t} )
+	\\ &=&
+	V_{t}
+\end{eqnarray*}
+%
+%
+This shows that a dollar-denominated payoff $X$ at time $T$ has the same value at any time $t(<T)$, regardless of whether it is priced from the dollar world or the yen world.
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+\end{document}

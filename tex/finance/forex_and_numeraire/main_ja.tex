@@ -1,0 +1,1705 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{外国為替とニューメレール}
+\author{Masaru Okada
+}
+\date{ \today }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie の3章の自主ゼミのノート。2020年6月3日に書いたもの。
+\end{abstract}
+
+外国為替市場における基本資産は通貨である。
+
+通貨の保有は株式の保有と同様にリスクを伴う。
+
+例えば1円は何ドルかという為替レートは株価と同じく、
+刻一刻と値が変動している。
+
+このリスクの存在からデリバティブの需要が生まれる。
+\section{Black-Scholes通貨モデル}
+
+ドル債券$B_{t}$、円債券$D_{t}$、為替レート$C_{t}$
+（1円$=C_{t}$ドル）とする。
+
+このとき、Black-Scholesによる通貨モデルは、
+%
+%
+%
+\begin{eqnarray*}
+	B_{t}
+	&=&
+	e^{rt}
+	\\
+	D_{t}
+	&=&
+	e^{ut}
+	\\
+	C_{t}
+	&=&
+	C_{0} \exp (\sigma W_{t} + \mu t )
+\end{eqnarray*}
+%
+%
+%
+ただし$W_{t}$は$\mathbb{P}$-Brown運動であり、$r,u,\sigma,\mu$は定数とする。
+
+\subsection{ドルの世界の投資家}
+
+ドルの世界の投資家は2種類の資産（$B_{t}$と$C_{t}D_{t}$）が取引可能であり、
+Black-Scholesモデルで株と債券を考えたときのように
+複製ポートフォリオを構築することができる。
+
+${}$
+
+$C_{t}$は1円のドル建て価格を表しているが、
+円の現金自体はドルの世界の投資家は取引できない。
+
+なぜならば、もし取引可能だと仮定すると、
+現金そのものを持つことがキャッシュボンドの保有に対して裁定機会を
+生んでしまうからである。
+（現金は利子率がゼロだが円債からは利子率$u$が発生するので、
+市場参加者は任意の量の円債をロングして現金をショートすることで
+無限の利益を得られることになってしまう。）
+
+${}$
+
+$C_{t} D_{t}$はドルによって取引が可能な資産である。
+円債$D_{t}$のドル建て価格を表している。
+
+以上の2つの確率過程$B_{t}$、$C_{t}D_{t}$を用いて
+複製ポートフォリオを構築する。
+\subsubsection{複製ポートフォリオの構築}
+
+取引可能資産
+$B_{t}$、$C_{t}D_{t}$を用いて
+契約$X$の複製ポートフォリオを構築し、無裁定条件より価格を決定する。
+
+以下の3段階で行う。（あらすじ）
+
+${}$
+
+\ \ \ \ 1. \ \ 円債をドル債で割り引いた過程
+$Z_{t} = B^{-1}_{t} C_{t} D_{t}$
+がマルチンゲールになるような
+測度
+$\mathbb{Q}^{\$}$
+を見つける。
+
+\ \ \ \ 2. \ \
+契約$X$を過程
+$E_{t} = \mathbb{E}_{\mathbb{Q}^{\$}}(B_{T}^{-1}X|\mathcal{F}_{t})$
+に変換する。
+
+\ \ \ \ 3. \ \
+$dE_{t}=\phi_{t} dZ_{t}$
+となる可予測過程
+$\phi_{t}$
+を見つける。
+
+${}$
+円債をドル債で割り引いた過程$Z_{t}$は
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	B^{-1}_{t} C_{t} D_{t}
+	\\ &=&
+	e^{-rt} e^{ut} C_{0} \exp (\sigma W_{t} + \mu t )
+	\\ &=&
+	C_{0} \exp \big[ \sigma W_{t} + (\mu + u - r)t \big]
+\end{eqnarray*}
+%
+%
+その確率微分は、
+%
+%
+\begin{eqnarray*}
+	d Z_{t}
+	&=&
+	\left(
+	\dfrac{\partial Z_{t}}{\partial t}
+	\right)
+	dt
+	+
+	\left(
+	\dfrac{\partial Z_{t}}{\partial x}
+	\right)
+	d W_{t}
+	+
+	\dfrac{1}{2!}
+	\left(
+	\dfrac{\partial^{2} Z_{t}}{\partial x^{2}}
+	\right)
+	(d W_{t})^{2}
+	\\
+	\dfrac{dZ_{t}}{Z_{t}}
+	&=&
+	\left(
+	\mu + u - r + \dfrac{1}{2} \sigma^{2}
+	\right)
+	dt
+	+
+	\sigma d W_{t}
+\end{eqnarray*}
+%
+%
+
+ここにGirsanovの定理を適応する。
+%
+%
+\begin{eqnarray*}
+	\gamma
+	\ = \
+	\dfrac{ \mu + u - r + \dfrac{1}{2} \sigma^{2} }{\sigma}
+\end{eqnarray*}
+%
+%
+を用いて、
+$Z_{t}$
+がマルチンゲールになるような測度$\mathbb{Q}^{\$}$の下での
+Brown運動$W^{\$}_{t}$の確率微分が
+%
+%
+\begin{eqnarray*}
+	d W^{\$}_{t}
+	&=&
+	d W_{t}
+	+
+	\gamma dt
+\end{eqnarray*}
+%
+%
+になればよく、
+またRadon-Nikodymの定理によってそのような測度$\mathbb{Q}^{\$}$は次で定義される。
+%
+%
+\begin{eqnarray*}
+	\dfrac{ d \mathbb{Q}^{\$} }{ d \mathbb{P} }
+	&=&
+	\exp
+	\left(
+	- \int^{T}_{0} \gamma dW_{t}
+	- \dfrac{1}{2} \int^{T}_{0} \gamma^{2} dt
+	\right)
+	\\ &=&
+	\exp
+	\left(
+	-\gamma W_{T}
+	- \dfrac{1}{2} \gamma^{2}T
+	\right)
+\end{eqnarray*}
+%
+%
+このとき測度$\mathbb{Q}^{\$}$の下で、
+%
+%
+\begin{eqnarray*}
+	\dfrac{ d Z_{t} }{ Z_{t} }
+	&=&
+	\sigma dW^{\$}_{t}
+	\\
+	Z_{t}
+	&=&
+	Z_{0} \exp
+	\left(
+	\int^{t}_{0} \sigma dW^{\$}_{s}
+	-
+	\dfrac{1}{2}
+	\int^{t}_{0} \sigma^{2} ds
+	\right)
+	\\ &=&
+	C_{0}
+	\exp
+	\left(
+	\sigma W^{\$}_{t}
+	-
+	\dfrac{1}{2}
+	\sigma^{2} t
+	\right)
+	\\
+	C_{t}
+	&=&
+	B_{t} Z_{t} D^{-1}_{t}
+	\\ &=&
+	e^{rt}
+	C_{0}
+	\exp
+	\left(
+	\sigma W^{\$}_{t}
+	-
+	\dfrac{1}{2}
+	\sigma^{2} t
+	\right)
+	e^{-ut}
+	\\ &=&
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{t}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) t
+		\right]
+\end{eqnarray*}
+%
+%
+となる。
+
+測度$\mathbb{Q}^{\$}$の下で
+フィルトレーション$\mathcal{F}_{t}$の条件付き期待値
+$$
+	E_{t}
+	\ = \
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{t} )
+$$
+を定義する。
+このとき、$s(<t)$に対して、
+%
+%
+\begin{eqnarray*}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( E_{t} | \mathcal{F}_{s} )
+	&=&
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	\Big(
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{t} )
+	\Big| \mathcal{F}_{s} \Big)
+	\\ &=&
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{s} )
+	\\ &=&
+	E_{s}
+\end{eqnarray*}
+%
+%
+となるので$E_{t}$は$\mathbb{Q}^{ \$ }$-マルチンゲールである。
+よって、マルチンゲール表現定理より、
+$$
+	dE_{t} \ = \ \phi_{t} dZ_{t}
+$$
+となるような可予測過程が存在する。
+時刻$t$における複製ポートフォリオ構築のために必要な
+ドル建て通貨$S_{t} = C_{t} D_{t}$の保有量$\phi_{t}$とドル債券$B_{t}$の保有量$\psi_{t}$を求めたい。
+
+複製ポートフォリオの価値$V_{t}$は
+$$
+	V_{t}
+	\ = \
+	\phi_{t} S_{t} + \psi_{t} B_{t}
+$$
+である。満期において契約と全く同一となり、
+$$
+	X
+	\ = \
+	\phi_{T} S_{T} + \psi_{T} B_{T}
+$$
+である。
+一方で先に作った$\mathbb{Q}^{\$}$-マルチンゲール$E_{t}$は$t=T$において、
+%
+%
+\begin{eqnarray*}
+	E_{T}
+	&=&
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{T} )
+	\\ &=&
+	B_{T}^{-1} X
+\end{eqnarray*}
+%
+%
+すなわち、
+$$
+	B_{T} E_{T}
+	\ = \
+	X
+	\ = \
+	\phi_{T} S_{T} + \psi_{T} B_{T}
+$$
+である。
+
+${}$
+
+もし$t=T$だけでなく一般の$t$に対して
+$$
+	B_{t} E_{t}
+	\ = \
+	V_{t}
+	\ = \
+	\phi_{t} S_{t} + \psi_{t} B_{t}
+$$
+であれば、複製ポートフォリオを構成するドル債券の保有量$\psi_{t}$は、等式変形して
+$$
+	\psi_{t}
+	\ = \
+	E_{t} - \phi_{t} Z_{t}
+$$
+となる。この仮定が正しいかを確かめる。
+
+${}$
+
+$V_{t} = B_{t} E_{t}$
+を確率微分する。
+ここで
+$dE_{t} = \phi_{t} dZ_{t}$
+であることと、
+$E_{t} = \phi_{t} Z_{t} + \psi_{t}$
+であることを用いると、
+%
+%
+\begin{eqnarray*}
+	d V_{t}
+	&=&
+	B_{t} d E_{t}
+	+
+	E_{t} d B_{t}
+	\\ &=&
+	B_{t} ( \phi_{t} dZ_{t} )
+	+
+	( \phi_{t} Z_{t} + \psi_{t} ) d B_{t}
+	\\ &=&
+	\phi_{t}
+	(B_{t} dZ_{t} + Z_{t} dB_{t})
+	+
+	\psi_{t}
+	dB_{t}
+	\\ &=&
+	\phi_{t}
+	dS_{t}
+	+
+	\psi_{t}
+	dB_{t}
+\end{eqnarray*}
+%
+%
+となるので、
+このポートフォリオは資金自己調達的である。
+
+よってドル債券の保有量を
+$\psi_{t} = E_{t} - \phi_{t} Z_{t}$
+と仮定しても複製ポートフォリオを構築できることが分かった。
+
+${}$
+
+契約$X$を複製するポートフォリオの価値$V_{t}$は
+ドル建ての通貨価格$Z_{t}$がマルチンゲールとなる測度
+$\mathbb{Q}^{ \$ }$
+を用いて次のように書き表せることが分かった。
+$$
+	V_{t}
+	=
+	B_{t} E_{t}
+	\ = \
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{t} )
+$$
+\subsection{フォワード契約}
+
+将来の時点$T(>t)$において1円を$k$ドルで買う契約を考える。
+
+時点$T$におけるペイオフは
+%
+%
+\begin{eqnarray*}
+	X
+	&=&
+	C_{T} - k
+	\\ &=&
+	C_{0} \exp (\sigma W_{T} + \mu T) - k
+	\\ &=&
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{T}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	- k
+\end{eqnarray*}
+%
+%
+である。一般の時点$t$における価値は
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( C_{T} - k | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	\Big(
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{T}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	- k
+	\Big| \mathcal{F}_{t} \Big)
+\end{eqnarray*}
+%
+%
+ゼロ時点（現在）における契約の価値は無裁定条件からゼロになるべきである。
+%
+%
+\begin{eqnarray*}
+	0
+	&=&
+	V_{0}
+	\\ &=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{T}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	- e^{-rT} k
+\end{eqnarray*}
+%
+%
+よって無裁定な受け渡し価格$F$（$t=0$において$V_{0}=0$となる$k$の値）は、
+%
+%
+\begin{eqnarray*}
+	F
+	&=&
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{T}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	\\ &=&
+	C_{0}
+	\exp
+	\left[
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	\times
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	\exp
+	\sigma W^{\$}_{T}
+	\\ &=&
+	C_{0}
+	\exp
+	\left[
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) T
+		\right]
+	\times
+	\exp
+	\left(
+	\dfrac{1}{2}
+	\sigma^{2} T
+	\right)
+	\\ &=&
+	C_{0}
+	e^{(r-u)T}
+\end{eqnarray*}
+%
+%
+と等しい。
+
+この値は円ドルの為替レートを2通貨間の金利差で割り引いた価格になっている。
+
+$F$を用いることで$t$時点におけるフォワード契約の価格$V_{t}$も求まる。
+
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	(
+	C_{T} - F
+	| \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	(
+	C_{T}
+	| \mathcal{F}_{t} )
+	- e^{-r(T-t)} F
+	\\ &=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	(B_{T}^{-1} C_{T} | \mathcal{F}_{t} )
+	- e^{-r(T-t)} C_{0} e^{(r-u)T}
+	\\ &=&
+	C_{t} - e^{-uT} e^{rt} C_{0}
+	\\ &=&
+	e^{-uT}
+	\left(
+	e^{uT} C_{t}
+	- e^{rt} C_{0}
+	\right)
+\end{eqnarray*}
+%
+%
+
+ポートフォリオの割引価格は
+%
+%
+\begin{eqnarray*}
+	E_{t}
+	&=&
+	B^{-1}_{t} V_{t}
+	\\ &=&
+	e^{-rt}
+	e^{-uT}
+	\left(
+	e^{uT} C_{t}
+	- e^{rt} C_{0}
+	\right)
+	\\ &=&
+	e^{-rt} C_{t} - e^{-uT} C_{0}
+	\\ &=&
+	e^{uT} Z_{t} - e^{-uT} C_{0}
+\end{eqnarray*}
+%
+%
+であるので、
+\footnote{最後の等式に到達できない。逆算すると
+	$e^{uT}Z_{t}
+		=
+		e^{uT}(B_{t}^{-1} C_{t} D_{t})
+		=
+		e^{uT} e^{-rt} C_{t} e^{ut}
+	$
+	である。
+	計算がどこかおかしい。
+}
+$$dE_{t} = e^{-uT} dZ_{t}$$
+である。
+複製ポートフォリオを構築する為の
+株式保有量$\phi_{t}$と債券保有量$\psi_{t}$は
+それぞれ$t$に対して定数になる。
+%
+%
+\begin{eqnarray*}
+	\phi_{t} &=& e^{-uT} = D_{T}^{-1}
+	\\[3mm]
+	\psi_{t} &=& E_{t} - \phi_{t} Z_{t}
+	\\ &=&
+	(e^{uT} Z_{t} - e^{-uT} C_{0}) - e^{-uT} Z_{t}
+	\\ &=&
+	- e^{-uT} C_{0}
+	\\ &=&
+	- D_{T}^{-1} C_{0}
+\end{eqnarray*}
+%
+%
+\footnote{
+	$\psi_{t}$がテキストと合わない。
+	$Z_{t}$の係数の指数部分の符号が異なる。
+}
+
+\subsection{コールオプション}
+
+円のコールオプションを考える。
+1円を$T$時点に$k$ドルで買う権利を得る契約の
+$t(<T)$時点の価格を計算する。
+
+$T$時点のペイオフは
+$$
+	X
+	\ = \
+	{\rm Max}(C_{T} - k , \ 0)
+$$
+または、表記を簡単に
+$$
+	X
+	\ = \
+	(C_{T} - k )^{+}
+$$
+と記述する。
+
+一般に、契約$X$の$t$時点の価格$V_{t}$は
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} X | \mathcal{F}_{t} )
+\end{eqnarray*}
+%
+%
+である。
+これを求めたい。以下、丁寧に準備を進める。
+
+\subsection*{対数正規のケースにおけるコールオプション価格の計算公式}
+
+$Z$が標準正規分布$N(0,1)$に従う確率変数のとき
+以下の公式が成立する。
+%
+%
+\begin{eqnarray*}
+	&&
+	\mathbb{E}
+	\left\{
+	F
+	\exp
+	\left(
+	\bar{\sigma} Z - \dfrac{1}{2} \bar{\sigma}^{2}
+	\right)
+	-k
+	\right\}^{+}
+	\\ &=&
+	F
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F}{k} + \dfrac{1}{2} \bar{\sigma}^{2}
+	}
+	{\bar{\sigma}}
+	\right)
+	-
+	k
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F}{k} - \dfrac{1}{2} \bar{\sigma}^{2}
+	}
+	{\bar{\sigma}}
+	\right)
+\end{eqnarray*}
+%
+%
+または、
+$$
+	d_{\pm}
+	\ = \
+	\dfrac{
+		\log (F/k)
+	}
+	{\bar{\sigma}}
+	\pm \dfrac{1}{2} \bar{\sigma}
+$$
+と書くと、
+$$
+	\mathbb{E}
+	\left(
+	F e^{\bar{\sigma}Z - \frac{1}{2} \bar{\sigma}^{2} }
+	-
+	k
+	\right)^{+}
+	\ = \
+	F
+	\ \! \Phi
+	\left(
+	d_{+}
+	\right)
+	-
+	k
+	\ \! \Phi
+	\left(
+	d_{-}
+	\right)
+$$
+ただし$F,\bar{\sigma},k$は定数である。
+また、$x$の関数$\Phi(x)$は$N(0,1)$が$x$以下となる確率であり、
+具体的には次のように表される。
+$$
+	\Phi(x)
+	\ = \
+	\dfrac{1}{\sqrt{2 \pi}}
+	\int^{x}_{- \infty} \exp \left( - \dfrac{y^{2}}{2} \right) dy
+$$
+
+${}$
+
+フォワード価格$F$は
+$$F \ = \ \mathbb{E}_{\mathbb{Q}^{\$}} C_{T} $$
+であるので、
+$$
+	C_{T}
+	\ = \
+	F \exp \left( \bar{\sigma} Z - \dfrac{1}{2} \bar{\sigma}^{2} \right)
+$$
+のように表すことが出来る。
+ただし、このとき
+$\bar{\sigma}^{2} = \sigma^{2} T$は
+$\log C_{T}$の分散を表し、
+$Z$は$\mathbb{Q}$の下で$N(0,1)$に従う確率変数である。
+（公式との対応の為に$Z$の文字を使ったが、今までは
+$W^{\mathbb{Q}^{\$}}_{t}$で表記していた。）
+
+これは簡単に示すことができて、
+%
+%
+\begin{eqnarray*}
+	\mathbb{E}_{\mathbb{Q}^{\$}} C_{T}
+	&=&
+	\mathbb{E}_{\mathbb{Q}^{\$}} F \exp \left( \bar{\sigma} Z - \dfrac{1}{2} \bar{\sigma}^{2} \right)
+	\\ &=&
+	\mathbb{E}_{\mathbb{Q}^{\$}} \exp \left( \bar{\sigma} Z \right)
+	\times
+	F \exp \left(- \dfrac{1}{2} \bar{\sigma}^{2} \right)
+	\\ &=&
+	\exp \left(+ \dfrac{1}{2} \bar{\sigma}^{2} \right)
+	\times
+	F \exp \left(- \dfrac{1}{2} \bar{\sigma}^{2} \right)
+	\\ &=&
+	F
+\end{eqnarray*}
+%
+%
+ゼロ時点におけるコールオプションの価格は、
+この公式を用いると、
+
+%
+%
+\begin{eqnarray*}
+	V_{0}
+	&=&
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	B_{T}^{-1} X
+	\\ &=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	(C_{T} - k)^{+}
+	\\ &=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	\left\{
+	F
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{T} - \dfrac{1}{2} \sigma^{2} T
+	\right)
+	-k
+	\right\}^{+}
+	\\ &=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	\left\{
+	F
+	\exp
+	\left(
+	( \sigma \sqrt{T}) \dfrac{W^{\mathbb{Q}^{\$}}_{T}}{\sqrt{T}}
+	- \dfrac{1}{2} (\sigma \sqrt{T})^{2}
+	\right)
+	-k
+	\right\}^{+}
+\end{eqnarray*}
+%
+%
+
+%
+%
+\begin{eqnarray*}
+	&&
+	\hspace{-15mm}
+	= \
+	e^{-rT}
+	\mathbb{E}
+	\left\{
+	F
+	\exp
+	\left(
+	\bar{\sigma} Z - \dfrac{1}{2} \bar{\sigma}^{2}
+	\right)
+	-k
+	\right\}^{+}
+	\\
+	&&
+	\hspace{-15mm}
+	= \
+	e^{-rT}
+	\left\{
+	F \ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F}{k} + \dfrac{1}{2} \bar{\sigma}^{2}
+	}
+	{\bar{\sigma}}
+	\right)
+	-
+	k \ \! \Phi \left(
+	\dfrac{
+		\log \dfrac{F}{k} - \dfrac{1}{2} \bar{\sigma}^{2}
+	}
+	{\bar{\sigma}}
+	\right)
+	\right\}
+	\\
+	&&
+	\hspace{-15mm}
+	= \
+	e^{-rT}
+	\left\{
+	F \ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F}{k} + \dfrac{1}{2} \sigma^{2} T
+	}
+	{\sigma \sqrt{T}}
+	\right)
+	-
+	k \ \! \Phi \left(
+	\dfrac{
+		\log \dfrac{F}{k} - \dfrac{1}{2} \sigma^{2} T
+	}
+	{\sigma \sqrt{T}}
+	\right)
+	\right\}
+\end{eqnarray*}
+%
+%
+途中で公式を適応する為に$\bar{\sigma} = \sigma \sqrt{T}$と置いている。
+また、$Z$を$N(0,1)$に従う確率変数とした。
+
+${}$
+
+いよいよ$V_{t}$を求める。具体的には
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} ( C_{T} - k )^{+} | \mathcal{F}_{t} )
+\end{eqnarray*}
+%
+%
+を計算する。
+$C_{t}$は$\mathbb{Q}^{ \$ }$-マルチンゲールを用いて
+%
+%
+\begin{eqnarray*}
+	C_{t}
+	&=&
+	C_{0}
+	\exp
+	\left[
+		\sigma W^{\$}_{t}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) t
+		\right]
+\end{eqnarray*}
+%
+%
+と書けるので、
+$C_{T}$は$C_{t}$を用いて次のように表すことが出来る。
+%
+%
+\begin{eqnarray*}
+	&&
+	C_{T}
+	\\ &=&
+	C_{t}
+	\exp
+	\left[
+		\sigma ( W^{\$}_{T} - W^{\$}_{t} )
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) (T-t)
+		\right]
+	\\ &=&
+	C_{t}
+	\exp
+	\left[
+		\sigma \sqrt{T-t}
+		\dfrac{W^{\$}_{T} - W^{\$}_{t}}{\sqrt{T-t}}
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) (T-t)
+		\right]
+\end{eqnarray*}
+%
+%
+ここで、
+$$
+	\dfrac{W^{\$}_{T} - W^{\$}_{t}}{\sqrt{T-t}}
+$$
+は測度$\mathbb{Q}^{ \$ }$の下で$N(0,1)$の分布を取る
+標準正規確率変数であり、
+この確率変数を$Z$と置く。
+
+すると、$C_{T}$は
+$\mathcal{F}_{t}$-可測な確率変数$C_{t}$と、
+$\mathcal{F}_{t}$-独立な確率変数
+$$
+	\exp
+	\left[
+		\sigma \sqrt{T-t}
+		Z
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) (T-t)
+		\right]
+$$
+の積である。
+よって、
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( B_{T}^{-1} ( C_{T} - k )^{+} | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	( ( C_{T} - k )^{+} | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}^{ \$ }}
+	\left.
+	\left[
+		\left\{
+		F
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{T} - \dfrac{1}{2} \sigma^{2} T
+		\right)
+		-k
+		\right\}^{+}
+		\right| \mathcal{F}_{t} \right]
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}
+	\left\{
+	C_{t}
+	\exp
+	\left[
+		\sigma \sqrt{T-t}
+		Z
+		+
+		\left(
+		r - u -
+		\dfrac{1}{2}
+		\sigma^{2}
+		\right) (T-t)
+		-k
+		\right]
+	\right\}^{+}
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}
+	\left\{
+	C_{t}
+	e^{(r-u)(T-t)}
+	\exp
+	\left[
+		\sigma \sqrt{T-t}
+		Z
+		-
+		\dfrac{1}{2}
+		(\sigma \sqrt{T-t})^{2}
+		\right]
+	-k
+	\right\}^{+}
+\end{eqnarray*}
+%
+%
+
+$\\$
+
+ここで
+%
+%
+\begin{eqnarray*}
+	\bar{F}_{t}
+	&=&
+	C_{t}
+	e^{(r-u)(T-t)}
+	\\
+	\bar{\sigma}
+	&=&
+	\sigma \sqrt{T-t}
+\end{eqnarray*}
+%
+%
+と置くと、
+%
+%
+\begin{eqnarray*}
+	e^{r(T-t)}
+	V_{t}
+	&=&
+	\mathbb{E}
+	\left\{
+	\bar{F}_{t}
+	\exp
+	\left[
+		\bar{\sigma}
+		Z
+		-
+		\dfrac{1}{2}
+		\bar{\sigma}^{2}
+		\right]
+	-k
+	\right\}^{+}
+	\\ &=&
+	\bar{F}_{t} \Phi \ \! (d_{+})
+	-
+	k \Phi \ \! (d_{-})
+\end{eqnarray*}
+%
+%
+この$d_{\pm}$は、
+%
+%
+\begin{eqnarray*}
+	d_{\pm}
+	&=&
+	\dfrac{
+		\log
+		(\bar{F}_{t}/k)}
+	{
+		\bar{\sigma}}
+	\pm
+	\dfrac{1}{2} \bar{\sigma}
+\end{eqnarray*}
+%
+%
+と置いたものである。
+
+以上で一般の時刻$t(<T)$における$V_{t}$の導出が完了した。
+
+${}$
+
+最後に複製ポートフォリオを構成する
+ドル建て通貨とドル債券の保有量$(\phi_{t},\psi_{t})$を求める。
+
+ヘッジの為のドル建て通貨の保有量は、
+ポートフォリオの定義式
+$V_{t} = \phi_{t} S_{t} + \psi_{t} B_{t}$
+から求める。
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	B_{t} C_{t}
+	\\ &=&
+	e^{rt} e^{(u-r)(T-t)} \bar{F}_{t}
+\end{eqnarray*}
+%
+%
+なので、
+%
+%
+\begin{eqnarray*}
+	V_{t} &=& \phi_{t} S_{t} + \psi_{t} B_{t}
+	\\ &=&
+	\phi_{t} e^{rt} e^{(u-r)(T-t)} \bar{F}_{t} + \psi_{t} B_{t}
+\end{eqnarray*}
+%
+%
+この$V_{t}$を$\bar{F}_{t}$で偏微分すると、
+%
+%
+\begin{eqnarray*}
+	\dfrac{\partial V_{t}}{\partial \bar{F}_{t}}
+	&=&
+	\phi_{t} e^{rt} e^{(u-r)(T-t)}
+\end{eqnarray*}
+%
+%
+となるので移行して、
+%
+%
+\begin{eqnarray*}
+	\phi_{t}
+	&=&
+	e^{-rt} e^{(r-u)(T-t)}
+	\dfrac{\partial V_{t}}{\partial \bar{F}_{t}}
+	\\ &=&
+	e^{-rt} e^{(r-u)(T-t)}
+	\times
+	e^{-r(T-t)}
+	\Phi(d_{+})
+	\\ &=&
+	e^{-rt} e^{-u(T-t)}
+	\Phi(d_{+})
+\end{eqnarray*}
+%
+%
+\footnote{なぜか指数部分が合わない。
+	テキストでは$e^{-ut} \Phi(d_{+})$となっている。
+	$V_{t}$の表式がそもそも間違いか？}
+
+\subsection{円の世界の投資家}
+
+ドルの世界の投資家とは異なり、
+円の世界の投資家は取引可能資産の円建ての価格が知りたい。
+
+まず、円債$D_{t} = e^{ut}$は取引可能である。
+
+さらに円建てのドル債券$C^{-1}_{t} B_{t}$も取引可能である。
+
+この次に1ドル何円かという為替レート$C^{-1}_{t}$を考えると、
+%
+%
+\begin{eqnarray*}
+	C^{-1}_{t}
+	&=&
+	C_{0}^{-1}
+	\exp ( - \sigma W_{t} - \mu t )
+\end{eqnarray*}
+%
+%
+である。
+
+2種類の資産、
+円債$D_{t}$と円建てのドル債券$C^{-1}_{t} B_{t}$
+で無リスクポートフォリオを複製する。
+
+ドル債券を円債券で割り引いた価格は
+%
+%
+\begin{eqnarray*}
+	Y_{t}
+	&=&
+	D^{-1}_{t}
+	C^{-1}_{t}
+	B_{t}
+	\\ &=&
+	e^{-ut}
+	C_{0}^{-1}
+	\exp ( - \sigma W_{t} - \mu t )
+	e^{rt}
+	\\ &=&
+	C_{0}^{-1}
+	\exp ( - \sigma W_{t} - (\mu + u -r) t )
+\end{eqnarray*}
+%
+%
+なので、
+%
+%
+\begin{eqnarray*}
+	d Y_{t}
+	&=&
+	\dfrac{\partial Y_{t}}{\partial t} dt
+	+
+	\dfrac{\partial Y_{t}}{\partial x} dW_{t}
+	+
+	\dfrac{1}{2!}
+	\dfrac{\partial^{2} Y_{t}}{\partial x^{2}} (dW_{t})^{2}
+	\\ &=&
+	- (\mu + u -r) Y_{t} dt
+	- \sigma Y_{t} d W_{t}
+	+ \dfrac{1}{2} \sigma^{2} Y_{t} dt
+	\\[3mm]
+	\dfrac{dY_{t}}{Y_{t}}
+	&=&
+	- \sigma d W_{t}
+	- \left( \mu + u -r + \dfrac{1}{2} \sigma^{2} \right) dt
+\end{eqnarray*}
+%
+%
+従って、
+%
+%
+\begin{eqnarray*}
+	d W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	d W_{t}
+	+
+	\dfrac{\mu + u -r + \dfrac{1}{2} \sigma^{2}}{\sigma} dt
+	\\
+	W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	W_{t}
+	+
+	\dfrac{\mu + u -r + \dfrac{1}{2} \sigma^{2}}{\sigma} t
+\end{eqnarray*}
+%
+%
+この$W^{\tilde{\mathbb{Q}}}_{t}$が
+$\tilde{\mathbb{Q}}$-Brown運動になるような
+新しい測度$\tilde{\mathbb{Q}}$を導入すると
+割引価格$Y_{t}$がマルチンゲールになる。
+\subsection*{円の世界におけるオプションの価格}
+
+$T$時点での円建てのペイオフ$X$は、$t$時点において
+$$
+	U_{t}
+	\ = \
+	D_{t}
+	\mathbb{E}_{\tilde{\mathbb{Q}}}
+	( D^{-1}_{T} X | \mathcal{F}_{t} )
+$$
+という価値を持つ。
+
+ここで$\tilde{\mathbb{Q}}$は資産価値を円債券で割り引いた
+$Y_{t}$のマルチンゲール測度である。
+\subsection{ニューメレールの変更}
+
+同一の証券に対し、
+ドルの世界の投資家と円の世界の投資家は
+異なる値付けをしてしまわないだろうかと懸念を抱く。
+
+ドルの世界においては、ペイオフ$X$の$t$時点の価格は
+$$
+	V_{t}
+	\ = \
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{\$}}
+	( B^{-1}_{T} X | \mathcal{F}_{t} )
+$$
+であり、単位はドルである。
+
+一方で、円の世界においてはこの契約は$X$ドルではなく
+$C^{-1}_{T} X$円の支払いということになるので、
+$t$時点における価格は
+$$
+	U_{t}
+	\ = \
+	D_{t}
+	\mathbb{E}_{\tilde{\mathbb{Q}}}
+	( D^{-1}_{T} ( C^{-1}_{T} X ) | \mathcal{F}_{t} )
+$$
+であり、単位は円である。
+
+この両者は果たして一致するのだろうか。
+
+円の世界で決めた価格のドル換算価格
+$C_{t} U_{t}$と元の$V_{t}$は一致するのだろうか。
+
+${}$
+
+$\mathbb{Q}^{\$}$-Brown運動$W^{\mathbb{Q}^{\$}}_{t}$と
+$\tilde{\mathbb{Q}}$-Brown運動$W^{\tilde{\mathbb{Q}}}_{t}$は
+それぞれ$\mathbb{P}$-Brown運動$W_{t}$を用いて
+%
+%
+\begin{eqnarray*}
+	W^{\mathbb{Q}^{\$}}_{t}
+	&=&
+	W_{t}
+	+
+	\dfrac{\mu + u -r - \dfrac{1}{2} \sigma^{2}}{\sigma} t
+	\\
+	W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	W_{t}
+	+
+	\dfrac{\mu + u -r + \dfrac{1}{2} \sigma^{2}}{\sigma} t
+\end{eqnarray*}
+%
+%
+であり、
+%
+%
+\begin{eqnarray*}
+	W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	W^{\mathbb{Q}^{\$}}_{t}
+	-
+	\sigma t
+	\\
+	d W^{\tilde{\mathbb{Q}}}_{t}
+	&=&
+	d W^{\mathbb{Q}^{\$}}_{t}
+	-
+	\sigma d t
+\end{eqnarray*}
+%
+%
+よってGirsanovの逆定理よりRadon-Nikodym微分は
+%
+%
+\begin{eqnarray*}
+	\dfrac{d \tilde{\mathbb{Q}}}{d \mathbb{Q}^{\$}}
+	&=&
+	\exp
+	\left(
+	- \int^{T}_{0} (- \sigma) d W^{\mathbb{Q}^{\$}}_{t}
+	- \dfrac{1}{2} \int^{T}_{0} ( - \sigma)^{2} d t
+	\right)
+	\\ &=&
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{T}
+	- \dfrac{1}{2} \sigma^{2} T
+	\right)
+\end{eqnarray*}
+%
+%
+である必要がある。
+
+このRadon-Nikodym微分に
+測度$\mathbb{Q}^{\$}$、
+フィルトレーション$\mathcal{F}_{t}$の下での
+条件付き期待値を取ると、
+%
+%
+\begin{eqnarray*}
+	\xi_{t}
+	&=&
+	\mathbb{E}_{Q^{\$}}
+	\left(
+	\left.
+	\dfrac{d \tilde{\mathbb{Q}}}{d \mathbb{Q}^{\$}}
+	\right|
+	\mathcal{F}_{t}
+	\right)
+	\\ &=&
+	\mathbb{E}_{Q^{\$}}
+	\left[
+		\left.
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{T}
+		- \dfrac{1}{2} \sigma^{2} T
+		\right)
+		\right|
+		\mathcal{F}_{t}
+		\right]
+	\\ &=&
+	\exp
+	\left(
+	- \dfrac{1}{2} \sigma^{2} T
+	\right)
+	\mathbb{E}_{Q^{\$}}
+	\left[
+		\left.
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{T}
+		\right)
+		\right|
+		\mathcal{F}_{t}
+		\right]
+	\\ &=&
+	\exp
+	\left(
+	- \dfrac{1}{2} \sigma^{2} T
+	\right)
+	\\ && \hspace{-5mm} \times \
+	\mathbb{E}_{Q^{\$}}
+	\left[
+		\left.
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\exp
+		\left\{
+		\sigma
+		\left(
+		W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\right\}
+		\right|
+		\mathcal{F}_{t}
+		\right]
+\end{eqnarray*}
+%
+%
+ここで期待値の中の因子
+%
+%
+\begin{eqnarray*}
+	&&
+	\exp
+	\left\{
+	\sigma
+	\left(
+	W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+	\right\}
+	\\ &=&
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	\dfrac{
+		W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+	}
+	{
+		\sqrt{T-t}
+	}
+	\right\}
+\end{eqnarray*}
+%
+%
+のように変形できるが、
+$$
+	\dfrac{
+		W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+	}
+	{
+		\sqrt{T-t}
+	}
+$$
+この因子は測度$\mathbb{Q}^{\$}$の下で$N(0,1)$の分布を取る
+標準正規確率変数である。
+
+この変数を$Z$と置くと、期待値は
+$\mathcal{F}_{t}$-可予測な因子
+$$
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+$$
+と$\mathcal{F}_{t}$-独立な確率変数
+$$
+	\exp
+	\left(
+	Z \sigma \sqrt{T-t}
+	\right)
+$$
+の積に分解できて、
+%
+%
+\begin{eqnarray*}
+	&&
+	\hspace{-10mm}
+	\mathbb{E}_{Q^{\$}}
+	\left[
+		\left.
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\exp
+		\left(
+		\sigma
+		\sqrt{T-t}
+		\dfrac{
+			W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+		}
+		{
+			\sqrt{T-t}
+		}
+		\right)
+		\right|
+		\mathcal{F}_{t}
+		\right]
+	\\ &=&
+	\mathbb{E}
+	\left[
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\exp
+		\left(
+		Z \sigma \sqrt{T-t}
+		\right)
+		\right]
+	\\ &=&
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+	\dfrac{1}{\sqrt{2 \pi}}
+	\int^{\infty}_{- \infty}
+	\exp
+	\left(
+	z \sigma \sqrt{T-t}
+	\right)
+	e^{- \frac{1}{2} z^{2}}
+	dz
+	\\ &=&
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+	\exp
+	\left(
+	\dfrac{1}{2} \left( \sigma \sqrt{T-t} \right)^{2}
+	\right)
+\end{eqnarray*}
+%
+%
+以上から
+%
+%
+\begin{eqnarray*}
+	\xi_{t}
+	&=&
+	\mathbb{E}_{Q^{\$}}
+	\left(
+	\left.
+	\dfrac{d \tilde{\mathbb{Q}}}{d \mathbb{Q}^{\$}}
+	\right|
+	\mathcal{F}_{t}
+	\right)
+	\\ &=&
+	\exp
+	\left(
+	- \dfrac{1}{2} \sigma^{2} T
+	\right)
+	\\ && \hspace{-15mm} \times \
+	\mathbb{E}_{Q^{\$}}
+	\left[
+		\left.
+		\exp
+		\left(
+		\sigma W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\exp
+		\left\{
+		\sigma
+		\left(
+		W^{\mathbb{Q}^{\$}}_{T} - W^{\mathbb{Q}^{\$}}_{t}
+		\right)
+		\right\}
+		\right|
+		\mathcal{F}_{t}
+		\right]
+	\\ &=&
+	\exp
+	\left(
+	- \dfrac{1}{2} \sigma^{2} T
+	\right)
+	\\ && \hspace{-15mm} \times \
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t}
+	\right)
+	\exp
+	\left(
+	\dfrac{1}{2} \left( \sigma \sqrt{T-t} \right)^{2}
+	\right)
+	\\ &=&
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t} - \dfrac{1}{2} \sigma^{2} t
+	\right)
+\end{eqnarray*}
+%
+%
+を導くことができた。
+
+${}$
+
+ここで、円債券をドル債券で割り引いたものの価格は
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	B^{-1}_{t}
+	C_{t}
+	D_{t}
+	\\ &=&
+	C_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}^{\$}}_{t} - \dfrac{1}{2} \sigma^{2} t
+	\right)
+	\\ &=&
+	C_{0} \xi_{t}
+\end{eqnarray*}
+%
+%
+であるので、
+円債券をドル債券で割り引いた価格$Z_{t}$は
+Radon-Nikodym過程$\xi_{t}$に比例する。
+
+${}$
+
+この過程を用いると、
+円の世界でつけた価格$U_{t}$
+（$U_{t}$は前述の$C^{-1}_{T} X$のペイオフ）
+をドル換算した価格は、
+%
+%
+\begin{eqnarray*}
+	C_{t} U_{t}
+	&=&
+	C_{t}
+	D_{t}
+	\mathbb{E}_{\tilde{\mathbb{Q}}}
+	( D^{-1}_{T} ( C^{-1}_{T} X ) | \mathcal{F}_{t} )
+	\\ &=&
+	C_{t} D_{t} \xi^{-1}_{t}
+	\mathbb{E}_{\mathbb{Q}^{\$}}
+	( \xi^{-1}_{T} D^{-1}_{T}  C^{-1}_{T} X | \mathcal{F}_{t} )
+	\\ &=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}^{\$}}
+	( B^{-1}_{T} X | \mathcal{F}_{t} )
+	\\ &=&
+	V_{t}
+\end{eqnarray*}
+%
+%
+となる。
+よって$T$時点のドル建てのペイオフ$X$は
+$t(<T)$のどの時点においても
+ドルの世界と円の世界とで
+同じ価格を持つことが示された。
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+\end{document}
+\end{document}
+
