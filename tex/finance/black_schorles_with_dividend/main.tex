@@ -1,0 +1,1112 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{Stocks with Dividends}
+\author{Masaru Okada
+}
+\date{ \today }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	These notes provide a mathematical framework for pricing financial derivatives on dividend-paying stocks by adapting the Black-Scholes model. They explore models for both continuous and discrete periodic dividends, demonstrating how to price instruments like forwards, call options, and structured products by creating a new tradable asset that accounts for dividend reinvestment. This text originates from a self-study session on Chapter 3 of 'Financial Calculus - An Introduction to Derivative Pricing' by Martin Baxter and Andrew Rennie, written on June 3, 2020.
+\end{abstract}
+
+\ \\
+
+In the models considered so far, stocks have been treated as pure assets.
+
+Here, we will see how to modify the model to incorporate dividends.
+
+\section{A Model for Stocks with Continuous Dividends}
+Let the stock price $S_{t}$ and the cash bond $B_{t}$ follow the Black-Scholes model
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	S_{0} \exp (\sigma W_{t} + \mu t )
+	\\
+	B_{t}
+	&=&
+	B_{0} \exp (rt)
+\end{eqnarray*}
+%
+Furthermore, let the dividend paid between time $t$ and $t+dt$ be
+$$
+	\delta S_{t} dt
+	\ = \
+	\delta S_{0} \exp (\sigma W_{t} + \mu t ) dt
+$$
+using a constant of proportionality $\delta$.
+
+${}$
+
+It's important to note that in this model, $S_{t}$ is not a tradable asset.
+
+If one were to buy a stock priced at $S_{0}$ now and hold it until time $t$, the existence of dividends means that the present value $S_{0}$ would account for a value greater than $S_{t}$.
+
+Under this model, the stochastic process $S_{t}$ no longer represents the value of an asset.
+${}$
+
+The goal is to transform this non-tradable stochastic process $S_{t}$ into the form of a tradable asset through some clever correspondence, and then to construct a replicating portfolio based on this newly created asset.
+
+${}$
+
+Since the dividend per share over an infinitesimal time $dt$ is $\delta S_{t} dt$, consider a strategy of continuously buying an additional $\delta dt$ units of the stock during that infinitesimal time.
+
+In this case, if the number of shares held is $a_{t}$, then
+$$
+	d a_{t} \ = \ a_{t} \times \delta dt
+$$
+so, solving this differential equation under $a_{0}=1$ gives,
+$$
+	a_{t} \ = \ \exp ( \delta t )
+$$
+meaning that at time $t$, the number of shares held has become $\exp ( \delta t )$ units.
+
+The value of the portfolio under this strategy (which is simply to continuously buy more stock) is
+%
+\begin{eqnarray*}
+	\tilde{S}_{t}
+	&=&
+	S_{0} \exp (\sigma W_{t} + \mu t ) \times \exp ( \delta t )
+	\\ &=&
+	S_{0} \exp (\sigma W_{t} + ( \mu + \delta ) t )
+\end{eqnarray*}
+%
+This new stochastic process $\tilde{S}_{t}$ is the 'price of the reinvested stock' and becomes a tradable asset in this model.
+
+${}$
+
+Under the assumption that the dividend is a constant proportion of the stock price, the reinvested stock becomes a tradable asset. If, however, the dividend amount were predetermined and independent of the stock price, it would be standard to reinvest it into the cash bond.
+
+\subsection{Replication Strategy using Stocks with Continuous Dividends}
+
+Consider a replication strategy by replacing the stock and cash bond portfolio $(\phi_{t},\psi_{t})$ with a reinvested stock and cash bond portfolio $(\tilde{\phi}_{t},\psi_{t})$.
+
+The value of this portfolio is
+$$
+	V_{t}
+	\ = \
+	\phi_{t} S_{t} + \psi_{t} B_{t}
+	\ = \
+	\tilde{\phi}_{t} \tilde{S}_{t} + \psi_{t} B_{t}
+$$
+where $\tilde{\phi}_{t}$ is defined as
+$$
+	\tilde{\phi}_{t} \ = \
+	e^{- \delta t} \phi_{t}
+$$
+In this case, $dV_{t}$ becomes
+%
+\begin{eqnarray*}
+	dV_{t}
+	&=&
+	\tilde{\phi}_{t} d \tilde{S}_{t} + \psi_{t} d B_{t}
+\end{eqnarray*}
+%
+\footnote{Derivation unclear.}
+
+On the other hand, in the portfolio with the original stock and bond, it seems to become
+%
+\begin{eqnarray*}
+	dV_{t}
+	&=&
+	\phi_{t} d S_{t} + \psi_{t} d B_{t}
+	\ + \
+	\phi_{t} \delta S_{t} dt
+\end{eqnarray*}
+%
+\footnote{Derivation unclear.} which would mean that gains and losses arise not only from trading (the $dS_{t}$ and $dB_{t}$ terms) but also from the dividend $\phi_{t} \delta S_{t} dt$.
+
+${}$
+
+Now, to find a measure under which the discounted value of the reinvested stock
+$$
+	\tilde{Z}_{t}
+	\ = \
+	B^{-1}_{t}
+	\tilde{S}_{t}
+$$
+is a martingale.
+%
+%
+\begin{eqnarray*}
+	\tilde{Z}_{t}
+	&=&
+	Z_{0} \exp (\sigma W_{t} + ( \mu + \delta -r ) t )
+	\\
+	d \tilde{Z}_{t}
+	&=&
+	\tilde{Z}_{t}
+	\left( \sigma dW_{t} + \left( \mu + \delta -r + \dfrac{1}{2} \sigma^{2} \right) dt \right)
+\end{eqnarray*}
+%
+%
+
+Therefore, by introducing a new measure $\mathbb{Q}$ under which the Brownian motion $W^{\mathbb{Q}}$ is
+$$
+	d W^{\mathbb{Q}}
+	\ = \
+	d W_{t} + \dfrac{\mu + \delta -r + \dfrac{1}{2} \sigma^{2}}{\sigma} dt
+$$
+under this martingale measure $\mathbb{Q}$, we have
+%
+%
+\begin{eqnarray*}
+	d \tilde{Z}_{t}
+	&=&
+	\sigma \tilde{Z}_{t} d W^{\mathbb{Q}}_{t}
+	\\
+	\tilde{Z}_{t}
+	&=&
+	\tilde{Z}_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}}_{t}
+	- \dfrac{1}{2} \sigma^{2} t
+	\right)
+	\\
+	\tilde{S}_{t}
+	&=&
+	B_{t} \tilde{Z}_{t}
+	\\ &=&
+	\tilde{S}_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}}_{t}
+	+
+	\left(
+	r
+	-
+	\dfrac{1}{2} \sigma^{2}
+	\right)
+	t
+	\right)
+	\\
+	S_{t}
+	&=&
+	e^{-\delta t} \tilde{S}_{t}
+	\\ &=&
+	S_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}}_{t}
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	t
+	\right)
+\end{eqnarray*}
+%
+%
+(For readability, $S_{0}=\tilde{S}_{0}=\tilde{Z}_{0}$ is used.)
+${}$
+
+To hedge a contract $X$ at maturity $T$, we use the martingale representation theorem. That is, there exists a predictable process $\tilde{\phi}_{t}$ that satisfies the following equation.
+%
+%
+\begin{eqnarray*}
+	E_{t}
+	&=&
+	\mathbb{E}_{\mathbb{Q}} ( B_{T}^{-1} X | \mathcal{F}_{t} )
+	\\
+	&=&
+	\mathbb{E}_{\mathbb{Q}} ( B_{T}^{-1} X )
+	+
+	\int^{t}_{0} \tilde{\phi}_{s} d \tilde{Z}_{s}
+\end{eqnarray*}
+%
+%
+
+Using this, the trading strategy is to hold $\tilde{\phi}_{t}$ units of the reinvested stock and
+$\psi_{t}=E_{t} - \tilde{\phi}_{t} \tilde{Z}_{t}$
+units of the bond.
+\subsection{Forwards}
+
+A contract $X$ to purchase one unit of a stock with continuous dividends at time $T$ for $k$ yen has a payoff of
+$$
+	X \ = \ S_{T} - k
+$$
+The price of this $X$ at time $t$, denoted $V_{t}$, is
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}} ( B^{-1}_{T} X | \mathcal{F}_{t} )
+	\\ &=&
+	\mathbb{E}_{\mathbb{Q}} ( e^{-r(T-t)} (S_{T} - k) | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)} \mathbb{E}_{\mathbb{Q}} ( S_{T}  | \mathcal{F}_{t} ) - e^{-r(T-t)} k
+\end{eqnarray*}
+%
+%
+Here,
+%
+%
+\begin{eqnarray*}
+	&&
+	S_{T}
+	\\ &=&
+	S_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}}_{T}
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	T
+	\right)
+	\\ &=&
+	S_{t}
+	\exp
+	\left\{
+	\sigma ( W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} )
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+	\\ &=&
+	S_{t}
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	\dfrac{ W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} }
+	{\sqrt{T-t}}
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+\end{eqnarray*}
+%
+%
+but the factor
+$$
+	\dfrac{ W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} }
+	{\sqrt{T-t}}
+$$
+is a standard normal random variable $N(0,1)$ under the measure $\mathbb{Q}$.
+
+Letting this variable be $Y$,
+$\mathbb{E}_{\mathbb{Q}} ( S_{T}  | \mathcal{F}_{t} )$
+is the product of the $\mathcal{F}_{t}$-predictable factor $S_{t}$ and the $\mathcal{F}_{t}$-independent factor
+$$
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	Y
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+$$
+Therefore,
+%
+%
+\begin{eqnarray*}
+	&&
+	\hspace{-10mm}
+	\mathbb{E}_{\mathbb{Q}} ( S_{T}  | \mathcal{F}_{t} )
+	\\[2mm] &&
+	\hspace{-10mm}
+	= \
+	S_{t}
+	\dfrac{1}{\sqrt{2\pi}}
+	\int^{\infty}_{-\infty}
+	\!\!\!
+	e^{-\frac{1}{2} y^{2}}
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	y
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+	dy
+	\\ &&
+	\hspace{-10mm}
+	= \
+	S_{t}
+	\exp
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\times
+	\dfrac{1}{\sqrt{2\pi}}
+	\int^{\infty}_{-\infty}
+	e^{-\frac{1}{2} y^{2}}
+	e^{\sigma \sqrt{T-t} y}
+	dy
+	\\ &&
+	\hspace{-10mm}
+	= \
+	S_{t}
+	\exp
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\times
+	\exp
+	\left(
+	\dfrac{1}{2} (\sigma \sqrt{T-t})^{2}
+	\right)
+	\\ &&
+	\hspace{-10mm}
+	= \
+	S_{t} e^{(r-\delta)(T-t)}
+\end{eqnarray*}
+%
+%
+
+From the above,
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	\mathbb{E}_{\mathbb{Q}} ( e^{-r(T-t)} (S_{T} - k) | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)} \mathbb{E}_{\mathbb{Q}} ( S_{T}  | \mathcal{F}_{t} ) - e^{-r(T-t)} k
+	\\ &=&
+	e^{-r(T-t)} S_{t} e^{(r-\delta)(T-t)} - e^{-r(T-t)} k
+	\\ &=&
+	e^{-\delta(T-t)}S_{t} - e^{-r(T-t)} k
+\end{eqnarray*}
+%
+%
+was obtained.
+
+The forward price $F$ is for a contract $X$ whose price is zero at present ($t=0$) due to the no-arbitrage condition, so
+%
+%
+\begin{eqnarray*}
+	0\
+	( \ = \
+	V_{0})
+	&=&
+	e^{- \delta ( T - 0 ) } S_{0} - e^{-r(T-0)} F
+	\\
+	\Longleftrightarrow \ \ \
+	F &=&
+	e^{(r - \delta) T } S_{0}
+\end{eqnarray*}
+%
+%
+
+In the case of no dividends, $F=e^{rT}S_{0}$, so it was sufficient to hold the stock at time zero and keep it until maturity $T$.
+
+With continuous dividends, one must adopt a strategy of holding the stock at $t=0$ and, furthermore, using the dividend income from the purchased stock to continuously reinvest until $t=T$.
+
+\subsection{Call Options}
+
+The payoff of a call option with strike price $k$ and exercise time $T$ is
+$$
+	X
+	\ = \
+	(S_{T} - k)^{+}
+$$
+and its price at time $t(<T)$ is
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}} ( B^{-1}_{T} X | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}} \left[ \left. \left( S_{T} - k \right)^{+} \right| \mathcal{F}_{t} \right]
+\end{eqnarray*}
+%
+%
+The calculation of an expectation containing a Max of a 'log-normal random variable + constant' like this is well-known, and the following formula is often used.
+
+${}$
+
+\subsubsection*{Formula for the Expected Value of Max(log-normal variable + constant, 0)}
+
+When $Z$ is a random variable following $N(0,1)$, the following formula holds.
+%
+%
+\begin{eqnarray*}
+	&&
+	\mathbb{E}
+	\left\{
+	F
+	\exp
+	\left(
+	\bar{\sigma} Z - \dfrac{1}{2} \bar{\sigma}^{2}
+	\right)
+	-k
+	\right\}^{+}
+	\\ &=&
+	F
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F}{k} + \dfrac{1}{2} \bar{\sigma}^{2}
+	}
+	{\bar{\sigma}}
+	\right)
+	-
+	k
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F}{k} - \dfrac{1}{2} \bar{\sigma}^{2}
+	}
+	{\bar{\sigma}}
+	\right)
+\end{eqnarray*}
+%
+%
+Alternatively, writing
+$$
+	d_{\pm}
+	\ = \
+	\dfrac{
+		\log (F/k)
+	}
+	{\bar{\sigma}}
+	\pm \dfrac{1}{2} \bar{\sigma}
+$$
+gives
+$$
+	\mathbb{E}
+	\left(
+	F e^{\bar{\sigma}Z - \frac{1}{2} \bar{\sigma}^{2} }
+	-
+	k
+	\right)^{+}
+	\ = \
+	F
+	\ \! \Phi
+	\left(
+	d_{+}
+	\right)
+	-
+	k
+	\ \! \Phi
+	\left(
+	d_{-}
+	\right)
+$$
+where $F,\bar{\sigma},k$ are constants. Also, the function $\Phi(x)$ is the probability that a $N(0,1)$ variable is less than or equal to $x$, expressed specifically as:
+$$
+	\Phi(x)
+	\ = \
+	\dfrac{1}{\sqrt{2 \pi}}
+	\int^{x}_{- \infty} \exp \left( - \dfrac{y^{2}}{2} \right) dy
+$$
+
+${}$
+
+Using the above formula, the following factor
+$$
+	\dfrac{W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t}}{\sqrt{T-t}}
+$$
+becomes a standard normal random variable under the measure $\mathbb{Q}$.
+Letting this variable be $Y$,
+%
+%
+\begin{eqnarray*}
+	&&
+	S_{T}
+	\\ && \hspace{-15mm} = \
+	S_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}}_{T}
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	T
+	\right)
+	\\ && \hspace{-15mm} = \
+	S_{t}
+	\exp
+	\left\{
+	\sigma ( W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} )
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+	\\ && \hspace{-15mm} = \
+	S_{t}
+	e^{(r - \delta )(T-t)}
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	\dfrac{ W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} }
+	{\sqrt{T-t}}
+	-
+	\dfrac{1}{2}
+	\left( \sigma \sqrt{T-t} \right)^{2}
+	\right\}
+\end{eqnarray*}
+%
+%
+so, if we set $\sigma \sqrt{T-t}$ as $\tilde{\sigma}$, then
+%
+%
+\begin{eqnarray*}
+	S_{T}
+	&=&
+	S_{t}
+	e^{(r - \delta )(T-t)}
+	\exp
+	\left(
+	\tilde{\sigma} Y
+	-
+	\dfrac{1}{2}
+	\tilde{\sigma}^{2}
+	\right)
+\end{eqnarray*}
+%
+%
+The process $S_{T}$ is separated into the product of the $\mathcal{F}_{t}$-predictable process $S_{t}$ and the $\mathcal{F}_{t}$-independent process
+$$
+	\exp
+	\left(
+	\tilde{\sigma} Y
+	-
+	\dfrac{1}{2}
+	\tilde{\sigma}^{2}
+	\right)
+$$
+so,
+%
+%
+\begin{eqnarray*}
+	&&
+	\mathbb{E}_{\mathbb{Q}} \left[ \left. \left(
+		S_{T}
+		-k
+		\right)^{+} \right| \mathcal{F}_{t} \right]
+	\\ &=&
+	\mathbb{E} \left[ \left(
+		S_{t}
+		e^{(r - \delta )(T-t)}
+		\exp
+		\left(
+		\tilde{\sigma} Y
+		-
+		\dfrac{1}{2}
+		\tilde{\sigma}^{2}
+		\right)
+		-k
+		\right)^{+} \right]
+\end{eqnarray*}
+%
+%
+In this way, the expectation integral can be expressed as an integral independent of the measure and filtration (an integral with respect to $Y$, which is independent of $S_{t}$; in other words, for this integral, $S_{t}$ is a constant).
+Applying the calculation formula directly, and setting $S_{t} e^{(r - \delta)(T-t)}=\tilde{F}_{t}$, we get
+%
+%
+\begin{eqnarray*}
+	&&
+	e^{r(T-t)}V_{t}
+	\\ &=&
+	\mathbb{E} \left[ \left(
+		\tilde{F}_{t}
+		\exp
+		\left(
+		\tilde{\sigma} Y
+		-
+		\dfrac{1}{2}
+		\tilde{\sigma}^{2}
+		\right)
+		-k
+		\right)^{+} \right]
+	\\ &=&
+	\tilde{F}_{t}
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{\tilde{F}_{t}}{k} + \dfrac{1}{2} \tilde{\sigma}^{2}
+	}
+	{\tilde{\sigma}}
+	\right)
+	-
+	k
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{\tilde{F}_{t}}{k} - \dfrac{1}{2} \tilde{\sigma}^{2}
+	}
+	{\tilde{\sigma}}
+	\right)
+\end{eqnarray*}
+%
+%
+
+Here too, the Black-Scholes formula appears, but what was the stock price becomes the forward price
+$$
+	\tilde{F}_{t}=S_{t} e^{(r - \delta)(T-t)}
+$$
+and it can be hedged by going long
+$$
+	\Phi
+	\left(
+	\dfrac{
+		\log \dfrac{\tilde{F}_{t}}{k} + \dfrac{1}{2} \tilde{\sigma}^{2}
+	}
+	{\tilde{\sigma}}
+	\right)
+$$
+units of stock (reinvested) and shorting
+$$
+	e^{-r(T-t)} k
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{\tilde{F}_{t}}{k} - \dfrac{1}{2} \tilde{\sigma}^{2}
+	}
+	{\tilde{\sigma}}
+	\right)
+$$
+units of the bond.
+\section{Index-Linked Product with a Cap and Floor}
+
+Let the FTSE index be the process $S_{t}$.
+
+Consider a contract that matures in 5 years, with a payoff based on 90\% of the price relative to the current price. That is, the payoff is $0.9S_{T}$.
+
+Furthermore, set a floor at 130\% and a cap at 180\%.
+
+Specifically, consider the payoff $X$ defined as follows.
+$$
+	X
+	\ = \
+	{\rm Min}
+	\Big\{
+	{\rm Max}
+	( 0.9 S_{T} , \ 1.3 ) , \ 1.8
+	\Big\}
+$$
+Since the FTSE index is composed of 100 stocks, the sum of the dividends from each stock can be approximated as a continuous dividend.
+
+The parameter set is as follows:
+
+FTSE drift $\mu = 7 \%$
+
+FTSE volatility $\sigma = 15 \%$
+
+FTSE dividend yield $\delta = 4 \%$
+
+Pound interest rate $r = 6.5 \%$
+
+Expressing the payoff using only Max$( \cdot , 0)$ instead of Min gives,
+\footnote{I haven't been able to follow this algebraic transformation. Though it's easy to show that the equality holds.}
+%
+%
+\begin{eqnarray*}
+	X
+	&=&
+	1.3
+	+
+	0.9
+	\left\{
+	\left( S_{T} - \dfrac{1.3}{0.9} \right)^{+}
+	-
+	\left( S_{T} - \dfrac{1.8}{0.9} \right)^{+}
+	\right\}
+\end{eqnarray*}
+%
+%
+In other words, it can be written solely in terms of cash and the difference between two call options on the FTSE as the underlying asset.
+
+The forward price $F_{T}$ of $S_{T}$ is
+$$
+	F_{0,T}
+	\ = \
+	e^{(r-\delta)T}S_{0}
+	\ = \
+	1.133 S_0
+$$
+Assuming $S_0=1$, the forward price is 1.133.
+Thus, substituting the numerical values into the call option price formula
+$$
+	e^{-rT} \left[
+		F_{0,T}
+		\ \! \Phi
+		\left(
+		\dfrac{
+			\log \dfrac{F_{0,T}}{k} + \dfrac{1}{2} ( \sigma \sqrt{T} )^{2}
+		}
+		{\sigma \sqrt{T}}
+		\right)
+		-
+		k
+		\ \! \Phi
+		\left(
+		\dfrac{
+			\log \dfrac{F_{0,T}}{k} - \dfrac{1}{2} ( \sigma \sqrt{T} )^{2}
+		}
+		{\sigma \sqrt{T}}
+		\right)
+		\right]
+$$
+yields,
+%
+%
+\begin{eqnarray*}
+	V_{0}
+	&=&
+	1.3 e^{-rT}
+	\ + \
+	0.9
+	(0.0422 - 0.0067)
+	\ = \
+	0.9712
+\end{eqnarray*}
+%
+%
+If one forgets that the dividends of the stocks constituting the FTSE are not reflected in the index and calculates, one gets the incorrect value of 1.0183.
+\footnote{Skipped this part. Does setting $\delta=0$ give this result? I'll check when I have time.}
+\section{A Model for Stocks with Periodic Dividends}
+
+So far, we have looked at cases where dividends are paid continuously.
+
+Below, we will look at cases where dividends are paid discretely over time.
+
+Assume that the dividend amount at predetermined times $T_{1},T_{2},\cdots$ is $\delta$ times the stock price just before the dividend payment.
+
+The stock price itself is modeled as
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	S_{0} (1-\delta)^{n[t]}
+	\exp(\sigma W_{t} + \mu t)
+\end{eqnarray*}
+%
+%
+where $n[t]={\rm Max} \{ i | T_{i} \le t\}$ represents the number of times a dividend has been paid by time $t$.
+
+The cash bond remains $B_{t}=e^{rt}$.
+
+${}$
+
+There are two points of departure from the Black-Scholes model.
+
+One, as in the previous section, is that $S_{t}$ is not a tradable asset. There is a prospect of resolving this by creating a tradable asset through a transformation, similar to the previous section.
+
+The other is that $S_{t}$ experiences a discontinuous jump at $t=T_{i}$.
+
+At times other than $t=T_{i}$, it follows the usual stochastic differential equation
+$$
+	\dfrac{dS_{t}}{S_{t}}
+	\ = \
+	\sigma d W_{t}
+	+
+	\left( \mu + \dfrac{1}{2} \sigma^{2} \right)
+	dt
+$$
+but at $t=T_{i}$, it becomes discontinuous and does not fall within the scope of stochastic processes in the usual sense.
+
+However, it can be shown that this problem due to discontinuity can also be resolved by cleverly transforming $S_{t}$.
+
+${}$
+
+Let's consider a trading strategy.
+
+Starting with one unit of stock (that is, assuming one holds one unit of stock at $t=0$), consider a strategy where each time a dividend is paid, that dividend is used to buy more stock.
+
+In this strategy, at time $t$, one holds $(1-\delta)^{-n[t]}$ units of stock, so the value of the portfolio $\tilde{S}_{t}$ is
+%
+%
+\begin{eqnarray*}
+	\tilde{S}_{t}
+	&=&
+	(1-\delta)^{-n[t]} S_{t}
+	\\ &=&
+	S_{0}
+	\exp(\sigma W_{t} + \mu t)
+\end{eqnarray*}
+%
+%
+Thus, $\tilde{S}_{t}$ represents the value of a tradable asset.
+
+We have assumed that the ex-dividend drop factor $\delta$ and the dividend amount factor $\delta$ are equal; this is a condition for no arbitrage.
+\subsection{Replication Strategy}
+
+In this strategy, at time $t$, one holds $\tilde{\phi}_{t}$ units of $\tilde{S}_{t}$ (not the stock $S_{t}$) and $\psi_{t}$ units of $B_{t}$.
+The value of this portfolio, $V_{t}$, is
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	\tilde{\phi}_{t} \tilde{S}_{t} + B_{t} \psi_{t}
+\end{eqnarray*}
+%
+%
+Here, it should be noted that holding $\tilde{\phi}_{t}$ units of $\tilde{S}_{t}$ is equivalent to holding $(1-\delta)^{-n[t]} \tilde{\phi}_{t}$ units of the original stock $S_{t}$.
+
+Letting the discounted value of $\tilde{S}_{t}$ by $B_{t}$ be represented as $\tilde{Z}_{t} = B^{-1}_{t} \tilde{S}_{t}$, the discounted value of this portfolio $(\tilde{\phi}_{t},\psi_{t})$, $E_{t}=B^{-1}_{t} V_{t}$, is
+%
+%
+\begin{eqnarray*}
+	E_{t}
+	&=&
+	\tilde{\phi}_{t} \tilde{Z}_{t} + \psi_{t}
+\end{eqnarray*}
+%
+%
+
+If $dE_{t} = \tilde{\phi}_{t} d \tilde{Z}_{t}$ holds, this portfolio is self-financing, a point to be confirmed later.
+
+First, let's find the martingale measure $\mathbb{Q}$ for $\tilde{Z}_{t}$.
+%
+%
+\begin{eqnarray*}
+	\tilde{Z}_{t}
+	&=&
+	B^{-1}_{t} \tilde{S}_{t}
+	\\ &=&
+	S_{0} \exp \left\{ \sigma W_{t} + ( \mu - r ) t \right\}
+\end{eqnarray*}
+%
+%
+Therefore,
+%
+%
+\begin{eqnarray*}
+	\dfrac{d \tilde{Z}_{t}}{\tilde{Z}_{t}}
+	&=&
+	\sigma dW_{t} + \left( \mu - r + \dfrac{1}{2} \sigma^{2} \right) dt
+\end{eqnarray*}
+%
+%
+Hence, $\tilde{W}_{t}$ that satisfies
+%
+%
+\begin{eqnarray*}
+	d \tilde{W}_{t}
+	&=&
+	dW_{t}
+	+
+	\dfrac{\mu - r + \dfrac{1}{2} \sigma^{2} }{\sigma} dt
+\end{eqnarray*}
+%
+%
+is a $\mathbb{Q}$-martingale, and using the Radon-Nikodym derivative with respect to the real-world measure $\mathbb{P}$, it is defined by
+%
+%
+\begin{eqnarray*}
+	\dfrac{d \mathbb{Q} }{ d \mathbb{P} }
+	&=&
+	\exp \left(
+	-
+	\int^{T}_{0} \theta dW_{t}
+	-
+	\dfrac{1}{2}
+	\int^{T}_{0} \theta^{2} dt
+	\right)
+	\\ &=&
+	\exp \left(
+	-
+	\theta W_{T}
+	-
+	\dfrac{1}{2}
+	\theta^{2} T
+	\right)
+\end{eqnarray*}
+%
+%
+where $\theta = (\mu - r + \frac{1}{2}\sigma^2)/\sigma$.
+
+Using this $\tilde{W}_{t}$,
+%
+\footnote{More simply, it's good to remember that when differentiating a stochastic process with a factor like $\sigma W_{t}$ in the exponent, you add $\frac{1}{2}\sigma^2$, and conversely, when integrating, you subtract $\frac{1}{2}\sigma^2$. (Since this comes up over and over again.)}
+%
+%
+\begin{eqnarray*}
+	\dfrac{d \tilde{Z}_{t}}{\tilde{Z}_{t}}
+	&=&
+	\sigma d \tilde{W}_{t}
+	\\
+	\tilde{Z}_{t}
+	&=&
+	\tilde{Z}_{0}
+	\exp \left(
+	\int^{t}_{0} \sigma d\tilde{W}_{s}
+	-
+	\dfrac{1}{2}
+	\int^{t}_{0} \sigma^{2} ds
+	\right)
+	\\ &=&
+	\tilde{Z}_{0}
+	\exp \left(
+	\sigma \tilde{W}_{t}
+	-
+	\dfrac{1}{2}
+	\sigma^{2} t
+	\right)
+\end{eqnarray*}
+%
+%
+
+To hedge a stock option $X$, we define a stochastic process by
+$$
+	E_{t}
+	\ = \
+	\mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{t} )
+$$
+and by the martingale representation theorem, the existence of a predictable process $\tilde{\phi}_{t}$ such that
+$$
+	dE_{t}
+	\ = \
+	\tilde{\phi}_{t}
+	d \tilde{Z}_{t}
+$$
+is guaranteed.
+
+This predictable process $\tilde{\phi}_{t}$ is the hedge for $\tilde{Z}_{t}$, and the hedge for the bond $B_{t}$, $\psi_{t}$, is
+$$
+	E_{t}
+	\ = \
+	B^{-1}_{t} V_{t}
+	\ = \
+	B^{-1}_{t} ( \tilde{\phi}_{t} \tilde{S}_{t} + \psi_{t} B_{t} )
+	\ = \
+	\tilde{\phi}_{t} \tilde{Z}_{t} + \psi_{t}
+$$
+from which
+$$
+	\psi_{t}
+	\ = \
+	E_{t} - \tilde{\phi}_{t} \tilde{Z}_{t}
+$$
+is derived.
+
+Also, the value of this contract $X$ at time zero (present value) is
+$$
+	V_{0}
+	\ = \
+	\mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X )
+$$
+
+Finally, let's consider the case where $X=(S_{T}-K)^{+}$, i.e., the contract $X$ is a call option with maturity $T$ and strike price $K$.
+
+The stock price is
+%
+%
+\begin{eqnarray*}
+	S_{T}
+	&=&
+	S_{0}
+	(1-\delta)^{n[T]}
+	\exp
+	\left\{
+	\sigma \tilde{W}_{T}
+	+
+	\left(
+	r
+	-
+	\dfrac{1}{2}
+	\sigma^{2}
+	\right)
+	T
+	\right\}
+\end{eqnarray*}
+%
+%
+In other words, it follows a log-normal distribution under the measure $\mathbb{Q}$, so from the Black-Scholes formula,
+%
+%
+\begin{eqnarray*}
+	V_{0}
+	&=&
+	e^{-rT} (F_{T}
+	\ \! \Phi_{+}
+	-
+	K
+	\ \! \Phi_{-})
+\end{eqnarray*}
+%
+%
+where
+%
+%
+\begin{eqnarray*}
+	\Phi_{\pm}
+	&=&
+	\Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F_{T}}{K} \pm \dfrac{1}{2} ( \sigma \sqrt{T} )^{2}
+	}
+	{\sigma \sqrt{T}}
+	\right)
+\end{eqnarray*}
+%
+%
+is used as a shorthand. The forward price $F_{T}$ is
+%
+%
+\begin{eqnarray*}
+	F_{T}
+	&=&
+	\mathbb{E}_{\mathbb{Q}}[S_T]
+	\ = \
+	S_{0}
+	(1-\delta)^{n[T]} e^{rT}
+\end{eqnarray*}
+%
+%
+where $n[T]$ is the total number of dividends paid up to time $T$.
+
+
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+\end{document}
+
+\end{document}

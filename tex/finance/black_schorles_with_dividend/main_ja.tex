@@ -1,0 +1,1246 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{配当付き株式}
+\author{Masaru Okada
+}
+\date{ \today }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie の3章の自主ゼミのノート。2020年6月3日に書いたもの。
+\end{abstract}
+これまでのモデルで株式を純資産として扱ってきた。
+
+ここではそのモデルに修正を加えることで、
+配当を考慮に入れることができることを見ていく。
+\section{連続配当の株式のモデル}
+株価$S_{t}$とキャッシュボンド$B_{t}$はBlack-Scholesモデル
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	S_{0} \exp (\sigma W_{t} + \mu t )
+	\\
+	B_{t}
+	&=&
+	B_{0} \exp (rt)
+\end{eqnarray*}
+%
+に従うとする。
+
+さらに、時刻$t$から$t+dt$の間に支払われる配当は、
+比例定数$\delta$を用いて、
+$$
+	\delta S_{t} dt
+	\ = \
+	\delta S_{0} \exp (\sigma W_{t} + \mu t ) dt
+$$
+であるとする。
+
+${}$
+
+このモデルにおいては$S_{t}$が取引可能資産ではないことに
+留意しなければならない。
+
+現在$S_{0}$の株価の株式を買って$t$時点まで保有すると
+配当の存在の分、
+$S_{t}$以上の価値が現在価値$S_{0}$に含まれることになる。
+
+このモデルの上では、
+確率過程$S_{t}$はもはや資産の価値を表していない。
+${}$
+
+この取引可能でない確率過程$S_{t}$を、
+何か上手い対応によって
+取引可能資産の形に変形し、
+その新しく作られた資産を基に
+複製ポートフォリオを構築したい。
+
+${}$
+
+微小時間$dt$における配当は1株につき$\delta S_{t} dt$であるので、
+その微小時間の間に$\delta dt$単位分の株式を
+次々に買い足していく戦略を考える。
+
+このとき、株式の保有量を$a_{t}$とすると
+$$
+	d a_{t} \ = \ a_{t} \times \delta dt
+$$
+なので、この微分方程式を$a_{0}=0$の下で解くと、
+$$
+	a_{t} \ = \ \exp ( \delta t )
+$$
+すなわち時刻$t$では株式の保有量は$\exp ( \delta t )$単位になっている。
+
+この戦略（ただ時々刻々と株式を買い増すだけ）
+におけるポートフォリオの価値は、
+%
+\begin{eqnarray*}
+	\tilde{S}_{t}
+	&=&
+	S_{0} \exp (\sigma W_{t} + \mu t ) \times \exp ( \delta t )
+	\\ &=&
+	S_{0} \exp (\sigma W_{t} + ( \mu + \delta ) t )
+\end{eqnarray*}
+%
+この新しい確率過程$\tilde{S}_{t}$は
+「再投資された株式の価格」であり、
+このモデルの上では取引可能資産となる。
+
+${}$
+
+配当が株価の定数倍であるという仮定の下では
+再投資された株式が取引可能資産となるが、
+もし仮に配当額が事前に決まっていて、
+なおかつその配当額は株価に依存しない場合は
+キャッシュボンドに再投資していくことが普通である。
+
+\subsection{連続配当の株式を用いた複製戦略}
+
+株式とキャッシュボンドによるポートフォリオ
+$(\phi_{t},\psi_{t})$
+から再投資された株式とキャッシュボンド
+$(\tilde{\phi}_{t},\psi_{t})$
+に置き換えて複製戦略を考える。
+
+このポートフォリオの価値は
+$$
+	V_{t}
+	\ = \
+	\phi_{t} S_{t} + \psi_{t} B_{t}
+	\ = \
+	\tilde{\phi}_{t} \tilde{S}_{t} + \psi_{t} B_{t}
+$$
+となるように$\tilde{\phi}_{t}$を
+$$
+	\tilde{\phi}_{t} \ = \
+	e^{- \delta t} \phi_{t}
+$$
+で定める。
+
+このとき$dV_{t}$は
+%
+\begin{eqnarray*}
+	dV_{t}
+	&=&
+	\tilde{\phi}_{t} d \tilde{S}_{t} + \psi_{t} d B_{t}
+\end{eqnarray*}
+%
+となる。\footnote{導出方法不明。}
+
+一方で、元の株式、債券のポートフォリオでは
+%
+\begin{eqnarray*}
+	dV_{t}
+	&=&
+	\phi_{t} d \tilde{S}_{t} + \psi_{t} d B_{t}
+	\ + \
+	\phi_{t} \delta S_{t} dt
+\end{eqnarray*}
+%
+のようになってしまい、\footnote{導出方法不明。}
+取引による損益（$dS_{t}$や$dB_{t}$の項）
+だけでなく配当$\phi_{t} \delta S_{t} dt$
+によっても損益が生じてしまう。
+
+${}$
+
+再投資された株式の割引価値
+$$
+	\tilde{Z}_{t}
+	\ = \
+	B^{-1}_{t}
+	\tilde{S}_{t}
+$$
+がマルチンゲールになるような測度を見つける。
+%
+%
+\begin{eqnarray*}
+	\tilde{Z}_{t}
+	&=&
+	Z_{0} \exp (\sigma W_{t} + ( \mu + \delta -r ) t )
+	\\
+	d \tilde{Z}_{t}
+	&=&
+	\tilde{Z}_{t}
+	\left( \sigma dW_{t} + \left( \mu + \delta -r + \dfrac{1}{2} \sigma^{2} \right) dt \right)
+\end{eqnarray*}
+%
+%
+
+よって新しい測度$\mathbb{Q}$の下でのBrown運動$W^{\mathbb{Q}}$が
+$$
+	d W^{\mathbb{Q}}
+	\ = \
+	d W_{t} + \dfrac{\mu + \delta -r + \dfrac{1}{2} \sigma^{2}}{\sigma} dt
+$$
+となるような測度$\mathbb{Q}$を導入すると、
+このマルチンゲール測度$\mathbb{Q}$の下では
+%
+%
+\begin{eqnarray*}
+	d \tilde{Z}_{t}
+	&=&
+	\sigma \tilde{Z}_{t} d W^{\mathbb{Q}}_{t}
+	\\
+	\tilde{Z}_{t}
+	&=&
+	\tilde{Z}_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}}_{t}
+	- \dfrac{1}{2} \sigma^{2} t
+	\right)
+	\\
+	\tilde{S}_{t}
+	&=&
+	B_{t} \tilde{Z}_{t}
+	\\ &=&
+	\tilde{S}_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}}_{t}
+	+
+	\left(
+	r
+	-
+	\dfrac{1}{2} \sigma^{2}
+	\right)
+	t
+	\right)
+	\\
+	S_{t}
+	&=&
+	e^{-\delta t} \tilde{S}_{t}
+	\\ &=&
+	S_{0}
+	\exp
+	\left(
+	\sigma W^{\mathbb{Q}}_{t}
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	t
+	\right)
+\end{eqnarray*}
+%
+%
+となる。
+（見やすさの為に$S_{0}=\tilde{S}_{0}=\tilde{Z}_{0}$を用いている。）
+${}$
+
+満期$T$で契約$X$をヘッジする為、
+マルチンゲール表現定理を用いる。
+すなわち次の式を満たす可予測過程$\tilde{\phi}_{t}$が存在する。
+%
+%
+\begin{eqnarray*}
+	E_{t}
+	&=&
+	\mathbb{E}_{\mathbb{Q}} ( B_{T}^{-1} X | \mathcal{F}_{t} )
+	\\
+	&=&
+	\mathbb{E}_{\mathbb{Q}} ( B_{T}^{-1} X )
+	+
+	\int^{t}_{0} \tilde{\phi}_{s} d \tilde{Z}_{s}
+\end{eqnarray*}
+%
+%
+
+これを用いて、
+取引戦略は再投資された株式$\tilde{\phi}_{t}$単位と、
+債券を
+$\psi_{t}=E_{t} - \tilde{\phi}_{t} \tilde{Z}_{t}$
+単位保有することである。
+\subsection{フォワード}
+
+1単位の連続配当付き株式を時点$T$において$k$円で購入する契約$X$は
+$$
+	X \ = \ S_{T} - k
+$$
+というペイオフを有する。
+
+この$X$の$t$時点における価格$V_{t}$は、
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}} ( B^{-1}_{T} X | \mathcal{F}_{t} )
+	\\ &=&
+	\mathbb{E}_{\mathbb{Q}} ( e^{-r(T-t)} (S_{T} - k) | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)} \mathbb{E}_{\mathbb{Q}} ( S_{T}  | \mathcal{F}_{t} ) - e^{-r(T-t)} k
+\end{eqnarray*}
+%
+%
+ここで、
+%
+%
+\begin{eqnarray*}
+	&&
+	S_{T}
+	\\ &=&
+	S_{0}
+	\exp
+	\left(
+	\sigma d W^{\mathbb{Q}}_{T}
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	T
+	\right)
+	\\ &=&
+	S_{t}
+	\exp
+	\left\{
+	\sigma ( W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} )
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+	\\ &=&
+	S_{t}
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	\dfrac{ W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} }
+	{\sqrt{T-t}}
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+\end{eqnarray*}
+%
+%
+であるが、因子
+$$
+	\dfrac{ W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} }
+	{\sqrt{T-t}}
+$$
+は測度$\mathbb{Q}$の下で$N(0,1)$に従う標準正規確率変数である。
+
+この変数を改めて$Y$と置くと、
+$\mathbb{E}_{\mathbb{Q}} ( S_{T}  | \mathcal{F}_{t} )$
+は
+$\mathcal{F}_{t}$-可予測な因子$S_{t}$と、
+$\mathcal{F}_{t}$-独立な因子
+$$
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	Y
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+$$
+の積となっている。よって、
+%
+%
+\begin{eqnarray*}
+	&&
+	\hspace{-10mm}
+	\mathbb{E}_{\mathbb{Q}} ( S_{T}  | \mathcal{F}_{t} )
+	\\[2mm] &&
+	\hspace{-10mm}
+	= \
+	S_{t}
+	\dfrac{1}{\sqrt{2\pi}}
+	\int^{\infty}_{-\infty}
+	\!\!\!
+	e^{-\frac{1}{2} y^{2}}
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	y
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+	dy
+	\\ &&
+	\hspace{-10mm}
+	= \
+	S_{t}
+	\exp
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\times
+	\dfrac{1}{\sqrt{2\pi}}
+	\int^{\infty}_{-\infty}
+	e^{-\frac{1}{2} y^{2}}
+	e^{\sigma \sqrt{T-t} y}
+	dy
+	\\ &&
+	\hspace{-10mm}
+	= \
+	S_{t}
+	\exp
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\times
+	\exp
+	\left(
+	\dfrac{1}{2} (\sigma \sqrt{T-t})^{2}
+	\right)
+	\\ &&
+	\hspace{-10mm}
+	= \
+	S_{t} e^{(r-\delta)(T-t)}
+\end{eqnarray*}
+%
+%
+
+以上から、
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	\mathbb{E}_{\mathbb{Q}} ( e^{-r(T-t)} (S_{T} - k) | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)} \mathbb{E}_{\mathbb{Q}} ( S_{T}  | \mathcal{F}_{t} ) - e^{-r(T-t)} k
+	\\ &=&
+	e^{-r(T-t)} S_{t} e^{(r-\delta)(T-t)} - e^{-r(T-t)} k
+	\\ &=&
+	e^{-\delta(T-t)}S_{t} - e^{-r(T-t)} k
+\end{eqnarray*}
+%
+%
+が得られた。
+
+フォワード価格$F$は、
+無裁定条件から現在（$t=0$）においてその価格がゼロとなるような
+契約$X$であるので、
+%
+%
+\begin{eqnarray*}
+	0\
+	( \ = \
+	V_{0})
+	&=&
+	e^{- \delta ( T - 0 ) } S_{0} - e^{-r(T-0)} F
+	\\
+	\Longleftrightarrow \ \ \
+	F &=&
+	e^{(r - \delta) T } S_{0}
+\end{eqnarray*}
+%
+%
+
+配当が無い場合は$F=e^{rT}S_{0}$であるので、
+時刻ゼロで株式を保有し、
+それを満期時点$T$まで保有するだけでよかった。
+
+連続的な配当がある場合は、
+$t=0$で株式を保有し、
+なおかつ購入した株式から得られる配当収入を使って
+連続的に再投資を$t=T$まで続けるという戦略を取らねばならない。
+
+\subsection{コールオプション}
+
+行使価格$k$、行使時点$T$のコールオプションのペイオフは
+$$
+	X
+	\ = \
+	(S_{T} - k)^{+}
+$$
+であり、
+$t(<T)$時点における価格は
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	B_{t}
+	\mathbb{E}_{\mathbb{Q}} ( B^{-1}_{T} X | \mathcal{F}_{t} )
+	\\ &=&
+	e^{-r(T-t)}
+	\mathbb{E}_{\mathbb{Q}} \left[ \left. \left( S_{T} - k \right)^{+} \right| \mathcal{F}_{t} \right]
+\end{eqnarray*}
+%
+%
+このように
+「対数正規確率変数$+$定数」のMaxが中に入っている
+期待値の計算はよく知られており、
+次の公式がよく使われる。
+
+${}$
+
+\subsubsection*{対数正規変数$+$定数のMaxの期待値の計算公式}
+
+$Z$は$N(0,1)$に従う確率変数であるとき
+以下の公式が成立する。
+%
+%
+\begin{eqnarray*}
+	&&
+	\mathbb{E}
+	\left\{
+	F
+	\exp
+	\left(
+	\bar{\sigma} Z - \dfrac{1}{2} \bar{\sigma}^{2}
+	\right)
+	-k
+	\right\}^{+}
+	\\ &=&
+	F
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F}{k} + \dfrac{1}{2} \bar{\sigma}^{2}
+	}
+	{\bar{\sigma}}
+	\right)
+	-
+	k
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F}{k} - \dfrac{1}{2} \bar{\sigma}^{2}
+	}
+	{\bar{\sigma}}
+	\right)
+\end{eqnarray*}
+%
+%
+または、
+$$
+	d_{\pm}
+	\ = \
+	\dfrac{
+		\log (F/k)
+	}
+	{\bar{\sigma}}
+	\pm \dfrac{1}{2} \bar{\sigma}
+$$
+と書くと、
+$$
+	\mathbb{E}
+	\left(
+	F e^{\bar{\sigma}Z - \frac{1}{2} \bar{\sigma}^{2} }
+	-
+	k
+	\right)^{+}
+	\ = \
+	F
+	\ \! \Phi
+	\left(
+	d_{+}
+	\right)
+	-
+	k
+	\ \! \Phi
+	\left(
+	d_{-}
+	\right)
+$$
+ただし$F,\bar{\sigma},k$は定数である。
+また、$x$の関数$\Phi(x)$は$N(0,1)$が$x$以下となる確率であり、
+具体的には次のように表される。
+$$
+	\Phi(x)
+	\ = \
+	\dfrac{1}{\sqrt{2 \pi}}
+	\int^{x}_{- \infty} \exp \left( - \dfrac{y^{2}}{2} \right) dy
+$$
+
+${}$
+
+以上の公式を用いると、
+次の因子
+$$
+	\dfrac{W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t}}{\sqrt{T-t}}
+$$
+が測度$\mathbb{Q}$の下で標準正規確率変数となる。
+この変数を$Y$と置くと、
+%
+%
+\begin{eqnarray*}
+	&&
+	S_{T}
+	\\ && \hspace{-15mm} = \
+	S_{0}
+	\exp
+	\left(
+	\sigma d W^{\mathbb{Q}}_{T}
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	T
+	\right)
+	\\ && \hspace{-15mm} = \
+	S_{t}
+	\exp
+	\left\{
+	\sigma ( W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} )
+	+
+	\left(
+	r
+	- \delta
+	- \dfrac{1}{2} \sigma^{2}
+	\right)
+	(T-t)
+	\right\}
+	\\ && \hspace{-15mm} = \
+	S_{t}
+	\exp
+	\left\{
+	\sigma \sqrt{T-t}
+	\dfrac{ W^{\mathbb{Q}}_{T} - W^{\mathbb{Q}}_{t} }
+	{\sqrt{T-t}}
+	-
+	\dfrac{1}{2}
+	\left( \sigma \sqrt{T-t} \right)^{2}
+	\right\}
+	e^{(r - \delta )(T-t)}
+\end{eqnarray*}
+%
+%
+となるので、
+$\sigma \sqrt{T-t}$を$\tilde{\sigma}$と置くと、
+%
+%
+\begin{eqnarray*}
+	S_{T}
+	&=&
+	S_{t}
+	e^{(r - \delta )(T-t)}
+	\left(
+	\tilde{\sigma} Y
+	-
+	\dfrac{1}{2}
+	\tilde{\sigma}^{2}
+	\right)
+\end{eqnarray*}
+%
+%
+過程$S_{T}$は
+$\mathcal{F}_{t}$-可予測過程$S_{t}$と
+$\mathcal{F}_{t}$-独立過程
+$$
+	\exp
+	\left(
+	\tilde{\sigma} Y
+	-
+	\dfrac{1}{2}
+	\tilde{\sigma}^{2}
+	\right)
+$$
+の積となって分離されているので、
+%
+%
+\begin{eqnarray*}
+	&&
+	\mathbb{E}_{\mathbb{Q}} \left[ \left. \left(
+		S_{t}
+		\exp
+		\left(
+		\tilde{\sigma} Y
+		-
+		\dfrac{1}{2}
+		\tilde{\sigma}^{2}
+		\right)
+		-k
+		\right)^{+} \right| \mathcal{F}_{t} \right]
+	\\ &=&
+	\mathbb{E} \left[ \left(
+		S_{t}
+		\exp
+		\left(
+		\tilde{\sigma} Y
+		-
+		\dfrac{1}{2}
+		\tilde{\sigma}^{2}
+		\right)
+		-k
+		\right)^{+} \right]
+\end{eqnarray*}
+%
+%
+のように、
+期待値の積分は測度とフィルトレーションに依存しない積分
+（$S_{t}$とは独立な$Y$についての積分、
+すなわちこの積分にとってみれば$S_{t}$は定数）で表せる。
+そのまま計算公式を適応すると、
+$S_{t} e^{(r - \delta)(T-t)}=\tilde{F}_{t}$
+と置いて、
+%
+%
+\begin{eqnarray*}
+	&&
+	V_{t}
+	\\ &=&
+	\mathbb{E} \left[ \left(
+		\tilde{F}_{t}
+		\exp
+		\left(
+		\tilde{\sigma} Y
+		-
+		\dfrac{1}{2}
+		\tilde{\sigma}^{2}
+		\right)
+		-k
+		\right)^{+} \right]
+	\\ &=&
+	F_{t}
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F_{t}}{k} + \dfrac{1}{2} \tilde{\sigma}^{2}
+	}
+	{\tilde{\sigma}}
+	\right)
+	-
+	k
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F_{t}}{k} - \dfrac{1}{2} \tilde{\sigma}^{2}
+	}
+	{\tilde{\sigma}}
+	\right)
+\end{eqnarray*}
+%
+%
+
+ここでも
+Black-Scholesの式が現れるが、
+株価だったものがフォワード価格
+$$
+	\tilde{F}_{t}=S_{t} e^{(r - \delta)(T-t)}
+$$
+となり、
+$$
+	F_{t}
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F_{t}}{k} + \dfrac{1}{2} \tilde{\sigma}^{2}
+	}
+	{\tilde{\sigma}}
+	\right)
+$$
+単位の株式と、
+$$
+	k
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F_{t}}{k} - \dfrac{1}{2} \tilde{\sigma}^{2}
+	}
+	{\tilde{\sigma}}
+	\right)
+$$
+単位の債券をショートすることでヘッジできる。
+\section{上限下限付きの株価指数連動型商品}
+
+FTSE株価指数を過程$S_{t}$と置く。
+
+5年後に満期をむかえるとし、
+そのときのペイオフは現在の価格を基準にした価格の90$\%$、
+すなわち
+$0.9S_{T}$
+がペイオフとなるような契約を考える。
+
+さらに$130\%$を下限、
+180$\%$を上限に設定する。
+
+具体的には次のように定まるペイオフ$X$を考える。
+$$
+	X
+	\ = \
+	{\rm Min}
+	\Big\{
+	{\rm Max}
+	( 0.9 S_{T} , \ 1.3 ) , \ 1.8
+	\Big\}
+$$
+FTSE指数は100銘柄から構成されているので
+各銘柄の配当を合計したものは近似的に連続配当とみなすことができる。
+
+パラメータセットは、
+
+FTSEのドリフト $\mu = 7 \%$
+
+FTSEのボラティリティ $\sigma = 15 \%$
+
+FTSEの配当利回り $\delta = 4 \%$
+
+ポンド金利 $r = 6.5 \%$
+
+とする。
+
+ペイオフをMinを用いずにMax$( \cdot , 0)$のみを用いて表すと、
+\footnote{この等式変形は追えていない。
+	等号成立を示すのは簡単だけど。
+}
+%
+%
+\begin{eqnarray*}
+	X
+	&=&
+	1.3
+	+
+	0.9
+	\left\{
+	\left( S_{T} - \dfrac{1.3}{0.9} \right)^{+}
+	-
+	\left( S_{T} - \dfrac{1.8}{0.9} \right)^{+}
+	\right\}
+\end{eqnarray*}
+%
+%
+すなわち、
+異なる2つのFTSEを原資産とするコールオプションの差と現金のみで
+書き表せる。
+
+$S_{T}$のフォワード価格$F_{T}$は
+$$
+	F_{T}
+	\ = \
+	e^{(r-\delta)T}S_{0}
+	\ = \
+	1.133
+$$
+であるから、
+コールオプションの価格式
+$$
+	F_{T}
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F_{T}}{k} + \dfrac{1}{2} ( \sigma \sqrt{T} )^{2}
+	}
+	{\sigma \sqrt{T}}
+	\right)
+	-
+	k
+	\ \! \Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F_{T}}{k} - \dfrac{1}{2} ( \sigma \sqrt{T} )^{2}
+	}
+	{\sigma \sqrt{T}}
+	\right)
+$$
+に数値を代入していくと、
+%
+%
+\begin{eqnarray*}
+	V_{0}
+	&=&
+	1.3 e^{-rT}
+	\ + \
+	0.9
+	(0.0422 - 0.0067)
+	\ = \
+	0.9712
+\end{eqnarray*}
+%
+%
+となる。
+
+FTSEを構成する銘柄の配当が指数に反映されていないことを忘れて
+計算すると1.0183という誤った値になる。
+\footnote{ここは飛ばした。
+	$\delta=0$として計算するとこうなる？
+	今度時間のある時に確かめる。}
+\section{定期配当の株式モデル}
+
+これまでは連続的に配当が支払われる場合について見てきた。
+
+以下では時間に対して離散的に配当が支払われるケースを見ていく。
+
+予め定められている時刻$T_{1},T_{2},\cdots$における配当額が、
+配当支払いの直前の株価の$\delta$倍であるとする。
+
+株価自体は
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	S_{0} (1-\delta)^{n[t]}
+	\exp(\sigma W_{t} + \mu t)
+\end{eqnarray*}
+%
+%
+とモデル化する。
+
+ただし
+$n[t]={\rm Max} \{ i | T_{i} \geq t\}$
+は$t$時点までに配当が支払われる回数を表す。
+
+キャッシュボンドは変わらず$B_{t}=e^{rt}$とする。
+
+${}$
+
+Black-Scholesモデルから逸脱している点は2点ある。
+
+1つは前節同様に$S_{t}$が取引可能資産ではないこと。
+これは前節同様に変換して
+取引可能資産を構成することで解決できる見込みがある。
+
+もう1つは$S_{t}$は$t=T_{i}$で不連続なジャンプが発生することである。
+
+$t=T_{i}$以外では通常通り確率微分方程式
+$$
+	\dfrac{dS_{t}}{S_{t}}
+	\ = \
+	\sigma d W_{t}
+	+
+	\left( \mu + \dfrac{1}{2} \sigma^{2} \right)
+	dt
+$$
+に従うが、
+$t=T_{i}$では不連続になり、
+通常の意味での確率過程の範疇に収まらない。
+
+しかしこの不連続による問題も
+$S_{t}$を上手く変換することで解決できることを示す。
+
+${}$
+
+取引戦略を考える。
+
+1単位の株式から始めて
+（つまり$t=0$で株式1単位を保有するとして）
+配当が支払われる度にその配当を使って株式を買い増していくような
+戦略を考える。
+
+この戦略では$t$時点において
+$(1-\delta)^{-n[t]}$単位の株式を保有しているので、
+ポートフォリオの価値$\tilde{S}_{t}$は
+%
+%
+\begin{eqnarray*}
+	\tilde{S}_{t}
+	&=&
+	(1-\delta)^{-n[t]} S_{t}
+	\\ &=&
+	S_{0}
+	\exp(\sigma W_{t} + \mu t)
+\end{eqnarray*}
+%
+%
+となるので、
+$\tilde{S}_{t}$は取引可能資産の価値を表している。
+
+配当落ちの幅$\delta$と配当額$\delta$
+はそれぞれ等しいとしたが、
+これは無裁定であるための条件である。
+\subsection{複製戦略}
+
+今回の戦略では、
+$t$時点において
+（株式$S_{t}$ではなく）
+$\tilde{S}_{t}$を$\tilde{\phi}_{t}$単位、
+$B_{t}$を$\psi_{t}$単位保有する。
+このポートフォリオの価値$V_{t}$は
+%
+%
+\begin{eqnarray*}
+	V_{t}
+	&=&
+	\tilde{\phi}_{t} \tilde{S}_{t} + B_{t} \psi_{t}
+\end{eqnarray*}
+%
+%
+ここで
+$\tilde{S}_{t}$を$\tilde{\phi}_{t}$単位保有するということは、
+元の株式$S_{t}$を$(1-\delta)^{-n[t]} \tilde{\phi}_{t}$単位
+保有するということと同値であることに留意する。
+
+$B_{t}$によって割り引かれた$\tilde{S}_{t}$を
+$\tilde{Z}_{t} = B^{-1}_{t} \tilde{S}_{t}$と表すと、
+このポートフォリオ$(\tilde{\phi}_{t},\psi_{t})$の割引価格
+$E_{t}=B^{-1}_{t} V_{t}$は
+%
+%
+\begin{eqnarray*}
+	E_{t}
+	&=&
+	\tilde{\phi}_{t} \tilde{Z}_{t} + \psi_{t}
+\end{eqnarray*}
+%
+%
+
+もし$dE_{t} = \tilde{\phi}_{t} d \tilde{Z}_{t}$を満たせば
+このポートフォリオは自己資本調達的であるが、
+このことは後で確認する。
+
+まずは$\tilde{Z}_{t}$のマルチンゲール測度$\mathbb{Q}$を見つける。
+%
+%
+\begin{eqnarray*}
+	\tilde{Z}_{t}
+	&=&
+	B^{-1}_{t} \tilde{S}_{t}
+	\\ &=&
+	S_{0} \exp \left\{ \sigma W_{t} + ( \mu - r ) t \right\}
+\end{eqnarray*}
+%
+%
+なので、
+%$\tilde{Z}_{0} = S_{0}(1-\delta)^{n[0]} = S_{0}$に留意して、
+%
+%
+\begin{eqnarray*}
+	\dfrac{d \tilde{Z}_{t}}{\tilde{Z}_{t}}
+	&=&
+	\sigma dW_{t} + \left( \mu - r + \dfrac{1}{2} \sigma^{2} \right) dt
+\end{eqnarray*}
+%
+%
+よって
+%
+%
+\begin{eqnarray*}
+	d \tilde{W}_{t}
+	&=&
+	dW_{t}
+	+
+	\dfrac{\mu - r + \dfrac{1}{2} \sigma^{2} }{\sigma} dt
+\end{eqnarray*}
+%
+%
+を満たす$\tilde{W}_{t}$が$\mathbb{Q}$-マルチンゲールであり、
+実測度$\mathbb{P}$でのRadon-Nikodym微分を用いて
+%
+%
+\begin{eqnarray*}
+	\dfrac{d \mathbb{Q} }{ d \mathbb{P} }
+	&=&
+	\exp \left(
+	-
+	\int^{T}_{0} \sigma dW_{t}
+	-
+	\dfrac{1}{2}
+	\int^{T}_{0} \sigma^{2} dt
+	\right)
+	\\ &=&
+	\exp \left(
+	-
+	\sigma W_{T}
+	-
+	\dfrac{1}{2}
+	\sigma^{2} T
+	\right)
+\end{eqnarray*}
+%
+%
+で定義される。
+
+この$\tilde{W}_{t}$を用いると、
+%
+\footnote{もっと単純に、
+	指数関数の中の確率項に$\sigma W_{t}$のような因子を持つ確率過程を微分すると
+	$+\dfrac{1}{2}\sigma$されて、
+	逆に積分すると
+	$-\dfrac{1}{2}\sigma$されるということを覚えておけば良い。
+	(何度も何度も出てくるので。)
+}
+%
+%
+\begin{eqnarray*}
+	\dfrac{d \tilde{Z}_{t}}{\tilde{Z}_{t}}
+	&=&
+	\sigma d \tilde{W}_{t}
+	\\
+	\tilde{Z}_{t}
+	&=&
+	\tilde{Z}_{0}
+	\exp \left(
+	\int^{t}_{0} \sigma d\tilde{W}_{s}
+	-
+	\dfrac{1}{2}
+	\int^{t}_{0} \sigma^{2} ds
+	\right)
+	\\ &=&
+	\tilde{Z}_{0}
+	\exp \left(
+	\sigma \tilde{W}_{t}
+	-
+	\dfrac{1}{2}
+	\sigma^{2} t
+	\right)
+\end{eqnarray*}
+%
+%
+
+株式オプション$X$をヘッジするには
+$$
+	E_{t}
+	\ = \
+	\mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X | \mathcal{F}_{t} )
+$$
+で確率過程を定義して、
+マルチンゲール表現定理によって
+$$
+	dE_{t}
+	\ = \
+	\tilde{\phi}_{t}
+	d \tilde{Z}_{t}
+$$
+を成立させるような
+可予測過程$\tilde{\phi}_{t}$の存在が保障される。
+
+この
+可予測過程$\tilde{\phi}_{t}$が$\tilde{Z}_{t}$のヘッジであり、
+債券$B_{t}$のヘッジ$\psi_{t}$は
+$$
+	E_{t}
+	\ = \
+	B^{-1}_{t} V_{t}
+	\ = \
+	B^{-1}_{t} ( \tilde{\phi}_{t} \tilde{S}_{t} + \psi_{t} B_{t} )
+	\ = \
+	\tilde{\phi}_{t} \tilde{Z}_{t} + \psi_{t}
+$$
+から
+$$
+	\psi_{t}
+	\ = \
+	E_{t} - \tilde{\phi}_{t} \tilde{Z}_{t}
+$$
+である。
+
+また、この契約$X$のゼロ時点での価値（現在価値）は
+$$
+	V_{0}
+	\ = \
+	\mathbb{E}_{\mathbb{Q}}(B^{-1}_{T} X )
+$$
+
+最後に$X=(S_{T}-K)^{+}$の場合、
+すなわち契約$X$が満期$T$、行使価格$K$のコールオプションの場合を考える。
+
+株価は
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	(1-\delta)^{-n[t]}
+	\tilde{S}_{t}
+	\\ &=&
+	(1-\delta)^{-n[t]}
+	B_{t}
+	\tilde{Z}_{t}
+	\\ &=&
+	S_{0}
+	(1-\delta)^{-n[t]}
+	\exp
+	\left\{
+	\sigma \tilde{W}_{t}
+	+
+	\left(
+	r
+	-
+	\dfrac{1}{2}
+	\sigma^{2}
+	\right)
+	t
+	\right\}
+\end{eqnarray*}
+%
+%
+つまり測度$\mathbb{Q}$の下では対数正規分布に従うので、
+Black-Scholesの公式より
+%
+%
+\begin{eqnarray*}
+	V_{0}
+	&=&
+	F_{T}
+	\ \! \Phi_{+}
+	-
+	K
+	\ \! \Phi_{-}
+\end{eqnarray*}
+%
+%
+ただし
+%
+%
+\begin{eqnarray*}
+	\Phi_{\pm}
+	&=&
+	\Phi
+	\left(
+	\dfrac{
+		\log \dfrac{F_{T}}{K} \pm \dfrac{1}{2} ( \sigma \sqrt{T} )^{2}
+	}
+	{\sigma \sqrt{T}}
+	\right)
+\end{eqnarray*}
+%
+%
+のように略記した。フォワード価格$F_{T}$は
+%
+%
+\begin{eqnarray*}
+	F_{T}
+	&=&
+	S_{0}
+	(1-\delta)^{-n[T]} e^{rT}
+\end{eqnarray*}
+%
+%
+である。
+
+\if0
+	%
+	%
+	\begin{eqnarray*}
+		&=&
+	\end{eqnarray*}
+	%
+	%
+\fi
+
+\end{document}
