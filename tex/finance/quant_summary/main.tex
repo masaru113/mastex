@@ -1,0 +1,944 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+Baxter Rennie Reading Group \ \ Chapter 4, Section 5 \ \ Quanto (Summary)
+}
+\author{Masaru Okada}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\ \\
+\section{Quanto Contracts}
+
+A contract in which the currency of the underlying asset differs from the currency of the contract's payoff.
+
+For instance, a contract that pays $S_{T}$ yen when a product listed on a U.S. market is priced at $S_{T}$ dollars.
+
+\section{The Idea of a Quanto (The Model We Will Consider)}
+
+Using two non-independent $\mathbb{P}$-Brownian motions, $W_{1}(t)$ and $W_{2}(t)$, we consider the following model:
+%
+%
+\begin{eqnarray}
+	\left.
+	\begin{array}{ll}
+		S_{t}
+		\ = \
+		S_{0}
+		\exp \left( \sigma_{1} W_{1}(t) + \mu t \right) \ ,
+		 &
+		B_{t}
+		\ = \
+		\exp (rt)
+		\\
+		C_{t}
+		\ = \
+		C_{0}
+		\exp \left(
+		\rho \sigma_{2} W_{1}(t) +
+		\bar{\rho} \sigma_{2} W_{2}(t) + \nu t \right)\ ,
+		 &
+		D_{t}
+		\ = \
+		\exp (ut)
+	\end{array}
+	\right.
+\end{eqnarray}
+%
+%
+Here, $\mu, \nu, r, u$ are constants, with $r$ and $u$ being positive.
+$\rho$ is a constant between 0 and 1, inclusive,
+and we use the shorthand $\bar{\rho} = \sqrt{1 - \rho^{2}}$.
+$S_{t}$ is the stock price in pounds at time $t$,
+$C_{t}$ is the exchange rate (1 pound = $C_{t}$ dollars),
+$B_{t}$ is the dollar cash bond,
+and $D_{t}$ is the pound cash bond.
+
+\section{Interpretation of the Model}
+
+By calculating the variance-covariance matrix and correlation matrix of the vector-valued random variable
+$( \log S_{t} , \log C_{t})$,
+we find that:
+
+\ \ \ \ $\cdot$ The volatility of $\log S_{t}$ is $\sigma_{1}$
+
+\ \ \ \ $\cdot$ The volatility of $\log C_{t}$ is $\sigma_{2}$
+
+\ \ \ \ $\cdot$ The correlation between $\log S_{t}$ and $\log C_{t}$ is $\rho$
+
+\section{SDE of Tradable Assets}
+
+In this model, there are three assets that can be traded in dollars.
+
+\ \ \ 1. The pound cash bond, denominated in dollars: $C_{t} D_{t}$
+
+\ \ \ 2. The stock price, denominated in dollars: $C_{t} S_{t}$
+
+\ \ \ 3. The dollar cash bond: $B_{t}$
+
+Taking $B_{t}$ as the numeraire, we consider the two discounted processes
+$Y_{t} = B_{t}^{-1} C_{t} D_{t}$ and
+$Z_{t} = B_{t}^{-1} C_{t} S_{t}$.
+The stochastic differential equations (SDEs) that these processes satisfy are:
+%
+%
+\begin{eqnarray}
+	\dfrac{dY_{t}}{Y_{t}}
+	&=&
+	\rho \sigma_{2} dW_{1}(t) +
+	\bar{\rho} \sigma_{2} dW_{2}(t) \ + \ \left( \nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r \right) dt
+	\\
+	\dfrac{dZ_{t}}{Z_{t}}
+	&=&
+	(\sigma_{1} + \rho \sigma_{2}) dW_{1}(t)
+	+ \bar{\rho} \sigma_{2} dW_{2}(t)
+	\ + \
+	\left(
+	\mu + \nu +
+	\dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2}
+	- r
+	\right) dt
+\end{eqnarray}
+%
+%
+
+
+\section{SDE of Tradable Assets (Matrix Representation)}
+The stochastic differential equations can be expressed in matrix form as:
+%
+%
+\begin{eqnarray}
+	\left(
+	\begin{array}{c}
+		d Y_{t} / Y_{t}
+		\\[2mm]
+		d Z_{t} / Z_{t}
+	\end{array}
+	\right)
+	&=&
+	\left(
+	\begin{array}{ccc}
+		\rho \sigma_{2}              & \bar{\rho} \sigma_{2} & \nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r
+		\\
+		\sigma_{1} + \rho \sigma_{2} & \bar{\rho} \sigma_{2} & \mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2} - r
+	\end{array}
+	\right)
+	\left(
+	\begin{array}{c}
+		dW_{1}(t)
+		\\
+		dW_{2}(t)
+		\\
+		dt
+	\end{array}
+	\right)
+	\\ &=&
+	\left(
+	\begin{array}{cc}
+		\rho \sigma_{2}              & \bar{\rho} \sigma_{2}
+		\\
+		\sigma_{1} + \rho \sigma_{2} & \bar{\rho} \sigma_{2}
+	\end{array}
+	\right)
+	\left(
+	\begin{array}{c}
+		dW_{1}(t)
+		\\
+		dW_{2}(t)
+	\end{array}
+	\right)
+	\ + \
+	\left(
+	\begin{array}{c}
+		\nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r
+		\\
+		\mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2} - r
+	\end{array}
+	\right)
+	dt
+\end{eqnarray}
+%
+%
+We have separated the terms involving the differentials of Brownian motion from the time differential term.
+
+The coefficient matrix of the Brownian motion differential terms is called the volatility matrix, denoted by
+${\bm \Sigma}$.
+%
+%
+\begin{eqnarray}
+	{\bm \Sigma}
+	&=&
+	\left(
+	\begin{array}{cc}
+			\rho \sigma_{2}              & \bar{\rho} \sigma_{2}
+			\\
+			\sigma_{1} + \rho \sigma_{2} & \bar{\rho} \sigma_{2}
+		\end{array}
+	\right)
+\end{eqnarray}
+%
+%
+The drift vector ${\bm \mu}$ is defined as follows.
+%
+%
+\begin{eqnarray}
+	{\bm \mu}
+	&=&
+	\left(
+	\begin{array}{c}
+			\nu + u + \dfrac{1}{2} \sigma_{2}^{2}
+			\\
+			\mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2}
+		\end{array}
+	\right)
+\end{eqnarray}
+%
+%
+Using the volatility matrix ${\bm \Sigma}$ and
+the drift vector ${\bm \mu}$,
+the SDE can be written more clearly as:
+%
+%
+\begin{eqnarray}
+	\left(
+	\begin{array}{c}
+			d Y_{t} / Y_{t}
+			\\
+			d Z_{t} / Z_{t}
+		\end{array}
+	\right)
+	&=&
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	( {\bm \mu} - r {\bm 1} ) dt
+\end{eqnarray}
+%
+%
+
+\section{Condition for No Drift}
+To eliminate the drift term, we need to be able to write the SDE using a Brownian motion
+$(\tilde{W}_{1}(t),\tilde{W}_{2}(t))$
+under some measure $\mathbb{Q}$, such that:
+%
+%
+\begin{eqnarray}
+	\left(
+	\begin{array}{c}
+			d Y_{t} / Y_{t}
+			\\
+			d Z_{t} / Z_{t}
+		\end{array}
+	\right)
+	&=&
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			d \tilde{W}_{1}(t)
+			\\
+			d \tilde{W}_{2}(t)
+		\end{array}
+	\right)
+\end{eqnarray}
+%
+%
+Comparing the right-hand sides gives us
+%
+%
+\begin{eqnarray}
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			d \tilde{W}_{1}(t)
+			\\
+			d \tilde{W}_{2}(t)
+		\end{array}
+	\right)
+	&=&
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	( {\bm \mu} - r {\bm 1} ) dt
+\end{eqnarray}
+%
+%
+If the volatility matrix ${\bm \Sigma}$ is invertible, then
+%
+%
+\begin{eqnarray}
+	\left(
+	\begin{array}{c}
+			d \tilde{W}_{1}(t)
+			\\
+			d \tilde{W}_{2}(t)
+		\end{array}
+	\right)
+	&=&
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	{\bm \Sigma}^{-1}
+	( {\bm \mu} - r {\bm 1} ) dt
+	\\ &=&
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	{\bm \gamma}dt
+\end{eqnarray}
+%
+%
+where ${\bm \gamma}$ is
+the market price of risk
+corresponding to
+$(W_{1}(t),W_{2}(t))$,
+${\bm \gamma}^{T} = (\gamma_{1}(t),\gamma_{2}(t))$.
+%
+%
+\begin{eqnarray}
+	{\bm \gamma}
+	&=&
+	{\bm \Sigma}^{-1}
+	( {\bm \mu} - r {\bm 1} )
+\end{eqnarray}
+%
+%
+To describe the SDE using the $\mathbb{Q}$-Brownian motion
+$(\tilde{W}_{1}(t),\tilde{W}_{2}(t))$,
+we just need to calculate the market price of risk.
+%
+%
+\begin{eqnarray}
+	{\bm \gamma}
+	&=&
+	{\bm \Sigma}^{-1}
+	( {\bm \mu} - r {\bm 1} )
+	\\ &=&
+	\dfrac{1}{ \bar{\rho} \sigma_{1} \sigma_{2} }
+	\left(
+	\!\!
+	\begin{array}{cc}
+			- \bar{\rho} \sigma_{2}      & \bar{\rho} \sigma_{2}
+			\\
+			\sigma_{1} + \rho \sigma_{2} & - \rho \sigma_{2}
+		\end{array}
+	\!\!
+	\right)
+	\!\!
+	\left(
+	\begin{array}{c}
+			\nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r
+			\\
+			\mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2} - r
+		\end{array}
+	\right)
+\end{eqnarray}
+%
+%
+From this, the components of the market price of risk are respectively
+%
+%
+\begin{eqnarray}
+	\gamma_{1}
+	&=&
+	\dfrac{
+		u
+		-
+		\mu - \dfrac{1}{2} \sigma_{1}^{2} - \rho \sigma_{1} \sigma_{2}
+	}
+	{ \sigma_{1} }
+	\\[3mm]
+	\gamma_{2}
+	&=&
+	\dfrac{
+		\nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r - \rho \sigma_{2} \gamma_{1}
+	}
+	{ \bar{\rho} \sigma_{2} }
+\end{eqnarray}
+%
+%
+
+\subsection*{Using the Condition that $\bm{\gamma}$ Satisfies When Tradable}
+The stochastic differential equations can be rewritten using the $\mathbb{Q}$-Brownian motion as follows.
+%
+%
+\begin{eqnarray}
+	\left(
+	\begin{array}{c}
+		d Y_{t} / Y_{t}
+		\\
+		d Z_{t} / Z_{t}
+	\end{array}
+	\right)
+	&=&
+	\left(
+	\begin{array}{l}
+		\rho \sigma_{2} d \tilde{W}_{1}(t) \ + \ \bar{\rho} \sigma_{2} d \tilde{W}_{2}(t)
+		\\
+		( \sigma_{1} + \rho \sigma_{2} ) d \tilde{W}_{1}(t) \ + \ \bar{\rho} \sigma_{2} d \tilde{W}_{2}(t)
+	\end{array}
+	\right)
+\end{eqnarray}
+%
+%
+This is a system of SDEs. Attempting to solve it directly in this form seems quite cumbersome, as it would require diagonalizing the volatility matrix and so on.
+
+However, using the concept of the market price of risk from the previous section, we only need to find the values of ${\bm \mu} = (\mu,\nu)$ that make ${\bm \gamma} = {\bm 0}$ and substitute them back into the processes for the original assets.
+
+From $\gamma_{1} = 0$, we have
+%
+%
+\begin{eqnarray}
+	\mu
+	\ = \
+	u - \dfrac{1}{2} \sigma_{1}^{2} - \rho \sigma_{1} \sigma_{2}
+\end{eqnarray}
+%
+%
+
+From $\gamma_{2} = 0$, we have
+%
+%
+\begin{eqnarray}
+	\nu
+	\ = \
+	r - u - \dfrac{1}{2} \sigma_{2}^{2}
+\end{eqnarray}
+%
+%
+
+The original asset processes were expressed using the $\mathbb{P}$-Brownian motion as
+%
+%
+\begin{eqnarray}
+	S_{t}
+	&=&
+	S_{0}
+	\exp \left( \sigma_{1} W_{1}(t) + \mu t \right)
+	\\
+	C_{t}
+	&=&
+	C_{0}
+	\exp \left(
+	\rho \sigma_{2} W_{1}(t) +
+	\bar{\rho} \sigma_{2} W_{2}(t) + \nu t \right)
+\end{eqnarray}
+%
+%
+so, describing them with the $\mathbb{Q}$-Brownian motion and substituting the values of ${\bm \mu}$ we just found gives:
+%
+%
+\begin{eqnarray}
+	S_{t}
+	&=&
+	S_{0}
+	\exp \left( \sigma_{1} \tilde{W}_{1}(t) +
+	\left(
+		u - \dfrac{1}{2} \sigma_{1}^{2} - \rho \sigma_{1} \sigma_{2}
+		\right)
+	t \right)
+	\\
+	C_{t}
+	&=&
+	C_{0}
+	\exp \left(
+	\rho \sigma_{2} \tilde{W}_{1}(t) +
+	\bar{\rho} \sigma_{2} \tilde{W}_{2}(t) +
+	\left(
+		r - u - \dfrac{1}{2} \sigma_{2}^{2}
+		\right)
+	t \right)
+\end{eqnarray}
+%
+%
+
+${}$
+
+For $C_{t}$,
+by defining a $\mathbb{Q}$-Brownian motion
+$$
+	\tilde{W}_{3}(t)
+	\ = \
+	\rho \tilde{W}_{1}(t) +
+	\bar{\rho} \tilde{W}_{2}(t)
+$$
+we can write
+%
+%
+\begin{eqnarray}
+	C_{t}
+	&=&
+	e^{(r-u)t}
+	C_{0}
+	\exp \left(
+	\sigma_{2} \tilde{W}_{3}(t) -
+	\dfrac{1}{2} \sigma_{2}^{2}
+	t \right)
+\end{eqnarray}
+%
+%
+Therefore, if we choose the numeraire $e^{(r-u)t} = B_{t} D^{-1}_{t}$,
+the process becomes a $\mathbb{Q}$-martingale, and is thus tradable.
+
+$S_{t}$, on the other hand, is given by
+%
+%
+\begin{eqnarray}
+	S_{t}
+	&=&
+	e^{ut}
+	S_{0}
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	\exp \left( \sigma_{1} \tilde{W}_{1}(t) -
+	\dfrac{1}{2} \sigma_{1}^{2}
+	t \right)
+\end{eqnarray}
+%
+%
+Because it contains a factor of
+$e^{- \rho \sigma_{1} \sigma_{2}}$,
+it does not become tradable even if we choose the pound cash bond $e^{ut} = D_{t}$ as the numeraire.
+
+
+
+\ \\[-10mm]
+
+\section{Quanto Forward}
+
+We have successfully expressed the tradable assets using a Brownian motion under a measure $\mathbb{Q}$ that renders them martingales.
+Our next step is to determine the price of a quanto contract by calculating the expected value under this $\mathbb{Q}$ measure.
+
+Regarding the expression for $S_{t}$ written with the $\mathbb{Q}$-Brownian motion, and using the forward price at maturity $T$, $F = D_{T} S_{0} = e^{uT} S_{0}$, we can write:
+%
+%
+\begin{eqnarray}
+	S_{t}
+	&=&
+	F
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	\exp \left( \sigma_{1} \tilde{W}_{1}(t) -
+	\dfrac{1}{2} \sigma_{1}^{2}
+	t \right)
+\end{eqnarray}
+%
+%
+The present value of a forward contract with a delivery price of $K$ (dollars) can be calculated as follows.
+%
+%
+\begin{eqnarray}
+	V_{0}
+	&=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}}(S_{T}-K)
+	\\ &=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}}
+	\left[
+		F
+		e^{- \rho \sigma_{1} \sigma_{2}}
+		\exp \left( \sigma_{1} \tilde{W}_{1}(T) -
+		\dfrac{1}{2} \sigma_{1}^{2}
+		T \right)
+		-
+		K
+		\right]
+	\\ &=&
+	F
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	e^{-rT}
+	\exp \left( -\dfrac{1}{2} \sigma_{1}^{2} T \right)
+	\mathbb{E}_{\mathbb{Q}}
+	e^{\sigma_{1} \tilde{W}_{1}(T)}
+	-
+	Ke^{-rT}
+\end{eqnarray}
+%
+%
+Here, the expected value
+$\mathbb{E}_{\mathbb{Q}}
+	e^{\sigma_{1} \tilde{W}_{1}(T)}$
+is calculated by noting that
+$\dfrac{\tilde{W}_{1}(T)}{\sqrt{T}}$
+follows a standard normal distribution (a random variable $Z$) under the measure $\mathbb{Q}$.
+%
+%
+\begin{eqnarray}
+	\mathbb{E}_{\mathbb{Q}}
+	e^{\sigma_{1} \tilde{W}_{1}(T)}
+	&=&
+	\mathbb{E}_{\mathbb{Q}}
+	\exp \left( \sigma_{1} \sqrt{T} \dfrac{\tilde{W}_{1}(T)}{\sqrt{T}} \right)
+	\\ &=&
+	\mathbb{E}
+	\exp \left( \sigma_{1} \sqrt{T} Z \right)
+	\\ &=&
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\int^{\infty}_{-\infty}
+	\exp \left( \sigma_{1} \sqrt{T} z \right)
+	\
+	e^{-\frac{1}{2}z^{2}}
+	dz
+	\\ &=&
+	\exp \left( \dfrac{1}{2} (\sigma_{1} \sqrt{T})^{2} \right)
+\end{eqnarray}
+%
+%
+
+In summary,
+%
+%
+\begin{eqnarray}
+	V_{0}
+	&=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}}(S_{T}-K)
+	\\ &=&
+	F
+	e^{-rT}
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	\exp \left( -\dfrac{1}{2} \sigma_{1}^{2} T \right)
+	\exp \left(\dfrac{1}{2} \sigma_{1}^{2} T \right)
+	-
+	Ke^{-rT}
+	\\ &=&
+	F
+	e^{-rT}
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	-
+	Ke^{-rT}
+\end{eqnarray}
+%
+%
+
+The delivery price $K$ is set such that the present value is zero, ensuring that neither party to the trade makes a profit or loss at inception.
+
+Thus, if we write the value of $K$ when $V_{0}=0$ as $F_{Q}$, we have:
+%
+%
+\begin{eqnarray}
+	0 &=& V_{0}
+	\ = \
+	F
+	e^{-rT}
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	-
+	F_{Q} e^{-rT}
+	\\
+	\Longleftrightarrow
+	\
+	F_{Q}
+	&=&
+	F
+	e^{- \rho \sigma_{1} \sigma_{2}}
+\end{eqnarray}
+%
+%
+
+Since the values of $\sigma_{1}$ and $\sigma_{2}$ are both positive,
+the price of the quanto forward is higher than the standard forward price $F$ by a factor of $e^{- \rho \sigma_{1} \sigma_{2}}$
+only when the stock price and the exchange rate are negatively correlated ($\rho < 0$).
+
+
+\ \\[-10mm]
+
+\section{Quanto Digital Option}
+
+A quanto digital option is a contract that, for example, pays 1 dollar (not 1 pound) if the stock price $S_{T}$ (in pounds) at maturity $T$ exceeds a predetermined price of $K$ pounds.
+
+The payoff is
+$$
+	X
+	\ = \
+	1_{ \{ S_{T}>K \} }
+$$
+and its present value $V_{0}$ is
+%
+%
+\begin{eqnarray}
+	\hspace{-10mm}
+	V_{0}
+	& = &
+	B^{-1}_{T}
+	\mathbb{E}_{\mathbb{Q}}
+	X
+	\\ & = &
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}}
+	1_{ \{ S_{T}>K \} }
+	\\ & = &
+	e^{-rT}
+	\mathbb{Q}
+	\{ S_{T}>K \}
+\end{eqnarray}
+%
+%
+Here, $\mathbb{Q}\{B\}$ is the probability of condition $B$ being met under the measure $\mathbb{Q}$.
+
+$S_{T}$ could be written using the $\mathbb{Q}$-Brownian motion as follows.
+%
+%
+\begin{eqnarray}
+	S_{T}
+	&=&
+	F
+	\exp \left( \sigma_{1} \tilde{W}_{1}(T) -
+	\dfrac{1}{2} \sigma_{1}^{2} T -
+	\rho \sigma_{1} \sigma_{2}
+	\right)
+	\\ &=&
+	F
+	\exp \left( \sigma_{1} \sqrt{T} \dfrac{ \tilde{W}_{1}(T) }{ \sqrt{T} } -
+	\dfrac{1}{2} \sigma_{1}^{2} T -
+	\rho \sigma_{1} \sigma_{2} \right)
+	\\ &=&
+	F
+	\exp \left( \sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T  -
+	\rho \sigma_{1} \sigma_{2}\right)
+\end{eqnarray}
+%
+%
+where $F$ is the forward price at maturity $T$, $F = e^{uT} S_{0}$.
+Also, $Z$ is a standard normal random variable under $\mathbb{Q}$, following $N(0,1)$.
+
+Furthermore, for simplicity of notation, if we use
+$$
+	F_{Q} \ = \ F e^{- \rho \sigma_{1} \sigma_{2} }
+$$
+then,
+$$
+	S_{T}
+	\ = \
+	F_{Q}
+	\exp \left( \sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T
+	\right)
+$$
+Rearranging the condition $S_{T}>K$, we get:
+%
+%
+\begin{eqnarray}
+	S_{T}
+	&>&
+	K
+	\\
+	F_{Q}
+	\exp \left( \sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T
+	\right)
+	&>&
+	K
+	\\
+	Z
+	&>&
+	\dfrac{
+		\dfrac{1}{2} \sigma_{1}^{2} T
+		-
+		\log
+		\dfrac{F_{Q}}{K}
+	}{\sigma_{1} \sqrt{T}}
+	\ = \
+	z_{0}
+\end{eqnarray}
+%
+%
+Since the right-hand side is complex, we will temporarily set it as $z_{0}$.
+Continuing the calculation,
+%
+%
+\begin{eqnarray}
+	V_{0}
+	&=&
+	e^{-rT}
+	\mathbb{Q}
+	\{ S_{T} > K \}
+	\\ &=&
+	e^{-rT}
+	\mathbb{Q}
+	\{ Z > z_{0} \}
+	\\ &=&
+	e^{-rT}
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\int^{\infty}_{z_{0}}
+	e^{
+			- \frac{1}{2} z^{2}
+		} dz
+	\\ &=&
+	e^{-rT}
+	\Phi
+	\left(
+	\dfrac{
+		\log
+		\dfrac{F_{Q}}{K}
+		-
+		\dfrac{1}{2} \sigma_{1}^{2} T
+	}{\sigma_{1} \sqrt{T}}
+	\right)
+\end{eqnarray}
+%
+%
+
+
+\ \\[-10mm]
+
+\section{Quanto Call Option}
+A quanto call option is a contract that, for example, pays
+$S_{T} - k$ dollars (not $S_{T} - k$ pounds) if the stock price $S_{T}$ (in pounds) at maturity $T$ exceeds a predetermined strike price of $k$ pounds.
+
+The payoff is
+%
+%
+\begin{eqnarray}
+	X
+	\ = \
+	( S_{T} - k )^{+}
+\end{eqnarray}
+%
+%
+and its present value $V_{0}$ is
+%
+%
+\begin{eqnarray}
+	V_{0}
+	& = &
+	B^{-1}_{T}
+	\mathbb{E}_{\mathbb{Q}}
+	X
+	\\ & = &
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}}
+	( S_{T} - k  )^{+}
+\end{eqnarray}
+%
+%
+
+As in the previous section, using
+$
+	F_{Q} = F e^{- \rho \sigma_{1} \sigma_{2} }
+$
+and a standard normal random variable $Z$,
+%
+%
+\begin{eqnarray}
+	S_{T}
+	\ = \
+	F_{Q}
+	\exp \left( \sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T
+	\right)
+\end{eqnarray}
+%
+%
+$S_T$ can be written as above, therefore:
+%
+%
+\begin{eqnarray}
+	V_{0}
+	& = &
+	e^{-rT}
+	\mathbb{E}
+	\left(
+	F_{Q}
+	\exp \left( \sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T
+	\right)
+	- k
+	\right)^{+}
+\end{eqnarray}
+%
+%
+
+Using the 'calculation formula for the price of a call option in the log-normal case', which was already discussed in Section 4.1, we get:
+
+%
+%
+\begin{eqnarray}
+	V_{0}
+	&=&
+	e^{-rT}
+	\left\{
+	F_{Q}
+	\Phi
+	\left(
+	\dfrac{
+		\log
+		\dfrac{F_{Q}}{k}
+		+
+		\dfrac{1}{2} \sigma_{1}^{2} T
+	}{\sigma_{1} \sqrt{T}}
+	\right)
+	-
+	k
+	\Phi
+	\left(
+	\dfrac{
+		\log
+		\dfrac{F_{Q}}{k}
+		-
+		\dfrac{1}{2} \sigma_{1}^{2} T
+	}{\sigma_{1} \sqrt{T}}
+	\right)
+	\right\}
+\end{eqnarray}
+%
+%
+
+
+\section{Exercise 4.3}
+Consider the case where the underlying asset is $S_{t}$ yen,
+the exchange rate $C_{t}$ is in units of dollars per yen,
+and the correlation coefficient is $\rho$. Determine the formula for the quanto forward price in this scenario.
+In the previous model, the payoff currency was in the denominator of the exchange rate convention, such as 'pounds per dollar'.
+
+In the current case, the payoff currency is in the numerator,
+which means the correlation coefficient effectively becomes
+$\rho \to - \rho$.
+
+In this case, the formula becomes:
+$
+	F_{Q}
+	=
+	F
+	e^{\rho \sigma_{1} \sigma_{2}}
+$
+.
+
+The pricing formulas for the digital and call options are also modified in accordance with this change to the forward price formula.
+
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+
+\end{document}
