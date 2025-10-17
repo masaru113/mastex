@@ -1,0 +1,1094 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+Market Price of Risk
+}
+\author{Masaru Okada}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	These are notes from a self-study session on Chapter 3 of 'Financial Calculus - An Introduction to Derivative Pricing' by Martin Baxter and Andrew Rennie.
+	Written on June 3, 2020.
+	The note explores what it means for an asset to be tradable.
+\end{abstract}
+
+\tableofcontents
+
+\ \\
+
+Stochastic processes can be either tradable or non-tradable.
+
+For example, a foreign exchange rate itself is not directly tradable.
+For a given exchange rate between another country's currency and one's own, what is actually traded are assets denominated in a currency, converted at that rate. For instance, the price of an asset denominated in a foreign currency is multiplied by the rate to convert it to the price of an asset in the domestic currency. It is the converted asset that is traded, not the exchange rate itself.
+
+Let's consider how the distinction between tradable and non-tradable is determined.
+
+Ultimately, however, this distinction can also be a matter of human sentiment: whether market participants want to trade something, or more precisely, whether there is a counterparty willing to engage in the trade.
+
+First, it is necessary to consider what 'tradable' truly means.
+
+\ \\
+
+
+If we determine that an asset represented by a specific stochastic process $S_{t}$ is tradable, and we can skillfully choose an appropriate stochastic process $B_{t}$ for discounting it, we can then proceed to analyze the market constructed from $S_{t}$ and $B_{t}$.
+
+\section{Martingales are Tradable}
+Suppose there exists a measure $\mathbb{Q}$ that makes a tradable asset $Z_{t} = B^{-1}_{t} S_{t}$ a martingale.
+Let's consider a case where another stochastic process $V_{t}$, adapted to the same filtration $\mathcal{F}_{t}$, when discounted, gives a price $E_{t} = B^{-1}_{t} V_{t}$ that is also a $\mathbb{Q}$-martingale.
+
+${}$
+
+If the volatility of $Z_{t}$ is non-zero, the Martingale Representation Theorem guarantees the existence of an $\mathcal{F}_{t}$-predictable stochastic process $\phi_{t}$ such that
+$$
+	dE_{t}
+	\ = \
+	\phi_{t} dZ_{t}
+$$
+
+Following the same logic as in previous examples, we construct a portfolio consisting of $\phi_{t}$ and $\psi_{t}$ based on the following strategy:
+
+\hspace{5mm} $\cdot$ Hold $\phi_{t}$ units of $S_{t}$.
+
+\hspace{5mm} $\cdot$ Hold $\psi_{t}$ units of $B_{t}$.
+
+Here, $\psi_{t}$ is chosen to satisfy
+$$
+	\phi_{t} S_{t} + \psi_{t} B_{t} \ = \ B_{t} E_{t} \ = \ V_{t}
+$$
+This means $\psi_{t} = E_{t} - \phi_{t} Z_{t}$. The value of $\psi_{t}$ is chosen so that the price of the portfolio constructed with this strategy is always equal to $V_{t}$.
+
+This strategy is self-financing. In other words, the change in the portfolio's price is caused solely by the changes in the asset prices.
+
+${}$
+
+From the above, we have successfully replicated $V_{t}$ using $S_{t}$ and $B_{t}$.
+
+Such a $V_{t}$ is called a tradable asset.
+
+${}$
+
+For a discounted stochastic process to be a $\mathbb{Q}$-martingale means that the process can be replicated without any cost using tradable assets (in this case, $S_{t}$ and $B_{t}$).
+
+Conversely, this implies that such a $\mathbb{Q}$-martingale is itself a tradable asset.
+
+\section{If it is not a Martingale, it is Non-Tradable}
+
+Let's assume that $E_{t} = B^{-1}_{t} V_{t}$ is not a $\mathbb{Q}$-martingale.
+
+In this case, for some times $T$ and $s$, the following holds with positive probability:
+$$
+	\mathbb{E}_{\mathbb{Q}}( B^{-1}_{T} V_{T} | \mathcal{F}_{s} )
+	\ \neq \
+	B^{-1}_{s} V_{s}
+$$
+
+Let $U_{t}$ be the cost of replicating the contract $X=V_{T}$. That is,
+$$
+	U_{t}
+	\ = \
+	B^{-1}_{t}
+	\mathbb{E}_{\mathbb{Q}}( B^{-1}_{T} V_{T} | \mathcal{F}_{t} )
+$$
+At $t=T$, we have $U_{T}=V_{T}$, but for $t$ (where $0<t<T$), $U_{t} \neq V_{t}$ with positive probability. Let's examine this case.
+
+${}$
+
+First, when $U_{t} > V_{t}$, one can gain an infinite profit by buying $V_{t}$ and selling $U_{t}$.
+
+Next, when $U_{t} < V_{t}$, one can gain an infinite profit by buying $U_{t}$ and selling $V_{t}$.
+
+${}$
+
+From this, assuming that $E_{t} = B^{-1}_{t} V_{t}$ is not a $\mathbb{Q}$-martingale leads to the creation of an arbitrage opportunity through trading $V_{t}$. Such opportunities vanish in an extremely short time. (If they were to persist, the parties involved would generate either infinite wealth or infinite loss.)
+
+In other words, $V_{t}$ is non-tradable (except for the fleeting moments when an arbitrage opportunity exists).
+
+${}$
+
+In a market consisting of tradable assets $S_{t}$ and $B_{t}$, we can determine whether another process is tradable based on the reasoning above.
+
+In summary, if we let $\mathbb{Q}$ be the martingale measure for $B^{-1}_{t} S_{t}$, a process is tradable if it is a $\mathbb{Q}$-martingale, and non-tradable if it is not.
+\section{Exercise 4.1}
+
+Under measure $\mathbb{Q}$, assume the stock price $S_{t}$ and bond price $B_{t}$ are given by
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	\exp \left(
+	\sigma \tilde{W}_{t} +
+	\left(
+		r - \dfrac{1}{2} \sigma^{2}
+		\right)
+	t
+	\right)
+	\\
+	B_{t}
+	&=&
+	e^{rt}
+\end{eqnarray*}
+%
+%
+
+\subsection{(1) $X_{t} = S^{2}_{t}$}
+
+Discounting the process $X_{t} = S^{2}_{t}$, we get:
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	B^{-1}_{t} X_{t}
+	\\ &=&
+	\exp \left(
+	2 \sigma \tilde{W}_{t} +
+	\left(
+		2 r - \sigma^{2}
+		\right)
+	t
+	-rt
+	\right)
+	\\ &=&
+	\exp \left(
+	2 \sigma \tilde{W}_{t} +
+	\left(
+		r - \sigma^{2}
+		\right)
+	t
+	\right)
+\end{eqnarray*}
+%
+%
+Its stochastic differential equation (SDE) is:
+%
+%
+\begin{eqnarray*}
+	\dfrac{dZ_{t}}{Z_{t}}
+	&=&
+	\exp \left(
+	2 \sigma d\tilde{W}_{t}
+	+
+	\left(
+		r - \sigma^{2}
+		+\dfrac{(2 \sigma)^{2}}{2}
+		\right)
+	dt
+	\right)
+	\\ &=&
+	\exp \left(
+	2 \sigma d\tilde{W}_{t}
+	+
+	\left(
+		r + \sigma^{2}
+		\right)
+	dt
+	\right)
+\end{eqnarray*}
+%
+%
+When the drift $r+\sigma^{2} = 0$, this process is a martingale and thus tradable. However, if the drift $r+\sigma^{2} \neq 0$, it is not a martingale and is non-tradable.
+
+\subsection{(2) $X_{t} = S^{-2r/\sigma^{2}}_{t}$}
+
+Discounting the process $X_{t} = S^{-2r/\sigma^{2}}_{t}$, we get:
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	B^{-1}_{t} X_{t}
+	\\ &=&
+	\exp \left(
+	-\dfrac{2r}{\sigma^{2}}
+	\sigma \tilde{W}_{t}
+	-\dfrac{2r}{\sigma^{2}}
+	\left(
+	r - \dfrac{1}{2} \sigma^{2}
+	\right)
+	t
+	-rt
+	\right)
+	\\ &=&
+	\exp \left(
+	-\dfrac{2r}{\sigma}
+	\tilde{W}_{t}
+	-
+	\dfrac{2r^{2}}{\sigma^{2}}
+	t
+	\right)
+\end{eqnarray*}
+%
+%
+The SDE for this process is:
+%
+%
+\begin{eqnarray*}
+	\dfrac{dZ_{t}}{Z_{t}}
+	&=&
+	\exp \left(
+	-\dfrac{2r}{\sigma}
+	d \tilde{W}_{t}
+	+
+	\left(
+		-
+		\dfrac{2r^{2}}{\sigma^{2}}
+		+
+		\dfrac{1}{2}
+		\left( \dfrac{2r}{\sigma} \right)^{2}
+		\right)
+	d t
+	\right)
+	\\ &=&
+	\exp \left(
+	-\dfrac{2r}{\sigma}
+	d \tilde{W}_{t}
+	\right)
+\end{eqnarray*}
+%
+%
+The drift is zero (regardless of the conditions on $r$ or $\sigma$), so it is a martingale. Therefore, it is tradable.
+
+\section{Tradable Assets and the Market Price of Risk}
+
+In the most basic Black-Scholes model presented so far, the stock price $S_{t}$ is
+$$
+	S_{t}
+	\ = \
+	S_{0} \exp ( \sigma W_{t} + \mu t )
+$$
+and its SDE is
+%
+%
+\begin{eqnarray*}
+	d S_{t}
+	&=&
+	S_{t} \exp \left( \sigma dW_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) dt \right)
+\end{eqnarray*}
+%
+%
+However, for simplicity in this section, we will define it as
+%
+%
+\begin{eqnarray*}
+	d S_{t}
+	&=&
+	S_{t} \exp \left( \sigma dW_{t} + \mu dt \right)
+\end{eqnarray*}
+%
+%
+This means we start by defining the stock price as
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	S_{0} \exp \left( \sigma W_{t} + \left( \mu - \dfrac{1}{2} \sigma^{2} \right) t \right)
+\end{eqnarray*}
+%
+%
+This definition simplifies discussions involving SDEs.
+
+${}$
+
+Consider a market with two different risky assets, $S^{1}_{t}$ and $S^{2}_{t}$.
+
+Assume these risky assets are adapted to the same Brownian motion $W_{t}$.
+%
+%
+\begin{eqnarray*}
+	d S^{1}_{t}
+	&=&
+	S^{1}_{t} \exp \left( \sigma_{1} dW_{t} + \mu_{1} dt \right)
+	\\
+	d S^{2}_{t}
+	&=&
+	S^{2}_{t} \exp \left( \sigma_{2} dW_{t} + \mu_{2} dt \right)
+\end{eqnarray*}
+%
+%
+
+Since we assume these risky assets are tradable, a common martingale measure $\mathbb{Q}$ must exist for their respective discounted processes.
+If the numéraire is $B_{t} = \exp ( rt)$, then using $i=1,2$ for abbreviation, the discounted processes are:
+%
+%
+\begin{eqnarray*}
+	S^{i}_{t}
+	&=&
+	S^{i}_{0} \exp \left( \sigma_{i} dW_{t} + \left( \mu_{i} - \dfrac{1}{2} \sigma_{i}^{2} \right) dt \right)
+	\\
+	B^{-1}_{t} S^{i}_{t}
+	&=&
+	S^{i}_{0} \exp \left( \sigma_{i} dW_{t} + \left( \mu_{i} - r - \dfrac{1}{2} \sigma_{i}^{2} \right) dt \right)
+	\\
+	d ( B^{-1}_{t} S^{i}_{t} )
+	&=&
+	S^{i}_{0} \exp \left( \sigma_{i} dW_{t} + \left( \mu_{i} - r \right) dt \right)
+\end{eqnarray*}
+%
+%
+Therefore, under the measure that makes the discounted process $B^{-1}_{t} S^{i}_{t}$ a martingale,
+%
+%
+\begin{eqnarray*}
+	\tilde{W}_{t}
+	&=&
+	W_{t}
+	+
+	\dfrac{\mu_{i} - r}{\sigma_{i}}
+	t
+\end{eqnarray*}
+%
+%
+must hold for both $i=1$ and $i=2$.
+
+This implies that
+%
+%
+\begin{eqnarray*}
+	\dfrac{\mu_{1} - r}{\sigma_{1}}
+	&=&
+	\dfrac{\mu_{2} - r}{\sigma_{2}}
+\end{eqnarray*}
+%
+%
+Let's denote this value by $\gamma$.
+$$
+	\gamma
+	\ = \
+	\dfrac{\mu_{i} - r}{\sigma_{i}}
+$$
+
+This value represents the excess asset return $\mu$ over the cash bond's growth rate $r$, per unit of risk $(\sigma)$. Hence, $\gamma=\dfrac{\mu -r}{\sigma}$ is called the \textbf{market price of risk}.
+
+The market price of risk is the very factor that appears in the drift transformation of Brownian motion under Girsanov's theorem.
+
+Using the term 'market price of risk', we can state that:
+'All tradable assets in the same market have the same market price of risk.'
+${}$
+
+The above was for the case where $\mu$ and $\sigma$ are constants. In the more general case where $\mu_{t}$ and $\sigma_{t}$ are predictable processes, the market price of risk $\gamma_{t}=\dfrac{\mu_{t} -r}{\sigma_{t}}$ becomes a stochastic process, but it is the same stochastic process for all tradable assets in the market.
+
+\section{Risk-Neutral Probability Measure}
+
+The martingale measure $\mathbb{Q}$ for the discounted process is also called the risk-neutral probability measure.
+
+The reason is as follows:
+%
+%
+\begin{eqnarray*}
+	d ( B^{-1}_{t} S^{i}_{t} )
+	&=&
+	B^{-1}_{t} S^{i}_{t} \exp \left( \sigma_{i} dW_{t} + \left( \mu_{i} - r \right) dt \right)
+	\\ &=&
+	B^{-1}_{t} S^{i}_{t} \exp \left( \sigma_{i} d \tilde{W}_{t} \right)
+\end{eqnarray*}
+%
+%
+Therefore,
+%
+%
+\begin{eqnarray*}
+	B^{-1}_{t} S^{i}_{t}
+	&=&
+	B^{-1}_{0} S^{i}_{0} \exp \left(
+	\int^{t}_{0} \sigma_{i} d \tilde{W}_{s}
+	- \dfrac{1}{2} \int^{t}_{0} \sigma_{i}^{2} ds
+	\right)
+	\\ &=&
+	B^{-1}_{0} S^{i}_{0} \exp \left(
+	\sigma_{i} \tilde{W}_{t}
+	- \dfrac{1}{2} \sigma_{i}^{2} t
+	\right)
+	\\
+	S^{i}_{t}
+	&=&
+	S^{i}_{0} \exp \left(
+	\sigma_{i} \tilde{W}_{t}
+	+ \left( r - \dfrac{1}{2} \sigma_{i}^{2} \right) t
+	\right)
+	\\
+	d S^{i}_{t}
+	&=&
+	S^{i}_{t} \exp \left(
+	\sigma_{i} \tilde{W}_{t}
+	+ \left( r - \dfrac{1}{2} \sigma_{i}^{2} + \dfrac{1}{2} \sigma_{i}^{2} \right) t
+	\right)
+	\\ &=&
+	S^{i}_{t} \exp \left(
+	\sigma_{i} \tilde{W}_{t}
+	+ r t
+	\right)
+\end{eqnarray*}
+%
+%
+Thus, under $\mathbb{Q}$, the drift of the SDE for the price $S^{i}_{t}$ of a tradable risky asset becomes the growth rate of the cash bond.
+
+It is particularly important to note that under $\mathbb{Q}$, the drift $r$ in the SDE does not depend on the risk $(\sigma_{i})$.
+
+This means that, under $\mathbb{Q}$, all tradable assets have the same growth rate as the cash bond, regardless of their risk $(\sigma_{i})$.
+
+(This example uses $i=1,2$, but it can be shown to hold for any $i \in \mathbb{N}$ by the exact same argument.)
+
+Since $\mathbb{Q}$ is a probability measure independent of risk $(\sigma_{i})$, it is called the risk-neutral probability measure.
+${}$
+
+Let's revisit the above discussion from the perspective of the market price of risk to provide an alternative explanation.
+
+In general, the SDE for $S_{t}$ under $\mathbb{Q}$ can be written in the form
+%
+%
+\begin{eqnarray*}
+	d S_{t}
+	&=&
+	S_{t} \exp \left(
+	\sigma \tilde{W}_{t}
+	+ \tilde{\mu} t
+	\right)
+\end{eqnarray*}
+%
+%
+where we provisionally set the drift as $\tilde{\mu}$.
+
+Recalling Girsanov's theorem, under a $\mathbb{Q}$-martingale measure, the market price of risk for a tradable asset must be zero.
+
+That is,
+$$
+	\dfrac{\tilde{\mu} - r}{ \sigma }
+	\ = \
+	0
+$$
+This implies
+$$
+	\tilde{\mu} \ = \ r
+$$
+Therefore, for any tradable asset, the SDE for $S_{t}$ under $\mathbb{Q}$ is generally
+%
+%
+\begin{eqnarray*}
+	d S_{t}
+	&=&
+	S_{t} \exp \left(
+	\sigma \tilde{W}_{t}
+	+ r t
+	\right)
+\end{eqnarray*}
+%
+%
+(simply substituting $\tilde{\mu} \leftarrow r$ into the previous equation).
+This shows that under $\mathbb{Q}$, the expression is risk-neutral, independent of $\sigma$.
+
+\section{On Non-Tradable Processes}
+
+Let's consider a non-tradable stochastic process $X_{t}$. Assume its SDE is
+$$
+	d X_{t}
+	\ = \
+	\sigma_{t} d W_{t} + \mu_{t} dt
+$$
+where $W_{t}$ is a $\mathbb{P}$-Brownian motion, and $\sigma_{t}, \mu_{t}$ are predictable processes.
+
+(Note that the right-hand side is $dX_{t}$ this time, not $dX_{t}/X_{t}$ as in the previous section. So, this is not an exponential process as before.)
+While $X_{t}$ itself is non-tradable, let's assume that a transformation of it, $Y_{t}=f(X_{t},t)$, is tradable.
+
+Its SDE, using Itô's lemma, is:
+%
+%
+\begin{eqnarray*}
+	d Y_{t}
+	&=&
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	dt
+	+
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	dx
+	+
+	\dfrac{1}{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	dx^{2}
+	\\ &=&
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	dt
+	+
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	dX_{t}
+	+
+	\dfrac{1}{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	dX_{t}^{2}
+	\\ &=&
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	dt
+	+
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	(\sigma_{t} d W_{t} + \mu_{t} dt)
+	+
+	\dfrac{1}{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	\sigma_{t}^{2} dt
+	\\ &=&
+	\left(
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	+
+	\mu_{t}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	+
+	\dfrac{1}{2}
+	\sigma_{t}^{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	\right)
+	dt
+	+
+	\sigma_{t}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	dW_{t}
+	\\
+	\dfrac{dY_{t}}{Y_{t}}
+	&=&
+	\dfrac{1}{Y_{t}}
+	\left(
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	+
+	\mu_{t}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	+
+	\dfrac{1}{2}
+	\sigma_{t}^{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	\right)
+	dt
+	+
+	\dfrac{\sigma_{t}}{Y_{t}}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	dW_{t}
+\end{eqnarray*}
+%
+%
+
+The last equality was obtained by dividing both sides by $Y_{t}$ to align with the market price of risk expression from the previous section.
+(Since the SDE for $X_{t}$ at the beginning of this discussion was $dX_{t}=\sigma_{t} d W_{t} + \mu_{t} dt$ and not $dX_{t}/X_{t}=\sigma_{t} d W_{t} + \mu_{t} dt$, we needed to create $dY_{t}/Y_{t}$ on the left to match the formulation of the previous section.)
+
+Since $Y_{t}$ is tradable, we can consider its market price of risk.
+
+The drift is
+$$
+	\tilde{\mu}_{t}
+	\ = \
+	\dfrac{1}{Y_{t}}
+	\left(
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	+
+	\mu_{t}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	+
+	\dfrac{1}{2}
+	\sigma_{t}^{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	\right)
+$$
+and the risk is
+$$
+	\tilde{\sigma}_{t}
+	\ = \
+	\dfrac{\sigma_{t}}{Y_{t}}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+$$
+Setting these allows us to relate this to the market price of risk from the previous section. If the cash bond interest rate follows a stochastic process $r_{t}$, then
+%
+%
+\begin{eqnarray*}
+	\gamma_{t}
+	&=&
+	\dfrac{\tilde{\mu}_{t} - r_{t}}{ \tilde{\sigma}_{t} }
+	\\ &=&
+	\dfrac{
+		\dfrac{ \partial Y_{t} }{ \partial t }
+		+
+		\mu_{t}
+		\dfrac{ \partial Y_{t} }{ \partial x }
+		+
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} } - r_{t} Y_{t}
+	}
+	{ \sigma_{t}
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+\end{eqnarray*}
+%
+%
+Note that this $\gamma_{t}$ represents the change of measure from $\mathbb{P}$ to $\mathbb{Q}$.
+
+If $\tilde{W}_{t}$ is the $\mathbb{Q}$-Brownian motion, then from Girsanov's theorem,
+$$
+	d \tilde{W}_{t}
+	\ = \
+	d W_{t} + \gamma_{t} dt
+$$
+This allows us to find the SDE for $X_{t}$ under $\mathbb{Q}$.
+%
+%
+\begin{eqnarray*}
+	&&
+	\hspace{-10mm}
+	d X_{t}
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} d W_{t} + \mu_{t} dt
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} (d \tilde{W}_{t} - \gamma_{t} dt) + \mu_{t} dt
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} d \tilde{W}_{t} - \sigma_{t}
+	\dfrac{
+		\dfrac{ \partial Y_{t} }{ \partial t }
+		+
+		\mu_{t}
+		\dfrac{ \partial Y_{t} }{ \partial x }
+		+
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} } - r_{t} Y_{t}
+	}
+	{ \sigma_{t}
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+	dt + \mu_{t} dt
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} d \tilde{W}_{t}
+	-
+	\dfrac{
+		\dfrac{ \partial Y_{t} }{ \partial t }
+		+
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} } - r_{t} Y_{t}
+	}
+	{
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+	dt
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\dfrac{
+		r_{t} Y_{t}
+		-
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+		-
+		\dfrac{ \partial Y_{t} }{ \partial t }
+	}
+	{
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+	dt
+\end{eqnarray*}
+%
+%
+where $Y_{t} = f(X_{t},t)$.
+
+\section{Some Examples}
+
+Let's use a few examples to find the SDE that a non-tradable process follows under the risk-neutral measure $\mathbb{Q}$, given its SDE under the measure $\mathbb{P}$.
+
+\subsection{Black-Scholes Model}
+
+Suppose $X_{t}$ is the logarithm of a tradable asset $Y_{t}$.
+That is,
+$
+	X_{t}
+	=
+	\log Y_{t}
+$
+from which
+$$
+	Y_{t}
+	\ = \
+	\exp X_{t}
+$$
+
+Further, assume that $\sigma_{t} = \sigma = $ const. and $\mu_{t} = \mu = $ const.
+Then, using the $\mathbb{P}$-Brownian motion $W_{t}$, we can write
+%
+%
+\begin{eqnarray*}
+	X_{t}
+	&=&
+	\sigma W_{t} + \mu t
+	\\
+	\Longleftrightarrow
+	\ \ \
+	dX_{t}
+	&=&
+	\sigma dW_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) dt
+\end{eqnarray*}
+%
+%
+The numéraire is the risk-free asset $B_{t} = e^{rt}$ with interest rate $r$.
+
+Under this setup, we want to find the SDE that $X_{t}$ satisfies under measure $\mathbb{Q}$.
+
+${}$
+
+In this case, the market price of risk is
+%
+%
+\begin{eqnarray*}
+	\gamma
+	&=&
+	\dfrac{ \tilde{\mu} - r }{ \tilde{\sigma} }
+	\\ &=&
+	\dfrac{ \left( \mu + \dfrac{1}{2} \sigma^{2} \right) - r }{ \sigma }
+\end{eqnarray*}
+%
+%
+Under $\mathbb{Q}$, this must be zero, so $\mu + \dfrac{1}{2} \sigma^{2} - r = 0$.
+
+This means
+$$
+	\mu
+	\ = \
+	r - \dfrac{1}{2}\sigma^2
+$$
+Therefore, the desired answer, using the $\mathbb{Q}$-Brownian motion $\tilde{W}_{t}$, is
+%
+%
+\begin{eqnarray*}
+	dX_{t}
+	\ = \
+	\sigma d \tilde{W}_{t} + \left( r - \dfrac{1}{2} \sigma^2 \right) dt
+\end{eqnarray*}
+%
+%
+
+This is the solution, but for practice, let's use the formula we derived to provide an alternative solution.
+%
+%
+\begin{eqnarray*}
+	dX_{t}
+	&=&
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\dfrac{
+		r_{t} Y_{t}
+		-
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+		-
+		\dfrac{ \partial Y_{t} }{ \partial t }
+	}
+	{
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+	dt
+	\\[3mm] &=&
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\dfrac{
+		r_{t} \exp X_{t}
+		-
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} \exp X_{t} }{ \partial x^{2} }
+		-
+		\dfrac{ \partial \exp X_{t} }{ \partial t }
+	}
+	{
+		\dfrac{ \partial \exp X_{t} }{ \partial x }
+	}
+	dt
+	\\[2mm] &=&
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\dfrac{
+		r_{t} \exp X_{t}
+		-
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\exp X_{t}
+		-
+		0
+	}
+	{
+		\exp X_{t}
+	}
+	dt
+	\\ &=&
+	\sigma d \tilde{W}_{t} + \left( r - \dfrac{1}{2} \sigma^{2} \right) dt
+\end{eqnarray*}
+%
+%
+As expected, the results match.
+
+\subsection{Black-Scholes with Continuous Dividends}
+
+Suppose a stock price $S_{t}$ and a bond price $B_{t}$ follow the Black-Scholes model
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	\exp \left( \sigma W_{t} + \left( \mu - \dfrac{1}{2} \sigma^{2} \right) t \right)
+	\\
+	B_{t}
+	&=&
+	\exp (rt)
+\end{eqnarray*}
+%
+%
+Furthermore, assume that holding the stock pays a dividend of $\delta S_{t} dt$ over the time interval from $t$ to $t+dt$.
+
+Under measure $\mathbb{P}$, it follows the SDE below, using $\mathbb{P}$-Brownian motion $W_{t}$.
+%
+%
+\begin{eqnarray*}
+	\dfrac{dS_{t}}{S_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + \mu dt \right)
+\end{eqnarray*}
+%
+%
+
+Because of the dividends, $S_{t}$ is not a tradable asset in this case.
+
+If one were to buy the stock for $S_{0}$ at $t=0$ and hold it until time $t$, its value would not be just $S_{t}$, but $S_{t}$ plus the accumulated dividends.
+
+If we assume two strategies exist - one where dividends are held as cash bonds, and another where dividends are continuously reinvested in the stock - an arbitrage opportunity would arise.
+
+Therefore, we must consider the strategy of continuously reinvesting dividends into the stock.
+
+Let's consider this case of continuous dividend reinvestment. If one holds $\phi_{t}$ shares of the stock at time $t$, the number of shares increases by $d \phi_{t}$ in time $dt$ as follows:
+%
+%
+\begin{eqnarray*}
+	d \phi_{t}
+	&=&
+	\delta dt
+\end{eqnarray*}
+%
+%
+Solving this gives
+$$
+	\phi_{t}
+	\ = \
+	\exp ( \delta t )
+$$
+
+Thus, the number of shares of stock $S_{t}$ held at time $t$ is $\phi_{t} = \exp ( \delta t)$, and its price is $Y_{t} = \phi_{t} S_{t}$.
+
+The SDE for $Y_{t}$ is
+%
+%
+\begin{eqnarray*}
+	Y_{t}
+	&=&
+	Y_{0} \exp \left( \sigma W_{t} + (\mu + \delta) t \right)
+\end{eqnarray*}
+%
+%
+so
+%
+%
+\begin{eqnarray*}
+	\dfrac{dY_{t}}{Y_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + (\mu + \delta) dt \right)
+\end{eqnarray*}
+%
+%
+Now, we consider the probability measure $\mathbb{Q}$ that makes the discounted asset process $B^{-1}_{t} S_{t}$ a martingale, i.e., the risk-neutral probability measure $\mathbb{Q}$.
+
+By Girsanov's theorem, using $\mathbb{Q}$-Brownian motion $\tilde{W}_{t}$,
+%
+%
+\begin{eqnarray*}
+	d \tilde{W}_{t}
+	&=&
+	d W_{t} + \gamma dt
+\end{eqnarray*}
+%
+%
+where the market price of risk $\gamma$ is
+%
+%
+\begin{eqnarray*}
+	\gamma
+	&=&
+	\dfrac{(\mu + \delta) - r}{\sigma}
+\end{eqnarray*}
+%
+%
+For the asset to be tradable (i.e., for the discounted asset process $B^{-1}_{t} S_{t}$ to be a martingale), we need $\gamma=0$, which means
+$$
+	\mu = r - \delta
+$$
+
+From this, the SDE that the non-tradable process $S_{t}$ must satisfy under the risk-neutral measure $\mathbb{Q}$ is
+%
+%
+\begin{eqnarray*}
+	\dfrac{dS_{t}}{S_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + \mu dt \right)
+	\\ &=&
+	\exp \left( \sigma ( d \tilde{W}_{t} - \gamma dt ) + (r - \delta) dt \right)
+	\\ &=&
+	\exp \left( \sigma ( d \tilde{W}_{t} - 0 dt ) + (r - \delta) dt \right)
+	\\ &=&
+	\exp \left( \sigma d \tilde{W}_{t} + (r - \delta) dt \right)
+\end{eqnarray*}
+%
+%
+(Note that the equality from the second to the third line uses the fact that $\gamma=0$.)
+
+\subsection{Foreign Exchange}
+
+Let $C_{t}$ be the yen-dollar exchange rate, i.e., 1 dollar = $C_{t}$ yen.
+Let the dollar interest rate be $r$, and the yen interest rate be $u$.
+
+To summarize, our model consists of:
+$B_{t}$ as the dollar cash bond,
+$D_{t}$ as the yen cash bond,
+%
+%
+\begin{eqnarray*}
+	C_{t}
+	&=&
+	\exp \left( \sigma W_{t} + \left( \mu - \dfrac{1}{2} \sigma^{2} \right) t \right)
+	\\
+	B_{t}
+	&=&
+	\exp (rt)
+	\\
+	D_{t}
+	&=&
+	\exp (ut)
+\end{eqnarray*}
+%
+%
+The units are $C_{t}$ (yen/dollar), $B_{t}$ (dollars), and $D_{t}$ (yen), respectively.
+
+In this case, $B_{t}$ and $D_{t}$ are tradable, but $C_{t}$, being cash itself, is not tradable on its own.
+
+If we were to assume cash is tradable, an arbitrage would arise between two strategies:
+
+$ \hspace{2mm} \cdot$ A strategy of simply holding cash from $t=0$ to $t=T$.
+
+$ \hspace{2mm} \cdot$ A strategy of holding a cash bond from $t=0$ to $t=T$.
+
+(Naturally, the strategy of holding the cash bond yields a higher profit with probability 1 than simply holding cash.)
+
+${}$
+
+First, let's examine the SDE of the non-tradable process $C_{t}$.
+Under measure $\mathbb{P}$, it follows this SDE with $\mathbb{P}$-Brownian motion $W_{t}$:
+%
+%
+\begin{eqnarray*}
+	\dfrac{dC_{t}}{C_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + \mu dt \right)
+\end{eqnarray*}
+%
+%
+We want to find the SDE that this process $C_{t}$ follows under the risk-neutral measure $\mathbb{Q}$, using a $\mathbb{Q}$-Brownian motion $\tilde{W}_{t}$.
+
+Assets that are tradable in dollars are the dollar cash bond $B_{t}$ and the yen cash bond $D_{t}$ converted by the yen-dollar exchange rate $C_{t}$, which is the process $Y_{t} = C^{-1}_{t}D_{t}$.
+%
+%
+\begin{eqnarray*}
+	Y_{t}
+	&=&
+	\exp \left( - \sigma W_{t} + \left( - \mu + \dfrac{1}{2} \sigma^{2} + u \right) t \right)
+\end{eqnarray*}
+%
+%
+
+The risk-neutral measure $\mathbb{Q}$ is the measure under which the discounted asset process $Z_{t} = B^{-1}_{t} Y_{t}$ is a martingale.
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	\exp \left( - \sigma W_{t} + \left( - \mu + \dfrac{1}{2} \sigma^{2} + u - r \right) t \right)
+\end{eqnarray*}
+%
+%
+The SDE that $Z_{t}$ satisfies is
+%
+%
+\begin{eqnarray*}
+	\dfrac{d Z_{t}}{Z_{t}}
+	&=&
+	\exp \left( - \sigma d W_{t} + \left( - \mu + \dfrac{1}{2} \sigma^{2} + u - r + \dfrac{1}{2} (-\sigma)^{2} \right) d t \right)
+	\\ &=&
+	\exp \left( - \sigma d W_{t} + \left( - \mu + \sigma^{2} + u - r \right) d t \right)
+\end{eqnarray*}
+%
+%
+
+From Girsanov's theorem, since $\mathbb{P}$ and $\mathbb{Q}$ are equivalent measures, there exists a predictable process $\gamma$ such that the following holds between the $\mathbb{P}$-Brownian motion $W_{t}$ and the $\mathbb{Q}$-Brownian motion $\tilde{W}_{t}$:
+%
+%
+\begin{eqnarray*}
+	d \tilde{W}_{t}
+	&=&
+	d W_{t} + \gamma dt
+\end{eqnarray*}
+%
+%
+And this $\gamma$ makes $Z_{t}$ a $\mathbb{Q}$-martingale. So, considering
+%
+%
+\begin{eqnarray*}
+	- \sigma d \tilde{W}_{t}
+	&=&
+	- \sigma d W_{t} + \left( - \mu + \sigma^{2} + u - r \right) d t
+\end{eqnarray*}
+%
+%
+we get
+%
+%
+\begin{eqnarray*}
+	\gamma
+	&=&
+	\dfrac{- \mu + \sigma^{2} + u - r}{ - \sigma}
+\end{eqnarray*}
+%
+%
+For $Z_{t}$ to be tradable, we need $\gamma = 0$, which means $\mu = \sigma^{2} + u - r$.
+
+From this, the non-tradable process $C_{t}$ can be expressed using the $\mathbb{Q}$-Brownian motion $\tilde{W}_{t}$ as follows:
+%
+%
+\begin{eqnarray*}
+	\dfrac{dC_{t}}{C_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + \mu dt \right)
+	\\ &=&
+	\exp \left( \sigma ( d \tilde{W}_{t} - \gamma d t) + (\sigma^{2} + u - r) dt \right)
+	\\ &=&
+	\exp \left( \sigma (d \tilde{W}_{t} - 0 d t) + (\sigma^{2} + u - r) dt \right)
+	\\ &=&
+	\exp \left( \sigma d \tilde{W}_{t} + (\sigma^{2} + u - r) dt \right)
+\end{eqnarray*}
+%
+%
+
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+
+\end{document}

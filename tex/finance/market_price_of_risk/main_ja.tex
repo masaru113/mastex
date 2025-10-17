@@ -1,0 +1,1275 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+}
+\author{Masaru Okada}
+
+\date{June 3, 2020}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie の3章の自主ゼミのノート。
+	2020年6月3日に書いたもの。
+	取引可能であるとはどういう意味かを考察する。
+\end{abstract}
+
+\ \\
+
+確率過程には取引可能なものと取引不可能なものとがある。
+
+例えば為替レートそれ自体はそのままでは取引不可能である。
+他国/自国の為替レートであれば、
+他国の通貨建ての資産の価格をそのレートに乗じて
+自国通貨の資産の価格に換算する等、
+あくまでそのレートによって換算された
+通貨建ての資産が取引されているのであって、
+為替レートそれ自体が取引されているわけではない。
+
+取引可能か取引不可能の区別はどのように判断されるのかを考える。
+
+ただし、このことは突き詰めて考えると、
+市場参加者が取引したいかどうか
+（取引してくれる相手がいるかどうか）
+という人間の感情によって判断される
+ところもある。
+
+まずは取引可能とはどういう意味か、から考える必要がある。
+
+\ \\
+
+
+ある特定の確率過程$S_{t}$が表す資産は取引可能であると判断し、
+それを割り引く為の適切な確率過程$B_{t}$を上手く選ぶと、
+$S_{t}$と$B_{t}$から構成される市場について考察を進めることができる。
+
+\section*{マルチンゲールは取引可能である}
+取引可能資産
+$Z_{t} = B^{-1}_{t} S_{t}$
+をマルチンゲールにするような測度
+$\mathbb{Q}$
+が存在し、
+同じフィルトレーション
+$\mathcal{F}_{t}$
+に適合的な別の確率過程$V_{t}$を割り引いた価格
+$E_{t} = B^{-1}_{t} V_{t}$
+が$\mathbb{Q}$-マルチンゲールである場合を考える。
+
+${}$
+
+$Z_{t}$のボラティリティがゼロにならない場合、
+マルチンゲール表現定理から
+$$
+	dE_{t}
+	\ = \
+	\phi_{t} dZ_{t}
+$$
+を満たす$\mathcal{F}_{t}$-可予測な確率過程$\phi_{t}$が存在する。
+
+これまでの例と同様に、
+
+\hspace{5mm} $\cdot$ $\phi_{t}$単位の$S_{t}$を保有する。
+
+\hspace{5mm} $\cdot$ $\psi_{t}$単位の$B_{t}$を保有する。
+
+このような戦略に基づいて
+$\phi_{t},\psi_{t}$からなる
+ポートフォリオを作る。
+
+ただし、$\psi_{t}$は
+$$
+	\phi_{t} S_{t} + \psi_{t} B_{t} \ = \ B_{t} E_{t} \ = \ V_{t}
+$$
+を満たすように選ぶ。
+
+すなわち、
+$\psi_{t} = E_{t} - \phi_{t} Z_{t}$
+である。
+この戦略よって構成されるポートフォリオの価格が$V_{t}$に常に等しくなるように$\psi_{t}$を選ぶ。
+
+この戦略は自己資金調達的である。
+つまりポートフォリオの価格変化は資産価格の変化によってのみもたらされる。
+
+${}$
+
+以上から、$S_{t}$と$B_{t}$によって$V_{t}$を作り出すことができた。
+
+このような$V_{t}$を取引可能資産と呼ぶ。
+
+${}$
+
+ある確率過程を割り引いたものが
+$\mathbb{Q}$-マルチンゲールになるということは、
+取引可能資産（今回の例では$S_{t}$と$B_{t}$）を用いて
+その確率過程をコスト無しに
+作り出すことができるという意味である。
+
+逆に言えば、
+そのような$\mathbb{Q}$-マルチンゲール
+それ自体も取引可能資産ということである。
+
+\section*{マルチンゲールでなければ取引不可能である}
+
+$E_{t} = B^{-1}_{t} V_{t}$
+が$\mathbb{Q}$-マルチンゲールでないと仮定する。
+
+このとき、ある時刻$T$と$s$について
+正の確率で
+$$
+	\mathbb{E}_{\mathbb{Q}}( B^{-1}_{T} V_{T} | \mathcal{F}_{s} )
+	\ \neq \
+	B^{-1}_{s} V_{s}
+$$
+が成立する。
+
+契約$X=V_{T}$を複製する為のコストを$U_{t}$とする。
+すなわち
+$$
+	U_{t}
+	\ = \
+	B^{-1}_{t}
+	\mathbb{E}_{\mathbb{Q}}( B^{-1}_{T} V_{T} | \mathcal{F}_{t} )
+$$
+とする。
+
+$t=T$において$U_{T}=V_{T}$であるが、
+$t(0<t<T)$においては正の確率で$U_{t} \neq V_{t}$となる。
+この場合を考察する。
+
+${}$
+
+まず$U_{t} > V_{t}$であるとき、
+$V_{t}$を買って$U_{t}$を売れば無限の利益を得ることができる。
+
+続いて$U_{t} < V_{t}$であるとき、
+$U_{t}$を買って$V_{t}$を売れば無限の利益を得ることができる。
+
+${}$
+
+以上から、
+$E_{t} = B^{-1}_{t} V_{t}$
+が$\mathbb{Q}$-マルチンゲールでないと仮定すると、
+$V_{t}$を用いた取引により裁定機会が作り出されてしまい、
+そのような機会は極短い時間で消滅する。
+（永続する場合は当事者が無限の富または無限の損が発生する。）
+
+言い換えると、$V_{t}$は取引不可能である。
+（裁定機会が発生している極短い時間を除けば取引不可能である。）
+
+${}$
+
+取引可能資産$S_{t},B_{t}$からなる市場において、
+別の過程が取引可能か否かについて以上の考察のように判断することができる。
+
+まとめると、
+$B^{-1}_{t} S_{t}$のマルチンゲール測度を$\mathbb{Q}$とすると、
+過程が$\mathbb{Q}$-マルチンゲールであれば取引可能であり、
+$\mathbb{Q}$-マルチンゲールでなければ取引不可能である。
+\section*{練習問題4.1}
+
+測度$\mathbb{Q}$の下で株価$S_{t}$と債券価格$B_{t}$が
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	\exp \left(
+	\sigma \tilde{W}_{t} +
+	\left(
+		r - \dfrac{1}{2} \sigma^{2}
+		\right)
+	t
+	\right)
+	\\
+	B_{t}
+	&=&
+	e^{rt}
+\end{eqnarray*}
+%
+%
+であるとする。
+
+\subsection*{(1) $X_{t} = S^{2}_{t}$}
+
+過程$X_{t} = S^{2}_{t}$を割り引くと、
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	B^{-1}_{t} X_{t}
+	\\ &=&
+	\exp \left(
+	2 \sigma \tilde{W}_{t} +
+	\left(
+		2 r - \sigma^{2}
+		\right)
+	t
+	-rt
+	\right)
+	\\ &=&
+	\exp \left(
+	2 \sigma \tilde{W}_{t} +
+	\left(
+		r - \sigma^{2}
+		\right)
+	t
+	\right)
+\end{eqnarray*}
+%
+%
+その確率微分方程式は、
+%
+%
+\begin{eqnarray*}
+	\dfrac{dZ_{t}}{Z_{t}}
+	&=&
+	\exp \left(
+	2 \sigma d\tilde{W}_{t}
+	+
+	\left(
+		r - \sigma^{2}
+		+\dfrac{(2 \sigma)^{2}}{2}
+		\right)
+	dt
+	\right)
+	\\ &=&
+	\exp \left(
+	2 \sigma d\tilde{W}_{t}
+	+
+	\left(
+		r + \sigma^{2}
+		\right)
+	dt
+	\right)
+\end{eqnarray*}
+%
+%
+であり、この確率微分方程式の
+ドリフト$r+\sigma^{2} = 0$のときはマルチンゲールになって取引可能であるが、
+ドリフト$r+\sigma^{2} \neq 0$のときはマルチンゲールにならず取引不可能である。
+
+\subsection*{(2) $X_{t} = S^{-2r/\sigma^{2}}_{t}$}
+
+過程$X_{t} = S^{-2r/\sigma^{2}}_{t}$を割り引くと、
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	B^{-1}_{t} X_{t}
+	\\ &=&
+	\exp \left(
+	-\dfrac{2r}{\sigma^{2}}
+	\sigma \tilde{W}_{t}
+	-\dfrac{2r}{\sigma^{2}}
+	\left(
+	r - \dfrac{1}{2} \sigma^{2}
+	\right)
+	t
+	-rt
+	\right)
+	\\ &=&
+	\exp \left(
+	-\dfrac{2r}{\sigma}
+	\tilde{W}_{t}
+	-
+	\dfrac{2r^{2}}{\sigma^{2}}
+	t
+	\right)
+\end{eqnarray*}
+%
+%
+この確率微分方程式は、
+%
+%
+\begin{eqnarray*}
+	\dfrac{dZ_{t}}{Z_{t}}
+	&=&
+	\exp \left(
+	-\dfrac{2r}{\sigma}
+	d \tilde{W}_{t}
+	+
+	\left(
+		-
+		\dfrac{2r^{2}}{\sigma^{2}}
+		+
+		\dfrac{1}{2}
+		\left( \dfrac{2r}{\sigma} \right)^{2}
+		\right)
+	d t
+	\right)
+	\\ &=&
+	\exp \left(
+	-\dfrac{2r}{\sigma}
+	d \tilde{W}_{t}
+	\right)
+\end{eqnarray*}
+%
+%
+ドリフトはゼロであり、（$r$や$\sigma$の条件に依らず）
+マルチンゲールになる。よって取引可能である。
+
+\section*{取引可能資産とマーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク}
+
+今までの最も基本的なBlack-Scholesでは株価$S_{t}$は
+$$
+	S_{t}
+	\ = \
+	S_{0} \exp ( \sigma W_{t} + \mu t )
+$$
+であり、その確率微分方程式は
+%
+%
+\begin{eqnarray*}
+	d S_{t}
+	&=&
+	S_{t} \exp \left( \sigma dW_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) dt \right)
+\end{eqnarray*}
+%
+%
+であるが、この節に限っては簡単のために
+%
+%
+\begin{eqnarray*}
+	d S_{t}
+	&=&
+	S_{t} \exp \left( \sigma dW_{t} + \mu dt \right)
+\end{eqnarray*}
+%
+%
+とする。
+つまり、株価を
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	S_{0} \exp \left( \sigma W_{t} + \left( \mu - \dfrac{1}{2} \sigma^{2} \right) t \right)
+\end{eqnarray*}
+%
+%
+で定義するところから出発する。
+このように定義しておくと確率微分方程式を使った議論が易しくなる。
+
+${}$
+
+同じ市場に2つの異なるリスク資産$S^{1}_{t},S^{2}_{t}$が存在する場合を考える。
+
+これらのリスク資産はそれぞれ同一のBrown運動$W_{t}$に適合的であるとする。
+%
+%
+\begin{eqnarray*}
+	d S^{1}_{t}
+	&=&
+	S^{1}_{t} \exp \left( \sigma_{1} dW_{t} + \mu_{1} dt \right)
+	\\
+	d S^{2}_{t}
+	&=&
+	S^{2}_{t} \exp \left( \sigma_{2} dW_{t} + \mu_{2} dt \right)
+\end{eqnarray*}
+%
+%
+
+これらのリスク資産は取引可能であると仮定しているので、
+それぞれを割り引いた過程に対して共通のマルチンゲール測度$\mathbb{Q}$が存在する。
+ニューメレールが
+$$
+	B_{t} = \exp ( rt)
+$$
+であるとすると、$i=1,2$を用いて略記すると、割引過程は、
+%
+%
+\begin{eqnarray*}
+	S^{i}_{t}
+	&=&
+	S^{i}_{0} \exp \left( \sigma_{i} dW_{t} + \left( \mu_{i} - \dfrac{1}{2} \sigma_{i}^{2} \right) dt \right)
+	\\
+	B^{-1}_{t} S^{i}_{t}
+	&=&
+	S^{i}_{0} \exp \left( \sigma_{i} dW_{t} + \left( \mu_{i} - r - \dfrac{1}{2} \sigma_{i}^{2} \right) dt \right)
+	\\
+	d ( B^{-1}_{t} S^{i}_{t} )
+	&=&
+	S^{i}_{0} \exp \left( \sigma_{i} dW_{t} + \left( \mu_{i} - r \right) dt \right)
+\end{eqnarray*}
+%
+%
+であるので、割引過程$B^{-1}_{t} S^{i}_{t}$をマルチンゲールにする測度の下で
+%
+%
+\begin{eqnarray*}
+	\tilde{W}_{t}
+	&=&
+	W_{t}
+	+
+	\dfrac{\mu_{i} - r}{\sigma_{i}}
+	t
+\end{eqnarray*}
+%
+%
+が$i=1,2$で成立する。
+
+つまり、
+%
+%
+\begin{eqnarray*}
+	\dfrac{\mu_{1} - r}{\sigma_{1}}
+	&=&
+	\dfrac{\mu_{2} - r}{\sigma_{2}}
+\end{eqnarray*}
+%
+%
+であり、この値を$\gamma$と置く。
+$$
+	\gamma
+	\ = \
+	\dfrac{\mu_{i} - r}{\sigma_{i}}
+$$
+
+リスク$(\sigma)$1単位当たりの、
+キャッシュボンドの成長率$r$を上回る資産収益率$\mu$であるので、
+$\gamma=\dfrac{\mu -r}{\sigma}$は
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+と呼ばれる。
+
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+はGirsanovの定理によるBrown運動のドリフト変換に現れる因子そのものである。
+
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+という言葉を用いると、
+「
+同一市場における全ての取引可能資産は
+同一の
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+を持つ
+」
+と言える。
+${}$
+
+以上は$\mu$、$\sigma$が定数の場合であったが、
+より一般の場合として、
+$\mu_{t}$、$\sigma_{t}$が可予測過程であるとき、
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+$\gamma_{t}=\dfrac{\mu_{t} -r}{\sigma_{t}}$は確率過程になるが、
+市場にある全ての取引可能資産に対して$\gamma_{t}$は同一の確率過程になる。
+
+\section*{リスク中立確率測度}
+
+割引過程のマルチンゲール測度$\mathbb{Q}$は
+リスク中立確率測度とも言われる。
+
+その理由は、
+%
+%
+\begin{eqnarray*}
+	d ( B^{-1}_{t} S^{i}_{t} )
+	&=&
+	B^{-1}_{t} S^{i}_{t} \exp \left( \sigma_{i} dW_{t} + \left( \mu_{i} - r \right) dt \right)
+	\\ &=&
+	B^{-1}_{t} S^{i}_{t} \exp \left( \sigma_{i} d \tilde{W}_{t} \right)
+\end{eqnarray*}
+%
+%
+なので、
+%
+%
+\begin{eqnarray*}
+	B^{-1}_{t} S^{i}_{t}
+	&=&
+	B^{-1}_{0} S^{i}_{0} \exp \left(
+	\int^{t}_{0} \sigma_{i} d \tilde{W}_{s}
+	- \dfrac{1}{2} \int^{t}_{0} \sigma_{i}^{2} ds
+	\right)
+	\\ &=&
+	B^{-1}_{0} S^{i}_{0} \exp \left(
+	\sigma_{i} \tilde{W}_{t}
+	- \dfrac{1}{2} \sigma_{i}^{2} t
+	\right)
+	\\
+	S^{i}_{t}
+	&=&
+	S^{i}_{0} \exp \left(
+	\sigma_{i} \tilde{W}_{t}
+	+ \left( r - \dfrac{1}{2} \sigma_{i}^{2} \right) t
+	\right)
+	\\
+	d S^{i}_{t}
+	&=&
+	S^{i}_{t} \exp \left(
+	\sigma_{i} \tilde{W}_{t}
+	+ \left( r - \dfrac{1}{2} \sigma_{i}^{2} + \dfrac{1}{2} \sigma_{i}^{2} \right) t
+	\right)
+	\\ &=&
+	S^{i}_{t} \exp \left(
+	\sigma_{i} \tilde{W}_{t}
+	+ r t
+	\right)
+\end{eqnarray*}
+%
+%
+よって、
+$\mathbb{Q}$の下での取引可能なリスク資産の価格$S^{i}_{t}$の確率微分方程式のドリフトは
+キャッシュボンドの成長率になる。
+
+特に注意すべきなのが、
+$\mathbb{Q}$の下では確率微分方程式のドリフト$r$はリスク$(\sigma_{i})$に依存していない点である。
+
+つまり、全ての取引可能資産は
+$\mathbb{Q}$の下ではドリフトはリスク$(\sigma_{i})$によらず、
+キャッシュボンドと同じ成長率になる。
+
+（今回の例は$i=1,2$だが、一般に$i \in \mathbb{N}$で成立することも全く同じ議論で示すことができる。）
+
+このように$\mathbb{Q}$はリスク$(\sigma_{i})$によらない確率測度であるので、
+リスク中立確率測度と呼ばれる。
+${}$
+
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+の観点から以上の議論を振り返り、別解答を与える。
+
+一般に$S_{t}$の確率微分方程式は$\mathbb{Q}$の下で
+%
+%
+\begin{eqnarray*}
+	d S_{t}
+	&=&
+	S_{t} \exp \left(
+	\sigma \tilde{W}_{t}
+	+ \tilde{\mu} t
+	\right)
+\end{eqnarray*}
+%
+%
+の形式で書かれる。
+ここで仮にドリフトを$\tilde{\mu}$と置いている。
+
+Girsanovの定理を思い出すと、
+$\mathbb{Q}$-マルチンゲールの下では
+取引可能資産の
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+はゼロになる必要がある。
+
+すなわち、
+$$
+	\dfrac{\tilde{\mu} - r}{ \sigma }
+	\ = \
+	0
+$$
+これは
+$$
+	\tilde{\mu} \ = \ r
+$$
+であるので、取引可能資産であれば、
+一般に、$S_{t}$の確率微分方程式は$\mathbb{Q}$の下で
+%
+%
+\begin{eqnarray*}
+	d S_{t}
+	&=&
+	S_{t} \exp \left(
+	\sigma \tilde{W}_{t}
+	+ r t
+	\right)
+\end{eqnarray*}
+%
+%
+となる。（さっきの式に$\tilde{\mu} \leftarrow r$を代入しただけ。）
+つまり$\mathbb{Q}$の下では
+$\sigma$に依らないリスク中立な表現になっている。
+
+\section*{取引不可能なものについて}
+
+取引不可能である確率過程$X_{t}$を考える。
+その確率微分方程式が
+$$
+	d X_{t}
+	\ = \
+	\sigma_{t} d W_{t} + \mu_{t} dt
+$$
+に従うとする。
+ただし$W_{t}$は$\mathbb{P}$-Brown運動であり、
+$\sigma_{t},\mu_{t}$は可予測過程であるとする。
+
+（右辺は前節のように$dX_{t}/X_{t}$ではなく今回は$dX_{t}$である。
+すなわち今までのようにexpの過程ではないことに注意する。）
+$X_{t}$それ自身は取引不可能であるが、
+それに変換$f$を施した
+$Y_{t}=f(X_{t},t)$は取引可能であるとする。
+
+その確率微分方程式は、伊藤の補題を用いて、
+%
+%
+\begin{eqnarray*}
+	d Y_{t}
+	&=&
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	dt
+	+
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	dx
+	+
+	\dfrac{1}{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	dx^{2}
+	\\ &=&
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	dt
+	+
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	dX_{t}
+	+
+	\dfrac{1}{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	dX_{t}^{2}
+	\\ &=&
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	dt
+	+
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	(\sigma_{t} d W_{t} + \mu_{t} dt)
+	+
+	\dfrac{1}{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	\sigma_{t}^{2} dt
+	\\ &=&
+	\left(
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	+
+	\mu_{t}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	+
+	\dfrac{1}{2}
+	\sigma_{t}^{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	\right)
+	dt
+	+
+	\sigma_{t}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	dW_{t}
+	\\
+	\dfrac{dY_{t}}{Y_{t}}
+	&=&
+	\dfrac{1}{Y_{t}}
+	\left(
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	+
+	\mu_{t}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	+
+	\dfrac{1}{2}
+	\sigma_{t}^{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	\right)
+	dt
+	+
+	\dfrac{\sigma_{t}}{Y_{t}}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	dW_{t}
+\end{eqnarray*}
+%
+%
+
+最後の等式は、これまでの
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+と対応させるために両辺を$Y_{t}$で割った。
+（今回の議論の始まりの$X_{t}$の確率微分方程式は
+$dX_{t}/X_{t}=\sigma_{t} d W_{t} + \mu_{t} dt$
+ではなく、
+$dX_{t}=\sigma_{t} d W_{t} + \mu_{t} dt$
+であるので、前節の表式と対応させるには
+$dY_{t}/Y_{t}$を右辺に作る必要があった。
+）
+
+このとき、$Y_{t}$は取引可能であるので、
+$Y_{t}$の
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+を考えることが出来る。
+
+ドリフトは
+$$
+	\tilde{\mu}_{t}
+	\ = \
+	\dfrac{1}{Y_{t}}
+	\left(
+	\dfrac{ \partial Y_{t} }{ \partial t }
+	+
+	\mu_{t}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+	+
+	\dfrac{1}{2}
+	\sigma_{t}^{2}
+	\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+	\right)
+$$
+リスクは
+$$
+	\tilde{\sigma}_{t}
+	\ = \
+	\dfrac{\sigma_{t}}{Y_{t}}
+	\dfrac{ \partial Y_{t} }{ \partial x }
+$$
+と置くと前節の
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+と対応付けることができて、
+キャッシュボンドの金利が確率過程$r_{t}$に従うとすると、
+%
+%
+\begin{eqnarray*}
+	\gamma_{t}
+	&=&
+	\dfrac{\tilde{\mu}_{t} - r_{r}}{ \tilde{\sigma}_{t} }
+	\\ &=&
+	\dfrac{
+		\dfrac{ \partial Y_{t} }{ \partial t }
+		+
+		\mu_{t}
+		\dfrac{ \partial Y_{t} }{ \partial x }
+		+
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} } - r_{r} Y_{t}
+	}
+	{ \sigma_{t}
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+\end{eqnarray*}
+%
+%
+となる。
+
+この$\gamma_{t}$は測度$\mathbb{P}$から$\mathbb{Q}$への測度変換を表していることに留意する。
+
+$\mathbb{Q}$-Brown運動を$\tilde{W}_{t}$とすると、
+Girsanovの定理から
+$$
+	d \tilde{W}_{t}
+	\ = \
+	d W_{t} + \gamma_{t} dt
+$$
+であるので、
+以上から$\mathbb{Q}$の下での$X_{t}$の確率微分方程式を知ることが出来る。
+%
+%
+\begin{eqnarray*}
+	&&
+	\hspace{-10mm}
+	d X_{t}
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} d W_{t} + \mu_{t} dt
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} (d \tilde{W}_{t} - \gamma_{t} dt) + \mu_{t} dt
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} d \tilde{W}_{t} - \sigma_{t}
+	\dfrac{
+		\dfrac{ \partial Y_{t} }{ \partial t }
+		+
+		\mu_{t}
+		\dfrac{ \partial Y_{t} }{ \partial x }
+		+
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} } - r_{r} Y_{t}
+	}
+	{ \sigma_{t}
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+	dt + \mu_{t} dt
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} d \tilde{W}_{t}
+	-
+	\dfrac{
+		\dfrac{ \partial Y_{t} }{ \partial t }
+		+
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} } - r_{r} Y_{t}
+	}
+	{
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+	dt
+	\\ && \hspace{-10mm} = \
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\dfrac{
+		r_{r} Y_{t}
+		-
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+		-
+		\dfrac{ \partial Y_{t} }{ \partial t }
+	}
+	{
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+	dt
+\end{eqnarray*}
+%
+%
+ただし$Y_{t} = f(X_{t},t)$である。
+
+\section*{いくつかの例}
+
+いくつかの例で、取引不可能な過程について
+測度$\mathbb{P}$の下で確率微分方程式が与えられた場合に
+リスク中立確率測度$\mathbb{Q}$の下で従う確率微分方程式を求める。
+
+\subsection*{Black-Scholesモデル}
+
+$X_{t}$が取引可能資産$Y_{t}$の対数であるとする。
+すなわち、
+$
+	X_{t}
+	=
+	\log Y_{t}
+$
+より
+$$
+	Y_{t}
+	\ = \
+	\exp X_{t}
+$$
+
+さらに
+$\sigma_{t} = \sigma = $ const.,
+$\mu_{t} = \mu = $ const.のように
+定数であるとする。
+このとき$\mathbb{P}$-Brown運動$W_{t}$を用いて
+%
+%
+\begin{eqnarray*}
+	X_{t}
+	&=&
+	\sigma W_{t} + \mu t
+	\\
+	\Longleftrightarrow
+	\ \ \
+	dX_{t}
+	&=&
+	\sigma dW_{t} + \left( \mu + \dfrac{1}{2} \sigma^{2} \right) dt
+\end{eqnarray*}
+%
+%
+と表せる。
+ニューメレールは無リスク金利$r$を用いて$B_{t} = e^{rt}$とする。
+
+以上の設定の下、$X_{t}$が測度$\mathbb{Q}$の下で満たす確率微分方程式
+を求める。
+
+${}$
+
+この場合の
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスクは、
+%
+%
+\begin{eqnarray*}
+	\gamma
+	&=&
+	\dfrac{ \tilde{\mu} - r }{ \tilde{\sigma} }
+	\\ &=&
+	\dfrac{ \left( \mu + \dfrac{1}{2} \sigma^{2} \right) - r }{ \sigma }
+\end{eqnarray*}
+%
+%
+であり、
+これが$\mathbb{Q}$の下ではゼロになるので
+$\mu + \dfrac{1}{2} \sigma^{2} - r = 0$
+
+すなわち、
+$$
+	\mu
+	\ = \
+	r - \dfrac{1}{2}
+$$
+よって、求めたい答えは
+測度$\mathbb{Q}$-Brown運動$\tilde{W}_{t}$を用いて、
+%
+%
+\begin{eqnarray*}
+	dX_{t}
+	\ = \
+	\sigma d \tilde{W}_{t} + \left( r - \dfrac{1}{2} \sigma \right) dt
+\end{eqnarray*}
+%
+%
+
+以上で終わりだが、
+せっかく導出した公式を試しに用いて別解を与えると、
+%
+%
+\begin{eqnarray*}
+	dX_{t}
+	&=&
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\dfrac{
+		r_{r} Y_{t}
+		-
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} Y_{t} }{ \partial x^{2} }
+		-
+		\dfrac{ \partial Y_{t} }{ \partial t }
+	}
+	{
+		\dfrac{ \partial Y_{t} }{ \partial x }
+	}
+	dt
+	\\[3mm] &=&
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\dfrac{
+		r_{r} \exp X_{t}
+		-
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\dfrac{ \partial^{2} \exp X_{t} }{ \partial x^{2} }
+		-
+		\dfrac{ \partial \exp X_{t} }{ \partial t }
+	}
+	{
+		\dfrac{ \partial \exp X_{t} }{ \partial x }
+	}
+	dt
+	\\[2mm] &=&
+	\sigma_{t} d \tilde{W}_{t}
+	+
+	\dfrac{
+		r_{r} \exp X_{t}
+		-
+		\dfrac{1}{2}
+		\sigma_{t}^{2}
+		\exp X_{t}
+		-
+		0
+	}
+	{
+		\exp X_{t}
+	}
+	dt
+	\\ &=&
+	\sigma d \tilde{W}_{t} + \left( r - \dfrac{1}{2} \sigma^{2} \right) dt
+\end{eqnarray*}
+%
+%
+となり、確かに一致する。
+
+\subsection*{連続配当がある場合のBlack-Scholes}
+
+ある株式の株価$S_{t}$と債券価格$B_{t}$がBlack-Scholes
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	\exp \left( \sigma W_{t} + \left( \mu - \dfrac{1}{2} \sigma^{2} \right) t \right)
+	\\
+	B_{t}
+	&=&
+	\exp (rt)
+\end{eqnarray*}
+%
+%
+に従うとする。
+さらに株式を保有している場合、
+時刻$t$から$t+dt$の時間に配当が$\delta S_{t} dt$
+だけ支払われるとする。
+
+測度$\mathbb{P}$の下では、
+$\mathbb{P}$-Brown運動$W_{t}$を用いて次の確率微分方程式に従う。
+%
+%
+\begin{eqnarray*}
+	\dfrac{dS_{t}}{S_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + \mu dt \right)
+\end{eqnarray*}
+%
+%
+
+配当があるので今の場合$S_{t}$は取引可能資産ではない。
+
+もし株式を$t=0$で$S_{0}$で購入して時刻$t$まで保有した場合、
+その価格は$S_{t}$ではなく、
+$S_{t}$に加えて配当も込みの価格になる。
+
+配当をそのままキャッシュボンドとして持つという戦略と、
+配当を連続的に株式に再投資する戦略の2つの戦略が存在すると仮定すると
+裁定が発生してしまう。
+
+なので配当を連続的に株式に再投資する戦略を考えることになる。
+
+その連続的に配当を再投資した場合を考える。
+もし時刻$t$で株式を$\phi_{t}$だけ保有しているとすると、
+時刻$dt$で以下のように$d \phi_{t}$だけ増加する。
+%
+%
+\begin{eqnarray*}
+	d \phi_{t}
+	&=&
+	\delta dt
+\end{eqnarray*}
+%
+%
+これを解くと、
+$$
+	\phi_{t}
+	\ = \
+	\exp ( \delta t )
+$$
+
+従って時刻$t$における株式$S_{t}$の保有量は$\phi_{t} = \exp ( \delta t)$であり、
+その価格は$Y_{t} = \phi_{t} S_{t}$である。
+
+$Y_{t}$の確率微分方程式は
+%
+%
+\begin{eqnarray*}
+	Y_{t}
+	&=&
+	Y_{0} \exp \left( \sigma W_{t} + (\mu + \delta) t \right)
+\end{eqnarray*}
+%
+%
+なので
+%
+%
+\begin{eqnarray*}
+	\dfrac{dY_{t}}{Y_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + (\mu + \delta) dt \right)
+\end{eqnarray*}
+%
+%
+となる。
+
+割引資産過程$B^{-1}_{t} S_{t}$がマルチンゲールになるような
+確率測度$\mathbb{Q}$、
+つまりリスク中立な確率測度$\mathbb{Q}$を考える。
+
+Girsanovの定理より、
+$\mathbb{Q}$-Brown運動$\tilde{W}_{t}$を用いて、
+%
+%
+\begin{eqnarray*}
+	d \tilde{W}_{t}
+	&=&
+	d W_{t} + \gamma dt
+\end{eqnarray*}
+%
+%
+であるが、
+この
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク$\gamma$は、
+%
+%
+\begin{eqnarray*}
+	\gamma
+	&=&
+	\dfrac{(\mu + \delta) - r}{\sigma}
+\end{eqnarray*}
+%
+%
+であり、
+取引可能である為には（
+割引資産過程$B^{-1}_{t} S_{t}$がマルチンゲール
+である為には）
+$\gamma=0$すなわち
+$$
+	\mu = r - \delta
+$$
+である必要がある。
+
+以上から、
+取引不可能な$S_{t}$が満たすべき確率微分方程式は、
+リスク中立な確率測度$\mathbb{Q}$の下で
+%
+%
+\begin{eqnarray*}
+	\dfrac{dS_{t}}{S_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + \mu dt \right)
+	\\ &=&
+	\exp \left( \sigma ( d \tilde{W}_{t} - \gamma dt ) + (r - \delta) dt \right)
+	\\ &=&
+	\exp \left( \sigma ( d \tilde{W}_{t} - 0 dt ) + (r - \delta) dt \right)
+	\\ &=&
+	\exp \left( \sigma d \tilde{W}_{t} + (r - \delta) dt \right)
+\end{eqnarray*}
+%
+%
+となる。（2行目から3行目への等式整理は$\gamma=0$であることに留意する。）
+
+\subsection*{外国為替}
+
+$C_{t}$を円ドルのレートとする。
+つまり1ドル$=C_{t}$円とする。
+そしてドル金利が$r$、
+円金利が$u$であるとする。
+
+以上をまとめると、今回のモデルは
+$B_{t}$をドルキャッシュボンド、
+$D_{t}$を円キャッシュボンドとして、
+%
+%
+\begin{eqnarray*}
+	C_{t}
+	&=&
+	\exp \left( \sigma W_{t} + \left( \mu - \dfrac{1}{2} \sigma^{2} \right) t \right)
+	\\
+	B_{t}
+	&=&
+	\exp (rt)
+	\\
+	D_{t}
+	&=&
+	\exp (ut)
+\end{eqnarray*}
+%
+%
+である。
+それぞれ単位は$C_{t}$(円/ドル)、$B_{t}$(ドル)、$D_{t}$(円)。
+
+今回は$B_{t},D_{t}$は取引可能であるが、
+現金そのものである$C_{t}$はそれ単体では取引不可能である。
+
+仮に現金を取引可能とすると、
+
+$ \hspace{2mm} \cdot$
+現金をそのまま$t=0$から$t=T$まで保有する戦略
+
+$ \hspace{2mm} \cdot$
+キャッシュボンドを$t=0$から$t=T$まで保有する戦略
+
+この2つの戦略の間に裁定が生じるからである。
+（当然、キャッシュボンドを保有している戦略は確率1で現金をそのまま保有する戦略より利益が出る。）
+
+${}$
+
+まず、取引不可能な$C_{t}$の確率微分方程式について見てみる。
+測度$\mathbb{P}$の下では、
+$\mathbb{P}$-Brown運動$W_{t}$を用いて次の確率微分方程式に従う。
+%
+%
+\begin{eqnarray*}
+	\dfrac{dC_{t}}{C_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + \mu dt \right)
+\end{eqnarray*}
+%
+%
+この過程$C_{t}$がリスク中立測度$\mathbb{Q}$の下では、
+$\mathbb{Q}$-Brown運動$\tilde{W}_{t}$を用いてどのような
+確率微分方程式に従うかを考える。
+
+ドルによって取引可能な資産は
+ドルキャッシュボンド$B_{t}$と
+円キャッシュボンド$D_{t}$を円ドルの為替レート$C_{t}$で換算した
+過程$Y_{t} = C^{-1}_{t}D_{t}$である。
+%
+%
+\begin{eqnarray*}
+	Y_{t}
+	&=&
+	\exp \left( - \sigma W_{t} + \left( - \mu + \dfrac{1}{2} \sigma^{2} + u \right) t \right)
+\end{eqnarray*}
+%
+%
+
+リスク中立測度$\mathbb{Q}$は割引資産過程$Z_{t} = B^{-1}_{t} Y_{t}$がマルチンゲールになるような測度であり、
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	\exp \left( - \sigma W_{t} + \left( - \mu + \dfrac{1}{2} \sigma^{2} + u - r \right) t \right)
+\end{eqnarray*}
+%
+%
+なので$Z_{t}$の満たす確率微分方程式は
+%
+%
+\begin{eqnarray*}
+	\dfrac{d Z_{t}}{Z_{t}}
+	&=&
+	\exp \left( - \sigma d W_{t} + \left( - \mu + \dfrac{1}{2} \sigma^{2} + u - r + \dfrac{1}{2} (-\sigma)^{2} \right) d t \right)
+	\\ &=&
+	\exp \left( - \sigma d W_{t} + \left( - \mu + \sigma^{2} + u - r \right) d t \right)
+\end{eqnarray*}
+%
+%
+
+Girsanovの定理より、
+$\mathbb{P}$と$\mathbb{Q}$はそれぞれ同値な測度であるから、
+$\mathbb{P}$-Brown運動$W_{t}$と
+$\mathbb{Q}$-Brown運動$\tilde{W}_{t}$
+の間には次を満たすような可予測過程$\gamma$が存在する。
+%
+%
+\begin{eqnarray*}
+	d \tilde{W}_{t}
+	&=&
+	d W_{t} + \gamma dt
+\end{eqnarray*}
+%
+%
+そしてこの$\gamma$は$Z_{t}$を
+$\mathbb{Q}$-マルチンゲールにするので、
+%
+%
+\begin{eqnarray*}
+	- \sigma d \tilde{W}_{t}
+	&=&
+	- \sigma d W_{t} + \left( - \mu + \sigma^{2} + u - r \right) d t
+\end{eqnarray*}
+%
+%
+を踏まえて
+%
+%
+\begin{eqnarray*}
+	\gamma
+	&=&
+	\dfrac{- \mu + \sigma^{2} + u - r}{ - \sigma}
+\end{eqnarray*}
+%
+%
+$Z_{t}$が取引可能である為には$\gamma = 0$、
+すなわち
+$\mu = \sigma^{2} + u - r$
+である。
+
+以上から、取引不可能な過程$C_{t}$は
+$\mathbb{Q}$-Brown運動$\tilde{W}_{t}$を用いて次のように表すことができる。
+%
+%
+\begin{eqnarray*}
+	\dfrac{dC_{t}}{C_{t}}
+	&=&
+	\exp \left( \sigma dW_{t} + \mu dt \right)
+	\\ &=&
+	\exp \left( \sigma ( d \tilde{W}_{t} - \gamma d t) + (\sigma^{2} + u - r) dt \right)
+	\\ &=&
+	\exp \left( \sigma (d \tilde{W}_{t} - 0 d t) + (\sigma^{2} + u - r) dt \right)
+	\\ &=&
+	\exp \left( \sigma d \tilde{W}_{t} + (\sigma^{2} + u - r) dt \right)
+\end{eqnarray*}
+%
+%
+
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+
+\end{document}
