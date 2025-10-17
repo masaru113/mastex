@@ -1,0 +1,1515 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+クオント
+}
+\author{Masaru Okada}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie の4章の自主ゼミのノート。
+	2019年11月3日に書いたもの。
+    このノートではクオント・デリバティブの価格評価について、
+    その手順を詳細に解説する。
+    まず、外国の株価指数と為替レートの相関を持つランダムな動きを記述する2ファクターモデルを定義する。
+    続いて、マーケット・プライス・オブ・リスクを算出することによってリスク中立測度へ移行するプロセスを示し、
+    最終的にクオント・フォワードとクオント・デジタル・オプション双方の価格評価式を導出する。
+\end{abstract}
+
+\tableofcontents
+
+\ \\
+
+クオントと呼ばれる契約について考える。
+
+2019年11月1日(金)、SPXの終値は3066.91ドルだった。
+
+日本円を持つ投資家からすると、
+この3066.91の単位はドルであるので、
+為替レートが例えば108.18円/ドルであれば、
+$3066.91 \times 108.18 = 331778.3238$(円)に換算されて取引される。
+
+しかしこのドルという単位をある意味で無視して、
+SPXが$S_{t}$ドルのときに$S_{t}$円を支払うという
+デリバティブを考えることもできる。
+
+つまりペイオフに為替レートを掛けないという契約であり、
+SPXが3066.91ドルのときに3066.91円を支払うという、
+投資家側からすれば考慮する値動きが1ファクターで済むような取引である。
+
+このような契約をクオントと呼ぶ。
+
+${}$
+
+クオントの3つの例について考える。
+
+$\hspace{2mm} \cdot$
+1. クオントフォワード
+
+$\hspace{2mm} \cdot$
+2. クオントデジタルオプション
+
+$\hspace{2mm} \cdot$
+3. クオントコールオプション
+
+${}$
+
+クオントフォワードは、
+例えば満期時$T$においてSPXの株価が$S_{T}$ドルのときに、
+予め決めておいた値段$K$円（$K$ドルではない）を支払うという契約である。
+
+クオントデジタルは、
+例えば満期時$T$においてSPXの株価が
+予め決めておいた値段$K$ドルを超えた場合、
+（1ドルではなく）1円を支払うという契約である。
+
+クオントコールオプションは、
+例えば満期時$T$においてSPXの株価が$S_{T}$ドルのときに、
+予め決めておいた権利行使価格$K$ドルを超過した場合に限り
+$(S_{T}-K)$円を支払うという契約である。
+
+${}$
+
+原資産(例えばSPX)を測っている通貨での数値を変えずに
+異なる通貨に変更して支払われるということは、
+単純に為替レートを乗じるといったこととは本質的に異なる。
+
+原資産に為替レートを乗じたものは同じ原資産として実際に取引される。
+
+しかし原資産の単位だけを変更した証券は概念上の存在であり、
+実際に取引されている原資産ではなく、それはもはや派生商品である。
+
+\section{クオントモデル}
+
+今回は為替レートと株価という2つのランダムネスの源泉がある。
+
+2つの$\mathbb{P}$-Brown運動$W_{1}(t),W_{2}(t)$があるとき、
+定数$\rho \in (-1,1)$を用いると、
+$$
+	W_{3}(t)
+	\ = \
+	\rho W_{1}(t) +
+	\sqrt{1 - \rho^{2} } W_{2}(t)
+$$
+もまた$\mathbb{P}$-Brown運動になる。
+
+そして$W_{1}$と$W_{3}$は$\rho$の相関を持つ。
+同様に$W_{2}$と$W_{3}$は$\sqrt{1 - \rho^{2}}$の相関を持つ。
+
+以上を踏まえて、
+$\mathbb{P}$-Brown運動の2-ファクターのモデルとして以下のものを考える
+%
+\footnote{以下ではテキストを置換（ドル$\to$円、ポンド$\to$ドル）}
+%
+。
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	S_{0}
+	\exp \left( \sigma_{1} W_{1}(t) + \mu t \right)
+	\\
+	C_{t}
+	&=&
+	C_{0}
+	\exp \left(
+	\rho \sigma_{2} W_{1}(t) +
+	\bar{\rho} \sigma_{2} W_{2}(t) + \nu t \right)
+	\\
+	B_{t}
+	&=&
+	\exp (rt)
+	\\
+	D_{t}
+	&=&
+	\exp (ut)
+\end{eqnarray*}
+%
+%
+ただし$\bar{\rho} = \sqrt{1 - \rho^{2}}$のように略記した。
+
+$S_{t}$は時刻$t$における米株のドル建て価格であり、
+
+$C_{t}$は為替レート（1ドル$=C_{t}$円）、
+
+$B_{t}$は円のキャッシュボンド、
+
+$D_{t}$はドルのキャッシュボンドである。
+
+${}$
+
+(復習)
+
+$n$次元の確率変数のベクトル$X =(X_{1},X_{2},\cdots,X_{n})$
+が与えられたとき、
+$(i,j)$要素が次のような$n \times n$行列を$X$の共分散（行列）と呼ぶ。
+$$
+	\mathbb{\sigma}_{ij}
+	\ = \
+	\mathbb{E}
+	(X_{i} - \mathbb{E} X_{i})
+	(X_{j} - \mathbb{E} X_{j})
+$$
+
+${}$
+
+今、ベクトル$(S_{t},C_{t})$の共分散を考えたい。
+簡単の為に成分に対数を取ったもの$(\log S_{t},\log C_{t})$を考えると、
+%
+%
+\begin{eqnarray*}
+	\mathbb{E}_{\mathbb{P}} \log S_{t}
+	&=&
+	\mathbb{E}_{\mathbb{P}} (\log S_{0} + \sigma_{1} W_{1}(t) + \mu t)
+	\\
+	&=&
+	\log S_{0} + \mu t
+	\\
+	\mathbb{E}_{\mathbb{P}} \log C_{t}
+	&=&
+	\mathbb{E}_{\mathbb{P}} (\log C_{0} + \rho \sigma_{2} W_{1}(t) + \bar{\rho} \sigma_{2} W_{2}(t) + \nu t)
+	\\
+	&=&
+	\log C_{0} + \nu t
+	\\
+	\log S_{t} - \mathbb{E}_{\mathbb{P}} \log S_{t}
+	&=&
+	\log S_{0} + \sigma_{1} W_{1}(t) + \mu t
+	-
+	(\log S_{0} + \mu t)
+	\\
+	&=&
+	\sigma_{1} W_{1}(t)
+	\\
+	\log C_{t} - \mathbb{E}_{\mathbb{P}} \log C_{t}
+	&=&
+	\rho \sigma_{2} W_{1}(t) + \bar{\rho} \sigma_{2} W_{2}(t)
+\end{eqnarray*}
+%
+%
+であるので、
+共分散$\mathbb{\sigma}$は
+%
+%
+\begin{eqnarray*}
+	&&
+	\hspace{-10mm} \mathbb{\sigma}
+	\\[1mm] && \hspace{-20mm} \ =
+	\left(
+	\hspace{-2mm}
+	\begin{array}{lr}
+		\mathbb{E}[\sigma_{1} W_{1}(t)]^{2}
+		 &
+		\hspace{-20mm}
+		\mathbb{E}[\sigma_{1} W_{1}(t) (\rho \sigma_{2} W_{1}(t) + \bar{\rho} \sigma_{2} W_{2}(t))]
+		\\
+		\mathbb{E}[(\rho \sigma_{2} W_{1}(t) + \bar{\rho} \sigma_{2} W_{2}(t))\sigma_{1} W_{1}(t)]
+		 &
+		\mathbb{E}[\rho \sigma_{2} W_{1}(t) + \bar{\rho} \sigma_{2} W_{2}(t)]^{2}
+	\end{array}
+	\hspace{-2mm}
+	\right)
+	\\[1mm] && \hspace{-20mm} \ =
+	\left(
+	\begin{array}{cc}
+			\sigma_{1}^{2} t             & \rho \sigma_{1} \sigma_{2} t
+			\\
+			\rho \sigma_{1} \sigma_{2} t & \rho^{2} \sigma_{2}^{2} t + \bar{\rho}^{2} \sigma^{2}_{2} t
+		\end{array}
+	\right)
+	\\[1mm] && \hspace{-20mm} \ =
+	\left(
+	\begin{array}{cc}
+			\sigma_{1}^{2}             & \rho \sigma_{1} \sigma_{2}
+			\\
+			\rho \sigma_{1} \sigma_{2} & \sigma^{2}_{2}
+		\end{array}
+	\right)
+	t
+\end{eqnarray*}
+%
+%
+となる。
+その相関行列$R$は$(1/\sqrt{\Sigma_{ii}})$を$(i,i)$成分に持つ対角行列$P$を
+挟んで（左右から掛けて）得られる。
+%
+%
+\begin{eqnarray*}
+	&& \hspace{-10mm}
+	R \ = \ P \mathbb{\sigma} P
+	\\[1mm] && \hspace{-20mm} \ =
+	\left(
+	\begin{array}{cc}
+			\dfrac{1}{\sigma_{1} \sqrt{t}} & 0
+			\\
+			0                              & \dfrac{1}{\sigma_{2} \sqrt{t}}
+		\end{array}
+	\right)
+	\left(
+	\begin{array}{cc}
+			\sigma_{1}^{2}             & \rho \sigma_{1} \sigma_{2}
+			\\
+			\rho \sigma_{1} \sigma_{2} & \sigma^{2}_{2}
+		\end{array}
+	\right)
+	t
+	\left(
+	\begin{array}{cc}
+			\dfrac{1}{\sigma_{1} \sqrt{t}} & 0
+			\\
+			0                              & \dfrac{1}{\sigma_{2} \sqrt{t}}
+		\end{array}
+	\right)
+	\\ && \hspace{-20mm} \ =
+	\left(
+	\begin{array}{cc}
+			\dfrac{1}{\sigma_{1}} & 0
+			\\
+			0                     & \dfrac{1}{\sigma_{2}}
+		\end{array}
+	\right)
+	\left(
+	\begin{array}{cc}
+			\sigma_{1}^{2}             & \rho \sigma_{1} \sigma_{2}
+			\\
+			\rho \sigma_{1} \sigma_{2} & \sigma^{2}_{2}
+		\end{array}
+	\right)
+	\left(
+	\begin{array}{cc}
+			\dfrac{1}{\sigma_{1}} & 0
+			\\
+			0                     & \dfrac{1}{\sigma_{2}}
+		\end{array}
+	\right)
+	\\ && \hspace{-20mm} \ =
+	\left(
+	\begin{array}{cc}
+			\sigma_{1}      & \rho \sigma_{2}
+			\\
+			\rho \sigma_{1} & \sigma_{2}
+		\end{array}
+	\right)
+	\left(
+	\begin{array}{cc}
+			\dfrac{1}{\sigma_{1}} & 0
+			\\
+			0                     & \dfrac{1}{\sigma_{2}}
+		\end{array}
+	\right)
+	\\ && \hspace{-20mm} \ =
+	\left(
+	\begin{array}{cc}
+			1    & \rho
+			\\
+			\rho & 1
+		\end{array}
+	\right)
+\end{eqnarray*}
+%
+%
+
+以上から
+
+\ \ \ \ $\cdot$ $\log S_{t}$のボラティリティは$\sigma_{1}$
+
+\ \ \ \ $\cdot$ $\log C_{t}$のボラティリティは$\sigma_{2}$
+
+\ \ \ \ $\cdot$ $\log S_{t}$と$\log C_{t}$の相関は$\rho$
+
+であることが分かった。
+
+\section{取引可能資産}
+
+ここでは円によって取引できる資産は3つある。
+
+\ \ \ 1. 円建てのドルキャッシュボンド$C_{t} D_{t}$
+
+\ \ \ 2. 円建ての米株$C_{t} S_{t}$
+
+\ \ \ 3. 円キャッシュボンド$B_{t}$
+
+円キャッシュボンドをニューメレールに選ぶと、
+1.と2.の割引資産過程はそれぞれ以下になる。
+%
+%
+\begin{eqnarray*}
+	Y_{t}
+	&=&
+	B^{-1}_{t} C_{t} D_{t}
+	\\ &=&
+	C_{0} D_{0}
+	e^{-rt}
+	\exp \left(
+	\rho \sigma_{2} W_{1}(t) +
+	\bar{\rho} \sigma_{2} W_{2}(t) + \nu t \right)
+	e^{ut}
+	\\ &=&
+	Y_{0}
+	\exp \left\{
+	\rho \sigma_{2} W_{1}(t) +
+	\bar{\rho} \sigma_{2} W_{2}(t) + (\nu + u - r) t \right\}
+\end{eqnarray*}
+%
+%
+%
+%
+\begin{eqnarray*}
+	Z_{t}
+	&=&
+	B^{-1}_{t} C_{t} S_{t}
+	\\ &=&
+	C_{0} S_{0}
+	e^{-rt}
+	\exp \left(
+	\rho \sigma_{2} W_{1}(t) +
+	\bar{\rho} \sigma_{2} W_{2}(t) + \nu t \right)
+	\\ && \times
+	\exp \left( \sigma_{1} W_{1}(t) + \mu t \right)
+	\\ &=&
+	Z_{0}
+	\exp \left\{
+	(\sigma_{1} + \rho \sigma_{2}) W_{1}(t) +
+	\bar{\rho} \sigma_{2} W_{2}(t) + ( \mu + \nu - r ) t \right\}
+\end{eqnarray*}
+%
+%
+
+これらが満たす確率微分方程式は
+%
+%
+\begin{eqnarray*}
+	&&
+	\dfrac{dY_{t}}{Y_{t}}
+	\\ &=&
+	\rho \sigma_{2} dW_{1}(t) +
+	\bar{\rho} \sigma_{2} dW_{2}(t) + \left( \nu + u - r \right) dt
+	\\ && \
+	+ \
+	\dfrac{1}{2}(\rho \sigma_{2})^{2} dt
+	+ \
+	\dfrac{1}{2}(\bar{\rho} \sigma_{2})^{2} dt
+	\\ &=&
+	\rho \sigma_{2} dW_{1}(t) +
+	\bar{\rho} \sigma_{2} dW_{2}(t) + \left( \nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r \right) dt
+\end{eqnarray*}
+%
+%
+$n$-ファクターになっても
+伊藤の公式は同じで、
+各ブラウン運動の係数を見て、
+その二乗の半分に$dt$をかけたものをそれぞれ$n$個足し上げれば良い。
+
+$Z_{t}$についても同様に
+%
+%
+\begin{eqnarray*}
+	&&
+	\dfrac{dZ_{t}}{Z_{t}}
+	\\[2mm] &=&
+	(\sigma_{1} + \rho \sigma_{2}) dW_{1}(t)
+	+ \bar{\rho} \sigma_{2} dW_{2}(t)
+	+ ( \mu + \nu - r ) dt
+	\\ && \
+	+ \
+	\dfrac{1}{2} (\sigma_{1} + \rho \sigma_{2})^{2} dt
+	+ \
+	\dfrac{1}{2} (\bar{\rho} \sigma_{2})^{2} dt
+	\\[2mm] &=&
+	(\sigma_{1} + \rho \sigma_{2}) dW_{1}(t)
+	+ \bar{\rho} \sigma_{2} dW_{2}(t)
+	\\ && \ +
+	\left(
+	\mu + \nu +
+	\dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \rho^{2} \sigma_{2}^{2}
+	+ \
+	\dfrac{1}{2} \bar{\rho}^{2} \sigma_{2}^{2}
+	- r
+	\right) dt
+	\\[2mm] &=&
+	(\sigma_{1} + \rho \sigma_{2}) dW_{1}(t)
+	+ \bar{\rho} \sigma_{2} dW_{2}(t)
+	\\ && \ +
+	\left(
+	\mu + \nu +
+	\dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2}
+	- r
+	\right) dt
+\end{eqnarray*}
+%
+%
+
+${}$
+
+取引可能資産$Y_{t},Z_{t}$が満たすべき確率微分方程式が求まった。
+
+次は$Y_{t},Z_{t}$をマルチンゲールにするような測度を見つける。
+
+これはドリフト変換を表す
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+を求めることと同値である。
+
+今、2-ファクターの問題を考えているので、
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+はスカラーではなく2次元のベクトルになる。
+
+確率微分方程式は行列表現で
+%
+%
+\begin{eqnarray*}
+	&&
+	\left(
+	\begin{array}{c}
+		d Y_{t} / Y_{t}
+		\\[2mm]
+		d Z_{t} / Z_{t}
+	\end{array}
+	\right)
+	\\ &=&
+	\left(
+	\begin{array}{ccc}
+		\rho \sigma_{2}              & \bar{\rho} \sigma_{2} & \nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r
+		\\
+		\sigma_{1} + \rho \sigma_{2} & \bar{\rho} \sigma_{2} & \mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2} - r
+	\end{array}
+	\right)
+	\\ && \ \times \
+	\left(
+	\begin{array}{c}
+		dW_{1}(t)
+		\\
+		dW_{2}(t)
+		\\
+		dt
+	\end{array}
+	\right)
+	\\ &=&
+	\left(
+	\begin{array}{cc}
+		\rho \sigma_{2}              & \bar{\rho} \sigma_{2}
+		\\
+		\sigma_{1} + \rho \sigma_{2} & \bar{\rho} \sigma_{2}
+	\end{array}
+	\right)
+	\left(
+	\begin{array}{c}
+		dW_{1}(t)
+		\\
+		dW_{2}(t)
+	\end{array}
+	\right)
+	\\ && \ + \
+	\left(
+	\begin{array}{c}
+		\nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r
+		\\
+		\mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2} - r
+	\end{array}
+	\right)
+	dt
+\end{eqnarray*}
+%
+%
+Brown運動の微分の項と時間微分の項に分けた。
+
+Brown運動の微分の項の係数行列をボラティリティ行列と呼び、
+${\bm \Sigma}$で表す。
+%
+%
+\begin{eqnarray*}
+	{\bm \Sigma}
+	&=&
+	\left(
+	\begin{array}{cc}
+			\rho \sigma_{2}              & \bar{\rho} \sigma_{2}
+			\\
+			\sigma_{1} + \rho \sigma_{2} & \bar{\rho} \sigma_{2}
+		\end{array}
+	\right)
+\end{eqnarray*}
+%
+%
+ドリフトベクトル${\bm \mu}$を次で定義する。
+%
+%
+\begin{eqnarray*}
+	{\bm \mu}
+	&=&
+	\left(
+	\begin{array}{c}
+			\nu + u + \dfrac{1}{2} \sigma_{2}^{2}
+			\\
+			\mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2}
+		\end{array}
+	\right)
+\end{eqnarray*}
+%
+%
+ボラティリティ行列${\bm \Sigma}$と
+ドリフトベクトル${\bm \mu}$を
+用いると、
+確率微分方程式は見通し良く次のように書ける。
+%
+%
+\begin{eqnarray*}
+	\left(
+	\begin{array}{c}
+			d Y_{t} / Y_{t}
+			\\
+			d Z_{t} / Z_{t}
+		\end{array}
+	\right)
+	&=&
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	( {\bm \mu} - r {\bm 1} ) dt
+\end{eqnarray*}
+%
+%
+このドリフト項を打ち消す為には、
+ある測度$\mathbb{Q}$の下でのBrown運動
+$(\tilde{W}_{1}(t),\tilde{W}_{2}(t))$
+を用いて、
+%
+%
+\begin{eqnarray*}
+	\left(
+	\begin{array}{c}
+			d Y_{t} / Y_{t}
+			\\
+			d Z_{t} / Z_{t}
+		\end{array}
+	\right)
+	&=&
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			d \tilde{W}_{1}(t)
+			\\
+			d \tilde{W}_{2}(t)
+		\end{array}
+	\right)
+\end{eqnarray*}
+%
+%
+と書ければよく、
+右辺同士を比較すると
+%
+%
+\begin{eqnarray*}
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			d \tilde{W}_{1}(t)
+			\\
+			d \tilde{W}_{2}(t)
+		\end{array}
+	\right)
+	&=&
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	( {\bm \mu} - r {\bm 1} ) dt
+\end{eqnarray*}
+%
+%
+ボラティリティ行列${\bm \Sigma}$が逆行列を持てば、
+%
+%
+\begin{eqnarray*}
+	\left(
+	\begin{array}{c}
+			d \tilde{W}_{1}(t)
+			\\
+			d \tilde{W}_{2}(t)
+		\end{array}
+	\right)
+	&=&
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	{\bm \Sigma}^{-1}
+	( {\bm \mu} - r {\bm 1} ) dt
+	\\ &=&
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	{\bm \gamma}dt
+\end{eqnarray*}
+%
+%
+ただし${\bm \gamma}$は
+$(W_{1}(t),W_{2}(t))$
+に対応する
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+${\bm \gamma}^{T} = (\gamma_{1}(t),\gamma_{2}(t))$
+である。
+%
+%
+\begin{eqnarray*}
+	{\bm \gamma}
+	&=&
+	{\bm \Sigma}^{-1}
+	( {\bm \mu} - r {\bm 1} )
+\end{eqnarray*}
+%
+%
+$\mathbb{Q}$-Brown運動
+$(\tilde{W}_{1}(t),\tilde{W}_{2}(t))$
+を用いて確率微分方程式を記述する為には、
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+を計算すれば良い。
+
+まずボラティリティ行列の逆行列は、
+%
+%
+\begin{eqnarray*}
+	{\bm \Sigma}^{-1}
+	&=&
+	\left(
+	\begin{array}{cc}
+		\rho \sigma_{2}              & \bar{\rho} \sigma_{2}
+		\\
+		\sigma_{1} + \rho \sigma_{2} & \bar{\rho} \sigma_{2}
+	\end{array}
+	\right)^{-1}
+	\\ &=&
+	\dfrac{1}{
+		\rho \sigma_{2} \bar{\rho} \sigma_{2} - \bar{\rho} \sigma_{2}(\sigma_{1} + \rho \sigma_{2}) }
+	\left(
+	\!\!
+	\begin{array}{cc}
+			\bar{\rho} \sigma_{2}          & - \bar{\rho} \sigma_{2}
+			\\
+			- \sigma_{1} - \rho \sigma_{2} & \rho \sigma_{2}
+		\end{array}
+	\!\!
+	\right)
+	\\ &=&
+	\dfrac{1}{
+		\bar{\rho} \sigma_{1} \sigma_{2} }
+	\left(
+	\!\!
+	\begin{array}{cc}
+			\bar{\rho} \sigma_{2}          & - \bar{\rho} \sigma_{2}
+			\\
+			- \sigma_{1} - \rho \sigma_{2} & \rho \sigma_{2}
+		\end{array}
+	\!\!
+	\right)
+\end{eqnarray*}
+%
+%
+となるので、
+
+%
+%
+\begin{eqnarray*}
+	{\bm \gamma}
+	&=&
+	{\bm \Sigma}^{-1}
+	( {\bm \mu} - r {\bm 1} )
+	\\ &=&
+	\dfrac{1}{ \bar{\rho} \sigma_{1} \sigma_{2} }
+	\left(
+	\!\!
+	\begin{array}{cc}
+			\bar{\rho} \sigma_{2}          & - \bar{\rho} \sigma_{2}
+			\\
+			- \sigma_{1} - \rho \sigma_{2} & \rho \sigma_{2}
+		\end{array}
+	\!\!
+	\right)
+	\\ && \ \times
+	\left(
+	\begin{array}{c}
+			\nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r
+			\\
+			\mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2} - r
+		\end{array}
+	\right)
+\end{eqnarray*}
+%
+%
+式が長くなるので成分ごとに分けると、
+\footnote{
+	長い計算の挙句、
+	$\gamma_{2}$については
+	テキストときれいにマイナス1倍違った（符号が逆転していて後の項は全て同じ。）
+}
+%
+%
+\begin{eqnarray*}
+	\gamma_{1}
+	&=&
+	\dfrac{
+		\begin{array}{l}
+			\bar{\rho} \sigma_{2}
+			( \nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r )
+			\\ \hspace{7mm}
+			- \bar{\rho} \sigma_{2}
+			( \mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2} - r )
+		\end{array}
+	}
+	{ \bar{\rho} \sigma_{1} \sigma_{2} }
+	\\ &=&
+	\dfrac{
+		u
+		-
+		\mu - \dfrac{1}{2} \sigma_{1}^{2} - \rho \sigma_{1} \sigma_{2}
+	}
+	{ \sigma_{1} }
+\end{eqnarray*}
+%
+%
+
+%
+%
+\begin{eqnarray*}
+	\gamma_{2}
+	&=&
+	\dfrac{
+		\begin{array}{l}
+			( - \sigma_{1} - \rho \sigma_{2} )
+			( \nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r )
+			\\ \hspace{7mm} + \
+			\rho \sigma_{2}
+			( \mu + \nu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} + \dfrac{1}{2} \sigma_{2}^{2} - r )
+		\end{array}
+	}
+	{ \bar{\rho} \sigma_{1} \sigma_{2} }
+	\\[2mm] &=&
+	\dfrac{
+		\begin{array}{l}
+			- \sigma_{1}
+			(  \nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r )
+			\\[2mm] \hspace{5mm} + \
+			\rho \sigma_{2}
+			(\mu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} - u)
+		\end{array}
+	}
+	{ \bar{\rho} \sigma_{1} \sigma_{2} }
+	\\ &=&
+	-
+	\dfrac{
+		\nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r
+	}
+	{ \bar{\rho} \sigma_{2} }
+	+
+	\dfrac{
+		\mu + \dfrac{1}{2} \sigma_{1}^{2} + \rho \sigma_{1} \sigma_{2} - u
+	}
+	{ \bar{\rho} \sigma_{1} }
+	\\ &=&
+	-
+	\dfrac{
+		\nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r
+	}
+	{ \bar{\rho} \sigma_{2} }
+	+
+	\dfrac{
+		1
+	}
+	{ \bar{\rho} }
+	\gamma_{1}
+	\\ &=&
+	-
+	\dfrac{
+		\nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r - \rho_{2} \gamma_{1}
+	}
+	{ \bar{\rho} \sigma_{2} }
+\end{eqnarray*}
+%
+%
+
+今求めた
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+を用いることで、
+$\mathbb{Q}$-Brown運動を用いて確率微分方程式は次のように書き直すことができる。
+\footnote{これは練習問題4.2の解答にもなっている。}
+%
+%
+\begin{eqnarray*}
+	\left(
+	\begin{array}{c}
+			d Y_{t} / Y_{t}
+			\\
+			d Z_{t} / Z_{t}
+		\end{array}
+	\right)
+	&=&
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	( {\bm \mu} - r {\bm 1} ) dt
+	\\ &=&
+	{\bm \Sigma}
+	\left\{
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	{\bm \Sigma}^{-1}
+	( {\bm \mu} - r {\bm 1} ) dt
+	\right\}
+	\\ &=&
+	{\bm \Sigma}
+	\left\{
+	\left(
+	\begin{array}{c}
+			dW_{1}(t)
+			\\
+			dW_{2}(t)
+		\end{array}
+	\right)
+	+
+	{\bm \gamma} dt
+	\right\}
+	\\ &=&
+	{\bm \Sigma}
+	\left(
+	\begin{array}{c}
+			d \tilde{W}_{1}(t)
+			\\
+			d \tilde{W}_{2}(t)
+		\end{array}
+	\right)
+\end{eqnarray*}
+%
+%
+
+成分表示すると、
+%
+%
+\begin{eqnarray*}
+	&&
+	\left(
+	\begin{array}{c}
+		d Y_{t} / Y_{t}
+		\\
+		d Z_{t} / Z_{t}
+	\end{array}
+	\right)
+	\\ &=&
+	\left(
+	\begin{array}{cc}
+		\rho \sigma_{2}              & \bar{\rho} \sigma_{2}
+		\\
+		\sigma_{1} + \rho \sigma_{2} & \bar{\rho} \sigma_{2}
+	\end{array}
+	\right)
+	\left(
+	\begin{array}{c}
+		d \tilde{W}_{1}(t)
+		\\
+		d \tilde{W}_{2}(t)
+	\end{array}
+	\right)
+	\\ &=&
+	\left(
+	\begin{array}{l}
+		\rho \sigma_{2} d \tilde{W}_{1}(t) \ + \ \bar{\rho} \sigma_{2} d \tilde{W}_{2}(t)
+		\\
+		( \sigma_{1} + \rho \sigma_{2} ) d \tilde{W}_{1}(t) \ + \ \bar{\rho} \sigma_{2} d \tilde{W}_{2}(t)
+	\end{array}
+	\right)
+\end{eqnarray*}
+%
+%
+連立微分方程式の形になっているのでこの形式で
+愚直に解を求めに行こうとすると
+ボラティリティ行列の対角化をする必要があったり、
+色々と面倒そうに見える。
+
+しかし
+マーケット$\cdot$プライス$\cdot$オブ$\cdot$リスク
+の考え方を用いると、
+${\bm \gamma} = {\bm 0}$
+となるような${\bm \mu} = (\mu,\nu)$をそれぞれ求めて元の資産の過程の${\bm \mu}$に代入するだけでいい。
+
+$\gamma_{1} = 0$
+より、
+$$
+	u
+	-
+	\mu - \dfrac{1}{2} \sigma_{1}^{2} - \rho \sigma_{1} \sigma_{2}
+	\ = \ 0
+$$
+すなわち
+$$
+	\mu
+	\ = \
+	u - \dfrac{1}{2} \sigma_{1}^{2} - \rho \sigma_{1} \sigma_{2}
+$$
+
+$\gamma_{2} = 0$
+より、
+$$
+	\nu + u + \dfrac{1}{2} \sigma_{2}^{2} - r - \rho_{2} \gamma_{1}
+	\ = \
+	0
+$$
+すなわち、
+$$
+	\nu
+	\ = \
+	r - u - \dfrac{1}{2} \sigma_{2}^{2}
+$$
+
+元の資産過程は$\mathbb{P}$-Brown運動を用いて
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	S_{0}
+	\exp \left( \sigma_{1} W_{1}(t) + \mu t \right)
+	\\
+	C_{t}
+	&=&
+	C_{0}
+	\exp \left(
+	\rho \sigma_{2} W_{1}(t) +
+	\bar{\rho} \sigma_{2} W_{2}(t) + \nu t \right)
+\end{eqnarray*}
+%
+%
+のように表されていたので、
+$\mathbb{Q}$-Brown運動を用いて記述すると、
+今求めた${\bm \mu}$を代入して、
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	S_{0}
+	\exp \left( \sigma_{1} \tilde{W}_{1}(t) +
+	\left(
+		u - \dfrac{1}{2} \sigma_{1}^{2} - \rho \sigma_{1} \sigma_{2}
+		\right)
+	t \right)
+	\\
+	C_{t}
+	&=&
+	C_{0}
+	\exp \left(
+	\rho \sigma_{2} \tilde{W}_{1}(t) +
+	\bar{\rho} \sigma_{2} \tilde{W}_{2}(t) +
+	\left(
+		r - u - \dfrac{1}{2} \sigma_{2}^{2}
+		\right)
+	t \right)
+\end{eqnarray*}
+%
+%
+となる。
+
+${}$
+
+$C_{t}$
+については$\mathbb{Q}$-Brown運動
+$$
+	\tilde{W}_{3}(t)
+	\ = \
+	\rho \tilde{W}_{1}(t) +
+	\bar{\rho} \tilde{W}_{2}(t)
+$$
+を用いて
+%
+%
+\begin{eqnarray*}
+	C_{t}
+	&=&
+	e^{(r-u)t}
+	C_{0}
+	\exp \left(
+	\sigma_{2} \tilde{W}_{3}(t) -
+	\dfrac{1}{2} \sigma_{2}^{2}
+	t \right)
+\end{eqnarray*}
+%
+%
+と書けるので、
+ニューメレールに$e^{(r-u)t} = B_{t} D^{-1}_{t}$
+を選ぶと
+$\mathbb{Q}$-マルチンゲールになり、取引可能になる。
+
+一方で$S_{t}$は
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	e^{ut}
+	S_{0}
+	\exp \left( \sigma_{1} \tilde{W}_{1}(t) -
+	\dfrac{1}{2} \sigma_{1}^{2}
+	t \right)
+	e^{- \rho \sigma_{1} \sigma_{2}}
+\end{eqnarray*}
+%
+%
+であるが、
+$e^{- \rho \sigma_{1} \sigma_{2}}$
+のような因子が入っており、
+ドルキャッシュボンド$e^{ut} = D_{t}$をニューメレールに
+選んでも取引可能にはならない。
+
+\section{クオント$\cdot$フォワード}
+
+以上で取引可能な資産をマルチンゲールにするような測度$\mathbb{Q}$が求まったので、
+クオント$\cdot$デリバティブの価格を求めていく。
+
+すぐ上の$S_{t}$を$\mathbb{Q}$-Brown運動を用いて記述した式について、
+$S_{t}$の満期$T$におけるフォワード価格$F = e^{uT} S_{0}$を用いて、
+%
+%
+\begin{eqnarray*}
+	S_{t}
+	&=&
+	F
+	\exp \left( \sigma_{1} \tilde{W}_{1}(t) -
+	\dfrac{1}{2} \sigma_{1}^{2}
+	t \right)
+	e^{- \rho \sigma_{1} \sigma_{2}}
+\end{eqnarray*}
+%
+%
+と書ける。
+受け渡し価格$=K$(円)の
+フォワード契約の現在価値は
+次のように計算できる。
+%
+%
+\begin{eqnarray*}
+	V_{0}
+	&=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}}(S_{T}-K)
+	\\ &=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}}
+	\left[
+		F
+		\exp \left( \sigma_{1} \tilde{W}_{1}(T) -
+		\dfrac{1}{2} \sigma_{1}^{2}
+		T \right)
+		e^{- \rho \sigma_{1} \sigma_{2}}
+		-
+		K
+		\right]
+	\\ &=&
+	F
+	e^{-rT}
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	\exp \left( -\dfrac{1}{2} \sigma_{1}^{2} T \right)
+	\mathbb{E}_{\mathbb{Q}}
+	e^{\sigma_{1} \tilde{W}_{1}(T)}
+	-
+	Ke^{-rT}
+\end{eqnarray*}
+%
+%
+ここで期待値
+$\mathbb{E}_{\mathbb{Q}}
+	e^{\sigma_{1} \tilde{W}_{1}(T)}$
+は、
+$\dfrac{\tilde{W}_{1}(T)}{\sqrt{T}}$
+が測度$\mathbb{Q}$の下で
+標準正規確率変数$Z$に従うので
+%
+%
+\begin{eqnarray*}
+	\mathbb{E}_{\mathbb{Q}}
+	e^{\sigma_{1} \tilde{W}_{1}(T)}
+	&=&
+	\mathbb{E}_{\mathbb{Q}}
+	\exp \left( \sigma_{1} \sqrt{T} \dfrac{\tilde{W}_{1}(T)}{\sqrt{T}} \right)
+	\\ &=&
+	\mathbb{E}
+	\exp \left( \sigma_{1} \sqrt{T} Z \right)
+	\\ &=&
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\int^{\infty}_{-\infty}
+	\exp \left( \sigma_{1} \sqrt{T} z \right)
+	\
+	e^{-\frac{1}{2}z^{2}}
+	dz
+	\\ &=&
+	\exp \left( \dfrac{1}{2} (\sigma_{1} \sqrt{T})^{2} \right)
+\end{eqnarray*}
+%
+%
+のように積分できる
+\footnote{
+	$$
+		\dfrac{1}{ \sqrt{2 \pi} }
+		\int^{\infty}_{-\infty}
+		e^{-\frac{1}{2} x^{2} + ax}
+		dx
+		\ = \
+		e^{\frac{1}{2} a^{2}}
+	$$
+}。
+まとめると、
+%
+%
+\begin{eqnarray*}
+	&& V_{0}
+	\\ &=&
+	e^{-rT}
+	\mathbb{E}_{\mathbb{Q}}(S_{T}-K)
+	\\ &=&
+	F
+	e^{-rT}
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	\exp \left( -\dfrac{1}{2} \sigma_{1}^{2} T \right)
+	\mathbb{E}_{\mathbb{Q}}
+	e^{\sigma_{1} \tilde{W}_{1}(T)}
+	-
+	Ke^{-rT}
+	\\ &=&
+	F
+	e^{-rT}
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	\exp \left( -\dfrac{1}{2} \sigma_{1}^{2} T \right)
+	\exp \left(\dfrac{1}{2} \sigma_{1}^{2} T \right)
+	-
+	Ke^{-rT}
+	\\ &=&
+	F
+	e^{-rT}
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	-
+	Ke^{-rT}
+\end{eqnarray*}
+%
+%
+
+現在価値がゼロになるように
+（取引する双方が現時点で損も得もしないように）
+受渡価格$K$が設定される。
+
+よって$V_{0}=0$のときの$K$の値は、
+%
+%
+\begin{eqnarray*}
+	0 &=& V_{0}
+	\ = \
+	F
+	e^{-rT}
+	e^{- \rho \sigma_{1} \sigma_{2}}
+	-
+	Ke^{-rT}
+	\\
+	\Longleftrightarrow
+	\
+	K
+	&=&
+	F
+	e^{- \rho \sigma_{1} \sigma_{2}}
+\end{eqnarray*}
+%
+%
+
+$\sigma_{1},\sigma_{2}$の値は共に正であるので、
+株価と為替レートが負の相関（$\rho < 0$）を持つときに限り
+クオント$\cdot$フォワード
+の価格は通常のフォワード価格$F$よりも$e^{- \rho \sigma_{1} \sigma_{2}}$倍だけ高くなる。
+
+
+\section{クオントデジタルオプション}
+
+クオントデジタルオプションは、
+例えば満期時$T$における株価$S_{T}$（ドル）が
+予め決めておいた値段$K$ドルを超えた場合、
+（1ドルではなく）1円を支払うという契約である。
+
+契約は
+$$
+	X
+	\ = \
+	1_{ \{ S_{T}>K \} }
+$$
+であり、現在価値$V_{0}$は
+%
+%
+\begin{eqnarray*}
+	\hspace{-10mm}
+	V_{0}
+	& = &
+	B^{-1}_{T}
+	\mathbb{E}_{\mathbb{Q}}
+	( e^{r \times 0} X )
+	\\ & = &
+	B^{-1}_{T}
+	\mathbb{E}_{\mathbb{Q}}
+	1_{ \{ S_{T}>K \} }
+	\\ & = &
+	B^{-1}_{T}
+	\mathbb{Q}
+	\{ S_{T}>K \}
+	\\ & = &
+	e^{-rT}
+	\mathbb{Q}
+	\{ S_{T}>K \}
+\end{eqnarray*}
+%
+%
+ここで$\mathbb{Q}\{B\}$は測度$\mathbb{Q}$の下で条件$B$を満たす確率である。
+
+$S_{T}$は$\mathbb{Q}$-Brown運動を用いて次のように書けたことを思い出す。
+%
+%
+\begin{eqnarray*}
+	S_{T}
+	&=&
+	F
+	\exp \left( \sigma_{1} \tilde{W}_{1}(T) -
+	\dfrac{1}{2} \sigma_{1}^{2} T -
+	\rho \sigma_{1} \sigma_{2}
+	\right)
+	\\ &=&
+	F
+	\exp \left( \sigma_{1} \sqrt{T} \dfrac{ \tilde{W}_{1}(T) }{ \sqrt{T} } -
+	\dfrac{1}{2} \sigma_{1}^{2} T -
+	\rho \sigma_{1} \sigma_{2} \right)
+	\\ &=&
+	F
+	\exp \left( \sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T  -
+	\rho \sigma_{1} \sigma_{2}\right)
+\end{eqnarray*}
+%
+%
+ただし$F$は満期$T$におけるフォワード価格$F = e^{uT} S_{0}$である。
+また、$Z$は$\mathbb{Q}$の下で$N(0,1)$に従う標準正規確率変数である。
+
+さらに表記の簡単のために
+$$
+	F_{Q} \ = \ F e^{- \rho \sigma_{1} \sigma_{2} }
+$$
+と置くと、見慣れた形式になる。
+$$
+	S_{T}
+	\ = \
+	F_{Q}
+	\exp \left( \sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T
+	\right)
+$$
+条件$S_{T}>K$を変形すると、
+%
+%
+\begin{eqnarray*}
+	S_{T}
+	&>&
+	K
+	\\
+	F_{Q}
+	\exp \left( \sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T
+	\right)
+	&>&
+	K
+	\\
+	\exp \left( \sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T
+	\right)
+	&>&
+	\dfrac{K}{F_{Q}}
+	\\
+	\sigma_{1} \sqrt{T} Z -
+	\dfrac{1}{2} \sigma_{1}^{2} T
+	&>&
+	\log
+	\dfrac{K}{F_{Q}}
+	\\
+	Z
+	&>&
+	\dfrac{
+		\dfrac{1}{2} \sigma_{1}^{2} T +
+		\log
+		\dfrac{K}{F_{Q}}
+	}{\sigma_{1} \sqrt{T}}
+	\ = \
+	z_{0}
+\end{eqnarray*}
+%
+%
+この右辺は煩雑なので一旦$z_{0}$と置く。
+
+以上を踏まえて現在価値の計算を進めると、
+%
+%
+\begin{eqnarray*}
+	V_{0}
+	&=&
+	e^{-rT}
+	\mathbb{Q}
+	\{ S_{T} > K \}
+	\\ &=&
+	e^{-rT}
+	\mathbb{Q}
+	\{ Z > z_{0} \}
+	\\ &=&
+	e^{-rT}
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\int^{\infty}_{z_{0}}
+	e^{
+			- \frac{1}{2} z^{2}
+		} dz
+	\\ &=&
+	e^{-rT}
+	\left\{
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\int^{\infty}_{z_{0}}
+	e^{
+			- \frac{1}{2} z^{2}
+		} dz \ \
+	-1+1
+	\right\}
+	\\ &=&
+	e^{-rT}
+	\left\{
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\int^{\infty}_{z_{0}}
+	e^{
+			- \frac{1}{2} z^{2}
+		} dz
+	-
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\int^{\infty}_{-\infty}
+	e^{
+			- \frac{1}{2} z^{2}
+		} dz
+	+1
+	\right\}
+	\\ &=&
+	e^{-rT}
+	\left\{
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\left(
+	\int^{\infty}_{z_{0}}
+	-
+	\int^{\infty}_{-\infty}
+	\right)
+	e^{
+			- \frac{1}{2} z^{2}
+		} dz
+	+1
+	\right\}
+	\\ &=&
+	e^{-rT}
+	\left\{
+	-
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\left(
+	\int_{-\infty}^{\infty}
+	-
+	\int^{\infty}_{z_{0}}
+	\right)
+	e^{
+			- \frac{1}{2} z^{2}
+		} dz
+	+1
+	\right\}
+	\\ &=&
+	e^{-rT}
+	\left\{
+	-
+	\dfrac{1}{ \sqrt{2 \pi} }
+	\int_{-\infty}^{z_{0}}
+	e^{
+			- \frac{1}{2} z^{2}
+		} dz
+	+1
+	\right\}
+	\\ &=&
+	e^{-rT}
+	\left\{
+	-
+	\Phi(z_{0})
+	+1
+	\right\}
+	\\ &=&
+	e^{-rT}
+	\Phi(-z_{0})
+	\\ &=&
+	e^{-rT}
+	\Phi
+	\left(
+	\dfrac{
+		\log
+		\dfrac{F_{Q}}{K}
+		-
+		\dfrac{1}{2} \sigma_{1}^{2} T
+	}{\sigma_{1} \sqrt{T}}
+	\right)
+	\\ &=&
+	e^{-rT}
+	\Phi
+	\left(
+	\dfrac{
+		\log
+		\dfrac{F}{K}
+		-
+		\dfrac{1}{2} \sigma_{1}^{2} T
+		-
+		\rho \sigma_{1} \sigma_{2}
+	}{\sigma_{1} \sqrt{T}}
+	\right)
+\end{eqnarray*}
+%
+%
+
+
+\begin{thebibliography}{9}
+	\bibitem{BaxterRennie}
+	Financial Calculus - An Introduction to Derivative Pricing - Martin Baxter, Andrew Rennie
+\end{thebibliography}
+
+\end{document}
