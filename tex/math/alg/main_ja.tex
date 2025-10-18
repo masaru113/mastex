@@ -1,0 +1,544 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+テンソル代数
+}
+\author{岡田 大(Okada Masaru)}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\ \\
+
+\section{線形写像が成す双対線形空間}
+
+\subsection{ベクトル空間の双対空間}
+
+$V$ を有限次元のベクトル空間とする。
+
+$V$ から $\mathbb{R}$ への線形写像を $V$ の上の線形写像と呼ぶ。
+
+線形写像 $\varphi, \psi : V \to \mathbb{R}$
+は和とスカラー積が定義できる。
+すなわち、実数 $\alpha$、
+$\bf{x} \in V$ に対して
+\[
+	\begin{array}{rcl}
+		(\varphi + \psi) (\bf{x}) & = & \varphi (\bf{x}) + \psi (\bf{x})
+		\\
+		(\alpha \varphi) (\bf{x}) & = & \alpha \varphi (\bf{x})
+	\end{array}
+\]
+
+和とスカラー積は線形性を持つ。
+$\bf{x}, \bf{y} \in V$
+に対して、
+
+例えば和については、
+\[
+	\begin{array}{rcl}
+		(\varphi + \psi) (\bf{x} + \bf{y}) & = & \varphi (\bf{x} + \bf{y}) + \psi (\bf{x} + \bf{y})
+		\\
+		                                   & = &
+		\varphi (\bf{x} + \bf{y}) + \psi (\bf{x} + \bf{y})
+		\\
+		                                   & = &
+		\varphi (\bf{x}) + \varphi (\bf{y})
+		+
+		\psi (\bf{x}) + \psi (\bf{y})
+		\\
+		                                   & = &
+		\varphi (\bf{x}) + \psi (\bf{x})
+		+ \psi (\bf{y}) + \varphi (\bf{y})
+		\\
+		                                   & = &
+		(\varphi + \psi) (\bf{x}) + (\varphi + \psi) (\bf{y})
+	\end{array}
+\]
+
+同様にスカラー積も
+\[
+	\begin{array}{rcl}
+		(\alpha \varphi) (\bf{x} + \bf{y}) & = & \alpha ( \varphi (\bf{x} + \bf{y}) )
+		\\
+		                                   & = &
+		\alpha \varphi (\bf{x}) + \alpha \varphi (\bf{y})
+	\end{array}
+\]
+
+$V$ 上の線形写像全体の集合はまたベクトル空間を成す。
+
+ベクトル空間の公理を満たすことは例えば、
+\[
+	\begin{array}{rcl}
+		\alpha (\varphi + \psi) (\bf{x} ) & = & ( \alpha \varphi + \alpha \psi) (\bf{x} )
+		\\
+		(\alpha + \beta) \varphi (\bf{x}) & = & (\alpha \varphi + \beta \varphi) (\bf{x})
+	\end{array}
+\]
+等から確かめられる。
+
+$V$ 上の線形写像全体のつくるベクトル空間を双対線形空間と呼び、 $V^{*}$ で表す。
+
+\subsection{ベクトル空間の双対空間の双対空間}
+
+$V^{*}$ の元の $\varphi$ は対応 $\varphi : x \to \varphi(x)$ を与えていた。
+
+このような視点では $x$ は変数で、$\varphi$ は線形関数のように見える。
+
+さらにその双対空間を考える。
+このとき$x$ が固定されており、$\varphi$ の方が $V^{*}$ 上を自由に動くような変数のように見ることができる。
+記号で書くと以下のように見る。
+
+$$
+	x : \varphi \to \varphi(x)
+$$
+
+どちらが変数なのか分かるように、$x$ をひとつ固定して $\varphi$ を動かす視点のときは $\tilde{x}$ と書くことにする。
+すなわち、
+
+$$
+	\tilde{x}(\varphi) = \varphi(x)
+$$
+
+このとき線形空間で満たされていた、例えば以下の等式
+\[
+	\begin{array}{rcl}
+		(\varphi + \psi) (\bf{x} + \bf{y})
+		 & = &
+		(\varphi + \psi) (\bf{x}) + (\varphi + \psi) (\bf{y})
+		\\
+		(\alpha \varphi) (\bf{x} + \bf{y})
+		 & = &
+		\alpha \varphi (\bf{x}) + \alpha \varphi (\bf{y})
+	\end{array}
+\]
+これらの等式はそれぞれ
+\[
+	\begin{array}{rcl}
+		(\tilde{x} + \tilde{y} ) (\varphi + \psi)
+		 & = &
+		\tilde{x} (\varphi + \psi)  + \tilde{y} (\varphi + \psi)
+		\\
+		(\tilde{x} + \tilde{y} ) (\alpha \varphi)
+		 & = &
+		\alpha \tilde{x} (\varphi) + \alpha \tilde{y} (\varphi)
+	\end{array}
+\]
+のように視点を変えて見える。
+
+この $\tilde{x}$ は $V^{*}$ の双対空間の元になっているので、$\tilde{x} \in V^{**}$ と表す。
+
+
+\subsection{ベクトル空間の基底と双対基底}
+
+\subsubsection{ベクトル空間の基底}
+
+$V$ は有限次元のベクトル空間であり、その次元を$n$とする。
+また、その基底を$\{ e_{1}, e_{2}, e_{3}, \cdots , e_{n} \}$
+と表すと、
+$\mathbf{x} \in V$ は
+\[
+	\begin{array}{rcl}
+		V \ni \ \
+		\mathbf{x}
+		 & = &
+		x^{1} e_{1} + x^{2} e_{2} + x^{3} e_{3} + \cdots + x^{n} e_{n}
+		\\
+		 & = &
+		\displaystyle \sum_{k=1}^{n} x^{k} e_{k}
+	\end{array}
+\]
+と表される。
+
+\subsubsection{双対基底}
+
+$V^{*}$ を考えると、その元は線形写像 $\varphi$ であった。
+$V^{*}$ の基底を考えたいので、基底の記号らしく線形写像を （$\varphi$ や ではなく） $e^{k}$ のように表すと、
+線形写像$\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$ によって$V^{*}$ は張られる。
+$\varphi(e_{1}) = a_{1}, \varphi(e_{2}) = a_{2}, \cdots ,\varphi(e_{n}) = a_{n}$ と置いて、
+この記法で
+$\varphi \in V^{*}$ は
+\[
+	\begin{array}{rcl}
+		V^{*} \ni \ \ \varphi
+		 & = &
+		a_{1} e^{1} + a_{2} e^{2} + a_{3} e^{3} + \cdots + a_{n} e^{n}
+		\\
+		 & = &
+		\displaystyle \sum_{k=1}^{n} a_{k} e^{k}
+	\end{array}
+\]
+と表される。
+
+$V$ の基底
+$\{ e_{1}, e_{2}, e_{3}, \cdots , e_{n} \}$
+に対して、
+$V^{*}$ の基底、
+すなわち複数の線形写像たち
+$\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$
+を双対基底と呼ぶ。
+
+\subsubsection{双対空間の双対空間 $V^{**}$ の双対基底}
+
+双対基底の定義
+\[
+	\begin{array}{rcl}
+		V^{*} \ni \ \ \varphi
+		 & = &
+		a_{1} e^{1} + a_{2} e^{2} + a_{3} e^{3} + \cdots + a_{n} e^{n}
+		\\
+		 & = &
+		\displaystyle \sum_{k=1}^{n} a_{k} e^{k}
+	\end{array}
+\]
+これを用いると、ベクトル空間との基底との対応は以下のようになる。
+\[
+	\begin{array}{rcl}
+		V^{*} \ni \ \ x^{i}
+		 & = &
+		e^{i} (x^{1} e_{1} + x^{2} e_{2} + x^{3} e_{3} + \cdots + x^{n} e_{n})
+	\end{array}
+\]
+
+ここで$j$成分の係数を1、$j$成分以外の係数をすべて0とすると、
+\[
+	\begin{array}{rcl}
+		e^{i} (0 e_{1} + 0 e_{2}  + \cdots + 1 e_{j} + \cdots + 0 e_{n})
+	\end{array}
+\]
+これより、次の基底の間の関係式が得られる。
+\[
+	e^{i}(e_{j})
+	=
+	\left\{
+	\begin{array}{l}
+		1, \ \ (i=j) \\
+		0, \ \ (i \neq j)
+	\end{array}
+	\right.
+\]
+
+\paragraph{$V$ と $V^{**}$ の1対1対応}
+
+${}$
+
+$x,y \in V$ と $\tilde{x}, \tilde{y} \in V^{**}$ に対して、
+$x \neq y \Rightarrow \tilde{x} \neq \tilde{y}$ が成り立つ。
+
+なぜならば、
+$$
+	x = \sum_{k=1}^{n} x^{i} e_{j} , \ \
+	y = \sum_{k=1}^{n} y^{i} e_{j}
+$$
+と表すと、$x \neq y$ であれば、ある$j$に対して
+$x^{j} \neq y^{j}$ が成り立つ。
+
+双対基底として
+$\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$
+を取ると、
+$$
+	\tilde{x}(e^{j})
+	\ = \
+	e^{j}(x)
+	\ = \
+	x^{j}
+	, \ \
+	\tilde{y}(e^{j})
+	\ = \
+	e^{j}(y)
+	\ = \
+	y^{j}
+$$
+なので、
+$\tilde{x}$ と $\tilde{y}$ は $e^{j}$ における値が異なる。
+よって、
+$x \neq y \Rightarrow \tilde{x} \neq \tilde{y}$
+が言える。
+
+\paragraph{$V^{**}$ の双対基底}
+
+${}$
+
+$V^{*}$の双対基底と$V$の基底との間の関係式
+\[
+	e^{i}(e_{j})
+	=
+	\left\{
+	\begin{array}{l}
+		1, \ \ (i=j) \\
+		0, \ \ (i \neq j)
+	\end{array}
+	\right.
+\]
+これについて $V^{**}$ の元を用いて表すと、
+\[
+	\tilde{e}_{i}(e^{j})
+	=
+	\left\{
+	\begin{array}{l}
+		1, \ \ (i=j) \\
+		0, \ \ (i \neq j)
+	\end{array}
+	\right.
+\]
+であるが、これは
+$V^{**}$の双対基底
+$\{ \tilde{e}_{1}, \tilde{e}_{2}, \tilde{e}_{3}, \cdots , \tilde{e}_{n} \}$
+が
+$V^{*}$の双対基底
+$\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$
+の双対基底となっていることを表している。
+
+\ \\
+
+ここまでを別の表現でまとめると、
+
+\begin{itembox}[l]{$V$ と $V^{**}$ の1対1対応}
+	$V$から$V^{**}$への1対1の写像 $\Phi : V \to V^{**}$
+	があり、これは
+	$$
+		\Phi: V \ni x = \sum_{k=1}^{n} x^{i} e_{i} \mapsto \tilde{x} = \sum_{k=1}^{n} x^{i} \tilde{e}_{i} \in V^{**}
+	$$
+	と表される。
+\end{itembox}
+
+
+
+\section{双線形空間}
+
+ここまではベクトル空間の双対はベクトル空間であり、その双対もまた（線形写像の集合がつくる）ベクトル空間であるということで、話がベクトル空間で閉じていた。
+ここからベクトル空間を拡張していくことを考える。
+
+\ \\
+
+$V^{*} \times V^{*}$ という直積集合を考える。
+
+$$
+	V^{*} \times V^{*}
+	=
+	\{
+	\ (\tilde{x}, \tilde{y} ) \ | \ \tilde{x} \in V^{*}, \tilde{y} \in V^{*}
+	\}
+$$
+
+この$V^{*} \times V^{*}$ 上で定義される2変数関数
+$\varphi(\tilde{x},\tilde{y})$ の双線形性を次で定義する。
+
+
+\begin{itembox}[l]{双線形関数}
+	$V^{*} \times V^{*}$ 上で定義される2変数関数
+	$\varphi(\tilde{x},\tilde{y})$
+	が次の性質（双線形性）を満たすとき、
+	$V^{*}$ 上の双線形関数という。（$\alpha, \beta \in \mathbb{R}$）
+	\begin{enumerate}
+		\item $\varphi(\alpha \tilde{x} + \beta \tilde{x}', \tilde{y}) = \alpha \varphi( \tilde{x}, \tilde{y}) + \beta \varphi( \tilde{x}', \tilde{y})$
+		\item $\varphi(\tilde{x}, \alpha \tilde{y} + \beta \tilde{y}') = \alpha \varphi( \tilde{x}, \tilde{y}) + \beta \varphi( \tilde{x}, \tilde{y}')$
+	\end{enumerate}
+\end{itembox}
+
+双線形関数とは、各変数について線形な関数である。
+
+\subsection{双線形関数全体のつくるベクトル空間}
+
+\paragraph{双線形関数の和とスカラー倍}
+
+${}$
+
+$V^{*}$ 上の双線形関数 $\varphi, \psi$ について、
+$\varphi + \psi, \ \ \alpha \varphi$ もまた双線形関数になる
+（$\alpha \in \mathbb{R}$）。
+
+つまり、 $V^{*}$ 上の双線形関数全体はベクトル空間をつくる。
+
+\ \\
+
+$V^{*}$ 上の双線形関数全体のつくるベクトル空間を $L_{2}(V^{*})$ と表すことにする。
+添え字の2は2変数であることを意味する。
+
+この書き方を用いると、$V^{*}$ 上の線形関数全体のつくるベクトル空間 $V^{**}$ は
+$L_{1}(V^{*})$ と表すことができる。
+そしてこのベクトル空間 $L_{1}(V^{*})$ は $V$ と同一視できるのであった。
+$$
+	V = L_{1}(V^{*})
+$$
+
+\subsection{テンソル積}
+
+$L_{1}(V^{*})$ と $L_{2}(V^{*})$ をつなぐ演算として、テンソル積を導入する。
+
+\begin{itembox}[l]{テンソル積}
+	$V \otimes V = L_{2}(V^{*})$ とおく。
+	ベクトル空間$V \otimes V$ を $V$ の2階のテンソル積と呼ぶ。
+\end{itembox}
+
+この記法では、
+$$V = L_{1}(V^{*})$$
+$$V \otimes V = L_{2}(V^{*})$$
+となり、さらに高階のテンソル積の定義に役に立つ。
+
+\ \\
+
+$x,y \in V, \ \ \tilde{x}, \tilde{y} \in V^{*}$ に対して、
+$$
+	x \otimes y(\tilde{x}, \tilde{y}) = x(\tilde{x}) y(\tilde{y})
+$$
+と定めると、これは
+$V^{*} \times V^{*}$
+から
+$\mathbb{R}$ への写像となる。
+$$
+	x \otimes y : V^{*} \times V^{*} \to \mathbb{R}
+$$
+この写像はテンソル積の元となる。
+$$
+	x \otimes y \in V \otimes V
+$$
+
+\section{多重線形関数とテンソル空間}
+
+テンソル積の記法を重ねることで多重線形関数とテンソル空間を定義することができる。
+
+\begin{itembox}[l]{$k$ 重線形関数}
+	$V^{*}$ の $k$ 個の直積集合 $V^{*} \times \cdots \times V^{*}$ 上で
+	定義された関数
+	$\varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{x}_{k})$
+	が次の性質を満たすとき、
+	$\varphi$ を $V^{*}$ 上の $k$ 重線形関数と呼ぶ。
+	$$
+		\varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \alpha \tilde{x}_{i} + \beta \tilde{y}_{i} , \cdots , \tilde{x}_{k})
+		=
+		\alpha \varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{x}_{i} , \cdots , \tilde{x}_{k})
+		+
+		\beta \varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{y}_{i} , \cdots , \tilde{x}_{k})
+	$$
+\end{itembox}
+
+$V^{*}$ 上の $k$ 重線形関数全体のつくる集合もまたベクトル空間となり、
+これを
+$L_{k}(V^{*})$
+と表す。
+
+ベクトル空間とするには
+$\varphi, \psi \in L_{k}(V^{*}) , \ \ \alpha \in \mathbb{R}$ に対して、
+加法とスカラー積をそれぞれ次のように定義する。
+
+\begin{itembox}[l]{$k$ 重線形関数の加法とスカラー積}
+	$$
+		( \varphi + \psi ) ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		=
+		\varphi ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		+
+		\psi ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+	$$
+	$$
+		( \alpha  \varphi ) ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		=
+		\alpha \varphi ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+	$$
+\end{itembox}
+
+自然数 $k$ を動かすと $k$ 重線形関数のつくるベクトル空間の系列が得られる。
+
+$$
+	L_{1}(V^{*}) \ , \ \ L_{2}(V^{*}) \ , \ \ L_{3}(V^{*}) \ , \ \ \cdots \ , \ \ L_{k}(V^{*}) \ , \ \ \cdots
+$$
+
+$L_{2}(V^{*})$ を $V \otimes V$ と表したように、一般の $k$ 重線形空間の成すベクトル空間を
+$k$ 階テンソル空間と呼び、以下のように定義する。
+
+\begin{itembox}[l]{$k$ 階テンソル空間}
+	$$L_{k}(V^{*}) = V \otimes V \otimes \cdots \otimes V = \otimes^{k} V$$
+\end{itembox}
+
+記法を変えただけであるが、今先ほどの$k$ 重線形関数のつくるベクトル空間の系列は以下のように表される。
+$$
+	\otimes^{1} V (= V) \ , \ \ \otimes^{2} V \ , \ \ \otimes^{3} V \ , \ \ \cdots \ , \ \ \otimes^{k} V \ , \ \ \cdots
+$$
+
+双線形空間の場合と同様に、
+$V$ の $k$ 個の元 $x_{1}, x_{2} , \cdots , x_{k}$ に対してそのテンソル積は次のような写像であると定義できる。
+
+$$ \otimes^{k} V \ni x_{1} \otimes x_{2} \otimes \cdots \otimes x_{k}: V \times V \times \cdots \times V \to \mathbb{R}$$
+
+$$
+	x_{1} \otimes \cdots \otimes x_{k} ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+	=
+	\tilde{x}_{1} (x_{1}) \cdots \tilde{x}_{k} (x_{k})
+$$
+
+用語の注意として、
+「テンソル積」というと積の演算子をイメージしてしまうかもしれないが、そうではなく、テンソル積とは「実数に写す写像」であることに留意する。
+
+\section{多項式の積}
+
+テンソル代数の導入の前に、もっとイメージのわきやすい身近な多項式の代数について考えてみる。
+
+まず、 $k$ 次の単項式全体 $\mathbf{P}^{k} = \{ ax^{k} \ | \ a \in \mathbb{R} \}$ を考える。
+
+この $\mathbf{P}^{k}$ は $\mathbb{R}$ と同型な1次元のベクトル空間になっている。
+
+\[
+	\begin{array}{rcl}
+		\mathbf{P}^{0} & \ni    & a_{0}       \\
+		\mathbf{P}^{1} & \ni    & a_{1} x     \\
+		\mathbf{P}^{2} & \ni    & a_{2} x^{2} \\
+		\mathbf{P}^{3} & \ni    & a_{3} x^{3} \\
+		               & \vdots &             \\
+		\mathbf{P}^{k} & \ni    & a_{k} x^{k} \\
+		               & \vdots &             \\
+	\end{array}
+\]
+
+これらはそれぞれ集合は非交差であり、ベクトル空間の非交差和を直和と呼び、$\oplus$ を用いて表現すると、
+
+\[
+	\begin{array}{rcl}
+		\mathbf{P}^{0}                                                                                 & \ni    & a_{0}                                                \\
+		\mathbf{P}^{0} \oplus \mathbf{P}^{1}                                                           & \ni    & a_{0} + a_{1} x                                      \\
+		\mathbf{P}^{0} \oplus \mathbf{P}^{1} \oplus \mathbf{P}^{2}                                     & \ni    & a_{0} + a_{1} x + a_{2} x^{2}                        \\
+		\mathbf{P}^{0} \oplus \mathbf{P}^{1} \oplus \mathbf{P}^{2} \oplus \mathbf{P}^{3}               & \ni    & a_{0} + a_{1} x + a_{2} x^{2} + a_{3} x^{3}          \\
+		                                                                                               & \vdots &                                                      \\
+		\mathbf{P}^{0} \oplus \mathbf{P}^{1} \oplus \mathbf{P}^{2} \oplus \cdots \oplus \mathbf{P}^{k} & \ni    & a_{0} + a_{1} x + a_{2} x^{2} + \cdots + a_{k} x^{k} \\
+		                                                                                               & \vdots &                                                      \\
+	\end{array}
+\]
+
+単項式の積は
+$$
+	\mathbf{P}^{k} \times \mathbf{P}^{l} = \mathbf{P}^{k+l} \ni a_{k} a_{l} x^{k+l}
+$$
+で表せる。
+
+多項式全体の集合 $\mathbf{P}$ は
+$$
+	\mathbf{P}
+	=
+	\mathbf{P}^{0} \oplus \mathbf{P}^{1} \oplus \mathbf{P}^{2} \oplus \cdots \oplus \mathbf{P}^{k} \oplus \cdots
+$$
+
+このようにして用意した $\mathbf{P}$ の中でも多項式の積や和が定義できることは経験的に私たちは知っている。
+
+直和について便利な記号を導入しておく。
+$$
+	\mathbf{P}
+	=
+	\mathbf{P}^{0} \oplus \mathbf{P}^{1} \oplus \mathbf{P}^{2} \oplus \cdots \oplus \mathbf{P}^{k} \oplus \cdots
+	=
+	\displaystyle \bigoplus_{k=0}^{\infty} \mathbf{P}^{k}
+$$
+
+\section{テンソル代数}
+
+
+
+\end{document}
