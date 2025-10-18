@@ -13,8 +13,6 @@ This repository contains my personal notes on a wide range of topics in **mathem
 The notes are organized within a parent directory named `tex`. All documents are written in LaTeX.
 
 - **tex**: Root directory for documents created with LaTeX.
-  - **log**: misc.
-    - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main.pdf)) **Oct. 2025**:
   - **math**: Notes on mathematics.
     - **alg**: Folder for topics related to algebra.
       - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/alg/TensorAlgebra/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/alg/TensorAlgebra/main.pdf)) **Tensor Algebra**: Introductory memo on tensor algebra.
@@ -60,6 +58,8 @@ The notes are organized within a parent directory named `tex`. All documents are
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/finance/quant_summary/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/finance/quant_summary/main.pdf)) **Summary Notes on Quanto Derivatives (Reading from Baxter & Rennie, Chapter 4.5)**: Derives the pricing formulas for quanto forwards and options under a two-factor risk-neutral framework, based on Baxter & Rennie's Chapter 4.5.
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/finance/quantos/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/finance/quantos/main.pdf)) **Quanto**: These notes derive pricing for quanto forwards and digital options using a two-factor risk-neutral model.
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/finance/risk_neutral_prob_in_binomial_tree/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/finance/risk_neutral_prob_in_binomial_tree/main.pdf)) **Risk-Neutral Probabilities in a Binomial Tree Model**: In a binomial tree model, any derivative can be priced and replicated by a portfolio of stocks and bonds using a unique risk-neutral probability, which defines the limits of arbitrage.
+  - **log**: misc.
+    - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main.pdf)) **Oct. 2025**:
 ---
 
 ## License and Usage
