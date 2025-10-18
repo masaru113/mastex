@@ -7,7 +7,7 @@
 \title{
 Tensor Algebra
 }
-\author{岡田 大(Okada Masaru)}
+\author{Masaru Okada}
 
 \date{\today}
 
@@ -102,11 +102,11 @@ $$
 	x : \varphi \to \varphi(x)
 $$
 
-To clarify which is the variable, when we adopt the perspective of fixing one $x$ and letting $\varphi$ vary, we will write it as $\tilde{x}$.
+To clarify which is the variable, when we adopt the perspective of fixing one $x$ and letting $\varphi$ vary, we will write it as $\tilde{\tilde{x}}$.
 That is,
 
 $$
-	\tilde{x}(\varphi) = \varphi(x)
+	\tilde{\tilde{x}}(\varphi) = \varphi(x)
 $$
 
 With this, the equalities that held in the linear space, for example,
@@ -124,17 +124,17 @@ With this, the equalities that held in the linear space, for example,
 These equalities can be viewed from a different perspective as, respectively,
 \[
 	\begin{array}{rcl}
-		(\tilde{x} + \tilde{y} ) (\varphi + \psi)
+		(\tilde{\tilde{x}} + \tilde{\tilde{y}} ) (\varphi + \psi)
 		 & = &
-		\tilde{x} (\varphi + \psi)  + \tilde{y} (\varphi + \psi)
+		\tilde{\tilde{x}} (\varphi + \psi)  + \tilde{\tilde{y}} (\varphi + \psi)
 		\\
-		(\tilde{x} + \tilde{y} ) (\alpha \varphi)
+		(\tilde{\tilde{x}} + \tilde{\tilde{y}} ) (\alpha \varphi)
 		 & = &
-		\alpha \tilde{x} (\varphi) + \alpha \tilde{y} (\varphi)
+		\alpha \tilde{\tilde{x}} (\varphi) + \alpha \tilde{\tilde{y}} (\varphi)
 	\end{array}
 \]
 
-This $\tilde{x}$ is an element of the dual space of $V^{*}$, so we denote it as $\tilde{x} \in V^{**}$.
+This $\tilde{\tilde{x}}$ is an element of the dual space of $V^{*}$, so we denote it as $\tilde{\tilde{x}} \in V^{**}$.
 
 
 \subsection{Basis of a Vector Space and Dual Basis}
@@ -158,9 +158,9 @@ then $\mathbf{x} \in V$ is expressed as
 
 \subsubsection{Dual Basis}
 
-Considering $V^{*}$, its elements were linear maps $\varphi$.
+Considering $V^{*}$, its elements were linear functionals $\varphi$.
 We want to consider a basis for $V^{*}$, so, to make the notation look like a basis (using $e^{k}$ instead of $\varphi$),
-$V^{*}$ is spanned by the linear maps $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$.
+$V^{*}$ is spanned by the linear functionals $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$.
 Letting $\varphi(e_{1}) = a_{1}, \varphi(e_{2}) = a_{2}, \cdots ,\varphi(e_{n}) = a_{n}$,
 $\varphi \in V^{*}$ is expressed in this notation as
 \[
@@ -178,7 +178,7 @@ With respect to the basis
 $\{ e_{1}, e_{2}, e_{3}, \cdots , e_{n} \}$
 of $V$,
 the basis of $V^{*}$,
-namely the set of linear maps
+namely the set of linear functionals
 $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$,
 is called the dual basis.
 
@@ -195,10 +195,10 @@ Using the definition of the dual basis
 		\displaystyle \sum_{k=1}^{n} a_{k} e^{k}
 	\end{array}
 \]
-the correspondence with the basis of the vector space is as follows:
+the correspondence with the vector space basis is as follows:
 \[
 	\begin{array}{rcl}
-		V^{*} \ni \ \ x^{i}
+		e^{i}(\mathbf{x})
 		 & = &
 		e^{i} (x^{1} e_{1} + x^{2} e_{2} + x^{3} e_{3} + \cdots + x^{n} e_{n})
 	\end{array}
@@ -226,14 +226,14 @@ From this, the following relationship between the bases is obtained:
 
 ${}$
 
-For $x,y \in V$ and $\tilde{x}, \tilde{y} \in V^{**}$,
-$x \neq y \Rightarrow \tilde{x} \neq \tilde{y}$ holds.
+For $x,y \in V$ and $\tilde{\tilde{x}}, \tilde{\tilde{y}} \in V^{**}$,
+$x \neq y \Rightarrow \tilde{\tilde{x}} \neq \tilde{\tilde{y}}$ holds.
 
 This is because,
 if we express
 $$
-	x = \sum_{k=1}^{n} x^{i} e_{j} , \ \
-	y = \sum_{k=1}^{n} y^{i} e_{j}
+	x = \sum_{i=1}^{n} x^{i} e_{i} , \ \
+	y = \sum_{i=1}^{n} y^{i} e_{i}
 $$
 then if $x \neq y$, there exists some $j$ for which
 $x^{j} \neq y^{j}$ holds.
@@ -242,22 +242,22 @@ Taking
 $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$
 as the dual basis,
 $$
-	\tilde{x}(e^{j})
+	\tilde{\tilde{x}}(e^{j})
 	\ = \
 	e^{j}(x)
 	\ = \
 	x^{j}
 	, \ \
-	\tilde{y}(e^{j})
+	\tilde{\tilde{y}}(e^{j})
 	\ = \
 	e^{j}(y)
 	\ = \
 	y^{j}
 $$
 Therefore,
-$\tilde{x}$ and $\tilde{y}$ differ in their value at $e^{j}$.
+$\tilde{\tilde{x}}$ and $\tilde{\tilde{y}}$ differ in their value at $e^{j}$.
 Thus,
-$x \neq y \Rightarrow \tilde{x} \neq \tilde{y}$
+$x \neq y \Rightarrow \tilde{\tilde{x}} \neq \tilde{\tilde{y}}$
 can be stated.
 
 \paragraph{Dual Basis of $V^{**}$}
@@ -286,7 +286,7 @@ Expressing this using elements of $V^{**}$,
 	\end{array}
 	\right.
 \]
-This shows that
+which shows that
 the dual basis of $V^{**}$
 $\{ \tilde{e}_{1}, \tilde{e}_{2}, \tilde{e}_{3}, \cdots , \tilde{e}_{n} \}$
 is
@@ -302,7 +302,7 @@ To summarize what we have covered so far in different terms:
 	from $V$ to $V^{**}$,
 	which is expressed as
 	$$
-		\Phi: V \ni x = \sum_{k=1}^{n} x^{i} e_{i} \mapsto \tilde{x} = \sum_{k=1}^{n} x^{i} \tilde{e}_{i} \in V^{**}
+		\Phi: V \ni x = \sum_{k=1}^{n} x^{i} e_{i} \mapsto \tilde{\tilde{x}} = \sum_{k=1}^{n} x^{i} \tilde{e}_{i} \in V^{**}
 	$$
 \end{itembox}
 
@@ -321,22 +321,23 @@ $$
 	V^{*} \times V^{*}
 	=
 	\{
-	\ (\tilde{x}, \tilde{y} ) \ | \ \tilde{x} \in V^{*}, \tilde{y} \in V^{*}
+	\ (\varphi, \psi ) \ | \ \varphi \in V^{*}, \psi \in V^{*}
 	\}
 $$
 
 The bilinearity of a two-variable function
-$\varphi(\tilde{x},\tilde{y})$ defined on this $V^{*} \times V^{*}$ is defined as follows.
+$M(\varphi,\psi)$ defined on this $V^{*} \times V^{*}$ is defined as follows.
 
 
 \begin{itembox}[l]{Bilinear Function}
-	A two-variable function $\varphi(\tilde{x},\tilde{y})$
+	A two-variable function
+	$M(\varphi,\psi)$
 	defined on $V^{*} \times V^{*}$
 	is called a bilinear function on $V^{*}$
 	when it satisfies the following properties (bilinearity). ($\alpha, \beta \in \mathbb{R}$)
 	\begin{enumerate}
-		\item $\varphi(\alpha \tilde{x} + \beta \tilde{x}', \tilde{y}) = \alpha \varphi( \tilde{x}, \tilde{y}) + \beta \varphi( \tilde{x}', \tilde{y})$
-		\item $\varphi(\tilde{x}, \alpha \tilde{y} + \beta \tilde{y}') = \alpha \varphi( \tilde{x}, \tilde{y}) + \beta \varphi( \tilde{x}, \tilde{y}')$
+		\item $M(\alpha \varphi + \beta \varphi', \psi) = \alpha M( \varphi, \psi) + \beta M( \varphi', \psi)$
+		\item $M(\varphi, \alpha \psi + \beta \psi') = \alpha M( \varphi, \psi) + \beta M( \varphi, \psi')$
 	\end{enumerate}
 \end{itembox}
 
@@ -348,8 +349,8 @@ A bilinear function is a function that is linear in each variable.
 
 ${}$
 
-For bilinear functions $\varphi, \psi$ on $V^{*}$,
-$\varphi + \psi$ and $\alpha \varphi$ are also bilinear functions
+For bilinear functions $M, N$ on $V^{*}$,
+$M + N$ and $\alpha M$ are also bilinear functions
 ($\alpha \in \mathbb{R}$).
 
 In other words, the set of all bilinear functions on $V^{*}$ forms a vector space.
@@ -382,10 +383,10 @@ which is useful for defining higher-order tensor products.
 
 \ \\
 
-For $x,y \in V, \ \ \tilde{x}, \tilde{y} \in V^{*}$,
+For $x,y \in V, \ \ \varphi, \psi \in V^{*}$,
 if we define
 $$
-	x \otimes y(\tilde{x}, \tilde{y}) = x(\tilde{x}) y(\tilde{y})
+	(x \otimes y)(\varphi, \psi) = \varphi(x) \psi(y)
 $$
 this becomes a map from
 $V^{*} \times V^{*}$
@@ -404,16 +405,17 @@ $$
 By repeating the tensor product notation, we can define multilinear functions and tensor spaces.
 
 \begin{itembox}[l]{$k$-linear Function}
-	A function $\varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{x}_{k})$
+	A function
+	$M(\varphi_{1}, \varphi_{2}, \cdots , \varphi_{k})$
 	defined on the $k$-fold Cartesian product $V^{*} \times \cdots \times V^{*}$ of $V^{*}$
 	is called a $k$-linear function on $V^{*}$
 	if it satisfies the following property.
 	$$
-		\varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \alpha \tilde{x}_{i} + \beta \tilde{y}_{i} , \cdots , \tilde{x}_{k})
+		M(\varphi_{1}, \varphi_{2}, \cdots , \alpha \varphi_{i} + \beta \psi_{i} , \cdots , \varphi_{k})
 		=
-		\alpha \varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{x}_{i} , \cdots , \tilde{x}_{k})
+		\alpha M(\varphi_{1}, \varphi_{2}, \cdots , \varphi_{i} , \cdots , \varphi_{k})
 		+
-		\beta \varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{y}_{i} , \cdots , \tilde{x}_{k})
+		\beta M(\varphi_{1}, \varphi_{2}, \cdots , \psi_{i} , \cdots , \varphi_{k})
 	$$
 \end{itembox}
 
@@ -422,21 +424,21 @@ which we denote as
 $L_{k}(V^{*})$.
 
 To make it a vector space,
-for $\varphi, \psi \in L_{k}(V^{*}) , \ \ \alpha \in \mathbb{R}$,
+for $M, N \in L_{k}(V^{*}) , \ \ \alpha \in \mathbb{R}$,
 we define addition and scalar multiplication as follows, respectively.
 
 \begin{itembox}[l]{Addition and Scalar Multiplication of $k$-linear Functions}
 	$$
-		( \varphi + \psi ) ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		( M + N ) ( \varphi_{1} , \cdots, \varphi_{k})
 		=
-		\varphi ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		M ( \varphi_{1} , \cdots, \varphi_{k})
 		+
-		\psi ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		N ( \varphi_{1} , \cdots, \varphi_{k})
 	$$
 	$$
-		( \alpha  \varphi ) ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		( \alpha  M ) ( \varphi_{1} , \cdots, \varphi_{k})
 		=
-		\alpha \varphi ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		\alpha M ( \varphi_{1} , \cdots, \varphi_{k})
 	$$
 \end{itembox}
 
@@ -461,20 +463,20 @@ $$
 Similar to the bilinear case,
 the tensor product of $k$ elements $x_{1}, x_{2} , \cdots , x_{k}$ of $V$ can be defined as the following map.
 
-$$ \otimes^{k} V \ni x_{1} \otimes x_{2} \otimes \cdots \otimes x_{k}: V \times V \times \cdots \times V \to \mathbb{R}$$
+$$ \otimes^{k} V \ni x_{1} \otimes x_{2} \otimes \cdots \otimes x_{k}: V^* \times V^* \times \cdots \times V^* \to \mathbb{R}$$
 
 $$
-	x_{1} \otimes \cdots \otimes x_{k} ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+	x_{1} \otimes \cdots \otimes x_{k} ( \varphi_{1} , \cdots, \varphi_{k})
 	=
-	\tilde{x}_{1} (x_{1}) \cdots \tilde{x}_{k} (x_{k})
+	\varphi_{1} (x_{1}) \cdots \varphi_{k} (x_{k})
 $$
 
 A note on terminology:
-One might imagine 'tensor product' as the product operator itself, but it should be noted that the tensor product is, in this context, 'a map to the real numbers'.
+One might imagine 'tensor product' as the product operator itself, but it should be noted that an element of the tensor product (i.e., a tensor) is 'a map to the real numbers'.
 
 \section{Polynomial Algebra}
 
-\subsection{Product of Polynomials}
+\subsection{Direct Sum and Product of Sets of Monomials}
 
 Before introducing tensor algebra, let's consider the more familiar and intuitive algebra of polynomials.
 
@@ -508,10 +510,11 @@ These sets are mutually disjoint, and the disjoint union of vector spaces is cal
 	\end{array}
 \]
 
-The product of monomials can be expressed as
+The product of monomials defines a map
 $$
-	\mathbf{P}^{k} \times \mathbf{P}^{l} = \mathbf{P}^{k+l} \ni a_{k} a_{l} x^{k+l}
+	\times : \mathbf{P}^{k} \times \mathbf{P}^{l} \to \mathbf{P}^{k+l}
 $$
+and can be expressed as $ (a_{k} x^{k}) \times (a_{l} x^{l}) = a_{k} a_{l} x^{k+l} \in \mathbf{P}^{k+l}$.
 
 The set of all polynomials $\mathbf{P}$ is
 $$
@@ -586,7 +589,7 @@ The algebraic properties it satisfies are as follows.
 		\item A multiplication $\otimes$ with the following properties is defined on $T(V)$.
 		      \begin{enumerate}
 			      \item For $\xi,\eta,\zeta \in T(V)$, the associative law holds: $\xi \otimes (\eta \otimes \zeta) = (\xi \otimes \eta) \otimes \zeta$
-			      \item For $\xi,\eta,\zeta \in T(V)$, the distributive law holds: $(\xi \oplus \eta) \otimes \zeta = \xi \otimes \zeta \oplus \eta \otimes \zeta \ , \ \ \xi \otimes (\eta \oplus \zeta) = \xi \otimes \eta \oplus \xi \otimes \zeta$
+			      \item For $\xi,\eta,\zeta \in T(V)$, the distributive law holds: $(\xi + \eta) \otimes \zeta = \xi \otimes \zeta + \eta \otimes \zeta \ , \ \ \xi \otimes (\eta + \zeta) = \xi \otimes \eta + \xi \otimes \zeta$
 			      \item For $a \in \mathbb{R} \ , \ \ \xi,\eta \in T(V)$, $a (\xi \otimes \eta) = a \xi \otimes \eta = \xi \otimes a \eta$
 			      \item For $1 \in \mathbb{R} \ , \ \ \xi \in T(V)$, $1\xi=\xi$
 		      \end{enumerate}
@@ -595,7 +598,7 @@ The algebraic properties it satisfies are as follows.
 
 \ \\
 
-Starting from a vector space, via the dual vector space and bilinear space, we arrived at the tensor space, and finally, in these notes, at the tensor algebra.
+Starting from a vector space, via the dual vector space and bilinear space to the tensor space, we have finally, in these notes, arrived at the tensor algebra.
 
 The elements of the tensor algebra are tensors, and from here, general relativity unfolds.
 

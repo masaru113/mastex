@@ -103,11 +103,11 @@ $$
 	x : \varphi \to \varphi(x)
 $$
 
-どちらが変数なのか分かるように、$x$ をひとつ固定して $\varphi$ を動かす視点のときは $\tilde{x}$ と書くことにする。
+どちらが変数なのか分かるように、$x$ をひとつ固定して $\varphi$ を動かす視点のときは $\tilde{\tilde{x}}$ と書くことにする。
 すなわち、
 
 $$
-	\tilde{x}(\varphi) = \varphi(x)
+	\tilde{\tilde{x}}(\varphi) = \varphi(x)
 $$
 
 このとき線形空間で満たされていた、例えば以下の等式
@@ -125,18 +125,18 @@ $$
 これらの等式はそれぞれ
 \[
 	\begin{array}{rcl}
-		(\tilde{x} + \tilde{y} ) (\varphi + \psi)
+		(\tilde{\tilde{x}} + \tilde{\tilde{y}} ) (\varphi + \psi)
 		 & = &
-		\tilde{x} (\varphi + \psi)  + \tilde{y} (\varphi + \psi)
+		\tilde{\tilde{x}} (\varphi + \psi)  + \tilde{\tilde{y}} (\varphi + \psi)
 		\\
-		(\tilde{x} + \tilde{y} ) (\alpha \varphi)
+		(\tilde{\tilde{x}} + \tilde{\tilde{y}} ) (\alpha \varphi)
 		 & = &
-		\alpha \tilde{x} (\varphi) + \alpha \tilde{y} (\varphi)
+		\alpha \tilde{\tilde{x}} (\varphi) + \alpha \tilde{\tilde{y}} (\varphi)
 	\end{array}
 \]
 のように視点を変えて見える。
 
-この $\tilde{x}$ は $V^{*}$ の双対空間の元になっているので、$\tilde{x} \in V^{**}$ と表す。
+この $\tilde{\tilde{x}}$ は $V^{*}$ の双対空間の元になっているので、$\tilde{\tilde{x}} \in V^{**}$ と表す。
 
 
 \subsection{ベクトル空間の基底と双対基底}
@@ -204,7 +204,7 @@ $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$
 これを用いると、ベクトル空間との基底との対応は以下のようになる。
 \[
 	\begin{array}{rcl}
-		V^{*} \ni \ \ x^{i}
+		e^{i}(\mathbf{x})
 		 & = &
 		e^{i} (x^{1} e_{1} + x^{2} e_{2} + x^{3} e_{3} + \cdots + x^{n} e_{n})
 	\end{array}
@@ -232,13 +232,13 @@ $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$
 
 ${}$
 
-$x,y \in V$ と $\tilde{x}, \tilde{y} \in V^{**}$ に対して、
-$x \neq y \Rightarrow \tilde{x} \neq \tilde{y}$ が成り立つ。
+$x,y \in V$ と $\tilde{\tilde{x}}, \tilde{\tilde{y}} \in V^{**}$ に対して、
+$x \neq y \Rightarrow \tilde{\tilde{x}} \neq \tilde{\tilde{y}}$ が成り立つ。
 
 なぜならば、
 $$
-	x = \sum_{k=1}^{n} x^{i} e_{j} , \ \
-	y = \sum_{k=1}^{n} y^{i} e_{j}
+	x = \sum_{i=1}^{n} x^{i} e_{i} , \ \
+	y = \sum_{i=1}^{n} y^{i} e_{i}
 $$
 と表すと、$x \neq y$ であれば、ある$j$に対して
 $x^{j} \neq y^{j}$ が成り立つ。
@@ -247,22 +247,22 @@ $x^{j} \neq y^{j}$ が成り立つ。
 $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$
 を取ると、
 $$
-	\tilde{x}(e^{j})
+	\tilde{\tilde{x}}(e^{j})
 	\ = \
 	e^{j}(x)
 	\ = \
 	x^{j}
 	, \ \
-	\tilde{y}(e^{j})
+	\tilde{\tilde{y}}(e^{j})
 	\ = \
 	e^{j}(y)
 	\ = \
 	y^{j}
 $$
 なので、
-$\tilde{x}$ と $\tilde{y}$ は $e^{j}$ における値が異なる。
+$\tilde{\tilde{x}}$ と $\tilde{\tilde{y}}$ は $e^{j}$ における値が異なる。
 よって、
-$x \neq y \Rightarrow \tilde{x} \neq \tilde{y}$
+$x \neq y \Rightarrow \tilde{\tilde{x}} \neq \tilde{\tilde{y}}$
 が言える。
 
 \paragraph{$V^{**}$ の双対基底}
@@ -307,7 +307,7 @@ $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$
 	$V$から$V^{**}$への1対1の写像 $\Phi : V \to V^{**}$
 	があり、これは
 	$$
-		\Phi: V \ni x = \sum_{k=1}^{n} x^{i} e_{i} \mapsto \tilde{x} = \sum_{k=1}^{n} x^{i} \tilde{e}_{i} \in V^{**}
+		\Phi: V \ni x = \sum_{k=1}^{n} x^{i} e_{i} \mapsto \tilde{\tilde{x}} = \sum_{k=1}^{n} x^{i} \tilde{e}_{i} \in V^{**}
 	$$
 	と表される。
 \end{itembox}
@@ -327,22 +327,22 @@ $$
 	V^{*} \times V^{*}
 	=
 	\{
-	\ (\tilde{x}, \tilde{y} ) \ | \ \tilde{x} \in V^{*}, \tilde{y} \in V^{*}
+	\ (\varphi, \psi ) \ | \ \varphi \in V^{*}, \psi \in V^{*}
 	\}
 $$
 
 この$V^{*} \times V^{*}$ 上で定義される2変数関数
-$\varphi(\tilde{x},\tilde{y})$ の双線形性を次で定義する。
+$M(\varphi,\psi)$ の双線形性を次で定義する。
 
 
 \begin{itembox}[l]{双線形関数}
 	$V^{*} \times V^{*}$ 上で定義される2変数関数
-	$\varphi(\tilde{x},\tilde{y})$
+	$M(\varphi,\psi)$
 	が次の性質（双線形性）を満たすとき、
 	$V^{*}$ 上の双線形関数という。（$\alpha, \beta \in \mathbb{R}$）
 	\begin{enumerate}
-		\item $\varphi(\alpha \tilde{x} + \beta \tilde{x}', \tilde{y}) = \alpha \varphi( \tilde{x}, \tilde{y}) + \beta \varphi( \tilde{x}', \tilde{y})$
-		\item $\varphi(\tilde{x}, \alpha \tilde{y} + \beta \tilde{y}') = \alpha \varphi( \tilde{x}, \tilde{y}) + \beta \varphi( \tilde{x}, \tilde{y}')$
+		\item $M(\alpha \varphi + \beta \varphi', \psi) = \alpha M( \varphi, \psi) + \beta M( \varphi', \psi)$
+		\item $M(\varphi, \alpha \psi + \beta \psi') = \alpha M( \varphi, \psi) + \beta M( \varphi, \psi')$
 	\end{enumerate}
 \end{itembox}
 
@@ -354,8 +354,8 @@ $\varphi(\tilde{x},\tilde{y})$ の双線形性を次で定義する。
 
 ${}$
 
-$V^{*}$ 上の双線形関数 $\varphi, \psi$ について、
-$\varphi + \psi, \ \ \alpha \varphi$ もまた双線形関数になる
+$V^{*}$ 上の双線形関数 $M, N$ について、
+$M + N, \ \ \alpha M$ もまた双線形関数になる
 （$\alpha \in \mathbb{R}$）。
 
 つまり、 $V^{*}$ 上の双線形関数全体はベクトル空間をつくる。
@@ -388,9 +388,9 @@ $$V \otimes V = L_{2}(V^{*})$$
 
 \ \\
 
-$x,y \in V, \ \ \tilde{x}, \tilde{y} \in V^{*}$ に対して、
+$x,y \in V, \ \ \varphi, \psi \in V^{*}$ に対して、
 $$
-	x \otimes y(\tilde{x}, \tilde{y}) = x(\tilde{x}) y(\tilde{y})
+	(x \otimes y)(\varphi, \psi) = \varphi(x) \psi(y)
 $$
 と定めると、これは
 $V^{*} \times V^{*}$
@@ -411,15 +411,15 @@ $$
 \begin{itembox}[l]{$k$ 重線形関数}
 	$V^{*}$ の $k$ 個の直積集合 $V^{*} \times \cdots \times V^{*}$ 上で
 	定義された関数
-	$\varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{x}_{k})$
+	$M(\varphi_{1}, \varphi_{2}, \cdots , \varphi_{k})$
 	が次の性質を満たすとき、
-	$\varphi$ を $V^{*}$ 上の $k$ 重線形関数と呼ぶ。
+	$M$ を $V^{*}$ 上の $k$ 重線形関数と呼ぶ。
 	$$
-		\varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \alpha \tilde{x}_{i} + \beta \tilde{y}_{i} , \cdots , \tilde{x}_{k})
+		M(\varphi_{1}, \varphi_{2}, \cdots , \alpha \varphi_{i} + \beta \psi_{i} , \cdots , \varphi_{k})
 		=
-		\alpha \varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{x}_{i} , \cdots , \tilde{x}_{k})
+		\alpha M(\varphi_{1}, \varphi_{2}, \cdots , \varphi_{i} , \cdots , \varphi_{k})
 		+
-		\beta \varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{y}_{i} , \cdots , \tilde{x}_{k})
+		\beta M(\varphi_{1}, \varphi_{2}, \cdots , \psi_{i} , \cdots , \varphi_{k})
 	$$
 \end{itembox}
 
@@ -429,21 +429,21 @@ $L_{k}(V^{*})$
 と表す。
 
 ベクトル空間とするには
-$\varphi, \psi \in L_{k}(V^{*}) , \ \ \alpha \in \mathbb{R}$ に対して、
+$M, N \in L_{k}(V^{*}) , \ \ \alpha \in \mathbb{R}$ に対して、
 加法とスカラー積をそれぞれ次のように定義する。
 
 \begin{itembox}[l]{$k$ 重線形関数の加法とスカラー積}
 	$$
-		( \varphi + \psi ) ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		( M + N ) ( \varphi_{1} , \cdots, \varphi_{k})
 		=
-		\varphi ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		M ( \varphi_{1} , \cdots, \varphi_{k})
 		+
-		\psi ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		N ( \varphi_{1} , \cdots, \varphi_{k})
 	$$
 	$$
-		( \alpha  \varphi ) ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		( \alpha  M ) ( \varphi_{1} , \cdots, \varphi_{k})
 		=
-		\alpha \varphi ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+		\alpha M ( \varphi_{1} , \cdots, \varphi_{k})
 	$$
 \end{itembox}
 
@@ -468,20 +468,20 @@ $$
 双線形空間の場合と同様に、
 $V$ の $k$ 個の元 $x_{1}, x_{2} , \cdots , x_{k}$ に対してそのテンソル積は次のような写像であると定義できる。
 
-$$ \otimes^{k} V \ni x_{1} \otimes x_{2} \otimes \cdots \otimes x_{k}: V \times V \times \cdots \times V \to \mathbb{R}$$
+$$ \otimes^{k} V \ni x_{1} \otimes x_{2} \otimes \cdots \otimes x_{k}: V^* \times V^* \times \cdots \times V^* \to \mathbb{R}$$
 
 $$
-	x_{1} \otimes \cdots \otimes x_{k} ( \tilde{x}_{1} , \cdots, \tilde{x}_{k})
+	x_{1} \otimes \cdots \otimes x_{k} ( \varphi_{1} , \cdots, \varphi_{k})
 	=
-	\tilde{x}_{1} (x_{1}) \cdots \tilde{x}_{k} (x_{k})
+	\varphi_{1} (x_{1}) \cdots \varphi_{k} (x_{k})
 $$
 
 用語の注意として、
-「テンソル積」というと積の演算子をイメージしてしまうかもしれないが、そうではなく、テンソル積とは「実数に写す写像」であることに留意する。
+テンソル積というと積の演算子をイメージしてしまうかもしれないが、そうではなく、テンソル積の元（すなわちテンソル）とは「実数に写す写像」であることに留意する。
 
 \section{多項式代数}
 
-\subsection{多項式の積}
+\subsection{単項式の集合の直和と積}
 
 テンソル代数の導入の前に、もっとイメージのわきやすい身近な多項式の代数について考えてみる。
 
@@ -517,9 +517,10 @@ $$
 
 単項式の積は
 $$
-	\mathbf{P}^{k} \times \mathbf{P}^{l} = \mathbf{P}^{k+l} \ni a_{k} a_{l} x^{k+l}
+	\times : \mathbf{P}^{k} \times \mathbf{P}^{l} \to \mathbf{P}^{k+l}
 $$
-で表せる。
+という写像を定め、
+$ (a_{k} x^{k}) \times (a_{l} x^{l}) = a_{k} a_{l} x^{k+l} \in \mathbf{P}^{k+l}$ で表せる。
 
 多項式全体の集合 $\mathbf{P}$ は
 $$
@@ -593,7 +594,7 @@ $\xi \otimes \eta \in \otimes^{k+l} V$
 		\item $T(V)$ は以下の性質を持つ乗法 $\otimes$ が定義されている。
 		      \begin{enumerate}
 			      \item $\xi,\eta,\zeta \in T(V)$ は結合則が成り立つ：$\xi \otimes (\eta \otimes \zeta) = (\xi \otimes \eta) \otimes \zeta$
-			      \item $\xi,\eta,\zeta \in T(V)$ は分配則が成り立つ：$(\xi \oplus \eta) \otimes \zeta = \xi \otimes \zeta \oplus \eta \otimes \zeta \ , \ \ \xi \otimes (\eta \oplus \zeta) = \xi \otimes \eta \oplus \xi \otimes \zeta$
+			      \item $\xi,\eta,\zeta \in T(V)$ は分配則が成り立つ：$(\xi + \eta) \otimes \zeta = \xi \otimes \zeta + \eta \otimes \zeta \ , \ \ \xi \otimes (\eta + \zeta) = \xi \otimes \eta + \xi \otimes \zeta$
 			      \item $a \in \mathbb{R} \ , \ \ \xi,\eta \in T(V)$ に対して、$a (\xi \otimes \eta) = a \xi \otimes \eta = \xi \otimes a \eta$
 			      \item $1 \in \mathbb{R} \ , \ \ \xi \in T(V)$ に対して、$1\xi=\xi$
 		      \end{enumerate}
