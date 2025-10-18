@@ -32,6 +32,10 @@ The notes are organized within a parent directory named `tex`. All documents are
   - **log**: misc.
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main.pdf)) **Oct. 2025**:
   - **math**: Notes on mathematics.
+    - **alg**: Folder for topics related to algebra.
+      - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/alg/TensorAlgebra/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/alg/TensorAlgebra/main.pdf)) **Tensor Algebra**: Introductory memo on tensor algebra (work in progress).
+    - **anl**: Folder for topics related to analysis.
+      - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf)) **The Values of the Riemann Zeta Function at Negative Integers**: memo on analytic continuation of Riemann zeta to negative integers (work in progress).
     - **cat**: Foundational notes on category theory.
       - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/cat/category_first_step/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/cat/category_first_step/main.pdf)) **A First Step into Category Theory**: Definition of categories and specific examples.
       - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/cat/functor/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/cat/functor/main.pdf)) **Functors Connecting Physics and Finance**: Notes on functors and their applications in financial engineering and quantum mechanics.
@@ -44,8 +48,6 @@ The notes are organized within a parent directory named `tex`. All documents are
       - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/top/MatrixTopology/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/top/MatrixTopology/main.pdf)) **Topology of Matrices**: Notes on topologies on matrices and supplement with a note on unitary groups and quantum mechanics.
       - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/top/sierpinski_space/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/top/sierpinski_space/main.pdf)) **Sierpinski Space**: Notes on Sierpinski space.
       - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/top/topological_group_first_step/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main.pdf)) **An Introduction to Topological Groups**: Notes on introduction to topological group
-    - **anl**: Folder for topics related to analysis.
-      - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf)) **The Values of the Riemann Zeta Function at Negative Integers**: memo on analytic continuation of Riemann zeta to negative integers (work in progress).
     - **stat**: Folder for topics related to statistics.
       - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/stat/AR/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/stat/AR/main.pdf)) **AR Model**: memo on AR model
   - **phys**: Notes on physics.
