@@ -479,7 +479,9 @@ $$
 用語の注意として、
 「テンソル積」というと積の演算子をイメージしてしまうかもしれないが、そうではなく、テンソル積とは「実数に写す写像」であることに留意する。
 
-\section{多項式の積}
+\section{多項式代数}
+
+\subsection{多項式の積}
 
 テンソル代数の導入の前に、もっとイメージのわきやすい身近な多項式の代数について考えてみる。
 
@@ -528,6 +530,8 @@ $$
 
 このようにして用意した $\mathbf{P}$ の中でも多項式の積や和が定義できることは経験的に私たちは知っている。
 
+${}$
+
 直和について便利な記号を導入しておく。
 $$
 	\mathbf{P}
@@ -537,8 +541,76 @@ $$
 	\displaystyle \bigoplus_{k=0}^{\infty} \mathbf{P}^{k}
 $$
 
+\subsection{代数（多元環）}
+
+以上のように用意された $\mathbf{P}$ は以下のような代数的な性質を持つ。
+
+\begin{itembox}[l]{代数（多元環）}
+	\begin{enumerate}
+		\item $\mathbf{P}$ は $\mathbb{R}$ 上のベクトル空間である。
+		\item $\mathbf{P}$ は以下の性質を持つ乗法 $\times$ が定義されている。
+		      \begin{enumerate}
+			      \item $p,q,r \in \mathbf{P}$ は結合則が成り立つ：$p \times (q \times r) = (p \times q) \times r$
+			      \item $p,q,r \in \mathbf{P}$ は分配則が成り立つ：$(p + q) \times r = p \times r + q \times r \ , \ \ p \times (q + r) = p \times q + p \times r$
+			      \item $a \in \mathbb{R} \ , \ \ p,q \in \mathbf{P}$ に対して、$a (p \times q) = a p \times q = p \times a q$
+			      \item $1 \in \mathbb{R} \ , \ \ p \in \mathbf{P}$ に対して、$1p=p$
+		      \end{enumerate}
+	\end{enumerate}
+\end{itembox}
+
+このような性質を持つ集合は一般に代数または多元環と呼ばれ、特に $\mathbf{P}$ は多項式代数と呼ばれる。
+
+
 \section{テンソル代数}
 
+テンソル積の場合も単項式代数と同様に、
+$\xi \in \otimes^{k} V$
+と
+$\eta \in \otimes^{l} V$
+のテンソル積は
+$\xi \otimes \eta \in \otimes^{k+l} V$
+のような指数法則が成り立つ。
 
+多項式代数と同様の構成でテンソル積についても代数の構造が得られ、それをテンソル代数と呼ぶ。
+
+\begin{itembox}[l]{テンソル代数}
+	ベクトル空間 $V$ に対して、
+	\[
+		\begin{array}{rcl}
+			T(V) & = & \mathbb{R} \oplus V \oplus ( \otimes^{2} V ) \oplus ( \otimes^{3} V ) \oplus \cdots \oplus ( \otimes^{k} V ) \oplus \cdots \\
+			     & = & \displaystyle \bigoplus_{k=0}^{\infty} \otimes^{k} V
+		\end{array}
+	\]
+
+	で定義される空間 $T(V)$ は代数の定義を満たし、テンソル代数と呼ばれる。
+\end{itembox}
+
+満たしている代数の性質は以下のようになる。
+
+\begin{itembox}[l]{テンソル代数の性質}
+	\begin{enumerate}
+		\item $T(V)$ は $\mathbb{R}$ 上のベクトル空間である。
+		\item $T(V)$ は以下の性質を持つ乗法 $\otimes$ が定義されている。
+		      \begin{enumerate}
+			      \item $\xi,\eta,\zeta \in T(V)$ は結合則が成り立つ：$\xi \otimes (\eta \otimes \zeta) = (\xi \otimes \eta) \otimes \zeta$
+			      \item $\xi,\eta,\zeta \in T(V)$ は分配則が成り立つ：$(\xi \oplus \eta) \otimes \zeta = \xi \otimes \zeta \oplus \eta \otimes \zeta \ , \ \ \xi \otimes (\eta \oplus \zeta) = \xi \otimes \eta \oplus \xi \otimes \zeta$
+			      \item $a \in \mathbb{R} \ , \ \ \xi,\eta \in T(V)$ に対して、$a (\xi \otimes \eta) = a \xi \otimes \eta = \xi \otimes a \eta$
+			      \item $1 \in \mathbb{R} \ , \ \ \xi \in T(V)$ に対して、$1\xi=\xi$
+		      \end{enumerate}
+	\end{enumerate}
+\end{itembox}
+
+\ \\
+
+ベクトル空間から双対ベクトル空間、双線形空間を経由してテンソル空間、そしてこのノートでは最終的にテンソル代数にまで到達することができた。
+
+テンソル代数の元はテンソルであり、これから一般相対論が開かれる。
+
+テンソル代数にイデアルを導入することで外積代数（グラスマン代数）が得られる。
+
+外積代数は物理でも至るところで使われる。
+例えばチャーン-サイモンズ形式でも利用される。
+
+グラスマン代数の元はフェルミオンとみなすことができ、多様な物理モデルを記述する。
 
 \end{document}

@@ -7,7 +7,7 @@
 \title{
 Tensor Algebra
 }
-\author{Masaru Okada}
+\author{岡田 大(Okada Masaru)}
 
 \date{\today}
 
@@ -19,108 +19,109 @@ Tensor Algebra
 
 \ \\
 
-\section{The Dual Linear Space Formed by Linear Maps}
+\section{The Dual Vector Space of Linear Maps}
 
-\subsection{Dual Space of a Vector Space}
+\subsection{The Dual Space of a Vector Space}
 
 Let $V$ be a finite-dimensional vector space.
 
-A linear map from $V$ to $\mathbb{R}$ is called a \textbf{linear functional} on $V$.
+A linear map from $V$ to $\mathbb{R}$ is called a linear functional on $V$.
 
 For linear functionals $\varphi, \psi : V \to \mathbb{R}$,
-addition and scalar multiplication can be defined.
+a sum and a scalar product can be defined.
 That is, for a real number $\alpha$ and
-$\mathbf{x} \in V$:
+$\bf{x} \in V$,
 \[
 	\begin{array}{rcl}
-		(\varphi + \psi) (\mathbf{x}) & = & \varphi (\mathbf{x}) + \psi (\mathbf{x})
+		(\varphi + \psi) (\bf{x}) & = & \varphi (\bf{x}) + \psi (\bf{x})
 		\\
-		(\alpha \varphi) (\mathbf{x}) & = & \alpha \varphi (\mathbf{x})
+		(\alpha \varphi) (\bf{x}) & = & \alpha \varphi (\bf{x})
 	\end{array}
 \]
 
-The resulting sum and scalar multiple are also linear.
-For $\mathbf{x}, \mathbf{y} \in V$,
+The sum and scalar product possess linearity.
+For $\bf{x}, \bf{y} \in V$,
 
-For example, for addition:
+For example, regarding the sum:
 \[
 	\begin{array}{rcl}
-		(\varphi + \psi) (\mathbf{x} + \mathbf{y}) & = & \varphi (\mathbf{x} + \mathbf{y}) + \psi (\mathbf{x} + \mathbf{y})
+		(\varphi + \psi) (\bf{x} + \bf{y}) & = & \varphi (\bf{x} + \bf{y}) + \psi (\bf{x} + \bf{y})
 		\\
-		                                           & = &
-		\varphi (\mathbf{x} + \mathbf{y}) + \psi (\mathbf{x} + \mathbf{y})
+		                                   & = &
+		\varphi (\bf{x} + \bf{y}) + \psi (\bf{x} + \bf{y})
 		\\
-		                                           & = &
-		\varphi (\mathbf{x}) + \varphi (\mathbf{y})
+		                                   & = &
+		\varphi (\bf{x}) + \varphi (\bf{y})
 		+
-		\psi (\mathbf{x}) + \psi (\mathbf{y})
+		\psi (\bf{x}) + \psi (\bf{y})
 		\\
-		                                           & = &
-		\varphi (\mathbf{x}) + \psi (\mathbf{x})
-		+ \psi (\mathbf{y}) + \varphi (\mathbf{y})
+		                                   & = &
+		\varphi (\bf{x}) + \psi (\bf{x})
+		+ \psi (\bf{y}) + \varphi (\bf{y})
 		\\
-		                                           & = &
-		(\varphi + \psi) (\mathbf{x}) + (\varphi + \psi) (\mathbf{y})
+		                                   & = &
+		(\varphi + \psi) (\bf{x}) + (\varphi + \psi) (\bf{y})
 	\end{array}
 \]
 
-Similarly, for scalar multiplication:
+Similarly, for the scalar product:
 \[
 	\begin{array}{rcl}
-		(\alpha \varphi) (\mathbf{x} + \mathbf{y}) & = & \alpha ( \varphi (\mathbf{x} + \mathbf{y}) )
+		(\alpha \varphi) (\bf{x} + \bf{y}) & = & \alpha ( \varphi (\bf{x} + \bf{y}) )
 		\\
-		                                           & = &
-		\alpha \varphi (\mathbf{x}) + \alpha \varphi (\mathbf{y})
+		                                   & = &
+		\alpha \varphi (\bf{x}) + \alpha \varphi (\bf{y})
 	\end{array}
 \]
 
 The set of all linear functionals on $V$ also forms a vector space.
 
-That this satisfies the vector space axioms can be confirmed, for example, by:
+That this satisfies the vector space axioms can be confirmed from, for example,
 \[
 	\begin{array}{rcl}
-		\alpha (\varphi + \psi) (\mathbf{x} ) & = & ( \alpha \varphi + \alpha \psi) (\mathbf{x} )
+		\alpha (\varphi + \psi) (\bf{x} ) & = & ( \alpha \varphi + \alpha \psi) (\bf{x} )
 		\\
-		(\alpha + \beta) \varphi (\mathbf{x}) & = & (\alpha \varphi + \beta \varphi) (\mathbf{x})
+		(\alpha + \beta) \varphi (\bf{x}) & = & (\alpha \varphi + \beta \varphi) (\bf{x})
 	\end{array}
 \]
+and so on.
 
-The vector space formed by all linear functionals on $V$ is called the \textbf{dual linear space} (or dual space) and is denoted by $V^{*}$.
+The vector space formed by all linear functionals on $V$ is called the dual vector space and is denoted by $V^{*}$.
 
-\subsection{The Dual Space of the Dual Space}
+\subsection{The Dual Space of the Dual Space of a Vector Space}
 
 An element $\varphi$ of $V^{*}$ provides the mapping $\varphi : x \to \varphi(x)$.
 
-From this perspective, $x$ is the variable, and $\varphi$ looks like a linear function.
+From this perspective, $x$ appears as a variable, and $\varphi$ appears as a linear function.
 
-Let's consider its dual space.
-In this case, $x$ is fixed, and $\varphi$ can be seen as the variable, moving freely over $V^{*}$.
-In notation, we view this as follows:
+Let us further consider its dual space.
+In this case, $x$ can be seen as fixed, while $\varphi$ can be viewed as a variable that moves freely over $V^{*}$.
+Written in symbols, we see it as follows:
 
 $$
 	x : \varphi \to \varphi(x)
 $$
 
-To clarify which is the variable, we will write $\tilde{x}$ for the perspective where $x$ is fixed and $\varphi$ varies.
+To clarify which is the variable, when we adopt the perspective of fixing one $x$ and letting $\varphi$ vary, we will write it as $\tilde{x}$.
 That is,
 
 $$
 	\tilde{x}(\varphi) = \varphi(x)
 $$
 
-In this case, the equalities that held in the linear space, for example:
+With this, the equalities that held in the linear space, for example,
 \[
 	\begin{array}{rcl}
-		(\varphi + \psi) (\mathbf{x} + \mathbf{y})
+		(\varphi + \psi) (\bf{x} + \bf{y})
 		 & = &
-		(\varphi + \psi) (\mathbf{x}) + (\varphi + \psi) (\mathbf{y})
+		(\varphi + \psi) (\bf{x}) + (\varphi + \psi) (\bf{y})
 		\\
-		(\alpha \varphi) (\mathbf{x} + \mathbf{y})
+		(\alpha \varphi) (\bf{x} + \bf{y})
 		 & = &
-		\alpha \varphi (\mathbf{x}) + \alpha \varphi (\mathbf{y})
+		\alpha \varphi (\bf{x}) + \alpha \varphi (\bf{y})
 	\end{array}
 \]
-These equalities can be seen, respectively, from a different perspective as:
+These equalities can be viewed from a different perspective as, respectively,
 \[
 	\begin{array}{rcl}
 		(\tilde{x} + \tilde{y} ) (\varphi + \psi)
@@ -133,7 +134,7 @@ These equalities can be seen, respectively, from a different perspective as:
 	\end{array}
 \]
 
-This $\tilde{x}$ is an element of the dual space of $V^{*}$, so we write $\tilde{x} \in V^{**}$.
+This $\tilde{x}$ is an element of the dual space of $V^{*}$, so we denote it as $\tilde{x} \in V^{**}$.
 
 
 \subsection{Basis of a Vector Space and Dual Basis}
@@ -141,8 +142,8 @@ This $\tilde{x}$ is an element of the dual space of $V^{*}$, so we write $\tilde
 \subsubsection{Basis of a Vector Space}
 
 $V$ is a finite-dimensional vector space, and let its dimension be $n$.
-If we denote its basis by $\{ e_{1}, e_{2}, e_{3}, \cdots , e_{n} \}$,
-then $\mathbf{x} \in V$ can be expressed as:
+If we denote its basis as $\{ e_{1}, e_{2}, e_{3}, \cdots , e_{n} \}$,
+then $\mathbf{x} \in V$ is expressed as
 \[
 	\begin{array}{rcl}
 		V \ni \ \
@@ -157,11 +158,11 @@ then $\mathbf{x} \in V$ can be expressed as:
 
 \subsubsection{Dual Basis}
 
-Considering $V^{*}$, its elements were linear functionals $\varphi$.
-We want to consider a basis for $V^{*}$, so to make the notation look like a basis, let's represent the linear functionals as $e^{k}$ (instead of $\varphi$, etc.).
-$V^{*}$ is spanned by the linear functionals $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$.
+Considering $V^{*}$, its elements were linear maps $\varphi$.
+We want to consider a basis for $V^{*}$, so, to make the notation look like a basis (using $e^{k}$ instead of $\varphi$),
+$V^{*}$ is spanned by the linear maps $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$.
 Letting $\varphi(e_{1}) = a_{1}, \varphi(e_{2}) = a_{2}, \cdots ,\varphi(e_{n}) = a_{n}$,
-in this notation, $\varphi \in V^{*}$ is expressed as:
+$\varphi \in V^{*}$ is expressed in this notation as
 \[
 	\begin{array}{rcl}
 		V^{*} \ni \ \ \varphi
@@ -177,13 +178,13 @@ With respect to the basis
 $\{ e_{1}, e_{2}, e_{3}, \cdots , e_{n} \}$
 of $V$,
 the basis of $V^{*}$,
-namely the set of linear functionals
+namely the set of linear maps
 $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$,
-is called the \textbf{dual basis}.
+is called the dual basis.
 
-\subsubsection{Dual Basis of the Dual Space $V^{**}$}
+\subsubsection{Dual Basis of the Dual Space of the Dual Space $V^{**}$}
 
-Using the definition of the dual basis:
+Using the definition of the dual basis
 \[
 	\begin{array}{rcl}
 		V^{*} \ni \ \ \varphi
@@ -194,7 +195,7 @@ Using the definition of the dual basis:
 		\displaystyle \sum_{k=1}^{n} a_{k} e^{k}
 	\end{array}
 \]
-Using this, the correspondence with the basis of the vector space is as follows.
+the correspondence with the basis of the vector space is as follows:
 \[
 	\begin{array}{rcl}
 		V^{*} \ni \ \ x^{i}
@@ -209,7 +210,7 @@ Here, if we set the coefficient of the $j$-th component to 1 and all other coeff
 		e^{i} (0 e_{1} + 0 e_{2}  + \cdots + 1 e_{j} + \cdots + 0 e_{n})
 	\end{array}
 \]
-From this, the following relation between the bases is obtained.
+From this, the following relationship between the bases is obtained:
 \[
 	e^{i}(e_{j})
 	=
@@ -221,7 +222,7 @@ From this, the following relation between the bases is obtained.
 	\right.
 \]
 
-\paragraph{One-to-one Correspondence between $V$ and $V^{**}$}
+\paragraph{One-to-one correspondence between $V$ and $V^{**}$}
 
 ${}$
 
@@ -229,12 +230,13 @@ For $x,y \in V$ and $\tilde{x}, \tilde{y} \in V^{**}$,
 $x \neq y \Rightarrow \tilde{x} \neq \tilde{y}$ holds.
 
 This is because,
+if we express
 $$
 	x = \sum_{k=1}^{n} x^{i} e_{j} , \ \
 	y = \sum_{k=1}^{n} y^{i} e_{j}
 $$
-if we express them as above, then $x \neq y$ implies that
-$x^{j} \neq y^{j}$ holds for some $j$.
+then if $x \neq y$, there exists some $j$ for which
+$x^{j} \neq y^{j}$ holds.
 
 Taking
 $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$
@@ -253,15 +255,16 @@ $$
 	y^{j}
 $$
 Therefore,
-$\tilde{x}$ and $\tilde{y}$ have different values at $e^{j}$.
-Thus, we can say that
-$x \neq y \Rightarrow \tilde{x} \neq \tilde{y}$.
+$\tilde{x}$ and $\tilde{y}$ differ in their value at $e^{j}$.
+Thus,
+$x \neq y \Rightarrow \tilde{x} \neq \tilde{y}$
+can be stated.
 
 \paragraph{Dual Basis of $V^{**}$}
 
 ${}$
 
-The relation between the dual basis of $V^{*}$ and the basis of $V$
+The relationship between the dual basis of $V^{*}$ and the basis of $V$ is
 \[
 	e^{i}(e_{j})
 	=
@@ -272,7 +275,7 @@ The relation between the dual basis of $V^{*}$ and the basis of $V$
 	\end{array}
 	\right.
 \]
-Expressing this using elements of $V^{**}$, we get:
+Expressing this using elements of $V^{**}$,
 \[
 	\tilde{e}_{i}(e^{j})
 	=
@@ -283,19 +286,21 @@ Expressing this using elements of $V^{**}$, we get:
 	\end{array}
 	\right.
 \]
-However, this
-shows that the dual basis of $V^{**}$,
-$\{ \tilde{e}_{1}, \tilde{e}_{2}, \tilde{e}_{3}, \cdots , \tilde{e}_{n} \}$,
-is the dual basis of the dual basis of $V^{*}$,
+This shows that
+the dual basis of $V^{**}$
+$\{ \tilde{e}_{1}, \tilde{e}_{2}, \tilde{e}_{3}, \cdots , \tilde{e}_{n} \}$
+is
+the dual basis of the dual basis of $V^{*}$
 $\{ e^{1}, e^{2}, e^{3}, \cdots , e^{n} \}$.
 
 \ \\
 
-Summarizing the above in different terms,
+To summarize what we have covered so far in different terms:
 
-\begin{itembox}[l]{One-to-one Correspondence between $V$ and $V^{**}$}
-	There exists a one-to-one map $\Phi : V \to V^{**}$,
-	which is expressed as:
+\begin{itembox}[l]{One-to-one correspondence between $V$ and $V^{**}$}
+	There is a one-to-one map $\Phi : V \to V^{**}$
+	from $V$ to $V^{**}$,
+	which is expressed as
 	$$
 		\Phi: V \ni x = \sum_{k=1}^{n} x^{i} e_{i} \mapsto \tilde{x} = \sum_{k=1}^{n} x^{i} \tilde{e}_{i} \in V^{**}
 	$$
@@ -305,7 +310,7 @@ Summarizing the above in different terms,
 
 \section{Bilinear Space}
 
-Up to this point, the dual of a vector space has been a vector space, and its dual is also a vector space (formed by a set of linear maps), so the discussion has been closed within vector spaces.
+Up to this point, the dual of a vector space was a vector space, and its dual was also a vector space (formed by the set of linear maps), so the discussion was closed within vector spaces.
 From here, we will consider extending vector spaces.
 
 \ \\
@@ -320,15 +325,15 @@ $$
 	\}
 $$
 
-We define the bilinearity of a two-variable function
-$\varphi(\tilde{x},\tilde{y})$ defined on this $V^{*} \times V^{*}$ as follows.
+The bilinearity of a two-variable function
+$\varphi(\tilde{x},\tilde{y})$ defined on this $V^{*} \times V^{*}$ is defined as follows.
 
 
 \begin{itembox}[l]{Bilinear Function}
-	When a two-variable function
-	$\varphi(\tilde{x},\tilde{y})$ defined on $V^{*} \times V^{*}$
-	satisfies the following properties (bilinearity),
-	it is called a \textbf{bilinear function} (or bilinear form) on $V^{*}$. ($\alpha, \beta \in \mathbb{R}$)
+	A two-variable function $\varphi(\tilde{x},\tilde{y})$
+	defined on $V^{*} \times V^{*}$
+	is called a bilinear function on $V^{*}$
+	when it satisfies the following properties (bilinearity). ($\alpha, \beta \in \mathbb{R}$)
 	\begin{enumerate}
 		\item $\varphi(\alpha \tilde{x} + \beta \tilde{x}', \tilde{y}) = \alpha \varphi( \tilde{x}, \tilde{y}) + \beta \varphi( \tilde{x}', \tilde{y})$
 		\item $\varphi(\tilde{x}, \alpha \tilde{y} + \beta \tilde{y}') = \alpha \varphi( \tilde{x}, \tilde{y}) + \beta \varphi( \tilde{x}, \tilde{y}')$
@@ -339,7 +344,7 @@ A bilinear function is a function that is linear in each variable.
 
 \subsection{The Vector Space Formed by All Bilinear Functions}
 
-\paragraph{Addition and Scalar Multiplication of Bilinear Functions}
+\paragraph{Sum and Scalar Multiplication of Bilinear Functions}
 
 ${}$
 
@@ -351,11 +356,11 @@ In other words, the set of all bilinear functions on $V^{*}$ forms a vector spac
 
 \ \\
 
-We will denote the vector space formed by all bilinear functions on $V^{*}$ as $L_{2}(V^{*})$.
-The subscript 2 signifies that it is a function of two variables.
+Let us denote the vector space formed by all bilinear functions on $V^{*}$ as $L_{2}(V^{*})$.
+The subscript 2 signifies that it is of two variables.
 
-Using this notation, the vector space $V^{**}$ formed by all linear functions on $V^{*}$ can be expressed as
-$L_{1}(V^{*})$.
+Using this notation, the vector space $V^{**}$ formed by all linear functionals on $V^{*}$ can be
+expressed as $L_{1}(V^{*})$.
 And this vector space $L_{1}(V^{*})$ could be identified with $V$.
 $$
 	V = L_{1}(V^{*})
@@ -367,17 +372,17 @@ We introduce the tensor product as an operation that connects $L_{1}(V^{*})$ and
 
 \begin{itembox}[l]{Tensor Product}
 	Let $V \otimes V = L_{2}(V^{*})$.
-	The vector space $V \otimes V$ is called the \textbf{tensor product of $V$ of order 2}.
+	The vector space $V \otimes V$ is called the second-order tensor product of $V$.
 \end{itembox}
 
 In this notation,
 $$V = L_{1}(V^{*})$$
 $$V \otimes V = L_{2}(V^{*})$$
-and this is useful for defining higher-order tensor products.
+which is useful for defining higher-order tensor products.
 
 \ \\
 
-For $x,y \in V$ and $\tilde{x}, \tilde{y} \in V^{*}$,
+For $x,y \in V, \ \ \tilde{x}, \tilde{y} \in V^{*}$,
 if we define
 $$
 	x \otimes y(\tilde{x}, \tilde{y}) = x(\tilde{x}) y(\tilde{y})
@@ -396,14 +401,13 @@ $$
 
 \section{Multilinear Functions and Tensor Spaces}
 
-By extending the tensor product notation, we can define multilinear functions and tensor spaces.
+By repeating the tensor product notation, we can define multilinear functions and tensor spaces.
 
 \begin{itembox}[l]{$k$-linear Function}
-	A function
-	$\varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{x}_{k})$
+	A function $\varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \tilde{x}_{k})$
 	defined on the $k$-fold Cartesian product $V^{*} \times \cdots \times V^{*}$ of $V^{*}$
-	that satisfies the following property
-	is called a \textbf{$k$-linear function} on $V^{*}$.
+	is called a $k$-linear function on $V^{*}$
+	if it satisfies the following property.
 	$$
 		\varphi(\tilde{x}_{1}, \tilde{x}_{1}, \cdots , \alpha \tilde{x}_{i} + \beta \tilde{y}_{i} , \cdots , \tilde{x}_{k})
 		=
@@ -414,12 +418,12 @@ By extending the tensor product notation, we can define multilinear functions an
 \end{itembox}
 
 The set of all $k$-linear functions on $V^{*}$ also forms a vector space,
-which we denote by
+which we denote as
 $L_{k}(V^{*})$.
 
 To make it a vector space,
-for $\varphi, \psi \in L_{k}(V^{*})$ and $\alpha \in \mathbb{R}$,
-we define addition and scalar multiplication respectively as follows.
+for $\varphi, \psi \in L_{k}(V^{*}) , \ \ \alpha \in \mathbb{R}$,
+we define addition and scalar multiplication as follows, respectively.
 
 \begin{itembox}[l]{Addition and Scalar Multiplication of $k$-linear Functions}
 	$$
@@ -436,26 +440,26 @@ we define addition and scalar multiplication respectively as follows.
 	$$
 \end{itembox}
 
-By varying the natural number $k$, we obtain a sequence of vector spaces formed by $k$-linear functions.
+Varying the natural number $k$ gives a sequence of vector spaces formed by $k$-linear functions.
 
 $$
 	L_{1}(V^{*}) \ , \ \ L_{2}(V^{*}) \ , \ \ L_{3}(V^{*}) \ , \ \ \cdots \ , \ \ L_{k}(V^{*}) \ , \ \ \cdots
 $$
 
-Just as we denoted $L_{2}(V^{*})$ as $V \otimes V$, we call the vector space formed by the general $k$-linear space the
-\textbf{$k$-th order tensor space}, and define it as follows.
+Just as $L_{2}(V^{*})$ was denoted $V \otimes V$, the vector space formed by general $k$-linear functions
+is called the $k$-th order tensor space and is defined as follows.
 
 \begin{itembox}[l]{$k$-th Order Tensor Space}
 	$$L_{k}(V^{*}) = V \otimes V \otimes \cdots \otimes V = \otimes^{k} V$$
 \end{itembox}
 
-Although this is just a change in notation, the sequence of vector spaces formed by $k$-linear functions we just saw is now expressed as follows.
+Although we have only changed the notation, the sequence of vector spaces formed by $k$-linear functions is now expressed as follows:
 $$
 	\otimes^{1} V (= V) \ , \ \ \otimes^{2} V \ , \ \ \otimes^{3} V \ , \ \ \cdots \ , \ \ \otimes^{k} V \ , \ \ \cdots
 $$
 
-Similar to the case of bilinear spaces,
-for $k$ elements $x_{1}, x_{2} , \cdots , x_{k}$ of $V$, their tensor product can be defined as the following map.
+Similar to the bilinear case,
+the tensor product of $k$ elements $x_{1}, x_{2} , \cdots , x_{k}$ of $V$ can be defined as the following map.
 
 $$ \otimes^{k} V \ni x_{1} \otimes x_{2} \otimes \cdots \otimes x_{k}: V \times V \times \cdots \times V \to \mathbb{R}$$
 
@@ -465,16 +469,18 @@ $$
 	\tilde{x}_{1} (x_{1}) \cdots \tilde{x}_{k} (x_{k})
 $$
 
-As a note on terminology,
-one might imagine the 'tensor product' as a product operator, but it should be noted that it is, in fact, 'a map to the real numbers'.
+A note on terminology:
+One might imagine 'tensor product' as the product operator itself, but it should be noted that the tensor product is, in this context, 'a map to the real numbers'.
 
-\section{Product of Polynomials}
+\section{Polynomial Algebra}
+
+\subsection{Product of Polynomials}
 
 Before introducing tensor algebra, let's consider the more familiar and intuitive algebra of polynomials.
 
 First, consider the set of all $k$-th degree monomials $\mathbf{P}^{k} = \{ ax^{k} \ | \ a \in \mathbb{R} \}$.
 
-This $\mathbf{P}^{k}$ is a one-dimensional vector space isomorphic to $\mathbb{R}$.
+This $\mathbf{P}^{k}$ is a 1-dimensional vector space isomorphic to $\mathbb{R}$.
 
 \[
 	\begin{array}{rcl}
@@ -488,7 +494,7 @@ This $\mathbf{P}^{k}$ is a one-dimensional vector space isomorphic to $\mathbb{R
 	\end{array}
 \]
 
-These are distinct vector spaces. Their sum, called the \textbf{direct sum}, is expressed using $\oplus$:
+These sets are mutually disjoint, and the disjoint union of vector spaces is called the direct sum, expressed using $\oplus$:
 
 \[
 	\begin{array}{rcl}
@@ -502,7 +508,7 @@ These are distinct vector spaces. Their sum, called the \textbf{direct sum}, is 
 	\end{array}
 \]
 
-The product of monomials can be expressed as:
+The product of monomials can be expressed as
 $$
 	\mathbf{P}^{k} \times \mathbf{P}^{l} = \mathbf{P}^{k+l} \ni a_{k} a_{l} x^{k+l}
 $$
@@ -514,9 +520,11 @@ $$
 	\mathbf{P}^{0} \oplus \mathbf{P}^{1} \oplus \mathbf{P}^{2} \oplus \cdots \oplus \mathbf{P}^{k} \oplus \cdots
 $$
 
-We know from experience that the product and sum of polynomials can be defined within this $\mathbf{P}$ constructed this way.
+We know from experience that the product and sum of polynomials can be defined within $\mathbf{P}$ prepared in this way.
 
-Let's introduce a convenient notation for the direct sum.
+${}$
+
+Let's introduce a convenient symbol for the direct sum.
 $$
 	\mathbf{P}
 	=
@@ -525,9 +533,77 @@ $$
 	\displaystyle \bigoplus_{k=0}^{\infty} \mathbf{P}^{k}
 $$
 
+\subsection{Algebra}
+
+$\mathbf{P}$, prepared as above, has the following algebraic properties.
+
+\begin{itembox}[l]{Algebra}
+	\begin{enumerate}
+		\item $\mathbf{P}$ is a vector space over $\mathbb{R}$.
+		\item A multiplication $\times$ with the following properties is defined on $\mathbf{P}$.
+		      \begin{enumerate}
+			      \item For $p,q,r \in \mathbf{P}$, the associative law holds: $p \times (q \times r) = (p \times q) \times r$
+			      \item For $p,q,r \in \mathbf{P}$, the distributive law holds: $(p + q) \times r = p \times r + q \times r \ , \ \ p \times (q + r) = p \times q + p \times r$
+			      \item For $a \in \mathbb{R} \ , \ \ p,q \in \mathbf{P}$, $a (p \times q) = a p \times q = p \times a q$
+			      \item For $1 \in \mathbb{R} \ , \ \ p \in \mathbf{P}$, $1p=p$
+		      \end{enumerate}
+	\end{enumerate}
+\end{itembox}
+
+A set with such properties is generally called an algebra, and $\mathbf{P}$ in particular is called a polynomial algebra.
+
+
 \section{Tensor Algebra}
 
+In the case of the tensor product, similar to polynomial algebra,
+an index law such as
+$\xi \in \otimes^{k} V$
+and
+$\eta \in \otimes^{l} V$
+implies
+$\xi \otimes \eta \in \otimes^{k+l} V$
+holds.
 
- (Work in Progress ....)
+By a construction similar to polynomial algebra, an algebraic structure is obtained for the tensor product as well, which is called a tensor algebra.
+
+\begin{itembox}[l]{Tensor Algebra}
+	For a vector space $V$,
+	\[
+		\begin{array}{rcl}
+			T(V) & = & \mathbb{R} \oplus V \oplus ( \otimes^{2} V ) \oplus ( \otimes^{3} V ) \oplus \cdots \oplus ( \otimes^{k} V ) \oplus \cdots \\
+			     & = & \displaystyle \bigoplus_{k=0}^{\infty} \otimes^{k} V
+		\end{array}
+	\]
+
+	The space $T(V)$ defined by this satisfies the definition of an algebra and is called a tensor algebra.
+\end{itembox}
+
+The algebraic properties it satisfies are as follows.
+
+\begin{itembox}[l]{Properties of Tensor Algebra}
+	\begin{enumerate}
+		\item $T(V)$ is a vector space over $\mathbb{R}$.
+		\item A multiplication $\otimes$ with the following properties is defined on $T(V)$.
+		      \begin{enumerate}
+			      \item For $\xi,\eta,\zeta \in T(V)$, the associative law holds: $\xi \otimes (\eta \otimes \zeta) = (\xi \otimes \eta) \otimes \zeta$
+			      \item For $\xi,\eta,\zeta \in T(V)$, the distributive law holds: $(\xi \oplus \eta) \otimes \zeta = \xi \otimes \zeta \oplus \eta \otimes \zeta \ , \ \ \xi \otimes (\eta \oplus \zeta) = \xi \otimes \eta \oplus \xi \otimes \zeta$
+			      \item For $a \in \mathbb{R} \ , \ \ \xi,\eta \in T(V)$, $a (\xi \otimes \eta) = a \xi \otimes \eta = \xi \otimes a \eta$
+			      \item For $1 \in \mathbb{R} \ , \ \ \xi \in T(V)$, $1\xi=\xi$
+		      \end{enumerate}
+	\end{enumerate}
+\end{itembox}
+
+\ \\
+
+Starting from a vector space, via the dual vector space and bilinear space, we arrived at the tensor space, and finally, in these notes, at the tensor algebra.
+
+The elements of the tensor algebra are tensors, and from here, general relativity unfolds.
+
+By introducing an ideal to the tensor algebra, the exterior algebra (Grassmann algebra) is obtained.
+
+Exterior algebra is used everywhere in physics.
+For example, it is used in the Chern-Simons form.
+
+The elements of the Grassmann algebra can be regarded as fermions, describing various physical models.
 
 \end{document}
