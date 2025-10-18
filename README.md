@@ -13,7 +13,7 @@ This repository contains my personal notes on a wide range of topics in **mathem
 The notes are organized within a parent directory named `tex`. All documents are written in LaTeX.
 
 - **tex**: Root directory for documents created with LaTeX.
-  - **finance**: Notes on financial engineering.
+  - **qnt**: Notes on financial engineering.
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/finance/BlackScholesMerton/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/finance/BlackScholesMerton/main.pdf)) **The Black-Scholes-Merton Equation**: This document explains the Black-Scholes-Merton model, detailing its derivation and formula.
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/finance/ItoLemma/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/finance/ItoLemma/main.pdf)) **Ito's Lemma**: This notebook provides a derivation of Ito's Lemma, a fundamental concept in financial mathematics, and shows its application to the Black-Scholes-Merton equation for pricing stock options.
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/finance/MartingaleRepresentationTheorem/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/finance/MartingaleRepresentationTheorem/main.pdf)) **Martingale Representation Theorem**: Notes on martingales and the martingale representation theorem, exploring their conditions, key examples, and applications to stochastic processes like Brownian motion and geometric Brownian motion.
@@ -33,7 +33,7 @@ The notes are organized within a parent directory named `tex`. All documents are
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main.pdf)) **Oct. 2025**:
   - **math**: Notes on mathematics.
     - **alg**: Folder for topics related to algebra.
-      - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/alg/TensorAlgebra/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/alg/TensorAlgebra/main.pdf)) **Tensor Algebra**: Introductory memo on tensor algebra (work in progress).
+      - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/alg/TensorAlgebra/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/alg/TensorAlgebra/main.pdf)) **Tensor Algebra**: Introductory memo on tensor algebra.
     - **anl**: Folder for topics related to analysis.
       - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf)) **The Values of the Riemann Zeta Function at Negative Integers**: memo on analytic continuation of Riemann zeta to negative integers (work in progress).
     - **cat**: Foundational notes on category theory.
