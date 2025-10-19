@@ -1,0 +1,423 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\usepackage{tikz-cd}
+\title{
+Steve Awodeyによる随伴
+}
+\author{岡田 大(Okada Masaru)}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Steve Awodey 第2版 第9章に沿って随伴をまとめる\cite{Awodey}。
+\end{abstract}
+
+\tableofcontents
+
+\ \\
+
+\section{準備的定義}
+
+\subsection{語を構成するクリーネ閉包}
+
+「任意の集合から自由モノイドを構成する」という方法の一つの例を挙げる。
+
+アルファベットの文字からなる集合 $A = \{ a,b,c,...,y,z \}$ を考える。
+
+有限な文字列（ここではその文字列が意味を持つかどうかにかかわらない）を $A$ の上の語 (word) と呼ぶ。
+例えば、
+$$
+	word, thisword, categoriesarefun, asdfasdaf, ...
+$$
+
+空集合はハイフンで"-"対応させるものとする。
+
+このときクリーネ閉包（Kleene Closure）とは、
+
+$$
+	A^{\rm Kleene} = \{ -, word, thisword, categoriesarefun, asdfasdaf, ... \}
+$$
+で定義される作用素 $( \ \cdot \ )^{\rm Kleene}$ である。
+
+\ \\
+
+集合 $A^{\rm Kleene}$ 上の要素、語について文字列の結合演算 $++$ を用意する。
+これにより
+\[
+	\begin{array}{rcl}
+		word \ ++ \ - \                     & = & \ word             \\
+		this \ ++ \ word \                  & = & \ thisword         \\
+		categories \ ++ \ are \ ++ \ fun \  & = & \ categoriesarefun
+	\end{array}
+\]
+のように $++ : A^{\rm Kleene} \times A^{\rm Kleene} \to A^{\rm Kleene}$ 定義される。
+
+空文字 $-$ は単位元になる。
+
+この演算によって $(A^{\rm Kleene}, ++)$ はモノイドになる。
+
+${}$
+
+さらに、$A^{\rm Kleene}$ は
+\begin{enumerate}
+	\item no junk（全ての語は $A^{\rm Kleene}$ の要素の積として表せる。）
+	\item no noise（全ての語について、$A$ の元の結合として書く方法が（モノイドの公理を除いて）一意である。例えば $a\neq b$ ならば $ab \neq ba$ である。）
+\end{enumerate}
+という条件を満たすので、自由モノイドとなる。
+
+\subsection{自由モノイドの普遍性}
+
+モノイドが自由モノイドになる2つの条件no junk, no noiseについて、圏論的に定義することで非常にすっきりした形で表すことができる。
+
+まず、任意のモノイド $M,N$ は台集合 $U(M),U(N)$ を持つ。
+
+そして任意の準同型写像 $f: N \to M$ は台写像 $U(f) : U(N) \to U(M)$ を持つ。
+
+この $U$ は関手であり、忘却関手と呼ばれる。
+
+\ \\
+
+集合 $A$ から構成される自由モノイド $M(A)$ には次のような普遍性がある。
+
+\begin{itembox}[l]{自由モノイド $M(A)$ の普遍性}
+	写像 $i: A \to U(M(A))$ があり、任意のモノイド $N$ と任意の写像 $f: A \to U(N)$ が与えられたとき、
+	「ただ一つの」モノイド準同型 $g: M(A) \to N$ が存在し、$U(g) \circ i = f$ が成り立つ。
+\end{itembox}
+
+${}$
+
+これは圏論的にすっきりとまとめられる。
+
+${}$
+
+\begin{itembox}[l]{自由モノイド $M(A)$ の普遍性の図式}
+
+	$\mathbf{Mon}$ においての図式：
+	\[
+		\begin{tikzcd}
+			M(A) \arrow[rr, "\exists \ \! ! \ g"] &  & N
+		\end{tikzcd}
+	\]
+
+	$\mathbf{Set}$ においての図式：
+	\[
+		% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFUAKAWU4EEAlAJABfUuky58hFACZyVWoxZsuAOWFiJ2PASJlZi+s1aIQfUYphQA5vCKgAZgCcIAWyRkQOCEgCM1MYqZlw2muIgLu5I8t6+iF5BpiBYohFRHoixPv6BysmOINQMdABGMAwACpK6MiDOWDYAFjiWIkA
+		\begin{tikzcd}
+			U(M(A)) \arrow[rr, "U(g)"]           &  & U(N) \\
+			&  &      \\
+			A \arrow[uu, "i"] \arrow[rruu, "f"'] &  &
+		\end{tikzcd}
+	\]
+
+\end{itembox}
+
+
+
+
+
+\subsection{シンプルな自由・忘却随伴の例}
+
+任意のモノイド $M$ は台集合 $U(M)$ を持つ。
+
+また、前のセクションで構成したように、すべての集合 $X$ は自由モノイド $F(X)$ を持つ。
+
+さっきの $g$ を $U(g) \circ i = f$ に写すような写像 $\phi$ を考える。
+
+\[
+	\begin{array}{cccc}
+		\phi : & \mathrm{Hom}_{\mathbf{Mon}}(F(X), M) & \to     & \mathrm{Hom}_{\mathbf{Set}}(X, U(M)) \\
+		       & \rotatebox{90}{${\in}$}              &         & \rotatebox{90}{${\in}$}              \\
+		       & g                                    & \mapsto & U(g) \circ i
+	\end{array}
+\]
+
+この写像は自由モノイドの普遍性の図式より同型写像である。
+
+$$
+	\mathrm{Hom}_{\mathbf{Mon}}(F(X), M) \cong \mathrm{Hom}_{\mathbf{Set}}(X, U(M)
+$$
+
+${}$
+
+覚え方は標語的に「自由は忘却の左随伴」である。
+
+
+\subsection{シンプルな随伴の定義}
+
+以上の流れをそのまま圏$\mathbf{C},\mathbf{D}$について考えることで随伴を定義する。
+
+
+\begin{itembox}[l]{圏 $\mathbf{C}$ と圏 $\mathbf{D}$ の随伴}
+
+	圏 $\mathbf{C}$ と圏 $\mathbf{D}$ の随伴とは、関手 $F,G$
+	$$
+		F : \mathbf{C} \rightleftharpoons \mathbf{D}: G
+	$$
+	と自然変換
+	$\eta: 1_{\mathbf{C}} \to G \circ F$
+	からなる。
+
+	それぞれは次の性質を持つ。
+
+	任意の
+	$C \in \mathbf{C} \ , \ \ D \in \mathbf{D}$
+	と
+	$f: C \to G(D)$
+	に対して、ただ一つの $g$ が存在して、
+	$f = G(g) \circ \eta_{C}$
+	が以下のように成り立つ。
+
+	\[
+		% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEAKAYQEoQAvqXSZc+QigBM5KrUYs2AEUHCQGbHgJEyk2fWatEIAOKcuffkJEbxRabur6FR04sur1YrSjIAWPfKGINyCsjBQAObwRKAAZgBOEAC2SGQgOBBIAIyOgWwAhBEqcYkpiNLpmYgAzLkGbKYR7iXJSL7UGUi1cvVGsSDUDHQARjAMAAqimhIg8VgRABY4xSAJrYjtlUgVTkEAOnswOHQA+sDcAqECQA
+		\begin{tikzcd}
+			F(C) \arrow[rr, "!g"]                       &  & D    \\
+			&  &      \\
+			G(F(C)) \arrow[rr, "G(g)"]                  &  & G(D) \\
+			&  &      \\
+			C \arrow[rruu, "f"'] \arrow[uu, "\eta_{C}"] &  &
+		\end{tikzcd}
+	\]
+
+\end{itembox}
+
+このとき、$F$ は $G$ の左随伴、$G$ は $F$ の右随伴と呼ばれ、$F \dashv G$ と書かれる。
+
+$\eta$ は随伴のunitと呼ばれる。
+
+
+
+\section{例：対角関手}
+
+\subsection{対角関手の右随伴は積関手である}
+
+例として対角関手 $\Delta : \mathbf{C} \to \mathbf{C} \times \mathbf{C}$ を考える。
+
+対象と射はそれぞれ
+\[
+	\begin{array}{rclr}
+		\Delta(C)          & = & (C, C)                    & \text{for $C \in$ Obj}(\mathbf{C}) \\
+		\Delta(f:C \to C') & = & (f,f) : (C,C) \to (C',C') & \text{for $f \in$ Mor}(\mathbf{C})
+	\end{array}
+\]
+
+${}$
+
+対角関手の右随伴 $R$ を考える。
+
+$\Delta : \mathbf{C} \to \mathbf{C} \times \mathbf{C}$
+の反対向きなので、
+$R : \mathbf{C} \times \mathbf{C} \to \mathbf{C}$
+となる関手になる。
+この対象を
+$$
+	R : \mathbf{C} \times \mathbf{C} \ni (X,Y) \mapsto R(X,Y) \in \mathbf{C}
+$$
+のように取ろう。
+
+${}$
+
+随伴の作り方を思い出そう。
+
+これは自由忘却随伴
+$$
+	\mathrm{Hom}_{\mathbf{Mon}}(F(X), M) \cong \mathrm{Hom}_{\mathbf{Set}}(X, U(M)
+$$
+この対応を思い出して、それぞれに代入すると、
+$$
+	\mathrm{Hom}_{\mathbf{C} \times \mathbf{C}}(\Delta(C), (X,Y)) \cong \mathrm{Hom}_{\mathbf{C}}(C, R(X,Y))
+$$
+となる。
+
+この左辺については
+\[
+	\begin{array}{rcl}
+		\mathrm{Hom}_{\mathbf{C} \times \mathbf{C}}(\Delta(C), (X,Y))
+		 & \cong &
+		\mathrm{Hom}_{\mathbf{C} \times \mathbf{C}}((C,C), (X,Y))
+		\\ &\cong&
+		\mathrm{Hom}_{\mathbf{C}}(C, X)
+		\times
+		\mathrm{Hom}_{\mathbf{C}}(C, Y)
+		\\ &\cong&
+		\mathrm{Hom}_{\mathbf{C}}(C, X \times Y)
+	\end{array}
+\]
+となる。
+
+最初の $\cong$ には $\Delta(C)$ の定義を用いた。
+
+2つ目の $\cong$ には積圏 $\mathbf{C} \times \mathbf{C}$ における射の定義を用いた。
+
+3つ目の $\cong$ には圏 $\mathbf{C}$ における積 $X \times Y$ の普遍性
+$\mathrm{Hom}_{\mathbf{C}}(C, X \times Y) \cong \mathrm{Hom}_{\mathbf{C}}(C, X) \times \mathrm{Hom}_{\mathbf{C}}(C, Y)$
+を用いている。
+
+${}$
+
+随伴の定義式に入れたときの左辺と右辺を比較すると、
+$$
+	\mathrm{Hom}_{\mathbf{C}}(C, R(X,Y))
+	\cong
+	\mathrm{Hom}_{\mathbf{C}}(C, X \times Y)
+$$
+
+ここに米田の補題の系
+$$
+	\mathrm{Hom}_{\mathbf{C}}(C, F)
+	\cong
+	\mathrm{Hom}_{\mathbf{C}}(C, G)
+	\ \Rightarrow
+	F \cong G
+$$
+を用いたい。
+この米田の補題の系を用いるには $C$ について自然な同型である必要がある。
+今回のケースでは随伴の定義より、
+$$
+	\mathrm{Hom}(-, R(X,Y))
+	\cong
+	\mathrm{Hom}(-, X \times Y)
+$$
+の間に自然な同型がある。
+
+以上から、
+$$
+	R(X,Y)
+	\cong
+	X \times Y
+$$
+が言える。
+
+対角関手 $\Delta$ の右随伴は積関手 $\times$ である、すなわち $\Delta \dashv \times$ であることが示された。
+
+\subsection{随伴のunit}
+
+随伴のunitを考える。
+unit $\eta_{C} $ は
+随伴 $\Delta \dashv \times$ （すなわち、 $L=\Delta, R= \times$ ）の定義より、
+自然変換
+$\eta : 1_{\mathbf{C}} \to R \circ L = \times \circ \Delta$
+である。
+
+その成分 $\eta_{C}$ は、 $\mathbf{C}$ の各対象 $C$ に対して、
+$(\times \circ \Delta)(C) = \times (\Delta (C)) = \times (C,C) = C \times C$
+への射、すなわち
+$\eta_{C} : C \to C \times C$ の形を持つ
+
+${}$
+
+この $\eta_{C}$ は、随伴の同型
+$$
+	\mathrm{Hom}_{\mathbf{C} \times \mathbf{C}}(\Delta(C), (X,Y)) \cong \mathrm{Hom}_{\mathbf{C}}(C,  \times (X,Y))
+$$
+において、
+$(X,Y) = \Delta (C) = (C,C)$ と特別に選び、
+左辺の恒等射
+$1_{\Delta(C)} : \Delta(C) \to \Delta(C)$
+に対応する右辺の射として定義される。
+
+ここで、
+$1_{\Delta(C)}$
+は、
+積圏の定義から、射の対
+$(1_{C}, 1_{C})$
+である。
+$$
+	1_{\Delta(C)} = (1_{C}, 1_{C}) : (C,C) \to (C,C)
+$$
+
+${}$
+
+一方、積 $C \times C$ の普遍性
+$$
+	\mathrm{Hom}_{\mathbf{C}}(C, C \times C)
+	\cong
+	\mathrm{Hom}_{\mathbf{C}}(C, C)
+	\times
+	\mathrm{Hom}_{\mathbf{C}}(C, C)
+$$
+により、
+射の対
+$(1_{C}, 1_{C})$
+に対応する
+$\mathrm{Hom}_{\mathbf{C}}(C, C \times C)$
+の射は、
+$$
+	p_{1} \circ f = 1_{C} \ \ \text{and} \ \ p_{2} \circ f = 1_{C}
+$$
+を満たす唯一の射 $f: C \to C \times C$ である。
+
+これはいわゆる対角射 $\delta_{C}$ の定義に他ならない。
+従って、随伴のunitは対角射 $\eta_{C} = \delta_{C}$ である。
+
+\ \\
+
+unit $\eta$ の普遍性について考える。
+
+unit $\eta$ の普遍性は、この文脈では以下のように表現される。
+
+任意の射
+$f: C \to X \times Y \ \ (\in \mathbf{C})$
+が、
+$\eta_{C}$ と、
+随伴で $f$ に対応する唯一の射
+$g: \Delta(C) \to (X,Y) \ \ (\in \mathbf{C} \times \mathbf{C})$
+に分解できる。
+
+
+${}$
+
+$g_{1}: C \to X \ , \ \ g_{2}: C \to Y$
+の射の対を
+$g=(g_{1},g_{2})$
+と書くと、
+関手 $R=\times$ の射への作用は
+$$
+	R(g) = g_{1} \times g_{2} : C \times C \to X \times Y
+$$
+となる。
+
+このとき、随伴の定義
+$$
+	f =  R(g) \circ \eta_{C}
+$$
+より、
+$$
+	f = (g_{1} \times g_{2}) \circ \delta_{C}
+$$
+が成り立つ。
+
+以上の関係を可換図式で表現すると以下のようになる。
+
+\[
+	\begin{tikzcd}
+		{(C,C)} \arrow[rr, "{\exists ! \ \! (g_{1},g_{2})}"] &  & {(X,Y)}    \\
+		&  &            \\
+		C \times C \arrow[rr, "R(g)=g_{1} \times g_{2}"]          &  & X \times Y \\
+		&  &            \\
+		C \arrow[rruu, "f"'] \arrow[uu, "\eta_{C}=\delta_{C}"]          &  &
+	\end{tikzcd}
+\]
+
+ここで、
+$f : C \to X \times Y$
+と
+$g=(g_{1},g_{2}): (C,C) \to (X,Y)$
+が、随伴によって1対1に対応している。
+
+
+
+\begin{thebibliography}{9}
+	\bibitem{Awodey}
+	Category Theory 2nd Edition - Steve Awodey
+\end{thebibliography}
+
+
+\end{document}

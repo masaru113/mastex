@@ -1,0 +1,389 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\usepackage{tikz-cd}
+\title{
+Adjunctions according to Steve Awodey
+}
+\author{Masaru Okada}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	This paper summarizes adjunctions following Chapter 9 of the 2nd Edition of 'Category Theory' by Steve Awodey\cite{Awodey}.
+\end{abstract}
+
+\tableofcontents
+
+\ \\
+
+\section{Preliminary Definitions}
+
+\subsection{Constructing Words with the Kleene Closure}
+
+As an example of the method for 'constructing a free monoid from an arbitrary set',
+let us consider a set of alphabetic characters $A = \{ a,b,c,...,y,z \}$.
+
+A finite string of these characters (regardless of whether the string is meaningful) is called a 'word' over $A$.
+For example,
+$$
+	word, thisword, categoriesarefun, asdfasdaf, ...
+$$
+
+The empty string will be represented by a hyphen '-'.
+
+The Kleene Closure is then the operator $( \ \cdot \ )^{\rm Kleene}$ defined by
+$$
+	A^{\rm Kleene} = \{ -, word, thisword, categoriesarefun, asdfasdaf, ... \}
+$$
+
+\ \\
+
+We now introduce a string concatenation operation $++$ for the elements, or words, in the set $A^{\rm Kleene}$.
+This defines $++ : A^{\rm Kleene} \times A^{\rm Kleene} \to A^{\rm Kleene}$ such that
+\[
+	\begin{array}{rcl}
+		word \ ++ \ - \                     & = & \ word             \\
+		this \ ++ \ word \                  & = & \ thisword         \\
+		categories \ ++ \ are \ ++ \ fun \  & = & \ categoriesarefun
+	\end{array}
+\]
+
+The empty string $-$ serves as the identity element.
+
+Under this operation, $(A^{\rm Kleene}, ++)$ becomes a monoid.
+
+${}$
+
+Furthermore, $A^{\rm Kleene}$ satisfies the following conditions, making it a free monoid:
+\begin{enumerate}
+	\item no junk (All words can be expressed as a product of elements from $A$.)
+	\item no noise (For every word, the method of expressing it as a combination of elements from $A$ is unique (aside from the monoid axioms). For example, if $a\neq b$, then $ab \neq ba$.)
+\end{enumerate}
+
+\subsection{Universal Property of Free Monoids}
+
+The two conditions for a monoid to be 'free', no junk and no noise, can be expressed very neatly using a categorical definition.
+
+First, any monoids $M, N$ have underlying sets $U(M), U(N)$.
+
+And any homomorphism $f: N \to M$ has an underlying map $U(f) : U(N) \to U(M)$.
+
+This $U$ is a functor, known as a 'forgetful functor'.
+
+\ \\
+
+The free monoid $M(A)$ constructed from a set $A$ has the following universal property.
+
+\begin{itembox}[l]{Universal Property of the Free Monoid $M(A)$}
+	There is a map $i: A \to U(M(A))$ such that for any monoid $N$ and any map $f: A \to U(N)$,
+	there exists a \textbf{unique} monoid homomorphism $g: M(A) \to N$ satisfying $U(g) \circ i = f$.
+\end{itembox}
+
+${}$
+
+This can be summarized neatly in categorical terms.
+
+${}$
+
+\begin{itembox}[l]{Diagram of the Universal Property of $M(A)$}
+
+	Diagram in $\mathbf{Mon}$:
+	\[
+		\begin{tikzcd}
+			M(A) \arrow[rr, "\exists \ \! ! \ g"] & & N
+		\end{tikzcd}
+	\]
+
+	Diagram in $\mathbf{Set}$:
+	\[
+		% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFUAKAWU4EEAlAJABfUuky58hFACZyVWoxZsuAOWFiJ2PASJlZi+s1aIQfUYphQA5vCKgAZgCcIAWyRkQOCEgCM1MYqZlw2muIgLu5I8t6+iF5BpiBYohFRHoixPv6BysmOINQMdABGMAwACpK6MiDOWDYAFjiWIkA
+		\begin{tikzcd}
+			U(M(A)) \arrow[rr, "U(g)"] & & U(N) \\
+			& & \\
+			A \arrow[uu, "i"] \arrow[rruu, "f"'] & &
+		\end{tikzcd}
+	\]
+
+\end{itembox}
+
+
+
+
+
+\subsection{A Simple Example of a Free-Forgetful Adjunction}
+
+Any monoid $M$ has an underlying set $U(M)$.
+
+Also, as constructed in the previous section, every set $X$ has a free monoid $F(X)$.
+
+Let us consider the map $\phi$ that sends $g$ to $U(g) \circ i$.
+
+\[
+	\begin{array}{cccc}
+		\phi : & \mathrm{Hom}_{\mathbf{Mon}}(F(X), M) & \to     & \mathrm{Hom}_{\mathbf{Set}}(X, U(M)) \\
+		       & \rotatebox{90}{${\in}$}              &         & \rotatebox{90}{${\in}$}              \\
+		       & g                                    & \mapsto & U(g) \circ i
+	\end{array}
+\]
+
+From the universal property of the free monoid, this map is an isomorphism.
+
+$$
+	\mathrm{Hom}_{\mathbf{Mon}}(F(X), M) \cong \mathrm{Hom}_{\mathbf{Set}}(X, U(M)
+$$
+
+${}$
+
+A mnemonic for this is: 'Free is left adjoint to Forgetful'.
+
+
+\subsection{A Simple Definition of Adjunction}
+
+By generalizing this flow to categories $\mathbf{C}$ and $\mathbf{D}$, we can define an adjunction.
+
+
+\begin{itembox}[l]{Adjunction between Categories $\mathbf{C}$ and $\mathbf{D}$}
+
+	An adjunction between categories $\mathbf{C}$ and $\mathbf{D}$ consists of functors $F,G$
+	$$
+		F : \mathbf{C} \rightleftharpoons \mathbf{D}: G
+	$$
+	and a natural transformation
+	$\eta: 1_{\mathbf{C}} \to G \circ F$.
+
+	They have the following property.
+
+	For any
+	$C \in \mathbf{C} \ , \ \ D \in \mathbf{D}$
+	and
+	$f: C \to G(D)$,
+	there exists a \textbf{unique} $g: F(C) \to D$ such that
+	$f = G(g) \circ \eta_{C}$
+	holds, as shown below.
+
+	\[
+		% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEAKAYQEoQAvqXSZc+QigBM5KrUYs2AEUHCQGbHgJEyk2fWatEIAOKcuffkJEbxRabur6FR04sur1YrSjIAWPfKGINyCsjBQAObwRKAAZgBOEAC2SGQgOBBIAIyOgWwAhBEqcYkpiNLpmYgAzLkGbKYR7iXJSL7UGUi1cvVGsSDUDHQARjAMAAqimhIg8VgRABY4xSAJrYjtlUgVTkEAOnswOHQA+sDcAqECQA
+		\begin{tikzcd}
+			F(C) \arrow[rr, "!g"] & & D \\
+			& & \\
+			G(F(C)) \arrow[rr, "G(g)"] & & G(D) \\
+			& & \\
+			C \arrow[rruu, "f"'] \arrow[uu, "\eta_{C}"] & &
+		\end{tikzcd}
+	\]
+
+\end{itembox}
+
+In this case, $F$ is called the \textbf{left adjoint} to $G$, and $G$ is the \textbf{right adjoint} to $F$, written as $F \dashv G$.
+
+$\eta$ is called the \textbf{unit} of the adjunction.
+
+
+
+\section{Example: The Diagonal Functor}
+
+\subsection{The Right Adjoint to the Diagonal Functor is the Product Functor}
+
+As an example, let us consider the diagonal functor $\Delta : \mathbf{C} \to \mathbf{C} \times \mathbf{C}$.
+
+On objects and morphisms, it is defined as follows:
+\[
+	\begin{array}{rclr}
+		\Delta(C)          & = & (C, C)                    & \text{for $C \in$ Obj}(\mathbf{C}) \\
+		\Delta(f:C \to C') & = & (f,f) : (C,C) \to (C',C') & \text{for $f \in$ Mor}(\mathbf{C})
+	\end{array}
+\]
+
+${}$
+
+We seek the right adjoint $R$ to this diagonal functor.
+
+Since it must go in the opposite direction of $\Delta : \mathbf{C} \to \mathbf{C} \times \mathbf{C}$, $R$ will be a functor $R : \mathbf{C} \times \mathbf{C} \to \mathbf{C}$.
+Let us denote its action on objects as
+$$
+	R : \mathbf{C} \times \mathbf{C} \ni (X,Y) \mapsto R(X,Y) \in \mathbf{C}
+$$
+
+${}$
+
+Recall the construction of an adjunction.
+
+Recalling the correspondence from the free-forgetful adjunction
+$$
+	\mathrm{Hom}_{\mathbf{Mon}}(F(X), M) \cong \mathrm{Hom}_{\mathbf{Set}}(X, U(M)
+$$
+and substituting the respective components, we get:
+$$
+	\mathrm{Hom}_{\mathbf{C} \times \mathbf{C}}(\Delta(C), (X,Y)) \cong \mathrm{Hom}_{\mathbf{C}}(C, R(X,Y))
+$$
+
+The left-hand side (LHS) can be expanded as follows:
+\[
+	\begin{array}{rcl}
+		\mathrm{Hom}_{\mathbf{C} \times \mathbf{C}}(\Delta(C), (X,Y))
+		 & \cong &
+		\mathrm{Hom}_{\mathbf{C} \times \mathbf{C}}((C,C), (X,Y))
+		\\ &\cong&
+		\mathrm{Hom}_{\mathbf{C}}(C, X)
+		\times
+		\mathrm{Hom}_{\mathbf{C}}(C, Y)
+		\\ &\cong&
+		\mathrm{Hom}_{\mathbf{C}}(C, X \times Y)
+	\end{array}
+\]
+
+The first isomorphism $\cong$ uses the definition of $\Delta(C)$.
+
+The second $\cong$ uses the definition of morphisms in the product category $\mathbf{C} \times \mathbf{C}$.
+
+The third $\cong$ uses the universal property of the product $X \times Y$ in the category $\mathbf{C}$,
+which is $\mathrm{Hom}_{\mathbf{C}}(C, X \times Y) \cong \mathrm{Hom}_{\mathbf{C}}(C, X) \times \mathrm{Hom}_{\mathbf{C}}(C, Y)$.
+
+${}$
+
+By comparing the LHS and RHS when substituted back into the adjunction definition, we have:
+$$
+	\mathrm{Hom}_{\mathbf{C}}(C, R(X,Y))
+	\cong
+	\mathrm{Hom}_{\mathbf{C}}(C, X \times Y)
+$$
+
+Here, we wish to apply the Yoneda Corollary:
+$$
+	\mathrm{Hom}_{\mathbf{C}}(C, F)
+	\cong
+	\mathrm{Hom}_{\mathbf{C}}(C, G)
+	\ \Rightarrow
+	F \cong G
+$$
+To use this corollary, the isomorphism must be natural in $C$.
+In our case, by the definition of adjunction,
+there is a natural isomorphism between
+$$
+	\mathrm{Hom}(-, R(X,Y))
+	\cong
+	\mathrm{Hom}(-, X \times Y)
+$$
+
+From the above, we can conclude that
+$$
+	R(X,Y)
+	\cong
+	X \times Y
+$$
+
+It has been shown that the right adjoint to the diagonal functor $\Delta$ is the product functor $\times$, i.e., $\Delta \dashv \times$.
+
+\subsection{The Unit of the Adjunction}
+
+Let us examine the unit of this adjunction.
+By the definition of the adjunction $\Delta \dashv \times$ (i.e., $L=\Delta, R= \times$), the unit $\eta$ is a natural transformation
+$\eta : 1_{\mathbf{C}} \to R \circ L = \times \circ \Delta$.
+
+Its component $\eta_{C}$, for each object $C \in \mathbf{C}$,
+is a morphism to $(\times \circ \Delta)(C) = \times (\Delta (C)) = \times (C,C) = C \times C$.
+That is, it has the form $\eta_{C} : C \to C \times C$.
+
+${}$
+
+This $\eta_{C}$ is defined as the morphism on the RHS that corresponds to
+the identity morphism $1_{\Delta(C)} : \Delta(C) \to \Delta(C)$ on the LHS,
+by specifically choosing $(X,Y) = \Delta (C) = (C,C)$ in the adjoint isomorphism
+$$
+	\mathrm{Hom}_{\mathbf{C} \times \mathbf{C}}(\Delta(C), (X,Y)) \cong \mathrm{Hom}_{\mathbf{C}}(C, \times (X,Y))
+$$
+
+Here, by the definition of the product category,
+$1_{\Delta(C)}$
+is the pair of morphisms
+$(1_{C}, 1_{C})$.
+$$
+	1_{\Delta(C)} = (1_{C}, 1_{C}) : (C,C) \to (C,C)
+$$
+
+${}$
+
+On the other hand, by the universal property of the product $C \times C$
+$$
+	\mathrm{Hom}_{\mathbf{C}}(C, C \times C)
+	\cong
+	\mathrm{Hom}_{\mathbf{C}}(C, C)
+	\times
+	\mathrm{Hom}_{\mathbf{C}}(C, C)
+$$
+the morphism in $\mathrm{Hom}_{\mathbf{C}}(C, C \times C)$ corresponding to the
+pair of morphisms
+$(1_{C}, 1_{C})$
+is the \textbf{unique} morphism $f: C \to C \times C$ that satisfies
+$$
+	p_{1} \circ f = 1_{C} \ \ \text{and} \ \ p_{2} \circ f = 1_{C}
+$$
+
+This is none other than the definition of the so-called \textbf{diagonal morphism} $\delta_{C}$.
+Therefore, the unit of the adjunction is the diagonal morphism $\eta_{C} = \delta_{C}$.
+
+\ \\
+
+Let us consider the universal property of the unit $\eta$.
+
+In this context, the universal property of $\eta$ is expressed as follows.
+
+Any morphism
+$f: C \to X \times Y \ \ (\in \mathbf{C})$
+can be factored through $\eta_{C}$ and the \textbf{unique} morphism
+$g: \Delta(C) \to (X,Y) \ \ (\in \mathbf{C} \times \mathbf{C})$
+that corresponds to $f$ via the adjunction.
+
+${}$
+
+If we write the pair of morphisms $g_{1}: C \to X$ and $g_{2}: C \to Y$
+as $g=(g_{1},g_{2})$,
+then the action of the functor $R=\times$ on this morphism is
+$$
+	R(g) = g_{1} \times g_{2} : C \times C \to X \times Y
+$$
+
+At this time, from the definition of the adjunction
+$$
+	f = R(g) \circ \eta_{C}
+$$
+it follows that
+$$
+	f = (g_{1} \times g_{2}) \circ \delta_{C}
+$$
+
+This relationship can be expressed by the following commutative diagram.
+
+\[
+	\begin{tikzcd}
+		{(C,C)} \arrow[rr, "{\exists ! \ \! (g_{1},g_{2})}"] & & {(X,Y)} \\
+		& & \\
+		C \times C \arrow[rr, "R(g)=g_{1} \times g_{2}"] & & X \times Y \\
+		& & \\
+		C \arrow[rruu, "f"'] \arrow[uu, "\eta_{C}=\delta_{C}"] & &
+	\end{tikzcd}
+\]
+
+Here,
+$f : C \to X \times Y$
+and
+$g=(g_{1},g_{2}): (C,C) \to (X,Y)$
+correspond one-to-one via the adjunction.
+
+
+
+\begin{thebibliography}{9}
+	\bibitem{Awodey}
+	Category Theory 2nd Edition - Steve Awodey
+\end{thebibliography}
+
+
+\end{document}
