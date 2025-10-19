@@ -1,0 +1,196 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\usepackage{tikz-cd}
+\title{
+Adjunction
+}
+\author{Masaru Okada}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\ \\
+
+\section{Definition}
+
+\subsection{Definition of Adjunction}
+
+Given categories $C$ and $D$,
+we have functors $F: C \to D$ and $G: D \to C$.
+We say that '$F$ and $G$ are adjoint',
+denoted $F \dashv G : C \to D$,
+
+\begin{itembox}[l]{Adjunction}
+	if for every object $c$ in $C$ and every object $d$ in $D$, there exists a natural bijection
+	$$
+		\phi_{cd} : \mathrm{Hom}_{D}(Fc,d) \to \mathrm{Hom}_{C}(c,Gd)
+	$$
+\end{itembox}
+
+\subsection{Meaning of 'Natural'}
+
+The meaning of 'natural' here is that it is:
+\begin{enumerate}
+	\item natural in $c$ when $d$ is fixed, and
+	\item natural in $d$ when $c$ is fixed.
+\end{enumerate}
+In other words, there are two conditions.
+
+${}$
+
+
+First, 'natural in $c$' means:
+
+\begin{itembox}[l]{Natural in $c$}
+	$$
+		\theta_{c} : \mathrm{Hom}_{D}(F-,d) \to \mathrm{Hom}_{C}(-,Gd)
+	$$
+
+	that there exists a natural transformation $\theta_{c}$.
+\end{itembox}
+
+${}$
+
+Since this is a natural transformation, both its domain and codomain must be functors.
+
+Recall that Hom is a functor.
+
+In general, for an object $a \in C$ in a category $C$,
+the functor $\mathrm{Hom}_{C}(-,a)$ is a functor from $C^{op}$ to $\mathbf{Set}$.
+
+Similarly,
+$\mathrm{Hom}_{C}(-,Gd)$
+, for the object $Gd \in C$,
+is a functor $C^{op} \to \mathbf{Set}$.
+
+${}$
+
+Let's consider the meaning of the other functor,
+$\mathrm{Hom}_{D}(F-,d)$.
+
+First, without $F$,
+$\mathrm{Hom}_{D}(-,d)$
+is a functor
+$D^{op} \to \mathbf{Set}$.
+
+Furthermore, we have the functor $F: C \to D$,
+$$
+	C^{op} \xrightarrow{ \ \ F \ \ } D^{op} \xrightarrow{ \ \ \mathrm{Hom}_{D}(-,d) \ \ } \mathbf{Set}
+$$
+
+The composition of these two functors is
+$\mathrm{Hom}_{D}(F-,d)$.
+
+The existence of a natural transformation $\theta_{c}$ between these functors is the meaning of 'natural in $c$'.
+
+\ \\
+
+'Natural in $d$' is similar,
+$$
+	\theta_{d} : \mathrm{Hom}_{D}(Fc,-) \to \mathrm{Hom}_{C}(c,G-)
+$$
+meaning that there exists a natural transformation $\theta_{d}$.
+
+
+\subsection{Left and Right}
+
+When $F \dashv G : C \to D$, that is,
+
+for every object $c$ in $C$ and every object $d$ in $D$, there exists a natural bijection
+$$
+	\phi_{cd} : \mathrm{Hom}_{D}(Fc,d) \to \mathrm{Hom}_{C}(c,Gd)
+$$
+
+$F$ is called the \textbf{left adjoint functor} of $G$,
+and $G$ is called the \textbf{right adjoint functor} of $F$.
+
+The functor applied to the object on the left (in $\mathrm{Hom}_{D}(Fc,d)$) is the left adjoint,
+and the functor applied to the object on the right (in $\mathrm{Hom}_{C}(c,Gd)$) is the right adjoint.
+Apparently, the left/right convention is sometimes reversed depending on the literature.
+
+${}$
+
+This is tough for those with left-right confusion, but
+when writing
+$F \dashv G : C \to D$,
+we say '$F$ is left adjoint' and, meaning the same thing, '$F$ has a right adjoint'.
+
+\section{Examples}
+
+\subsection{Adjunction between the Category of Vector Spaces and the Category of Sets}
+
+Let $V$ be an object from the category of vector spaces, $\mathbf{Vect}$.
+
+$V$ is equipped with axioms, such as scalar multiplication and addition preserving linearity.
+We can take a functor $U$ that 'forgets' these conditions (a \textbf{forgetful functor}).
+
+\[
+	\begin{array}{cccc}
+		U : & \textbf{Vect}           & \to     & \textbf{Set}            \\
+		    & \rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$} \\
+		    & V                       & \mapsto & U(V)
+	\end{array}
+\]
+
+A morphism in $\textbf{Vect}$ is a linear map $f:V \to W$.
+Forgetting that it preserves the linear structure and regarding it as merely a map,
+we get $U(f):U(V) \to U(W)$, which is a morphism in $\textbf{Set}$.
+
+${}$
+
+Consider an adjoint for this $U$.
+That is, we seek a functor $F$ such that for any set $X$, $F(X)$ becomes a vector space.
+
+This is obtained by taking the vector space with $X$ as its basis.
+
+In this case, $F$ is a functor $F : \mathbf{Set} \to \mathbf{Vect}$.
+
+Moreover, $F$ is adjoint to $U$.
+This can be shown by explicitly constructing the natural bijection
+$$
+	\phi_{cd} : \mathrm{Hom}_{\mathbf{Vect}}(Fc,d) \to \mathrm{Hom}_{\mathbf{Set}}(c,Ud)
+$$
+
+
+\subsection{Adjunction between the Category of Abelian Groups and the Category of Sets}
+
+There is an adjunction between the forgetful functor $U$ from the category of abelian groups $\mathbf{Ab}$ to the category of sets $\mathbf{Set}$ (forgetting the structure),
+and the functor $F$, where $F(X)$ forms the \textbf{free abelian group} generated by the set $X$.
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwBGAM2ABBAQF8QE0uky58hFACZyVWoxZtOPfsOABlGDiky52PASIBGNdXrNWiDuwEQc09TCgBzeEVAhACcILiRbEBwIJDIQOD4sIQ9EAGZqARgwKCQAWhTYhy1nADEQagY6DIYABXlLJRAgrB8+DzMQYNCY6ijw6njE5LSQDKzc-Oo+GDpsxDAmBgZ7TScQAFUykAqq2otFNiaWtooJIA
+	\begin{tikzcd}
+		\mathbf{Ab} \arrow[rr, "U"', bend right, shift right=3] & \bot & \mathbf{Set} \arrow[ll, "F"', bend right, shift right=3]
+	\end{tikzcd}
+\]
+
+
+
+\subsection{Adjunction between the Category of Topological Spaces and the Category of Sets}
+
+Between the forgetful functor $U$ from the category of topological spaces $\mathbf{Top}$ to the category of sets $\mathbf{Set}$ (forgetting the structure),
+and the functor $F$, where $F(X)$ equips the set $X$ with the \textbf{discrete topology}, there is an adjunction.
+
+The functor $G$ that equips $X$ with the \textbf{indiscrete topology} is also an adjoint of $U$; it is the right adjoint of $U$.
+
+$$
+	F \dashv U \dashv G
+$$
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwBGAM2AAVCGgC+ISaXSZc+QigBM5KrUYs2nHv2HAAyjBzTJGmFADm8IqCEAnCFyRkQOCEgCM1BnQEwDAAKCngEbA5YVnw4INT0zKyIIACqMnIgjs7e1B6u1HB8WEKxiADM1AFgUEgAtGVuCdrJAGJxIH4BwaFKEVEx6fZOLog+7p6IboXFpbUALJUw1UgN8VpJIADiMhSSQA
+	\begin{tikzcd}
+		\mathbf{Top} \arrow[rr, "U"'] &  & \mathbf{Set} \arrow[ll, "F"', bend right, shift right=3] \arrow[ll, "G", bend left, shift left=4]
+	\end{tikzcd}
+\]
+
+\end{document}

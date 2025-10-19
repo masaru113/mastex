@@ -1,0 +1,212 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\usepackage{tikz-cd}
+\title{
+随伴
+}
+\author{岡田 大(Okada Masaru)}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\ \\
+
+\section{定義}
+
+\subsection{随伴の定義}
+
+圏 $C,D$ に対して、
+関手 $F: C \to D$ 、$G: D \to C$
+がある。
+「このとき $F$ と $G$ は随伴である」とは、
+記号では $F \dashv G : C \to D$ と書き、
+
+\begin{itembox}[l]{随伴}
+	圏 $C$ の任意の対象 $c$ 、圏 $D$ の任意の対象 $d$ について、自然な全単射
+	$$
+		\phi_{cd} : \mathrm{Hom}_{D}(Fc,d) \to \mathrm{Hom}_{C}(c,Gd)
+	$$
+	が存在する。
+\end{itembox}
+
+\subsection{「自然な」の意味}
+
+ここでいう「自然な」の意味は、
+\begin{enumerate}
+	\item $d$ を固定したときに $c$ について自然であり、
+	\item $c$ を固定したときに $d$ について自然である
+\end{enumerate}
+ということを表す。
+
+つまり2つの条件がある。
+
+${}$
+
+
+まず「 $c$ について自然」という意味については、
+
+\begin{itembox}[l]{$c$ について自然}
+	$$
+		\theta_{c} : \mathrm{Hom}_{D}(F-,d) \to \mathrm{Hom}_{C}(-,Gd)
+	$$
+
+	という自然変換 $\theta_{c}$ が存在する。
+\end{itembox}
+
+ということを表す。
+
+${}$
+
+自然変換なのでドメインとコドメインのそれぞれは関手である。
+
+Homは関手になることを思い出そう。
+
+一般に、
+ある圏 $C$ の対象 $a \in C$ について、
+関手 $\mathrm{Hom}_{C}(-,a)$ は $C^{op} \to \mathbf{Set}$ の関手になる。
+
+同様に、
+$\mathrm{Hom}_{C}(-,Gd)$
+は
+$Gd \in C$ という対象について、
+関手 $C^{op} \to \mathbf{Set}$ になっている。
+
+${}$
+
+もう一つの関手
+$\mathrm{Hom}_{D}(F-,d)$
+の意味を考える。
+
+まず、$F$ がかかっていない
+$\mathrm{Hom}_{D}(-,d)$
+は関手
+$D^{op} \to \mathbf{Set}$
+である。
+
+さらに $C \to D$ への関手 $F$ があって、
+
+$$
+	C^{op} \xrightarrow{ \ \ F \ \ } D^{op} \xrightarrow{ \ \ \mathrm{Hom}_{D}(-,d) \ \ } \mathbf{Set}
+$$
+
+以上の2つの関手が合成されたものが
+$\mathrm{Hom}_{D}(F-,d)$
+である。
+
+この関手の間の自然変換 $\theta_{c}$ が存在することが、「 $c$ について自然」という意味である。
+
+\ \\
+
+「 $d$ について自然」も同様で、
+$$
+	\theta_{d} : \mathrm{Hom}_{D}(Fc,-) \to \mathrm{Hom}_{C}(c,G-)
+$$
+
+という自然変換 $\theta_{d}$ が存在するという意味である。
+
+
+\subsection{左と右}
+
+$F \dashv G : C \to D$ すなわち、
+
+圏 $C$ の任意の対象 $c$ 、圏 $D$ の任意の対象 $d$ について、自然な全単射
+$$
+	\phi_{cd} : \mathrm{Hom}_{D}(Fc,d) \to \mathrm{Hom}_{C}(c,Gd)
+$$
+が存在するとき、
+
+$F$ を $G$ の左随伴関手、
+$G$ を $F$ の右随伴関手という。
+
+左の対象に関手がかかっているのが左随伴関手であり、
+右の対象に関手がかかっているのが右随伴関手である。
+なぜか文献によって左右が逆転していることがあるらしい。
+
+${}$
+
+左右盲にはつらいが、
+$F \dashv G : C \to D$
+と書いたときには、
+「 $F$ が左随伴である」とも言うし、同じ意味で「 $F$ は右随伴を持つ」とも言う。
+
+\section{例}
+
+\subsection{ベクトル空間の圏と集合の圏の随伴}
+
+ベクトル空間の圏 $\mathbf{Vect}$ から対象 $V$ を取ってくる。
+
+$V$ にはスカラー倍や線形性を保つ足し算などの公理が入っているが、
+それらの公理を条件だと思って、その条件を忘れる関手（忘却関手） $U$ を取れる。
+
+\[
+	\begin{array}{cccc}
+		U : & \textbf{Vect}           & \to     & \textbf{Set}            \\
+		    & \rotatebox{90}{${\in}$} &         & \rotatebox{90}{${\in}$} \\
+		    & V                       & \mapsto & U(V)
+	\end{array}
+\]
+
+$\textbf{Vect}$ の射は線形写像$f:V \to W$ であるが、
+線形構造を保つことを忘れて、単なる写像と思ったとき、
+$\textbf{Set}$ の射である写像$U(f):U(V) \to U(W)$
+となる。
+
+${}$
+
+この $U$ の随伴を考える。
+つまり、任意の集合 $X$ を取ってきたとき、$F(X)$ が線型空間になるような $F$ を考える。
+
+これは $X$ を基底とする線型空間を取ってくることで得られる。
+
+このとき $F$ は関手になっていて、$F : \mathbf{Set} \to \mathbf{Vect}$ である。
+
+しかも $F$ は $U$ の随伴になっている。
+これは自然な全単射
+$$
+	\phi_{cd} : \mathrm{Hom}_{\mathbf{Vect}}(Fc,d) \to \mathrm{Hom}_{\mathbf{Set}}(c,Ud)
+$$
+を具体的に構成できることから示すことができる。
+
+
+\subsection{アーベル群の圏と集合の圏の随伴}
+
+アーベル群の圏 $\mathbf{Ab}$ から構造を忘れて集合の圏 $\mathbf{Set}$ とするような忘却関手 $U$ と、
+$F(X)$ として、集合 $X$ で生成される自由アーベル群を成す関手 $F$ の間には随伴がある。
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwBGAM2ABBAQF8QE0uky58hFACZyVWoxZtOPfsOABlGDiky52PASIBGNdXrNWiDuwEQc09TCgBzeEVAhACcILiRbEBwIJDIQOD4sIQ9EAGZqARgwKCQAWhTYhy1nADEQagY6DIYABXlLJRAgrB8+DzMQYNCY6ijw6njE5LSQDKzc-Oo+GDpsxDAmBgZ7TScQAFUykAqq2otFNiaWtooJIA
+	\begin{tikzcd}
+		\mathbf{Ab} \arrow[rr, "U"', bend right, shift right=3] & \bot & \mathbf{Set} \arrow[ll, "F"', bend right, shift right=3]
+	\end{tikzcd}
+\]
+
+
+
+\subsection{位相空間の圏と集合の圏の随伴}
+
+位相空間の圏 $\mathbf{Top}$ から構造を忘れて集合の圏 $\mathbf{Set}$ とするような忘却関手 $U$ と、
+$F(X)$ として、集合 $X$ に離散位相を入れる関手 $F$ の間には随伴がある。
+
+密着位相を入れる関手 $G$ も$U$ の随伴になっていて、$U$ の右随伴になっている。
+
+$$
+	F \dashv U \dashv G
+$$
+
+\[
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwBGAM2AAVCGgC+ISaXSZc+QigBM5KrUYs2nHv2HAAyjBzTJGmFADm8IqCEAnCFyRkQOCEgCM1BnQEwDAAKCngEbA5YVnw4INT0zKyIIACqMnIgjs7e1B6u1HB8WEKxiADM1AFgUEgAtGVuCdrJAGJxIH4BwaFKEVEx6fZOLog+7p6IboXFpbUALJUw1UgN8VpJIADiMhSSQA
+	\begin{tikzcd}
+		\mathbf{Top} \arrow[rr, "U"'] &  & \mathbf{Set} \arrow[ll, "F"', bend right, shift right=3] \arrow[ll, "G", bend left, shift left=4]
+	\end{tikzcd}
+\]
+
+\end{document}
