@@ -1,0 +1,226 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\usepackage{tikz-cd}
+\title{
+Gaussian Integral using the Functional Renormalization Group
+}
+\author{Masaru Okada}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+A note presenting an introductory computational example of the fRG:
+using the functional renormalization group (fRG) to solve a Gaussian integral,
+for which an exact solution is known.
+The purpose of this note is to demonstrate how the fRG sequentially integrates out
+fluctuations from high to low energies, using a Gaussian integral as an
+exactly solvable example.
+\end{abstract}
+
+\tableofcontents
+\section{Flow of this note}
+
+\begin{enumerate}
+    \item Problem Setup: We want to calculate $Z = \int dx e^{-S(x)}$ (where $S(x) = \frac{1}{2}m^2 x^2$).
+    \item Introduction of fRG: Introduce a regulator $R_k$ and 'flow' the effective action $\Gamma_k$ from a high energy scale $\Lambda$ down to $k=0$.
+    \item Wetterich Equation: This flow is described by the Wetterich Equation.
+    \item Calculation: Solve the equation to find the effective action at $k=0$, $\Gamma_{k=0}$.
+    \item Conclusion: Calculating $Z = e^{-\Gamma_{k=0}(\phi=0)}$ from $\Gamma_{k=0}$ yields the correct answer for the Gaussian integral, $\frac{\sqrt{2\pi}}{m}$.
+\end{enumerate}
+
+\section{Wetterch Equation}
+
+\[
+    \partial_{k} \Gamma_{k}
+    =
+    \frac{1}{2} {\rm STr} \left[ (\Gamma^{(2)}_{k} + R_{k})^{-1} (\partial_{k} R_{k}) \right]
+\]
+Here, STr denotes the supertrace.
+
+This is the flow equation that lies at the heart of the fRG.
+
+$\Gamma_{k}$ represents the effective average action at scale $k$.
+This is an action in which fluctuations from high energy scales above $k$ have been integrated out,
+while fluctuations below $k$ have not yet been included.
+
+$R_{k}$ is a function called the regulator,
+which acts as a 'cap' to suppress fluctuations with energies lower than $k$.
+Changing $k$ from $\Lambda$ down to $0$ corresponds to the operation
+of gradually removing this cap and incorporating the fluctuations.
+
+$\Gamma^{(2)}_{k} = \frac{\partial^{2} \Gamma_{k}}{\partial \phi^{2}}$
+is the quantity corresponding to the Hessian,
+the second derivative with respect to the field $\phi = \langle x \rangle$.
+
+\section{Specifying the Regulator $R_{k}$ and the Flow Equation}
+
+\subsection{Gaussian Integral}
+
+The following Gaussian integral can be obtained elementarily.
+\[
+    Z =
+    \int^{\infty}_{- \infty} dx e^{ -\frac{1}{2} m^{2} x^{2} }
+    =
+    \frac{ \sqrt{2 \pi} }{ m }
+\]
+
+The objective of this note is to reproduce this integral's result using the fRG framework.
+
+${}$
+
+The relationship between the partition function and the action is as follows:
+\[
+    Z = e^{-\Gamma_{k=0}(\phi=0)}
+\]
+We will find the partition function by first deriving the functional form of $\Gamma_{k} (\phi)$
+using the fRG framework, and then evaluating it at $\Gamma_{k=0}(\phi=0)$.
+
+\subsection{Assumption for the Effective Action}
+
+Since this problem is a non-interacting theory,
+we assume that the part of $\Gamma_k$ dependent on the field $\phi$ does not depend on $k$
+and retains the same form as the classical action $S(\phi)=\frac{1}{2} m^{2} \phi^{2}$.
+Therefore, we set
+\[
+    \Gamma_{k} (\phi) = \frac{1}{2} m^{2} \phi^{2} + C_{k}
+\]
+
+Here, $C_k$ is a constant term independent of $\phi$.
+All contributions from field fluctuations are accumulated here.
+
+From this assumption, it follows that
+\[
+    \Gamma^{(2)}_{k}
+    =
+    \frac{\partial^{2} \Gamma_{k}}{\partial \phi^{2}}
+    =
+    m^{2}
+    =
+    \mathrm{const.}
+\]
+
+\subsection{The Regulator $R_{k}$}
+
+We choose the following for the regulator $R_k$:
+\[
+    \begin{array}{rcl}
+        R_{k}           & = & k^{2} \\
+        \partial_{k} R_{k} & = & 2 k
+    \end{array}
+\]
+
+\[
+    Z_{k} =
+    \int^{\infty}_{- \infty} dx e^{ -\frac{1}{2} m^{2} x^{2} - \frac{1}{2} R_{k} x^{2} }
+\]
+
+In the limit of large $R_{k}$, the system becomes classical.
+
+Conversely, in the limit $R_{k} \to 0$, we recover the desired partition function $Z_{k=0}$.
+
+\section{Wetterich Equation}
+
+\subsection{Substitution into the Wetterich Equation}
+
+Since this problem is 0-dimensional, the STr in the Wetterich Equation is unnecessary,
+and it becomes a simple scalar equation.
+\[
+    \partial_k \Gamma_k = \frac{1}{2} ( \Gamma_k^{(2)} + R_k )^{-1} (\partial_k R_k)
+    = \frac{1}{2} ( m^2 + k^2 )^{-1} (2k)
+    = \frac{k}{m^2+k^2}
+\]
+
+This equation shows that
+only the $\phi$-independent constant term $C_k$ within $\Gamma_k$ 'flows' with $k$.
+
+\subsection{Integration of the Flow}
+
+Now that $\partial_k \Gamma_k$ has been found, we can integrate it to find the action $\Gamma_{k}$.
+
+\[
+    \begin{array}{rcl}
+        \Gamma_{k}(\phi) & = & \displaystyle \Gamma_{\Lambda} (\phi) - \int^{\Lambda}_{k} dk' \partial_{k'} \Gamma_{k'}(\phi)            \\
+                         & = & \displaystyle \Gamma_{\Lambda} (\phi) - \frac{1}{2} \ln \left( \frac{m^{2} + \Lambda^{2}}{m^{2}+k^{2}} \right)
+    \end{array}
+\]
+
+Here, $\Lambda$ is a very large value (the UV cutoff).
+
+\subsubsection{Initial Condition: $k=\Lambda$}
+
+At $k=\Lambda$, fluctuations are suppressed by the regulator $R_{\Lambda} = \Lambda^{2}$.
+
+$\Gamma_{\Lambda} (\phi)$ is in the classical limit.
+
+The partition function at this scale, $Z_{\Lambda}$, can be calculated as follows:
+\[
+    Z_{\Lambda} =
+    \int^{\infty}_{- \infty} dx e^{ -\frac{1}{2} m^{2} x^{2} - \frac{1}{2} R_{\Lambda} x^{2} }
+    =
+    \int^{\infty}_{- \infty} dx e^{ -\frac{1}{2} (m^{2} + \Lambda^2) x^{2} }
+    =
+    \sqrt{ \frac{2 \pi}{m^{2} + \Lambda^2} }
+\]
+$\Gamma_\Lambda$ is determined from this $Z_\Lambda$ and $S(\phi)$.
+
+\[
+    \Gamma_\Lambda(\phi) = S(\phi) - \ln Z_\Lambda = \frac{1}{2}m^2 \phi^2 - \ln \left( \sqrt{\frac{2\pi}{m^2+\Lambda^2}} \right)
+\]
+
+\[
+    \Gamma_\Lambda(\phi) = \frac{1}{2}m^2 \phi^2 + \frac{1}{2} \ln \left( \frac{m^2+\Lambda^2}{2\pi} \right)
+\]
+
+\subsubsection{Functional Form of the Action $\Gamma_{k}(\phi)$}
+
+We substitute this $\Gamma_\Lambda(\phi)$ into the integral result.
+
+\[
+    \Gamma_k(\phi) = \left[ \frac{1}{2}m^2 \phi^2 + \frac{1}{2} \ln \left( \frac{m^2+\Lambda^2}{2\pi} \right) \right] - \frac{1}{2} \ln \left( \frac{m^{2} + \Lambda^{2}}{m^{2}+k^{2}} \right)
+\]
+
+The $\ln$ terms cancel out, leaving:
+\[
+    \Gamma_k(\phi) = \frac{1}{2}m^2 \phi^2 + \frac{1}{2} \ln \left( \frac{m^2+k^2}{2\pi} \right)
+\]
+
+\subsubsection{Functional Form of the Desired Action at $k=0$, $\Gamma_{0}(\phi)$}
+
+At $k=0$, the regulator becomes $R_0 = 0$,
+and we obtain the true effective action $\Gamma_{k=0}$ of the original theory,
+which incorporates all fluctuations.
+\[
+    \Gamma_{k=0}(\phi) = \frac{1}{2}m^2 \phi^2 + \frac{1}{2} \ln \left( \frac{m^2}{2\pi} \right)
+\]
+
+\subsubsection{Value of the Gaussian Integral}
+
+The desired $Z$ is given by $Z = e^{-\Gamma_{k=0}(\phi=0)}$.
+\[
+    \Gamma_{k=0}(0) = \frac{1}{2} \ln \left( \frac{m^2}{2\pi} \right)
+\]
+\[
+    Z = e^{-\Gamma_{k=0}(0)} = \exp \left[ -\frac{1}{2} \ln \left( \frac{m^2}{2\pi} \right) \right]
+    = \exp \left[ \ln \left( \left(\frac{m^2}{2\pi}\right)^{-1/2} \right) \right]
+    = \left( \frac{m^2}{2\pi} \right)^{-1/2}
+    = \sqrt{\frac{2\pi}{m^2}}
+    = \frac{\sqrt{2\pi}}{m}
+\]
+\section{Conclusion}
+
+In this note, the advanced theoretical method of the functional renormalization group (fRG)
+was applied to a simple Gaussian integral (a non-interacting theory).
+
+It has been shown how, through the fRG flow, the effect of fluctuations
+(in this case, the $\phi$-independent constant term, i.e., the partition function itself)
+is rigorously and systematically incorporated.
+
+\end{document}

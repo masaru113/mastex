@@ -1,0 +1,224 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\usepackage{tikz-cd}
+\title{
+関数繰り込み群を利用したガウス積分
+}
+\author{岡田 大(Okada Masaru)}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	関数繰り込み群(fRG)を利用して、厳密解が分かっているガウス積分を解いてみるという、
+	fRGの入門的な計算例を示したノート。
+	このノートの目的は、fRGが高エネルギーから低エネルギーへと揺らぎを順に取り込んでいく様子を、厳密解が分かっているガウス積分で実演することである。
+\end{abstract}
+
+\tableofcontents
+\section{このノートの流れ}
+
+\begin{enumerate}
+	\item 問題設定: $Z = \int dx e^{-S(x)}$ （$S(x) = \frac{1}{2}m^2 x^2$）を計算したい。
+	\item fRGの導入: レギュレーター $R_k$ を導入し、高エネルギースケール $\Lambda$ から $k=0$ まで、有効作用 $\Gamma_k$ を流す（フローさせる）。
+	\item Wetterich Equation: その流れを記述するのが Wetterich Equation。
+	\item 計算: 方程式を解き、$k=0$ での有効作用 $\Gamma_{k=0}$ を求める。
+	\item 結論: $\Gamma_{k=0}$ から $Z = e^{-\Gamma_{k=0}(\phi=0)}$ を計算すると、ガウス積分の正しい答え $\frac{\sqrt{2\pi}}{m}$ が得られる。
+\end{enumerate}
+
+\section{Wetterch Equation}
+
+\[
+	\partial_{k} \Gamma_{k}
+	=
+	\frac{1}{2} {\rm STr} \left[ (\Gamma^{(2)}_{k} + R_{k})^{-1} (\partial_{k} R_{k}) \right]
+\]
+ここで STr はスーパートレースを表す。
+
+これがfRGの核心となるフロー方程式になる。
+
+$\Gamma_{k}$ はスケール $k$ における有効平均作用を表す。
+これには $k$ 以上の高エネルギースケールの揺らぎが取り込まれ、
+$k$ 未満の揺らぎはまだ取り込まれていない状態の作用である。
+
+$R_{k}$ はレギュレーターと呼ばれる関数であり、
+$k$ よりも低いエネルギーのゆらぎを抑制する天井のような設定になっている。
+$k = \Lambda$ から $k=0$ へと変化させることは、
+この上限を徐々に開放し、
+ゆらぎを取り込んでいく操作になる。
+
+$\Gamma^{(2)}_{k} = \frac{\partial^{2} \Gamma_{k}}{\partial \phi^{2}}$
+はヘシアンに相当する量で、
+場$ \phi = \langle x \rangle$に対する2階微分。
+\section{レギュレーター $R_{k}$ とフロー方程式の具体化}
+
+\subsection{Gaussian Integral}
+
+以下のガウス積分は初等的に求められる。
+\[
+	Z =
+	\int^{\infty}_{- \infty} dx e^{ -\frac{1}{2} m^{2} x^{2} }
+	=
+	\frac{ \sqrt{2 \pi} }{ m }
+\]
+
+この積分結果をfRGの枠組みを使って再現してみるというのがこのノートの目的である。
+
+${}$
+
+分配関数と作用の関係は以下である。
+\[
+	Z = e^{-\Gamma_{k=0}(\phi=0)}
+\]
+fRGのフレームワークを用いて $\Gamma_{k} (\phi)$ の関数形を導出してから
+$\Gamma_{k=0}(\phi=0)$ と置くことで分配関数を求める。
+
+\subsection{Effective Actionの仮定}
+
+この問題は相互作用の無い理論なので、
+$\Gamma_{k}$ の場 $\phi$ に関する部分は $k$ に依存せず、
+古典作用 $S(\phi)=\frac{1}{2} m^{2} \phi^{2}$ と同じ形であると仮定する。
+そこで
+\[
+	\Gamma_{k} (\phi) = \frac{1}{2} m^{2} \phi^{2} + C_{k}
+\]
+と置く。
+
+ここで $C_{k}$ は $\phi$ に依らない定数項である。
+ここに場のゆらぎの寄与が全て蓄積される。
+
+この仮定から
+\[
+	\Gamma^{(2)}_{k}
+	=
+	\frac{\partial^{2} \Gamma_{k}}{\partial \phi^{2}}
+	=
+	m^{2}
+	=
+	\mathrm{const.}
+\]
+となる。
+\subsection{レギュレーター $R_{k}$}
+
+レギュレーター $R_{k}$ として
+\[
+	\begin{array}{rcl}
+		R_{k}              & = & k^{2} \\
+		\partial_{k} R_{k} & = & 2 k
+	\end{array}
+\]
+を選択する。
+
+\[
+	Z_{k} =
+	\int^{\infty}_{- \infty} dx e^{ -\frac{1}{2} m^{2} x^{2} - \frac{1}{2} R_{k} x^{2} }
+\]
+
+大きな $R_{k}$ の極限ではclassicalになる。
+
+一方で、$R_{k} \to 0$ の極限で求めたい分配関数 $Z_{k=0}$ になる。
+\section{Wetterich Equation}
+
+\subsection{Wetterich Equationへ代入}
+
+この問題は0次元であるので、Wetterich Equation の STr は不要で、単純なスカラーの式になる。
+\[
+	\partial_k \Gamma_k = \frac{1}{2} ( \Gamma_k^{(2)} + R_k )^{-1} (\partial_k R_k)
+	= \frac{1}{2} ( m^2 + k^2 )^{-1} (2k)
+	= \frac{k}{m^2+k^2}
+\]
+
+この式は$\Gamma_k$ のうち、
+$\phi$ によらない定数項 $C_k$ だけが $k$ と共に流れていくことを示している。
+
+\subsection{フローの積分}
+
+$\partial_k \Gamma_k$ が求まったので、これを積分することで作用 $\Gamma_{k}$ が求まる。
+
+\[
+	\begin{array}{rcl}
+		\Gamma_{k}(\phi) & = & \displaystyle \Gamma_{\Lambda} (\phi) - \int^{\Lambda}_{k} dk' \partial_{k'} \Gamma_{k'}(\phi)                 \\
+		                 & = & \displaystyle \Gamma_{\Lambda} (\phi) - \frac{1}{2} \ln \left( \frac{m^{2} + \Lambda^{2}}{m^{2}+k^{2}} \right)
+	\end{array}
+\]
+
+ここで、$\Lambda$ は非常に大きい値（UVカットオフ）である。
+
+\subsubsection{初期条件: $k=\Lambda$}
+
+$k=\Lambda$ ではレギュレーター $R_{\Lambda} = \Lambda^{2}$ によって揺らぎが抑制されている。
+
+$\Gamma_{\Lambda} (\phi)$ は古典極限になっている。
+
+このときの分配関数 $Z_{\Lambda}$ は以下のように計算できる。
+\[
+	Z_{\Lambda} =
+	\int^{\infty}_{- \infty} dx e^{ -\frac{1}{2} m^{2} x^{2} - \frac{1}{2} R_{\Lambda} x^{2} }
+	=
+	\int^{\infty}_{- \infty} dx e^{ -\frac{1}{2} (m^{2} + \Lambda^2) x^{2} }
+	=
+	\sqrt{ \frac{2 \pi}{m^{2} + \Lambda^2} }
+\]
+$\Gamma_\Lambda$ はこの $Z_\Lambda$ と $S(\phi)$ から求まる。
+
+\[
+	\Gamma_\Lambda(\phi) = S(\phi) - \ln Z_\Lambda = \frac{1}{2}m^2 \phi^2 - \ln \left( \sqrt{\frac{2\pi}{m^2+\Lambda^2}} \right)
+\]
+
+\[
+	\Gamma_\Lambda(\phi) = \frac{1}{2}m^2 \phi^2 + \frac{1}{2} \ln \left( \frac{m^2+\Lambda^2}{2\pi} \right)
+\]
+
+\subsubsection{作用 $\Gamma_{k}(\phi)$ の関数形}
+
+積分結果に、この $\Gamma_\Lambda(\phi)$ を代入する。
+
+\[
+	\Gamma_k(\phi) = \left[ \frac{1}{2}m^2 \phi^2 + \frac{1}{2} \ln \left( \frac{m^2+\Lambda^2}{2\pi} \right) \right] - \frac{1}{2} \ln \left( \frac{m^{2} + \Lambda^{2}}{m^{2}+k^{2}} \right)
+\]
+
+$\ln$ の項が打ち消し合い、
+\[
+	\Gamma_k(\phi) = \frac{1}{2}m^2 \phi^2 + \frac{1}{2} \ln \left( \frac{m^2+k^2}{2\pi} \right)
+\]
+となる。
+\subsubsection{求めたかった $k=0$ における作用 $\Gamma_{0}(\phi)$ の関数形}
+
+$k=0$ では、
+レギュレーター $R_0 = 0$ となり、
+全てのゆらぎを取り込んだ、
+元の理論の真の有効作用 $\Gamma_{k=0}$ が得られる。
+\[
+	\Gamma_{k=0}(\phi) = \frac{1}{2}m^2 \phi^2 + \frac{1}{2} \ln \left( \frac{m^2}{2\pi} \right)
+\]
+
+\subsubsection{ガウス積分の値}
+
+求めたい $Z$ は、$Z = e^{-\Gamma_{k=0}(\phi=0)}$ で与えられる。
+\[
+	\Gamma_{k=0}(0) = \frac{1}{2} \ln \left( \frac{m^2}{2\pi} \right)
+\]
+\[
+	Z = e^{-\Gamma_{k=0}(0)} = \exp \left[ -\frac{1}{2} \ln \left( \frac{m^2}{2\pi} \right) \right]
+	= \exp \left[ \ln \left( \left(\frac{m^2}{2\pi}\right)^{-1/2} \right) \right]
+	= \left( \frac{m^2}{2\pi} \right)^{-1/2}
+	= \sqrt{\frac{2\pi}{m^2}}
+	= \frac{\sqrt{2\pi}}{m}
+\]
+\section{まとめ}
+
+このノートでは、関数繰り込み群 (fRG) という高度な理論的手法を、
+単純なガウス積分（相互作用のない理論）に対して用いた。
+
+fRGのフローを通して、厳密かつ系統的に「ゆらぎ」の効果
+（この場合は $\phi$ によらない定数項、すなわち分配関数そのもの）
+を取り込んでいくかを示した。
+
+\end{document}
