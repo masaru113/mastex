@@ -3,8 +3,8 @@
 \usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs}
 \usepackage{epic,eepic,here}
-\usepackage{graphicx}
-\title{The Values of the Riemann Zeta Function at Negative Integers}
+\usepackage[dvipdfm]{graphicx}
+\title{Values of the Riemann Zeta Function for Negative Arguments}
 \author{Masaru Okada}
 \date{\today}
 \begin{document}
@@ -12,12 +12,19 @@
 \maketitle
 
 \begin{abstract}
-	A memo on the topic of the divergent infinite series $1+2+3+\cdots$ which is known to be represented as the finite value $-1/12$ via analytic continuation. Still in progress.
+	This memo considers the values of the Riemann zeta function $\zeta(s)$ at negative integers.
+	The series definition $\zeta(s) = \sum_{n=1}^{\infty} n^{-s}$, valid for ${\rm Re}(s) > 1$, formally yields divergent series such as $1+2+3+\cdots$ when applied to negative integers like $s=-1$.
+	It is first shown in this memo that the finite value $\zeta(-1) = -1/12$ is derived by analytic continuation using the functional equation.
+	The discussion then turns to the Bernoulli numbers $B_n$, which underlie this value, detailing their definition, properties, and relation to the series expansions of functions like $\coth$ and $\cot$.
+	Finally, an overview is provided of how the values of the zeta function at negative integers are generally linked to Bernoulli numbers through the relation $\zeta(-m) = -B_{m+1}/(m+1)$.
 \end{abstract}
+
+\tableofcontents
 
 \section{Problem}
 
-For a complex number $s$, the Riemann zeta function (hereafter, simply the zeta function) defined for ${\rm Re}(s) > 1$ is given by
+For a complex number $s$ with ${\rm Re}(s) > 1$, the
+Riemann zeta function (hereafter simply 'the zeta function') is defined as follows:
 \begin{eqnarray}
 	\zeta(s)
 	&=&
@@ -37,9 +44,9 @@ For a complex number $s$, the Riemann zeta function (hereafter, simply the zeta 
 	\dfrac{1}{n^{s}}
 \end{eqnarray}
 
-It is clear that the function converges for ${\rm Re}(s) > 1$.
+First, it clearly converges for ${\rm Re}(s) > 1$.
 At $s=1$, it becomes the harmonic series and diverges.
-However, it can be analytically continued to ${\rm Re}(s) < 0$ by using the following functional equation:
+However, it can be analytically continued to ${\rm Re}(s) < 0$ using the following functional equation:
 \begin{eqnarray}
 	\zeta(s)
 	&=&
@@ -57,7 +64,7 @@ However, it can be analytically continued to ${\rm Re}(s) < 0$ by using the foll
 
 \subsection{At $s=-1$}
 
-What about $\zeta(s)$ when $s$ takes a negative value? For example, when $s=-1$,
+So, what happens to $\zeta(s)$ when $s$ takes a negative value? For example, at $s=-1$,
 \begin{eqnarray}
 	\zeta(-1)
 	&=&
@@ -75,7 +82,7 @@ What about $\zeta(s)$ when $s$ takes a negative value? For example, when $s=-1$,
 	\nonumber \\[3mm] &=&
 	1+2+3+\cdots+n+\cdots
 \end{eqnarray}
-This can be expressed as an infinite sum that, of course, seems to diverge.
+it can be expressed as above. The series on the right-hand side, of course, appears to diverge.
 On the other hand, using the functional equation (\ref{eqn:1302112125}) used for analytic continuation,
 \begin{eqnarray}
 	\zeta(-1)
@@ -101,12 +108,12 @@ On the other hand, using the functional equation (\ref{eqn:1302112125}) used for
 	\nonumber \\[3mm] &=&
 	- \frac{1}{12}
 \end{eqnarray}
-The value remains finite. It seems as if these equations suggest a contradiction.
+we obtain a finite value. These two equations seem to suggest a contradiction.
 
 \section{Bernoulli number}
 
-As a preparation, let's briefly summarize Bernoulli numbers $B_{n}$.
-$B_{n}$ are defined as the coefficients of the series expansion of the following function:
+As preparation, we briefly summarize the Bernoulli numbers $B_{n}$.
+$B_{n}$ are defined as the coefficients in the series expansion of the following function:
 \begin{eqnarray}
 	\dfrac{x}{e^{x}-1}
 	&=&
@@ -114,7 +121,7 @@ $B_{n}$ are defined as the coefficients of the series expansion of the following
 	B_{n}
 	\dfrac{x^{n}}{n!}
 \end{eqnarray}
-The general term is also known and is given by
+The general term is also known and is given by the following:
 \begin{eqnarray}
 	B_{n}
 	&=&
@@ -128,14 +135,15 @@ The general term is also known and is given by
 
 
 
-Here, the binomial coefficient is denoted as
+Here, the binomial coefficient
 \begin{eqnarray}
 	{_{n}}{\rm C}_{k}
 	&=&
 	\dfrac{n!}{(n-k)!k!}
 \end{eqnarray}
-However, since it is a double series, using this formula directly can make the calculation heavy.
-Therefore, to actually find $B_{n}$, the following recurrence relation is used:
+is denoted as above.
+However, since this is a double summation, using this formula directly is computationally intensive.
+Therefore, to actually compute $B_{n}$, the following recurrence relation is used:
 \begin{eqnarray}
 	\left\{
 	\begin{array}{l}
@@ -148,13 +156,13 @@ Therefore, to actually find $B_{n}$, the following recurrence relation is used:
 
 All $B_{n}$ are rational numbers. The first few terms are:
 $B_{0}=1$, $B_{1}=-\dfrac{1}{2}$, and $B_{2}=\dfrac{1}{6}$.
-However, as $n$ gets larger, the numerator and denominator of $B_{n}$ become large, making them unsuitable for floating-point arithmetic.
+However, as $n$ increases, the numerators and denominators of $B_{n}$ grow large, making them unsuitable for floating-point arithmetic.
 For example,
 $B_{24}=-\dfrac{236364091}{2730}$,
 $B_{28}=-\dfrac{1869628555}{58}$.
 
-It is also known that $B_{n}=0$ for odd $n \geq 3$ (all odd $n$ except for $n=1$).
-This can be proven as follows:
+It is also known that $B_{n}=0$ for all odd $n \geq 3$ (i.e., odd numbers other than $n=1$).
+This can be proven as follows.
 \begin{eqnarray}
 	\dfrac{x}{e^{x}-1}
 	-
@@ -173,14 +181,14 @@ This can be proven as follows:
 	\dfrac{x}{2}
 	{\rm coth}\dfrac{x}{2}
 \end{eqnarray}
-Since the ${\rm coth}$ function is an odd function, the expression above becomes an even function.
-Therefore, when we expand the above expression as a series, only terms of even powers remain.
-That is,
-$B_{n}=0$ for odd $n \geq 3$ (all odd $n$ except for $n=1$).
+The $\coth$ function is an odd function, and thus the expression above is an even function.
+Consequently, when this expression is expanded as a series, only even-power terms remain.
+In other words,
+$B_{n}=0$ for all odd $n \geq 3$ (odd numbers other than $n=1$).
 
 \subsection{Series expansion of coth}
 
-Solving in reverse,
+Solving this in reverse,
 \begin{eqnarray}
 	{\rm coth}x
 	&=&
@@ -340,13 +348,13 @@ Therefore, substituting $ix \to y$,
 
 \subsection{Series expansion of tan}
 
-Taking the reciprocal of both sides of the double-angle formula
+Using the double-angle formula
 \begin{eqnarray}
 	{\rm tan} (2x)
 	&=&
 	\dfrac{ 2 {\rm tan} \ \! x }{ 1 - {\rm tan}^{2} \ \! x }
 \end{eqnarray}
-we get
+and taking the reciprocal of both sides,
 \begin{eqnarray}
 	{\rm cot} (2x)
 	&=&
@@ -356,7 +364,7 @@ we get
 	-
 	\dfrac{{\rm tan} \ \! x}{2}
 \end{eqnarray}
-That is,
+In other words,
 \begin{eqnarray}
 	{\rm tan} \ \! x
 	&=&
@@ -392,8 +400,9 @@ That is,
 	\dfrac{(-1)^{n} 2^{2n} ( 1 - 2^{2n} ) B_{2n} }{(2n)!}
 	x^{2n-1}
 \end{eqnarray}
-Thus, it is clear that $B_{n}$ are basically involved in the series expansion coefficients of trigonometric functions.
-As for the sin and cos functions,
+we get.
+The Bernoulli numbers $B_{n}$ are fundamentally involved in the series expansion coefficients of trigonometric functions.
+For the $\sin$ and $\cos$ functions, however,
 \begin{eqnarray}
 	{\rm sin} \ \! x
 	&=&
@@ -403,24 +412,24 @@ As for the sin and cos functions,
 	&=&
 	\dfrac{e^{ix} + e^{-ix}}{2}
 \end{eqnarray}
-The exponential functions are only in the numerator, not in the denominator, so $B_{n}$ does not appear.
+because the exponential function does not appear in the denominator and only appears in the numerator, $B_{n}$ do not appear.
 
 
 
 
 \section{Some special cases}
 
-The value of $\zeta(s)$ for a general $s$ is calculated numerically.
-However, for special values of $s$, the analytic values are known to be as follows.
+The values of $\zeta(s)$ for general $s$ are computed numerically.
+However, for special values of $s$, analytic values have been found, and the following are known.
 
-For any positive even integer $2m$,
+For any positive even integer $2m$:
 \begin{eqnarray}
 	\zeta(2m)
 	&=&
 	\dfrac{(-1)^{2m} B_{2m} (2 \pi)^{2m} }{(2m)! 2}
 \end{eqnarray}
 
-For any negative integer $-m$,
+For any negative integer $-m$:
 \begin{eqnarray}
 	\zeta(-m)
 	&=&
@@ -428,9 +437,9 @@ For any negative integer $-m$,
 	\dfrac{B_{m+1}}{m+1}
 \end{eqnarray}
 
-There is no known elementary expression for the value of $\zeta(s)$ when $s$ is an odd number.
+No elementary expression is known for the value of $\zeta(s)$ when $s$ is an odd integer.
 However, a series representation was given by Ramanujan.
-For any odd number $2m-1$,
+For any odd integer $2m-1$:
 \begin{eqnarray}
 	\zeta(2m-1)
 	&=&
@@ -462,7 +471,7 @@ In the Gamma function
 	\!\! dt
 	\ \! t^{s-1} e^{-t}
 \end{eqnarray}
-by changing the variable to $t=nx$, we get
+making the substitution $t=nx$ gives,
 \begin{eqnarray}
 	\Gamma(s)
 	&=&
@@ -471,7 +480,7 @@ by changing the variable to $t=nx$, we get
 	\ \! (nx)^{s-1} e^{-nx}
 	\label{eqn:1302120225hayonena}
 \end{eqnarray}
-Furthermore, by dividing both sides by $n^{s}$ and taking the sum over all natural numbers $n$,
+Furthermore, dividing both sides by $n^{s}$ and summing over all natural numbers $n$:
 \begin{eqnarray}
 	\sum_{n=1}^{\infty}
 	\dfrac{ \Gamma(s) }{ n^{s} }
@@ -569,7 +578,7 @@ By the way, using the following identity for alternating series
 	\dfrac{1}{2^{s-1}}
 	\right)
 \end{eqnarray}
-and equation (\ref{eqn:1302120225hayonena}), if we calculate the right and left sides independently,
+and equation (\ref{eqn:1302120225hayonena}), if we compute the right and left sides of the following independently,
 \begin{eqnarray}
 	\sum_{n=1}^{\infty}
 	\Gamma(s)
@@ -607,7 +616,7 @@ and equation (\ref{eqn:1302120225hayonena}), if we calculate the right and left 
 	\ \! x^{s-1}
 	\frac{1}{e^{x} + 1}
 \end{eqnarray}
-is newly obtained.
+we newly obtain the above.
 
 ${}$
 
@@ -639,7 +648,7 @@ Using this fact,
 	e^{- \pi n^{2} t}
 \end{eqnarray}
 
-Here, as a special case of the Jacobi theta function, we define $\psi(x)$ as
+Here, we define $\psi(x)$ as a special case of the Jacobi theta function:
 \begin{eqnarray}
 	\psi(x)
 	&=&
@@ -647,7 +656,7 @@ Here, as a special case of the Jacobi theta function, we define $\psi(x)$ as
 	e^{- \pi n^{2} x}
 \end{eqnarray}
 From the Poisson summation formula,
-$\psi(x)$ satisfies the following.
+$\psi(x)$ satisfies the following:
 \begin{eqnarray}
 	2 \psi ( 1/x )
 	+
@@ -657,8 +666,87 @@ $\psi(x)$ satisfies the following.
 	\Big( 2 \psi(x) + 1 \Big)
 \end{eqnarray}
 
+
+
+
+\section{Conclusion}
+
+In this memo, we have considered the Riemann zeta function $\zeta(s)$, focusing particularly on its values at negative integers.
+
+Applying the definition $\zeta(s) = \sum_{n=1}^{\infty} n^{-s}$ (valid for ${\rm Re}(s) > 1$) formally to $s=-1$ yields
+\begin{eqnarray}
+	\zeta(-1)
+	&=&
+	1+2+3+\cdots
+\end{eqnarray}
+an obviously divergent series.
+
+However, it was shown that $\zeta(-1)$ has the finite value $-1/12$ through analytic continuation using the functional equation (\ref{eqn:1302112125}).
+
+This value can also be derived from the relationship between Bernoulli numbers $B_n$ and the values of the zeta function at negative integers.
+
+${}$
+
+In general, for any negative integer $-m$ ($m \ge 0$), the value of $\zeta(-m)$ is expressed using Bernoulli numbers as follows:
+\begin{eqnarray}
+	\zeta(-m)
+	&=&
+	-
+	\dfrac{B_{m+1}}{m+1}
+\end{eqnarray}
+Using the values of the Bernoulli numbers calculated in the main text, $B_1 = -1/2$, $B_2 = 1/6$, and $B_n = 0$ for odd $n \ge 3$, we can confirm the following specific values.
+
+\begin{itemize}
+	\item Case $m=0$ ($s=0$):
+	      \begin{eqnarray}
+		      \zeta(0)
+		      &=&
+		      -
+		      \dfrac{B_{1}}{1}
+		      =
+		      - \left( - \frac{1}{2} \right)
+		      =
+		      \frac{1}{2}
+	      \end{eqnarray}
+
+	\item Case $m=1$ ($s=-1$):
+	      \begin{eqnarray}
+		      \zeta(-1)
+		      &=&
+		      -
+		      \dfrac{B_{2}}{2}
+		      =
+		      - \dfrac{1/6}{2}
+		      =
+		      - \frac{1}{12}
+	      \end{eqnarray}
+	      This matches the value derived from the functional equation and corresponds to the famous result $1+2+3+\cdots = -1/12$.
+
+	\item Case $m=2k$ ($k \ge 1$, negative even integer $s=-2k$):
+	      \begin{eqnarray}
+		      \zeta(-2k)
+		      &=&
+		      -
+		      \dfrac{B_{2k+1}}{2k+1}
+		      =
+		      0
+	      \end{eqnarray}
+	      This is derived from the fact that $B_n=0$ (for odd $n \ge 3$) and these are known as the trivial zeros of the zeta function.
+\end{itemize}
+
+Thus, the concept of analytic continuation and the properties of Bernoulli numbers provide the theoretical background for assigning finite values to series that appear divergent at first glance.
+
+Attempts to assign finite values to divergent series are studied not only through analytic continuation but also through various summation methods, starting with Borel summation.
+
+The value $\zeta(-1)$ treated in this memo is obtained in a different context (analytic continuation) than these summation methods, but it suggests the importance of a framework for handling divergent series with mathematical rigor.
+
 \ \\
 
-(The following is still being written...)
+Furthermore, the handling of such divergent series is deeply related to the field of physics.
 
+For example, asymptotic expansions that appear in the WKB approximation or perturbation theory in quantum mechanics often become divergent series.
+
+By interpreting or processing these series appropriately, such as by optimal truncation, they can provide physically meaningful approximate values and insights.
+
+In particular, the value $\zeta(-1)=-1/12$ is actually used in calculations of the Casimir effect in quantum field theory as a method of regularizing divergences (zeta function regularization), serving as an interesting example of a mathematical concept connecting to physical reality.
 \end{document}
