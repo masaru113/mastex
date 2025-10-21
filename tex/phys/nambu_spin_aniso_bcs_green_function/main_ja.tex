@@ -1,0 +1,3655 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\usepackage{tikz-cd}
+\title{
+スピン空間における異方的BCS-南部グリーン関数
+}
+\author{Masaru Okada}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	このノートでは、スピン一重項および三重項を扱える南部 $\otimes$ スピン空間における異方的BCS平均場ハミルトニアンを導入し、ボゴリューボフ変換を用いて対角化することでその固有値と変換行列を導出する。
+	さらに、運動方程式を用いて南部 $\otimes$ スピン空間におけるグリーン関数（通常および異常成分）を導出し、その具体的な表式を与える。
+\end{abstract}
+
+\tableofcontents
+
+\section{（南部 $\!\! \otimes \!\!$ スピン）空間の平均場ハミルトニアン}
+
+\subsection{スピン一重項（従来のBCS）の場合}
+
+まずはハミルトニアンから始めよう。
+
+\begin{eqnarray}
+	H
+	&=&
+	H_{0}
+	+
+	H_{\rm MF}
+\end{eqnarray}
+%
+ここで、
+
+\begin{eqnarray}
+	H_{0}
+	&=&
+	\sum_{\vec{k},\sigma}
+	\xi_{\vec{k}}
+	c^{\dagger}_{\vec{k} \sigma}
+	c_{\vec{k} \sigma}
+	\ \ = \ \
+	\sum_{\vec{k}}
+	\left(
+	c_{\vec{k} \uparrow}^{\dagger} \ \ , \ \
+	c_{-\vec{k} \downarrow}
+	\right)
+	\!\!
+	\left(
+	\begin{array}{cc}
+			\xi_{\vec{k}} & 0
+			\\[3mm]
+			0             & -\xi_{\vec{k}}
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{c}
+			c_{\vec{k} \uparrow} \\[3mm]
+			c_{-\vec{k} \downarrow}^{\dagger}
+		\end{array}
+	\right)
+	,
+	\\[4mm]
+	H_{\rm MF}
+	&=&
+	\Delta^{*}
+	\sum_{\vec{k}}
+	\big(
+	c_{-\vec{k} \downarrow}
+	c_{\vec{k} \uparrow}
+	-
+	c_{-\vec{k} \uparrow}
+	c_{\vec{k} \downarrow}
+	\big)
+	+
+	\Delta
+	\sum_{\vec{k}}
+	\big(
+	c^{\dagger}_{\vec{k} \uparrow}
+	c^{\dagger}_{-\vec{k} \downarrow}
+	-
+	c^{\dagger}_{-\vec{k} \uparrow}
+	c^{\dagger}_{\vec{k} \downarrow}
+	\big)
+	\\ &=&
+	\Delta
+	\sum_{\vec{k}, \sigma}
+	c^{\dagger}_{\vec{k} \sigma}
+	c^{\dagger}_{-\vec{k} \bar{\sigma}}
+	\ \ +
+	{\rm H.c.}
+	\\ &=&
+	\sum_{\vec{k}}
+	\left(
+	c_{\vec{k} \uparrow}^{\dagger} \ \ , \ \
+	c_{-\vec{k} \downarrow}
+	\right)
+	\!\!
+	\left(
+	\begin{array}{cc}
+			0          & \Delta \\[3mm]
+			\Delta^{*} & 0
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{c}
+			c_{\vec{k} \uparrow} \\[3mm]
+			c_{-\vec{k} \downarrow}^{\dagger}
+		\end{array}
+	\right)
+	,
+\end{eqnarray}
+%
+すると、
+
+\begin{eqnarray}
+	\vec{c}^{\ \dagger}_{\vec{k}}
+	&=&
+	\left(
+	c_{\vec{k} \uparrow}^{\dagger} \ \ , \ \
+	c_{-\vec{k} \downarrow}
+	\right)
+	\ , \hspace{10mm}
+	\vec{c}_{\vec{k}}
+	\ \ = \ \
+	\left(
+	\begin{array}{c}
+			c_{\vec{k} \uparrow} \\[3mm]
+			c_{-\vec{k} \downarrow}^{\dagger}
+		\end{array}
+	\right)
+	,
+\end{eqnarray}
+%
+は2成分（南部）スピノルと呼ばれる。
+また、異常期待値 $\Delta$ は次のように定義される。
+
+\begin{eqnarray}
+	\Delta
+	&=&
+	\sum_{\vec{k}}
+	\left\langle
+	c_{\vec{k} \uparrow}
+	c_{-\vec{k} \downarrow}
+	\right\rangle
+\end{eqnarray}
+%
+これで、このハミルトニアン $H$ はスピノル $\vec{c}_{\vec{k}}^{\ (\dagger)}$ と $2 \times 2$ 行列 $\hat{H}$ を使って表すことができる。
+
+\begin{eqnarray}
+	H
+	&=&
+	\sum_{\vec{k}}
+	\vec{c}^{\ \dagger}_{\vec{k}}
+	\!\!
+	\left(
+	\begin{array}{cc}
+			\xi_{\vec{k}} & \Delta         \\[3mm]
+			\Delta^{*}    & -\xi_{\vec{k}}
+		\end{array}
+	\right)
+	\!\!
+	\vec{c}_{\vec{k}}
+	\ \ = \ \
+	\sum_{\vec{k}}
+	\vec{c}^{\ \dagger}_{\vec{k}}
+	\
+	\hat{H}
+	\
+	\vec{c}_{\vec{k}}
+	.
+\end{eqnarray}
+%
+
+$\hat{H}$ は任意の実数パラメータ $\lambda$ を用いて容易に対角化できる。
+
+\begin{eqnarray}
+	{\rm det} ( \hat{H} - \lambda \ \! \hat{1}_{2 \times 2})
+	&=&
+	0
+	\\[2mm]
+	\longrightarrow
+	\ \ \
+	\lambda
+	&=&
+	\pm
+	\sqrt{ \xi_{\vec{k}}^{2} + | \Delta_{\vec{k}} |^{2} }
+	\ = \
+	\pm E_{\vec{k}}
+	.
+\end{eqnarray}
+%
+これで固有値 $E_{\vec{k}}$ が定義された。
+
+対角化された基底 $\vec{a}$ を得るために、ボゴリューボフ変換の行列 $\hat{U}$ を用いる。
+
+\begin{eqnarray}
+	\vec{c}_{\vec{k}}
+	&=&
+	\hat{U}
+	\vec{a}_{\vec{k}}
+	\ = \
+	\left(
+	\begin{array}{cc}
+			u_{\vec{k}}                 & - v_{\vec{k}} e^{i \varphi}
+			\\[3mm]
+			v_{\vec{k}} e^{- i \varphi} & u_{\vec{k}}
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{c}
+			a_{\vec{k} \uparrow} \\[3mm]
+			a_{-\vec{k} \downarrow}^{\dagger}
+		\end{array}
+	\right)
+	\\[2mm]
+	\hspace{5mm}
+	H
+	&=&
+	\sum_{\vec{k}}
+	\vec{c}^{\ \dagger}_{\vec{k}}
+	\
+	\hat{H}
+	\
+	\vec{c}_{\vec{k}}
+	\ = \
+	\sum_{\vec{k}}
+	\vec{a}^{\ \dagger}_{\vec{k}}
+	\
+	\hat{U}^{\dagger}
+	\
+	\hat{H}
+	\
+	\hat{U}
+	\
+	\vec{a}_{\vec{k}}
+	\ = \
+	\sum_{\vec{k}}
+	\vec{a}^{\ \dagger}_{\vec{k}}
+	\left(
+	\begin{array}{cc}
+			E_{\vec{k}} & 0
+			\\[3mm]
+			0           & - E_{\vec{k}}
+		\end{array}
+	\right)
+	\vec{a}_{\vec{k}}
+	.
+\end{eqnarray}
+%
+特に知る必要があるのはユニタリーな場合（$\hat{U}^{\dagger} = \hat{U}^{-1}$ となり、整数 $n$ に対して $\varphi=2 \pi n$ とおける場合）だけ。
+
+\begin{eqnarray}
+	\hat{1}_{2 \times 2}
+	&=&
+	\hat{U}^{\dagger}
+	\hat{U}
+	\ = \
+	\left(
+	\begin{array}{cc}
+			u_{\vec{k}}                   & v_{\vec{k}} e^{i \varphi}
+			\\[3mm]
+			- v_{\vec{k}} e^{- i \varphi} & u_{\vec{k}}
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{cc}
+			u_{\vec{k}}                 & - v_{\vec{k}} e^{i \varphi}
+			\\[3mm]
+			v_{\vec{k}} e^{- i \varphi} & u_{\vec{k}}
+		\end{array}
+	\right)
+	\ = \
+	\left(
+	\begin{array}{cc}
+			u_{\vec{k}}^{2} + v_{\vec{k}}^{2} & 0
+			\\[3mm]
+			0                                 & u_{\vec{k}}^{2} + v_{\vec{k}}^{2}
+		\end{array}
+	\right)
+	.
+\end{eqnarray}
+%
+$u_{\vec{k}}^{2} + v_{\vec{k}}^{2} = 1$ という条件が現れた。
+行列 $\hat{U}$ の成分に関する連立方程式を解くこともできる。
+
+\begin{eqnarray}
+	\hat{H}
+	\
+	\hat{U}
+	&=&
+	\hat{U}
+	\left(
+	\begin{array}{cc}
+			E_{\vec{k}} & 0
+			\\[3mm]
+			0           & - E_{\vec{k}}
+		\end{array}
+	\right)
+	\hspace{5mm}
+	\longleftarrow
+	\hspace{5mm}
+	\hat{U}^{\dagger}
+	\
+	\hat{H}
+	\
+	\hat{U}
+	\ = \
+	\left(
+	\begin{array}{cc}
+			E_{\vec{k}} & 0
+			\\[3mm]
+			0           & - E_{\vec{k}}
+		\end{array}
+	\right)
+	\\[2mm]
+	\left(
+	\begin{array}{cc}
+			u_{\vec{k}} \xi_{\vec{k}} + v_{\vec{k}} \Delta     & u_{\vec{k}} \Delta - v_{\vec{k}} \xi_{\vec{k}}
+			\\[3mm]
+			\Delta^{*} u_{\vec{k}} - v_{\vec{k}} \xi_{\vec{k}} & - v_{\vec{k}} \Delta^{*} - u_{\vec{k}} \xi_{\vec{k}}
+		\end{array}
+	\right)
+	&=&
+	E_{\vec{k}}
+	\left(
+	\begin{array}{cc}
+			u_{\vec{k}} & v_{\vec{k}}
+			\\[3mm]
+			v_{\vec{k}} & - u_{\vec{k}}
+		\end{array}
+	\right)
+	\\[3mm]
+	\longrightarrow
+	\hspace{5mm}
+	u_{\vec{k}}^{2}
+	&=&
+	\dfrac{1}{2} \left( 1 + \dfrac{\xi_{\vec{k}}}{E_{\vec{k}}} \right)
+	, \hspace{5mm}
+	v_{\vec{k}}^{2}
+	\ = \
+	\dfrac{1}{2} \left( 1 - \dfrac{\xi_{\vec{k}}}{E_{\vec{k}}} \right)
+\end{eqnarray}
+%
+これで、スピン一重項の場合について、固有値 $E_{\vec{k}}$ とボゴリューボフ変換行列の成分 $u_{\vec{k}}$, $v_{\vec{k}}$ が、既知の値 $\xi_{\vec{k}}$, $\Delta$ で書き表された。
+
+
+
+\subsection{一般化されたスピンの場合}
+
+次に、スピン一重項の場合だけでなく、任意のスピン三重項の場合についても物理量を計算できるように、2成分の南部スピノル $\vec{c}_{\vec{k}}$ を4成分のものに一般化する。
+
+\begin{eqnarray}
+	H
+	\ = \
+	\dfrac{1}{2}
+	\sum_{\vec{k}}
+	\vec{c}^{\ \dagger}_{\vec{k}}
+	\hat{H}
+	\vec{c}_{\vec{k}}
+	&=&
+	\dfrac{1}{2}
+	\sum_{\vec{k}}
+	\big( c^{\dagger}_{\vec{k} \uparrow} \ , \ c^{\dagger}_{\vec{k} \downarrow} \ , \ c_{-\vec{k} \uparrow} \ , \ c_{-\vec{k} \downarrow}  \big)
+	\!\!\!
+	\left(
+	\begin{array}{cc}
+			\xi_{\vec{k}} \hat{1}_{2 \times 2} & \hat{\Delta}_{\vec{k}}               \\[3mm]
+			\hat{\Delta}^{*}_{\vec{k}}         & - \xi_{\vec{k}} \hat{1}_{2 \times 2}
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{c}
+			c_{\vec{k} \uparrow}            \\[2mm]
+			c_{\vec{k} \downarrow}          \\[2mm]
+			c^{\dagger}_{-\vec{k} \uparrow} \\[2mm]
+			c^{\dagger}_{-\vec{k} \downarrow}
+		\end{array}
+	\right)
+\end{eqnarray}
+%
+異常期待値から構成される行列 $\hat{\Delta}_{\vec{k}}$ の定義は、
+
+\begin{eqnarray}
+	(\hat{\Delta}_{\vec{k}})_{\sigma\sigma'}
+	&=&
+	-V \sum_{\vec{k}'} \vec{k} \cdot \vec{k'}
+	\big\langle c_{\vec{k'} \sigma} c_{-\vec{k}' \sigma'} \big\rangle
+	.
+\end{eqnarray}
+%
+クーパー対の全角運動量に垂直なベクトル $\vec{d}$ の成分を、行列 $\hat{\Delta}_{\vec{k}}$ の基底として選ぶことができる。
+
+\begin{eqnarray}
+	\hat{\Delta}_{\vec{k}}
+	&=&
+	\left(
+	\begin{array}{cc}
+			- d^{x}_{\vec{k}} + i d^{y}_{\vec{k}} & d^{z}_{\vec{k}}                     \\[2mm]
+			d^{z}_{\vec{k}}                       & d^{x}_{\vec{k}} + i d^{y}_{\vec{k}}
+		\end{array}
+	\right)
+	.
+\end{eqnarray}
+%
+行列 $\hat{\Delta}_{\vec{k}}$ がユニタリーであるとき、
+
+\begin{eqnarray}
+	\hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}}
+	&=&
+	\left(
+	\begin{array}{cc}
+			{d^{x}_{\vec{k}}}^{2} + {d^{y}_{\vec{k}}}^{2} + {d^{z}_{\vec{k}}}^{2} & 0                                                                     \\[3mm]
+			0                                                                     & {d^{x}_{\vec{k}}}^{2} + {d^{y}_{\vec{k}}}^{2} + {d^{z}_{\vec{k}}}^{2}
+		\end{array}
+	\right)
+	\ \ \propto \ \
+	\hat{1}_{2 \times 2}
+\end{eqnarray}
+%
+すなわち、
+
+\begin{eqnarray}
+	{d^{x}_{\vec{k}}}^{2} + {d^{y}_{\vec{k}}}^{2} + {d^{z}_{\vec{k}}}^{2}
+	\ = \
+	\dfrac{1}{2}
+	{\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big]
+	, \hspace{5mm}
+	\hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}}
+	\ = \
+	\dfrac{1}{2}
+	{\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big]
+	\ \
+	\hat{1}_{2 \times 2}
+	.
+\end{eqnarray}
+%
+すると、$4 \times 4$ のハミルトニアンは具体的に次のように書ける。
+
+\begin{eqnarray}
+	\hat{H}
+	&=&
+	\left(
+	\begin{array}{cccc}
+			\xi_{\vec{k}}                         & 0                                   & - d^{x}_{\vec{k}} + i d^{y}_{\vec{k}} & d^{z}_{\vec{k}}                     \\[2mm]
+			0                                     & \xi_{\vec{k}}                       & d^{z}_{\vec{k}}                       & d^{x}_{\vec{k}} + i d^{y}_{\vec{k}} \\[2mm]
+			- d^{x}_{\vec{k}} - i d^{y}_{\vec{k}} & d^{z}_{\vec{k}}                     & - \xi_{\vec{k}}                       & 0                                   \\[2mm]
+			d^{z}_{\vec{k}}                       & d^{x}_{\vec{k}} - i d^{y}_{\vec{k}} & 0                                     & - \xi_{\vec{k}}
+		\end{array}
+	\right)
+	.
+\end{eqnarray}
+%
+固有値方程式 ${\rm det}(\hat{H} - \lambda \hat{1}_{4 \times 4})$ は、いくつかの面倒なプロセスを経れば解くことができる。
+
+\begin{eqnarray}
+	0
+	&=&
+	\left|
+	\begin{array}{cccc}
+		{\xi_{\vec{k}}} - \lambda                & 0                                      & - {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} & {d^{z}_{\vec{k}}}                      \\[2mm]
+		0                                        & {\xi_{\vec{k}}} - \lambda              & {d^{z}_{\vec{k}}}                        & {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} \\[2mm]
+		- {d^{x}_{\vec{k}}} - i{d^{y}_{\vec{k}}} & {d^{z}_{\vec{k}}}                      & - {\xi_{\vec{k}}} -\lambda               & 0                                      \\[2mm]
+		{d^{z}_{\vec{k}}}                        & {d^{x}_{\vec{k}}} - i{d^{y}_{\vec{k}}} & 0                                        & - {\xi_{\vec{k}}} -\lambda
+	\end{array}
+	\right|
+	\nonumber \\[3mm] &=&
+	({\xi_{\vec{k}}} - \lambda)
+	\left|
+	\begin{array}{ccc}
+		{\xi_{\vec{k}}} - \lambda              & {d^{z}_{\vec{k}}}          & {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} \\[2mm]
+		{d^{z}_{\vec{k}}}                      & - {\xi_{\vec{k}}} -\lambda & 0                                      \\[2mm]
+		{d^{x}_{\vec{k}}} - i{d^{y}_{\vec{k}}} & 0                          & - {\xi_{\vec{k}}} -\lambda
+	\end{array}
+	\right|
+	\nonumber \\[3mm] && +
+	(- {d^{x}_{\vec{k}}} - i{d^{y}_{\vec{k}}})
+	\left|
+	\begin{array}{ccc}
+		0                                      & - {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} & {d^{z}_{\vec{k}}}                      \\[2mm]
+		{\xi_{\vec{k}}} - \lambda              & {d^{z}_{\vec{k}}}                        & {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} \\[2mm]
+		{d^{x}_{\vec{k}}} - i{d^{y}_{\vec{k}}} & 0                                        & - {\xi_{\vec{k}}} -\lambda
+	\end{array}
+	\right|
+	\nonumber \\[3mm] && -
+	{d^{z}_{\vec{k}}}
+	\left|
+	\begin{array}{ccc}
+		0                         & - {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} & {d^{z}_{\vec{k}}}                      \\[2mm]
+		{\xi_{\vec{k}}} - \lambda & {d^{z}_{\vec{k}}}                        & {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} \\[2mm]
+		{d^{z}_{\vec{k}}}         & - {\xi_{\vec{k}}} -\lambda               & 0
+	\end{array}
+	\right|
+	.
+\end{eqnarray}
+%
+右辺の各項は、以下のように展開できる。
+
+\begin{eqnarray}
+	({\xi_{\vec{k}}} - \lambda)
+	\left|
+	\begin{array}{ccc}
+		{\xi_{\vec{k}}} - \lambda              & {d^{z}_{\vec{k}}}          & {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} \\[2mm]
+		{d^{z}_{\vec{k}}}                      & - {\xi_{\vec{k}}} -\lambda & 0                                      \\[2mm]
+		{d^{x}_{\vec{k}}} - i{d^{y}_{\vec{k}}} & 0                          & - {\xi_{\vec{k}}} -\lambda
+	\end{array}
+	\right|
+	&=&
+	( {\xi_{\vec{k}}}^{2} - \lambda^{2} )
+	( {\xi_{\vec{k}}}^{2} - \lambda^{2} + {d^{x}_{\vec{k}}}^{2} +{d^{y}_{\vec{k}}}^{2} + {d^{z}_{\vec{k}}}^{2} )
+	\\[3mm]
+	(- {d^{x}_{\vec{k}}} - i{d^{y}_{\vec{k}}})
+	\left|
+	\begin{array}{ccc}
+		0                                      & - {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} & {d^{z}_{\vec{k}}}                      \\[2mm]
+		{\xi_{\vec{k}}} - \lambda              & {d^{z}_{\vec{k}}}                        & {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} \\[2mm]
+		{d^{x}_{\vec{k}}} - i{d^{y}_{\vec{k}}} & 0                                        & - {\xi_{\vec{k}}} -\lambda
+	\end{array}
+	\right|
+	&=&
+	({d^{x}_{\vec{k}}}^{2} +{d^{y}_{\vec{k}}}^{2})
+	( {\xi_{\vec{k}}}^{2} - \lambda^{2} + {d^{x}_{\vec{k}}}^{2} +{d^{y}_{\vec{k}}}^{2} + {d^{z}_{\vec{k}}}^{2} )
+	\\[3mm]
+	-
+	{d^{z}_{\vec{k}}}
+	\left|
+	\begin{array}{ccc}
+		0                         & - {d^{x}_{\vec{k}}} + i{d^{y}_{\vec{k}}} & {d^{z}_{\vec{k}}}      \\[2mm]
+		{\xi_{\vec{k}}} - \lambda & {d^{z}_{\vec{k}}}                        & {d^{x}_{\vec{k}}} + iy \\[2mm]
+		z                         & - {\xi_{\vec{k}}} -\lambda               & 0
+	\end{array}
+	\right|
+	&=&
+	{d^{z}_{\vec{k}}}^{2}
+	( {\xi_{\vec{k}}}^{2} - \lambda^{2} + {d^{x}_{\vec{k}}}^{2} +{d^{y}_{\vec{k}}}^{2} + {d^{z}_{\vec{k}}}^{2} )
+\end{eqnarray}
+%
+全ての項をまとめると、次のようになる。
+
+\begin{eqnarray}
+	( {\xi_{\vec{k}}}^{2} - \lambda^{2} + {d^{x}_{\vec{k}}}^{2} +{d^{y}_{\vec{k}}}^{2} + {d^{z}_{\vec{k}}}^{2} )^{2}
+	&=&
+	0
+	\\[3mm]
+	\to \hspace{2mm}
+	\lambda
+	&=&
+	\pm \sqrt{ \xi_{\vec{k}}^{2} + {d^{x}_{\vec{k}}}^{2} + {d^{y}_{\vec{k}}}^{2} + {d^{z}_{\vec{k}}}^{2} }
+	=
+	\pm \sqrt{ \xi_{\vec{k}}^{2} + \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] }
+	=
+	\pm E_{\vec{k}}
+\end{eqnarray}
+%
+最終的に、$4 \times 4$ 行列 $\hat{H}$ に対する固有値 $E_{\vec{k}}$ を得ることができた。
+
+対角化された基底 $\vec{a}$（これは2成分ベクトルではなく4成分ベクトルである）をどのように表現するかを知るため、$2 \times 2$ のブロック行列 $\hat{u}_{\vec{k}}$ と $\hat{v}_{\vec{k}}$ を用いて、$4 \times 4$ のボゴリューボフ変換行列 $\hat{U}$ を定義する。
+
+\begin{eqnarray}
+	\vec{c}_{\vec{k}}
+	&=&
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[3mm]
+			\hat{v}_{- \vec{k}}^{*} & \hat{u}_{- \vec{k}}
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{c}
+			a_{\vec{k} \uparrow}            \\[2mm]
+			a_{\vec{k} \downarrow}          \\[2mm]
+			a^{\dagger}_{-\vec{k} \uparrow} \\[2mm]
+			a^{\dagger}_{-\vec{k} \downarrow}
+		\end{array}
+	\right)
+	\ \ = \ \
+	\hat{U}
+	\vec{a}_{\vec{k}}
+\end{eqnarray}
+%
+\ \\[-10mm]
+
+\begin{eqnarray}
+	H
+	&=&
+	\dfrac{1}{2}
+	\sum_{\vec{k}}
+	\vec{c}^{\ \dagger}_{\vec{k}}
+	\
+	\hat{H}
+	\
+	\vec{c}_{\vec{k}}
+	\ = \
+	\dfrac{1}{2}
+	\sum_{\vec{k}}
+	\vec{a}^{\ \dagger}_{\vec{k}}
+	\
+	\hat{U}^{\dagger}
+	\
+	\hat{H}
+	\
+	\hat{U}
+	\
+	\vec{a}_{\vec{k}}
+	\ = \
+	\dfrac{1}{2}
+	\sum_{\vec{k}}
+	\vec{a}^{\ \dagger}_{\vec{k}}
+	\left(
+	\begin{array}{cccc}
+			E_{\vec{k}} & 0           & 0             & 0
+			\\[3mm]
+			0           & E_{\vec{k}} & 0             & 0
+			\\[3mm]
+			0           & 0           & - E_{\vec{k}} & 0
+			\\[3mm]
+			0           & 0           & 0             & - E_{\vec{k}}
+		\end{array}
+	\right)
+	\vec{a}_{\vec{k}}
+	.
+\end{eqnarray}
+%
+この時点では、$2 \times 2$ のブロック行列 $\hat{u}_{\vec{k}}$ と $\hat{v}_{\vec{k}}$ は未知である。
+
+\begin{eqnarray}
+	\left(
+	\begin{array}{cc}
+		\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[2mm]
+		\hat{v}_{- \vec{k}}^{*} & \hat{u}_{-\vec{k}}
+	\end{array}
+	\right)^{\dagger}
+	\!\!\!
+	\left(
+	\begin{array}{cc}
+			\xi_{\vec{k}} \hat{1}_{2 \times 2} & \hat{\Delta}_{\vec{k}}               \\[2mm]
+			\hat{\Delta}^{*}_{\vec{k}}         & - \xi_{\vec{k}} \hat{1}_{2 \times 2}
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[2mm]
+			\hat{v}_{- \vec{k}}^{*} & \hat{u}_{-\vec{k}}
+		\end{array}
+	\right)
+	&=&
+	\left(
+	\begin{array}{cc}
+			E_{\vec{k}} \hat{1}_{2 \times 2} & 0                                  \\[2mm]
+			0                                & - E_{\vec{k}} \hat{1}_{2 \times 2}
+		\end{array}
+	\right)
+	\\[2mm]
+	\left(
+	\begin{array}{cc}
+			\xi_{\vec{k}} \hat{1}_{2 \times 2} & \hat{\Delta}_{\vec{k}}               \\[2mm]
+			\hat{\Delta}^{*}_{\vec{k}}         & - \xi_{\vec{k}} \hat{1}_{2 \times 2}
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[2mm]
+			\hat{v}_{- \vec{k}}^{*} & \hat{u}_{-\vec{k}}
+		\end{array}
+	\right)
+	&=&
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[2mm]
+			\hat{v}_{- \vec{k}}^{*} & \hat{u}_{-\vec{k}}
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{cc}
+			E_{\vec{k}} \hat{1}_{2 \times 2} & 0                                  \\[2mm]
+			0                                & - E_{\vec{k}} \hat{1}_{2 \times 2}
+		\end{array}
+	\right)
+	\hspace{10mm}
+\end{eqnarray}
+%
+この手順が許されるのは、$\hat{U}$ がユニタリー（$\hat{U}^{\dagger} = \hat{U}^{-1}$）だからである。
+ただちに、行列 $\hat{u}_{\vec{k}}$ と $\hat{v}_{\vec{k}}$ に対するいくつかの拘束条件が得られる。
+
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rccl}
+		\hat{u}_{\vec{k}}
+		 & =                                      &
+		\dfrac{ \hat{\Delta}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} }
+		\hat{v}_{-\vec{k}}^{*}
+		 & \hspace{10mm} \cdots \ \ (1,1,{\rm A})
+		\\[5mm]
+		\hat{v}_{\vec{k}}
+		 & =                                      &
+		\dfrac{ \hat{\Delta}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{-\vec{k}}
+		 & \hspace{10mm} \cdots \ \ (1,2,{\rm A})
+		\\[5mm]
+		\hat{v}_{-\vec{k}}^{*}
+		 & =                                      &
+		\dfrac{ \hat{\Delta}^{*}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{\vec{k}}
+		 & \hspace{10mm} \cdots \ \ (2,1,{\rm A})
+		\\[5mm]
+		\hat{u}_{-\vec{k}}
+		 & =                                      &
+		\dfrac{ \hat{\Delta}^{*}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} } \hat{v}_{\vec{k}}
+		 & \hspace{10mm} \cdots \ \ (2,2,{\rm A})
+	\end{array}
+	\right.
+\end{eqnarray}
+%
+%%%%
+%%%%
+\if0
+	%%%%
+	%%%
+	%
+	\begin{eqnarray}
+		\left(
+		\begin{array}{cc}
+				\hat{u}_{-\vec{k}}        & \hat{v}_{\vec{k}} \\[2mm]
+				- \hat{v}_{- \vec{k}}^{*} & \hat{u}_{\vec{k}}
+			\end{array}
+		\right)
+		\!\!\!
+		\left(
+		\begin{array}{cc}
+				\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[2mm]
+				\hat{v}_{- \vec{k}}^{*} & \hat{u}_{-\vec{k}}
+			\end{array}
+		\right)
+		\ \ = \ \
+		\hat{1}_{4 \times 4}
+		.
+	\end{eqnarray}
+	%
+	Each components have these relations as follows,
+
+	\begin{eqnarray}
+		\left\{
+		\begin{array}{rccl}
+			\hat{u}_{-\vec{k}} \hat{v}_{\vec{k}}
+			 & =                                      &
+			\hat{v}_{\vec{k}} \hat{u}_{-\vec{k}}
+			 & \hspace{10mm} \cdots \ \ (1,2,{\rm B})
+			\\[2mm]
+			\hat{v}_{-\vec{k}}^{*} \hat{u}_{\vec{k}}
+			 & =                                      &
+			\hat{u}_{\vec{k}} \hat{v}_{-\vec{k}}^{*}
+			 & \hspace{10mm} \cdots \ \ (2,1,{\rm B})
+		\end{array}
+		\right.
+		,
+		\hspace{10mm}
+		\left\{
+		\begin{array}{rccl}
+			\hat{u}_{-\vec{k}} \hat{u}_{\vec{k}} + \hat{v}_{\vec{k}} \hat{v}_{-\vec{k}}^{*}
+			 & =                                      &
+			\hat{1}_{2 \times 2}
+			 & \hspace{10mm} \cdots \ \ (1,1,{\rm B})
+			\\[2mm]
+			- \hat{v}_{-\vec{k}}^{*} \hat{v}_{\vec{k}} + \hat{u}_{\vec{k}} \hat{u}_{-\vec{k}}
+			 & =                                      &
+			\hat{1}_{2 \times 2}
+			 & \hspace{10mm} \cdots \ \ (2,2,{\rm B})
+		\end{array}
+		\right.
+	\end{eqnarray}
+	%
+	First, we use the (1,2,B)-component,
+
+	\begin{eqnarray}
+		\begin{array}{rcrcl}
+			 &   &
+			\hat{u}_{-\vec{k}} \hat{v}_{\vec{k}}
+			 & = &
+			\hat{v}_{\vec{k}} \hat{u}_{-\vec{k}}
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			\Big( - \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} } \hat{v}_{\vec{k}} \Big)
+			\hat{v}_{\vec{k}}
+			 & = &
+			\hat{v}_{\vec{k}}
+			\Big( - \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} } \hat{v}_{\vec{k}} \Big)
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			\hat{\Delta}^{\dagger}_{\vec{k}} \hat{v}_{\vec{k}}
+			 & = &
+			\hat{v}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}}
+		\end{array}
+		\\[-5mm]
+	\end{eqnarray}
+	%
+	Second, (2,1,B)-component is a commutation relation,
+
+	\begin{eqnarray}
+		\begin{array}{rcrcl}
+			 &   &
+			\hat{v}_{-\vec{k}}^{*} \hat{u}_{\vec{k}}
+			 & = &
+			\hat{u}_{\vec{k}} \hat{v}_{-\vec{k}}^{*}
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			\Big( \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{\vec{k}} \Big)
+			\hat{u}_{\vec{k}}
+			 & = &
+			\hat{u}_{\vec{k}}
+			\Big( \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{\vec{k}} \Big)
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			\hat{\Delta}^{\dagger}_{\vec{k}} \hat{u}_{\vec{k}}
+			 & = &
+			\hat{u}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}}
+		\end{array}
+		\\[-5mm]
+	\end{eqnarray}
+	%
+	Therefore we can find the relations
+
+	\begin{eqnarray}
+		\hat{u}_{\vec{k}}
+		\ \ = \ \
+		\dfrac{ \hat{\Delta}_{\vec{k}} \hat{u}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} }{ \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] }
+		\ \ = \ \
+		\dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} \hat{u}_{\vec{k}} \hat{\Delta}_{\vec{k}} }{ \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] }
+		\\[5mm]
+		\hat{v}_{\vec{k}}
+		\ \ = \ \
+		\dfrac{ \hat{\Delta}_{\vec{k}} \hat{v}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} }{ \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] }
+		\ \ = \ \
+		\dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} \hat{v}_{\vec{k}} \hat{\Delta}_{\vec{k}} }{ \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] }
+	\end{eqnarray}
+	%If $\hat{u}_{\vec{k}}$、$\hat{v}_{\vec{k}}$ are invertible,
+	we can see
+
+	\begin{eqnarray}
+		\begin{array}{rcrcl}
+			 &   &
+			\hat{u}_{-\vec{k}} \hat{u}_{\vec{k}} - \hat{v}_{\vec{k}} \hat{v}_{-\vec{k}}^{*}
+			 & = &
+			\hat{1}_{2 \times 2}
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			\Big( - \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} } \hat{v}_{\vec{k}} \Big)
+			\hat{u}_{\vec{k}}
+			-
+			\hat{v}_{\vec{k}}
+			\Big( \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{\vec{k}} \Big)
+			 & = &
+			\hat{1}_{2 \times 2}
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			\Big(
+			- \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} } \hat{v}_{\vec{k}}
+			-
+			\hat{v}_{\vec{k}}
+			\dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} }
+			\Big)
+			\hat{u}_{\vec{k}}
+			 & = &
+			\hat{1}_{2 \times 2}
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			{\hat{u}_{\vec{k}}}^{-1}
+			 & = &
+			- \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} } \hat{v}_{\vec{k}}
+			-
+			\hat{v}_{\vec{k}}
+			\dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} }
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			 & = &
+			- \hat{v}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}}
+			\Big(
+			\dfrac{ 1 }{ E_{\vec{k}} - \xi_{\vec{k}} }
+			+
+			\dfrac{ 1 }{ E_{\vec{k}} + \xi_{\vec{k}} }
+			\Big)
+		\end{array}
+	\end{eqnarray}
+	%
+	From (2,2,B)-component, ${\hat{v}_{\vec{k}}}^{-1}$ is also able to be
+
+	\begin{eqnarray}
+		\begin{array}{rcrcl}
+			 &   &
+			- \hat{v}_{-\vec{k}}^{*} \hat{v}_{\vec{k}} + \hat{u}_{\vec{k}} \hat{u}_{-\vec{k}}
+			 & = &
+			\hat{1}_{2 \times 2}
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			- \Big( \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{\vec{k}} \Big)
+			\hat{v}_{\vec{k}}
+			+
+			\hat{u}_{\vec{k}}
+			\Big( - \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} } \hat{v}_{\vec{k}} \Big)
+			 & = &
+			\hat{1}_{2 \times 2}
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			\Big( - \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{\vec{k}}
+			-
+			\hat{u}_{\vec{k}}
+			\dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} } \Big)
+			\hat{v}_{\vec{k}}
+			 & = &
+			\hat{1}_{2 \times 2}
+			\nonumber \\[4mm] &\longleftrightarrow& \hspace{8mm}
+			{\hat{v}_{\vec{k}}}^{-1}
+			 & = &
+			- \dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{\vec{k}}
+			-
+			\hat{u}_{\vec{k}}
+			\dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} }
+			\nonumber \\[7mm] &&
+			 & = &
+			- \hat{u}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}}
+			\Big(
+			\dfrac{ 1 }{ E_{\vec{k}} + \xi_{\vec{k}} }
+			+
+			\dfrac{ 1 }{ E_{\vec{k}} - \xi_{\vec{k}} }
+			\Big)
+		\end{array}
+		\\[-7mm]
+	\end{eqnarray}
+	%
+	It's put it all together, we can find the relation
+
+	\begin{eqnarray}
+		\left\{
+		\begin{array}{rcl}
+			{\hat{u}_{\vec{k}}}^{-1}
+			 & = &
+			- \hat{v}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}}
+			\dfrac{ 2 E_{\vec{k}} }{ \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] }
+			\\[7mm]
+			{\hat{v}_{\vec{k}}}^{-1}
+			 & = &
+			- \hat{u}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}}
+			\dfrac{ 2 E_{\vec{k}} }{ \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] }
+		\end{array}
+		\right.
+	\end{eqnarray}
+	%
+	%%%%
+	%%%%
+\fi
+%%%%
+%%%%
+これらの関係は、もし $\hat{u}_{\vec{k}}$（あるいは $\hat{v}_{\vec{k}}$）が単位行列 $\hat{1}_{2 \times 2}$ に比例するならば、
+$\hat{v}_{\vec{k}}$（あるいは $\hat{u}_{\vec{k}}$）は $\hat{\Delta}_{\vec{k}}$ に比例することを示している。
+ここでは、$\hat{u}_{\vec{k}} \propto \hat{1}_{2 \times 2}$ という条件を選ぶことにしよう。
+
+\begin{eqnarray}
+	\hat{u}_{\vec{k}}
+	\ \ = \ \
+	\dfrac{ \hat{1}_{2 \times 2} }{ f(\vec{k}) }
+	\ ,
+	\hspace{10mm}
+	\hat{u}_{\vec{k}}^{-1}
+	\ \ = \ \
+	f({\vec{k}}) \hat{1}_{2 \times 2}
+\end{eqnarray}
+%
+このとき、$f(\vec{k})$ は未知の関数である。
+いかにして関数 $f(\vec{k})$ の表現を得るか、という問題に行き着いた。
+
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rccll}
+		\hat{v}_{\vec{k}}
+		 & =                   &
+		\dfrac{ \hat{\Delta}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{-\vec{k}}
+		 &
+		= \ \
+		\dfrac{ \hat{\Delta}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \cdot \dfrac{1}{f(-\vec{k})}
+		\\[5mm]
+		\hat{u}_{-\vec{k}}
+		 & =                   &
+		\dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} } \hat{v}_{\vec{k}}
+		 &
+		= \ \
+		\dfrac{ \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] }{ E^{2}_{\vec{k}} - \xi^{2}_{\vec{k}} } \cdot \dfrac{1}{f(-\vec{k})}
+		\hat{1}_{2 \times 2}
+		\ \ = \ \
+		\dfrac{ \hat{1}_{2 \times 2} }{ f(-\vec{k}) }
+		 & \ \ \ \cdots \ （自明）
+		\\[5mm]
+		\hat{v}_{-\vec{k}}^{*}
+		 & =                   &
+		\dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \hat{u}_{\vec{k}}
+		 &
+		= \ \
+		\dfrac{ \hat{\Delta}^{\dagger}_{\vec{k}} }{ E_{\vec{k}} + \xi_{\vec{k}} } \cdot \dfrac{1}{f(\vec{k})}
+		\\[5mm]
+		\hat{u}_{\vec{k}}
+		 & =                   &
+		\dfrac{ \hat{\Delta}_{\vec{k}} }{ E_{\vec{k}} - \xi_{\vec{k}} }
+		\hat{v}_{-\vec{k}}^{*}
+		 &
+		= \ \
+		\dfrac{ \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] }{ E^{2}_{\vec{k}} - \xi^{2}_{\vec{k}} } \cdot \dfrac{1}{f(\vec{k})}
+		\hat{1}_{2 \times 2}
+		\ \ = \ \
+		\dfrac{ \hat{1}_{2 \times 2} }{ f(\vec{k}) }
+		 & \ \ \ \cdots \ （自明）
+	\end{array}
+	\right.
+\end{eqnarray}
+%
+これらの拘束条件に加えて、$\hat{U}$ に対するユニタリー条件は次のように記述できる。
+
+\begin{eqnarray}
+	1
+	\ = \
+	\left|
+	{\rm det}
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[2mm]
+			\hat{v}_{- \vec{k}}^{*} & \hat{u}_{-\vec{k}}
+		\end{array}
+	\right)
+	\right|
+	&=&
+	\left|
+	{\rm det} \Big( \hat{u}_{\vec{k}} \Big)
+	\
+	{\rm det} \Big[ \hat{u}_{- \vec{k}} - \hat{v}_{- \vec{k}}^{*} \hat{u}_{\vec{k}}^{-1} ( - \hat{v}_{\vec{k}} ) \Big]
+	\right|
+	\nonumber \\[2mm]
+	\longleftrightarrow
+	\hspace{10mm}
+	\Big|
+	{\rm det} \Big( \hat{u}_{\vec{k}} \Big) {\rm det} \Big( \hat{u}_{- \vec{k}} \Big)
+	+
+	{\rm det} \Big( \hat{v}_{\vec{k}} \Big) {\rm det} \Big( \hat{v}_{- \vec{k}}^{*} \Big)
+	\Big|
+	&=&
+	1
+	,
+\end{eqnarray}
+%
+これは次の関係を導く。
+
+\begin{eqnarray}
+	1
+	&=&
+	\Big|
+	{\rm det} \Big( \hat{u}_{\vec{k}} \Big) {\rm det} \Big( \hat{u}_{- \vec{k}} \Big)
+	+
+	{\rm det} \Big( \hat{v}_{\vec{k}} \Big) {\rm det} \Big( \hat{v}_{- \vec{k}}^{*} \Big)
+	\Big|
+	\nonumber \\[2mm] \longleftrightarrow \hspace{9mm}
+	\Big| f(\vec{k})f(-\vec{k}) \Big|
+	&=&
+	1
+	+
+	\dfrac{
+		\dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big]
+	}
+	{
+		\Big( E_{\vec{k}} + \xi_{\vec{k}} \Big)^{2}
+	}
+\end{eqnarray}
+%
+したがって、$\hat{u}_{\vec{k}} = \hat{u}_{ - \vec{k} }$ のとき、次を得る。
+
+\begin{eqnarray}
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[2mm]
+			\hat{v}_{- \vec{k}}^{*} & \hat{u}_{-\vec{k}}
+		\end{array}
+	\right)
+	&=&
+	\dfrac{ 1 }{ \sqrt{ \big( E_{\vec{k}} + \xi_{\vec{k}} \big)^{2} + \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] } }
+	\left(
+	\begin{array}{cc}
+			( E_{\vec{k}} + \xi_{\vec{k}} ) \hat{1}_{2 \times 2} & - \hat{\Delta}_{\vec{k}}                             \\[2mm]
+			\hat{\Delta}_{\vec{k}}^{\dagger}                     & ( E_{\vec{k}} + \xi_{\vec{k}} ) \hat{1}_{2 \times 2}
+		\end{array}
+	\right)
+\end{eqnarray}
+%
+これがこの小節の目標（原文: gorl）である。
+
+この結果は、三重項の場合から一重項の場合に帰着できるだろうか？
+秩序パラメータの (2,1) 成分 $(\hat{\Delta}_{\vec{k}})_{\uparrow \downarrow} = d_{z} = \Delta$ を考えてみよう。
+
+\begin{eqnarray}
+	{(\hat{v}_{\vec{k}})_{\uparrow \downarrow}}^{2}
+	&=&
+	\dfrac{ \Delta^{2} }{ \big( E_{\vec{k}} + \xi_{\vec{k}} \big)^{2} + E_{\vec{k}}^{2} - \xi_{\vec{k}}^{2} }
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\left( 1 - \dfrac{\xi_{\vec{k}}}{E_{\vec{k}}} \right)
+\end{eqnarray}
+%
+この値は、前の小節で現れた一重項の場合の $v_{\vec{k}}$ と一致している。
+
+\section{（南部 $\!\! \otimes \!\!$ スピン）空間のグリーン関数}
+
+本節では、異方的（スピン依存）BCSモデルに対するグリーン関数を導出する。
+まず、運動方程式から出発する。
+\subsection{スピン一重項（従来のBCS）の場合}
+
+南部空間におけるグリーン関数（$2 \times 2$ 行列）を、今、次のように定義する。
+
+\begin{eqnarray}
+	i \hat{G}(k)
+	&=&
+	\int \! dx
+	\left\langle \hat{\rm T} \left[ \vec{c}_{\vec{k}}(x) \vec{c}_{\vec{k}}^{\ \dagger} \right] \right\rangle
+	e^{ i k \cdot x }
+	\ \ = \ \
+	\int \! dx
+	\left\langle \hat{\rm T} \left[
+		\left(
+		\!\!
+		\begin{array}{c}
+				c_{\vec{k} \uparrow}(x)
+				\\[3mm]
+				c_{-\vec{k} \downarrow}^{\dagger}(x)
+			\end{array}
+		\!\!
+		\right)
+		\left( c_{\vec{k} \uparrow}^{\dagger} \ \ , \ \ c_{-\vec{k} \downarrow} \right)
+		\right]
+	\right\rangle
+	e^{ i k \cdot x }
+	\nonumber \\[3mm] &=&
+	\int \! dx
+	\left\langle \hat{\rm T} \left[
+		\left(
+		\begin{array}{cc}
+			c_{\vec{k}\uparrow}(x) c_{\vec{k}\uparrow}^{\dagger}              & c_{\vec{k}\uparrow}(x) c_{-\vec{k}\downarrow}
+			\\[3mm]
+			c_{-\vec{k}\downarrow}^{\dagger}(x) c_{\vec{k}\uparrow}^{\dagger} & c_{-\vec{k}\downarrow}^{\dagger}(x) c_{-\vec{k}\downarrow}
+		\end{array}
+		\right)
+		\right] \right\rangle
+	e^{ i k \cdot x }
+	\ = \
+	i
+	\int \! dx
+	\left(
+	\begin{array}{cc}
+			G(x)       & F(x)
+			\\[3mm]
+			\bar{F}(x) & \bar{G}(x)
+		\end{array}
+	\right)
+	e^{ i k \cdot x }
+\end{eqnarray}
+%
+ここで $\hat{\rm T} \left[ \cdots \right]$ は時間順序積演算子である。
+$x^{\mu}=(t,\vec{r})$ および $k^{\mu}=(\omega,\vec{k})$
+（ i.e., $k \cdot x = g_{\mu \nu} k^{\mu} x^{\nu} = \omega t- \vec{k} \cdot \vec{r}$ ）
+は、簡略記法で書かれた4元運動量ベクトルである。
+これらの関数の遅延（retarded）部分も、次のように定義される。
+
+\begin{eqnarray}
+	i
+	\hat{G}^{R}(k)
+	&=&
+	\int \! dx
+	\left\langle
+	\left(
+	\begin{array}{cc}
+			\left\{ c_{\vec{k}\uparrow}(x), c_{\vec{k}\uparrow}^{\dagger} \right\}              & \left\{ c_{\vec{k}\uparrow}(x), c_{-\vec{k}\downarrow} \right\}
+			\\[3mm]
+			\left\{ c_{-\vec{k}\downarrow}^{\dagger}(x), c_{\vec{k}\uparrow}^{\dagger} \right\} & \left\{ c_{-\vec{k}\downarrow}^{\dagger}(x), c_{-\vec{k}\downarrow} \right\}
+		\end{array}
+	\right)
+	\right\rangle
+	e^{ i k \cdot x }
+	\ = \
+	i
+	\int \! dx
+	\left(
+	\begin{array}{cc}
+			G^{R}(x)       & F^{R}(x)
+			\\[3mm]
+			\bar{F}^{R}(x) & \bar{G}^{R}(x)
+		\end{array}
+	\right)
+	e^{ i k \cdot x }
+\end{eqnarray}
+%
+
+対角化された基底（準粒子） $a_{\vec{k} \sigma}^{(\dagger)}$
+（これはスピン添字 $\sigma=\uparrow,\downarrow$ によってベクトルとみなせる）に対する運動方程式は以下で得られる：
+
+\begin{eqnarray}
+	i \dfrac{d a_{\vec{k}\uparrow}(t)}{dt}
+	&=&
+	\left[ a_{\vec{k}\uparrow} , H \right]
+	\nonumber \\[2mm] &=&
+	\sum_{\vec{q}}
+	\left[ a_{\vec{k}\uparrow} , \vec{c}_{\vec{q}}^{\ \dagger} \hat{H} \vec{c}_{\vec{q}} \right]
+	\ \ = \ \
+	\sum_{\vec{q}}
+	\left[ a_{\vec{k}\uparrow} \ \ , \ \ \left( c_{\vec{q} \uparrow}^{\dagger} \ \ , \ \ c_{-\vec{q} \downarrow} \right)
+		\!\!\!
+		\left(
+		\begin{array}{cc}
+				\xi_{\vec{q}} & \Delta
+				\\[3mm]
+				\Delta^{*}    & - \xi_{\vec{q}}
+			\end{array}
+		\right)
+		\!\!\!
+		\left(
+		\!\!
+		\begin{array}{c}
+				c_{\vec{q} \uparrow}
+				\\[3mm]
+				c_{-\vec{q} \downarrow}^{\dagger}
+			\end{array}
+		\!\!
+		\right)
+		\right]
+	\nonumber \\[2mm] &=&
+	\sum_{\vec{q}}
+	\left[ a_{\vec{k}\uparrow} , \vec{a}_{\vec{q}}^{\ \dagger} \hat{U}^{\dagger} \hat{H} \hat{U} \vec{a}_{\vec{q}} \right]
+	\ \ = \ \
+	\sum_{\vec{q}}
+	\left[ a_{\vec{k}\uparrow} \ \ , \ \ \left( a_{\vec{q} \uparrow}^{\dagger} \ \ , \ \ a_{-\vec{q} \downarrow} \right)
+		\!\!\!
+		\left(
+		\begin{array}{cc}
+				E_{\vec{q}} & 0
+				\\[3mm]
+				0           & - E_{\vec{q}}
+			\end{array}
+		\right)
+		\!\!\!
+		\left(
+		\!\!
+		\begin{array}{c}
+				a_{\vec{q} \uparrow}
+				\\[3mm]
+				a_{-\vec{q} \downarrow}^{\dagger}
+			\end{array}
+		\!\!
+		\right)
+		\right]
+	\nonumber \\[2mm] &=&
+	\sum_{\vec{q}}
+	E_{\vec{q}}
+	\left[
+		a_{\vec{k}\uparrow}
+		\ \ , \ \
+		a_{\vec{q} \uparrow}^{\dagger} a_{\vec{q} \uparrow} - a_{-\vec{q} \downarrow} a_{-\vec{q} \downarrow}^{\dagger}
+		\right]
+	\nonumber \\[2mm] &=&
+	\sum_{\vec{q}}
+	E_{\vec{q}}
+	\left(
+	\left\{ a_{\vec{k}\uparrow} \ , \ a_{\vec{q} \uparrow}^{\dagger} \right\} a_{\vec{q} \uparrow}
+	-
+	a_{\vec{q} \uparrow}^{\dagger} \left\{ a_{\vec{k}\uparrow} \ , \ a_{\vec{q} \uparrow} \right\}
+	-
+	\left\{ a_{\vec{k}\uparrow} \ , \ a_{-\vec{q} \downarrow} \right\} a_{-\vec{q} \downarrow}^{\dagger}
+	+
+	a_{-\vec{q} \downarrow}  \left\{ a_{\vec{k}\uparrow} \ , \ a_{-\vec{q} \downarrow}^{\dagger} \right\}
+	\right)
+	\nonumber \\[2mm] &=&
+	E_{\vec{k}}
+	a_{\vec{k} \uparrow}
+\end{eqnarray}
+%
+これを積分すると、
+
+\begin{eqnarray}
+	a_{\vec{k} \uparrow}(t)
+	&=&
+	e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}(0)
+\end{eqnarray}
+%
+同様にして、$a_{-\vec{k} \downarrow}^{\dagger}$ に対する方程式を得る。
+
+\begin{eqnarray}
+	i \dfrac{d a_{-\vec{k} \downarrow}^{\dagger} }{dt}
+	&=&
+	\left[ a_{-\vec{k} \downarrow}^{\dagger} , H \right]
+	\ = \
+	-
+	E_{\vec{k}}
+	a_{-\vec{k} \downarrow}^{\dagger}
+\end{eqnarray}
+%
+そして、
+
+\begin{eqnarray}
+	a_{-\vec{k} \downarrow}^{\dagger}(t)
+	&=&
+	e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}(0)
+\end{eqnarray}
+%
+
+スピノル $\vec{c}$ と $\vec{a}$ の間の関係は以下で与えられる。
+
+\begin{eqnarray}
+	c_{\vec{k} \uparrow}(t)
+	&=&
+	u_{\vec{k}} a_{\vec{k} \uparrow}(t)
+	-
+	v_{\vec{k}} a_{- \vec{k} \downarrow}^{\dagger}(t)
+	\nonumber \\[2mm]
+	&=&
+	u_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	-
+	v_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\\[5mm]
+	c_{- \vec{k} \downarrow}^{\dagger}(t)
+	&=&
+	u_{\vec{k}} a_{- \vec{k} \downarrow}^{\dagger}(t)
+	+
+	v_{\vec{k}} a_{\vec{k} \uparrow}(t)
+	\nonumber \\[2mm]
+	&=&
+	u_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	+
+	v_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+\end{eqnarray}
+%
+
+(1,1) 成分の遅延グリーン関数は、以下のように明らかになる。
+
+\begin{eqnarray}
+	&&
+	i
+	G_{\vec{k}}^{R}(t)
+	\ \ = \ \
+	\theta(t)
+	\left\langle \left\{
+	c_{\vec{k} \uparrow}(t), c_{\vec{k} \uparrow}^{\dagger}
+	\right\} \right\rangle
+	\ \ = \ \
+	\theta(t)
+	\Big[
+		\left\langle
+		c_{\vec{k} \uparrow}(t) c_{\vec{k} \uparrow}^{\dagger}
+		\right\rangle
+		+
+		\left\langle
+		c_{\vec{k} \uparrow}^{\dagger} c_{\vec{k} \uparrow}(t)
+		\right\rangle
+		\Big]
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left\langle
+	\left(
+	u_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	-
+	v_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}} a_{\vec{k} \uparrow}^{\dagger}
+	-
+	v_{\vec{k}} a_{- \vec{k} \downarrow}
+	\right)
+	\right\rangle
+	\nonumber
+	\\[2mm]
+	&&
+	\hspace{3mm}
+	+
+	\theta(t)
+	\left\langle
+	\left(
+	u_{\vec{k}} a_{\vec{k} \uparrow}^{\dagger}
+	-
+	v_{\vec{k}} a_{- \vec{k} \downarrow}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	-
+	v_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right)
+	\right\rangle
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left\langle
+	u_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	a_{\vec{k} \uparrow}^{\dagger}
+	-
+	u_{\vec{k}}
+	v_{\vec{k}}
+	e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	a_{-\vec{k} \downarrow}
+	-
+	u_{\vec{k}}
+	v_{\vec{k}}
+	e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	a_{\vec{k} \uparrow}^{\dagger}
+	+
+	v_{\vec{k}}^{2}
+	e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	a_{-\vec{k} \downarrow}
+	\right\rangle
+	\nonumber
+	\\[2mm]
+	&&
+	\hspace{3mm}
+	+
+	\theta(t)
+	\left\langle
+	u_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{\vec{k} \uparrow}
+	-
+	u_{\vec{k}}
+	v_{\vec{k}}
+	e^{ i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{-\vec{k} \downarrow}^{\dagger}
+	-
+	u_{\vec{k}}
+	v_{\vec{k}}
+	e^{ - i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}
+	a_{\vec{k} \uparrow}
+	+
+	v_{\vec{k}}^{2}
+	e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left(
+	u_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	+
+	v_{\vec{k}}^{2}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}^{\dagger}
+	a_{-\vec{k} \downarrow}
+	\right\rangle
+	+
+	u_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{\vec{k} \uparrow}
+	\right\rangle
+	+
+	v_{\vec{k}}^{2}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right)
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\nonumber \\ && \times
+	\left[
+		u_{\vec{k}}^{2}
+		e^{ - i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		+
+		v_{\vec{k}}^{2}
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		\right.
+		\nonumber \\ && +
+		\left.
+		u_{\vec{k}}^{2}
+		e^{ - i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		+
+		v_{\vec{k}}^{2}
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		\right]
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left(
+	u_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	+
+	v_{\vec{k}}^{2}
+	e^{ i E_{\vec{k}} t }
+	\right)
+\end{eqnarray}
+%
+あるいは、フーリエ空間では、
+
+\begin{eqnarray}
+	&&
+	G^{R}(k)
+	\ = \
+	\int \! dt \
+	G^{R}_{\vec{k}}(t)
+	e^{i \omega t}
+	\nonumber \\ &=&
+	-
+	i
+	\lim_{\eta \to +0}
+	\int^{\infty}_{0} \!\! dt \
+	\left(
+	u_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	+
+	v_{\vec{k}}^{2}
+	e^{ i E_{\vec{k}} t }
+	\right)
+	e^{i \omega t - \eta t}
+	\nonumber \\ &=&
+	\lim_{\eta \to +0}
+	\left(
+	\dfrac{u_{\vec{k}}^{2}}{ \omega - E_{\vec{k}} + i \eta }
+	+
+	\dfrac{v_{\vec{k}}^{2}}{ \omega + E_{\vec{k}} + i \eta }
+	\right)
+	.
+\end{eqnarray}
+%
+虚数部は状態密度に関連している。
+
+\begin{eqnarray}
+	&&
+	- \dfrac{ 1 }{ \pi }
+	\sum_{\vec{k}}
+	{\rm Im} G^{R}(k)
+	\nonumber \\ &=&
+	-
+	\dfrac{1}{\pi}
+	\lim_{\eta \to +0}
+	\sum_{\vec{k}}
+	\left(
+	{\rm Im}
+	\dfrac{u_{\vec{k}}^{2}}{ \omega - E_{\vec{k}} + i \eta }
+	+
+	{\rm Im}
+	\dfrac{v_{\vec{k}}^{2}}{ \omega + E_{\vec{k}} + i \eta }
+	\right)
+	\nonumber \\ &=&
+	\sum_{\vec{k}}
+	\left[
+		u_{\vec{k}}^{2}
+		\delta( \omega - E_{\vec{k}} )
+		+
+		v_{\vec{k}}^{2}
+		\delta( \omega + E_{\vec{k}} )
+		\right]
+\end{eqnarray}
+%
+遅延部分の $(1,2)$ 成分 $F^{R}(k)$ も同様に与えられる。
+
+\begin{eqnarray}
+	&&
+	i
+	F_{\vec{k}}^{R}(t)
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left\langle \left\{
+	c_{\vec{k} \uparrow}(t), c_{-\vec{k} \downarrow}
+	\right\} \right\rangle
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\Big[
+		\left\langle
+		c_{\vec{k} \uparrow}(t) c_{-\vec{k} \downarrow}
+		\right\rangle
+		+
+		\left\langle
+		c_{-\vec{k} \downarrow} c_{\vec{k} \uparrow}(t)
+		\right\rangle
+		\Big]
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left\langle
+	\left(
+	u_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	-
+	v_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}} a_{-\vec{k} \downarrow}
+	+
+	v_{\vec{k}} a_{\vec{k} \uparrow}^{\dagger}
+	\right)
+	\right\rangle
+	\nonumber \\ && \hspace{5mm} +
+	\theta(t)
+	\left\langle
+	\left(
+	u_{\vec{k}} a_{-\vec{k} \downarrow}
+	+
+	v_{\vec{k}} a_{\vec{k} \uparrow}^{\dagger}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	-
+	v_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right)
+	\right\rangle
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	u_{\vec{k}}
+	v_{\vec{k}}
+	\left(
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	-
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}^{\dagger}
+	a_{-\vec{k} \downarrow}
+	\right\rangle
+	+
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{\vec{k} \uparrow}
+	\right\rangle
+	-
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right)
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	u_{\vec{k}}
+	v_{\vec{k}}
+	\left[
+		e^{ - i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		-
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		\right.
+		\nonumber \\ && \hspace{5mm} +
+		\left.
+		e^{ - i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		-
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		\right]
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	u_{\vec{k}}
+	v_{\vec{k}}
+	\left(
+	e^{ - i E_{\vec{k}} t }
+	-
+	e^{ i E_{\vec{k}} t }
+	\right)
+	,
+\end{eqnarray}
+
+\begin{eqnarray}
+	&&
+	F^{R}(k)
+	\ \ = \ \
+	- i
+	u_{\vec{k}}
+	v_{\vec{k}}
+	\lim_{\eta \to +0}
+	\int^{\infty}_{0} \!\! dt \
+	\left(
+	e^{ i E_{\vec{k}} t }
+	-
+	e^{ - i E_{\vec{k}} t }
+	\right)
+	e^{i \omega t - \eta t}
+	\nonumber \\ &=&
+	-
+	u_{\vec{k}} v_{\vec{k}}
+	\lim_{\eta \to +0}
+	\left(
+	\dfrac{1}{\omega - E_{\vec{k}} + i \eta }
+	-
+	\dfrac{1}{\omega + E_{\vec{k}} + i \eta }
+	\right)
+	,
+\end{eqnarray}
+
+異常グリーン関数に対応する状態密度は
+
+\begin{eqnarray}
+	&&
+	-
+	\dfrac{ 1 }{ \pi }
+	\sum_{\vec{k}}
+	{\rm Im} F^{R}(k)
+	\nonumber \\ &=&
+	\dfrac{ 1 }{ \pi }
+	\lim_{\eta \to +0}
+	\sum_{\vec{k}}
+	u_{\vec{k}} v_{\vec{k}}
+	\left(
+	{\rm Im}
+	\dfrac{1}{\omega - E_{\vec{k}} + i \eta }
+	-
+	{\rm Im}
+	\dfrac{1}{\omega + E_{\vec{k}} + i \eta }
+	\right)
+	\nonumber \\ &=&
+	\sum_{\vec{k}}
+	u_{\vec{k}} v_{\vec{k}}
+	\big[
+		\delta( \omega + E_{\vec{k}} )
+		-
+		\delta( \omega - E_{\vec{k}} )
+		\big]
+	.
+	\nonumber \\
+\end{eqnarray}
+
+
+遅延部分の $(2,1)$ 成分 $\bar{F}^{R}(k)$ は、遅延部分の $(1,2)$ 成分 $F^{R}(k)$ に等しい。
+
+\begin{eqnarray}
+	&&
+	i
+	\bar{F}_{\vec{k}}^{R}(t)
+	\ \ = \ \
+	\theta(t)
+	\left\langle \left\{
+	c_{-\vec{k} \downarrow}^{\dagger}(t), c_{\vec{k} \uparrow}^{\dagger}
+	\right\} \right\rangle
+	\ \ = \ \
+	\theta(t)
+	\Big[
+		\left\langle
+		c_{-\vec{k} \downarrow}^{\dagger}(t) c_{\vec{k} \uparrow}^{\dagger}
+		\right\rangle
+		+
+		\left\langle
+		c_{\vec{k} \uparrow}^{\dagger} c_{-\vec{k} \downarrow}^{\dagger}(t)
+		\right\rangle
+		\Big]
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left\langle
+	\left(
+	u_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	+
+	v_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}} a_{\vec{k} \uparrow}^{\dagger}
+	-
+	v_{\vec{k}} a_{-\vec{k} \downarrow}
+	\right)
+	\right\rangle
+	\nonumber \\ && \hspace{5mm} +
+	\theta(t)
+	\left\langle
+	\left(
+	u_{\vec{k}} a_{\vec{k} \uparrow}^{\dagger}
+	-
+	v_{\vec{k}} a_{-\vec{k} \downarrow}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	+
+	v_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	\right)
+	\right\rangle
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	u_{\vec{k}}
+	v_{\vec{k}}
+	\left(
+	-
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}^{\dagger}
+	a_{-\vec{k} \downarrow}
+	\right\rangle
+	+
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	+
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{\vec{k} \uparrow}
+	\right\rangle
+	-
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right)
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	u_{\vec{k}}
+	v_{\vec{k}}
+	\left[
+		-
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		+
+		e^{ - i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		\right.
+		\nonumber \\ && \hspace{5mm} +
+		\left.
+		e^{ - i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		-
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		\right]
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	u_{\vec{k}}
+	v_{\vec{k}}
+	\left(
+	-
+	e^{ i E_{\vec{k}} t }
+	+
+	e^{ - i E_{\vec{k}} t }
+	\right)
+	\nonumber \\[4mm] &=&
+	i
+	F_{\vec{k}}^{R}(t)
+\end{eqnarray}
+
+
+遅延部分の $(2,2)$ 成分 $\bar{G}^{R}(k)$ もまた $G^{R}(k)$ に等しい。
+
+\begin{eqnarray}
+	&&
+	i
+	\bar{G}_{\vec{k}}^{R}(t)
+	\ \ = \ \
+	\theta(t)
+	\left\langle \left\{
+	c_{-\vec{k} \downarrow}^{\dagger}(t), c_{-\vec{k} \downarrow}
+	\right\} \right\rangle
+	\ \ = \ \
+	\theta(t)
+	\Big[
+		\left\langle
+		c_{-\vec{k} \downarrow}^{\dagger}(t) c_{-\vec{k} \downarrow}
+		\right\rangle
+		+
+		\left\langle
+		c_{-\vec{k} \downarrow} c_{-\vec{k} \downarrow}^{\dagger}(t)
+		\right\rangle
+		\Big]
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left\langle
+	\left(
+	u_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	+
+	v_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}}
+	a_{-\vec{k} \downarrow}
+	+
+	v_{\vec{k}}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right)
+	\right\rangle
+	\nonumber \\ && \hspace{5mm} +
+	\theta(t)
+	\left\langle
+	\left(
+	u_{\vec{k}}
+	a_{-\vec{k} \downarrow}
+	+
+	v_{\vec{k}}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}} e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}
+	+
+	v_{\vec{k}} e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}
+	\right)
+	\right\rangle
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left(
+	u_{\vec{k}}^{2}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}^{\dagger}
+	a_{-\vec{k} \downarrow}
+	\right\rangle
+	+
+	v_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	\right.
+	\nonumber \\ && \hspace{5mm} +
+	\left.
+	u_{\vec{k}}^{2}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	+
+	v_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{\vec{k} \uparrow}
+	\right\rangle
+	\right)
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left[
+		u_{\vec{k}}^{2}
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		+
+		v_{\vec{k}}^{2}
+		e^{ - i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		\right.
+		\nonumber \\ && \hspace{5mm} +
+		\left.
+		u_{\vec{k}}^{2}
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		+
+		v_{\vec{k}}^{2}
+		e^{ - i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		\right]
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left(
+	u_{\vec{k}}^{2}
+	e^{ i E_{\vec{k}} t }
+	+
+	v_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	\right)
+	\nonumber \\[4mm] &=&
+	i
+	G_{\vec{k}}^{R}(t)
+\end{eqnarray}
+
+
+最終的に、$\hat{G}^{R}$ を既知の値で表す式にたどり着く。
+
+\begin{eqnarray}
+	i
+	\left(
+	\begin{array}{cc}
+			G^{R}_{\vec{k}}(t)       & F^{R}_{\vec{k}}(t)
+			\\[3mm]
+			\bar{F}^{R}_{\vec{k}}(t) & \bar{G}^{R}_{\vec{k}}(t)
+		\end{array}
+	\right)
+	&=&
+	\theta(t)
+	\left(
+	\begin{array}{cc}
+			u_{\vec{k}}^{2}
+			e^{ i E_{\vec{k}} t }
+			+
+			v_{\vec{k}}^{2}
+			e^{ - i E_{\vec{k}} t }
+			 &
+			-
+			u_{\vec{k}}
+			v_{\vec{k}}
+			\left(
+			e^{ i E_{\vec{k}} t }
+			-
+			e^{ - i E_{\vec{k}} t }
+			\right)
+			\\[3mm]
+			-
+			u_{\vec{k}}
+			v_{\vec{k}}
+			\left(
+			e^{ i E_{\vec{k}} t }
+			-
+			e^{ - i E_{\vec{k}} t }
+			\right)
+			 &
+			u_{\vec{k}}^{2}
+			e^{ i E_{\vec{k}} t }
+			+
+			v_{\vec{k}}^{2}
+			e^{ - i E_{\vec{k}} t }
+		\end{array}
+	\right)
+	\\[4mm]
+	\left(
+	\begin{array}{cc}
+			G^{R}(k)       & F^{R}(k)
+			\\[3mm]
+			\bar{F}^{R}(k) & \bar{G}^{R}(k)
+		\end{array}
+	\right)
+	&=&
+	\lim_{\eta \to +0}
+	\left(
+	\begin{array}{cc}
+			\dfrac{u_{\vec{k}}^{2}}{ \omega - E_{\vec{k}} + i \eta }
+			+
+			\dfrac{v_{\vec{k}}^{2}}{ \omega + E_{\vec{k}} + i \eta }
+			 &
+			-
+			u_{\vec{k}} v_{\vec{k}}
+			\left(
+			\dfrac{1}{\omega - E_{\vec{k}} + i \eta }
+			-
+			\dfrac{1}{\omega + E_{\vec{k}} + i \eta }
+			\right)
+			\\[3mm]
+			-
+			u_{\vec{k}} v_{\vec{k}}
+			\left(
+			\dfrac{1}{\omega - E_{\vec{k}} + i \eta }
+			-
+			\dfrac{1}{\omega + E_{\vec{k}} + i \eta }
+			\right)
+			 &
+			\dfrac{u_{\vec{k}}^{2}}{ \omega - E_{\vec{k}} + i \eta }
+			+
+			\dfrac{v_{\vec{k}}^{2}}{ \omega + E_{\vec{k}} + i \eta }
+		\end{array}
+	\right)
+\end{eqnarray}
+%
+
+
+\subsection{一般化されたスピンの場合}
+
+南部空間におけるグリーン関数（$4 \times 4$ 行列）は、次のように定義される。
+
+\begin{eqnarray}
+	i
+	\hat{G}(k)
+	&=&
+	\int \! dx
+	\left\langle \hat{\rm T} \left[ \vec{c}_{\vec{k}}(x) \vec{c}_{\vec{k}}^{\ \dagger} \right] \right\rangle
+	e^{ i k \cdot x }
+	\nonumber \\ &=&
+	\int \! dx
+	\left\langle \hat{\rm T} \left[
+		\left(
+		\begin{array}{c}
+				c_{\vec{k} \uparrow}(x)            \\[2mm]
+				c_{\vec{k} \downarrow}(x)          \\[2mm]
+				c^{\dagger}_{-\vec{k} \uparrow}(x) \\[2mm]
+				c^{\dagger}_{-\vec{k} \downarrow}(x)
+			\end{array}
+		\right)
+		\big( c^{\dagger}_{\vec{k} \uparrow} \ , \ c^{\dagger}_{\vec{k} \downarrow} \ , \ c_{-\vec{k} \uparrow} \ , \ c_{-\vec{k} \downarrow}  \big)
+		\right]
+	\right\rangle
+	e^{ i k \cdot x }
+\end{eqnarray}
+%
+ここで $\hat{\rm T} \left[ \cdots \right]$ は時間順序積演算子である。
+$x^{\mu}=(t,\vec{r})$ および $k^{\mu}=(\omega,\vec{k})$
+（ i.e., $k \cdot x = g_{\mu \nu} k^{\mu} x^{\nu} = \omega t- \vec{k} \cdot \vec{r}$ ）
+は、簡略記法で書かれた4元運動量ベクトルである。
+これらの関数の遅延（retarded）部分も、次のように定義される。
+
+\begin{eqnarray}
+	&&
+	i
+	\hat{G}^{R}(k)
+	\nonumber \\ &=&
+	\int \! dx
+	\left\langle
+	\left(
+	\begin{array}{cccc}
+			\{ c_{\vec{k}\uparrow}(x), c_{\vec{k}\uparrow}^{\dagger} \}                & \{ c_{\vec{k}\uparrow}(x), c^{\dagger}_{\vec{k} \downarrow} \}               & \{ c_{\vec{k} \uparrow}(x), c_{-\vec{k} \uparrow} \}              & \{ c_{\vec{k} \uparrow}(x), c_{-\vec{k} \downarrow} \}
+			\\[3mm]
+			\{ c_{\vec{k} \downarrow}(x), c_{\vec{k}\uparrow}^{\dagger} \}             & \{ c_{\vec{k} \downarrow}(x), c^{\dagger}_{\vec{k} \downarrow} \}            & \{ c_{\vec{k} \downarrow}(x), c_{-\vec{k} \uparrow} \}            & \{ c_{\vec{k} \downarrow}(x), c_{-\vec{k} \downarrow} \}
+			\\[3mm]
+			\{ c^{\dagger}_{-\vec{k} \uparrow}(x), c^{\dagger}_{\vec{k} \uparrow} \}   & \{ c^{\dagger}_{-\vec{k} \uparrow}(x), c^{\dagger}_{\vec{k} \downarrow} \}   & \{ c^{\dagger}_{-\vec{k} \uparrow}(x), c_{-\vec{k} \uparrow} \}   & \{ c^{\dagger}_{-\vec{k} \uparrow}(x), c_{-\vec{k} \downarrow} \}
+			\\[3mm]
+			\{ c^{\dagger}_{-\vec{k} \downarrow}(x), c^{\dagger}_{\vec{k} \uparrow} \} & \{ c^{\dagger}_{-\vec{k} \downarrow}(x), c^{\dagger}_{\vec{k} \downarrow} \} & \{ c^{\dagger}_{-\vec{k} \downarrow}(x), c_{-\vec{k} \uparrow} \} & \{ c^{\dagger}_{-\vec{k} \downarrow}(x), c_{-\vec{k} \downarrow} \}
+		\end{array}
+	\right)
+	\right\rangle
+	e^{ i k \cdot x }
+\end{eqnarray}
+%
+
+対角化された基底（準粒子） $a_{\vec{k} \sigma}^{(\dagger)}$
+に対する運動方程式は以下で得られる。：
+
+\begin{eqnarray}
+	i \dfrac{d a_{\vec{k}\uparrow}(t)}{dt}
+	&=&
+	\left[ a_{\vec{k}\uparrow} , H \right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\vec{q}}
+	\left[ a_{\vec{k}\uparrow} , \vec{c}_{\vec{q}}^{\ \dagger} \hat{H} \vec{c}_{\vec{q}} \right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\vec{q}}
+	\left[ a_{\vec{k}\uparrow}
+		\ \ , \ \
+		\big( c^{\dagger}_{\vec{q} \uparrow} \ , \ c^{\dagger}_{\vec{q} \downarrow} \ , \ c_{-\vec{q} \uparrow} \ , \ c_{-\vec{q} \downarrow}  \big)
+		\!\!\!
+		\left(
+		\begin{array}{cc}
+				\xi_{\vec{q}} \hat{1}_{2 \times 2} & \hat{\Delta}_{\vec{q}}               \\[3mm]
+				\hat{\Delta}^{*}_{\vec{q}}         & - \xi_{\vec{q}} \hat{1}_{2 \times 2}
+			\end{array}
+		\right)
+		\!\!\!
+		\left(
+		\begin{array}{c}
+				c_{\vec{q} \uparrow}            \\[2mm]
+				c_{\vec{q} \downarrow}          \\[2mm]
+				c^{\dagger}_{-\vec{q} \uparrow} \\[2mm]
+				c^{\dagger}_{-\vec{q} \downarrow}
+			\end{array}
+		\right)
+		\right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\vec{q}}
+	\left[ a_{\vec{k}\uparrow} , \vec{a}_{\vec{q}}^{\ \dagger} \hat{U}^{\dagger} \hat{H} \hat{U} \vec{a}_{\vec{q}} \right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\vec{q}}
+	\left[ a_{\vec{k}\uparrow}
+		\ \ , \ \
+		\big( a^{\dagger}_{\vec{q} \uparrow} \ , \ a^{\dagger}_{\vec{q} \downarrow} \ , \ a_{-\vec{q} \uparrow} \ , \ a_{-\vec{q} \downarrow}  \big)
+		\!\!\!
+		\left(
+		\begin{array}{cc}
+				E_{\vec{q}} \hat{1}_{2 \times 2} &
+				\\[3mm]
+				                                 & - E_{\vec{q}} \hat{1}_{2 \times 2}
+			\end{array}
+		\right)
+		\!\!\!
+		\left(
+		\begin{array}{c}
+				a_{\vec{q} \uparrow}            \\[2mm]
+				a_{\vec{q} \downarrow}          \\[2mm]
+				a^{\dagger}_{-\vec{q} \uparrow} \\[2mm]
+				a^{\dagger}_{-\vec{q} \downarrow}
+			\end{array}
+		\right)
+		\right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\vec{q}}
+	E_{\vec{q}}
+	\left[
+		a_{\vec{k}\uparrow}
+		\ \ , \ \
+		a_{\vec{q}\uparrow}^{\dagger} a_{\vec{q}\uparrow}
+		+
+		a_{\vec{q}\downarrow}^{\dagger} a_{\vec{q}\downarrow}
+		-
+		a_{-\vec{q}\uparrow} a_{-\vec{q}\uparrow}^{\dagger}
+		-
+		a_{-\vec{q}\downarrow} a_{-\vec{q}\downarrow}^{\dagger}
+		\right]
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{2}
+	\sum_{\vec{q}}
+	E_{\vec{q}}
+	\left(
+	\left\{ a_{\vec{k}\uparrow} \ , \ a_{\vec{q} \uparrow}^{\dagger} \right\} a_{\vec{q} \uparrow}
+	-
+	a_{\vec{q} \uparrow}^{\dagger} \left\{ a_{\vec{k}\uparrow} \ , \ a_{\vec{q} \uparrow} \right\}
+	+
+	\left\{ a_{\vec{k}\uparrow} \ , \ a_{\vec{q} \downarrow}^{\dagger} \right\} a_{\vec{q} \downarrow}
+	-
+	a_{\vec{q} \downarrow}^{\dagger} \left\{ a_{\vec{k}\uparrow} \ , \ a_{\vec{q} \downarrow} \right\}
+	\right.
+	\nonumber \\[2mm] && \hspace{15mm}
+	\left.
+	-
+	\left\{ a_{\vec{k}\uparrow} \ , \ a_{-\vec{q} \uparrow} \right\} a_{-\vec{q} \uparrow}^{\dagger}
+	+
+	a_{-\vec{q} \uparrow} \left\{ a_{\vec{k}\uparrow} \ , \ a_{-\vec{q} \uparrow}^{\dagger} \right\}
+	-
+	\left\{ a_{\vec{k}\uparrow} \ , \ a_{-\vec{q} \downarrow} \right\} a_{-\vec{q} \downarrow}^{\dagger}
+	+
+	a_{-\vec{q} \downarrow} \left\{ a_{\vec{k}\uparrow} \ , \ a_{-\vec{q} \downarrow}^{\dagger} \right\}
+	\right)
+	\nonumber \\[2mm] &=&
+	E_{\vec{k}}
+	a_{\vec{k} \uparrow}
+\end{eqnarray}
+%
+これを積分すると、
+
+\begin{eqnarray}
+	a_{\vec{k} \uparrow}(t)
+	&=&
+	e^{ - i E_{\vec{k}} t }
+	a_{\vec{k} \uparrow}(0)
+\end{eqnarray}
+%
+同様にして、$a_{-\vec{k} \downarrow}^{\dagger}$ に対する方程式を得る。
+
+\begin{eqnarray}
+	i \dfrac{d a_{-\vec{k} \downarrow}^{\dagger}(t) }{dt}
+	&=&
+	\left[ a_{-\vec{k} \downarrow}^{\dagger} , H \right]
+	\ = \
+	-
+	E_{\vec{k}}
+	a_{-\vec{k} \downarrow}^{\dagger}
+\end{eqnarray}
+%
+そして、
+
+\begin{eqnarray}
+	a_{-\vec{k} \downarrow}^{\dagger}(t)
+	&=&
+	e^{ i E_{\vec{k}} t }
+	a_{-\vec{k} \downarrow}^{\dagger}(0)
+	.
+\end{eqnarray}
+%
+スピノル $\vec{c}$ と $\vec{a}$ の間の関係は以下で与えられる。
+
+\begin{eqnarray}
+	\vec{c}_{\vec{k}}
+	&=&
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[3mm]
+			\hat{v}_{- \vec{k}}^{*} & \hat{u}_{- \vec{k}}
+		\end{array}
+	\right)
+	\!\!\!
+	\left(
+	\begin{array}{c}
+			a_{\vec{k} \uparrow}            \\[2mm]
+			a_{\vec{k} \downarrow}          \\[2mm]
+			a^{\dagger}_{-\vec{k} \uparrow} \\[2mm]
+			a^{\dagger}_{-\vec{k} \downarrow}
+		\end{array}
+	\right)
+	\ \ = \ \
+	\hat{U}
+	\vec{a}_{\vec{k}}
+	,
+\end{eqnarray}
+%
+ここで、
+
+\begin{eqnarray}
+	\left(
+	\begin{array}{cc}
+			\hat{u}_{\vec{k}}       & - \hat{v}_{\vec{k}} \\[2mm]
+			\hat{v}_{- \vec{k}}^{*} & \hat{u}_{-\vec{k}}
+		\end{array}
+	\right)
+	&=&
+	\dfrac{ 1 }{ \sqrt{ \big( E_{\vec{k}} + \xi_{\vec{k}} \big)^{2} + \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\vec{k}} \hat{\Delta}^{\dagger}_{\vec{k}} \big] } }
+	\left(
+	\begin{array}{cc}
+			( E_{\vec{k}} + \xi_{\vec{k}} ) \hat{1}_{2 \times 2} & - \hat{\Delta}_{\vec{k}}                             \\[2mm]
+			\hat{\Delta}_{\vec{k}}^{\dagger}                     & ( E_{\vec{k}} + \xi_{\vec{k}} ) \hat{1}_{2 \times 2}
+		\end{array}
+	\right)
+	.
+\end{eqnarray}
+%
+したがって、次のように置き換えることができる。
+
+\begin{eqnarray}
+	( \hat{u}_{\vec{k}} )_{\sigma \sigma'}
+	\ = \
+	( \hat{u}_{- \vec{k}} )_{\sigma \sigma'}
+	\ = \
+	u_{\vec{k}} \delta_{\sigma \sigma'}
+	,
+	\\[2mm]
+	( \hat{v}_{\vec{k}} )_{\sigma \sigma'}
+	\ = \
+	v_{\vec{k} \sigma \sigma'}
+	\ \ \ , \ \ \
+	( \hat{v}_{\vec{k}}^{*} )_{\sigma \sigma'}
+	\ = \
+	v_{\vec{k} \sigma \sigma'}^{*}
+	.
+\end{eqnarray}
+%
+これで、スカラー量 $u_{\vec{k}}$, $v_{\vec{k} \sigma \sigma'}$ および $v_{\vec{k} \sigma \sigma'}^{*}$ が定義された。
+この関係を用いて、グリーン関数についての表現を得ることができる。
+
+\begin{eqnarray}
+	c_{\vec{k} \sigma}(t)
+	&=&
+	(\hat{u}_{\vec{k}})_{\sigma \uparrow} a_{\vec{k} \uparrow}(t)
+	+
+	(\hat{u}_{\vec{k}})_{\sigma \downarrow} a_{\vec{k} \downarrow}(t)
+	-
+	(\hat{v}_{\vec{k}})_{\sigma \uparrow} a_{-\vec{k} \uparrow}^{\dagger}(t)
+	-
+	(\hat{v}_{\vec{k}})_{\sigma \downarrow} a_{-\vec{k} \downarrow}^{\dagger}(t)
+	\nonumber \\[2mm] &=&
+	u_{\vec{k}} \delta_{\sigma \uparrow} a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	+
+	u_{\vec{k}} \delta_{\sigma \downarrow} a_{\vec{k} \downarrow} e^{- i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \uparrow} a_{-\vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \downarrow} a_{-\vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	,
+	\\[4mm]
+	c_{-\vec{k} \sigma}^{\dagger}(t)
+	&=&
+	(\hat{v}_{\vec{k}}^{*})_{\sigma \uparrow} a_{\vec{k} \uparrow}(t)
+	+
+	(\hat{v}_{\vec{k}}^{*})_{\sigma \downarrow} a_{\vec{k} \downarrow}(t)
+	+
+	(\hat{u}_{\vec{k}})_{\sigma \uparrow} a_{-\vec{k} \uparrow}^{\dagger}(t)
+	+
+	(\hat{u}_{\vec{k}})_{\sigma \downarrow} a_{-\vec{k} \downarrow}^{\dagger}(t)
+	\nonumber \\[2mm] &=&
+	v_{\vec{k} \sigma \uparrow}^{*} a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	+
+	v_{\vec{k} \sigma \downarrow}^{*} a_{\vec{k} \downarrow} e^{- i E_{\vec{k}} t}
+	+
+	u_{\vec{k}} \delta_{\sigma \uparrow} a_{-\vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	+
+	u_{\vec{k}} \delta_{\sigma \downarrow} a_{-\vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	.
+\end{eqnarray}
+%例えば、(1,1) 成分の遅延グリーン関数は次のように書ける。
+
+\begin{eqnarray}
+	&&
+	i
+	G_{\vec{k} \uparrow \uparrow}^{R}(t)
+	\ \ = \ \
+	\theta(t)
+	\left\langle \left\{
+	c_{\vec{k} \uparrow}(t), c_{\vec{k} \uparrow}^{\dagger}
+	\right\} \right\rangle
+	\ \ = \ \
+	\theta(t)
+	\left\langle
+	c_{\vec{k} \uparrow}(t) c_{\vec{k} \uparrow}^{\dagger}
+	+
+	c_{\vec{k} \uparrow}^{\dagger} c_{\vec{k} \uparrow}(t)
+	\right\rangle
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left\langle
+	\left(
+	u_{\vec{k}} a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \uparrow \uparrow} a_{-\vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \uparrow \downarrow} a_{-\vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}} a_{\vec{k} \uparrow}^{\dagger}
+	-
+	v_{\vec{k} \uparrow \uparrow}^{*} a_{-\vec{k} \uparrow}
+	-
+	v_{\vec{k} \uparrow \downarrow}^{*} a_{-\vec{k} \downarrow}
+	\right)
+	\right.
+	\nonumber \\[2mm] && \hspace{12mm} +
+	\left.
+	\left(
+	u_{\vec{k}} a_{\vec{k} \uparrow}^{\dagger}
+	-
+	v_{\vec{k} \uparrow \uparrow}^{*} a_{-\vec{k} \uparrow}
+	-
+	v_{\vec{k} \uparrow \downarrow}^{*} a_{-\vec{k} \downarrow}
+	\right)
+	\!\!
+	\left(
+	u_{\vec{k}} a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \uparrow \uparrow} a_{-\vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \uparrow \downarrow} a_{-\vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	\right)
+	\right\rangle
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left(
+	u_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	+
+	|v_{\vec{k} \uparrow \uparrow}|^{2}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \uparrow}^{\dagger}
+	a_{-\vec{k} \uparrow}
+	\right\rangle
+	+
+	|v_{\vec{k} \uparrow \downarrow}|^{2}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}^{\dagger}
+	a_{-\vec{k} \downarrow}
+	\right\rangle
+	\right.
+	\nonumber \\[1mm] && \hspace{12mm} +
+	\left.
+	u_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{\vec{k} \uparrow}
+	\right\rangle
+	+
+	|v_{\vec{k} \uparrow \uparrow}|^{2}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \uparrow}
+	a_{-\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	+
+	|v_{\vec{k} \uparrow \downarrow}|^{2}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right)
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left[
+		u_{\vec{k}}^{2}
+		e^{ - i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		+
+		|v_{\vec{k} \uparrow \uparrow}|^{2}
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		+
+		|v_{\vec{k} \uparrow \downarrow}|^{2}
+		e^{ i E_{\vec{k}} t }
+		\dfrac{1}{2}
+		\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+		\right.
+		\nonumber \\[1mm] && \hspace{12mm} +
+	\left.
+	u_{\vec{k}}^{2}
+	e^{ - i E_{\vec{k}} t }
+	\dfrac{1}{2}
+	\Big( 1 - {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+	+
+	|v_{\vec{k} \uparrow \uparrow}|^{2}
+	e^{ i E_{\vec{k}} t }
+	\dfrac{1}{2}
+	\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+	+
+	|v_{\vec{k} \uparrow \downarrow}|^{2}
+	e^{ i E_{\vec{k}} t }
+	\dfrac{1}{2}
+	\Big( 1 + {\rm tanh}\dfrac{\beta E_{\vec{k}}}{2} \Big)
+	\right]
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left[
+		u_{\vec{k}}^{2}
+		e^{ - i E_{\vec{k}} t }
+		+
+		\Big(
+		|v_{\vec{k} \uparrow \uparrow}|^{2}
+		+
+		|v_{\vec{k} \uparrow \downarrow}|^{2}
+		\Big)
+		e^{ i E_{\vec{k}} t }
+		\right]
+\end{eqnarray}
+
+
+あるいは、フーリエ空間では、
+
+\begin{eqnarray}
+	G^{R}_{\uparrow \uparrow}(k)
+	&=&
+	\int \! dt \
+	G^{R}_{\vec{k}}(t)
+	e^{i \omega t}
+	\nonumber \\[2mm] &=&
+	-
+	i
+	\lim_{\eta \to +0}
+	\int^{\infty}_{0} \!\! dt \
+	\left[
+		u_{\vec{k}}^{2}
+		e^{ - i E_{\vec{k}} t }
+		+
+		\Big(
+		|v_{\vec{k} \uparrow \uparrow}|^{2}
+		+
+		|v_{\vec{k} \uparrow \downarrow}|^{2}
+		\Big)
+		e^{ i E_{\vec{k}} t }
+		\right]
+	e^{i \omega t - \eta t}
+	\nonumber \\[2mm] &=&
+	\lim_{\eta \to +0}
+	\left(
+	\dfrac{u_{\vec{k}}^{2}}{ \omega - E_{\vec{k}} + i \eta }
+	+
+	\dfrac{
+		|v_{\vec{k} \uparrow \uparrow}|^{2}
+		+
+		|v_{\vec{k} \uparrow \downarrow}|^{2}
+	}{ \omega + E_{\vec{k}} + i \eta }
+	\right)
+	.
+\end{eqnarray}
+%
+虚数部は状態密度に関連している。
+
+\begin{eqnarray}
+	&&
+	- \dfrac{ 1 }{ \pi }
+	\sum_{\vec{k}}
+	{\rm Im} G^{R}_{\uparrow \uparrow}(k)
+	\nonumber \\ &=&
+	-
+	\dfrac{1}{\pi}
+	\lim_{\eta \to +0}
+	\sum_{\vec{k}}
+	\left(
+	{\rm Im}
+	\dfrac{u_{\vec{k}}^{2}}{ \omega - E_{\vec{k}} + i \eta }
+	+
+	{\rm Im}
+	\dfrac{ |v_{\vec{k} \uparrow \uparrow}|^{2}
+		+
+		|v_{\vec{k} \uparrow \downarrow}|^{2}}{ \omega + E_{\vec{k}} + i \eta }
+	\right)
+	\nonumber \\[2mm] &=&
+	\sum_{\vec{k}}
+	\left[
+		u_{\vec{k}}^{2}
+		\delta( \omega - E_{\vec{k}} )
+		+
+		\left( |v_{\vec{k} \uparrow \uparrow}|^{2}
+		+
+		|v_{\vec{k} \uparrow \downarrow}|^{2} \right)
+		\delta( \omega + E_{\vec{k}} )
+		\right]
+	.
+\end{eqnarray}
+%一般に、スピン空間における遅延グリーン関数（通常部分、原文: normalous）は、
+
+\begin{eqnarray}
+	\Big(
+	G_{\vec{k} \sigma \sigma'}^{R}
+	\Big)
+	&=&
+	\left(
+	\begin{array}{cc}
+			G_{\vec{k} \uparrow \uparrow}^{R}   & G_{\vec{k} \uparrow \downarrow}^{R}   \\[3mm]
+			G_{\vec{k} \downarrow \uparrow}^{R} & G_{\vec{k} \downarrow \downarrow}^{R}
+		\end{array}
+	\right)
+	,
+\end{eqnarray}
+%
+次のように書き下すことができる。
+
+\begin{eqnarray}
+	&&
+	i
+	G_{\vec{k} \sigma \sigma'}^{R}(t)
+	\ \ = \ \
+	\theta(t)
+	\left\langle \left\{
+	c_{\vec{k} \sigma}(t), c_{\vec{k} \sigma'}^{\dagger}
+	\right\} \right\rangle
+	\ \ = \ \
+	\theta(t)
+	\left\langle
+	c_{\vec{k} \sigma}(t) c_{\vec{k} \sigma'}^{\dagger}
+	+
+	c_{\vec{k} \sigma'}^{\dagger} c_{\vec{k} \sigma}(t)
+	\right\rangle
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left\langle
+	\left(
+	u_{ \vec{k} } \delta_{ \sigma \uparrow } a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	+
+	u_{ \vec{k} } \delta_{ \sigma \downarrow } a_{\vec{k} \downarrow} e^{- i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \uparrow} a_{-\vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \downarrow} a_{-\vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	\right)
+	\right.
+	\nonumber \\ && \times
+	\left.
+	\left(
+	u_{ \vec{k} } \delta_{ \sigma' \uparrow } a_{\vec{k} \uparrow}^{\dagger}
+	+
+	u_{ \vec{k} } \delta_{ \sigma' \downarrow } a_{\vec{k} \downarrow}^{\dagger}
+	-
+	v_{\vec{k} \sigma' \uparrow}^{*} a_{-\vec{k} \uparrow}
+	-
+	v_{\vec{k} \sigma' \downarrow}^{*} a_{-\vec{k} \downarrow}
+	\right)
+	\right.
+	\nonumber \\[2mm] && \hspace{5mm} +
+	\left.
+	\left(
+	u_{ \vec{k} } \delta_{ \sigma' \uparrow } a_{\vec{k} \uparrow}^{\dagger}
+	+
+	u_{ \vec{k} } \delta_{ \sigma' \downarrow } a_{\vec{k} \downarrow}^{\dagger}
+	-
+	v_{\vec{k} \sigma' \uparrow}^{*} a_{-\vec{k} \uparrow}
+	-
+	v_{\vec{k} \sigma' \downarrow}^{*} a_{-\vec{k} \downarrow}
+	\right)
+	\right.
+	\nonumber \\ && \times
+	\left.
+	\left(
+	u_{ \vec{k} } \delta_{ \sigma \uparrow } a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	+
+	u_{ \vec{k} } \delta_{ \sigma \downarrow } a_{\vec{k} \downarrow} e^{- i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \uparrow} a_{-\vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \downarrow} a_{-\vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	\right)
+	\right\rangle
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left(
+	u_{\vec{k}}^{2}
+	\delta_{\sigma \uparrow}
+	\delta_{\sigma' \uparrow}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	+
+	u_{\vec{k}}^{2}
+	\delta_{\sigma \downarrow}
+	\delta_{\sigma' \downarrow}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \downarrow}
+	a_{\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right.
+	\nonumber \\ && \hspace{5mm} +
+	\left.
+	v_{\vec{k} \sigma \uparrow}
+	v_{\vec{k} \sigma' \uparrow}^{*}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \uparrow}^{\dagger}
+	a_{-\vec{k} \uparrow}
+	\right\rangle
+	+
+	v_{\vec{k} \sigma \downarrow}
+	v_{\vec{k} \sigma' \downarrow}^{*}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}^{\dagger}
+	a_{-\vec{k} \downarrow}
+	\right\rangle
+	\right.
+	\nonumber \\[1mm] && \hspace{12mm} +
+	\left.
+	u_{\vec{k}}^{2}
+	\delta_{\sigma \uparrow}
+	\delta_{\sigma' \uparrow}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{\vec{k} \uparrow}
+	\right\rangle
+	+
+	u_{\vec{k}}^{2}
+	\delta_{\sigma \downarrow}
+	\delta_{\sigma' \downarrow}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \downarrow}^{\dagger}
+	a_{\vec{k} \downarrow}
+	\right\rangle
+	\right.
+	\nonumber \\ && \hspace{5mm} +
+	\left.
+	v_{\vec{k} \sigma \uparrow}
+	v_{\vec{k} \sigma' \uparrow}^{*}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \uparrow}
+	a_{-\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	+
+	v_{\vec{k} \sigma \downarrow}
+	v_{\vec{k} \sigma' \downarrow}^{*}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right)
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left[
+		u_{\vec{k}}^{2}
+		\Big(
+		\delta_{\sigma \uparrow}
+		\delta_{\sigma' \uparrow}
+		+
+		\delta_{\sigma \downarrow}
+		\delta_{\sigma' \downarrow}
+		\Big)
+		e^{ - i E_{\vec{k}} t }
+		+
+		\Big(
+		v_{\vec{k} \sigma \uparrow}
+		v_{\vec{k} \sigma' \uparrow}^{*}
+		+
+		v_{\vec{k} \sigma \downarrow}
+		v_{\vec{k} \sigma' \downarrow}^{*}
+		\Big)
+		e^{ i E_{\vec{k}} t }
+		\right]
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left[
+		u_{\vec{k}}^{2}
+		\delta_{\sigma \sigma'}
+		e^{ - i E_{\vec{k}} t }
+		+
+		\Big(
+		v_{\vec{k} \sigma \uparrow}
+		v_{\vec{k} \sigma' \uparrow}^{*}
+		+
+		v_{\vec{k} \sigma \downarrow}
+		v_{\vec{k} \sigma' \downarrow}^{*}
+		\Big)
+		e^{ i E_{\vec{k}} t }
+		\right]
+	,
+\end{eqnarray}
+
+フーリエ変換で以下を得る。
+
+\begin{eqnarray}
+	&&
+	G^{R}_{\sigma \sigma'}(k)
+	\ = \
+	\int \! dt \
+	G^{R}_{\vec{k} \sigma \sigma'}(t)
+	e^{i \omega t}
+	\nonumber \\[4mm] &=&
+	-
+	i
+	\lim_{\eta \to +0}
+	\int^{\infty}_{0} \!\! dt \
+	\left[
+		u_{\vec{k}}^{2}
+		\delta_{\sigma \sigma'}
+		e^{ - i E_{\vec{k}} t }
+		+
+		\Big(
+		v_{\vec{k} \sigma \uparrow}
+		v_{\vec{k} \sigma' \uparrow}^{*}
+		+
+		v_{\vec{k} \sigma \downarrow}
+		v_{\vec{k} \sigma' \downarrow}^{*}
+		\Big)
+		e^{ i E_{\vec{k}} t }
+		\right]
+	e^{i \omega t - \eta t}
+	\nonumber \\[4mm] &=&
+	\lim_{\eta \to +0}
+	\left[
+		\dfrac{
+			u_{\vec{k}}^{2}
+			\delta_{\sigma \sigma'}
+		}{ \omega - E_{\vec{k}} + i \eta }
+		+
+		\dfrac{
+			v_{\vec{k} \sigma \uparrow}
+			v_{\vec{k} \sigma' \uparrow}^{*}
+			+
+			v_{\vec{k} \sigma \downarrow}
+			v_{\vec{k} \sigma' \downarrow}^{*}
+		}{ \omega + E_{\vec{k}} + i \eta }
+		\right]
+	,
+\end{eqnarray}
+
+\begin{eqnarray}
+	&&
+	- \dfrac{ 1 }{ \pi }
+	\sum_{\vec{k}}
+	{\rm Im} G^{R}_{\sigma \sigma'}(k)
+	\nonumber \\[2mm] &=&
+	-
+	\dfrac{1}{\pi}
+	\lim_{\eta \to +0}
+	\sum_{\vec{k}}
+	\left[
+	{\rm Im}
+	\dfrac{
+		u_{\vec{k}}^{2}
+		\delta_{\sigma \sigma'}
+	}{ \omega - E_{\vec{k}} + i \eta }
+	+
+	{\rm Im}
+	\dfrac{
+		v_{\vec{k} \sigma \uparrow}
+		v_{\vec{k} \sigma' \uparrow}^{*}
+		+
+		v_{\vec{k} \sigma \downarrow}
+		v_{\vec{k} \sigma' \downarrow}^{*}
+	}{ \omega + E_{\vec{k}} + i \eta }
+	\right]
+	\nonumber \\[2mm] &=&
+	\sum_{\vec{k}}
+	\left[
+		u_{\vec{k}}^{2}
+		\delta_{\sigma \sigma'}
+		\delta( \omega - E_{\vec{k}} )
+		+
+		\Big(
+		v_{\vec{k} \sigma \uparrow}
+		v_{\vec{k} \sigma' \uparrow}^{*}
+		+
+		v_{\vec{k} \sigma \downarrow}
+		v_{\vec{k} \sigma' \downarrow}^{*}
+		\Big)
+		\delta( \omega + E_{\vec{k}} )
+		\right]
+	.
+\end{eqnarray}
+
+
+以上から次を得る。
+
+\begin{eqnarray}
+	&&
+	\left(
+	\begin{array}{cc}
+			G_{\uparrow \uparrow}^{R}(k)   & G_{\uparrow \downarrow}^{R}(k)   \\[3mm]
+			G_{\downarrow \uparrow}^{R}(k) & G_{\downarrow \downarrow}^{R}(k)
+		\end{array}
+	\right)
+	\nonumber \\[4mm] &=&
+	\lim_{\eta \to +0}
+	\left(
+	\begin{array}{cc}
+			\dfrac{
+				u_{\vec{k}}^{2}
+			}{ \omega - E_{\vec{k}} + i \eta }
+			+
+			\dfrac{
+				|v_{\vec{k} \uparrow \uparrow}|^{2}
+				+
+				|v_{\vec{k} \uparrow \downarrow}|^{2}
+			}{ \omega + E_{\vec{k}} + i \eta }
+			 &
+			\dfrac{
+				v_{\vec{k} \uparrow \uparrow}
+				v_{\vec{k} \downarrow \uparrow}^{*}
+				+
+				v_{\vec{k} \uparrow \downarrow}
+				v_{\vec{k} \downarrow \downarrow}^{*}
+			}{ \omega + E_{\vec{k}} + i \eta }
+			\\[3mm]
+			\dfrac{
+				v_{\vec{k} \downarrow \uparrow}
+				v_{\vec{k} \uparrow \uparrow}^{*}
+				+
+				v_{\vec{k} \downarrow \downarrow}
+				v_{\vec{k} \uparrow \downarrow}^{*}
+			}{ \omega + E_{\vec{k}} + i \eta }
+			 &
+			\dfrac{
+				u_{\vec{k}}^{2}
+			}{ \omega - E_{\vec{k}} + i \eta }
+			+
+			\dfrac{
+				|v_{\vec{k} \downarrow \uparrow}|^{2}
+				+
+				|v_{\vec{k} \downarrow \downarrow}|^{2}
+			}{ \omega + E_{\vec{k}} + i \eta }
+		\end{array}
+	\right)
+	.
+\end{eqnarray}
+%
+この結果は、$(v_{\vec{k} \sigma \sigma'}) = v_{\vec{k}} \hat{\sigma}^{x}$
+、
+$(v_{\vec{k} \sigma \sigma'}^{*}) = v_{\vec{k}}^{*} \hat{\sigma}^{x}$
+とおくことで、一重項の場合に帰着できる。
+
+\begin{eqnarray}
+	\left(
+	\begin{array}{cc}
+			G_{\uparrow \uparrow}^{R}(k)   & G_{\uparrow \downarrow}^{R}(k)   \\[3mm]
+			G_{\downarrow \uparrow}^{R}(k) & G_{\downarrow \downarrow}^{R}(k)
+		\end{array}
+	\right)
+	&=&
+	\lim_{\eta \to +0}
+	\left(
+	\dfrac{
+		u_{\vec{k}}^{2}
+	}{ \omega - E_{\vec{k}} + i \eta }
+	+
+	\dfrac{ |v_{ \vec{k} }|^{2} }{ \omega + E_{\vec{k}} + i \eta }
+	\right)
+	\hat{1}_{2 \times 2}
+	.
+\end{eqnarray}
+%
+
+
+スピン空間における遅延異常（原文: anormalous）グリーン関数は、
+
+\begin{eqnarray}
+	\Big(
+	F_{\vec{k} \sigma \sigma'}^{R}
+	\Big)
+	&=&
+	\left(
+	\begin{array}{cc}
+			F_{\vec{k} \uparrow \uparrow}^{R}   & F_{\vec{k} \uparrow \downarrow}^{R}   \\[3mm]
+			F_{\vec{k} \downarrow \uparrow}^{R} & F_{\vec{k} \downarrow \downarrow}^{R}
+		\end{array}
+	\right)
+	,
+\end{eqnarray}
+%
+そして、
+
+\begin{eqnarray}
+	&&
+	i
+	F_{\vec{k} \sigma \sigma'}^{R}(t)
+	\ \ = \ \
+	\theta(t)
+	\left\langle \left\{
+	c_{\vec{k} \sigma}(t), c_{-\vec{k} \sigma'}
+	\right\} \right\rangle
+	\ \ = \ \
+	\theta(t)
+	\left\langle
+	c_{\vec{k} \sigma}(t) c_{-\vec{k} \sigma'}
+	+
+	c_{-\vec{k} \sigma'} c_{\vec{k} \sigma}(t)
+	\right\rangle
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left\langle
+	\left(
+	u_{ \vec{k} } \delta_{ \sigma \uparrow } a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	+
+	u_{ \vec{k} } \delta_{ \sigma \downarrow } a_{\vec{k} \downarrow} e^{- i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \uparrow} a_{-\vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \downarrow} a_{-\vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	\right)
+	\right.
+	\nonumber \\ && \times
+	\left.
+	\left(
+	v_{\vec{k} \sigma' \uparrow} a_{\vec{k} \uparrow}^{\dagger}
+	+
+	v_{\vec{k} \sigma' \downarrow} a_{\vec{k} \downarrow}^{\dagger}
+	+
+	u_{\vec{k}} \delta_{\sigma' \uparrow} a_{-\vec{k} \uparrow}
+	+
+	u_{\vec{k}} \delta_{\sigma' \downarrow} a_{-\vec{k} \downarrow}
+	\right)
+	\right.
+	\nonumber \\[2mm] && \hspace{5mm} +
+	\left.
+	\left(
+	v_{\vec{k} \sigma' \uparrow} a_{\vec{k} \uparrow}^{\dagger}
+	+
+	v_{\vec{k} \sigma' \downarrow} a_{\vec{k} \downarrow}^{\dagger}
+	+
+	u_{\vec{k}} \delta_{\sigma' \uparrow} a_{-\vec{k} \uparrow}
+	+
+	u_{\vec{k}} \delta_{\sigma' \downarrow} a_{-\vec{k} \downarrow}
+	\right)
+	\right.
+	\nonumber \\ && \times
+	\left.
+	\left(
+	u_{ \vec{k} } \delta_{ \sigma \uparrow } a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	+
+	u_{ \vec{k} } \delta_{ \sigma \downarrow } a_{\vec{k} \downarrow} e^{- i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \uparrow} a_{-\vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	-
+	v_{\vec{k} \sigma \downarrow} a_{-\vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	\right)
+	\right\rangle
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left(
+	u_{\vec{k}}
+	v_{\vec{k} \sigma' \uparrow}
+	\delta_{\sigma \uparrow}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	+
+	u_{\vec{k}}
+	v_{\vec{k} \sigma' \downarrow}
+	\delta_{\sigma \downarrow}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \downarrow}
+	a_{\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right.
+	\nonumber \\ && \hspace{4mm} -
+	\left.
+	u_{\vec{k}}
+	v_{\vec{k} \sigma \uparrow}
+	\delta_{\sigma' \uparrow}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \uparrow}^{\dagger}
+	a_{-\vec{k} \uparrow}
+	\right\rangle
+	-
+	u_{\vec{k}}
+	v_{\vec{k} \sigma \downarrow}
+	\delta_{\sigma' \downarrow}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}^{\dagger}
+	a_{-\vec{k} \downarrow}
+	\right\rangle
+	\right.
+	\nonumber \\[1mm] && \hspace{5mm} +
+	\left.
+	u_{\vec{k}}
+	v_{\vec{k} \sigma' \uparrow}
+	\delta_{\sigma \uparrow}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{\vec{k} \uparrow}
+	\right\rangle
+	+
+	u_{\vec{k}}
+	v_{\vec{k} \sigma' \downarrow}
+	\delta_{\sigma \downarrow}
+	e^{ - i E_{\vec{k}} t }
+	\left\langle
+	a_{\vec{k} \downarrow}^{\dagger}
+	a_{\vec{k} \downarrow}
+	\right\rangle
+	\right.
+	\nonumber \\ && \hspace{4mm} -
+	\left.
+	u_{ \vec{k} }
+	v_{\vec{k} \sigma \uparrow}
+	\delta_{\sigma' \uparrow}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \uparrow}
+	a_{-\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	-
+	u_{\vec{k}}
+	v_{\vec{k} \sigma \downarrow}
+	\delta_{\sigma' \downarrow}
+	e^{ i E_{\vec{k}} t }
+	\left\langle
+	a_{-\vec{k} \downarrow}
+	a_{-\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right)
+	\nonumber \\[4mm]
+	&=&
+	u_{\vec{k}}
+	\theta(t)
+	\left[
+		\Big(
+		v_{\vec{k} \sigma' \uparrow}
+		\delta_{\sigma \uparrow}
+		+
+		v_{\vec{k} \sigma' \downarrow}
+		\delta_{\sigma \downarrow}
+		\Big)
+		e^{ - i E_{\vec{k}} t }
+		-
+		\Big(
+		v_{\vec{k} \sigma \uparrow}
+		\delta_{\sigma' \uparrow}
+		+
+		v_{\vec{k} \sigma \downarrow}
+		\delta_{\sigma' \downarrow}
+		\Big)
+		e^{ i E_{\vec{k}} t }
+		\right]
+	,
+\end{eqnarray}
+\begin{eqnarray}
+	&&
+	F_{\sigma \sigma'}^{R}(k)
+	\ = \
+	\int \! dt \ F_{\vec{k} \sigma \sigma'}^{R}(t) e^{i \omega t}
+	\nonumber \\[4mm] &=&
+	-
+	i
+	u_{\vec{k}}
+	\lim_{\eta \to +0}
+	\int^{\infty}_{0} \!\! dt
+	\left[
+		\Big(
+		v_{\vec{k} \sigma' \uparrow}
+		\delta_{\sigma \uparrow}
+		+
+		v_{\vec{k} \sigma' \downarrow}
+		\delta_{\sigma \downarrow}
+		\Big)
+		e^{ - i E_{\vec{k}} t }
+		-
+		\Big(
+		v_{\vec{k} \sigma \uparrow}
+		\delta_{\sigma' \uparrow}
+		+
+		v_{\vec{k} \sigma \downarrow}
+		\delta_{\sigma' \downarrow}
+		\Big)
+		e^{ i E_{\vec{k}} t }
+		\right]
+	e^{i \omega t - \eta t}
+	\nonumber \\[4mm] &=&
+	-
+	u_{\vec{k}}
+	\lim_{\eta \to +0}
+	\left[
+		\dfrac{
+			v_{\vec{k} \sigma' \uparrow}
+			\delta_{\sigma \uparrow}
+			+
+			v_{\vec{k} \sigma' \downarrow}
+			\delta_{\sigma \downarrow}
+		}{ \omega - E_{\vec{k}} + i \eta }
+		-
+		\dfrac{
+			v_{\vec{k} \sigma \uparrow}
+			\delta_{\sigma' \uparrow}
+			+
+			v_{\vec{k} \sigma \downarrow}
+			\delta_{\sigma' \downarrow}
+		}{ \omega + E_{\vec{k}} + i \eta }
+		\right]
+	.
+\end{eqnarray}
+%
+次を得る。
+
+\begin{eqnarray}
+	&&
+	\left(
+	\begin{array}{cc}
+			F_{\uparrow \uparrow}^{R}(k)   & F_{\uparrow \downarrow}^{R}(k)   \\[3mm]
+			F_{\downarrow \uparrow}^{R}(k) & F_{\downarrow \downarrow}^{R}(k)
+		\end{array}
+	\right)
+	\nonumber \\ &=&
+	-
+	u_{ \vec{k} }
+	\lim_{\eta \to +0}
+	\left[
+		\dfrac{ 1 }{ \omega - E_{\vec{k}} + i \eta }
+		\left(
+		\begin{array}{cc}
+				v_{ \vec{k} \uparrow \uparrow }
+				 &
+				v_{ \vec{k} \downarrow \uparrow }
+				\\[3mm]
+				v_{ \vec{k} \uparrow \downarrow }
+				 &
+				v_{ \vec{k} \downarrow \downarrow }
+			\end{array}
+		\right)
+		-
+		\dfrac{ 1 }{ \omega + E_{\vec{k}} + i \eta }
+		\left(
+		\begin{array}{cc}
+				v_{ \vec{k} \uparrow \uparrow }
+				 &
+				v_{ \vec{k} \uparrow \downarrow }
+				\\[3mm]
+				v_{ \vec{k} \downarrow \uparrow }
+				 &
+				v_{ \vec{k} \downarrow \downarrow }
+			\end{array}
+		\right)
+		\right]
+	.
+\end{eqnarray}
+%
+この結果は、$(v_{\vec{k} \sigma \sigma'}) = v_{\vec{k}} \hat{\sigma}^{x}$
+、
+$(v_{\vec{k} \sigma \sigma'}^{*}) = v_{\vec{k}}^{*} \hat{\sigma}^{x}$
+とおくことで、一重項の場合に帰着できる。
+
+\begin{eqnarray}
+	&&
+	\left(
+	\begin{array}{cc}
+			F_{\uparrow \uparrow}^{R}(k)   & F_{\uparrow \downarrow}^{R}(k)   \\[3mm]
+			F_{\downarrow \uparrow}^{R}(k) & F_{\downarrow \downarrow}^{R}(k)
+		\end{array}
+	\right)
+	\nonumber \\ &=&
+	-
+	u_{ \vec{k} }
+	v_{ \vec{k} }
+	\lim_{\eta \to +0}
+	\left(
+	\dfrac{ 1 }{ \omega - E_{\vec{k}} + i \eta }
+	-
+	\dfrac{ 1 }{ \omega + E_{\vec{k}} + i \eta }
+	\right)
+	\hat{\sigma}^{x}
+	.
+\end{eqnarray}
+%
+
+${}$スピン空間における遅延・反異常グリーン関数は、
+
+\begin{eqnarray}
+	\Big(
+	\bar{F}_{\vec{k} \sigma \sigma'}^{R}
+	\Big)
+	&=&
+	\left(
+	\begin{array}{cc}
+			\bar{F}_{\vec{k} \uparrow \uparrow}^{R}   & \bar{F}_{\vec{k} \uparrow \downarrow}^{R}   \\[3mm]
+			\bar{F}_{\vec{k} \downarrow \uparrow}^{R} & \bar{F}_{\vec{k} \downarrow \downarrow}^{R}
+		\end{array}
+	\right)
+	,
+\end{eqnarray}
+%
+次のように得られる。
+
+\begin{eqnarray}
+	&&
+	i
+	\bar{F}_{\vec{k} \sigma \sigma'}^{R}(t)
+	\ \ = \ \
+	\theta(t)
+	\left\langle \left\{
+	c_{-\vec{k} \sigma}^{\dagger}(t), c_{\vec{k} \sigma'}^{\dagger}
+	\right\} \right\rangle
+	\ \ = \ \
+	\theta(t)
+	\left\langle
+	c_{- \vec{k} \sigma}^{\dagger}(t) c_{\vec{k} \sigma'}^{\dagger}
+	+
+	c_{\vec{k} \sigma'}^{\dagger} c_{- \vec{k} \sigma}^{\dagger}(t)
+	\right\rangle
+	\nonumber \\[4mm] &=&
+	\theta(t)
+	\left\langle
+	\left(
+	v_{\vec{k} \sigma \uparrow}^{*} a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	+
+	v_{\vec{k} \sigma \downarrow}^{*} a_{\vec{k} \downarrow} e^{- i E_{\vec{k}} t}
+	+
+	u_{\vec{k}} \delta_{\sigma \uparrow} a_{- \vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	+
+	u_{\vec{k}} \delta_{\sigma \downarrow} a_{- \vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	\right)
+	\right.
+	\nonumber \\[2mm] && \hspace{5mm} \times
+	\left(
+	u_{\vec{k}} \delta_{\sigma' \uparrow} a_{\vec{k} \uparrow}^{\dagger}
+	+
+	u_{\vec{k}} \delta_{\sigma' \downarrow} a_{\vec{k} \downarrow}^{\dagger}
+	-
+	v_{\vec{k} \sigma' \uparrow}^{*} a_{-\vec{k} \uparrow}
+	-
+	v_{\vec{k} \sigma' \downarrow}^{*} a_{-\vec{k} \downarrow}
+	\right)
+	\nonumber \\[2mm] && \hspace{5mm} +
+	\left(
+	u_{\vec{k}} \delta_{\sigma' \uparrow} a_{\vec{k} \uparrow}^{\dagger}
+	+
+	u_{\vec{k}} \delta_{\sigma' \downarrow} a_{\vec{k} \downarrow}^{\dagger}
+	-
+	v_{\vec{k} \sigma' \uparrow}^{*} a_{-\vec{k} \uparrow}
+	-
+	v_{\vec{k} \sigma' \downarrow}^{*} a_{-\vec{k} \downarrow}
+	\right)
+	\nonumber \\[2mm] && \hspace{5mm} \times
+	\left.
+	\left(
+	v_{\vec{k} \sigma \uparrow}^{*} a_{\vec{k} \uparrow} e^{- i E_{\vec{k}} t}
+	+
+	v_{\vec{k} \sigma \downarrow}^{*} a_{\vec{k} \downarrow} e^{- i E_{\vec{k}} t}
+	+
+	u_{\vec{k}} \delta_{\sigma \uparrow} a_{- \vec{k} \uparrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	+
+	u_{\vec{k}} \delta_{\sigma \downarrow} a_{- \vec{k} \downarrow}^{\dagger} e^{ i E_{\vec{k}} t}
+	\right)
+	\right\rangle
+	\nonumber \\[4mm]
+	&=&
+	\theta(t)
+	\left(
+	v_{\vec{k} \sigma \uparrow}^{*}
+	u_{\vec{k}} \delta_{\sigma' \uparrow}
+	e^{- i E_{\vec{k}} t}
+	\left\langle
+	a_{\vec{k} \uparrow}
+	a_{\vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	+
+	v_{\vec{k} \sigma \downarrow}^{*}
+	u_{\vec{k}}
+	\delta_{\sigma' \downarrow}
+	e^{- i E_{\vec{k}} t}
+	\left\langle
+	a_{\vec{k} \downarrow}
+	a_{\vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right.
+	\nonumber \\[2mm] && \hspace{5mm} -
+	u_{\vec{k}}
+	\delta_{\sigma \uparrow}
+	v_{\vec{k} \sigma' \uparrow}^{*}
+	e^{ i E_{\vec{k}} t}
+	\left\langle
+	a_{- \vec{k} \uparrow}^{\dagger}
+	a_{-\vec{k} \uparrow}
+	\right\rangle
+	-
+	u_{\vec{k}} \delta_{\sigma \downarrow}
+	v_{\vec{k} \sigma' \downarrow}^{*}
+	e^{ i E_{\vec{k}} t}
+	\left\langle
+	a_{- \vec{k} \downarrow}^{\dagger}
+	a_{- \vec{k} \downarrow}
+	\right\rangle
+	\nonumber \\[1mm] && \hspace{5mm} +
+	\left.
+	u_{\vec{k}}
+	v_{\vec{k} \sigma \uparrow}^{*}
+	\delta_{\sigma' \uparrow}
+	e^{- i E_{\vec{k}} t}
+	\left\langle
+	a_{\vec{k} \uparrow}^{\dagger}
+	a_{\vec{k} \uparrow}
+	\right\rangle
+	+
+	u_{\vec{k}}
+	v_{\vec{k} \sigma \downarrow}^{*}
+	\delta_{\sigma' \downarrow}
+	e^{- i E_{\vec{k}} t}
+	\left\langle
+	a_{\vec{k} \downarrow}^{\dagger}
+	a_{\vec{k} \downarrow}
+	\right\rangle
+	\right.
+	\nonumber \\[2mm] && \hspace{5mm} -
+	\left.
+	v_{\vec{k} \sigma' \uparrow}^{*}
+	u_{\vec{k}}
+	\delta_{\sigma \uparrow}
+	e^{ i E_{\vec{k}} t}
+	\left\langle
+	a_{-\vec{k} \uparrow}
+	a_{- \vec{k} \uparrow}^{\dagger}
+	\right\rangle
+	-
+	v_{\vec{k} \sigma' \downarrow}^{*}
+	u_{\vec{k}} \delta_{\sigma \downarrow}
+	e^{ i E_{\vec{k}} t}
+	\left\langle
+	a_{-\vec{k} \downarrow}
+	a_{- \vec{k} \downarrow}^{\dagger}
+	\right\rangle
+	\right)
+	\nonumber \\[4mm]
+	&=&
+	u_{\vec{k}}
+	\theta(t)
+	\left[
+		\Big(
+		v_{\vec{k} \sigma \uparrow}^{*}
+		\delta_{\sigma' \uparrow}
+		+
+		v_{\vec{k} \sigma \downarrow}^{*}
+		\delta_{\sigma' \downarrow}
+		\Big)
+		e^{ - i E_{\vec{k}} t }
+		-
+		\Big(
+		v_{\vec{k} \sigma' \uparrow}^{*}
+		\delta_{\sigma \uparrow}
+		+
+		v_{\vec{k} \sigma' \downarrow}^{*}
+		\delta_{\sigma \downarrow}
+		\Big)
+		e^{ i E_{\vec{k}} t }
+		\right]
+	,
+\end{eqnarray}
+
+\begin{eqnarray}
+	&&
+	F_{\sigma \sigma'}^{R}(k)
+	\nonumber \\[4mm] &=&
+	\int \! dt \ F_{\vec{k} \sigma \sigma'}^{R}(t) e^{i \omega t}
+	\nonumber \\[4mm] &=&
+	-
+	i
+	u_{\vec{k}}
+	\lim_{\eta \to +0}
+	\int^{\infty}_{0} \!\! dt
+	\left[
+		\Big(
+		v_{\vec{k} \sigma \uparrow}^{*}
+		\delta_{\sigma' \uparrow}
+		+
+		v_{\vec{k} \sigma \downarrow}^{*}
+		\delta_{\sigma' \downarrow}
+		\Big)
+		e^{ - i E_{\vec{k}} t }
+		-
+		\Big(
+		v_{\vec{k} \sigma' \uparrow}^{*}
+		\delta_{\sigma \uparrow}
+		+
+		v_{\vec{k} \sigma' \downarrow}^{*}
+		\delta_{\sigma \downarrow}
+		\Big)
+		e^{ i E_{\vec{k}} t }
+		\right]
+	e^{i \omega t - \eta t}
+	\nonumber \\[4mm] &=&
+	-
+	u_{\vec{k}}
+	\lim_{\eta \to +0}
+	\left[
+		\dfrac{
+			v_{\vec{k} \sigma \uparrow}^{*}
+			\delta_{\sigma' \uparrow}
+			+
+			v_{\vec{k} \sigma \downarrow}^{*}
+			\delta_{\sigma' \downarrow}
+		}{ \omega - E_{\vec{k}} + i \eta }
+		-
+		\dfrac{
+			v_{\vec{k} \sigma' \uparrow}^{*}
+			\delta_{\sigma \uparrow}
+			+
+			v_{\vec{k} \sigma' \downarrow}^{*}
+			\delta_{\sigma \downarrow}
+		}{ \omega + E_{\vec{k}} + i \eta }
+		\right]
+	.
+\end{eqnarray}
+%
+次を得る。
+
+\begin{eqnarray}
+	&&
+	\left(
+	\begin{array}{cc}
+			\bar{F}_{\uparrow \uparrow}^{R}(k)   & \bar{F}_{\uparrow \downarrow}^{R}(k)   \\[3mm]
+			\bar{F}_{\downarrow \uparrow}^{R}(k) & \bar{F}_{\downarrow \downarrow}^{R}(k)
+		\end{array}
+	\right)
+	\nonumber \\[4mm] &=&
+	-
+	u_{ \vec{k} }
+	\lim_{\eta \to +0}
+	\left[
+		\dfrac{ 1 }{ \omega - E_{\vec{k}} + i \eta }
+		\left(
+		\begin{array}{cc}
+				v_{\vec{k} \uparrow \uparrow}^{*}
+				 &
+				v_{\vec{k} \uparrow \downarrow}^{*}
+				\\[3mm]
+				v_{\vec{k} \downarrow \uparrow}^{*}
+				 &
+				v_{\vec{k} \downarrow \downarrow}^{*}
+			\end{array}
+		\right)
+		-
+		\dfrac{ 1 }{ \omega + E_{\vec{k}} + i \eta }
+		\left(
+		\begin{array}{cc}
+				v_{\vec{k} \uparrow \uparrow}^{*}
+				 &
+				v_{\vec{k} \downarrow \uparrow}^{*}
+				\\[3mm]
+				v_{\vec{k} \uparrow \downarrow}^{*}
+				 &
+				v_{\vec{k} \downarrow \downarrow}^{*}
+			\end{array}
+		\right)
+		\right]
+	.
+\end{eqnarray}
+%
+この結果は、$(v_{\vec{k} \sigma \sigma'}) = v_{\vec{k}} \hat{\sigma}^{x}$
+、
+$(v_{\vec{k} \sigma \sigma'}^{*}) = v_{\vec{k}}^{*} \hat{\sigma}^{x}$
+とおくことで、一重項の場合に帰着できる。
+
+\begin{eqnarray}
+	\left(
+	\begin{array}{cc}
+			F_{\uparrow \uparrow}^{R}(k)   & F_{\uparrow \downarrow}^{R}(k)   \\[3mm]
+			F_{\downarrow \uparrow}^{R}(k) & F_{\downarrow \downarrow}^{R}(k)
+		\end{array}
+	\right)
+	&=&
+	-
+	u_{ \vec{k} }
+	v_{ \vec{k} }^{*}
+	\lim_{\eta \to +0}
+	\left(
+	\dfrac{ 1 }{ \omega - E_{\vec{k}} + i \eta }
+	-
+	\dfrac{ 1 }{ \omega + E_{\vec{k}} + i \eta }
+	\right)
+	\hat{\sigma}^{x}
+	.
+\end{eqnarray}
+\end{document}
