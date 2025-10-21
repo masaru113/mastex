@@ -5,9 +5,9 @@
 \usepackage[dvipdfm]{graphicx}
 \usepackage[hypertex]{hyperref}
 \title{
-スピン空間における異方的BCS-南部グリーン関数
+Anisotropic BCS-Nambu Green's Function in Spin Space
 }
-\author{岡田 大(Okada Masaru)}
+\author{Masaru Okada}
 
 \date{\today}
 
@@ -16,17 +16,16 @@
 \maketitle
 
 \begin{abstract}
-	このノートでは、スピン一重項および三重項を扱える南部 $\otimes$ スピン空間における異方的BCS平均場ハミルトニアンを導入し、ボゴリューボフ変換を用いて対角化することでその固有値と変換行列を導出する。
-	さらに、運動方程式を用いて南部 $\otimes$ スピン空間におけるグリーン関数（通常および異常成分）を導出し、その具体的な表式を与える。
+	In this note, an anisotropic BCS mean-field Hamiltonian in the Nambu $\otimes$ spin space, capable of treating spin-singlet and triplet states, is introduced. Its eigenvalues and transformation matrix are then derived by diagonalizing it using a Bogoliubov transformation. Furthermore, the Green's function (normal and anomalous components) in the Nambu $\otimes$ spin space is derived using the equation of motion method, and its explicit expression is provided.
 \end{abstract}
 
 \tableofcontents
 
-\section{（南部 $\!\! \otimes \!\!$ スピン）空間の平均場ハミルトニアン}
+\section{Mean-Field Hamiltonian in (Nambu $\!\! \otimes \!\!$ Spin) Space}
 
-\subsection{スピン一重項（従来のBCS）の場合}
+\subsection{The Spin-Singlet (Conventional BCS) Case}
 
-まずはハミルトニアンを用意する。
+We begin by setting up the Hamiltonian.
 
 \begin{eqnarray}
 	H
@@ -36,7 +35,7 @@
 	H_{\rm MF}
 \end{eqnarray}
 %
-ここで、
+Here,
 
 \begin{eqnarray}
 	H_{0}
@@ -56,7 +55,7 @@
 	\begin{array}{cc}
 			\xi_{\bm{k}} & 0
 			\\[3mm]
-			0             & -\xi_{\bm{k}}
+			0            & -\xi_{\bm{k}}
 		\end{array}
 	\right)
 	\!\!\!
@@ -119,7 +118,7 @@
 	,
 \end{eqnarray}
 %
-すると、
+Then,
 
 \begin{eqnarray}
 	\bm{c}^{\ \dagger}_{\bm{k}}
@@ -140,8 +139,8 @@
 	,
 \end{eqnarray}
 %
-は2成分（南部）スピノルと呼ばれる。
-また、異常期待値 $\Delta$ は次のように定義される。
+are called two-component (Nambu) spinors.
+Also, the anomalous expectation value $\Delta$ is defined as follows.
 
 \begin{eqnarray}
 	\Delta
@@ -153,7 +152,7 @@
 	\right\rangle
 \end{eqnarray}
 %
-これで、このハミルトニアン $H$ はスピノル $\bm{c}_{\bm{k}}^{\ (\dagger)}$ と $2 \times 2$ 行列 $\hat{H}$ を使って表すことができる。
+This Hamiltonian $H$ can now be expressed using the spinors $\bm{c}_{\bm{k}}^{\ (\dagger)}$ and the $2 \times 2$ matrix $\hat{H}$.
 
 \begin{eqnarray}
 	H
@@ -163,8 +162,8 @@
 	\!\!
 	\left(
 	\begin{array}{cc}
-			\xi_{\bm{k}} & \Delta         \\[3mm]
-			\Delta^{*}    & -\xi_{\bm{k}}
+			\xi_{\bm{k}} & \Delta        \\[3mm]
+			\Delta^{*}   & -\xi_{\bm{k}}
 		\end{array}
 	\right)
 	\!\!
@@ -180,7 +179,7 @@
 \end{eqnarray}
 %
 
-$\hat{H}$ は任意の実数パラメータ $\lambda$ を用いて容易に対角化できる。
+$\hat{H}$ can be easily diagonalized using an arbitrary real parameter $\lambda$.
 
 \begin{eqnarray}
 	{\rm det} ( \hat{H} - \lambda \ \! \hat{1}_{2 \times 2})
@@ -198,9 +197,9 @@ $\hat{H}$ は任意の実数パラメータ $\lambda$ を用いて容易に対�
 	.
 \end{eqnarray}
 %
-これで固有値 $E_{\bm{k}}$ が定義された。
+This defines the eigenvalue $E_{\bm{k}}$.
 
-対角化された基底 $\bm{a}$ を得るために、ボゴリューボフ変換の行列 $\hat{U}$ を用いる。
+To obtain the diagonalized basis $\bm{a}$, we use the Bogoliubov transformation matrix $\hat{U}$.
 
 \begin{eqnarray}
 	\bm{c}_{\bm{k}}
@@ -250,14 +249,14 @@ $\hat{H}$ は任意の実数パラメータ $\lambda$ を用いて容易に対�
 	\begin{array}{cc}
 			E_{\bm{k}} & 0
 			\\[3mm]
-			0           & - E_{\bm{k}}
+			0          & - E_{\bm{k}}
 		\end{array}
 	\right)
 	\bm{a}_{\bm{k}}
 	.
 \end{eqnarray}
 %
-特に知る必要があるのはユニタリーな場合（$\hat{U}^{\dagger} = \hat{U}^{-1}$ となり、整数 $n$ に対して $\varphi=2 \pi n$ とおける場合）だけ。
+We only need to consider the unitary case (where $\hat{U}^{\dagger} = \hat{U}^{-1}$, allowing us to set $\varphi=2 \pi n$ for an integer $n$).
 
 \begin{eqnarray}
 	\hat{1}_{2 \times 2}
@@ -285,14 +284,14 @@ $\hat{H}$ は任意の実数パラメータ $\lambda$ を用いて容易に対�
 	\begin{array}{cc}
 			u_{\bm{k}}^{2} + v_{\bm{k}}^{2} & 0
 			\\[3mm]
-			0                                 & u_{\bm{k}}^{2} + v_{\bm{k}}^{2}
+			0                               & u_{\bm{k}}^{2} + v_{\bm{k}}^{2}
 		\end{array}
 	\right)
 	.
 \end{eqnarray}
 %
-$u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
-行列 $\hat{U}$ の成分に関する連立方程式を解くこともできる。
+The condition $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ emerges.
+The simultaneous equations for the components of the matrix $\hat{U}$ can also be solved.
 
 \begin{eqnarray}
 	\hat{H}
@@ -304,7 +303,7 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	\begin{array}{cc}
 			E_{\bm{k}} & 0
 			\\[3mm]
-			0           & - E_{\bm{k}}
+			0          & - E_{\bm{k}}
 		\end{array}
 	\right)
 	\hspace{5mm}
@@ -320,7 +319,7 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	\begin{array}{cc}
 			E_{\bm{k}} & 0
 			\\[3mm]
-			0           & - E_{\bm{k}}
+			0          & - E_{\bm{k}}
 		\end{array}
 	\right)
 	\\[2mm]
@@ -352,13 +351,13 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	\dfrac{1}{2} \left( 1 - \dfrac{\xi_{\bm{k}}}{E_{\bm{k}}} \right)
 \end{eqnarray}
 %
-これで、スピン一重項の場合について、固有値 $E_{\bm{k}}$ とボゴリューボフ変換行列の成分 $u_{\bm{k}}$, $v_{\bm{k}}$ が、既知の値 $\xi_{\bm{k}}$, $\Delta$ で書き表された。
+Now, for the spin-singlet case, the eigenvalue $E_{\bm{k}}$ and the Bogoliubov transformation matrix components $u_{\bm{k}}$, $v_{\bm{k}}$ have been expressed in terms of the known values $\xi_{\bm{k}}$ and $\Delta$.
 
 
 
-\subsection{一般化されたスピンの場合}
+\subsection{The Generalized Spin Case}
 
-次に、スピン一重項の場合だけでなく、任意のスピン三重項の場合についても物理量を計算できるように、2成分の南部スピノル $\bm{c}_{\bm{k}}$ を4成分のものに一般化する。
+Next, to enable the calculation of physical quantities not just for the spin-singlet case but also for any spin-triplet case, the two-component Nambu spinor $\bm{c}_{\bm{k}}$ is generalized to a four-component one.
 
 \begin{eqnarray}
 	H
@@ -371,7 +370,7 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	&=&
 	\dfrac{1}{2}
 	\sum_{\bm{k}}
-	\big( c^{\dagger}_{\bm{k} \uparrow} \ , \ c^{\dagger}_{\bm{k} \downarrow} \ , \ c_{-\bm{k} \uparrow} \ , \ c_{-\bm{k} \downarrow}  \big)
+	\big( c^{\dagger}_{\bm{k} \uparrow} \ , \ c^{\dagger}_{\bm{k} \downarrow} \ , \ c_{-\bm{k} \uparrow} \ , \ c_{-\bm{k} \downarrow}  \big)
 	\!\!\!
 	\left(
 	\begin{array}{cc}
@@ -390,7 +389,7 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	\right)
 \end{eqnarray}
 %
-異常期待値から構成される行列 $\hat{\Delta}_{\bm{k}}$ の定義は、
+The definition of the matrix $\hat{\Delta}_{\bm{k}}$, composed of anomalous expectation values, is:
 
 \begin{eqnarray}
 	(\hat{\Delta}_{\bm{k}})_{\sigma\sigma'}
@@ -400,36 +399,36 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	.
 \end{eqnarray}
 %
-クーパー対の全角運動量に垂直なベクトル $\bm{d}$ の成分を、行列 $\hat{\Delta}_{\bm{k}}$ の基底として選ぶことができる。
+The components of the vector $\bm{d}$, which is perpendicular to the total angular momentum of the Cooper pair, can be chosen as the basis for the matrix $\hat{\Delta}_{\bm{k}}$.
 
 \begin{eqnarray}
 	\hat{\Delta}_{\bm{k}}
 	&=&
 	\left(
 	\begin{array}{cc}
-			- d^{x}_{\bm{k}} + i d^{y}_{\bm{k}} & d^{z}_{\bm{k}}                     \\[2mm]
-			d^{z}_{\bm{k}}                       & d^{x}_{\bm{k}} + i d^{y}_{\bm{k}}
+			- d^{x}_{\bm{k}} + i d^{y}_{\bm{k}} & d^{z}_{\bm{k}}                    \\[2mm]
+			d^{z}_{\bm{k}}                      & d^{x}_{\bm{k}} + i d^{y}_{\bm{k}}
 		\end{array}
 	\right)
 	.
 \end{eqnarray}
 %
-行列 $\hat{\Delta}_{\bm{k}}$ がユニタリーであるとき、
+When the matrix $\hat{\Delta}_{\bm{k}}$ is unitary,
 
 \begin{eqnarray}
 	\hat{\Delta}_{\bm{k}} \hat{\Delta}^{\dagger}_{\bm{k}}
 	&=&
 	\left(
 	\begin{array}{cc}
-			{d^{x}_{\bm{k}}}^{2} + {d^{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2} & 0                                                                     \\[3mm]
-			0                                                                     & {d^{x}_{\bm{k}}}^{2} + {d^{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2}
+			{d^{x}_{\bm{k}}}^{2} + {d^{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2} & 0                                                                  \\[3mm]
+			0                                                                  & {d^{x}_{\bm{k}}}^{2} + {d^{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2}
 		\end{array}
 	\right)
 	\ \ \propto \ \
 	\hat{1}_{2 \times 2}
 \end{eqnarray}
 %
-すなわち、
+Namely,
 
 \begin{eqnarray}
 	{d^{x}_{\bm{k}}}^{2} + {d^{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2}
@@ -446,74 +445,74 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	.
 \end{eqnarray}
 %
-すると、$4 \times 4$ のハミルトニアンは具体的に次のように書ける。
+Then, the $4 \times 4$ Hamiltonian can be written specifically as follows.
 
 \begin{eqnarray}
 	\hat{H}
 	&=&
 	\left(
 	\begin{array}{cccc}
-			\xi_{\bm{k}}                         & 0                                   & - d^{x}_{\bm{k}} + i d^{y}_{\bm{k}} & d^{z}_{\bm{k}}                     \\[2mm]
-			0                                     & \xi_{\bm{k}}                       & d^{z}_{\bm{k}}                       & d^{x}_{\bm{k}} + i d^{y}_{\bm{k}} \\[2mm]
-			- d^{x}_{\bm{k}} - i d^{y}_{\bm{k}} & d^{z}_{\bm{k}}                     & - \xi_{\bm{k}}                       & 0                                   \\[2mm]
-			d^{z}_{\bm{k}}                       & d^{x}_{\bm{k}} - i d^{y}_{\bm{k}} & 0                                     & - \xi_{\bm{k}}
+			\xi_{\bm{k}}                        & 0                                 & - d^{x}_{\bm{k}} + i d^{y}_{\bm{k}} & d^{z}_{\bm{k}}                    \\[2mm]
+			0                                   & \xi_{\bm{k}}                      & d^{z}_{\bm{k}}                      & d^{x}_{\bm{k}} + i d^{y}_{\bm{k}} \\[2mm]
+			- d^{x}_{\bm{k}} - i d^{y}_{\bm{k}} & d^{z}_{\bm{k}}                    & - \xi_{\bm{k}}                      & 0                                 \\[2mm]
+			d^{z}_{\bm{k}}                      & d^{x}_{\bm{k}} - i d^{y}_{\bm{k}} & 0                                   & - \xi_{\bm{k}}
 		\end{array}
 	\right)
 	.
 \end{eqnarray}
 %
-固有値方程式 ${\rm det}(\hat{H} - \lambda \hat{1}_{4 \times 4})$ は、いくつかの面倒なプロセスを経れば解くことができる。
+The eigenvalue equation ${\rm det}(\hat{H} - \lambda \hat{1}_{4 \times 4})$ can be solved through several tedious processes.
 
 \begin{eqnarray}
 	0
 	&=&
 	\left|
 	\begin{array}{cccc}
-		{\xi_{\bm{k}}} - \lambda                & 0                                      & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                      \\[2mm]
-		0                                        & {\xi_{\bm{k}}} - \lambda              & {d^{z}_{\bm{k}}}                        & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
-		- {d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                      & - {\xi_{\bm{k}}} -\lambda               & 0                                      \\[2mm]
-		{d^{z}_{\bm{k}}}                        & {d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                                        & - {\xi_{\bm{k}}} -\lambda
+		{\xi_{\bm{k}}} - \lambda               & 0                                    & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                     \\[2mm]
+		0                                      & {\xi_{\bm{k}}} - \lambda             & {d^{z}_{\bm{k}}}                       & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
+		- {d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                     & - {\xi_{\bm{k}}} -\lambda              & 0                                    \\[2mm]
+		{d^{z}_{\bm{k}}}                       & {d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                                      & - {\xi_{\bm{k}}} -\lambda
 	\end{array}
 	\right|
 	\nonumber \\[3mm] &=&
 	({\xi_{\bm{k}}} - \lambda)
 	\left|
 	\begin{array}{ccc}
-		{\xi_{\bm{k}}} - \lambda              & {d^{z}_{\bm{k}}}          & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
-		{d^{z}_{\bm{k}}}                      & - {\xi_{\bm{k}}} -\lambda & 0                                      \\[2mm]
-		{d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                          & - {\xi_{\bm{k}}} -\lambda
+		{\xi_{\bm{k}}} - \lambda             & {d^{z}_{\bm{k}}}          & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
+		{d^{z}_{\bm{k}}}                     & - {\xi_{\bm{k}}} -\lambda & 0                                    \\[2mm]
+		{d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                         & - {\xi_{\bm{k}}} -\lambda
 	\end{array}
 	\right|
 	\nonumber \\[3mm] && +
 	(- {d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}})
 	\left|
 	\begin{array}{ccc}
-		0                                      & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                      \\[2mm]
-		{\xi_{\bm{k}}} - \lambda              & {d^{z}_{\bm{k}}}                        & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
-		{d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                                        & - {\xi_{\bm{k}}} -\lambda
+		0                                    & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                     \\[2mm]
+		{\xi_{\bm{k}}} - \lambda             & {d^{z}_{\bm{k}}}                       & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
+		{d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                                      & - {\xi_{\bm{k}}} -\lambda
 	\end{array}
 	\right|
 	\nonumber \\[3mm] && -
 	{d^{z}_{\bm{k}}}
 	\left|
 	\begin{array}{ccc}
-		0                         & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                      \\[2mm]
-		{\xi_{\bm{k}}} - \lambda & {d^{z}_{\bm{k}}}                        & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
-		{d^{z}_{\bm{k}}}         & - {\xi_{\bm{k}}} -\lambda               & 0
+		0                        & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                     \\[2mm]
+		{\xi_{\bm{k}}} - \lambda & {d^{z}_{\bm{k}}}                       & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
+		{d^{z}_{\bm{k}}}         & - {\xi_{\bm{k}}} -\lambda              & 0
 	\end{array}
 	\right|
 	.
 \end{eqnarray}
 %
-右辺の各項は、以下のように展開できる。
+Each term on the right-hand side can be expanded as follows.
 
 \begin{eqnarray}
 	({\xi_{\bm{k}}} - \lambda)
 	\left|
 	\begin{array}{ccc}
-		{\xi_{\bm{k}}} - \lambda              & {d^{z}_{\bm{k}}}          & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
-		{d^{z}_{\bm{k}}}                      & - {\xi_{\bm{k}}} -\lambda & 0                                      \\[2mm]
-		{d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                          & - {\xi_{\bm{k}}} -\lambda
+		{\xi_{\bm{k}}} - \lambda             & {d^{z}_{\bm{k}}}          & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
+		{d^{z}_{\bm{k}}}                     & - {\xi_{\bm{k}}} -\lambda & 0                                    \\[2mm]
+		{d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                         & - {\xi_{\bm{k}}} -\lambda
 	\end{array}
 	\right|
 	&=&
@@ -523,33 +522,33 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	(- {d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}})
 	\left|
 	\begin{array}{ccc}
-		0                                      & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                      \\[2mm]
-		{\xi_{\bm{k}}} - \lambda              & {d^{z}_{\bm{k}}}                        & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
-		{d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                                        & - {\xi_{\bm{k}}} -\lambda
+		0                                    & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}                     \\[2mm]
+		{\xi_{\bm{k}}} - \lambda             & {d^{z}_{\bm{k}}}                       & {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} \\[2mm]
+		{d^{x}_{\bm{k}}} - i{d^{y}_{\bm{k}}} & 0                                      & - {\xi_{\bm{k}}} -\lambda
 	\end{array}
 	\right|
 	&=&
-	({d^{x}_{\bm{k}}}^{2} +{d^{y}_{\bm{k}}}^{2})
-	( {\xi_{\bm{k}}}^{2} - \lambda^{2} + {d^{x}_{\bm{k}}}^{2} +{d^{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2} )
+	({d^{x}_{\bm{k}}}^{2} +{d{y}_{\bm{k}}}^{2})
+	( {\xi_{\bm{k}}}^{2} - \lambda^{2} + {d^{x}_{\bm{k}}}^{2} +{d{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2} )
 	\\[3mm]
 	-
 	{d^{z}_{\bm{k}}}
 	\left|
 	\begin{array}{ccc}
-		0                         & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}      \\[2mm]
-		{\xi_{\bm{k}}} - \lambda & {d^{z}_{\bm{k}}}                        & {d^{x}_{\bm{k}}} + iy \\[2mm]
-		z                         & - {\xi_{\bm{k}}} -\lambda               & 0
+		0                        & - {d^{x}_{\bm{k}}} + i{d^{y}_{\bm{k}}} & {d^{z}_{\bm{k}}}      \\[2mm]
+		{\xi_{\bm{k}}} - \lambda & {d^{z}_{\bm{k}}}                       & {d^{x}_{\bm{k}}} + iy \\[2mm]
+		z                        & - {\xi_{\bm{k}}} -\lambda              & 0
 	\end{array}
 	\right|
 	&=&
 	{d^{z}_{\bm{k}}}^{2}
-	( {\xi_{\bm{k}}}^{2} - \lambda^{2} + {d^{x}_{\bm{k}}}^{2} +{d^{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2} )
+	( {\xi_{\bm{k}}}^{2} - \lambda^{2} + {d^{x}_{\bm{k}}}^{2} +{d{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2} )
 \end{eqnarray}
 %
-全ての項をまとめると、次のようになる。
+Collecting all terms yields the following.
 
 \begin{eqnarray}
-	( {\xi_{\bm{k}}}^{2} - \lambda^{2} + {d^{x}_{\bm{k}}}^{2} +{d^{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2} )^{2}
+	( {\xi_{\bm{k}}}^{2} - \lambda^{2} + {d^{x}_{\bm{k}}}^{2} +{d{y}_{\bm{k}}}^{2} + {d^{z}_{\bm{k}}}^{2} )^{2}
 	&=&
 	0
 	\\[3mm]
@@ -563,9 +562,9 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	\pm E_{\bm{k}}
 \end{eqnarray}
 %
-最終的に、$4 \times 4$ 行列 $\hat{H}$ に対する固有値 $E_{\bm{k}}$ を得ることができた。
+Finally, the eigenvalue $E_{\bm{k}}$ for the $4 \times 4$ matrix $\hat{H}$ has been obtained.
 
-対角化された基底 $\bm{a}$（これは2成分ベクトルではなく4成分ベクトルである）をどのように表現するかを知るため、$2 \times 2$ のブロック行列 $\hat{u}_{\bm{k}}$ と $\hat{v}_{\bm{k}}$ を用いて、$4 \times 4$ のボゴリューボフ変換行列 $\hat{U}$ を定義する。
+To know how to represent the diagonalized basis $\bm{a}$ (which is a four-component vector, not a two-component one), the $4 \times 4$ Bogoliubov transformation matrix $\hat{U}$ is defined using $2 \times 2$ block matrices $\hat{u}_{\bm{k}}$ and $\hat{v}_{\bm{k}}$.
 
 \begin{eqnarray}
 	\bm{c}_{\bm{k}}
@@ -620,20 +619,20 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	\bm{a}^{\ \dagger}_{\bm{k}}
 	\left(
 	\begin{array}{cccc}
-			E_{\bm{k}} & 0           & 0             & 0
+			E_{\bm{k}} & 0          & 0            & 0
 			\\[3mm]
-			0           & E_{\bm{k}} & 0             & 0
+			0          & E_{\bm{k}} & 0            & 0
 			\\[3mm]
-			0           & 0           & - E_{\bm{k}} & 0
+			0          & 0          & - E_{\bm{k}} & 0
 			\\[3mm]
-			0           & 0           & 0             & - E_{\bm{k}}
+			0          & 0          & 0            & - E_{\bm{k}}
 		\end{array}
 	\right)
 	\bm{a}_{\bm{k}}
 	.
 \end{eqnarray}
 %
-この時点では、$2 \times 2$ のブロック行列 $\hat{u}_{\bm{k}}$ と $\hat{v}_{\bm{k}}$ は未知である。
+At this point, the $2 \times 2$ block matrices $\hat{u}_{\bm{k}}$ and $\hat{v}_{\bm{k}}$ are unknown.
 
 \begin{eqnarray}
 	\left(
@@ -659,8 +658,8 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	&=&
 	\left(
 	\begin{array}{cc}
-			E_{\bm{k}} \hat{1}_{2 \times 2} & 0                                  \\[2mm]
-			0                                & - E_{\bm{k}} \hat{1}_{2 \times 2}
+			E_{\bm{k}} \hat{1}_{2 \times 2} & 0                                 \\[2mm]
+			0                               & - E_{\bm{k}} \hat{1}_{2 \times 2}
 		\end{array}
 	\right)
 	\\[2mm]
@@ -687,15 +686,15 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 	\!\!\!
 	\left(
 	\begin{array}{cc}
-			E_{\bm{k}} \hat{1}_{2 \times 2} & 0                                  \\[2mm]
-			0                                & - E_{\bm{k}} \hat{1}_{2 \times 2}
+			E_{\bm{k}} \hat{1}_{2 \times 2} & 0                                 \\[2mm]
+			0                               & - E_{\bm{k}} \hat{1}_{2 \times 2}
 		\end{array}
 	\right)
 	\hspace{10mm}
 \end{eqnarray}
 %
-この手順が許されるのは、$\hat{U}$ がユニタリー（$\hat{U}^{\dagger} = \hat{U}^{-1}$）だからである。
-ただちに、行列 $\hat{u}_{\bm{k}}$ と $\hat{v}_{\bm{k}}$ に対するいくつかの拘束条件が得られる。
+This procedure is permissible because $\hat{U}$ is unitary ($\hat{U}^{\dagger} = \hat{U}^{-1}$).
+Immediately, several constraints on the matrices $\hat{u}_{\bm{k}}$ and $\hat{v}_{\bm{k}}$ are obtained.
 
 \begin{eqnarray}
 	\left\{
@@ -952,9 +951,8 @@ $u_{\bm{k}}^{2} + v_{\bm{k}}^{2} = 1$ という条件が現れた。
 \fi
 %%%%
 %%%%
-これらの関係は、もし $\hat{u}_{\bm{k}}$（あるいは $\hat{v}_{\bm{k}}$）が単位行列 $\hat{1}_{2 \times 2}$ に比例するならば、
-$\hat{v}_{\bm{k}}$（あるいは $\hat{u}_{\bm{k}}$）は $\hat{\Delta}_{\bm{k}}$ に比例することを示している。
-ここでは、$\hat{u}_{\bm{k}} \propto \hat{1}_{2 \times 2}$ という条件を選ぶことにしよう。
+These relations indicate that if $\hat{u}_{\bm{k}}$ (or $\hat{v}_{\bm{k}}$) is proportional to the identity matrix $\hat{1}_{2 \times 2}$, then $\hat{v}_{\bm{k}}$ (or $\hat{u}_{\bm{k}}$) is proportional to $\hat{\Delta}_{\bm{k}}$.
+Let us here choose the condition $\hat{u}_{\bm{k}} \propto \hat{1}_{2 \times 2}$.
 
 \begin{eqnarray}
 	\hat{u}_{\bm{k}}
@@ -967,21 +965,21 @@ $\hat{v}_{\bm{k}}$（あるいは $\hat{u}_{\bm{k}}$）は $\hat{\Delta}_{\bm{k}
 	f({\bm{k}}) \hat{1}_{2 \times 2}
 \end{eqnarray}
 %
-このとき、$f(\bm{k})$ は未知の関数である。
-いかにして関数 $f(\bm{k})$ の表現を得るか、という問題に行き着いた。
+At this time, $f(\bm{k})$ is an unknown function.
+The problem comes down to how to obtain an expression for the function $f(\bm{k})$.
 
 \begin{eqnarray}
 	\left\{
 	\begin{array}{rccll}
 		\hat{v}_{\bm{k}}
-		 & =                   &
+		 & =                               &
 		\dfrac{ \hat{\Delta}_{\bm{k}} }{ E_{\bm{k}} + \xi_{\bm{k}} } \hat{u}_{-\bm{k}}
 		 &
 		= \ \
 		\dfrac{ \hat{\Delta}_{\bm{k}} }{ E_{\bm{k}} + \xi_{\bm{k}} } \cdot \dfrac{1}{f(-\bm{k})}
 		\\[5mm]
 		\hat{u}_{-\bm{k}}
-		 & =                   &
+		 & =                               &
 		\dfrac{ \hat{\Delta}^{\dagger}_{\bm{k}} }{ E_{\bm{k}} - \xi_{\bm{k}} } \hat{v}_{\bm{k}}
 		 &
 		= \ \
@@ -989,17 +987,17 @@ $\hat{v}_{\bm{k}}$（あるいは $\hat{u}_{\bm{k}}$）は $\hat{\Delta}_{\bm{k}
 		\hat{1}_{2 \times 2}
 		\ \ = \ \
 		\dfrac{ \hat{1}_{2 \times 2} }{ f(-\bm{k}) }
-		 & \ \ \ \cdots \ （自明）
+		 & \ \ \ \cdots \ \text{(Trivial)}
 		\\[5mm]
 		\hat{v}_{-\bm{k}}^{*}
-		 & =                   &
+		 & =                               &
 		\dfrac{ \hat{\Delta}^{\dagger}_{\bm{k}} }{ E_{\bm{k}} + \xi_{\bm{k}} } \hat{u}_{\bm{k}}
 		 &
 		= \ \
 		\dfrac{ \hat{\Delta}^{\dagger}_{\bm{k}} }{ E_{\bm{k}} + \xi_{\bm{k}} } \cdot \dfrac{1}{f(\bm{k})}
 		\\[5mm]
 		\hat{u}_{\bm{k}}
-		 & =                   &
+		 & =                               &
 		\dfrac{ \hat{\Delta}_{\bm{k}} }{ E_{\bm{k}} - \xi_{\bm{k}} }
 		\hat{v}_{-\bm{k}}^{*}
 		 &
@@ -1008,12 +1006,12 @@ $\hat{v}_{\bm{k}}$（あるいは $\hat{u}_{\bm{k}}$）は $\hat{\Delta}_{\bm{k}
 		\hat{1}_{2 \times 2}
 		\ \ = \ \
 		\dfrac{ \hat{1}_{2 \times 2} }{ f(\bm{k}) }
-		 & \ \ \ \cdots \ （自明）
+		 & \ \ \ \cdots \ \text{(Trivial)}
 	\end{array}
 	\right.
 \end{eqnarray}
 %
-これらの拘束条件に加えて、$\hat{U}$ に対するユニタリー条件は次のように記述できる。
+In addition to these constraints, the unitary condition for $\hat{U}$ can be described as follows.
 
 \begin{eqnarray}
 	1
@@ -1046,7 +1044,7 @@ $\hat{v}_{\bm{k}}$（あるいは $\hat{u}_{\bm{k}}$）は $\hat{\Delta}_{\bm{k}
 	,
 \end{eqnarray}
 %
-これは次の関係を導く。
+This leads to the following relation.
 
 \begin{eqnarray}
 	1
@@ -1069,7 +1067,7 @@ $\hat{v}_{\bm{k}}$（あるいは $\hat{u}_{\bm{k}}$）は $\hat{\Delta}_{\bm{k}
 	}
 \end{eqnarray}
 %
-したがって、$\hat{u}_{\bm{k}} = \hat{u}_{ - \bm{k} }$ のとき、次を得る。
+Therefore, when $\hat{u}_{\bm{k}} = \hat{u}_{ - \bm{k} }$, we obtain:
 
 \begin{eqnarray}
 	\left(
@@ -1082,16 +1080,16 @@ $\hat{v}_{\bm{k}}$（あるいは $\hat{u}_{\bm{k}}$）は $\hat{\Delta}_{\bm{k}
 	\dfrac{ 1 }{ \sqrt{ \big( E_{\bm{k}} + \xi_{\bm{k}} \big)^{2} + \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\bm{k}} \hat{\Delta}^{\dagger}_{\bm{k}} \big] } }
 	\left(
 	\begin{array}{cc}
-			( E_{\bm{k}} + \xi_{\bm{k}} ) \hat{1}_{2 \times 2} & - \hat{\Delta}_{\bm{k}}                             \\[2mm]
-			\hat{\Delta}_{\bm{k}}^{\dagger}                     & ( E_{\bm{k}} + \xi_{\bm{k}} ) \hat{1}_{2 \times 2}
+			( E_{\bm{k}} + \xi_{\bm{k}} ) \hat{1}_{2 \times 2} & - \hat{\Delta}_{\bm{k}}                            \\[2mm]
+			\hat{\Delta}_{\bm{k}}^{\dagger}                    & ( E_{\bm{k}} + \xi_{\bm{k}} ) \hat{1}_{2 \times 2}
 		\end{array}
 	\right)
 \end{eqnarray}
 %
-これがこの小節の目標である。
+This is the goal of this subsection.
 
-この結果は、三重項の場合から一重項の場合に帰着できるだろうか？
-秩序パラメータの (2,1) 成分 $(\hat{\Delta}_{\bm{k}})_{\uparrow \downarrow} = d_{z} = \Delta$ を考えてみよう。
+Can this result be reduced from the triplet case to the singlet case?
+Let's consider the (2,1) component of the order parameter, $(\hat{\Delta}_{\bm{k}})_{\uparrow \downarrow} = d_{z} = \Delta$.
 
 \begin{eqnarray}
 	{(\hat{v}_{\bm{k}})_{\uparrow \downarrow}}^{2}
@@ -1102,15 +1100,17 @@ $\hat{v}_{\bm{k}}$（あるいは $\hat{u}_{\bm{k}}$）は $\hat{\Delta}_{\bm{k}
 	\left( 1 - \dfrac{\xi_{\bm{k}}}{E_{\bm{k}}} \right)
 \end{eqnarray}
 %
-この値は、前の小節で現れた一重項の場合の $v_{\bm{k}}$ と一致している。
+This value matches $v_{\bm{k}}$ for the singlet case that appeared in the previous subsection.
 
-\section{（南部 $\!\! \otimes \!\!$ スピン）空間のグリーン関数}
+\section{Green's Function in (Nambu $\!\! \otimes \!\!$ Spin) Space}
 
-本節では、異方的（スピン依存）BCSモデルに対するグリーン関数を導出する。
-まず、運動方程式から出発する。
-\subsection{スピン一重項（従来のBCS）の場合}
+In this section, the Green's function for the anisotropic (spin-dependent) BCS model is derived.
+We begin with the equation of motion.
 
-南部空間におけるグリーン関数（$2 \times 2$ 行列）を、今、次のように定義する。
+
+\subsection{The Spin-Singlet (Conventional BCS) Case}
+
+The Green's function ($2 \times 2$ matrix) in Nambu space is now defined as follows.
 
 \begin{eqnarray}
 	i \hat{G}(k)
@@ -1159,11 +1159,11 @@ $\hat{v}_{\bm{k}}$（あるいは $\hat{u}_{\bm{k}}$）は $\hat{\Delta}_{\bm{k}
 	e^{ i k \cdot x }
 \end{eqnarray}
 %
-ここで $\hat{\rm T} \left[ \cdots \right]$ は時間順序積演算子である。
-$x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
-（ i.e., $k \cdot x = g_{\mu \nu} k^{\mu} x^{\nu} = \omega t- \bm{k} \cdot \bm{r}$ ）
-は、簡略記法で書かれた4元運動量ベクトルである。
-これらの関数の遅延（retarded）部分も、次のように定義される。
+Here $\hat{\rm T} \left[ \cdots \right]$ is the time-ordering operator.
+$x^{\mu}=(t,\bm{r})$ and $k^{\mu}=(\omega,\bm{k})$
+(i.e., $k \cdot x = g_{\mu \nu} k^{\mu} x^{\nu} = \omega t- \bm{k} \cdot \bm{r}$)
+are the four-momentum vectors written in abbreviated notation.
+The retarded parts of these functions are also defined as follows.
 
 \begin{eqnarray}
 	i
@@ -1194,8 +1194,8 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 \end{eqnarray}
 %
 
-対角化された基底（準粒子） $a_{\bm{k} \sigma}^{(\dagger)}$
-（これはスピン添字 $\sigma=\uparrow,\downarrow$ によってベクトルとみなせる）に対する運動方程式は以下で得られる：
+The equation of motion for the diagonalized basis (quasiparticle) $a_{\bm{k} \sigma}^{(\dagger)}$
+(which can be regarded as a vector by the spin index $\sigma=\uparrow,\downarrow$) is obtained below:
 
 \begin{eqnarray}
 	i \dfrac{d a_{\bm{k}\uparrow}(t)}{dt}
@@ -1212,7 +1212,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 		\begin{array}{cc}
 				\xi_{\bm{q}} & \Delta
 				\\[3mm]
-				\Delta^{*}    & - \xi_{\bm{q}}
+				\Delta^{*}   & - \xi_{\bm{q}}
 			\end{array}
 		\right)
 		\!\!\!
@@ -1237,7 +1237,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 		\begin{array}{cc}
 				E_{\bm{q}} & 0
 				\\[3mm]
-				0           & - E_{\bm{q}}
+				0          & - E_{\bm{q}}
 			\end{array}
 		\right)
 		\!\!\!
@@ -1269,14 +1269,14 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	-
 	\left\{ a_{\bm{k}\uparrow} \ , \ a_{-\bm{q} \downarrow} \right\} a_{-\bm{q} \downarrow}^{\dagger}
 	+
-	a_{-\bm{q} \downarrow}  \left\{ a_{\bm{k}\uparrow} \ , \ a_{-\bm{q} \downarrow}^{\dagger} \right\}
+	a_{-\bm{q} \downarrow}  \left\{ a_{\bm{k}\uparrow} \ , \ a_{-\bm{q} \downarrow}^{\dagger} \right\}
 	\right)
 	\nonumber \\[2mm] &=&
 	E_{\bm{k}}
 	a_{\bm{k} \uparrow}
 \end{eqnarray}
 %
-これを積分すると、
+Integrating this gives,
 
 \begin{eqnarray}
 	a_{\bm{k} \uparrow}(t)
@@ -1285,7 +1285,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	a_{\bm{k} \uparrow}(0)
 \end{eqnarray}
 %
-同様にして、$a_{-\bm{k} \downarrow}^{\dagger}$ に対する方程式を得る。
+In the same way, the equation for $a_{-\bm{k} \downarrow}^{\dagger}$ is obtained.
 
 \begin{eqnarray}
 	i \dfrac{d a_{-\bm{k} \downarrow}^{\dagger} }{dt}
@@ -1297,7 +1297,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	a_{-\bm{k} \downarrow}^{\dagger}
 \end{eqnarray}
 %
-そして、
+And,
 
 \begin{eqnarray}
 	a_{-\bm{k} \downarrow}^{\dagger}(t)
@@ -1307,7 +1307,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 \end{eqnarray}
 %
 
-スピノル $\bm{c}$ と $\bm{a}$ の間の関係は以下で与えられる。
+The relationship between the spinors $\bm{c}$ and $\bm{a}$ is given by.
 
 \begin{eqnarray}
 	c_{\bm{k} \uparrow}(t)
@@ -1338,7 +1338,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 \end{eqnarray}
 %
 
-(1,1) 成分の遅延グリーン関数は、以下のように明らかになる。
+The (1,1) component of the retarded Green's function becomes clear as follows.
 
 \begin{eqnarray}
 	&&
@@ -1524,7 +1524,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	\right)
 \end{eqnarray}
 %
-あるいは、フーリエ空間では、
+Or, in Fourier space,
 
 \begin{eqnarray}
 	&&
@@ -1556,7 +1556,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	.
 \end{eqnarray}
 %
-虚数部は状態密度に関連している。
+The imaginary part is related to the density of states.
 
 \begin{eqnarray}
 	&&
@@ -1586,7 +1586,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 		\right]
 \end{eqnarray}
 %
-遅延部分の $(1,2)$ 成分 $F^{R}(k)$ も同様に与えられる。
+The $(1,2)$ component of the retarded part, $F^{R}(k)$, is given similarly.
 
 \begin{eqnarray}
 	&&
@@ -1735,7 +1735,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	,
 \end{eqnarray}
 
-異常グリーン関数に対応する状態密度は
+The density of states corresponding to the anomalous Green's function is
 
 \begin{eqnarray}
 	&&
@@ -1768,7 +1768,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 \end{eqnarray}
 
 
-遅延部分の $(2,1)$ 成分 $\bar{F}^{R}(k)$ は、遅延部分の $(1,2)$ 成分 $F^{R}(k)$ に等しい。
+The $(2,1)$ component of the retarded part, $\bar{F}^{R}(k)$, is equal to the $(1,2)$ component $F^{R}(k)$.
 
 \begin{eqnarray}
 	&&
@@ -1896,7 +1896,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 \end{eqnarray}
 
 
-遅延部分の $(2,2)$ 成分 $\bar{G}^{R}(k)$ もまた $G^{R}(k)$ に等しい。
+The $(2,2)$ component of the retarded part, $\bar{G}^{R}(k)$, is also equal to $G^{R}(k)$.
 
 \begin{eqnarray}
 	&&
@@ -2031,7 +2031,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 \end{eqnarray}
 
 
-最終的に、$\hat{G}^{R}$ を既知の値で表す式にたどり着く。
+Finally, we arrive at the expression for $\hat{G}^{R}$ in terms of known values.
 
 \begin{eqnarray}
 	i
@@ -2114,13 +2114,14 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 			\dfrac{v_{\bm{k}}^{2}}{ \omega + E_{\bm{k}} + i \eta }
 		\end{array}
 	\right)
+	\nonumber \\
 \end{eqnarray}
-%
 
 
-\subsection{一般化されたスピンの場合}
 
-南部空間におけるグリーン関数（$4 \times 4$ 行列）は、次のように定義される。
+\subsection{The Generalized Spin Case}
+
+The Green's function ($4 \times 4$ matrix) in Nambu space is defined as follows.
 
 \begin{eqnarray}
 	i
@@ -2140,17 +2141,17 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 				c^{\dagger}_{-\bm{k} \downarrow}(x)
 			\end{array}
 		\right)
-		\big( c^{\dagger}_{\bm{k} \uparrow} \ , \ c^{\dagger}_{\bm{k} \downarrow} \ , \ c_{-\bm{k} \uparrow} \ , \ c_{-\bm{k} \downarrow}  \big)
+		\big( c^{\dagger}_{\bm{k} \uparrow} \ , \ c^{\dagger}_{\bm{k} \downarrow} \ , \ c_{-\bm{k} \uparrow} \ , \ c_{-\bm{k} \downarrow}  \big)
 		\right]
 	\right\rangle
 	e^{ i k \cdot x }
 \end{eqnarray}
 %
-ここで $\hat{\rm T} \left[ \cdots \right]$ は時間順序積演算子である。
-$x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
-（ i.e., $k \cdot x = g_{\mu \nu} k^{\mu} x^{\nu} = \omega t- \bm{k} \cdot \bm{r}$ ）
-は、簡略記法で書かれた4元運動量ベクトルである。
-これらの関数の遅延（retarded）部分も、次のように定義される。
+Here $\hat{\rm T} \left[ \cdots \right]$ is the time-ordering operator.
+$x^{\mu}=(t,\bm{r})$ and $k^{\mu}=(\omega,\bm{k})$
+(i.e., $k \cdot x = g_{\mu \nu} k^{\mu} x^{\nu} = \omega t- \bm{k} \cdot \bm{r}$)
+are the four-momentum vectors written in abbreviated notation.
+The retarded parts of these functions are also defined as follows.
 
 \begin{eqnarray}
 	&&
@@ -2175,8 +2176,8 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 \end{eqnarray}
 %
 
-対角化された基底（準粒子） $a_{\bm{k} \sigma}^{(\dagger)}$
-に対する運動方程式は以下で得られる。：
+The equation of motion for the diagonalized basis (quasiparticle) $a_{\bm{k} \sigma}^{(\dagger)}$
+is obtained below:
 
 \begin{eqnarray}
 	i \dfrac{d a_{\bm{k}\uparrow}(t)}{dt}
@@ -2191,7 +2192,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	\sum_{\bm{q}}
 	\left[ a_{\bm{k}\uparrow}
 		\ \ , \ \
-		\big( c^{\dagger}_{\bm{q} \uparrow} \ , \ c^{\dagger}_{\bm{q} \downarrow} \ , \ c_{-\bm{q} \uparrow} \ , \ c_{-\bm{q} \downarrow}  \big)
+		\big( c^{\dagger}_{\bm{q} \uparrow} \ , \ c^{\dagger}_{\bm{q} \downarrow} \ , \ c_{-\bm{q} \uparrow} \ , \ c_{-\bm{q} \downarrow}  \big)
 		\!\!\!
 		\left(
 		\begin{array}{cc}
@@ -2218,13 +2219,13 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	\sum_{\bm{q}}
 	\left[ a_{\bm{k}\uparrow}
 		\ \ , \ \
-		\big( a^{\dagger}_{\bm{q} \uparrow} \ , \ a^{\dagger}_{\bm{q} \downarrow} \ , \ a_{-\bm{q} \uparrow} \ , \ a_{-\bm{q} \downarrow}  \big)
+		\big( a^{\dagger}_{\bm{q} \uparrow} \ , \ a^{\dagger}_{\bm{q} \downarrow} \ , \ a_{-\bm{q} \uparrow} \ , \ a_{-\bm{q} \downarrow}  \big)
 		\!\!\!
 		\left(
 		\begin{array}{cc}
 				E_{\bm{q}} \hat{1}_{2 \times 2} &
 				\\[3mm]
-				                                 & - E_{\bm{q}} \hat{1}_{2 \times 2}
+				                                & - E_{\bm{q}} \hat{1}_{2 \times 2}
 			\end{array}
 		\right)
 		\!\!\!
@@ -2281,7 +2282,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	a_{\bm{k} \uparrow}
 \end{eqnarray}
 %
-これを積分すると、
+Integrating this gives,
 
 \begin{eqnarray}
 	a_{\bm{k} \uparrow}(t)
@@ -2290,7 +2291,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	a_{\bm{k} \uparrow}(0)
 \end{eqnarray}
 %
-同様にして、$a_{-\bm{k} \downarrow}^{\dagger}$ に対する方程式を得る。
+In the same way, the equation for $a_{-\bm{k} \downarrow}^{\dagger}$ is obtained.
 
 \begin{eqnarray}
 	i \dfrac{d a_{-\bm{k} \downarrow}^{\dagger}(t) }{dt}
@@ -2302,7 +2303,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	a_{-\bm{k} \downarrow}^{\dagger}
 \end{eqnarray}
 %
-そして、
+And,
 
 \begin{eqnarray}
 	a_{-\bm{k} \downarrow}^{\dagger}(t)
@@ -2312,7 +2313,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	.
 \end{eqnarray}
 %
-スピノル $\bm{c}$ と $\bm{a}$ の間の関係は以下で与えられる。
+The relationship between the spinors $\bm{c}$ and $\bm{a}$ is given by.
 
 \begin{eqnarray}
 	\bm{c}_{\bm{k}}
@@ -2338,7 +2339,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	,
 \end{eqnarray}
 %
-ここで、
+Here,
 
 \begin{eqnarray}
 	\left(
@@ -2351,14 +2352,14 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	\dfrac{ 1 }{ \sqrt{ \big( E_{\bm{k}} + \xi_{\bm{k}} \big)^{2} + \dfrac{1}{2} {\rm Tr} \big[ \hat{\Delta}_{\bm{k}} \hat{\Delta}^{\dagger}_{\bm{k}} \big] } }
 	\left(
 	\begin{array}{cc}
-			( E_{\bm{k}} + \xi_{\bm{k}} ) \hat{1}_{2 \times 2} & - \hat{\Delta}_{\bm{k}}                             \\[2mm]
-			\hat{\Delta}_{\bm{k}}^{\dagger}                     & ( E_{\bm{k}} + \xi_{\bm{k}} ) \hat{1}_{2 \times 2}
+			( E_{\bm{k}} + \xi_{\bm{k}} ) \hat{1}_{2 \times 2} & - \hat{\Delta}_{\bm{k}}                            \\[2mm]
+			\hat{\Delta}_{\bm{k}}^{\dagger}                    & ( E_{\bm{k}} + \xi_{\bm{k}} ) \hat{1}_{2 \times 2}
 		\end{array}
 	\right)
 	.
 \end{eqnarray}
 %
-したがって、次のように置き換えることができる。
+Therefore, we can substitute as follows.
 
 \begin{eqnarray}
 	( \hat{u}_{\bm{k}} )_{\sigma \sigma'}
@@ -2378,8 +2379,8 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	.
 \end{eqnarray}
 %
-これで、スカラー量 $u_{\bm{k}}$, $v_{\bm{k} \sigma \sigma'}$ および $v_{\bm{k} \sigma \sigma'}^{*}$ が定義された。
-この関係を用いて、グリーン関数についての表現を得ることができる。
+This defines the scalar quantities $u_{\bm{k}}$, $v_{\bm{k} \sigma \sigma'}$ and $v_{\bm{k} \sigma \sigma'}^{*}$.
+Using this relationship, an expression for the Green's function can be obtained.
 
 \begin{eqnarray}
 	c_{\bm{k} \sigma}(t)
@@ -2420,7 +2421,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	u_{\bm{k}} \delta_{\sigma \downarrow} a_{-\bm{k} \downarrow}^{\dagger} e^{ i E_{\bm{k}} t}
 	.
 \end{eqnarray}
-%例えば、(1,1) 成分の遅延グリーン関数は次のように書ける。
+%For example, the (1,1) component of the retarded Green's function can be written as.
 
 \begin{eqnarray}
 	&&
@@ -2576,7 +2577,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 \end{eqnarray}
 
 
-あるいは、フーリエ空間では、
+Or, in Fourier space,
 
 \begin{eqnarray}
 	G^{R}_{\uparrow \uparrow}(k)
@@ -2615,7 +2616,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	.
 \end{eqnarray}
 %
-虚数部は状態密度に関連している。
+The imaginary part is related to the density of states.
 
 \begin{eqnarray}
 	&&
@@ -2664,7 +2665,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	,
 \end{eqnarray}
 %
-次のように書き下すことができる。
+can be written down as follows.
 
 \begin{eqnarray}
 	&&
@@ -2852,7 +2853,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	,
 \end{eqnarray}
 
-フーリエ変換で以下を得る。
+The Fourier transform gives:
 
 \begin{eqnarray}
 	&&
@@ -2946,7 +2947,7 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 \end{eqnarray}
 
 
-以上から次を得る。
+From the above, we obtain:
 
 \begin{eqnarray}
 	&&
@@ -3000,10 +3001,9 @@ $x^{\mu}=(t,\bm{r})$ および $k^{\mu}=(\omega,\bm{k})$
 	.
 \end{eqnarray}
 %
-この結果は、$(v_{\bm{k} \sigma \sigma'}) = v_{\bm{k}} \hat{\sigma}^{x}$
-、
-$(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$
-とおくことで、一重項の場合に帰着できる。
+This result can be reduced to the singlet case by setting $(v_{\bm{k} \sigma \sigma'}) = v_{\bm{k}} \hat{\sigma}^{x}$
+and
+$(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$.
 
 \begin{eqnarray}
 	\left(
@@ -3027,7 +3027,7 @@ $(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$
 %
 
 
-スピン空間における遅延異常グリーン関数は、
+The retarded anomalous Green's function in spin space is:
 
 \begin{eqnarray}
 	\Big(
@@ -3043,7 +3043,7 @@ $(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$
 	,
 \end{eqnarray}
 %
-そして、
+and,
 
 \begin{eqnarray}
 	&&
@@ -3272,7 +3272,7 @@ $(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$
 	.
 \end{eqnarray}
 %
-次を得る。
+We obtain:
 
 \begin{eqnarray}
 	&&
@@ -3316,10 +3316,9 @@ $(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$
 	.
 \end{eqnarray}
 %
-この結果は、$(v_{\bm{k} \sigma \sigma'}) = v_{\bm{k}} \hat{\sigma}^{x}$
-、
-$(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$
-とおくことで、一重項の場合に帰着できる。
+This result can be reduced to the singlet case by setting $(v_{\bm{k} \sigma \sigma'}) = v_{\bm{k}} \hat{\sigma}^{x}$
+and
+$(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$.
 
 \begin{eqnarray}
 	&&
@@ -3344,7 +3343,7 @@ $(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$
 \end{eqnarray}
 %
 
-${}$スピン空間における遅延・反異常グリーン関数は、
+The retarded anti-anomalous Green's function in spin space is:
 
 \begin{eqnarray}
 	\Big(
@@ -3360,7 +3359,7 @@ ${}$スピン空間における遅延・反異常グリーン関数は、
 	,
 \end{eqnarray}
 %
-次のように得られる。
+obtained as follows.
 
 \begin{eqnarray}
 	&&
@@ -3528,9 +3527,9 @@ ${}$スピン空間における遅延・反異常グリーン関数は、
 
 \begin{eqnarray}
 	&&
-	F_{\sigma \sigma'}^{R}(k)
+	\bar{F}_{\sigma \sigma'}^{R}(k)
 	\nonumber \\[4mm] &=&
-	\int \! dt \ F_{\bm{k} \sigma \sigma'}^{R}(t) e^{i \omega t}
+	\int \! dt \ \bar{F}_{\bm{k} \sigma \sigma'}^{R}(t) e^{i \omega t}
 	\nonumber \\[4mm] &=&
 	-
 	i
@@ -3581,7 +3580,7 @@ ${}$スピン空間における遅延・反異常グリーン関数は、
 	.
 \end{eqnarray}
 %
-次を得る。
+We obtain:
 
 \begin{eqnarray}
 	&&
@@ -3625,16 +3624,15 @@ ${}$スピン空間における遅延・反異常グリーン関数は、
 	.
 \end{eqnarray}
 %
-この結果は、$(v_{\bm{k} \sigma \sigma'}) = v_{\bm{k}} \hat{\sigma}^{x}$
-、
-$(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$
-とおくことで、一重項の場合に帰着できる。
+This result can be reduced to the singlet case by setting $(v_{\bm{k} \sigma \sigma'}) = v_{\bm{k}} \hat{\sigma}^{x}$
+and
+$(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$.
 
 \begin{eqnarray}
 	\left(
 	\begin{array}{cc}
-			F_{\uparrow \uparrow}^{R}(k)   & F_{\uparrow \downarrow}^{R}(k)   \\[3mm]
-			F_{\downarrow \uparrow}^{R}(k) & F_{\downarrow \downarrow}^{R}(k)
+			\bar{F}_{\uparrow \uparrow}^{R}(k)   & \bar{F}_{\uparrow \downarrow}^{R}(k)   \\[3mm]
+			\bar{F}_{\downarrow \uparrow}^{R}(k) & \bar{F}_{\downarrow \downarrow}^{R}(k)
 		\end{array}
 	\right)
 	&=&
@@ -3650,4 +3648,5 @@ $(v_{\bm{k} \sigma \sigma'}^{*}) = v_{\bm{k}}^{*} \hat{\sigma}^{x}$
 	\hat{\sigma}^{x}
 	.
 \end{eqnarray}
+
 \end{document}
