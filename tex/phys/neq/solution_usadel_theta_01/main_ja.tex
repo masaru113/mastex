@@ -1,0 +1,753 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{金属・超伝導界面における \\ $\theta$ パラメータ表示されたUsadel方程式の解}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	超伝導・金属の界面における状態密度を調べる。
+	空間座標 $x<0$ の領域で超伝導、$x>0$ の領域で金属であるような界面について考察する。
+\end{abstract}
+
+\section{$\theta$ パラメータ表示}
+
+一様な状態において、
+南部空間における準古典グリーン関数は
+\begin{eqnarray}
+	\check{g}_{\omega_{n}}
+	&=&
+	\left(
+	\begin{array}{cc}
+			g_{\omega_{n}}            & f_{\omega_{n}}
+			\\[2mm]
+			-f^{\dagger}_{\omega_{n}} & - g_{\omega_{n}}
+		\end{array}
+	\right)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{ \sqrt{ \omega_{n}^{2} + | \Delta |^{2} } }
+	\left(
+	\begin{array}{cc}
+			\omega_{n}   & - i \Delta
+			\\[2mm]
+			i \Delta^{*} & - \omega_{n}
+		\end{array}
+	\right)
+\end{eqnarray}
+ここで $g_{\omega_{n}}$ を ${\rm cos} \theta$ で置き換えると、
+$\theta = \theta(x) = {\rm arctan} \dfrac{\Delta(x)}{\omega_{n}}$
+となり、
+\begin{eqnarray}
+	\check{g}
+	&=&
+	\left(
+	\begin{array}{cc}
+			{\rm cos} \theta        & - i \ \! {\rm sin} \theta
+			\\[2mm]
+			i \ \! {\rm sin} \theta & - {\rm cos} \theta
+		\end{array}
+	\right)
+	\nonumber \\[3mm] &=&
+	\check{\tau}_{3} {\rm cos} \theta
+	+
+	\check{\tau}_{2} {\rm sin} \theta
+\end{eqnarray}
+ただし $\check{\tau}$ はパウリ行列であり、
+$\Delta$ は実数とした。
+このとき、Usadel方程式は以下のようになる。
+\begin{eqnarray}
+	D
+	\dfrac{\partial^{2} \theta}{\partial x^{2}}
+	&=&
+	2 \omega_{n} {\rm sin} \theta
+\end{eqnarray}
+
+\section{無限遠での境界条件}
+
+Usadel方程式は次のように書き換えることができる。
+\begin{eqnarray}
+	\dfrac{\partial}{\partial x}
+	\Big[
+		\dfrac{D}{2}
+		\Big( \dfrac{\partial \theta}{\partial x} \Big)^{2}
+		+
+		2 \omega_{n}
+		{\rm cos} \theta
+		\Big]
+	&=&
+	0
+\end{eqnarray}
+簡単のため、定数 $A$ を導入すると、
+\begin{eqnarray}
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	\sqrt{
+		\dfrac{2A}{D}
+		-
+		\dfrac{4 \omega_{n}}{D}
+		{\rm cos} \theta
+	}
+\end{eqnarray}
+\subsection{超伝導体極限}
+
+$x \to - \infty$ の極限において、
+この領域はバルクの超伝導状態であり、
+一様な状態とみなすことができる。
+したがって、境界条件は
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		\dfrac{\partial \theta}{\partial x} \Big|_{x \to - \infty}
+		 & = & 0
+		\\[4mm]
+		\displaystyle \lim_{x \to - \infty} \theta
+		 & = &
+		{\rm arctan} \dfrac{\Delta_{0}}{ \omega_{n} }
+		\ \ = \ \
+		\Theta_{\omega_{n}}
+	\end{array}
+	\right.
+\end{eqnarray}
+となる。ここで $\Theta_{\omega_{n}}$ を定義した。
+これらの条件から、 $A$ の値が
+$\displaystyle A=\dfrac{2 \omega_{n}^{2}}{ \sqrt{ \omega_{n}^{2} + \Delta_{0}^{2} } }$
+と決まる。
+表現を簡単にするため、
+もう一度、定数
+$B=\dfrac{2 \omega_{n}}{A} = \dfrac{ \sqrt{ \omega_{n}^{2} + \Delta_{0}^{2} }}{\omega_{n}}$
+を再定義してみよう。
+\begin{eqnarray}
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	\sqrt{ \dfrac{4 \omega_{n}}{DB} }
+	\sqrt{ 1 - B {\rm cos} \theta }
+	\ \ = \
+	\pm
+	\sqrt{ \dfrac{4 \omega_{n}}{DB} }
+	\sqrt{ 1 - B (1 - 2 {\rm sin}^{2} \dfrac{\theta}{2} ) }
+	\\[2mm]
+	2
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	\sqrt{ \dfrac{4 \omega_{n}}{DB} }
+	\sqrt{ 1- B }
+	\sqrt{ 1 + \dfrac{2B}{1-B} {\rm sin}^{2} \theta }
+\end{eqnarray}
+これを明示的に書くと、
+\begin{eqnarray}
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	\sqrt{ \dfrac{ \omega_{n} \big( \omega_{n} - \sqrt{\omega_{n}^{2} + \Delta_{0}^{2}} \big) }{ D \sqrt{\omega_{n}^{2} + \Delta_{0}^{2}} } }
+	\sqrt{ 1 - \dfrac{ 2 \sqrt{\omega_{n}^{2} + \Delta_{0}^{2}} }{ \sqrt{\omega_{n}^{2} + \Delta_{0}^{2}} - \omega_{n} } {\rm sin}^{2} \theta }
+\end{eqnarray}
+したがって、この方程式は容易に解くことができ、
+その解は積分定数 $C_{S}$ と
+第一種不完全楕円積分
+$\displaystyle F(\theta,k) = \int^{\theta}_{0} \dfrac{d \theta'}{ \sqrt{1 - k^{2} {\rm sin}^{2} \theta'}}$
+を用いて次のように表される。
+\begin{eqnarray}
+	F \Big(\theta,\sqrt{ \dfrac{2}{ 1 - {\rm cos} \Theta_{\omega_{n}} } } \Big)
+	&=&
+	\pm
+	\dfrac{x}{2}
+	\sqrt{ \dfrac{ \omega_{n} }{ D } }
+	\sqrt{ {\rm cos} \Theta_{\omega_{n}} - 1 }
+	+
+	C_{S}
+	\hspace{10mm}
+	(x<0)
+\end{eqnarray}
+
+\subsection{常伝導金属極限}
+
+反対に、
+$x \to + \infty$ の極限は、
+常伝導金属 ($\Delta=0$) の領域に対応する。
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		\dfrac{\partial \theta}{\partial x} \Big|_{x \to \infty}
+		 & = & 0
+		\\[4mm]
+		\displaystyle \lim_{x \to \infty} \theta
+		 & = &
+		0
+	\end{array}
+	\right.
+\end{eqnarray}
+このとき、パラメータ $A$ は $A=2 \omega_{n}$ と決まる。
+\begin{eqnarray}
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	2 \sqrt{ \dfrac{2 \omega_{n}}{D} } \Big| {\rm sin} \dfrac{\theta}{2} \Big|
+\end{eqnarray}
+これは初等的な計算の範囲で解くことができる。
+\begin{eqnarray}
+	{\rm sgn} \Big( {\rm sin} \dfrac{\theta}{2} \Big)
+	\
+	{\rm ln} \Big( {\rm tan} \dfrac{\theta}{4} \Big)
+	&=&
+	\pm
+	2 x \sqrt{ \dfrac{2 \omega_{n}}{D} }
+	+
+	C_{N}
+	\hspace{10mm}
+	(x>0)
+\end{eqnarray}
+ここで、複素関数 ${\rm sgn}(z)$ は ${\rm sgn}(z) = \dfrac{z}{|z|}$ と定義され、
+$C_{N}$ は未定の定数である。
+\section{超伝導体・常伝導金属界面の条件}
+
+超伝導体側 ($x<0$) と常伝導金属側 ($x>0$) から、
+それぞれの $x$ 微分は
+\begin{eqnarray}
+	\left\{
+	\begin{array}{clllc}
+		\dfrac{\partial \theta_{S}}{\partial x}
+		 & =                        &
+		\pm 2
+		\sqrt{
+			\dfrac{\omega_{n}}{D_{S}}
+		}
+		\sqrt{
+		{\rm cos} \Theta_{\omega_{n}}
+		-
+		{\rm cos} \theta_{S}
+		}
+		\hspace{10mm}
+		 & (x<0 \ : \ {\rm super})  &
+		\\[8mm]
+		\dfrac{\partial \theta_{N}}{\partial x}
+		 & =                        &
+		\pm
+		2 \sqrt{ \dfrac{2 \omega_{n}}{D_{N}} } \Big| {\rm sin} \dfrac{\theta_{N}}{2} \Big|
+		\hspace{10mm}
+		 & (x>0 \ : \ {\rm nomal} ) &
+	\end{array}
+	\right.
+\end{eqnarray}
+となる。
+$x=0$ の界面において、
+関数 $\theta$ は以下の境界条件を満たす。
+\begin{eqnarray}
+	\left\{
+	\begin{array}{clc}
+		\gamma_{0} \xi_{N}
+		\dfrac{\partial \theta_{N}}{\partial x}
+		\Big|_{x \to +0}
+		 & = &
+		\displaystyle
+		\lim_{x \to \pm0}
+		{\rm sin}(\theta_{S} - \theta_{N})
+		\\[6mm]
+		\gamma_{1} \xi_{N}
+		\dfrac{\partial \theta_{N}}{\partial x}
+		\Big|_{x \to +0}
+		 & = &
+		\xi_{S}
+		\dfrac{\partial \theta_{S}}{\partial x}
+		\Big|_{x \to -0}
+	\end{array}
+	\right.
+\end{eqnarray}
+$\gamma_{0,1}$ は近接効果のパラメータ、
+$ \xi_{N,S} = \sqrt{\dfrac{D_{N,S}}{2 \pi \Delta_{0}}} $
+である。
+未知数である
+$ \ \theta_{S0}=\displaystyle \lim_{x \to -0} \theta_{S} \ $
+と
+$ \ \theta_{N0}=\displaystyle \lim_{x \to +0} \theta_{N} \ $
+は、以下の連立方程式を満たす。
+\begin{eqnarray}
+	\left\{
+	\begin{array}{lcl}
+		\gamma_{0}
+		\sqrt{ \dfrac{\omega_{n}}{\Delta_{0}} } {\rm sin} \dfrac{\theta_{N0}}{2}
+		 & = &
+		{\rm sin}(\theta_{S0} - \theta_{N0})
+		\\[6mm]
+		\gamma_{1}
+		{\rm sin} \dfrac{\theta_{N0}}{2}
+		 & = &
+		\sqrt{
+		{\rm cos} \Theta_{\omega_{n}}
+		-
+		{\rm cos} \theta_{S0}
+		}
+	\end{array}
+	\right.
+\end{eqnarray}
+ここで
+$C_{N}$ は複素数であるため、位相因子
+${\rm sgn} \Big( {\rm sin} \dfrac{\theta_{N0}}{2} \Big)$
+は $C_{N}$ に繰り込まれ、
+また $\gamma_{0,1}$ も 1 のオーダーの因子として繰り込まれている。
+$ \gamma_{B} = \dfrac{R_{B}}{\rho_{N} \xi_{N}} $
+,
+$ \gamma = \dfrac{\rho_{S} \xi_{S}}{\rho_{N} \xi_{N}} $
+\section{数値計算}
+
+まず、
+ソルバーに複素数 $\gamma_{0,1}$ を与え、方程式を解く。
+$\theta_{N0}$ は、以下の超越方程式を解くことによって得られるはずである。
+\begin{eqnarray}
+	\theta_{N0}
+	&=&
+	{\rm arccos}
+	\Big( {\rm cos} \Theta_{\omega_{n}} - \gamma_{1}^{2} {\rm sin}^{2} \dfrac{\theta_{N0}}{2} \Big)
+	-
+	{\rm arcsin}
+	\Big( \gamma_{0} \sqrt{ \dfrac{\omega_{n}}{\Delta_{0}} } {\rm sin} \dfrac{\theta_{N0}}{2} \Big)
+	\label{eqn:theta_N0}
+\end{eqnarray}
+この超越方程式が解けたなら、
+次に $\theta_{S0}$ を解く。これは以下のように決定される。
+\begin{eqnarray}
+	\theta_{S0}
+	&=&
+	{\rm arccos}
+	\Big( {\rm cos} \Theta_{\omega_{n}} - \gamma_{1}^{2} {\rm sin}^{2} \dfrac{\theta_{N0}}{2} \Big)
+\end{eqnarray}
+$C_{N}$ と $C_{S}$ も同時に定まる。
+\begin{eqnarray}
+	\left\{
+	\begin{array}{lcl}
+		C_{N}
+		 & = &
+		{\rm ln} \Big( {\rm tan} \dfrac{\theta_{N0}}{4} \Big)
+		\\[6mm]
+		C_{S}
+		 & = &
+		F \Big(\theta_{S0} , \sqrt{ \dfrac{2}{ 1 - {\rm cos} \Theta_{\omega_{n}} } } \Big)
+		\ \ = \ \
+		\displaystyle
+		\theta_{S0}
+		\int^{1}_{0} \dfrac{d x}{ \sqrt{1 - \dfrac{2 {\rm sin}^{2}(\theta_{S0} x) }{ 1 - {\rm cos} \Theta_{\omega_{n}} } }}
+	\end{array}
+	\right.
+\end{eqnarray}
+楕円積分の逆関数は、
+ヤコビ (Jacobi) の楕円関数を用いて表すことができる。
+ヤコビの振幅関数 $\ {\rm am}(z,m) \ $ は、次のように定義される。
+\begin{eqnarray}
+	F({\rm am}(x,k^{2}),k)
+	&=&
+	x
+\end{eqnarray}
+言い換えれば、次のように書ける。
+\begin{eqnarray}
+	x
+	&=&
+	\int^{{\rm am}(x,m)}_{0} \dfrac{d \theta}{ \sqrt{1 - m \ {\rm sin}^{2}x}}
+\end{eqnarray}
+そして、ヤコビの楕円関数 sn, cn, dn は、それぞれ次のように定義される。
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		{\rm sn} (x,m)
+		 & = &
+		{\rm sin} [{\rm am}(x,m)]
+		\\[4mm]
+		{\rm cn} (x,m)
+		 & = &
+		{\rm cos} [{\rm am}(x,m)]
+		\\[4mm]
+		{\rm dn} (x,m)
+		 & = &
+		\sqrt{1 - m \ {\rm sin}^{2} [{\rm am}(x,m)]}
+	\end{array}
+	\right.
+\end{eqnarray}
+sn, cn, dn はランベルト (Lambert) 級数展開の形で書き直すことができる。
+
+解を陽に書き下すために、
+フェルミエネルギーから測った状態密度 (DOS) を
+ヤコビの楕円関数を用いて表現することができる。
+\begin{eqnarray}
+	&&
+	- {\rm Im}[{\rm cos}\theta_{\omega_{n}}(x)]
+	\nonumber \\[3mm]
+	&=&
+	\left\{
+	\begin{array}{ll}
+		-{\rm Im} \Big[
+			{\rm cn}
+			\Big(
+			\dfrac{x}{2}
+			\sqrt{ \dfrac{ \omega_{n} }{ D } }
+			\sqrt{ {\rm cos} \Theta_{\omega_{n}} - 1 }
+			+
+			C_{S}
+			\ , \
+			\dfrac{2}{ 1 - {\rm cos} \Theta_{\omega_{n}} }
+			\Big)
+			\Big]
+		 &
+		\hspace{10mm}
+		(x<0 \ : \ {\rm super})
+		\\[7mm]
+		-{\rm Im} \Big(
+		{\rm cos}
+		\Big\{
+		4
+		{\rm arctan}
+		\Big[
+			{\rm exp}
+			\Big(
+			2x
+			\sqrt{ \dfrac{2 \omega_{n} }{ D } }
+			+
+			C_{N}
+			\Big)
+			\Big]
+		\Big\}
+		\Big)
+		 &
+		\hspace{10mm}
+		(x>0 \ : \ {\rm nomal})
+	\end{array}
+	\right.
+\end{eqnarray}
+特に、 $i \omega_{n} \to E + i 0^{+}$ という解析接続を行った後では、
+ZEDOS ( $E=0$ での状態密度) を描画することができる。
+\begin{eqnarray}
+	- {\rm Im}[{\rm cos}\theta(x,E=0)]
+	&=&
+	\left\{
+	\begin{array}{ll}
+		-{\rm Im} \Big[
+			{\rm cn}
+			\Big(
+			i x 0^{+}
+			+
+			C_{S}
+			\ , \
+			2
+			\Big)
+			\Big]
+		 &
+		\hspace{10mm}
+		(x<0 \ : \ {\rm super})
+		\\[7mm]
+		-{\rm Im} \Big(
+		{\rm cos}
+		\Big\{
+		4
+		{\rm arctan}
+		\Big[
+			{\rm exp}
+			\Big(
+			x
+			0^{+}
+			+
+			C_{N}
+			\Big)
+			\Big]
+		\Big\}
+		\Big)
+		 &
+		\hspace{10mm}
+		(x>0 \ : \ {\rm nomal} )
+	\end{array}
+	\right.
+	\hspace{10mm}
+\end{eqnarray}
+
+\section{ルンゲ=クッタを利用して常微分方程式のまま解く}
+
+\subsection{問題設定}
+
+解析接続されたUsadel方程式は次のようになる。
+
+\begin{eqnarray}
+	\pi
+	\theta''(x,E)
+	+
+	i E {\rm sin} \theta(x,E)
+	&=&
+	0
+\end{eqnarray}
+
+ここでプライム($'$)は$\partial/\partial x$であり、
+変数はそれぞれ規格化された距離とエネルギー$
+	x/ \xi \to x$、$ E/\Delta_{0} \to E $
+である。
+ここで、
+$\theta(x,E) = \theta_{r}(x,E) +i \theta_{i}(x,E)$
+として、
+複素関数をそのまま扱うことを避けて、実部と虚部に分ける。
+このとき方程式は2つに分離される。
+
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		\pi \theta_{r}''(x,E)
+		-
+		E {\rm cos} \theta_{r}(x,E) \ \! {\rm sinh} \theta_{i}(x,E)
+		 & = &
+		0
+		\\[5mm]
+		\pi \theta_{i}''(x,E)
+		+
+		E {\rm sin} \theta_{r}(x,E) \ \! {\rm cosh} \theta_{i}(x,E)
+		 & = &
+		0
+	\end{array}
+	\right.
+\end{eqnarray}
+
+この連立方程式は、物理的な考察
+から漸近条件が次のように課される。
+
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rclll}
+		\theta_{r}(\infty,E)
+		                                     & = &
+		0
+		, \hspace{5mm} \theta_{i}(\infty,E)  &
+		=                                    &
+		0
+		\\[4mm]
+		\theta_{r}(-\infty,E)
+		                                     & = &
+		0
+		, \hspace{5mm} \theta_{i}(-\infty,E) &
+		=
+		                                     &
+		{\rm arctanh} \dfrac{1}{ E }
+	\end{array}
+	\right.
+\end{eqnarray}
+
+（超伝導体と常伝導体の）界面
+($x=\pm0$)では境界条件として次が成り立つ。
+
+\begin{eqnarray}
+	&&
+	\left\{
+	\begin{array}{clc}
+		\gamma
+		\theta_{r}'(+0,E)
+		 & = &
+		\theta_{r}'(-0,E)
+		\\[6mm]
+		\gamma
+		\theta_{i}'(+0,E)
+		 & = &
+		\theta_{i}'(-0,E)
+	\end{array}
+	\right.
+	,
+	\\[4mm]
+	&&
+	\left\{
+	\begin{array}{clc}
+		\gamma_{B}
+		\theta_{r}'(+0,E)
+		 & = &
+		{\rm sin} \Big[ \theta_{r}(-0,E) - \theta_{r}(+0,E) \Big]
+		{\rm cosh} \Big[ \theta_{i}(-0,E) - \theta_{i}(+0,E) \Big]
+		\\[6mm]
+		\gamma_{B}
+		\theta_{i}'(+0,E)
+		 & = &
+		{\rm cos} \Big[ \theta_{r}(-0,E) - \theta_{r}(+0,E) \Big]
+		{\rm sinh} \Big[ \theta_{i}(-0,E) - \theta_{i}(+0,E) \Big]
+	\end{array}
+	\right.
+\end{eqnarray}
+
+ここで$\gamma$,$\gamma_{B}$は近接効果を特徴付けるパラメータであり、問題に合わせて手で与える定数である。
+
+%次のページでこの問題を解く方法の例を挙げる。
+\subsection{戦略}
+
+以下では簡単のためにエネルギーを固定して、関数の中の$E$を表示しない。
+
+まず、古典的な4次のRunge-Kutta（RK4）を界面から十分離れた位置
+\footnote{
+	当然、$L \to \infty$で厳密であるが、
+	RK4で逐次積分していくことを考えるので、
+	途中に不安定な点が存在すると途端に解は信頼性を失ってしまう。
+	今回、解くべき方程式は非線形な連立微分方程式であり、
+	途中で不安定になることは簡単に予想できる。
+	従って、$x=-L$から界面$x=-0$へたどり着くまで不安定な点が出ない範囲の大きさの$L$を用意する必要があり、
+	この方程式を解く人が自分でチューニングして十分大きくてかつ不安定にならない$L$を決めるしかない。
+
+}
+$x=-L$
+から界面に向かって走らせる。
+ここで漸近条件から0階導関数の初期値は決定しているので、
+1階導関数の値$\theta'(-L)$さえ決まれば、
+$x=-0$までの関数の値は逐次決定される。
+$x=-0$から$x=+0$へ接続するには界面における境界条件を解く必要がある。
+$x=-0$における値が既知であるとして、
+$\theta_{r}(+0)$に関する次のような1元の方程式へ還元される。
+簡単のために
+$t=\theta_{r}(-0) - \theta_{r}(+0)$と置換すると、
+
+\begin{eqnarray}
+	{\rm tan}
+	(t)
+	&=&
+	a
+	\
+	{\rm tanh}
+	\left\{
+	{\rm arccosh}
+	\left[
+		\dfrac{ b }{ {\rm sin} (t) }
+		\right]
+	\right\}
+\end{eqnarray}
+
+ここで表記の簡単のために
+それぞれ
+$
+	a
+	\ = \
+	\dfrac{ \theta_{r}'(-0) }{ \theta_{i}'(-0) }
+$
+、
+$
+	b
+	\ = \
+	\dfrac{ \gamma_{B} }{ \gamma }
+	\theta_{i}'(-0)
+$
+と置いた。
+この方程式の解は次で与えられる。
+
+\begin{eqnarray}
+	\theta_{r}(+0)
+	&=&
+	\theta_{r}(-0)
+	+
+	{\rm arcsin}
+	\sqrt{
+		\dfrac{ 1 }{ 2 }
+		\left(
+		\dfrac{ b^{2} }{ a^{2} }
+		-
+		\dfrac{ \sqrt{ a^{4} b^{4} - 2 a^{4} b^{2} + a^{4} + 2 a^{2} b^{4} + 2 a^{2} b^{2} + b^{4} } }{ a^{2} }
+		+
+		b^{2} + 1
+		\right)
+	}
+	\nonumber \\
+\end{eqnarray}
+
+この解より、境界条件からすぐに得られる次の関係式
+\footnote{
+	逆双曲線関数は、実関数の範囲内で全く同値な式
+	%
+	%
+	%
+	%
+	
+
+	\begin{eqnarray}
+		{\rm arcsinh}(y)
+		&=&
+		{\rm ln} \left( y + \sqrt{ 1 + y^{2} } \right)
+		\\
+		{\rm arctanh}\dfrac{1}{E}
+		\ = \
+		{\rm arccoth}(E)
+		&=&
+		\dfrac{1}{2}
+		{\rm ln} \dfrac{1+E}{1-E}
+	\end{eqnarray}
+	
+
+	%
+	%
+	%
+	%
+	を数値計算では用いる。
+}
+
+\begin{eqnarray}
+	\theta_{i}(+0)
+	&=&
+	\theta_{i}(-0)
+	-
+	{\rm arcsinh}
+	\left\{
+	\dfrac{ \gamma_{B} }{ \gamma }
+	\dfrac{ \theta_{i}'(-0) }{ {\rm cos} \left[ \theta_{r}(-0) - \theta_{r}(+0) \right] }
+	\right\}
+	,
+\end{eqnarray}
+
+から$\theta_{i}(+0)$も同時に求めることができる。
+
+さらに境界条件から$\theta'(+0)$の値も分かるので、
+$x=+0$での関数の値は全て得られる。
+この値を初期値として
+RK4を走らせることで、
+$x>0$の場合も全く同様の流れで
+$x=+L$の値まで求まる。
+
+${}$
+
+未知の定数$c_{1}$、$c_{2}$を用いて整理する。
+初期値$\theta'(-L)=c_{1}+i c_{2}$を手で与えてRK4で$x=-0$まで走らせる。
+境界条件が陽に解けたので、$x=-0$での値をそのまま代入するだけで$x=+0$での値が求まる。
+$x=+0$での値を初期値として、
+ここからRK4で出発して$\theta(L)$を得る。
+この$\theta(L)$が最小
+\footnote{厳密には$\ \displaystyle \lim_{L \to \infty} f(c_{1},c_{2})=0$である。}
+になるような
+$(c_{1},c_{2})$を探す。
+
+このときの$\theta(+L)$は、$x=-L$における初期値$(c_{1},c_{2})$が決まれば定まるものとして、それを関数$f$とみなせば
+
+\begin{eqnarray}
+	\big| \theta_{r}(L) + i \theta_{i}(L) \big|^{2}
+	&=&
+	f(c_{1},c_{2})
+\end{eqnarray}
+
+の最小化問題である。
+\subsection{手順}
+
+$\hspace{-5mm} \cdot$
+まずパラメータ$\gamma$、$\gamma_{B}$を入力する。
+
+$\hspace{-5mm} \cdot$
+初期値$(c_{1},c_{2})$を振って、$x=-L$から界面$x=-0$に向かってRK4を解く。
+
+$\hspace{-5mm} \cdot$
+境界条件を満たすように
+$x=+0$での値を求める。
+
+$\hspace{-5mm} \cdot$
+$x=+0$での値を初期値として$x=L$に向かってRK4を回す。
+
+$\hspace{-5mm} \cdot$
+得られた$\theta(L)$から$\big| \theta(L) \big|^{2}=f(c_{1},c_{2})$
+を各$(c_{1},c_{2})$の場合で計算する。
+
+$\hspace{-5mm} \cdot$
+この$f(c_{1},c_{2})$が最小になるような初期値$(c_{1},c_{2})$を用いて計算されたものが解である。
+
+$\hspace{-5mm} \cdot$
+これを各$E$について繰り返す。
+
+\end{document}

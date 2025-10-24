@@ -1,0 +1,748 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{Solution of the $\theta$-parametrized Usadel Equation \\ at a Metal-Superconductor Interface}
+
+\author{
+Masaru Okada
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	The density of states at a superconductor-metal interface is investigated.
+	We consider an interface where the region $x<0$ is superconducting and the region $x>0$ is metallic.
+\end{abstract}
+
+\section{$\theta$-parametrization}
+
+In a homogeneous state,
+the quasi-classical Green's function in Nambu space is
+\begin{eqnarray}
+	\check{g}_{\omega_{n}}
+	&=&
+	\left(
+	\begin{array}{cc}
+			g_{\omega_{n}}            & f_{\omega_{n}}
+			\\[2mm]
+			-f^{\dagger}_{\omega_{n}} & - g_{\omega_{n}}
+		\end{array}
+	\right)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{ \sqrt{ \omega_{n}^{2} + | \Delta |^{2} } }
+	\left(
+	\begin{array}{cc}
+			\omega_{n}   & - i \Delta
+			\\[2mm]
+			i \Delta^{*} & - \omega_{n}
+		\end{array}
+	\right)
+\end{eqnarray}
+If $g_{\omega_{n}}$ is replaced by ${\rm cos} \theta$,
+then $\theta = \theta(x) = {\rm arctan} \dfrac{\Delta(x)}{\omega_{n}}$,
+and thus
+\begin{eqnarray}
+	\check{g}
+	&=&
+	\left(
+	\begin{array}{cc}
+			{\rm cos} \theta        & - i \ \! {\rm sin} \theta
+			\\[2mm]
+			i \ \! {\rm sin} \theta & - {\rm cos} \theta
+		\end{array}
+	\right)
+	\nonumber \\[3mm] &=&
+	\check{\tau}_{3} {\rm cos} \theta
+	+
+	\check{\tau}_{2} {\rm sin} \theta
+\end{eqnarray}
+where $\check{\tau}$ are the Pauli matrices
+and $\Delta$ is taken to be real.
+The Usadel equation then becomes
+\begin{eqnarray}
+	D
+	\dfrac{\partial^{2} \theta}{\partial x^{2}}
+	&=&
+	2 \omega_{n} {\rm sin} \theta
+\end{eqnarray}
+
+\section{Boundary condition at infinity}
+
+The Usadel equation can be rewritten as
+\begin{eqnarray}
+	\dfrac{\partial}{\partial x}
+	\Big[
+		\dfrac{D}{2}
+		\Big( \dfrac{\partial \theta}{\partial x} \Big)^{2}
+		+
+		2 \omega_{n}
+		{\rm cos} \theta
+		\Big]
+	&=&
+	0
+\end{eqnarray}
+For simplicity, introducing a constant $A$ yields
+\begin{eqnarray}
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	\sqrt{
+		\dfrac{2A}{D}
+		-
+		\dfrac{4 \omega_{n}}{D}
+		{\rm cos} \theta
+	}
+\end{eqnarray}
+\subsection{Superconductor limit.}
+
+In the limit $x \to - \infty$,
+this domain is the bulk superconductor,
+which can be regarded as a homogeneous state.
+The boundary conditions are therefore
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		\dfrac{\partial \theta}{\partial x} \Big|_{x \to - \infty}
+		 & = & 0
+		\\[4mm]
+		\displaystyle \lim_{x \to - \infty} \theta
+		 & = &
+		{\rm arctan} \dfrac{\Delta_{0}}{ \omega_{n} }
+		\ \ = \ \
+		\Theta_{\omega_{n}}
+	\end{array}
+	\right.
+\end{eqnarray}
+where $\Theta_{\omega_{n}}$ has now been defined.
+These conditions determine the value
+$\displaystyle A=\dfrac{2 \omega_{n}^{2}}{ \sqrt{ \omega_{n}^{2} + \Delta_{0}^{2} } }$.
+To simplify the expression,
+let us once again re-define a constant
+$B=\dfrac{2 \omega_{n}}{A} = \dfrac{ \sqrt{ \omega_{n}^{2} + \Delta_{0}^{2} }}{\omega_{n}}$.
+\begin{eqnarray}
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	\sqrt{ \dfrac{4 \omega_{n}}{DB} }
+	\sqrt{ 1 - B {\rm cos} \theta }
+	\ \ = \
+	\pm
+	\sqrt{ \dfrac{4 \omega_{n}}{DB} }
+	\sqrt{ 1 - B (1 - 2 {\rm sin}^{2} \dfrac{\theta}{2} ) }
+	\\[2mm]
+	2
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	\sqrt{ \dfrac{4 \omega_{n}}{DB} }
+	\sqrt{ 1- B }
+	\sqrt{ 1 + \dfrac{2B}{1-B} {\rm sin}^{2} \theta }
+\end{eqnarray}
+Explicitly, we have
+\begin{eqnarray}
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	\sqrt{ \dfrac{ \omega_{n} \big( \omega_{n} - \sqrt{\omega_{n}^{2} + \Delta_{0}^{2}} \big) }{ D \sqrt{\omega_{n}^{2} + \Delta_{0}^{2}} } }
+	\sqrt{ 1 - \dfrac{ 2 \sqrt{\omega_{n}^{2} + \Delta_{0}^{2}} }{ \sqrt{\omega_{n}^{2} + \Delta_{0}^{2}} - \omega_{n} } {\rm sin}^{2} \theta }
+\end{eqnarray}
+Therefore, it can be solved easily
+and the solution can be represented using
+an integration constant $C_{S}$ and
+the incomplete elliptic integral of the first kind
+$\displaystyle F(\theta,k) = \int^{\theta}_{0} \dfrac{d \theta'}{ \sqrt{1 - k^{2} {\rm sin}^{2} \theta'}}$ :
+\begin{eqnarray}
+	F \Big(\theta,\sqrt{ \dfrac{2}{ 1 - {\rm cos} \Theta_{\omega_{n}} } } \Big)
+	&=&
+	\pm
+	\dfrac{x}{2}
+	\sqrt{ \dfrac{ \omega_{n} }{ D } }
+	\sqrt{ {\rm cos} \Theta_{\omega_{n}} - 1 }
+	+
+	C_{S}
+	\hspace{10mm}
+	(x<0)
+\end{eqnarray}
+
+\subsection{Normal metal limit.}
+
+On the other hand,
+the limit $x \to + \infty$ corresponds to
+the normal metal ($\Delta=0$) region.
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		\dfrac{\partial \theta}{\partial x} \Big|_{x \to \infty}
+		 & = & 0
+		\\[4mm]
+		\displaystyle \lim_{x \to \infty} \theta
+		 & = &
+		0
+	\end{array}
+	\right.
+\end{eqnarray}
+In this case, the parameter $A$ is determined to be $A=2 \omega_{n}$.
+\begin{eqnarray}
+	\dfrac{\partial \theta}{\partial x}
+	&=&
+	\pm
+	2 \sqrt{ \dfrac{2 \omega_{n}}{D} } \Big| {\rm sin} \dfrac{\theta}{2} \Big|
+\end{eqnarray}
+This can be solved within the regime of elementary calculation.
+\begin{eqnarray}
+	{\rm sgn} \Big( {\rm sin} \dfrac{\theta}{2} \Big)
+	\
+	{\rm ln} \Big( {\rm tan} \dfrac{\theta}{4} \Big)
+	&=&
+	\pm
+	2 x \sqrt{ \dfrac{2 \omega_{n}}{D} }
+	+
+	C_{N}
+	\hspace{10mm}
+	(x>0)
+\end{eqnarray}
+Here, the complex function ${\rm sgn}(z)$ is defined as ${\rm sgn}(z) = \dfrac{z}{|z|}$
+and $C_{N}$ is an unknown constant.
+\section{Interface condition between superconductor and normal metal}
+
+From the superconductor side ($x<0$) and the normal metal side ($x>0$),
+the respective $x$-derivatives are
+\begin{eqnarray}
+	\left\{
+	\begin{array}{clllc}
+		\dfrac{\partial \theta_{S}}{\partial x}
+		 & =                         &
+		\pm 2
+		\sqrt{
+			\dfrac{\omega_{n}}{D_{S}}
+		}
+		\sqrt{
+		{\rm cos} \Theta_{\omega_{n}}
+		-
+		{\rm cos} \theta_{S}
+		}
+		\hspace{10mm}
+		 & (x<0 \ : \ {\rm super})   &
+		\\[8mm]
+		\dfrac{\partial \theta_{N}}{\partial x}
+		 & =                         &
+		\pm
+		2 \sqrt{ \dfrac{2 \omega_{n}}{D_{N}} } \Big| {\rm sin} \dfrac{\theta_{N}}{2} \Big|
+		\hspace{10mm}
+		 & (x>0 \ : \ {\rm normal} ) &
+	\end{array}
+	\right.
+\end{eqnarray}
+At the interface at $x=0$,
+the function $\theta$ satisfies the following boundary conditions:
+\begin{eqnarray}
+	\left\{
+	\begin{array}{clc}
+		\gamma_{0} \xi_{N}
+		\dfrac{\partial \theta_{N}}{\partial x}
+		\Big|_{x \to +0}
+		 & = &
+		\displaystyle
+		\lim_{x \to \pm0}
+		{\rm sin}(\theta_{S} - \theta_{N})
+		\\[6mm]
+		\gamma_{1} \xi_{N}
+		\dfrac{\partial \theta_{N}}{\partial x}
+		\Big|_{x \to +0}
+		 & = &
+		\xi_{S}
+		\dfrac{\partial \theta_{S}}{\partial x}
+		\Big|_{x \to -0}
+	\end{array}
+	\right.
+\end{eqnarray}
+$\gamma_{0,1}$ are the proximity effect parameters,
+and
+$ \xi_{N,S} = \sqrt{\dfrac{D_{N,S}}{2 \pi \Delta_{0}}} $
+.
+The unknown quantities
+$ \ \theta_{S0}=\displaystyle \lim_{x \to -0} \theta_{S} \ $
+and
+$ \ \theta_{N0}=\displaystyle \lim_{x \to +0} \theta_{N} \ $
+satisfy
+the simultaneous equations
+\begin{eqnarray}
+	\left\{
+	\begin{array}{lcl}
+		\gamma_{0}
+		\sqrt{ \dfrac{\omega_{n}}{\Delta_{0}} } {\rm sin} \dfrac{\theta_{N0}}{2}
+		 & = &
+		{\rm sin}(\theta_{S0} - \theta_{N0})
+		\\[6mm]
+		\gamma_{1}
+		{\rm sin} \dfrac{\theta_{N0}}{2}
+		 & = &
+		\sqrt{
+		{\rm cos} \Theta_{\omega_{n}}
+		-
+		{\rm cos} \theta_{S0}
+		}
+	\end{array}
+	\right.
+\end{eqnarray}
+where,
+since $C_{N}$ is complex, the phase factor
+${\rm sgn} \Big( {\rm sin} \dfrac{\theta_{N0}}{2} \Big)$
+is renormalized into $C_{N}$,
+and
+$\gamma_{0,1}$ are also renormalized by factors of order unity.
+$ \gamma_{B} = \dfrac{R_{B}}{\rho_{N} \xi_{N}} $
+,
+$ \gamma = \dfrac{\rho_{S} \xi_{S}}{\rho_{N} \xi_{N}} $
+\section{Numerical calculation}
+
+First,
+the solver is given the complex numbers $\gamma_{0,1}$ for the equation.
+$\theta_{N0}$ should be obtainable by solving this transcendental equation:
+\begin{eqnarray}
+	\theta_{N0}
+	&=&
+	{\rm arccos}
+	\Big( {\rm cos} \Theta_{\omega_{n}} - \gamma_{1}^{2} {\rm sin}^{2} \dfrac{\theta_{N0}}{2} \Big)
+	-
+	{\rm arcsin}
+	\Big( \gamma_{0} \sqrt{ \dfrac{\omega_{n}}{\Delta_{0}} } {\rm sin} \dfrac{\theta_{N0}}{2} \Big)
+	\label{eqn:theta_N0}
+\end{eqnarray}
+If the transcendental equation can be solved,
+next $\theta_{S0}$ should be solved, which is determined as follows:
+\begin{eqnarray}
+	\theta_{S0}
+	&=&
+	{\rm arccos}
+	\Big( {\rm cos} \Theta_{\omega_{n}} - \gamma_{1}^{2} {\rm sin}^{2} \dfrac{\theta_{N0}}{2} \Big)
+\end{eqnarray}
+$C_{N}$ and $C_{S}$ will also be fixed at the same time.
+\begin{eqnarray}
+	\left\{
+	\begin{array}{lcl}
+		C_{N}
+		 & = &
+		{\rm ln} \Big( {\rm tan} \dfrac{\theta_{N0}}{4} \Big)
+		\\[6mm]
+		C_{S}
+		 & = &
+		F \Big(\theta_{S0} , \sqrt{ \dfrac{2}{ 1 - {\rm cos} \Theta_{\omega_{n}} } } \Big)
+		\ \ = \ \
+		\displaystyle
+		\theta_{S0}
+		\int^{1}_{0} \dfrac{d x}{ \sqrt{1 - \dfrac{2 {\rm sin}^{2}(\theta_{S0} x) }{ 1 - {\rm cos} \Theta_{\omega_{n}} } }}
+	\end{array}
+	\right.
+\end{eqnarray}
+The inverse function of the elliptic integral can be represented
+using Jacobi's elliptic functions.
+Jacobi's amplitude function $\ {\rm am}(z,m) \ $ is defined as
+\begin{eqnarray}
+	F({\rm am}(x,k^{2}),k)
+	&=&
+	x
+\end{eqnarray}
+In other words, it can be written as
+\begin{eqnarray}
+	x
+	&=&
+	\int^{{\rm am}(x,m)}_{0} \dfrac{d \theta}{ \sqrt{1 - m \ {\rm sin}^{2}x}}
+\end{eqnarray}
+Then Jacobi's elliptic functions sn, cn, and dn are defined respectively as,
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		{\rm sn} (x,m)
+		 & = &
+		{\rm sin} [{\rm am}(x,m)]
+		\\[4mm]
+		{\rm cn} (x,m)
+		 & = &
+		{\rm cos} [{\rm am}(x,m)]
+		\\[4mm]
+		{\rm dn} (x,m)
+		 & = &
+		\sqrt{1 - m \ {\rm sin}^{2} [{\rm am}(x,m)]}
+	\end{array}
+	\right.
+\end{eqnarray}
+sn, cn, and dn can be rewritten in Lambert series expansion forms.
+
+To be written explicitly,
+it is possible to use Jacobi's elliptic functions to express
+the density of states (DOS) measured from the Fermi energy.
+\begin{eqnarray}
+	&&
+	- {\rm Im}[{\rm cos}\theta_{\omega_{n}}(x)]
+	\nonumber \\[3mm]
+	&=&
+	\left\{
+	\begin{array}{ll}
+		-{\rm Im} \Big[
+			{\rm cn}
+			\Big(
+			\dfrac{x}{2}
+			\sqrt{ \dfrac{ \omega_{n} }{ D } }
+			\sqrt{ {\rm cos} \Theta_{\omega_{n}} - 1 }
+			+
+			C_{S}
+			\ , \
+			\dfrac{2}{ 1 - {\rm cos} \Theta_{\omega_{n}} }
+			\Big)
+			\Big]
+		 &
+		\hspace{10mm}
+		(x<0 \ : \ {\rm super})
+		\\[7mm]
+		-{\rm Im} \Big(
+		{\rm cos}
+		\Big\{
+		4
+		{\rm arctan}
+		\Big[
+			{\rm exp}
+			\Big(
+			2x
+			\sqrt{ \dfrac{2 \omega_{n} }{ D } }
+			+
+			C_{N}
+			\Big)
+			\Big]
+		\Big\}
+		\Big)
+		 &
+		\hspace{10mm}
+		(x>0 \ : \ {\rm normal})
+	\end{array}
+	\right.
+\end{eqnarray}
+Especially, after analytical continuation $i \omega_{n} \to E + i 0^{+}$,
+the ZEDOS (DOS at $E=0$) can be depicted
+\begin{eqnarray}
+	- {\rm Im}[{\rm cos}\theta(x,E=0)]
+	&=&
+	\left\{
+	\begin{array}{ll}
+		-{\rm Im} \Big[
+			{\rm cn}
+			\Big(
+			i x 0^{+}
+			+
+			C_{S}
+			\ , \
+			2
+			\Big)
+			\Big]
+		 &
+		\hspace{10mm}
+		(x<0 \ : \ {\rm super})
+		\\[7mm]
+		-{\rm Im} \Big(
+		{\rm cos}
+		\Big\{
+		4
+		{\rm arctan}
+		\Big[
+			{\rm exp}
+			\Big(
+			x
+			0^{+}
+			+
+			C_{N}
+			\Big)
+			\Big]
+		\Big\}
+		\Big)
+		 &
+		\hspace{10mm}
+		(x>0 \ : \ {\rm normal} )
+	\end{array}
+	\right.
+	\hspace{10mm}
+\end{eqnarray}
+
+\section{Solving the ODE directly using the Runge-Kutta method}
+
+\subsection{Problem setup}
+
+The analytically continued Usadel equation is as follows:
+
+\begin{eqnarray}
+	\pi
+	\theta''(x,E)
+	+
+	i E {\rm sin} \theta(x,E)
+	&=&
+	0
+\end{eqnarray}
+
+Here, the prime ($'$) denotes $\partial/\partial x$,
+and the variables are the normalized distance and energy,
+$x/ \xi \to x$ and $ E/\Delta_{0} \to E $, respectively.
+By setting
+$\theta(x,E) = \theta_{r}(x,E) +i \theta_{i}(x,E)$,
+we avoid handling the complex function directly and separate it into real and imaginary parts.
+The equation then separates into two:
+
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		\pi \theta_{r}''(x,E)
+		-
+		E {\rm cos} \theta_{r}(x,E) \ \! {\rm sinh} \theta_{i}(x,E)
+		 & = &
+		0
+		\\[5mm]
+		\pi \theta_{i}''(x,E)
+		+
+		E {\rm sin} \theta_{r}(x,E) \ \! {\rm cosh} \theta_{i}(x,E)
+		 & = &
+		0
+	\end{array}
+	\right.
+\end{eqnarray}
+
+From physical considerations, the following asymptotic conditions
+are imposed on this system of equations:
+
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rclll}
+		\theta_{r}(\infty,E)
+		                                     & = &
+		0
+		, \hspace{5mm} \theta_{i}(\infty,E)  &
+		=                                    &
+		0
+		\\[4mm]
+		\theta_{r}(-\infty,E)
+		                                     & = &
+		0
+		, \hspace{5mm} \theta_{i}(-\infty,E) &
+		=
+		                                     &
+		{\rm arctanh} \dfrac{1}{ E }
+	\end{array}
+	\right.
+\end{eqnarray}
+
+At the interface (between the superconductor and normal metal)
+($x=\pm0$), the following boundary conditions hold:
+
+\begin{eqnarray}
+	&&
+	\left\{
+	\begin{array}{clc}
+		\gamma
+		\theta_{r}'(+0,E)
+		 & = &
+		\theta_{r}'(-0,E)
+		\\[6mm]
+		\gamma
+		\theta_{i}'(+0,E)
+		 & = &
+		\theta_{i}'(-0,E)
+	\end{array}
+	\right.
+	,
+	\\[4mm]
+	&&
+	\left\{
+	\begin{array}{clc}
+		\gamma_{B}
+		\theta_{r}'(+0,E)
+		 & = &
+		{\rm sin} \Big[ \theta_{r}(-0,E) - \theta_{r}(+0,E) \Big]
+		{\rm cosh} \Big[ \theta_{i}(-0,E) - \theta_{i}(+0,E) \Big]
+		\\[6mm]
+		\gamma_{B}
+		\theta_{i}'(+0,E)
+		 & = &
+		{\rm cos} \Big[ \theta_{r}(-0,E) - \theta_{r}(+0,E) \Big]
+		{\rm sinh} \Big[ \theta_{i}(-0,E) - \theta_{i}(+0,E) \Big]
+	\end{array}
+	\right.
+\end{eqnarray}
+
+Here, $\gamma$ and $\gamma_{B}$ are parameters characterizing the proximity effect,
+which are constants manually supplied for the problem.
+
+
+\subsection{Strategy}
+
+For simplicity in the following discussion, the energy $E$ is fixed
+and will be omitted from the function arguments.
+
+First, the classical 4th-order Runge-Kutta (RK4) method is run
+from a position sufficiently far from the interface,
+\footnote{
+	Naturally, the solution is exact as $L \to \infty$.
+	However, since we are integrating sequentially using RK4,
+	the solution will immediately lose reliability if an unstable point exists in the path.
+	The equation to be solved here is a system of nonlinear differential equations,
+	and instability can be easily anticipated.
+	Therefore, it is necessary to prepare an $L$ large enough to be in the asymptotic region, yet not so large that it
+	introduces instability before reaching the interface $x=-0$ from $x=-L$.
+	The person solving this equation must manually tune $L$ to find a value
+	that is sufficiently large but does not cause instability.
+}
+$x=-L$,
+towards the interface.
+The initial value of the 0th-order derivative (the function value) is determined by the asymptotic conditions.
+Thus, if the 1st-order derivative $\theta'(-L)$ is determined,
+the function's values up to $x=-0$ are sequentially determined.
+To connect from $x=-0$ to $x=+0$, the boundary conditions at the interface must be solved.
+Assuming the values at $x=-0$ are known,
+the problem reduces to a single-variable equation for $\theta_{r}(+0)$.
+For simplicity, substituting
+$t=\theta_{r}(-0) - \theta_{r}(+0)$ gives:
+
+\begin{eqnarray}
+	{\rm tan}
+	(t)
+	&=&
+	a
+	\
+	{\rm tanh}
+	\left\{
+	{\rm arccosh}
+	\left[
+		\dfrac{ b }{ {\rm sin} (t) }
+		\right]
+	\right\}
+\end{eqnarray}
+
+Here, for notational simplicity, we have set
+$
+	a
+	\ = \
+	\dfrac{ \theta_{r}'(-0) }{ \theta_{i}'(-0) }
+$
+and
+$
+	b
+	\ = \
+	\dfrac{ \gamma_{B} }{ \gamma }
+	\theta_{i}'(-0)
+$.
+The solution to this equation is given by:
+
+\begin{eqnarray}
+	\theta_{r}(+0)
+	&=&
+	\theta_{r}(-0)
+	+
+	{\rm arcsin}
+	\sqrt{
+		\dfrac{ 1 }{ 2 }
+		\left(
+		\dfrac{ b^{2} }{ a^{2} }
+		-
+		\dfrac{ \sqrt{ a^{4} b^{4} - 2 a^{4} b^{2} + a^{4} + 2 a^{2} b^{4} + 2 a^{2} b^{2} + b^{4} } }{ a^{2} }
+		+
+		b^{2} + 1
+		\right)
+	}
+	\nonumber \\
+\end{eqnarray}
+
+From this solution, $\theta_{i}(+0)$ can also be determined simultaneously
+from the following relation, which is immediately obtained from the boundary conditions
+\footnote{
+	For numerical calculations, the following equivalent expressions for inverse hyperbolic functions
+	within the real domain are used:
+
+
+
+	\begin{eqnarray}
+		{\rm arcsinh}(y)
+		&=&
+		{\rm ln} \left( y + \sqrt{ 1 + y^{2} } \right)
+		\\
+		{\rm arctanh}\dfrac{1}{E}
+		\ = \
+		{\rm arccoth}(E)
+		&=&
+		\dfrac{1}{2}
+		{\rm ln} \dfrac{1+E}{1-E}
+	\end{eqnarray}
+
+
+}
+:
+
+\begin{eqnarray}
+	\theta_{i}(+0)
+	&=&
+	\theta_{i}(-0)
+	-
+	{\rm arcsinh}
+	\left\{
+	\dfrac{ \gamma_{B} }{ \gamma }
+	\dfrac{ \theta_{i}'(-0) }{ {\rm cos} \left[ \theta_{r}(-0) - \theta_{r}(+0) \right] }
+	\right\}
+	,
+\end{eqnarray}
+
+Furthermore, the value of $\theta'(+0)$ is also known from the boundary conditions,
+meaning all function values at $x=+0$ are obtained.
+By running RK4 using these values as the initial conditions,
+the values for $x>0$ can be found up to $x=+L$
+in exactly the same manner.
+
+${}$
+
+We can summarize this using unknown constants $c_{1}$ and $c_{2}$.
+Provide an initial value $\theta'(-L)=c_{1}+i c_{2}$ manually and run RK4 up to $x=-0$.
+Since the boundary conditions have been solved explicitly,
+the values at $x=+0$ are found simply by substituting the values from $x=-0$.
+Using the values at $x=+0$ as initial conditions,
+run RK4 from here to obtain $\theta(L)$.
+We then search for the $(c_{1},c_{2})$ that minimizes
+this $\theta(L)$
+\footnote{Strictly, $\ \displaystyle \lim_{L \to \infty} f(c_{1},c_{2})=0$.}.
+
+This $\theta(+L)$ is determined by the initial values $(c_{1},c_{2})$ at $x=-L$.
+Viewing this as a function $f$,
+
+\begin{eqnarray}
+	\big| \theta_{r}(L) + i \theta_{i}(L) \big|^{2}
+	&=&
+	f(c_{1},c_{2})
+\end{eqnarray}
+
+it becomes a minimization problem.
+\subsection{Procedure}
+
+$\hspace{-5mm} \cdot$
+First, input the parameters $\gamma$ and $\gamma_{B}$.
+
+$\hspace{-5mm} \cdot$
+%Inside the E loop:
+Sweep the initial values $(c_{1},c_{2})$ and solve the RK4
+from $x=-L$ toward the interface $x=-0$.
+
+$\hspace{-5mm} \cdot$
+Determine the values at $x=+0$ that satisfy the boundary conditions.
+
+$\hspace{-5mm} \cdot$
+Using the values at $x=+0$ as initial conditions, run RK4 toward $x=L$.
+
+$\hspace{-5mm} \cdot$
+Calculate $f(c_{1},c_{2}) = \big| \theta(L) \big|^{2}$
+from the resulting $\theta(L)$ for each pair of $(c_{1},c_{2})$.
+
+$\hspace{-5mm} \cdot$
+The solution is the one calculated using the initial values $(c_{1},c_{2})$
+that minimize this $f(c_{1},c_{2})$.
+
+$\hspace{-5mm} \cdot$
+Repeat this process for each $E$.
+
+\end{document}
