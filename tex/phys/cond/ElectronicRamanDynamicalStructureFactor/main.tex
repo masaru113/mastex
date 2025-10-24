@@ -1,0 +1,115 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+Electronic Raman Dynamical Structure Factor
+}
+\author{Masaru Okada}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\thispagestyle{empty}
+The non-perturbative Hamiltonian is $H_{0}$,
+and the effective perturbative Hamiltonian $H'$ is
+\begin{eqnarray}
+	H'
+	&=&
+	-e \dfrac{ 4 \pi n ( \vec{q} , \omega ) }{ q^{2} }
+	e^{- i \omega t}
+	\sum_{\vec{k},\sigma}
+	\gamma_{\vec{k}}
+	c^{\dagger}_{\vec{k}+\vec{q} \sigma} c_{\vec{p} \sigma}
+	\nonumber \\ &=&
+	- e \phi(\vec{q},\omega) e^{- i \omega t} \tilde{\rho}^{\dagger}_{\vec{q}}
+\end{eqnarray}
+
+where
+$\phi(\vec{q},\omega) = \dfrac{ 4 \pi n_{t} ( \vec{q} , \omega ) }{ q^{2} }$
+represents the potential induced by the charge
+$n ( \vec{q} , \omega )$
+.
+
+When the total Hamiltonian is $H=H_{0}+H'$,
+the following difference is obtained by electronic Raman scattering experiments:
+$\Delta \tilde{\rho}_{\vec{q}} = \langle \tilde{\rho}_{\vec{q}} \rangle_{H} - \langle \tilde{\rho}_{\vec{q}} \rangle_{H_{0}}$
+
+
+This is expressed using the external force
+$F(t) = e \phi(\vec{q},\omega) e^{- i \omega t}$
+:
+\begin{eqnarray}
+	\Delta \tilde{\rho}_{\vec{q}}
+	&=&
+	- \int^{t}_{-\infty} dt' F(t') \chi^{(R)}_{\tilde{\rho} \tilde{\rho}}(t - t')
+\end{eqnarray}
+
+
+Here
+$\chi^{(R)}_{\tilde{\rho} \tilde{\rho}}$,
+which is often called the response function (of the retarded part),
+was shown by R. Kubo in the linear response regime and is known as the Kubo formula.
+\begin{eqnarray}
+	\chi^{(R)}_{\tilde{\rho} \tilde{\rho}}(t)
+	&=&
+	- i \theta(t) \big\langle [ \tilde{\rho}_{\vec{q}}(t) , \tilde{\rho}_{\vec{q}}^{\dagger} ] \big\rangle
+\end{eqnarray}
+
+
+where the thermal average $\langle \cdots \rangle$ can be expanded
+by using the thermodynamic potential $\Omega$
+and orthonormal vectors $\big\{ | n \rangle \big\}$ which satisfy
+$H | n \rangle = E_{n} | n \rangle$
+\begin{eqnarray}
+	\big\langle [ \tilde{\rho}_{\vec{q}}(t) , \tilde{\rho}_{\vec{q}}^{\dagger} ] \big\rangle
+	&=&
+	{\rm Tr}
+	\Big[ e^{\beta ( \Omega - H ) }
+		\big(
+		e^{i H t} \tilde{\rho}_{\vec{q}} e^{-iHt} \tilde{\rho}_{\vec{q}}^{\dagger}
+		-
+		\tilde{\rho}_{\vec{q}}^{\dagger} e^{i H t} \tilde{\rho}_{\vec{q}} e^{-iHt}
+		\big) \Big]
+	\nonumber \\[2mm] &=&
+	e^{\beta \Omega}
+	\sum_{m,n} e^{i ( \beta E_{n} - E_{m} ) t }
+	\big| \langle n | \tilde{\rho}_{\vec{q}} | m \rangle \big|^{2} \Big( e^{- \beta E_{n}} - e^{- \beta E_{m}}  \Big)
+\end{eqnarray}
+
+
+After Fourier transformed, it can be also written as
+\begin{eqnarray}
+	\chi^{(R)}_{\tilde{\rho} \tilde{\rho}}(\vec{q},\omega)
+	&=&
+	- i \int^{\infty}_{0} \!\! dt \
+	\big\langle [ \tilde{\rho}_{\vec{q}}(t) , \tilde{\rho}_{\vec{q}}^{\dagger} ] \big\rangle
+\end{eqnarray}
+
+
+Generally, the scattering probability is proportional to the dynamical structure factor in the Born approximation.
+\begin{eqnarray}
+	S(\vec{q},\omega)
+	&=&
+	e^{\beta \Omega}
+	\sum_{m,n} e^{- \beta E_{n}}
+	\big| \langle n | \rho_{\vec{q}} | m \rangle \big|^{2} \delta (E_{n} - E_{m} + \omega)
+\end{eqnarray}
+
+
+From the correspondence between $\chi^{(R)}_{\tilde{\rho} \tilde{\rho}}$ and the dynamical structure factor,
+we should define the electronic Raman dynamical structure factor $\tilde{S}(\vec{q},\omega)$ as follows.
+\begin{eqnarray}
+	\tilde{S} (\vec{q},\omega)
+	&=&
+	e^{\beta \Omega}
+	\sum_{m,n} e^{- \beta E_{n}}
+	\big| \langle n | \tilde{\rho}_{\vec{q}} | m \rangle \big|^{2} \delta (E_{n} - E_{m} + \omega)
+	\nonumber \\ &=&
+	- \dfrac{1 + {\rm coth} (\beta \omega/2) }{2 \pi}
+	{\rm Im} \chi^{(R)}_{\tilde{\rho} \tilde{\rho}} (\vec{q},\omega)
+\end{eqnarray}
+\end{document}

@@ -1,0 +1,112 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+電子ラマン散乱における動的構造因子
+}
+\author{Masaru Okada}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\thispagestyle{empty}
+無摂動のハミルトニアンを $H_{0}$ とし、有効摂動ハミルトニアン $H'$ は
+\begin{eqnarray}
+	H'
+	&=&
+	-e \dfrac{ 4 \pi n ( \vec{q} , \omega ) }{ q^{2} }
+	e^{- i \omega t}
+	\sum_{\vec{k},\sigma}
+	\gamma_{\vec{k}}
+	c^{\dagger}_{\vec{k}+\vec{q} \sigma} c_{\vec{p} \sigma}
+	\nonumber \\ &=&
+	- e \phi(\vec{q},\omega) e^{- i \omega t} \tilde{\rho}^{\dagger}_{\vec{q}}
+\end{eqnarray}
+とする。
+
+ここで
+$\phi(\vec{q},\omega) = \dfrac{ 4 \pi n_{t} ( \vec{q} , \omega ) }{ q^{2} }$
+は、電荷
+$n ( \vec{q} , \omega )$
+によって誘起されるポテンシャルを表す。
+
+全ハミルトニアンを $H=H_{0}+H'$ としたとき、
+電子ラマン散乱実験によって次の差分が得られる。
+$\Delta \tilde{\rho}_{\vec{q}} = \langle \tilde{\rho}_{\vec{q}} \rangle_{H} - \langle \tilde{\rho}_{\vec{q}} \rangle_{H_{0}}$
+
+
+これは外力
+$F(t) = e \phi(\vec{q},\omega) e^{- i \omega t}$
+を用いて次のように表される。
+\begin{eqnarray}
+	\Delta \tilde{\rho}_{\vec{q}}
+	&=&
+	- \int^{t}_{-\infty} dt' F(t') \chi^{(R)}_{\tilde{\rho} \tilde{\rho}}(t - t')
+\end{eqnarray}
+
+
+ここで
+$\chi^{(R)}_{\tilde{\rho} \tilde{\rho}}$
+は（遅延部分の）応答関数としばしば呼ばれ、線形応答の範囲において R. Kubo によって示され、久保公式と呼ばれている。
+\begin{eqnarray}
+	\chi^{(R)}_{\tilde{\rho} \tilde{\rho}}(t)
+	&=&
+	- i \theta(t) \big\langle [ \tilde{\rho}_{\vec{q}}(t) , \tilde{\rho}_{\vec{q}}^{\dagger} ] \big\rangle
+\end{eqnarray}
+
+
+ここで、熱平均 $\langle \cdots \rangle$ は、熱力学ポテンシャル $\Omega$
+と $H | n \rangle = E_{n} | n \rangle$ を満たす正規直交ベクトル $\big\{ | n \rangle \big\}$ を用いて展開できる。
+\begin{eqnarray}
+	\big\langle [ \tilde{\rho}_{\vec{q}}(t) , \tilde{\rho}_{\vec{q}}^{\dagger} ] \big\rangle
+	&=&
+	{\rm Tr}
+	\Big[ e^{\beta ( \Omega - H ) }
+		\big(
+		e^{i H t} \tilde{\rho}_{\vec{q}} e^{-iHt} \tilde{\rho}_{\vec{q}}^{\dagger}
+		-
+		\tilde{\rho}_{\vec{q}}^{\dagger} e^{i H t} \tilde{\rho}_{\vec{q}} e^{-iHt}
+		\big) \Big]
+	\nonumber \\[2mm] &=&
+	e^{\beta \Omega}
+	\sum_{m,n} e^{i ( \beta E_{n} - E_{m} ) t }
+	\big| \langle n | \tilde{\rho}_{\vec{q}} | m \rangle \big|^{2} \Big( e^{- \beta E_{n}} - e^{- \beta E_{m}}  \Big)
+\end{eqnarray}
+
+
+フーリエ変換すると、これは次のように書くこともできる。
+\begin{eqnarray}
+	\chi^{(R)}_{\tilde{\rho} \tilde{\rho}}(\vec{q},\omega)
+	&=&
+	- i \int^{\infty}_{0} \!\! dt \
+	\big\langle [ \tilde{\rho}_{\vec{q}}(t) , \tilde{\rho}_{\vec{q}}^{\dagger} ] \big\rangle
+\end{eqnarray}
+
+
+一般に、ボルン近似において、散乱確率は動的構造因子に比例する。
+\begin{eqnarray}
+	S(\vec{q},\omega)
+	&=&
+	e^{\beta \Omega}
+	\sum_{m,n} e^{- \beta E_{n}}
+	\big| \langle n | \rho_{\vec{q}} | m \rangle \big|^{2} \delta (E_{n} - E_{m} + \omega)
+\end{eqnarray}
+
+
+$\chi^{(R)}_{\tilde{\rho} \tilde{\rho}}$ と動的構造因子の対応から、
+以下のように電子ラマン動的構造因子 $\tilde{S}(\vec{q},\omega)$ を定義すればよい。
+\begin{eqnarray}
+	\tilde{S} (\vec{q},\omega)
+	&=&
+	e^{\beta \Omega}
+	\sum_{m,n} e^{- \beta E_{n}}
+	\big| \langle n | \tilde{\rho}_{\vec{q}} | m \rangle \big|^{2} \delta (E_{n} - E_{m} + \omega)
+	\nonumber \\ &=&
+	- \dfrac{1 + {\rm coth} (\beta \omega/2) }{2 \pi}
+	{\rm Im} \chi^{(R)}_{\tilde{\rho} \tilde{\rho}} (\vec{q},\omega)
+\end{eqnarray}
+\end{document}
