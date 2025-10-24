@@ -1,0 +1,513 @@
+
+\documentclass[a4j]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs,url}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+動的構造因子
+}
+\author{岡田 大 (Okada Masaru)}
+\date{\today}
+\begin{document}
+\maketitle
+
+動的構造因子についてノートにまとめた。中性子散乱を背景に置いている。
+
+\subsection*{中性子-格子間に働く相互作用について}
+
+運動量$\vec{p}$を持つ中性子が結晶によって散乱され、
+運動量$\vec{p'}$を持って出てくるものとする。
+散乱の前に格子はエネルギー$E_{\rm i}$の結晶ハミルトニアンの固有状態にあり、
+散乱後の格子はエネルギー$E_{\rm f}$の固有状態にあるものとする。
+中性子-格子の複合系の状態は、それぞれ
+
+\hspace{5mm}
+散乱前の波動関数と固有エネルギー：
+\begin{eqnarray}
+	\Psi_{\rm i}
+	&=&
+	\psi_{\vec{p}}(\vec{r}) \Phi_{\rm i}
+	\\[3mm]
+	\varepsilon_{\rm i}
+	&=&
+	E_{\rm i} + \dfrac{p^{2}}{2 M_{n}}
+\end{eqnarray}
+
+\hspace{5mm}
+散乱後の波動関数と固有エネルギー：
+\begin{eqnarray}
+	\Psi_{\rm f}
+	&=&
+	\psi_{\vec{p}'}(\vec{r}) \Phi_{\rm f}
+	\\[3mm]
+	\varepsilon_{\rm f}
+	&=&
+	E_{\rm f} + \dfrac{p'^{2}}{2 M_{n}}
+\end{eqnarray}
+とする。$M_{n}$は$n$番目の格子点にある中性子の質量、
+$V$は系の体積で規格化定数である。
+また、関数$\psi_{\vec{p}}(\vec{r})$は平面波
+$
+	\psi_{\vec{p}}(\vec{r}) = \dfrac{1}{\sqrt{V}} e^{i \vec{p} \cdot \vec{r}}
+$
+である。
+格子のエネルギー獲得量と運動量変化は、
+\begin{eqnarray}
+	\hbar \omega
+	&=&
+	\dfrac{p'^{2}}{2 M_{n}}
+	-
+	\dfrac{p^{2}}{2 M_{n}}
+	\\[2mm]
+	\hbar \vec{q}
+	&=&
+	\vec{p'}
+	-
+	\vec{p}
+\end{eqnarray}
+である。中性子-格子の相互作用は、格子点を$\vec{R}$、熱などで揺らいでいる$\vec{R}$に属するイオンの位置を$\vec{r}(\vec{R})$と書いて、
+\begin{eqnarray}
+	U(\vec{r})
+	&=&
+	\sum_{\vec{R}}
+	u \big[ \vec{r} - \vec{r}(\vec{R}) \big]
+	\ = \
+	\dfrac{1}{V}
+	\sum_{\vec{k},\vec{R}}
+	u_{\vec{k}} e^{i \vec{k} \cdot [ \vec{r} - \vec{r}(\vec{R}) ]}
+\end{eqnarray}
+とする。
+
+相互作用$u \big[ \vec{r} - \vec{r}(\vec{R}) \big]$の到達距離は
+せいぜい核の大きさ、すなわち10$^{-13}$cm程度であり、
+そのフーリエ成分$u_{\vec{k}}$は$k \sim 10^{13}$cm$^{-1}$程度のスケールで変化すると考えられる。
+フォノンのスペクトルで重要なスケールは10$^{8}$cm$^{-1}$程度の波数ベクトルであり、
+これに対して$k$の変化は十分に（$10^{5}$倍も）緩やかである。
+よって、相互作用のフーリエ成分$u_{\vec{k}}$は波数に依存しないとみなすことができ、
+改めてこれを定数$u_{0}$と書こう。
+
+一点の格子点における中性子散乱の全断面積が$4 \pi a^{2}$で与えられるとしよう。
+この散乱を特徴付ける、平均された長さ$a$を用いて
+\begin{eqnarray}
+	u_{0}
+	&=&
+	4 \pi a^{2} \times \dfrac{\hbar^{2}}{2M_{n}} \dfrac{1}{a}
+\end{eqnarray}
+となり、
+\begin{eqnarray}
+	U(\vec{r})
+	&=&
+	\dfrac{ 2 \pi \hbar^{2} a }{ M_{n} V }
+	\sum_{ \vec{k} , \vec{R} }
+	e^{i \vec{k} \cdot [ \vec{r} - \vec{r}(\vec{R}) ] }
+\end{eqnarray}
+と書ける。なお、$\vec{k}$積分を実行すると、
+\begin{eqnarray}
+	U(\vec{r})
+	&=&
+	\dfrac{ 2 \pi \hbar^{2} a }{ M_{n} }
+	\sum_{ \vec{R} }
+	\int \dfrac{d^{3} \vec{k}}{(2 \pi)^{3}}
+	e^{i \vec{k} \cdot [ \vec{r} - \vec{r}(\vec{R}) ] }
+	\nonumber \\[3mm] &=&
+	\dfrac{ 2 \pi \hbar^{2} a }{ M_{n} }
+	\sum_{ \vec{R} }
+	\delta [ \vec{r} - \vec{r}(\vec{R}) ]
+\end{eqnarray}
+となり、今まで入れてきた仮定は、
+実は相互作用は格子点上でしか働からかない点接点型で与えられる
+という仮定を入れていたことと同値であることが自然に示される。
+
+\subsection*{Fermiの黄金率と散乱断面積}
+
+単位時間当たりの$\vec{p}$から$\vec{p'}$へと散乱される確率$P$は、
+摂動の最低次では次のFermiの黄金率と呼ばれる公式を用いて計算することができる。
+関数$f=f(x)$と$g=g(x)$の内積を
+\begin{eqnarray}
+	\int dx \big[ f(x) \big]^{*} g(x)
+	&=&
+	\big( f , g \big)
+\end{eqnarray}
+と表記すると、
+\begin{eqnarray}
+	P
+	&=&
+	\dfrac{2 \pi}{\hbar}
+	\sum_{\rm f}
+	\delta( \varepsilon_{\rm f} - \varepsilon_{\rm i} )
+	\Big| \big( \Psi_{\rm f} , U \Psi_{\rm i} \big) \Big|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{2 \pi}{\hbar}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\dfrac{1}{V} \int d^{3} \vec{r} \
+	e^{i \vec{q} \cdot \vec{r}}
+	\big( \Phi_{\rm f} , U(\vec{r}) \Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{2 \pi}{\hbar}
+	\dfrac{1}{V^{2}}
+	\Big( \dfrac{2 \pi \hbar^{2} a}{M_{n} V} \Big)^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{ \vec{k} , \vec{R} }
+	\int d^{3} \vec{r} \
+	e^{i (\vec{k} + \vec{q} ) \cdot \vec{r}}
+	\big( \Phi_{\rm f} ,
+	e^{ - i \vec{k} \cdot \vec{r}(\vec{R}) }
+	\Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{ ( 2 \pi \hbar )^{3} }{ V^{2} ( M_{n} V )^{2} } a^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{ \vec{k},\vec{R} }
+	( 2 \pi \hbar )^{3}
+	\delta (\vec{k} + \vec{q} )
+	\big( \Phi_{\rm f} ,
+	e^{ - i \vec{k} \cdot \vec{r}(\vec{R}) }
+	\Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{ ( 2 \pi \hbar )^{3} }{ V^{2} ( M_{n} V )^{2} } a^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{ \vec{R} }
+	( 2 \pi \hbar )^{3}
+	\dfrac{V}{( 2 \pi \hbar )^{3}}
+	\int d^{3} \vec{k} \
+	\delta (\vec{k} + \vec{q} )
+	\big( \Phi_{\rm f} ,
+	e^{ - i \vec{k} \cdot \vec{r}(\vec{R}) }
+	\Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{ ( 2 \pi \hbar )^{3} }{ ( M_{n} V )^{2} }
+	a^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\bigg|^{2}
+\end{eqnarray}
+で計算できる。
+
+散乱確率$P$は、測定される量である微分散乱断面積
+$\dfrac{d^{3} \sigma}{d^{2} \Omega d E}$
+と結び付く。
+入射中性子束は、
+\begin{eqnarray}
+	j
+	&=&
+	\dfrac{p}{M_{n}} \big| \psi_{\vec{p}} \big|^{2}
+	\ = \
+	\dfrac{1}{V}
+	\dfrac{p}{M_{n}}
+\end{eqnarray}
+である。
+流量の保存則より、
+
+「（微分散乱断面積の全立体角、全エネルギー積分）＝（確率$P$の全状態和）」
+
+であるから、
+\begin{eqnarray}
+	\int
+	j
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	d^{2} \Omega d E
+	&=&
+	\int P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	\ d^{3} \vec{p'}
+\end{eqnarray}
+が成り立つ。左辺は、
+\begin{eqnarray}
+	\int
+	j
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	\ d^{2} \Omega d E
+	&=&
+	\int
+	\dfrac{1}{V}
+	\dfrac{p}{M_{n}}
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	\ d^{2} \Omega d E
+\end{eqnarray}
+一方、右辺は
+\begin{eqnarray}
+	\int P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	\ d^{3} \vec{p'}
+	&=&
+	\int P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	p'^{2}
+	\ d p' d^{2} \Omega
+	\nonumber \\[3mm]　&=&
+	\int P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	M_{n} p'
+	\ d E d^{2} \Omega
+\end{eqnarray}
+両辺を比較すると、
+\begin{eqnarray}
+	\dfrac{1}{V}
+	\dfrac{p}{M_{n}}
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	&=&
+	P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	M_{n} p'
+\end{eqnarray}
+すなわち、
+\begin{eqnarray}
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	&=&
+	\dfrac{p'}{p}
+	\dfrac{(M_{n} V)^{2}}{ ( 2 \pi \hbar)^{3} }
+	P
+	\nonumber \\[2mm] &=&
+	\dfrac{p'}{p}
+	\dfrac{(M_{n} V)^{2}}{ ( 2 \pi \hbar)^{3} }
+	\cdot
+	\dfrac{ ( 2 \pi \hbar )^{3} }{ ( M_{n} V )^{2} }
+	a^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{p'}{p}
+	\dfrac{ N a^{2} }{ \hbar }
+	S_{\rm i}(\vec{q},\omega)
+\end{eqnarray}
+この$S_{\rm i}(\vec{q},\omega)$は次で定義されている。
+\begin{eqnarray}
+	S_{\rm i}(\vec{q},\omega)
+	&=&
+	\dfrac{1}{N}
+	\sum_{\rm f}
+	\delta \Big( \dfrac{E_{\rm f} - E_{\rm i}}{\hbar} + \omega \Big)
+	\bigg|
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\bigg|^{2}
+\end{eqnarray}
+系の格子点の数を$N$と置いた。
+ここで、ハイゼンベルグ演算子$A(t)=e^{i H t/ \hbar} A e^{-i H t/ \hbar}$に関して成り立つ次の恒等式
+
+
+\begin{eqnarray}
+	\big( \Phi_{\rm f} , A(t) \Phi_{\rm i} \big)
+	&=&
+	\big( \Phi_{\rm f} , e^{i H t/ \hbar} A e^{-i H t/ \hbar} \Phi_{\rm i} \big)
+	\nonumber \\[2mm] &=&
+	\big( \Phi_{\rm f} , e^{i E_{\rm f} t/ \hbar} A e^{-i E_{\rm i} t/ \hbar} \Phi_{\rm i} \big)
+	\nonumber \\[2mm] &=&
+	e^{i ( E_{\rm f} - E_{\rm i} ) t/ \hbar} \big( \Phi_{\rm f} , A \Phi_{\rm i} \big)
+\end{eqnarray}
+
+が成り立つ。
+デルタ関数を開いて（フーリエ変換）、これを用いると
+
+
+\begin{eqnarray}
+	S_{\rm i}(\vec{q},\omega)
+	&=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	e^{ i ( E_{\rm f} - E_{\rm i} ) t / \hbar}
+	\bigg|
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	e^{ i ( E_{\rm f} - E_{\rm i} ) t / \hbar}
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\sum_{\vec{R}'}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot \vec{r}(\vec{R}')} \Phi_{\rm f} \big)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	\sum_{\vec{R},\vec{R}'}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot \vec{r}(\vec{R}')} \Phi_{\rm f} \big)
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R},t)} \Phi_{\rm i} \big)
+\end{eqnarray}
+さらに、$\Phi_{\rm f}$は完全系を成すので、演算子$A$、$B$に関して、
+
+
+\begin{eqnarray}
+	\sum_{\rm f}
+	\big( \Phi_{\rm i} , A \Phi_{\rm f} \big)
+	\big( \Phi_{\rm f} , B \Phi_{\rm i} \big)
+	&=&
+	\big( \Phi_{\rm i} , AB \Phi_{\rm i} \big)
+\end{eqnarray}
+も成り立つ。
+熱による格子点からずれたイオンの位置を
+$\delta \vec{R} \ (= \vec{r}(\vec{R}) - \vec{R} )$
+と置くと、
+\begin{eqnarray}
+	S_{\rm i}(\vec{q},\omega)
+	&=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	\sum_{\vec{R},\vec{R}'}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot [ \delta \vec{R}' + \vec{R}' ]  } \Phi_{\rm f} \big)
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot [ \delta \vec{R}(t) + \vec{R} ] } \Phi_{\rm i} \big)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	\sum_{\vec{R},\vec{R}'}
+	e^{ i \vec{q} \cdot (\vec{R} - \vec{R}')}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot \delta \vec{R}' } \Phi_{\rm f} \big)
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \delta \vec{R}(t) } \Phi_{\rm i} \big)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\vec{R},\vec{R}'}
+	e^{ i \vec{q} \cdot (\vec{R} - \vec{R}')}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot \delta \vec{R}' } e^{i \vec{q} \cdot \delta \vec{R}(t) } \Phi_{\rm i} \big)
+\end{eqnarray}
+
+一般に、始状態における結晶は熱平衡にある。
+散乱断面積を求めるには全ての始状態で統計平均を取れば良い。
+演算子$A$の統計平均を
+
+
+\begin{eqnarray}
+	\big\langle A \big\rangle
+	&=&
+	\sum_{\rm i}
+	\dfrac{ e^{ - E_{\rm i} / k_{\rm B} T } \big( \Phi_{\rm i} , A \Phi_{\rm i} \big) }{e^{ - E_{\rm i} / k_{\rm B} T }}
+\end{eqnarray}
+のように書くと、散乱断面積である$S_{\rm i}(\vec{q},\omega)$の統計平均は、
+
+
+\begin{eqnarray}
+	S(\vec{q},\omega)
+	&=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\vec{R},\vec{R}'}
+	e^{ i \vec{q} \cdot (\vec{R} - \vec{R}')}
+	\big\langle e^{ - i \vec{q} \cdot \delta \vec{R}' } e^{i \vec{q} \cdot \delta \vec{R}(t) } \big\rangle
+\end{eqnarray}
+と書ける。
+これは動的構造因子と呼ばれる量であり、
+微分散乱断面積とは次のように結ばれている。
+
+
+\begin{eqnarray}
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	&=&
+	\dfrac{p'}{p}
+	\dfrac{ N a^{2} }{ \hbar }
+	S(\vec{q},\omega)
+\end{eqnarray}
+動的構造因子$S(\vec{q},\omega)$は散乱体の構造にのみ依存する。
+\subsection*{動的構造因子について}
+
+$S(\vec{q},\omega)$の中身
+$\big\langle e^{ - i \vec{q} \cdot \delta \vec{R}' } e^{i \vec{q} \cdot \delta \vec{R}(t) } \big\rangle$
+について考える。
+線形な演算子$A$、$B$であれば、
+
+
+\begin{eqnarray}
+	\big\langle e^{ A } e^{ B } \big\rangle
+	&=&
+	{\rm exp} \Big( \dfrac{1}{2} \big\langle A^{2} + 2 AB + B^{2} \big\rangle \Big)
+\end{eqnarray}
+が成り立つので、
+
+
+\begin{eqnarray}
+	\Big\langle e^{ - i \vec{q} \cdot \delta \vec{R}' } e^{i \vec{q} \cdot \delta \vec{R}(t) } \Big\rangle
+	&=&
+	{\rm exp} \Big\langle - \dfrac{1}{2} \Big[ \vec{q} \cdot \delta \vec{R}' \Big]^{2} \Big\rangle
+	\ \ \!
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}' \Big] \Big[ \vec{q} \cdot \delta \vec{R}(t) \Big] \Big\rangle
+	\ \ \!
+	{\rm exp} \Big\langle - \dfrac{1}{2} \Big[ \vec{q} \cdot \delta \vec{R}(t) \Big]^{2} \Big\rangle
+	\nonumber \\
+\end{eqnarray}
+観測される物理量は相対座標、相対時間にしか依存しないので、
+
+
+\begin{eqnarray}
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}' \Big]^{2} \Big\rangle
+	\ = \
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}(t) \Big]^{2} \Big\rangle
+	\ = \
+	2W
+	\ = \
+	{\rm const.}
+\end{eqnarray}
+と置く。さらに位置座標をずらして
+$ \delta \vec{R}' \to \delta \vec{R}_{0}$、
+とし、
+座標
+$\delta \vec{R} \to \delta \vec{R} + \delta \vec{R}_{0} - \delta \vec{R}'$
+を改めて
+$\delta \vec{\tilde{R}}$
+と表記することにする。
+\begin{eqnarray}
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}' \Big] \Big[ \vec{q} \cdot \delta \vec{R}(t) \Big] \Big\rangle
+	&=&
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}_{0} \Big] \Big[ \vec{q} \cdot \delta \vec{\tilde{R}}(t) \Big] \Big\rangle
+\end{eqnarray}
+以上の手続きから、
+
+
+\begin{eqnarray}
+	S(\vec{q},\omega)
+	&=&
+	e^{-2W}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{ \vec{\tilde{R}} }
+	e^{ i \vec{q} \cdot \vec{\tilde{R}} }
+		{\rm exp}
+	\Big\langle \big[ \vec{q} \cdot \delta \vec{R}_{0} \big] \big[ \vec{q} \cdot \delta \vec{\tilde{R}}(t) \big] \Big\rangle
+	\nonumber \\[2mm] &=&
+	e^{-2W}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{ \vec{R} }
+	e^{ i \vec{q} \cdot \vec{R} }
+		{\rm exp}
+	\Big\langle \big[ \vec{q} \cdot \delta \vec{R}_{0} \big] \big[ \vec{q} \cdot \delta \vec{R}(t) \big] \Big\rangle
+\end{eqnarray}
+と書ける。（2行目への式変形は単に積分変数を見やすいように$\vec{\tilde{R}}$から$\vec{R}$へと変えただけ。）
+
+
+\begin{eqnarray}
+	{\rm exp}
+	\Big\langle \big[ \vec{q} \cdot \delta \vec{R}_{0} \big] \big[ \vec{q} \cdot \delta \vec{R}(t) \big] \Big\rangle
+	&=&
+	\sum_{m=0}^{\infty}
+	\dfrac{1}{m!}
+	\Big( \Big\langle \big[ \vec{q} \cdot \delta \vec{R}_{0} \big] \big[ \vec{q} \cdot \delta \vec{R}(t) \big] \Big\rangle \Big)^{m}
+\end{eqnarray}
+と展開できる。この第$m$項目は$m$個の数のフォノンの寄与を表し、例えば$m=0$はzero-phonon散乱（弾性散乱）、$m=1$ではone-phonon散乱と呼ばれる。
+
+\end{document}

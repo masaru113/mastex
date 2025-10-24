@@ -1,0 +1,492 @@
+\documentclass[a4j]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,mathrsfs,url}
+\usepackage{epic,eepic,here}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+Dynamic Structure Factor
+}
+\author{Masaru Okada (岡田 大)}
+\date{\today}
+\begin{document}
+\maketitle
+
+These are notes on the dynamic structure factor. The discussion is set in the context of neutron scattering.
+
+\subsection*{On the Interaction Between Neutrons and the Lattice}
+
+Consider a neutron with momentum $\vec{p}$ being scattered by a crystal, emerging with momentum $\vec{p'}$.
+Before the scattering, the lattice is assumed to be in an eigenstate of the crystal Hamiltonian with energy $E_{\rm i}$, and after scattering, it is in an eigenstate with energy $E_{\rm f}$.
+The states of the combined neutron-lattice system are, respectively:
+
+\hspace{5mm}
+Wave function and eigenenergy before scattering:
+\begin{eqnarray}
+	\Psi_{\rm i}
+	&=&
+	\psi_{\vec{p}}(\vec{r}) \Phi_{\rm i}
+	\\[3mm]
+	\varepsilon_{\rm i}
+	&=&
+	E_{\rm i} + \dfrac{p^{2}}{2 M_{n}}
+\end{eqnarray}
+
+\hspace{5mm}
+Wave function and eigenenergy after scattering:
+\begin{eqnarray}
+	\Psi_{\rm f}
+	&=&
+	\psi_{\vec{p}'}(\vec{r}) \Phi_{\rm f}
+	\\[3mm]
+	\varepsilon_{\rm f}
+	&=&
+	E_{\rm f} + \dfrac{p'^{2}}{2 M_{n}}
+\end{eqnarray}
+Here, $M_{n}$ is the neutron mass, and
+$V$ is the volume of the system, used as a normalization constant.
+The function $\psi_{\vec{p}}(\vec{r})$ is a plane wave
+$
+	\psi_{\vec{p}}(\vec{r}) = \dfrac{1}{\sqrt{V}} e^{i \vec{p} \cdot \vec{r}}
+$.
+The energy gain and momentum change of the lattice are:
+\begin{eqnarray}
+	\hbar \omega
+	&=&
+	\dfrac{p'^{2}}{2 M_{n}}
+	-
+	\dfrac{p^{2}}{2 M_{n}}
+	\\[2mm]
+	\hbar \vec{q}
+	&=&
+	\vec{p'}
+	-
+	\vec{p}
+\end{eqnarray}
+Letting $\vec{R}$ be a lattice point and $\vec{r}(\vec{R})$ be the position of the ion belonging to $\vec{R}$, which fluctuates due to heat etc., the neutron-lattice interaction is:
+\begin{eqnarray}
+	U(\vec{r})
+	&=&
+	\sum_{\vec{R}}
+	u \big[ \vec{r} - \vec{r}(\vec{R}) \big]
+	\ = \
+	\dfrac{1}{V}
+	\sum_{\vec{k},\vec{R}}
+	u_{\vec{k}} e^{i \vec{k} \cdot [ \vec{r} - \vec{r}(\vec{R}) ]}
+\end{eqnarray}
+
+The range of the interaction $u \big[ \vec{r} - \vec{r}(\vec{R}) \big]$ is
+at most the size of the nucleus, i.e., about $10^{-13}$ cm.
+Its Fourier component $u_{\vec{k}}$ is thought to vary on the scale of $k \sim 10^{13}$ cm$^{-1}$.
+The important scale for the phonon spectrum is a wave vector of about $10^{8}$ cm$^{-1}$,
+and compared to this, the variation of $k$ is sufficiently slow (by a factor of $10^5$).
+Therefore, the Fourier component of the interaction $u_{\vec{k}}$ can be regarded as independent of the wave vector,
+and we will write this constant as $u_{0}$.
+
+Suppose the total scattering cross-section for a single lattice point is given by $4 \pi a^{2}$.
+Using the averaged length $a$ that characterizes this scattering,
+\begin{eqnarray}
+	u_{0}
+	&=&
+	4 \pi a^{2} \times \dfrac{\hbar^{2}}{2M_{n}} \dfrac{1}{a}
+\end{eqnarray}
+we have,
+\begin{eqnarray}
+	U(\vec{r})
+	&=&
+	\dfrac{ 2 \pi \hbar^{2} a }{ M_{n} V }
+	\sum_{ \vec{k} , \vec{R} }
+	e^{i \vec{k} \cdot [ \vec{r} - \vec{r}(\vec{R}) ] }
+\end{eqnarray}
+Note that performing the $\vec{k}$ integration yields,
+\begin{eqnarray}
+	U(\vec{r})
+	&=&
+	\dfrac{ 2 \pi \hbar^{2} a }{ M_{n} }
+	\sum_{ \vec{R} }
+	\int \dfrac{d^{3} \vec{k}}{(2 \pi)^{3}}
+	e^{i \vec{k} \cdot [ \vec{r} - \vec{r}(\vec{R}) ] }
+	\nonumber \\[3mm] &=&
+	\dfrac{ 2 \pi \hbar^{2} a }{ M_{n} }
+	\sum_{ \vec{R} }
+	\delta [ \vec{r} - \vec{r}(\vec{R}) ]
+\end{eqnarray}
+This naturally shows that the assumptions we have made are,
+in fact, equivalent to assuming that the interaction is a point-contact type that acts only on the lattice points.
+
+\subsection*{Fermi's Golden Rule and the Scattering Cross-Section}
+
+The probability $P$ per unit time of scattering from $\vec{p}$ to $\vec{p'}$ can be calculated
+to the lowest order of perturbation theory using the formula known as Fermi's Golden Rule.
+Writing the inner product of functions $f=f(x)$ and $g=g(x)$ as
+\begin{eqnarray}
+	\int dx \big[ f(x) \big]^{*} g(x)
+	&=&
+	\big( f , g \big)
+\end{eqnarray}
+
+we can calculate $P$ as:
+
+\begin{eqnarray}
+	P
+	&=&
+	\dfrac{2 \pi}{\hbar}
+	\sum_{\rm f}
+	\delta( \varepsilon_{\rm f} - \varepsilon_{\rm i} )
+	\Big| \big( \Psi_{\rm f} , U \Psi_{\rm i} \big) \Big|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{2 \pi}{\hbar}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\dfrac{1}{V} \int d^{3} \vec{r} \
+	e^{i \vec{q} \cdot \vec{r}}
+	\big( \Phi_{\rm f} , U(\vec{r}) \Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{2 \pi}{\hbar}
+	\dfrac{1}{V^{2}}
+	\Big( \dfrac{2 \pi \hbar^{2} a}{M_{n} V} \Big)^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{ \vec{k} , \vec{R} }
+	\int d^{3} \vec{r} \
+	e^{i (\vec{k} + \vec{q} ) \cdot \vec{r}}
+	\big( \Phi_{\rm f} ,
+	e^{ - i \vec{k} \cdot \vec{r}(\vec{R}) }
+	\Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{ ( 2 \pi \hbar )^{3} }{ V^{2} ( M_{n} V )^{2} } a^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{ \vec{k},\vec{R} }
+	( 2 \pi \hbar )^{3}
+	\delta (\vec{k} + \vec{q} )
+	\big( \Phi_{\rm f} ,
+	e^{ - i \vec{k} \cdot \vec{r}(\vec{R}) }
+	\Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{ ( 2 \pi \hbar )^{3} }{ V^{2} ( M_{n} V )^{2} } a^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{ \vec{R} }
+	( 2 \pi \hbar )^{3}
+	\dfrac{V}{( 2 \pi \hbar )^{3}}
+	\int d^{3} \vec{k} \
+	\delta (\vec{k} + \vec{q} )
+	\big( \Phi_{\rm f} ,
+	e^{ - i \vec{k} \cdot \vec{r}(\vec{R}) }
+	\Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{ ( 2 \pi \hbar )^{3} }{ ( M_{n} V )^{2} }
+	a^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\bigg|^{2}
+\end{eqnarray}
+
+The scattering probability $P$ is related to the measurable quantity, the differential scattering cross-section
+$\dfrac{d^{3} \sigma}{d^{2} \Omega d E}$.
+The incident neutron flux is
+
+\begin{eqnarray}
+	j
+	&=&
+	\dfrac{p}{M_{n}} \big| \psi_{\vec{p}} \big|^{2}
+	\ = \
+	\dfrac{1}{V}
+	\dfrac{p}{M_{n}}
+\end{eqnarray}
+
+From the conservation of flux,
+
+'(Integral of differential scattering cross-section over all solid angles and energies) = (Sum of probability $P$ over all states)'
+
+Therefore, the following holds:
+\begin{eqnarray}
+	\int
+	j
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	d^{2} \Omega d E
+	&=&
+	\int P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	\ d^{3} \vec{p'}
+\end{eqnarray}
+The left-hand side is,
+\begin{eqnarray}
+	\int
+	j
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	\ d^{2} \Omega d E
+	&=&
+	\int
+	\dfrac{1}{V}
+	\dfrac{p}{M_{n}}
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	\ d^{2} \Omega d E
+\end{eqnarray}
+On the other hand, the right-hand side is
+\begin{eqnarray}
+	\int P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	\ d^{3} \vec{p'}
+	&=&
+	\int P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	p'^{2}
+	\ d p' d^{2} \Omega
+	\nonumber \\[3mm]　&=&
+	\int P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	M_{n} p'
+	\ d E d^{2} \Omega
+\end{eqnarray}
+Comparing both sides,
+\begin{eqnarray}
+	\dfrac{1}{V}
+	\dfrac{p}{M_{n}}
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	&=&
+	P \dfrac{V}{ ( 2 \pi \hbar)^{3} }
+	M_{n} p'
+\end{eqnarray}
+That is,
+\begin{eqnarray}
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	&=&
+	\dfrac{p'}{p}
+	\dfrac{(M_{n} V)^{2}}{ ( 2 \pi \hbar)^{3} }
+	P
+	\nonumber \\[2mm] &=&
+	\dfrac{p'}{p}
+	\dfrac{(M_{n} V)^{2}}{ ( 2 \pi \hbar)^{3} }
+	\cdot
+	\dfrac{ ( 2 \pi \hbar )^{3} }{ ( M_{n} V )^{2} }
+	a^{2}
+	\sum_{\rm f}
+	\delta( E_{\rm f} - E_{\rm i} + \hbar \omega )
+	\bigg|
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{p'}{p}
+	\dfrac{ N a^{2} }{ \hbar }
+	S_{\rm i}(\vec{q},\omega)
+\end{eqnarray}
+This $S_{\rm i}(\vec{q},\omega)$ is defined as follows.
+\begin{eqnarray}
+	S_{\rm i}(\vec{q},\omega)
+	&=&
+	\dfrac{1}{N}
+	\sum_{\rm f}
+	\delta \Big( \dfrac{E_{\rm f} - E_{\rm i}}{\hbar} + \omega \Big)
+	\bigg|
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\bigg|^{2}
+\end{eqnarray}
+Here, $N$ is the number of lattice sites in the system.
+Now, the following identity holds for the Heisenberg operator $A(t)=e^{i H t/ \hbar} A e^{-i H t/ \hbar}$:
+
+\begin{eqnarray}
+	\big( \Phi_{\rm f} , A(t) \Phi_{\rm i} \big)
+	&=&
+	\big( \Phi_{\rm f} , e^{i H t/ \hbar} A e^{-i H t/ \hbar} \Phi_{\rm i} \big)
+	\nonumber \\[2mm] &=&
+	\big( \Phi_{\rm f} , e^{i E_{\rm f} t/ \hbar} A e^{-i E_{\rm i} t/ \hbar} \Phi_{\rm i} \big)
+	\nonumber \\[2mm] &=&
+	e^{i ( E_{\rm f} - E_{\rm i} ) t/ \hbar} \big( \Phi_{\rm f} , A \Phi_{\rm i} \big)
+\end{eqnarray}
+
+By expanding the delta function (Fourier transform) and using this,
+
+
+\begin{eqnarray}
+	S_{\rm i}(\vec{q},\omega)
+	&=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	e^{ i ( E_{\rm f} - E_{\rm i} ) t / \hbar}
+	\bigg|
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\bigg|^{2}
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	e^{ i ( E_{\rm f} - E_{\rm i} ) t / \hbar}
+	\sum_{\vec{R}}
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R})} \Phi_{\rm i} \big)
+	\sum_{\vec{R}'}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot \vec{r}(\vec{R}')} \Phi_{\rm f} \big)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	\sum_{\vec{R},\vec{R}'}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot \vec{r}(\vec{R}')} \Phi_{\rm f} \big)
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \vec{r}(\vec{R},t)} \Phi_{\rm i} \big)
+\end{eqnarray}
+Furthermore, since $\Phi_{\rm f}$ forms a complete set, for operators $A$ and $B$,
+
+\begin{eqnarray}
+	\sum_{\rm f}
+	\big( \Phi_{\rm i} , A \Phi_{\rm f} \big)
+	\big( \Phi_{\rm f} , B \Phi_{\rm i} \big)
+	&=&
+	\big( \Phi_{\rm i} , AB \Phi_{\rm i} \big)
+\end{eqnarray}
+also holds.
+Letting $\delta \vec{R} \ (= \vec{r}(\vec{R}) - \vec{R} )$ be the displacement of the ion from the lattice point due to thermal motion,
+\begin{eqnarray}
+	S_{\rm i}(\vec{q},\omega)
+	&=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	\sum_{\vec{R},\vec{R}'}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot [ \delta \vec{R}' + \vec{R}' ]  } \Phi_{\rm f} \big)
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot [ \delta \vec{R}(t) + \vec{R} ] } \Phi_{\rm i} \big)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\rm f}
+	\sum_{\vec{R},\vec{R}'}
+	e^{ i \vec{q} \cdot (\vec{R} - \vec{R}')}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot \delta \vec{R}' } \Phi_{\rm f} \big)
+	\big( \Phi_{\rm f} , e^{i \vec{q} \cdot \delta \vec{R}(t) } \Phi_{\rm i} \big)
+	\nonumber \\[2mm] &=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\vec{R},\vec{R}'}
+	e^{ i \vec{q} \cdot (\vec{R} - \vec{R}')}
+	\big( \Phi_{\rm i} , e^{ - i \vec{q} \cdot \delta \vec{R}' } e^{i \vec{q} \cdot \delta \vec{R}(t) } \Phi_{\rm i} \big)
+\end{eqnarray}
+
+In general, the crystal in the initial state is in thermal equilibrium.
+To find the scattering cross-section, we should take a statistical average over all initial states.
+If we write the statistical average of an operator $A$ as
+
+\begin{eqnarray}
+	\big\langle A \big\rangle
+	&=&
+	\sum_{\rm i}
+	\dfrac{ e^{ - E_{\rm i} / k_{\rm B} T } \big( \Phi_{\rm i} , A \Phi_{\rm i} \big) }{e^{ - E_{\rm i} / k_{\rm B} T }}
+\end{eqnarray}
+the statistical average of $S_{\rm i}(\vec{q},\omega)$ is:
+
+\begin{eqnarray}
+	S(\vec{q},\omega)
+	&=&
+	\dfrac{1}{N}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{\vec{R},\vec{R}'}
+	e^{ i \vec{q} \cdot (\vec{R} - \vec{R}')}
+	\big\langle e^{ - i \vec{q} \cdot \delta \vec{R}' } e^{i \vec{q} \cdot \delta \vec{R}(t) } \big\rangle
+\end{eqnarray}
+This quantity is called the \textbf{dynamic structure factor},
+and it is related to the differential scattering cross-section as follows.
+
+\begin{eqnarray}
+	\dfrac{ d^{3} \sigma }{ d^{2} \Omega d E }
+	&=&
+	\dfrac{p'}{p}
+	\dfrac{ N a^{2} }{ \hbar }
+	S(\vec{q},\omega)
+\end{eqnarray}
+The dynamic structure factor $S(\vec{q},\omega)$ depends only on the structure of the scatterer.
+\subsection*{About the Dynamic Structure Factor}
+
+Let's consider the term inside $S(\vec{q},\omega)$,
+$\big\langle e^{ - i \vec{q} \cdot \delta \vec{R}' } e^{i \vec{q} \cdot \delta \vec{R}(t) } \big\rangle$.
+For linear operators $A$ and $B$, the relation
+
+\begin{eqnarray}
+	\big\langle e^{ A } e^{ B } \big\rangle
+	&=&
+	{\rm exp} \Big( \dfrac{1}{2} \big\langle A^{2} + 2 AB + B^{2} \big\rangle \Big)
+\end{eqnarray}
+holds (this is the Gaussian approximation), so
+
+\begin{eqnarray}
+	\Big\langle e^{ - i \vec{q} \cdot \delta \vec{R}' } e^{i \vec{q} \cdot \delta \vec{R}(t) } \Big\rangle
+	&=&
+	{\rm exp} \Big\langle - \dfrac{1}{2} \Big[ \vec{q} \cdot \delta \vec{R}' \Big]^{2} \Big\rangle
+	\ \ \!
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}' \Big] \Big[ \vec{q} \cdot \delta \vec{R}(t) \Big] \Big\rangle
+	\ \ \!
+	{\rm exp} \Big\langle - \dfrac{1}{2} \Big[ \vec{q} \cdot \delta \vec{R}(t) \Big]^{2} \Big\rangle
+	\nonumber \\
+\end{eqnarray}
+Since observable physical quantities depend only on relative coordinates and relative time,
+
+\begin{eqnarray}
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}' \Big]^{2} \Big\rangle
+	\ = \
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}(t) \Big]^{2} \Big\rangle
+	\ = \
+	2W
+	\ = \
+	{\rm const.}
+\end{eqnarray}
+(This $e^{-2W}$ is the Debye-Waller factor).
+Furthermore, by shifting the position coordinates,
+letting $ \delta \vec{R}' \to \delta \vec{R}_{0}$,
+and rewriting
+$\delta \vec{R} \to \delta \vec{R} + \delta \vec{R}_{0} - \delta \vec{R}'$
+as
+$\delta \vec{\tilde{R}}$,
+\begin{eqnarray}
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}' \Big] \Big[ \vec{q} \cdot \delta \vec{R}(t) \Big] \Big\rangle
+	&=&
+	{\rm exp} \Big\langle \Big[ \vec{q} \cdot \delta \vec{R}_{0} \Big] \Big[ \vec{q} \cdot \delta \vec{\tilde{R}}(t) \Big] \Big\rangle
+\end{eqnarray}
+From these steps,
+
+\begin{eqnarray}
+	S(\vec{q},\omega)
+	&=&
+	e^{-2W}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{ \vec{\tilde{R}} }
+	e^{ i \vec{q} \cdot \vec{\tilde{R}} }
+		{\rm exp}
+	\Big\langle \big[ \vec{q} \cdot \delta \vec{R}_{0} \big] \big[ \vec{q} \cdot \delta \vec{\tilde{R}}(t) \big] \Big\rangle
+	\nonumber \\[2mm] &=&
+	e^{-2W}
+	\int \dfrac{ dt }{ 2 \pi }
+	e^{ i \omega t }
+	\sum_{ \vec{R} }
+	e^{ i \vec{q} \cdot \vec{R} }
+		{\rm exp}
+	\Big\langle \big[ \vec{q} \cdot \delta \vec{R}_{0} \big] \big[ \vec{q} \cdot \delta \vec{R}(t) \big] \Big\rangle
+\end{eqnarray}
+(The transformation to the second line is just relabeling the summation variable from $\vec{\tilde{R}}$ to $\vec{R}$ for clarity.)
+
+\begin{eqnarray}
+	{\rm exp}
+	\Big\langle \big[ \vec{q} \cdot \delta \vec{R}_{0} \big] \big[ \vec{q} \cdot \delta \vec{R}(t) \big] \Big\rangle
+	&=&
+	\sum_{m=0}^{\infty}
+	\dfrac{1}{m!}
+	\Big( \Big\langle \big[ \vec{q} \cdot \delta \vec{R}_{0} \big] \big[ \vec{q} \cdot \delta \vec{R}(t) \big] \Big\rangle \Big)^{m}
+\end{eqnarray}
+can be expanded. The $m$-th term here represents the contribution of $m$ phonons; for example, $m=0$ is zero-phonon scattering (elastic scattering), and $m=1$ is called one-phonon scattering.
+
+\end{document}

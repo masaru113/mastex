@@ -1,0 +1,122 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+Dirty limit. Quasiclassical Green function $\theta$-parameterization
+}
+\author{岡田 大(Okada Masaru)}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+磁場が入っていないUsadel方程式は次式で与えられる。
+\begin{eqnarray}
+	i D \vec{\nabla} ( \check{g} \vec{\nabla} \check{g} )
+	+ \check{H}_{0} \check{g} - \check{g} \check{H}_{0}
+	&=&
+	0
+	,
+\end{eqnarray}
+ここで、準古典南部‐グリーン関数 $\check{g}$ と非摂動ハミルトニアン $\check{H}_{0}$ はそれぞれ
+\begin{eqnarray}
+	\check{g}
+	\ = \
+	\left(
+	\begin{array}{cc}
+			g             & f  \\[2mm]
+			- f^{\dagger} & -g
+		\end{array}
+	\right)
+	,
+	\hspace{10mm}
+	\check{H}_{0}
+	\ = \
+	\left(
+	\begin{array}{cc}
+			- i \omega_{n} & - \Delta     \\[2mm]
+			\Delta^{*}     & i \omega_{n}
+		\end{array}
+	\right)
+	.
+\end{eqnarray}
+$g$ ($f$) は (異常) グリーン関数、
+$\Delta$ は超伝導ギャップで定数である。
+
+特に、一様な状態では、グリーン関数は次のように書ける。
+\begin{eqnarray}
+	g
+	\ = \
+	- \dfrac{\omega_{n}}{\sqrt{\omega_{n}^{2} + |\Delta|^{2} }}
+	,
+	\hspace{10mm}
+	f
+	\ = \
+	\dfrac{\Delta}{i \sqrt{\omega_{n}^{2} + |\Delta|^{2} }}
+	.
+\end{eqnarray}
+
+松原周波数 $\omega_{n}$ は、(遅延) 解析接続によって次のように拡張できる:
+$i \omega_{n} \to E + i \eta$
+
+ここで、超伝導励起エネルギー $E = \sqrt{\varepsilon^{2} + |\Delta|^{2}} $ は実数であり、$\eta$ は無限小の正の数である。
+
+$\check{g}$ は、 $ \ {\rm Tr} \check{g} = 0 \ $ かつ $ \ {\rm det} \check{g} = 1 \ $ という、2次元回転行列の条件を満たす。
+
+したがって、$\check{g}$ は $\theta(x)$ を用いて次のようにパラメータ表示できる:
+\begin{eqnarray}
+	\check{g}(x)
+	\ = \
+	\left(
+	\begin{array}{cc}
+			{\rm cos} [\theta(x)]              & {\rm sin} [\theta(x)] e^{i \chi} \\[2mm]
+			{\rm sin} [\theta(x)] e^{- i \chi} & -{\rm cos} [\theta(x)]
+		\end{array}
+	\right)
+	.
+\end{eqnarray}
+ゼロ磁場では位相 $\chi$ は定数であり、
+$\chi=0$ と取っても良い。
+
+常伝導金属中でのUsadel方程式の (2,1) 成分は、以下の形をとる。
+
+\begin{eqnarray}
+	-i D \dfrac{\partial}{\partial x}
+	\Big\{ {\rm cos} [ \theta(x) ] \dfrac{\partial}{\partial x} \big( - {\rm sin} [ \theta(x)] \big)
+	+ {\rm sin} [ \theta(x) ] \dfrac{\partial}{\partial x} {\rm cos} [ \theta(x)] \Big\}
+	&=&
+	2 i \omega_{n} {\rm sin} [ \theta(x) ]
+	.
+\end{eqnarray}
+
+さらに、以下の関係式を用いることで（これは合成関数を微分しただけ）。
+
+\begin{eqnarray}
+	\dfrac{\partial}{\partial x} {\rm sin} [ \theta(x)]
+	\ = \
+	{\rm cos} [ \theta(x)] \dfrac{\partial \theta(x) }{\partial x}
+	,
+	\hspace{10mm}
+	\dfrac{\partial}{\partial x} {\rm cos} [ \theta(x)]
+	\ = \
+	- {\rm sin} [ \theta(x)] \dfrac{\partial \theta(x) }{\partial x}
+	.
+\end{eqnarray}
+
+解析接続を行うと、得られる式はより簡単な形になる。
+
+\begin{eqnarray}
+	D \dfrac{\partial^{2} \theta(x)}{\partial x^{2}}
+	+
+	2 i E {\rm sin} [ \theta(x) ]
+	&=&
+	0
+	.
+\end{eqnarray}
+
+\end{document}

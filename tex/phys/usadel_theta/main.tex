@@ -1,0 +1,122 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{
+Dirty limit. Quasiclassical Green function $\theta$-parameterization
+}
+\author{Masaru Okada}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+The Usadel equation in zero magnetic field is
+\begin{eqnarray}
+	i D \vec{\nabla} ( \check{g} \vec{\nabla} \check{g} )
+	+ \check{H}_{0} \check{g} - \check{g} \check{H}_{0}
+	&=&
+	0
+	,
+\end{eqnarray}
+where the quasiclassical Nambu-Green function $\check{g}$ and the non-perturbative Hamiltonian $\check{H}_{0}$ are respectively
+\begin{eqnarray}
+	\check{g}
+	\ = \
+	\left(
+	\begin{array}{cc}
+			g             & f  \\[2mm]
+			- f^{\dagger} & -g
+		\end{array}
+	\right)
+	,
+	\hspace{10mm}
+	\check{H}_{0}
+	\ = \
+	\left(
+	\begin{array}{cc}
+			- i \omega_{n} & - \Delta     \\[2mm]
+			\Delta^{*}     & i \omega_{n}
+		\end{array}
+	\right)
+	.
+\end{eqnarray}
+$g$ ($f$) is the (anomalous) Green function.
+$\Delta$ is a constant superconducting gap.
+
+Especially, in homogeneous state, Green functions can be written as
+\begin{eqnarray}
+	g
+	\ = \
+	- \dfrac{\omega_{n}}{\sqrt{\omega_{n}^{2} + |\Delta|^{2} }}
+	,
+	\hspace{10mm}
+	f
+	\ = \
+	\dfrac{\Delta}{i \sqrt{\omega_{n}^{2} + |\Delta|^{2} }}
+	.
+\end{eqnarray}
+
+Matsubara frequency $\omega_{n}$ is able to be extended (retarded) analytical continuation:
+$i \omega_{n} \to E + i \eta$
+
+where superconducting excitation energy $E = \sqrt{\varepsilon^{2} + |\Delta|^{2}} $ is real and $\eta$ is infinitesimal positive number.
+
+$\check{g}$ satisfy the condition of 2-dimensional rotation matrix that $ \ {\rm Tr} \check{g} = 0 \ $ and $ \ {\rm det} \check{g} = 1 \ $.
+
+Therefore $\check{g}$ can be parameterized by $\theta(x)$:
+\begin{eqnarray}
+	\check{g}(x)
+	\ = \
+	\left(
+	\begin{array}{cc}
+			{\rm cos} [\theta(x)]              & {\rm sin} [\theta(x)] e^{i \chi} \\[2mm]
+			{\rm sin} [\theta(x)] e^{- i \chi} & -{\rm cos} [\theta(x)]
+		\end{array}
+	\right)
+	.
+\end{eqnarray}
+In zero-field, $\chi$ is constant.
+It can be put $\chi=0$.
+
+The (2,1) element of the Usadel equation in the nomal metal has the form
+
+\begin{eqnarray}
+	-i D \dfrac{\partial}{\partial x}
+	\Big\{ {\rm cos} [ \theta(x) ] \dfrac{\partial}{\partial x} \big( - {\rm sin} [ \theta(x)] \big)
+	+ {\rm sin} [ \theta(x) ] \dfrac{\partial}{\partial x} {\rm cos} [ \theta(x)] \Big\}
+	&=&
+	2 i \omega_{n} {\rm sin} [ \theta(x) ]
+	.
+\end{eqnarray}
+
+Further, there are useful relations
+
+\begin{eqnarray}
+	\dfrac{\partial}{\partial x} {\rm sin} [ \theta(x)]
+	\ = \
+	{\rm cos} [ \theta(x)] \dfrac{\partial \theta(x) }{\partial x}
+	,
+	\hspace{10mm}
+	\dfrac{\partial}{\partial x} {\rm cos} [ \theta(x)]
+	\ = \
+	- {\rm sin} [ \theta(x)] \dfrac{\partial \theta(x) }{\partial x}
+	.
+\end{eqnarray}
+
+After analytical continuation, the obtained form becomes much easier
+
+\begin{eqnarray}
+	D \dfrac{\partial^{2} \theta(x)}{\partial x^{2}}
+	+
+	2 i E {\rm sin} [ \theta(x) ]
+	&=&
+	0
+	.
+\end{eqnarray}
+
+\end{document}
