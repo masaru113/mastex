@@ -1,0 +1,177 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{ルンゲ＝クッタ法}
+
+\author{Masaru Okada}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{オイラー法}
+
+まず、常微分方程式 (ODE) を数値的に解くための
+最も単純な方法を紹介する。
+これは（1次の）ルンゲ＝クッタ法とも呼ばれる。
+対象とする方程式は、以下のように仮定する。
+\begin{eqnarray}
+	\dfrac{dy}{dx} &=& f(x,y)
+\end{eqnarray}
+ここで $f(x,y)$ は既知の関数である。
+記述を簡単にするため、
+$y_{i}=y(x_{i})$
+および
+$x_{i+1} = x_{i} + h$
+とおく。
+初期条件 ($i=0$) は $(x_{0},y_{0})$ で与えられるものとする。
+$x$ のメッシュ幅 $h$ を $| h | \ll 1$ となるように選べば、
+$y_{i+1}$ は $h$ についてテイラー展開できる。
+\begin{eqnarray}
+	y_{i+1} &=&
+	y(x_{i} + h)
+	\nonumber \\[2mm] &=&
+	y(x_{i}) \ \
+	+
+	\dfrac{dy}{dx} \Big|_{x=x_{i}} \hspace{-4mm} h \ \
+	+
+	O[h^{2}]
+	\nonumber \\[2mm] &=&
+	y_{i} \ \
+	+
+	f(x_{i},y_{i}) h
+	+
+	O[h^{2}]
+\end{eqnarray}
+したがって、次式が得られる。
+\begin{eqnarray}
+	f(x_{i},y_{i}) &=& \dfrac{y_{i+1} - y_{i}}{h}
+\end{eqnarray}
+これは $h$ の1次のオーダーまで正しい。
+解は以下の漸化式によって与えられる。
+\begin{eqnarray}
+	\left\{
+	\begin{array}{lcl}
+		x_{i+1}    & = & x_{i} + h                                             \\[-1mm]
+		           &   & \hspace{35mm} ( x_{0} {\rm \ \ \! is \ \ \! given.} ) \\[-1mm]
+		y(x_{i+1}) & = & y(x_{i}) + f[x_{i},y(x_{i})]
+	\end{array}
+	\right.
+\end{eqnarray}
+
+\section{2次のルンゲ＝クッタ法（ホイン法）}
+
+同様にして、
+$y_{i+1}$ を $h$ について展開する。
+2次のオーダーまで書き下すと、以下のようになる。
+\begin{eqnarray}
+	y_{i+1} &=&
+	y(x_{i} + h)
+	\nonumber \\[2mm] &=&
+	y(x_{i}) \ \
+	+
+	y'(x_{i}) h
+	+
+	\dfrac{1}{2} y''(x_{i}) h^{2}
+	+
+	\dfrac{1}{6} \dfrac{d^{3}y}{dx^{3}} \Big|_{x=x_{i}} \hspace{-4mm} h^{3} \ \
+	+
+	O[h^{4}]
+	O[h^{3}]
+	\\[4mm]
+	\Delta y
+	&=&
+	y_{i+1} - y_{i}
+	\nonumber \\[2mm] &=&
+	y_{1} - y_{0}
+	\nonumber \\[2mm] &=&
+	y'(x_{0}) h
+	+
+	\dfrac{1}{2} y''(x_{0}) h^{2}
+	\label{eqn:dokuritu1}
+\end{eqnarray}
+先ほどは $y'(x_{0})$ の値を用いたが、
+今回はそれに加えて $y'(x_{1})$ という別の値も選んでみる。
+\begin{eqnarray}
+	\Delta y
+	&=&
+	h [ \alpha y'(x_{0}) + \beta y'(x_{1}) ]
+\end{eqnarray}
+ただし $\alpha$ と $\beta$ は未定の定数である。
+ここで $\beta y'(x_{1})$ も同様に展開できる。
+\begin{eqnarray}
+	\beta y'(x_{1})
+	&=&
+	\beta y'(x_{0}+h)
+	\nonumber \\[2mm] &=&
+	\beta [ y'(x_{0}) + h y''(x_{0}) +O(h^{2}) ]
+\end{eqnarray}
+よって、
+\begin{eqnarray}
+	\Delta y
+	&=&
+	( \alpha + \beta ) y'(x_{0}) h + \beta y''(x_{0}) h^{2}
+	\label{eqn:dokuritu2}
+\end{eqnarray}
+式 (\ref{eqn:dokuritu1}) と
+式 (\ref{eqn:dokuritu2}) を比較すれば、
+パラメータは $\alpha=\beta=\dfrac{1}{2}$ と決定される。
+最終的に、2次のオーダーでの漸化式は以下のようになる。
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		k_{1n}
+		 & = &
+		h f(x_{n},y_{n})
+		\\[2mm]
+		k_{2n}
+		 & = &
+		h f(x_{n}+h,y_{n}+k_{1n})
+		\\[2mm]
+		y_{n+1}
+		 & = &
+		y_{n} + \dfrac{1}{2} (k_{1n} + k_{2n})
+	\end{array}
+	\right.
+\end{eqnarray}
+これは「\textbf{ホイン (Heun) 法}」と呼ばれ、オイラー法よりも精度の高い解を与える。
+\section{4次のルンゲ＝クッタ法（RK4）}
+
+同様の手順で、
+$h$ の4次のオーダーまで考慮すると、
+以下の漸化式が得られる。
+\begin{eqnarray}
+	\left\{
+	\begin{array}{rcl}
+		k_{1n}
+		 & = &
+		h f(x_{n},y_{n})
+		\\[2mm]
+		k_{2n}
+		 & = &
+		h f(x_{n}+\dfrac{h}{2},y_{n}+\dfrac{k_{1}}{2})
+		\\[2mm]
+		k_{3n}
+		 & = &
+		h f(x_{n}+\dfrac{h}{2},y_{n}+\dfrac{k_{2}}{2})
+		\\[2mm]
+		k_{4n}
+		 & = &
+		h f(x_{n}+h,y_{n}+k_{3n})
+		\\[2mm]
+		y_{n+1}
+		 & = &
+		y_{n} + \dfrac{1}{6} (k_{1n} + 2 k_{2n} + 2 k_{3n} + k_{4n})
+	\end{array}
+	\right.
+\end{eqnarray}
+RK4 は、常微分方程式の数値解法として、しばしば最も合理的な手法とされる。
+これ以上高次の（例えば5次以上の）ルンゲ＝クッタ計算を用いても、
+同じ精度を得るために RK4 よりも多くの計算時間を要する場合があり、
+計算コストに見合わないことがある。
+\end{document}
