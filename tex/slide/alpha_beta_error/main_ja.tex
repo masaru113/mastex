@@ -102,9 +102,9 @@
 
 \begin{frame}{「ぼんやり者」の誤り}
 	・ 我々の意思決定の多くは、いまここで最善の判断をしなければ刻々と損失が積み重なっていく。
-
-	\vspace{7mm}
-
+    
+		      \vspace{7mm}
+              
 	・ 医者がただ患者を慎重に見続けているだけだと、ほとんどの人はいずれ死んでしまうのである。
 \end{frame}
 
@@ -114,11 +114,11 @@
 	「あわて者」と「ぼんやり者」の過ちはトレードオフの関係にある。
 	\begin{itemize}
 		\item ・ ばらつきをもった事象に対して、両方の過ちを同時にゼロにすることはできない。
-		      \vspace{5mm}
-		\item ・ 統計学ではこうした「あわて者」と「ぼんやり者」の間で、如何に現実的に正しい判断を行うかが定式化されている。
-		      \vspace{5mm}
-		\item ・ 統計学ではまず、$\alpha$エラーの許容範囲を決める。この許容範囲のことを「\textbf{有意水準}」と呼ぶ。
-		\item ・ 有意水準の範囲内で、$\beta$エラーを最小化する、あるいは検出力を最大化する。
+        \vspace{5mm}
+        \item ・ 統計学ではこうした「あわて者」と「ぼんやり者」の間で、如何に現実的に正しい判断を行うかが定式化されている。
+        \vspace{5mm}
+        \item ・ 統計学ではまず、$\alpha$エラーの許容範囲を決める。この許容範囲のことを「\textbf{有意水準}」と呼ぶ。
+        \item ・ 有意水準の範囲内で、$\beta$エラーを最小化する、あるいは検出力を最大化する。
 	\end{itemize}
 \end{frame}
 
@@ -127,30 +127,32 @@
 \begin{frame}{検定}
 	\begin{itemize}
 		\item ・ 単純に分析に用いるデータを増やすほど検出力は増えるが、限られたデータ数でも真実をぼんやり見逃してしまわないように、仮説に応じて手法を使い分ける。
-		      \vspace{5mm}
-		\item ・ 仮説が正しいと考えられるかどうかを判断するための手法のことを統計学では一般的に\textbf{検定}と呼ぶ。
-		      \vspace{5mm}
-		\item ・ 想定する有意水準において、最も検出力が高い検定手法のことを、\textbf{最強力検定}と呼ぶ。
+        \vspace{5mm}
+        \item ・ 仮説が正しいと考えられるかどうかを判断するための手法のことを統計学では一般的に\textbf{検定}と呼ぶ。
+        \vspace{5mm}
+        \item ・ 想定する有意水準において、最も検出力が高い検定手法のことを、\textbf{最強力検定}と呼ぶ。
 	\end{itemize}
 \end{frame}
 
 \section{検定のマーケティングにおける例}
 
 \begin{frame}{検定のマーケティングにおける例}
-	A/Bテストの結果、新しいデザインではコンバージョン率が0.10$\%$から0.11$\%$に上昇したとする。
-	\vspace{5mm}
-	\begin{itemize}
-		\item ・ わずか0.1$\%$の差であるが、これもし真に意味のある差であれば、このサービスの売上が1.1倍にすることができるかもしれない。
-		\item ・ あるいは逆に、「ただの偶然」だとすれば、無駄なデザイン変更を続ける堂々巡りに陥ってしまうかもしれない。
+ A/Bテストの結果、新しいデザインではコンバージョン率が0.10$\%$から0.11$\%$に上昇したとする。
+ \vspace{5mm}
+     \begin{itemize}
+        \item ・ わずか0.1$\%$の差であるが、これもし真に意味のある差であれば、このサービスの売上が1.1倍にすることができるかもしれない。
+        \item ・ あるいは逆に、「ただの偶然」だとすれば、無駄なデザイン変更を続ける堂々巡りに陥ってしまうかもしれない。
 	\end{itemize}
-	\vspace{5mm}
-	このわずか0.1$\%$の差を「有意差」とするか、偶然による統計的に意味のない差だったのかを判断するときに用いるのが統計的検定である。
+     \vspace{5mm}
+このわずか0.1$\%$の差を「有意差」とするか、偶然による統計的に意味のない差だったのかを判断するときに用いるのが統計的検定である。
 \end{frame}
 
-\begin{frame}[allowframebreaks]{参考文献}
+\begin{frame}[allowframebreaks]{References}
 	\begin{thebibliography}{9}
-		\bibitem{toukei_saikyou}
-		Statistics is the most powerful discipline (Practical Edition) - Kei Nishiuci
+        \bibitem{Vickers}
+            What is a p-value anyway $?$ - Vickers, Andrew J.
+        \bibitem{toukei_saikyou}
+            Statistics is the most powerful discipline (Practical Edition) - Kei Nishiuci
 	\end{thebibliography}
 \end{frame}
 
