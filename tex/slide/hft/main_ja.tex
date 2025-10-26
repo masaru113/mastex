@@ -1,0 +1,229 @@
+\documentclass[dvipdfmx, autodetect-engine, aspectratio=169, 10.5pt]{beamer}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[english]{babel}
+
+\usefonttheme{professionalfonts}
+\useinnertheme{rectangles}
+\setbeamertemplate{navigation symbols}{}
+\setbeamerfont{frametitle}{size=\Large, series=\bfseries}
+\setbeamertemplate{items}[circle]
+
+\title{アルゴリズム取引}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}[plain]
+	\titlepage
+\end{frame}
+
+\begin{frame}{目次}
+	\tableofcontents
+\end{frame}
+
+\section{アルゴリズム取引}
+
+\subsection{アルゴリズム取引とは？}
+\begin{frame}{アルゴリズム取引とは？}
+	\begin{itemize}
+		\item ■ コンピュータによって自動執行される取引
+		      \begin{itemize}
+			      \item ・ 自動取引、システムトレードとも呼ばれる
+		      \end{itemize}
+		\item ■ 全てが数理的に高度というわけではない
+		      \begin{itemize}
+			      \item ・ 数理的に高度な取引
+			            \begin{itemize}
+				            \item - 統計的手法
+				            \item - 時系列解析
+				            \item - 機械学習
+				            \item - 深層学習
+			            \end{itemize}
+			      \item ・ 数理的に高度ではない取引
+			            \begin{itemize}
+				            \item - 定型手続きを自動化しただけの取引
+				                  \begin{itemize}
+					                  \item ・ 単純な受託取引
+					                  \item ・ 瞬間的に裁定機会を狙う取引
+				                  \end{itemize}
+			            \end{itemize}
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{アルゴリズム取引の目的}
+\begin{frame}{アルゴリズム取引の目的}
+	\scriptsize
+	\begin{itemize}
+		\item ■ 収益の安定性の拡大
+		      \begin{itemize}
+			      \item ・ リターンの追求
+			            \begin{itemize}
+				            \item - 自動で安く買って高く売る
+				            \item - 収益機会の追求
+			            \end{itemize}
+			      \item ・ コストの削減
+			            \begin{itemize}
+				            \item - 定型執行業務自動化
+				                  \begin{itemize}
+					                  \item ・ マーケットメイキング自動化
+					                  \item ・ バスケット取引自動化
+				                  \end{itemize}
+				            \item - 手数料の最適な市場の自動選択
+				            \item - マーケット・インパクトによるコストも削減
+				                  \begin{itemize}
+					                  \item ・ マーケットインパクトとは、自己の執行により不利な価格に推移して自己の売買コストが上昇してしまうこと
+				                  \end{itemize}
+			            \end{itemize}
+			      \item ・ リスクのコントロール
+			            \begin{itemize}
+				            \item - 売買したい数量の執行確率の制御
+				            \item - 自己ポジションのマーケット・リスクの制御
+			            \end{itemize}
+		      \end{itemize}
+		\item ■ リターンの追求、コスト削減、リスクのコントロールはそれぞれトレードオフの関係にある
+	\end{itemize}
+\end{frame}
+
+\subsection{アルゴリズム取引の種類}
+\begin{frame}{アルゴリズム取引の種類}
+	\scriptsize
+	\begin{itemize}
+		\item ■ 取引コスト削減を狙うアルゴリズム
+		      \begin{itemize}
+			      \item ・ マーケット・インパクト削減
+			      \item ・ 取引コスト削減
+			            \begin{itemize}
+				            \item - 執行系アルゴリズム
+				                  \begin{itemize}
+					                  \item ・ アイスバーグ等
+				                  \end{itemize}
+				            \item - ベンチマーク執行系アルゴリズム
+				                  \begin{itemize}
+					                  \item ・ VWAP等
+				                  \end{itemize}
+				            \item - これらは取引を細かく分割して執行量を市場から隠す（分かりにくくする）等の効果により取引コストの削減を図る
+			            \end{itemize}
+		      \end{itemize}
+		\item ■ 収益機会を狙うアルゴリズム
+		      \begin{itemize}
+			      \item ・ マーケット・メイキング・アルゴリズム
+			            \begin{itemize}
+				            \item - 市場に売りと買いと両方の注文を出し、その価格差を収益源とする
+			            \end{itemize}
+			      \item ・ 裁定アルゴリズム
+			            \begin{itemize}
+				            \item - 同一の価値を持つ金融商品が異なる価格で売買可能なことを検知して収益を稼ぐアルゴリズム
+			            \end{itemize}
+			      \item ・ ディレクショナル・アルゴリズム
+			            \begin{itemize}
+				            \item - 市場予測を行い、安く買って高く売ることによる売買価格差による収益を狙うアルゴリズム
+			            \end{itemize}
+		      \end{itemize}
+		\item ■ 市場操作系アルゴリズム
+		      \begin{itemize}
+			      \item ・ 自ら提供する流動性や売買意思を市場に誤認させて、相場を自分に有利な方向に持っていくことを狙うアルゴリズム
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{アルゴリズムの運用者}
+\begin{frame}{アルゴリズムの運用者}
+	\scriptsize
+	\begin{itemize}
+		\item ■ 一部の個人投資家
+		      \begin{itemize}
+			      \item ・ ディレクショナル・アルゴリズムが用いられる
+			      \item ・ システム環境の制約から、高速・高頻度が有利なアルゴリズムは用いられにくい
+			            \begin{itemize}
+				            \item - マーケット・メイキング・アルゴリズムや裁定アルゴリズムは用いられにくい
+			            \end{itemize}
+		      \end{itemize}
+		\item ■ 機関投資家
+		      \begin{itemize}
+			      \item ・ 受託執行部門
+			            \begin{itemize}
+				            \item - 顧客の依頼に基づいて執行
+				            \item - 自身の最良執行義務の遂行のための執行
+			            \end{itemize}
+			      \item ・ 自己売買部門
+			            \begin{itemize}
+				            \item - 市場から売買益を得ることが目的
+				                  \begin{itemize}
+					                  \item ・ マーケット・メイキング・アルゴリズム
+					                  \item ・ 裁定アルゴリズム
+					                  \item ・ ディレクショナル・アルゴリズム
+				                  \end{itemize}
+			            \end{itemize}
+			      \item ・ 具体例
+			            \begin{itemize}
+				            \item - インデックス運用者は執行系を用いる
+				            \item - 売買益の追求であれば自己売買と同様のアルゴリズムが用いられる
+			            \end{itemize}
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{HFT}
+\begin{frame}{HFT \textnormal{(High-Frequency Trading)}}
+	\scriptsize
+	\begin{itemize}
+		\item ■ マーケット・メイキング・アルゴリズムや裁定アルゴリズムでHFTは優位
+		\item ■ 高頻度かつ高速取引するためには
+		      \begin{itemize}
+			      \item ・ 1. 取引判断のための情報取得の高速化
+			            \begin{itemize}
+				            \item - 利用する情報の絞り込み
+				            \item - 自身のシステムの高速化
+			            \end{itemize}
+			      \item ・ 2. 情報を処理して執行するまでの高速化
+			            \begin{itemize}
+				            \item - アルゴリズムの高速化
+			            \end{itemize}
+			      \item ・ 3. 注文情報が売買システムまで到達するまでの高速化
+			            \begin{itemize}
+				            \item - 専用線の施設
+				            \item - DMA(Direct Market Access)の利用による経由時間の短縮
+				            \item - 取引所のコロケーションの利用による、取引所と同一ネットワーク内からの発注
+			            \end{itemize}
+			      \item ・ 4. 取引所などの売買システムの単位時間当たりの処理速度の高速化
+			            \begin{itemize}
+				            \item - 取引所のシェア争いにより高速化されていっている
+				            \item - 日本でも2010年に東証でアローヘッドが稼働してHFTが行えるようになっている
+			            \end{itemize}
+			      \item ・ ボトルネックを作ってはならないので、以上の4つのいずれも高速化しないといけない
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{HFTの功罪}
+\begin{frame}{HFTの功罪}
+	\begin{itemize}
+		\item ■ 高頻度かつ高速に行う取引はマーケット・メイキング・アルゴリズムが利用されていると考えられている
+		      \begin{itemize}
+			      \item ・ そのため、市場に流動性を供給しているので、一般投資家にも恩恵があるという主張がある
+			      \item ・ 一方で、HFT業者のみが収益機会を獲得し、投資家間の公平性が損なわれている
+			      \item ・ 一般投資家の目に見えない速さで新規の注文や変更、取り消しを繰り返していることから市場の安定性も毀損するという主張もある
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{参考文献}
+	\begin{thebibliography}{9}
+		\bibitem{NTTData}
+		The Essence of Algorithmic Trading: Strategies and Execution - NTT Data Financial Technology
+		\bibitem{Adachi}
+		Algorithmic Trading - Takanori Adachi
+		\bibitem{Marcos}
+		Advances in Financial Machine Learning - Lopez de Prado, Marcos
+	\end{thebibliography}
+\end{frame}
+
+\end{document}
