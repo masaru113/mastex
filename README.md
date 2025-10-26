@@ -71,7 +71,9 @@ The notes are organized within a parent directory named `tex`. All documents are
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/qnt/quantos/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/qnt/quantos/main.pdf)) **Quanto**: These notes derive pricing for quanto forwards and digital options using a two-factor risk-neutral model.
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/qnt/risk_neutral_prob_in_binomial_tree/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/qnt/risk_neutral_prob_in_binomial_tree/main.pdf)) **Risk-Neutral Probabilities in a Binomial Tree Model**: In a binomial tree model, any derivative can be priced and replicated by a portfolio of stocks and bonds using a unique risk-neutral probability, which defines the limits of arbitrage.
   - **log**: misc.
-    - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main.pdf)) **Oct. 2025**:
+    - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main.pdf)) **Oct. 2025**
+  - **slide**: slide
+    - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/slide/algotrade/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/slide/algotrade/main.pdf)) **Algorithmic Trading**: This presentation provides a comprehensive overview of algorithmic trading, covering its definition, objectives, classifications, users, and the controversial aspects of High-Frequency Trading (HFT).
 ---
 
 ## License and Usage
