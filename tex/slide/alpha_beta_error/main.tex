@@ -86,7 +86,7 @@
 \end{frame}
 
 \begin{frame}{$\alpha$ Errors and $\beta$ Errors}
-	Most textbooks introduce these using a Japanese mnemonic that links the initial letters: the $\alpha$ error is called the '\textbf{a}larmist's error' (awatemono no ayamachi), and the $\beta$ error is called the '\textbf{b}lockhead's error' (bonyari-mono no ayamachi).
+	Most textbooks introduce these using a Japanese mnemonic that links the initial letters: the $\alpha$ error is called the '\textbf{a}larmist's error', and the $\beta$ error is called the '\textbf{b}lockhead's error'.
 	\begin{itemize}
 		\item Based on this expression, the people mentioned earlier who spout baseless hypotheses can be described as being too 'alarmist' in order to reduce their risk of being a 'blockhead' (a $\beta$ error) to zero.
 	\end{itemize}
@@ -103,7 +103,48 @@
 \begin{frame}{The Error of the 'Blockhead'}
 	In many of our decisions, failing to make the best judgment right here and now results in losses accumulating moment by moment.
 
+	\vspace{7mm}
+
 	If a doctor merely continues to observe a patient cautiously, most patients will eventually die.
+\end{frame}
+
+\section{Significance Level}
+
+\begin{frame}{Significance Level}
+	The 'alarmist's' error and the 'blockhead's' error are in a trade-off relationship.
+	\begin{itemize}
+		\item When dealing with events involving variability, it is impossible to reduce both errors to zero simultaneously.
+		      \vspace{5mm}
+		\item Statistics provides a formulation for how to make realistically correct judgments between these 'alarmist' and 'blockhead' errors.
+		      \vspace{5mm}
+		\item In statistics, one first decides the permissible limit for the $\alpha$ error. This permissible limit is called the '\textbf{significance level}'.
+		\item Within that significance level, one seeks to minimize the $\beta$ error, or conversely, maximize the statistical power.
+	\end{itemize}
+\end{frame}
+
+\section{Statistical Testing}
+
+\begin{frame}{Statistical Testing}
+	\begin{itemize}
+		\item Simply increasing the data used for analysis increases statistical power. However, to avoid missing the truth (like a 'blockhead') even with limited data, different methods are used depending on the hypothesis.
+		      \vspace{5mm}
+		\item In statistics, the methodology used to judge whether a hypothesis can be considered correct is generally called \textbf{statistical testing}.
+		      \vspace{5mm}
+		\item At a given significance level, the testing method with the highest statistical power is called the \textbf{most powerful test}.
+	\end{itemize}
+\end{frame}
+
+\section{Example of Testing in Marketing}
+
+\begin{frame}{Example of Testing in Marketing}
+	Suppose that as a result of an A/B test, a new design increased the conversion rate from 0.10$\%$ to 0.11$\%$.
+	\vspace{5mm}
+	\begin{itemize}
+		\item This is a mere 0.1$\%$ difference, but if it is a truly meaningful difference, it might increase the service's sales 1.1-fold.
+		\item Conversely, if it is 'just a coincidence', one might fall into a vicious cycle of continuing useless design changes.
+	\end{itemize}
+	\vspace{5mm}
+	A statistical test is what is used to determine whether this slight 0.1$\%$ difference should be considered a 'significant difference' or just a statistically meaningless difference due to chance.
 \end{frame}
 
 \begin{frame}[allowframebreaks]{References}
