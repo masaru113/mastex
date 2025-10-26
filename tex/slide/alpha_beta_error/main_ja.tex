@@ -1,0 +1,116 @@
+\documentclass[dvipdfmx, autodetect-engine, aspectratio=169, 10.5pt]{beamer}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[english]{babel}
+
+\usetheme{Boadilla}
+\usetheme{Marburg}
+\usecolortheme{orchid}
+\usefonttheme{professionalfonts}
+
+\title{$\alpha$ エラーと $\beta$ エラー}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}[plain]
+	\titlepage
+\end{frame}
+
+\begin{frame}{目次}
+	\tableofcontents
+\end{frame}
+
+\section{統計的に有意}
+
+\begin{frame}{統計的に有意}
+	たとえば大企業において、「年間で1円ほど売上に差が出る要因が分かった」という情報はあまり意味があるとは言えない。
+	\begin{itemize}
+		\item ・ しかし、そのわずか1円ほどの「意味が感じられない差」であっても、偶然のデータのばらつきで生じたとは考えにくいというのであれば、統計学的には「有意」であるという。
+		\item ・ 典型的には、2つに分けたグループの間では、異なるグループなので平均値や割合などの代表値に差が生じることは普通にあり得る。しかしその差が例えば「標準偏差2つ分（ $\pm$ 2SD ）以上」といった大きいものであれば、それは統計的に有意であると言える場合がある。
+	\end{itemize}
+\end{frame}
+
+\section{現実には、そんなに簡単に有意さは見つけられない}
+
+\begin{frame}{統計学における検出力}
+	現実に比較しなければならないグループの間の平均値のほとんどは、標準偏差2つ分も離れていることはない。
+	\begin{itemize}
+		\item ・ たとえもし離れていたとしたら、それは統計分析をせずともその違いに気が付くであろう。
+	\end{itemize}
+	そのため、標準偏差2つ分よりは小さいが現実的な意味があり、そして統計学上有意な差を、最小限のデータからいかに見つけることができるか、すなわち \textbf{検出力} を大きくできるか、というのが課題である。
+	\begin{itemize}
+		\item ・ 検出力とは「何らかの差が存在しているという仮説が正しいときに、きちんと有意差であるということが言うことができる確率」である。
+	\end{itemize}
+\end{frame}
+
+\section{「あわて者」の誤り}
+
+\begin{frame}{「あわて者」の誤り}
+	検出力を上げさえすればよい、というわけではない。
+	\begin{itemize}
+		\item ・ 検出力を最大化する、すなわち「どんな差があるという仮説が正しい場合でも100 $\%$ 有意差を見つけられる」ための簡単な方法がある。しかし有害である。
+		\item ・ 「思いついたことはすべて何のデータにも基づかず無責任に主張し続ける」といった方法がある。
+		\item ・ もしその仮説が正しければ、100$\%$意味のある差を見つけられたことになる。
+		\item ・ 世の中（会社やテレビや国会議事堂の中にさえ）には何の根拠にも基づかない思い付きを、さももっともらしく主張する人はいくらでもいるが、彼らは要するに検出力のみ最大化をする生き物である。
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{「あわて者」の誤り}
+	世の中（会社やテレビや国会議事堂の中にさえ）には何の根拠にも基づかない思い付きを、さももっともらしく主張する人はいくらでもいるが、彼らは要するに検出力のみ最大化をする生き物である。
+	\begin{itemize}
+		\item ・ マーク・トウェインの名言「壊れた時計でも1日2度だけ必ず正しい時刻を指す」
+		      \vspace{5mm}
+		\item ・ 常に「もうすぐ不況になる」と予測し続ける経済評論家は、実際不況が訪れた年の前年にだって必ず「もうすぐ不況になる」と言っている。
+	\end{itemize}
+\end{frame}
+
+\section{$\alpha$ エラーと $\beta$ エラー}
+
+\begin{frame}{$\alpha$ エラーと $\beta$ エラー}
+	検出力の最大化は有害である。
+	\begin{itemize}
+		\item ・ このやり方が有害な理由は「正しい仮説を見逃してしまう」という誤りだけではない。
+		\item ・ その逆の、「間違った仮説を正しいとしてしまう」、つまり何の差も無いのに差があると主張してしまうという誤りについて考慮していない。
+		      \vspace{5mm}
+		\item ・ 統計学ではこの「何の差も無いのに差があるとしてしまう」誤りのことを\textbf{$\alpha$エラー}と呼ぶ。
+		      \vspace{5mm}
+		\item ・ もう一方で、「本当は差があるのにそれを見逃してしまう」誤りのことを\textbf{$\beta$エラー}と呼ぶ。
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{$\alpha$ エラーと $\beta$ エラー}
+	たいていの教科書では、それぞれの頭文字を対応させて、$\alpha$エラーを「あわて者の過ち」、$\beta$エラーを「ぼんやり者の過ち」と紹介している。
+	\begin{itemize}
+		\item ・ この表現に基づくと、先ほどの無根拠な仮説を垂れ流す人々は、ぼんやりしてしまうリスクを0にするために慌てすぎていると言える。
+	\end{itemize}
+	一方で、$\alpha$エラーを0にする方法もあるが、こちらも有害である。
+	\begin{itemize}
+		\item ・ 「誰がどんな根拠で何を主張しようとも、厳密には分からないからこれからも慎重に議論しよう」としか言わないというやり方である。
+		\item ・ 彼らは要するに何の仮説も主張しないし、仮説を信じて行動しようともしない。
+		\item ・ だから慌てて間違った仮説を主張するリスクはゼロであるが、どんな真実を目前につき付けられていても、ぼんやりと受け流しを続けることになる。
+	\end{itemize}
+\end{frame}
+
+\section{「ぼんやり者」の誤り}
+
+\begin{frame}{「ぼんやり者」の誤り}
+	我々の意思決定の多くは、いまここで最善の判断をしなければ刻々と損失が積み重なっていく。
+
+	医者がただ患者を慎重に見続けているだけだと、ほとんどの人はいずれ死んでしまうのである。
+\end{frame}
+
+\begin{frame}[allowframebreaks]{参考文献}
+	\begin{thebibliography}{9}
+		\bibitem{toukei_saikyou}
+		Statistics is the most powerful discipline (Practical Edition) - Kei Nishiuci
+	\end{thebibliography}
+\end{frame}
+
+\end{document}

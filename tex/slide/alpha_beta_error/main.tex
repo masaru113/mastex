@@ -1,0 +1,116 @@
+\documentclass[dvipdfmx, autodetect-engine, aspectratio=169, 10.5pt]{beamer}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[english]{babel}
+
+\usetheme{Boadilla}
+\usetheme{Marburg}
+\usecolortheme{orchid}
+\usefonttheme{professionalfonts}
+
+\title{$\alpha$ Errors and $\beta$ Errors}
+\author{Masaru Okada}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}[plain]
+	\titlepage
+\end{frame}
+
+\begin{frame}{Contents}
+	\tableofcontents
+\end{frame}
+
+\section{Statistical Significance}
+
+\begin{frame}{Statistical Significance}
+	For example, in a large corporation, information that 'a factor causing a one-yen difference in annual sales has been found' cannot be said to be very meaningful.
+	\begin{itemize}
+		\item However, even if this difference of only one yen seems meaningless, if it is unlikely to have occurred by chance data variability, it is said to be statistically 'significant'.
+		\item Typically, it is quite normal for differences in representative values, such as means or proportions, to arise between two divided groups, simply because they are different groups. But if that difference is large, such as 'two standard deviations ($\pm$ 2SD) or more', it may be said to be statistically significant.
+	\end{itemize}
+\end{frame}
+
+\section{In Reality, Significance Isn't Found So Easily}
+
+\begin{frame}{Statistical Power}
+	In reality, the means of groups that must be compared are rarely separated by as much as two standard deviations.
+	\begin{itemize}
+		\item If they were that far apart, one would likely notice the difference even without statistical analysis.
+	\end{itemize}
+	Therefore, the challenge is how to detect a statistically significant difference—one that is smaller than two standard deviations yet still practically meaningful—from a minimal amount of data. In other words, how can \textbf{statistical power} be increased?
+	\begin{itemize}
+		\item Statistical power is 'the probability of being able to correctly state that a significant difference exists, given that the hypothesis of some difference existing is true'.
+	\end{itemize}
+\end{frame}
+
+\section{The Error of the 'Alarmist'}
+
+\begin{frame}{The Error of the 'Alarmist'}
+	Simply increasing statistical power is not the whole story.
+	\begin{itemize}
+		\item There is a simple, yet harmful, method to maximize power—that is, 'to be able to find a significant difference 100$\%$ of the time whenever any hypothesis of a difference is true'.
+		\item This method involves 'continuously and irresponsibly asserting everything one thinks of, without any basis in data'.
+		\item If the hypothesis happens to be correct, one would have successfully found a meaningful difference 100$\%$ of the time.
+		\item The world (even in companies, on television, or in parliament) is full of people who plausibly assert baseless ideas; they are, in essence, creatures who only maximize statistical power.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{The Error of the 'Alarmist'}
+	The world (even in companies, on television, or in parliament) is full of people who plausibly assert baseless ideas; they are, in essence, creatures who only maximize statistical power.
+	\begin{itemize}
+		\item Mark Twain's famous quote: 'Even a broken clock is right twice a day'.
+		      \vspace{5mm}
+		\item An economic analyst who constantly predicts 'a recession is coming soon' will inevitably have said 'a recession is coming soon' in the year right before a recession actually arrives.
+	\end{itemize}
+\end{frame}
+
+\section{$\alpha$ Errors and $\beta$ Errors}
+
+\begin{frame}{$\alpha$ Errors and $\beta$ Errors}
+	Maximizing statistical power is harmful.
+	\begin{itemize}
+		\item The reason this approach is harmful is not only because of the error of 'missing a correct hypothesis'.
+		\item It fails to consider the opposite error: 'accepting a false hypothesis as true', in other words, claiming a difference exists when there is none.
+		      \vspace{5mm}
+		\item In statistics, this error of 'claiming a difference exists when there is none' is called an \textbf{$\alpha$ error}.
+		      \vspace{5mm}
+		\item On the other hand, the error of 'missing a difference that truly exists' is called a \textbf{$\beta$ error}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{$\alpha$ Errors and $\beta$ Errors}
+	Most textbooks introduce these using a Japanese mnemonic that links the initial letters: the $\alpha$ error is called the '\textbf{a}larmist's error' (awatemono no ayamachi), and the $\beta$ error is called the '\textbf{b}lockhead's error' (bonyari-mono no ayamachi).
+	\begin{itemize}
+		\item Based on this expression, the people mentioned earlier who spout baseless hypotheses can be described as being too 'alarmist' in order to reduce their risk of being a 'blockhead' (a $\beta$ error) to zero.
+	\end{itemize}
+	Conversely, there is also a way to reduce the $\alpha$ error to zero, but this is harmful as well.
+	\begin{itemize}
+		\item This is the approach of only ever saying, 'Regardless of who asserts what, or on what basis, we cannot know for sure, so let's just continue to discuss it cautiously'.
+		\item In essence, such people assert no hypotheses, nor do they act in belief of any hypothesis.
+		\item Therefore, while their risk of being an 'alarmist' (an $\alpha$ error) is zero, they will continue to be 'blockheads' and dismiss any truth, even when it is presented right before their eyes.
+	\end{itemize}
+\end{frame}
+
+\section{The Error of the 'Blockhead'}
+
+\begin{frame}{The Error of the 'Blockhead'}
+	In many of our decisions, failing to make the best judgment right here and now results in losses accumulating moment by moment.
+
+	If a doctor merely continues to observe a patient cautiously, most patients will eventually die.
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+	\begin{thebibliography}{9}
+		\bibitem{toukei_saikyou}
+		Statistics is the most powerful discipline (Practical Edition) - Kei Nishiuci
+	\end{thebibliography}
+\end{frame}
+
+\end{document}
