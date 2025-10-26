@@ -74,6 +74,7 @@ The notes are organized within a parent directory named `tex`. All documents are
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main.pdf)) **Oct. 2025**
   - **slide**: slide
     - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/slide/algotrade/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/slide/algotrade/main.pdf)) **Algorithmic Trading**: This presentation provides a comprehensive overview of algorithmic trading, covering its definition, objectives, classifications, users, and the controversial aspects of High-Frequency Trading (HFT).
+    - ([PDF](https://github.com/masaru113/mastex/raw/main/tex/slide/alpha_beta_error/main.pdf) / [source](https://github.com/masaru113/mastex/blob/main/tex/slide/alpha_beta_error/main.pdf)) **Alpha Error and Beta Error**: This presentation explains the fundamental statistical trade-off between the alpha error (an 'alarmist's' false positive) and the beta error (a 'blockhead's' missed detection), demonstrating how statistical testing uses a significance level to balance these risks when making decisions.
 ---
 
 ## License and Usage
