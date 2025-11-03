@@ -1,129 +1,252 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
 \usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
 \usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage[english]{babel}
-\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfm]{graphicx}
 \usepackage[hypertex]{hyperref}
-\title{Operations Management Chapter 3 Lecture Notes}
+\title{Operations Management Lecture 3: Lecture Notes}
 \author{M. O.}
 \date{\today}
 \begin{document}
 \maketitle
 \tableofcontents
-\section{The Birth and Historical Evolution of Supply Chain Management (SCM)}
+\section{The Birth and Historical Transition of Supply Chain Management (SCM)}
 \subsection{Introduction}
-This lecture aims to provide an overview of the fundamental concepts and historical evolution of \textbf{Supply Chain Management (SCM)}. SCM is a central element of contemporary \textbf{Operations Management}, and understanding its roots leads to a deeper comprehension of modern business strategy. It is a management methodology that has evolved alongside technological advancements in information systems.
-\subsection{Definition of Supply Chain Management (SCM)}
-\textbf{SCM} is a management methodology for efficiently and effectively supplying products to end consumers by integrally managing the stock and flow of \textbf{goods, services, money, and information} both within and outside the company. This means effectively operating the supply chain---the entire process chain from raw materials to the delivery of products or services to the consumer---by utilizing IT. The implementation of SCM enables reductions in excess inventory and the establishment of appropriate production systems, which is why it is frequently adopted, particularly for products with \textbf{high demand volatility}.
-\subsection{Historical Origins of the SCM Concept}
-Although the SCM concept has no single definitive origin, the lecture introduced the following prominent theories.
-\subsubsection{Michael Porter's Value Chain}
-One theory suggests it originates from the \textbf{Value Chain} concept advocated by Harvard University professor Michael Porter. This theory, which theoretically clarified that \textbf{competitive advantage} could exist beyond simple cost reduction, significantly influenced the formation of the SCM concept.
-\subsubsection{Toyota's Just-in-Time (JIT) System}
-In the 1980s, as the American manufacturing industry struggled, \textbf{Toyota Motor Corporation's} \textbf{Just-in-Time (JIT) system} gained attention and is considered one of the origins of SCM. JIT is based on the principle of 'producing and delivering \textbf{only what is needed, when it is needed, and in the amount needed}' based on information, contributing to reductions in inventory investment and storage space.
-\subsection{Industry Trends That Influenced SCM}
-Before the name SCM was used, similar concepts had been introduced in specific industries.
-\subsubsection{Quick Response (QR): The Apparel Industry}
-This concept was introduced in the American apparel industry during a time when it was losing competitiveness due to rapid catch-up from Japanese textile companies. It aimed to shorten the \textbf{time from production to consumer} and enabled supply chain members to collaborate in responding quickly to customer demands.
-\subsubsection{Efficient Consumer Response (ECR): The Grocery and Daily Goods Industry}
-A concept seen in the grocery and daily goods industry, it is \textbf{almost the same concept} as QR. It aims for the supply chain to cooperate closely to streamline the flow of products and information from production to retail stores. As the word 'response' in both names suggests, a \textbf{rapid response to market changes} is at their core.
-\subsection{Potential and Challenges of SCM}
-One of the major problems in modern corporate society is the \textbf{mismatch between supply and demand}, which stems from the ineffective functioning of supply and demand planning. At the root of supply and demand planning lies the issue of \textbf{demand forecast accuracy}, and its resolution involves not only technical challenges, such as implementing tools, but also managerial challenges.
-However, SCM today involves advanced initiatives in demand forecasting and planning, having already surpassed the initial concept of SCM. It holds the potential to evolve into a management methodology that enables \textbf{proactive management}, even encompassing the \textbf{realization of demand creation}.
-\section{The Historical Origins of SCM and A Structural Analysis of the US-Japan Automotive Industries}
-\subsection{Introduction}
-The clear impetus for \textbf{SCM's} rise in American industry began in January 1992, when President Bush (Sr.), accompanied by former Chrysler president \textbf{Lee Iacocca} and others, visited Japan and identified the Japanese automotive industry's \textbf{'keiretsu' transactions} as a structural impediment. The purpose of this report is to analyze the differences in the US and Japanese production environments that formed the background to this friction, and to extract the origins and lessons of SCM.
-\subsection{Key Concepts and Points of Discussion}
-\subsubsection{Contrast Between US and Japanese Production Environments and Competitive Principles}
-\begin{itemize}
-	\item \textbf{Japanese Production Environment}: A \textbf{stable production environment}, characterized by \textbf{stable procurement} over many years and \textbf{levelled production} (heijunka). This was supported by a behavioral pattern of \textbf{avoiding inventory of parts and people} (the source of the \textbf{Just-in-Time} philosophy).
-	\item \textbf{American Production Environment}: A \textbf{competitive production environment}, where \textbf{price and quality} were prioritized over stable supply, leading to a combination of \textbf{competitive and dynamic procurement}.
-\end{itemize}
-\subsubsection{Stagnation of Technological Innovation in a Competitive Environment}
-In America, parts manufacturers with only short-term contracts became \textbf{cautious about new investments} due to the risk of orders being terminated at any time. As a result, the \textbf{quality of American automotive parts stagnated}, eventually leading to a situation where they could only produce \textbf{standardized parts}. It has been pointed out that this was an issue where \textbf{switching costs}, as defined in Michael Porter's \textbf{Value Chain}, should have been taken into consideration.
-\subsubsection{Establishment of Japanese Behavioral Patterns and Corporate Groups}
-Japanese automakers, constrained by post-war \textbf{capital shortages} and the \textbf{1946 labor disputes}, elevated the behavioral pattern of \textbf{avoiding inventory of parts and people} to the point where it dominated management decision-making.
-* \textbf{Production System}: They promoted \textbf{high-mix, low-volume production} and thoroughly implemented \textbf{work studies and 'kaizen'} (Operations Management) to achieve both quality and production efficiency.
-* \textbf{Supplier Relations}: They built relationships of trust with partner companies over many years, forming a \textbf{pyramid-shaped corporate group} through \textbf{moderate capital participation} and close communication. Within this corporate group, \textbf{information sharing} was conducted extensively, guided by the philosophy of 'viewing employees as an asset to be retained'.
-\subsubsection{The Clear Beginning of SCM}
-America initially criticized Japan's \textbf{pyramid-shaped corporate community} as a '\textbf{structural impediment}' that violated the principles of a market economy. However, the \textbf{advantages of long-term transactional relationships} (waste reduction, lower investment risk) were later recognized. Based on the understanding that 'a good supply chain should be actively developed', \textbf{SCP (Supply Chain Planning) activities}---marking the clear beginning of \textbf{SCM (Supply Chain Management)}---emerged in American industry.
-\subsection{Application and Case Analysis}
-\subsubsection{Response of US Automakers}
-US automakers, aiming to prevent technology leakage, \textbf{in-sourced} many parts, pushing their in-house production rate as high as 70%. However, within this trend, the \textbf{spin-off} of \textbf{ACG} (later Delphi), a parts group established within General Motors (GM), as a fully public company in 1999 was mentioned as a case suggesting the limits of in-sourcing.
-\subsubsection{Iacocca's Rebuilding of Chrysler and Platform Strategy}
-The \textbf{platform strategy} developed by Iacocca, sharing common platforms across many models, contributed significantly to \textbf{reducing development costs}. Through this strategy, the \textbf{Chrysler Corporation}, said to be on the brink of bankruptcy, recovered, protecting the jobs of hundreds of thousands of Americans (e.g., the hit minivan 'Caravan').
+This lecture will cover \textbf{Supply Chain Management (SCM)}, which forms the core of modern operations management. SCM is a management approach that integrally manages the \textbf{stock (inventory) and flow} of 'goods,' 'services,' 'money,' and 'information' both within and outside the company.
+The purpose of this report is to understand the definition of SCM and, by reviewing its \textbf{founding background and historical transitions} (such as the Value Chain, JIT, QR, and ECR), to comprehend the importance of SCM within operations management.
+\subsection{Key Concepts and Points}
+\subsubsection{Definition of Supply Chain Management (SCM)}
+The \textbf{supply chain} refers to the connection of all processes, from the raw material stage until the final product or service reaches the end consumer.
+\textbf{Supply Chain Management (SCM)} is a management approach that utilizes \textbf{Information Technology (IT)} to effectively build and operate this entire supply chain. Specifically, it involves integrally managing functions such as procurement, production, sales, and logistics across corporate divisions and between companies.
+The implementation of SCM makes it possible to flexibly adapt systems like production and procurement to demand fluctuations, realizing \textbf{reductions in excess inventory} and the construction of an appropriate production structure. For this reason, it is often implemented in the production and supply of products with high demand volatility.
+\subsubsection{Potential and Challenges of SCM}
+One of the major problems facing modern corporate society is the \textbf{mismatch between supply and demand}. This can sometimes even be a cause of recession.
+Behind the failure of conventional supply and demand planning (demand forecasting, inventory planning, production planning, procurement planning, distribution planning) lies the fundamental \textbf{problem of demand forecast accuracy}.
+Solving this challenge involves not only technical aspects, such as implementing forecasting tools, but also deep \textbf{managerial issues}.
+\subsubsection{Future Potential of SCM}
+As seen in advanced initiatives in demand forecasting and planning, SCM is evolving beyond what is called the 'first generation' level.
+In the future, SCM holds the potential to develop from a mere method of efficiency (defense) into a management approach that realizes \textbf{'offensive management,'} which also includes the \textbf{creation of demand}.
+\subsection{Application and Case Analysis (Origins of the SCM Concept)}
+While there is no clear-cut answer to the origin of the SCM concept, several theories and practical initiatives are thought to have influenced its formation.
+\subsubsection{Value Chain}
+One theory suggests it originates from the \textbf{Value Chain} theory proposed by Harvard University Professor \textbf{Michael Porter}. This theory, which frames corporate activities as a chain of value creation and theoretically clarified sources of \textbf{competitive advantage} beyond just low cost, is said to have influenced the integrated thinking of SCM.
+\subsubsection{JIT (Just-in-Time) System}
+Another theory posits that one origin is the \textbf{JIT (Just-in-Time)} system established by \textbf{Taiichi Ohno}, former Vice President of Toyota Motor Corporation. This is a system of producing and delivering 'what is needed, when it is needed, in the amount needed.'
+JIT contributes to reducing a manufacturer's inventory investment (to a minimum) by strictly scheduling the supply of parts to the product assembly line. This philosophy also underpins SCM's approach to inventory management, such as consolidating and reducing inventory across the entire supply chain into optimal warehouses, and only storing items that cannot cope with lead times in separate warehouses as an exception.
+\subsubsection{QR (Quick Response)}
+An initiative called \textbf{QR (Quick Response)} began in the American \textbf{apparel industry} in the 1980s. At that time, the industry, which was losing its competitiveness due to the rapid catch-up of Japanese textile businesses and others, implemented this as an industry-wide effort.
+This concept aimed to \textbf{shorten} the time from production to consumer (lead time), with supply chain members cooperating to provide products according to customer demands at the right place, time, and price. It is nearly identical to the modern concept of SCM.
+\subsubsection{ECR (Efficient Consumer Response)}
+\textbf{ECR (Efficient Consumer Response)}, seen in the American \textbf{grocery and daily goods industry}, is a similar concept.
+It is almost the same concept as QR in apparel; the name differs simply because the industry is different. It aimed to improve efficiency in the flow of products and information from production to the \textbf{retail storefront} through close cooperation within the supply chain.
 \subsection{Deeper Context and Lessons}
-\subsubsection{Digression: The Dramatic Life of Lee Iacocca}
-\textbf{Lee Iacocca} had a \textbf{highly dramatic career}, having been president of Ford Motor Company and later serving as chairman of its rival, Chrysler. At Ford, he led the development of the popular \textbf{Mustang}, but he was dismissed due to conflicts with Henry Ford II and a management style seen as 'blurring public and private affairs'. This suggests a characteristic of American industry where executives are evaluated beyond the scale or position of their company.
-\subsubsection{Digression: Organizational Pathology and the Chain of Incompetence}
-When Iacocca moved to Chrysler, he described the disastrous state of the organization at the time in his writings. He criticized a situation where 35 vice presidents \textbf{strongly asserted their own turf} and all worked independently without coordination. Furthermore, he offered a sharp insight into \textbf{organizational pathology}, stating, '\textbf{incompetent managers hire incompetent subordinates}', allowing them to 'hide everyone's incompetence in the shadow of the organization's overall weakness'. This provides the lesson that \textbf{organizational management} itself was a major obstacle, even before the introduction of a system like SCM.
-\subsubsection{Digression: The Lecturer's Personal View on Competition and Technological Progress}
-The lecturer stated a personal view that while the idea that 'competition breeds progress' is simple, this competition-based American system has ceased to function in the \textbf{modern era, where technological progress cycles have become extremely short}. This view, acknowledging that the basis of modern corporate competition is \textbf{QCDF} (Quality, Cost, Delivery, Flexibility), suggests the importance of long-term investment and cooperation.
+\textbf{\paragraph{Supplementary Topic Title}}
+\textbf{Relationship between SCM and Information Systems} \\
+As emphasized at the beginning of the lecture, SCM is a concept that could not have been born without the \textbf{development of information system technology}. In order to visualize and integrally manage the flow of 'goods' and 'money' within and between companies, an IT infrastructure capable of processing and sharing the flow of 'information' in near-real-time was essential.
+\textbf{\paragraph{Supplementary Topic Title}}
+\textbf{Background of JIT Implementation} \\
+In the 1980s, the American manufacturing industry was exhausted (especially in its competition with Japanese companies), and its reconstruction was an urgent task. At that time, the \textbf{JIT system} of Toyota Motor Corporation, which boasted high productivity and quality, gained attention, and U.S. companies subsequently rushed to learn and adopt it. Changes in this international competitive environment strongly influenced the formation of the SCM concept.
+\textbf{\paragraph{Supplementary Topic Title}}
+\textbf{Background of QR/ECR Implementation} \\
+Similar to JIT, QR and ECR also emerged as measures to adapt to a \textbf{severe competitive environment}. The American apparel and grocery/goods industries were losing their competitiveness due to the rapid catch-up of overseas competitors, including Japanese firms. QR/ECR were defensive yet strategic initiatives that sought to restore competitiveness by moving away from the pursuit of individual company optimization and instead improving efficiency across the entire industry (the entire supply chain).
+\textbf{\subsubsection{AI Supplement: Expansion of Key Points}}
+While the lecture focused on the origins and definition of SCM, one of the most classic and critical problems SCM attempts to solve is the \textbf{'Bullwhip Effect.'}
+This refers to a phenomenon in the supply chain where, as one moves upstream from final demand (consumers) to retailers, wholesalers, manufacturers, and suppliers, distortions in demand information are \textbf{amplified like a whip} due to factors like discrepancies in demand forecasts and the accumulation of safety stock at each stage. As a result, companies further upstream are more likely to hold excessive inventory or, conversely, suffer from severe stockouts.
+The issues mentioned in the lecture, such as 'supply and demand planning not functioning effectively' and 'problems with demand forecast accuracy,' are typical problems caused by this bullwhip effect. Early SCM, particularly QR and ECR, had the important objective of optimizing inventory for the entire chain by sharing demand information, such as POS (Point of Sale) data, in real-time across the supply chain, thereby suppressing this information distortion.
 \subsection{Conclusion}
-\textbf{SCM} is a management methodology that inevitably emerged in American industry to resolve a complex set of challenges: the fundamental differences in industrial structure and management philosophy between the US and Japan, and the \textbf{structural organizational dysfunction} pointed out by Iacocca. The lesson from this is that achieving QCDF, the basics of corporate competition, requires not merely relying on market principles, but also \textbf{long-term relationships of trust}, \textbf{appropriate incentive design}, and organizational reform driven by \textbf{strong leadership}.
+Supply Chain Management (SCM) is not merely a logistics or inventory control technique, but a management approach that forms the core of operations management. Its birth and development are closely linked to the \textbf{evolution of information system technology}.
+Tracing the origins of SCM leads to \textbf{practical initiatives} created as a matter of survival by companies and industries facing intensified international competition (e.g., the exhaustion of U.S. manufacturing, the catch-up of Japanese firms), such as Toyota's JIT and America's QR and ECR. These initiatives were combined with management theories like Porter's Value Chain and became systematized.
+The practical lesson drawn from this lecture is that SCM is a strategy for building competitive advantage not through individual company optimization, but through the \textbf{optimization of the entire chain}, using information technology to resolve the fundamental problem of \textbf{supply-demand mismatch}.
+\subsection{List of Key Terms}
+\textbf{Names:} \\
+Michael Porter, Taiichi Ohno
+\vspace{\baselineskip}
+\textbf{Theories/Concepts:} \\
+Supply Chain Management (SCM), Stock and Flow, Operations Management, Value Chain, JIT (Just-in-Time), QR (Quick Response), ECR (Efficient Consumer Response), Supply-Demand Mismatch
+\subsection{Comprehension Quiz}
+\begin{enumerate}
+	\item What is the management approach that integrally manages the stock and flow of goods, services, money, and information within and outside a company?
+	\item What is the connection of all processes from the raw material stage to the point a product reaches the consumer called?
+	\item What technological foundation was essential for the development of SCM?
+	\item What is one of the fundamental problems in modern corporate society that SCM aims to solve?
+	\item It was suggested that SCM has the potential to evolve from 'defensive management' to 'offensive management' that incorporates what?
+	\item What theory, proposed by Harvard Professor Michael Porter, is said to have influenced the concept of SCM?
+	\item What production system, established by Toyota's Taiichi Ohno, is considered one of the origins of SCM?
+	\item Explain the basic concept of the JIT system.
+	\item What is the initiative that began in the 1980s in the American apparel industry aiming to shorten lead times?
+	\item As background for (9), what country's companies was the American apparel industry facing a rapid catch-up from?
+	\item What is the initiative introduced in the American grocery and daily goods industry with a concept similar to QR?
+	\item What is the concept common to JIT and QR/ECR, which aims for the optimization of what *entire* entity, rather than individual companies?
+	\item Name one example of a Japanese company cited in the lecture as excellent in SCM implementation. (Multiple answers possible)
+	\item After SCM adoption became prominent in the US, in what industry has its adoption reportedly been spreading in recent years?
+	\item (AI Supplement) What is the phenomenon called where demand distortion is amplified as one moves upstream in the supply chain?
+\end{enumerate}
+\subsubsection*{Answer Key}
+1. Supply Chain Management (SCM), 2. Supply Chain, 3. Information Systems (or Information Technology/IT), 4. Supply-Demand Mismatch, 5. Demand Creation, 6. Value Chain, 7. JIT (Just-in-Time) System, 8. 'What is needed, when it is needed, in the amount needed' (to produce/deliver), 9. QR (Quick Response), 10. Japan (textile industry), 11. ECR (Efficient Consumer Response), 12. The supply chain (as a whole), 13. Toyota, Canon, Uniqlo, or Asahi Breweries (any one), 14. The retail industry, 15. The Bullwhip Effect
+\section{Historical Origins of SCM and Structural Analysis of the US-Japan Automotive Industries}
+\subsection{Introduction}
+This lecture focuses on the historical background of Supply Chain Management (SCM), particularly the friction surrounding the US-Japan automotive industries in the early 1990s, which is considered one of the catalysts for its birth.
+The purpose of this report is to analyze how the 1992 visit to Japan by US President Bush (Sr.) and figures like Chrysler's \textbf{Lee Iacocca}, along with the ensuing 'structural impediment' criticisms (especially regarding Japan's 'Keiretsu transactions'), influenced the formation of the SCM concept, by contrasting the US and Japanese production environments of the time.
+\subsection{Key Concepts and Points}
+\subsubsection{The US-Japan Structural Impediments Initiative and the Dawn of SCM}
+In unraveling the history of SCM, the \textbf{US-Japan Structural Impediments Initiative} (US-Japan trade friction) of the early 1990s was a significant turning point. In January 1992, US President Bush (Sr.) visited Japan with a delegation of automotive industry leaders, including former Chrysler chairman Lee Iacocca, strongly demanding the opening of Japan's auto parts market.
+The US side problematized the long-term transactional relationships between Japanese automakers and parts suppliers, the so-called \textbf{'Keiretsu transactions,'} as a \textbf{'structural impediment'} (non-tariff barrier) obstructing the entry of US-made parts.
+\subsubsection{Contrast between US and Japanese Production Environments}
+The US and Japanese production and procurement environments of the time were contrasting.
+\begin{itemize}
+	\item \textbf{Japan (Stable Production Environment):} The automotive industry had, over many years, built an environment that pursued stabilization of parts procurement and production \textbf{leveling (Heijunka)}.
+	\item \textbf{United States (Competitive Production Environment):} Prioritizing price and quality over stable supply, a competitive and dynamic combination of suppliers (on short-term contracts) was mainstream.
+\end{itemize}
+\subsubsection{The Dilemma of Technological Innovation and Change in the US}
+The US traditionally held the belief that 'corporate competition breeds technological progress.' However, from the 1980s onward, as the cycle of technological advancement became extremely short, this system began to fall into dysfunction.
+\begin{itemize}
+	\item \textbf{Stagnant Investment by US Parts Makers:} Because \textbf{short-term contracts} were central, parts makers faced the risk of orders being halted at any time and became cautious about large-scale investments in new technology or quality improvement. As a result, the quality of US parts makers stagnated, leading to a situation where they could only produce standard parts.
+	\item \textbf{Vertical Integration (In-housing) by US Makers:} Due to the weakening of parts makers and to prevent technology leakage, US automakers strengthened \textbf{vertical integration} of parts, with the in-house ratio reaching 70\% at one point.
+\end{itemize}
+\subsubsection{The Rise of SCP (Supply Chain Planning)}
+The merits of Japan's 'Keiretsu,' which had initially been criticized as a 'structural impediment'—namely, 'a good relationship that eliminates waste in inter-company transactions and reduces investment risk'—gradually came to be re-evaluated in American industry.
+Under this shift in perception, \textbf{SCP (Supply Chain Planning)} activities emerged in US industry, and this is considered one of the clear beginnings of SCM.
+\subsection{Application and Case Analysis}
+\subsubsection{Case: Transformation of the US Auto Industry (Iacocca and Chrysler)}
+\textbf{Lee Iacocca}, after serving as the head of development for the 'Mustang' at Ford, became chairman of Chrysler, which was facing a management crisis, and rebuilt the company. He described in his book how Chrysler at the time had fallen into a serious organizational sickness, where '35 vice presidents were all claiming their own turf and doing as they pleased,' and 'incompetent managers hired incompetent subordinates, and they all hid their incompetence in the general weakness of the organization.'
+To break this impasse, Iacocca promoted the \textbf{sharing of a 'management engine' and 'management platform.'} This achieved a significant reduction in development costs, produced hit vehicles like the 'Dodge Caravan' minivan, and protected hundreds of thousands of jobs. This was a groundbreaking initiative in the auto industry at the time.
+\subsubsection{Case: Japan's Pyramidal Corporate Groups (Keiretsu)}
+Post-war Japanese automakers developed under the severe constraints of 'post-war ruins,' 'lack of funds,' and 'labor-management disputes.'
+\begin{itemize}
+	\item \textbf{Choice from Constraint:} Defying government guidance for mass production, they chose \textbf{'high-mix, low-volume production'} that emphasized fashionability (tastes).
+	\item \textbf{Formation of Behavioral Patterns:} From the pain of funding shortages and labor disputes, a behavioral pattern of avoiding parts and human inventory as much as possible took root. They selected and nurtured cooperating companies (suppliers) to procure parts 'just in time,' and utilized part-time workers (seasonal/temporary laborers) to match production fluctuations.
+	\item \textbf{Improvement and Standardization:} To achieve both quality and efficiency, they conducted thorough work studies (\textbf{Operations Research}) and \textbf{Kaizen (improvement)}, and promoted \textbf{work standardization} that even part-time workers could master.
+	\item \textbf{Building the Keiretsu:} Manufacturers and cooperating companies formed \textbf{pyramidal corporate groups (Keiretsu)} through long-term relationships of trust, moderate capital participation, and close communication. Within this community, tacit understanding ('A-un no kokyū'), 'teamwork,' and broad \textbf{information sharing}, including the disclosure of production lines, became characteristic.
+\end{itemize}
+\subsubsection{Case: The Delphi Spin-off}
+While the in-house ratio of US automakers reached 70\% at one point, as a rejection of this trend toward excessive vertical integration, GM (General Motors)'s parts group (ACG) was spun off as \textbf{Delphi} in 1999.
+\subsection{Deeper Context and Lessons}
+\textbf{\paragraph{Supplementary Topic Title}}
+\textbf{Lee Iacocca's Management Acumen and Organizational Reform} \\
+The success of the 'Mustang' development at Ford, and later the cost reductions through 'platform sharing' at Chrysler (Dodge Caravan, etc.), demonstrate Iacocca's outstanding foresight and execution. The 'large corporation diseases' he confronted and fiercely criticized in his book, such as 'vice-presidential turf wars' and 'concealment of incompetence,' hold important lessons for organizational management even today.
+\textbf{\paragraph{Supplementary Topic Title}}
+\textbf{The Background of Post-war Japan's 'Constraints' Breeding Innovation} \\
+It is noteworthy that the severe \textbf{constraints} faced by the post-war Japanese auto industry, 'lack of funds' and 'labor disputes,' ultimately dominated management decision-making, forcing them to 'thoroughly reduce inventory of parts and people.' This became the driving force behind the creation of globally high-efficiency production systems like JIT (Just-in-Time) and the construction of close relationships with suppliers (Keiretsu).
+\textbf{\paragraph{Supplementary Topic Title}}
+\textbf{The Shift in US Evaluation of 'Keiretsu'} \\
+The core of this lecture lies in the fact that the US, after the US-Japan friction, completely re-evaluated Japan's 'Keiretsu'—a pyramidal community (information sharing, trust) that it had initially fiercely criticized as a 'non-tariff barrier' and 'structural impediment.' It was reassessed as a 'good supply chain that reduces investment risk,' and the US began SCP (Supply Chain Planning) activities to incorporate its strengths. This can be called a prime example of strategic learning in international competition.
+\textbf{\subsubsection{AI Supplement: Expansion of Key Points}}
+The lecture primarily discussed a dichotomous procurement model: Japan's 'Keiretsu (stable/cooperative)' versus America's 'Market (competitive/short-term).' However, what is important for understanding modern SCM is the relationship between product design philosophy (architecture) and supply chain structure.
+\begin{itemize}
+	\item \textbf{Integral Architecture:} Products where coordination between parts is complex and design changes affect the whole (e.g., conventional automobiles). Japan's 'Keiretsu' system, requiring close information sharing and long-term relationships between manufacturers and parts suppliers, demonstrated strength in the development and production of these \textbf{integral-type} products.
+	\item \textbf{Modular Architecture:} Products where the interfaces between parts are standardized, making part replacement and combination easy (e.g., many PCs). The US 'competitive production environment' was suitable for \textbf{modular-type} products, as it involved procuring standardized parts cheaply from the market.
+\end{itemize}
+The Delphi spin-off from GM can be interpreted as a move by GM to break away from its massive integral-type organization and shift toward procurement closer to a modular model (transactions with external, independent parts makers). Modern SCM is evolving into an approach that strategically builds and manages the optimal supply chain structure (integral, modular, or somewhere in between) for a company's own product architecture, rather than simply mimicking the Keiretsu system.
+\subsection{Conclusion}
+It has become clear that the birth of Supply Chain Management (SCM) is rooted not only in the advancement of IT, but also deeply in the fierce US-Japan automotive industry competition of the 1980s and 90s and the associated trade friction ('structural impediment' criticism).
+The greatest lesson from this lecture is that the US strategically learned the merits of Japan's 'Keiretsu transactions' (long-term trust, information sharing, investment risk reduction)—which it had initially targeted for criticism—and later sublimated them into the management approach of 'SCP' and, by extension, 'SCM.' This suggests the importance of strategic flexibility: analyzing others' superior systems and incorporating them in one's own way in response to changes in the business environment. We must constantly question what the optimal form of our supply chain (competitive or cooperative) is, based on our company's competitive environment and product characteristics (architecture).
+\subsection{List of Key Terms}
+\textbf{Names:} \\
+Lee Iacocca, George H. W. Bush (President Bush Sr.), Henry Ford II, Michael Porter
+\vspace{\baselineskip}
+\textbf{Theories/Concepts:} \\
+Supply Chain Management (SCM), US-Japan Structural Impediments Initiative (SII), Keiretsu Transactions, Stable Production Environment (Japan), Competitive Production Environment (US), Platform Sharing, Vertical Integration (In-housing), QCDF (Quality, Cost, Delivery, Flexibility), Pyramidal Corporate Groups (Keiretsu), Labor-Management Disputes, Kaizen (Improvement), Non-Tariff Barrier, SCP (Supply Chain Planning)
+\subsection{Comprehension Quiz}
+\begin{enumerate}
+	\item When President Bush (Sr.) visited Japan in 1992, which industry's parts did he primarily demand market access for?
+	\item Who was the famous executive, chairman of Chrysler at the time, who participated in the delegation to Japan?
+	\item What was the name of the popular sports car whose development Lee Iacocca led while at Ford?
+	\item What is the development method Iacocca introduced during Chrysler's restructuring, which involved sharing engines and chassis among multiple models?
+	\item In the contrast presented in the lecture, Japan's production environment was 'stable,' while the US production environment was what?
+	\item What was the main reason US parts makers were cautious about investing in new technology in the 1980s, related to their contract type?
+	\item In response to technology leakage and the weakening of parts makers, what ratio did US automakers increase? (It reached a high of 70\%)
+	\item What major parts manufacturer was spun off (separated/independent) from General Motors (GM) in 1999?
+	\item What production policy did post-war Japanese automakers pursue, contrary to government guidance (mass production)?
+	\item What is a representative example of a system created by the Japanese auto industry due to the post-war constraints of 'lack of funds' and 'labor disputes'?
+	\item What is the Japan-specific, pyramidal inter-company relationship formed between manufacturers and suppliers based on trust called?
+	\item What does the 'F' in QCDF stand for (responsiveness to change)?
+	\item What terms (barriers to market entry) did the US use when it initially criticized Japan's 'Keiretsu transactions'? (List two)
+	\item As the merits of Japan's Keiretsu transactions were re-evaluated, what 3-letter acronym activity developed in the US?
+	\item (AI Supplement) What type of product architecture, like that suited to Japan's Keiretsu, requires significant coordination (suriawase) between parts?
+\end{enumerate}
+\subsubsection*{Answer Key}
+1. Automotive parts, 2. Lee Iacocca, 3. Mustang, 4. Platform sharing (Management engine/platform), 5. Competitive production environment, 6. (Because they were) Short-term contracts, 7. In-house ratio (Vertical integration), 8. Delphi, 9. High-mix, low-volume production, 10. JIT (Just-in-Time) or Keiretsu (relationship building with suppliers), 11. Keiretsu (or pyramidal corporate groups), 12. Flexibility, 13. Structural Impediments, Non-Tariff Barriers (any two), 14. SCP (Supply Chain Planning), 15. Integral (or 'suriawase') type
 \section{Analysis of the Evolution of Supply Chain Management (SCM)}
 \subsection{Introduction}
-This report aims to analyze the primary concepts, generational characteristics, and specific application examples of Supply Chain Management (\textbf{SCM}), based on lecture content regarding its development and evolution. \textbf{SCM} is a management methodology for optimizing the entire process from product planning and development to customer service delivery, and its importance has grown, especially in response to recent globalization and market changes. This paper discusses the historical background and modern lessons of SCM, focusing on the \textbf{three-generation theory of SCM} presented in the lecture.
-\subsection{Key Concepts and Points of Discussion}
-This lecture explains the evolution of \textbf{SCM} by dividing it into three generations. This illustrates the history of its management scope expanding from the flow of goods to inter-firm networks.
-\begin{enumerate}[label=(\Roman*)]
-	\item \textbf{First Generation: Management of Goods Stock and Flow}
-	      \begin{itemize}
-		      \item \textbf{Management Scope}: Primarily \textbf{inventory} and \textbf{logistics}.
-		      \item \textbf{Concept}: Utilizing information to manage and share the \textbf{stock and flow of goods} (logistics) between companies.
-		      \item \textbf{Characteristics}: Centered on \textbf{information integration} between existing operational functions, assuming the processes themselves remain constant. Generally referred to as \textbf{Supply Chain Logistics}.
-	      \end{itemize}
-	\item \textbf{Second Generation: Business Process Re-engineering (BPR)}
-	      \begin{itemize}
-		      \item \textbf{Management Scope}: The \textbf{business process} as a series of activities that provide value to the customer.
-		      \item \textbf{Concept}: Reviewing and \textbf{reforming} the existing processes themselves (\textbf{BPR}: Business Process Re-engineering).
-		      \item \textbf{Characteristics}: Aims to improve the efficiency of internal company processes and strengthen market responsiveness.
-	      \end{itemize}
-	\item \textbf{Third Generation: Management of Inter-firm Networks}
-	      \begin{itemize}
-		      \item \textbf{Management Scope}: The \textbf{inter-firm network} itself.
-		      \item \textbf{Concept}: Concentrating on \textbf{core business processes} and \textbf{dynamically reconfiguring} the external inter-firm network for other functions through \textbf{outsourcing}.
-		      \item \textbf{Characteristics}: While based on long-term continuous relationships, partners are flexibly reviewed as needed.
-	      \end{itemize}
-\end{enumerate}
----
+This lecture covers the historical evolution of Supply Chain Management (SCM) as it transformed from static control to a dynamic strategy. SCM is broadly classified into three generations corresponding to the expansion of its management scope.
+The purpose of this report is to organize the definitions and characteristics of each stage of SCM: the \textbf{1st Generation} (Inventory/Logistics), \textbf{2nd Generation} (Business Process Reform), and \textbf{3rd Generation} (Inter-company Network Management). Furthermore, through case studies from the apparel industry, particularly \textbf{Benetton} and \textbf{fast fashion}, we will analyze how this SCM evolution is linked to actual business (especially marketing strategy).
+\subsection{Key Concepts and Points}
+SCM is classified into the following three generations based on what part of the supply chain is being managed.
+\subsubsection{1st Generation: Management of Goods' Stock and Flow}
+First-generation SCM focuses on \textbf{inventory and logistics management}. This involves using information to visualize the \textbf{stock (inventory)} and \textbf{flow} of 'goods,' attempting to realize the concept of logistics between companies. It is also called \textbf{'Supply Chain Logistics'} and corresponds to the initial stage of SCM.
+\subsubsection{2nd Generation: Management of Business Processes (BPR)}
+In contrast to the first generation, which was premised on individual business functions (existing processes), second-generation SCM focuses on the \textbf{review and reform of the business processes} themselves.
+A business process is a series of connected activities that provide some form of value to the customer. SCM in this generation is understood as a method for achieving \textbf{BPR (Business Process Reengineering)} between companies.
+\subsubsection{3rd Generation: Management of Inter-company Networks}
+In contrast to the second generation, which was premised on existing inter-company networks, third-generation SCM focuses on \textbf{reviewing the inter-company network} itself.
+Companies concentrate their management resources on \textbf{core business processes (core competencies)} and entrust other processes (e.g., manufacturing functions) externally through the dynamic restructuring of the inter-company network, namely \textbf{outsourcing}.
 \subsection{Application and Case Analysis}
-\subsubsection{Benetton's 'Post-Dyeing' Strategy (Second Generation)}
-The Italian apparel company \textbf{Benetton} was introduced as a representative example of \textbf{Second Generation SCM}.
+\subsubsection{Case: Benetton (2nd Generation SCM)}
+A typical example of second-generation SCM is the apparel company \textbf{Benetton's} \textbf{'post-dyeing'} (garment dyeing) system.
 \begin{itemize}
-	\item \textbf{Traditional Process}: Dyeing the yarn, then knitting/sewing. This involved long lead times (six months for typical apparel, formerly over a year).
-	\item \textbf{Benetton's Reform (Post-Dyeing)}: They developed a technique to dye \textbf{after knitting (sewing)}. This allowed them to stock \textbf{undyed fabric (greige goods)} and dye them in the required colors in \textbf{small lots} according to retail sales trends.
-	\item \textbf{Result}: \textbf{Lead times} were drastically reduced (shortened to one week), enabling a rapid response to \textbf{demand fluctuations by color}. This suppressed excess inventory and opportunity losses, realizing an SCM based on a \textbf{marketing-oriented mindset} that meticulously meets market needs.
+	\item \textbf{Conventional Apparel Process:} Dye yarn $\rightarrow$ Knit (weave) $\rightarrow$ Cut and sew. In this process, 'color,' which is difficult to forecast, had to be decided at the initial stage of production, and the lead time was long, at six months (or more).
+	\item \textbf{Benetton's BPR:} Knit (sew) first $\rightarrow$ \textbf{Dye later (post-dyeing)}. Benetton developed a technique to stock products (in their final shape) made from undyed fabric (greige) and then 'post-dye' them into the necessary colors according to actual sales (real demand) at the storefront.
+	\item \textbf{Effect:} This enabled a response to demand fluctuations (which colors will sell) and significantly shortened lead times (introduced as one week in the lecture). This was an innovation that integrated marketing (responding to market needs) and SCM (production process).
 \end{itemize}
-\subsubsection{EMS in the Electronics Industry (Third Generation)}
-\textbf{Outsourcing} to \textbf{EMS} (\textbf{Electronics Manufacturing Service}) providers in the electronics industry is an example of \textbf{Third Generation SCM}.
+\subsubsection{Case: EMS and the Smile Curve (3rd Generation SCM)}
+A representative example of third-generation SCM is the use of \textbf{EMS (Electronic Manufacturing Services)} in the electronics industry.
 \begin{itemize}
-	\item \textbf{Strategy}: Companies concentrate their management resources on \textbf{high-value-added} core functions such as \textbf{product development} and \textbf{marketing}, while entrusting \textbf{manufacturing functions} to \textbf{EMS} firms.
-	\item \textbf{Underlying Theory}: The \textbf{Smile Curve theory} lies behind this. It indicates that processes at both ends of the supply chain, such as product development and sales/service, have \textbf{high added value}, while processes like \textbf{equipment manufacturing and assembly} have \textbf{low profit margins} (low added value).
-	\item \textbf{Application}: Outsourcing to \textbf{EMS} is a strategy to concentrate the company's profit structure on both ends of the \textbf{Smile Curve} by entrusting these low-value-added manufacturing processes to external parties.
+	\item \textbf{Use of EMS:} This is a model where a company concentrates its own resources on core functions like product development and marketing, while outsourcing the 'manufacturing function,' which is considered to have low value contribution, to EMS companies.
+	\item \textbf{Smile Curve Theory:} Behind this is the \textbf{'Smile Curve'} theory, advocated by \textbf{Stan Shih}, the founder of Taiwan's Acer Inc.
+	\item The \textbf{Smile Curve} is a curve showing the relationship between each process of the supply chain (horizontal axis) and its added value (vertical axis). It presents the hypothesis that the added value of product standards/development (upstream) and sales/after-service (downstream) is high, but the added value of the 'equipment manufacturing/assembly' process located in the middle is low. One form of third-generation SCM is to externalize (use EMS for) this low middle part (manufacturing) and concentrate on the high added-value ends (development and sales).
 \end{itemize}
-\subsubsection{The Evolution of Fast Fashion (Generational Adaptation)}
-The \textbf{Fast Fashion} industry is considered an example that has responded most progressively to the evolution of \textbf{SCM}, with each company building a supply chain linked to its unique \textbf{marketing strategy}.
+\subsubsection{Case: Strategies of Fast Fashion Companies (SCM Integration)}
+The apparel industry has traditionally been advanced in outsourcing and is one of the industries where SCM is most evolved. \textbf{Fast fashion} companies have highly integrated SCM (elements of 1st to 3rd generations) and marketing strategies.
 \begin{itemize}
-	\item \textbf{ZARA}: Their strength lies in a supply chain that quickly catches and responds with \textbf{trendy designs} for standard fabrics, such as \textbf{monotones}.
-	\item \textbf{H\&M}: It was suggested that they employ a strategy of introducing \textbf{printed patterns} to the market and deciding on \textbf{mass production only after gauging sales performance}.
+	\item \textbf{Benetton:} Built an SCM centered on 'post-dyeing' technology to respond rapidly to colorful product development (= demand for \textbf{color}).
+	\item \textbf{ZARA:} Concentrated (some of) its production bases in Spain, building an SCM that quickly catches the trending \textbf{designs} of the season and launches them in stores in a short cycle.
+	\item \textbf{GAP:} Built an SCM that balances stable supply and design, focusing on \textbf{classic materials} (casual wear) like denim and sweats, which have relatively low trend volatility.
+	\item \textbf{H\&M:} In contrast to Benetton's 'color,' H\&M uses many unique \textbf{print patterns}, building an SCM that quickly identifies best-sellers after store launch (which patterns are trending) and responds with increased production.
 \end{itemize}
----
 \subsection{Deeper Context and Lessons}
-\paragraph{Origins and Implications of the Smile Curve Theory}
-The \textbf{Smile Curve} theory was advocated by Stan Shih, the founder of Taiwan's \textbf{Acer Inc.}, while describing the value-added characteristics of the personal computer manufacturing process. This theory is often used to describe the profit structure of industries like \textbf{electronics}, illustrating the low profitability of manufacturing processes. This theory is also linked to the history of the American auto industry's struggles with \textbf{in-sourcing}, strongly suggesting the importance of \textbf{focus and selection} in \textbf{Operations Management}.
-\paragraph{The Historical Risk Structure of the Apparel Industry}
-The apparel industry is characterized by being heavily influenced by \textbf{fashion trends} and having \textbf{short product life cycles}. Despite this, the traditional supply chain was structured with \textbf{long lead times} (over six months) and was forced to produce in \textbf{large lots} for \textbf{cost reduction}. This combination of \textbf{large lot sizes and long lead times} was the biggest factor causing \textbf{excess inventory} and \textbf{opportunity losses}, and it was argued that this structure made the apparel industry an \textbf{extremely high-risk industry}. Benetton's \textbf{post-dyeing} can be understood as a challenge to this structural risk.
-\paragraph{Digression: The Origins and History of SCM}
-In the lecture's summary, it was suggested that the birth and history of \textbf{SCM} (the nominal SCM) arose from the conflict stemming from the \textbf{trade friction between the American and Japanese automotive industries}. Furthermore, the connection was shown that \textbf{Michael Porter's} \textbf{Value Chain} discussion formed part of this background. This indicates that \textbf{SCM} is not merely a discussion of logistics efficiency, but is closely related to higher-level \textbf{management strategy theory}, born from international competition and corporate strategy.
-\subsubsection{AI Supplement: Extension of Key Arguments}
-The lecture notes mention the 'trade friction between the American and Japanese automotive industries' as background to the birth and development of \textbf{SCM}. However, this context lacks mention of the extremely important role that the \textbf{Toyota Production System (TPS)}, or its core concept \textbf{Just-in-Time (JIT)}, played in the transition to \textbf{First Generation SCM} and, by extension, in the development of \textbf{SCM} philosophy.
-\paragraph{The Influence of Just-in-Time (JIT) on SCM}
-\textbf{JIT} is a philosophy of producing and supplying only what is needed, when it is needed, and in the amount needed. It thoroughly pursues a departure from traditional \textbf{large-lot production}, namely the \textbf{minimization of goods stock (inventory)} and the \textbf{optimization of flow (logistics)}.
-In light of \textbf{First Generation SCM} being defined as 'management of goods stock and flow', it can be said that \textbf{JIT} provided the operational foundation and \textbf{philosophical root} for achieving the initial objective of \textbf{SCM}: the \textbf{inter-firm integration of logistics}. Specifically, realizing \textbf{JIT} requires close \textbf{information linkage} and \textbf{synchronized production} with suppliers, including parts manufacturers. This is the very essence of \textbf{Supply Chain Logistics}, the initial form of \textbf{SCM}.
----
+\textbf{\paragraph{Supplementary Topic Title}}
+\textbf{Structural Risks of the Apparel Industry} \\
+As shown in this lecture, the apparel industry is swayed by 'trends,' an element that is extremely difficult to demand forecast. Meanwhile, the conventional supply chain (upstream processes) was premised on \textbf{large-lot} production for cost reduction, and lead times were long, at six months. This gap between 'demand uncertainty' and 'supply inflexibility (large lots, long lead times)' was a structural high-risk factor that simultaneously generated excess inventory and lost sales opportunities. Benetton's 'post-dyeing' was an innovation that tackled this structural risk.
+\textbf{\paragraph{Supplementary Topic Title}}
+\textbf{The Advocacy of the Smile Curve and Taiwan's Industrial Strategy} \\
+The \textbf{Smile Curve} was advocated by Chairman \textbf{Stan Shih} of Taiwan's Acer. This was not just a management theory, but was also deeply tied to Taiwan's national industrial strategy regarding how Taiwanese companies could acquire high-value-added positions (moving beyond simple manufacturing/assembly (OEM/ODM) to development, branding, and services) in the global electronics industry supply chain.
+\textbf{\paragraph{Supplementary Topic Title}}
+\textbf{The Inseparability of Marketing and SCM} \\
+The cases of the fast fashion companies introduced in the lecture (Benetton, ZARA, H\&M) show that SCM is not merely a tool for 'efficiency' or 'cost reduction,' but is \textbf{inseparable from marketing strategy}. It is clear that each company has built an optimized SCM as the means (operations) to realize its strategy (marketing): 'With what weapon (color, design, pattern),' 'which market need,' and 'how quickly to respond.'
+\textbf{\subsubsection{AI Supplement: Expansion of Key Points}}
+The lecture covered the evolution of SCM up to the 3rd generation (inter-company network management), but modern SCM is undergoing further evolution. If we were to call this \textbf{'4th Generation SCM,'} its core would be \textbf{'Digitalization'} and \textbf{'Sustainability.'}
+\begin{itemize}
+	\item \textbf{Digitalization (SCM 4.0):} This is the movement to maximize the transparency, responsiveness, and resilience of the entire supply chain by leveraging digital technologies, such as real-time tracking of inventory and transport via IoT (Internet of Things), advanced demand forecasting and automated ordering via AI (Artificial Intelligence), and ensuring traceability (tracking of production/distribution processes) via blockchain technology.
+	\item \textbf{Sustainability:} Whereas conventional SCM primarily optimized for QCDF (Quality, Cost, Delivery, Flexibility), modern SCM must also manage 'Environmental (E),' 'Social (S),' and 'Governance (G)' aspects (ESG). Specifically, responding to CO2 emission reductions (Green SCM), auditing human rights and labor environments at suppliers (CSR procurement), and adapting to a circular economy that eliminates waste have become critical issues directly linked to a company's competitive advantage and survival.
+\end{itemize}
 \subsection{Conclusion}
-This report has summarized the evolutionary process of \textbf{SCM}, from the integration of inventory and logistics (First Generation), to the reform of business processes (Second Generation), and finally to the dynamic reconfiguration of inter-firm networks (Third Generation).
-\textbf{Benetton's post-dyeing} is a successful example of \textbf{marketing-driven SCM} that meets market \textbf{lead time} demands through \textbf{BPR}. \textbf{EMS} functions as a strategic example of \textbf{Third Generation SCM}, concentrating on high-value-added core functions based on the \textbf{Smile Curve theory}.
-The \textbf{practical lesson} derived from these cases and the lecture content converges on the point that \textbf{SCM} is not merely a technique for operational efficiency, but is management strategy itself, designed to respond to market demands and changes in the competitive environment. In particular, the evolution of \textbf{SCM} culminates in the ideology of strategic outsourcing (Third Generation): redefining a company's \textbf{core competencies}, concentrating on them, and entrusting low-value-added processes to the external network. As an implication for learning, when considering \textbf{SCM}, a perspective that integrates \textbf{customer needs (marketing)}, the \textbf{value-added structure the company provides (Smile Curve)}, and the \textbf{global competitive environment} is essential.
+Through this lecture, it was understood that Supply Chain Management (SCM) has \textbf{evolved} from the static functional optimization of the 1st generation ('inventory and logistics management'), to the 2nd generation ('Business Process Reengineering (BPR)'), and finally to the 3rd generation ('inter-company network management (outsourcing, EMS)'), becoming a more dynamic and strategic management approach.
+The cases of fast fashion, especially Benetton and ZARA, show that SCM is a powerful weapon for realizing marketing strategy (rapid response to customer needs) and that the two are inseparable. The \textbf{Smile Curve} theory confronts companies with the fundamental question: 'Where is the source of our company's added value (core competence)?'
+The practical lesson from this lecture is that managers must view their company's supply chain not as a mere cost center, but as a value center that creates competitive advantage. They must continually and strategically design and rebuild elements from the 1st to the 3rd (and even 4th) generations in line with their company's strategy (i.e., on which added value to compete).
+\subsection{List of Key Terms}
+\textbf{Names:} \\
+Stan Shih (Shi Zhenrong), Michael Porter
+\vspace{\baselineskip}
+\textbf{Theories/Concepts:} \\
+Supply Chain Management (SCM), Stock and Flow, Logistics, Business Process, BPR (Business Process Reengineering), Outsourcing, EMS (Electronic Manufacturing Services), Core Competence, Smile Curve, Lead Time, Lot Size, Quick Response (QR), Value Chain, Marketing
+\subsection{Comprehension Quiz}
+\begin{enumerate}
+	\item In supply chain management, what is the most important element managed integrally, in addition to 'goods' and 'money' between companies?
+	\item Compared to SCM (Supply Chain Management), what is the primary area of focus for traditional 'logistics'?
+	\item In a supply chain, what is the side farther from the customer (e.g., raw material suppliers) generally called?
+	\item What is the form of SCM generally called that produces and supplies based on forecasts, rather than actual demand?
+	\item What is the strategy of delaying product differentiation (e.g., coloring, packaging) as far downstream (to the point of sale) as possible in the supply chain?
+	\item What 3-letter acronym refers to the management reform method of fundamentally (reengineering) reviewing and redesigning business processes?
+	\item What is the management strategy in which a company continuously entrusts its non-core business operations to an external, specialized company?
+	\item In industries like electronics, what 3-letter acronym refers to specialized companies that only undertake manufacturing contracts from multiple companies?
+	\item In making outsourcing decisions, what is the core capability, the source of competitive advantage, that a company is said to need to retain in-house?
+	\item In the 'Smile Curve' theory, which part of the chain is the process generally considered to have the lowest added value?
+	\item In the 'Smile Curve' theory, what are the two processes said to have high added value?
+	\item What is the phenomenon called where demand fluctuations are amplified as one moves upstream from downstream in the supply chain?
+	\item What is the most important shortening objective in SCM that fast fashion companies commonly pursue?
+	\item What does the 'F' in the SCM performance indicators QCDF stand for?
+	\item (AI Supplement) In ESG, which is emphasized in modern SCM, what aspect of corporate social responsibility does the 'S' represent?
+\end{enumerate}
+\subsubsection*{Answer Key}
+1. Information, 2. Physical distribution (storage, transport, handling, etc.), 3. Upstream, 4. Push-based SCM, 5. Postponement strategy (Postponement), 6. BPR (Business Process Reengineering), 7. Outsourcing, 8. EMS (Electronic Manufacturing Services), 9. Core Competence, 10. The middle (manufacturing/assembly), 11. Product development (planning/development) and sales/service, 12. Bullwhip Effect, 13. Lead Time (time to productization/supply), 14. Flexibility, 15. Social (human rights, labor environment, etc.)
 \end{document}
