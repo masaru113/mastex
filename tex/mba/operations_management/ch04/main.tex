@@ -1,0 +1,526 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{Operations Management Lecture 4 Notes \\ Supply Chain Management 2}
+\author{Masaru Okada}
+\date{\today}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Lecture Material Summary}
+
+\subsection{Introduction}
+Building on the evolution of Supply Chain Management (SCM) through its three generations outlined in the previous chapter (management of goods, management of processes, and management of inter-enterprise networks), this lecture focuses on its core concepts and objectives. The ultimate goal of SCM lies in increasing \textbf{operating cash flow} through reductions in costs and inventory, as well as improvements in logistics service levels. However, the greatest obstacle to achieving this goal is the \textbf{conflict of interest} among (and within) the organizations that constitute the supply chain. These notes will detail the structure of this conflict of interest and explain how resolving the underlying \textbf{trade-offs} is the central concept of SCM.
+
+\subsection{Key Concepts and Points}
+
+\subsubsection{SCM Definition and Players}
+SCM is a management approach that views players typically belonging to different organizations—such as suppliers, manufacturers, wholesalers, and retailers—as a \textbf{virtual organization} linked together as if by a chain. It aims to efficiently and effectively supply products to the end consumer by integrally managing the stock and flow of goods, services, money, and information.
+
+\subsubsection{The Foundation of SCM: Inter-Enterprise Information Networks}
+SCM is built upon an inter-enterprise information network. This network has evolved from \textbf{EDI (Electronic Data Interchange)}, which used closed dedicated lines or VANs (Value-Added Networks), to \textbf{EC (Electronic Commerce)} using internet standard technologies, and further to modern \textbf{open networks} and platforms. EDI, in particular, began with efficiency improvements in ordering tasks (EOS) and expanded its scope to include billing, settlement, and inventory information sharing, laying the groundwork for SCM.
+
+\subsubsection{The Objective of SCM: Cash Flow Management}
+The purpose of SCM can be understood in a two-tiered structure.
+\begin{itemize}
+	\item \textbf{Activity-level objectives}: Cost reduction, excess inventory reduction, and customer service improvement (shortening logistics lead times) across the supply chain.
+	\item \textbf{Performance-level objectives}: Increasing \textbf{operating cash flow} (i.e., increasing cash flow from core business operations) through the activities above. The target for reduction includes not only the company's own inventory but also the channel inventory held by business partners (accounts receivable).
+\end{itemize}
+
+\subsubsection{The Core Challenge of SCM: Conflicts of Interest}
+The greatest obstacle to SCM promotion is the conflict of interest within and between organizations. Global optimization is hindered because each department or company pursues its own \textbf{local optimization} objectives.
+
+\begin{table}[h]
+	\centering
+	\caption{Conflicts of Interest Between Departments (Manufacturer Example)}
+	\label{tab:conflict}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Department        & Objective (Local Optimization) & Preferred Action                           \\
+		\hline
+		Production Dept.  & Reduce manufacturing costs     & Large-lot production, stable operation     \\
+		Sales Dept.       & Increase sales revenue         & Secure inventory, prevent stockouts        \\
+		Procurement Dept. & Reduce purchase unit price     & Large-lot procurement, long-term contracts \\
+		Logistics Dept.   & Reduce logistics costs         & Low-frequency, large-lot delivery          \\
+		\hline
+	\end{tabular}
+\end{table}
+
+This conflict of interest creates \textbf{trade-off} relationships, such as `logistics service level (high-frequency, small-lot delivery) vs. delivery costs (low-frequency, large-lot delivery)'.
+
+\subsubsection{Means of Resolving Challenges: Supply and Demand Planning}
+As a means to resolve these conflicts and trade-offs, highly accurate \textbf{supply and demand planning} and \textbf{lead time reduction} (rapid production response) are required. Supply and demand planning consists of the following processes:
+\begin{enumerate}
+	\item \textbf{Demand Forecasting}: Objectively forecasting the `quantities that will sell'.
+	\item \textbf{Inventory Planning}: Planning inventory levels to prevent stockouts, accounting for forecast errors.
+	\item \textbf{Production Planning}: Determining production volumes and schedules based on the inventory plan.
+	\item \textbf{Procurement Planning \& Delivery Planning}: Planning raw material procurement and product delivery based on the production plan.
+\end{enumerate}
+
+\subsubsection{The Pitfall of Supply and Demand Planning: Demand Forecast Accuracy}
+Demand forecasting, the starting point of this planning, often becomes a `\textbf{desired sales volume}' (reflecting the sales department's intentions) rather than an objective `\textbf{forecasted sales volume}'. In an era of high-mix, low-volume production and short product lifecycles, low forecast accuracy causes the serious problems of \textbf{excess inventory} and \textbf{stockouts (opportunity loss)}. These two exist in a trade-off relationship and represent a fundamental challenge for SCM.
+
+
+
+\subsection{Application and Case Analysis}
+
+\subsubsection{The Proliferation of EDI and VANs (Value-Added Networks)}
+In the 1980s, EDI spread among the distribution industry (mass retailers, convenience stores), wholesalers, and manufacturers (processed foods, electronics, etc.). This proliferation was spurred by \textbf{VAN (Value-Added Network)} operators, who emerged after the deregulation of telecommunications in 1985. VANs provided shared-use information networks, functioning as industry VANs or regional distribution VANs. They particularly lowered the barrier (communication costs) for small and medium-sized enterprises (SMEs) to participate in EDI with large corporations.
+
+\subsubsection{The Stumbling Block of EDI Utilization: Lack of Linkage with the `Back-End'}
+A common challenge in EDI implementation was that it often remained a mere technological adoption (front-end automation), failing to lead to business process reforms or linkage with existing management systems (back-end: order management, inventory management, production planning). The key to developing SCM was to use EDI data in these management systems and to approach it as a cross-organizational business reform, requiring information systems departments and user departments to work as one.
+
+\subsubsection{Product Groups Where Forecast Accuracy Issues Become Apparent}
+The problem of `stockouts or excess inventory' due to low forecast accuracy becomes particularly pronounced in product groups with the following characteristics:
+\begin{itemize}
+	\item \textbf{Seasonal Products}: Items whose demand is swayed by climate or specific events, such as air conditioners, beer, and Valentine's chocolate.
+	\item \textbf{Commodity Products}: Items like PCs and digital cameras, where differentiation by function is difficult and market share competition is fierce.
+	\item \textbf{Fashion Products}: Apparel with extremely short lifecycles, where trends change rapidly.
+\end{itemize}
+
+
+
+\subsection{Deeper Context and Lessons}
+
+\textbf{\paragraph{Digression Topic: Technical Components of EDI}}
+\par
+EDI, as mentioned in the lecture, technically consists of three components: (1) \textbf{Protocols} (communication protocols for information transmission, and document formats and codes for information representation), (2) \textbf{Communication Media} (information processing equipment and communication lines), and (3) \textbf{EDI Software} (communication software, business application software, and \textbf{translation software} that converts proprietary system formats to standard formats). The existence of translation software, in particular, contributed to the spread of EDI.
+
+\textbf{\paragraph{Digression Topic: Background of EDI Proliferation (1985 Telecommunications Deregulation)}}
+\par
+The proliferation of EDI was spurred by the `deregulation of telecommunications' resulting from the 1985 Telecommunications Business Act. This led to the emergence of numerous Type II telecommunications carriers, who leased lines from Type I carriers (like NTT) to provide services. The aforementioned VAN operators were prime examples. Their inexpensive support for building inter-enterprise networks for specific industries or regions was foundational to the development of SCM.
+
+\textbf{\paragraph{Digression Topic: Barriers of Japanese Business Practices}}
+\par
+It was noted that unique and complex Japanese business practices—such as rebates, returns, managed pricing (Tatene), post-pricing, and verbal orders—acted as inhibiting factors to the standardization and transparency of information required for EDI and SCM. These practices can hinder the efficiency (especially the openness) of the entire supply chain.
+
+\textbf{\subsubsection*{AI Supplement: Expansion of Key Points}}
+\par
+This lecture explained that discrepancies in demand forecasting lead to `excess inventory and stockouts'. A crucial concept that explains the mechanism by which this phenomenon cascades and amplifies up the supply chain is the \textbf{`Bullwhip Effect'}.
+
+The Bullwhip Effect refers to a phenomenon in the supply chain where small fluctuations in end-consumer demand are \textbf{amplified in upstream orders and forecasts}—like the crack of a whip—as they move up from retailer to wholesaler, to manufacturer, to supplier.
+When this effect occurs, upstream companies are increasingly swayed by demand uncertainty, forcing them to hold excessive inventory or production capacity, which severely degrades the efficiency of the entire supply chain.
+
+Causal factors include: (1) \textbf{Demand forecast updating} (each player independently modifies forecasts based only on demand from their immediate downstream partner), (2) \textbf{Order batching} (to reduce delivery costs), (3) \textbf{Price fluctuations} (leading to forward buying during sales), and (4) \textbf{Shortage gaming} (over-ordering to avoid anticipated shortages).
+
+SCM is, precisely, an effort to suppress this Bullwhip Effect. Sharing retail \textbf{POS data} (real demand information) with upstream manufacturers and suppliers to eliminate forecast discrepancies (i.e., information transparency) is the core solution.
+
+
+
+\subsection{Conclusion}
+Supply Chain Management (SCM) is not merely the implementation of logistics or IT systems; it is a management strategy aimed at increasing \textbf{operating cash flow}, the lifeblood of corporate activity.
+Its essence lies in overcoming the \textbf{conflicts of interest} and \textbf{trade-offs} that arise between functions (production, sales, procurement, logistics) and between enterprises, from a cross-organizational perspective.
+
+Just as the challenge of EDI utilization lay in linking the `front-end (technology)' with the `back-end (business processes)', and the challenge of planning lay in the gap between the `desired sales volume (local optimization)' and the `forecasted sales volume (global optimization)', the keys to SCM success are not the technologies themselves. Rather, they are \textbf{information transparency} (especially of real demand), \textbf{standardization and integration of business processes}, and \textbf{governance to coordinate inter-organizational interests}. The challenges presented in this lecture offer practical lessons for contemporary operations management.
+
+
+
+\subsection{Key Terms List}
+\textit{(Names mentioned in this lecture: None)}
+
+\vspace{\baselineskip}
+
+Supply Chain Management (SCM), EDI (Electronic Data Interchange), EC (Electronic Commerce), EOS (Electronic Ordering System), VAN (Value-Added Network), Open Network, High-Mix Low-Volume Production, Operating Cash Flow, Conflict of Interest, Trade-off, Supply and Demand Planning, Demand Forecasting, Inventory Planning, Production Planning, Lead Time, Constraints, Commodity
+
+
+
+\subsection{Comprehension Check Quiz}
+\begin{enumerate}
+	\item What management metric was emphasized in this lecture as the ultimate goal of Supply Chain Management (SCM), distinguishing it from traditional logistics management?
+	\item In SCM, what is the term for the situation where a manufacturer's production department aims for large-lot production to `reduce manufacturing costs', while the sales department desires high-frequency, small-lot replenishment to `prevent stockouts'?
+	\item What is the term for the conflicting relationship where lowering costs leads to lower service levels, and raising service levels leads to higher costs?
+	\item What are the two primary problems (which exist in a trade-off relationship) that arise when demand forecast accuracy is low among supply chain players?
+	\item What is the system, popularized in the 1980s, for exchanging business transaction data in a standard format between companies?
+	\item What is the shared-use information network service, known as a `Value-Added Network', that supported the proliferation of EDI?
+	\item In contrast to EDI, which was a closed network, what is the concept for networks that use internet standard technologies, enabling transactions even between non-specific companies?
+	\item To maximize the benefits of EDI implementation, EDI (the front-end) needed to be linked with the company's existing internal management systems (inventory control, production planning, etc.). What is the collective term for these internal systems?
+	\item In the supply and demand planning process, what is the term for a forecast value that reflects the sales department's intentions or targets, rather than the objective `quantity that will sell'?
+	\item What is the term for the modern production style characterized by diversified customer needs and short product lifecycles?
+	\item What characteristics of products like air conditioners and fashion apparel make it particularly difficult to ensure demand forecast accuracy? (List two)
+	\item In SCM, what concept, aimed at by `openness', contrasts with the closed networks (like Keiretsu-style affiliations) that traditional Japanese companies used as a strength?
+	\item What is the phenomenon where small fluctuations in end-consumer demand are amplified into larger fluctuations in orders as one moves upstream in the supply chain?
+	\item One cause of the Bullwhip Effect is `order batching'. This behavior is primarily motivated by an attempt to reduce which cost?
+	\item In SCM, what is the most critical information that must be shared across the entire supply chain to suppress the Bullwhip Effect?
+\end{enumerate}
+
+\subsubsection*{Answer Key}
+1. Operating Cash Flow (increase in), 2. Conflict of Interest, 3. Trade-off, 4. Excess inventory and stockouts (opportunity loss), 5. EDI (Electronic Data Interchange), 6. VAN (Value-Added Network), 7. Open Network, 8. Back-end (systems), 9. Desired sales volume, 10. High-mix, low-volume production, 11. Seasonality / Fashionability (short lifecycle), 12. Closed network, 13. Bullwhip Effect, 14. Delivery costs (or logistics costs), 15. Real demand information (or POS data, end-consumer demand information)
+
+\section{Overview of Lecture 4}
+
+\subsection{Introduction}
+This lecture begins with an analysis of a traditional case from \textbf{Operations Research (OR)}: a bottleneck problem in military logistics. OR, also translated as `Sakusen Kenkyu' (Operations Research), can be considered a predecessor to the field of Operations Management.
+It is shown that the OR approach—identifying the process flow and the \textbf{bottleneck}, and resolving that constraint—forms the basis of modern \textbf{Supply Chain Management (SCM)}.
+The objective of this lecture is to review the three generations of SCM (Generation 1: Management of goods, Generation 2: Management of business processes, Generation 3: Management of inter-enterprise networks) while understanding its core concept: the importance of overcoming inter-organizational \textbf{conflicts of interest} and resolving \textbf{trade-offs}.
+
+\subsection{Key Concepts and Points}
+
+\subsubsection{SCM Objectives and Core Concept}
+The primary objectives of SCM are to reduce overall supply chain \textbf{costs} and \textbf{inventory}, improve \textbf{logistics service levels}, and ultimately increase \textbf{free cash flow}.
+However, the greatest obstacle to achieving this is the \textbf{conflict of interest} between the various organizations in the chain (e.g., manufacturer and retailer). This lecture defines the core \textbf{concept} of SCM as the resolution of the \textbf{trade-offs} between objectives (e.g., cost vs. service level) that lie at the root of these conflicts.
+
+\subsubsection{Supply Chain Players and Flows}
+A supply chain is generally composed of the following players:
+\begin{itemize}
+	\item \textbf{Suppliers} (material makers, parts makers)
+	\item \textbf{Manufacturers} (manufacturing companies)
+	\item \textbf{Distributors} (wholesalers, retailers)
+	\item \textbf{Consumers}
+\end{itemize}
+Between these players, the following three primary flows are subject to management:
+\begin{enumerate}
+	\item \textbf{Flow of Goods (Products/Services)}: Flows from upstream (supplier) to downstream (consumer). Tends to stagnate as \textbf{inventory} at various points.
+	\item \textbf{Flow of Information (Demand)}: Flows backward from downstream (consumer) to upstream (supplier).
+	\item \textbf{Flow of Money (Cash)}: Flows backward from downstream (consumer) to upstream (supplier).
+\end{enumerate}
+(※ Except in pure make-to-order systems)
+
+\subsubsection{The Supply Chain `Chain' Analogy}
+The name `supply chain' derives from the analogy that independent enterprises (suppliers, manufacturers, wholesalers, retailers) form a `\textbf{virtual organization}', behaving as if linked by a chain. SCM is a management approach that integrally manages the stock and flow of `goods, services, money, and information' within this virtual organization, aiming to efficiently and effectively supply products to the end consumer.
+
+\subsubsection{The Technological Foundation of SCM}
+An \textbf{inter-enterprise information network} is an indispensable foundation for realizing SCM.
+\textbf{QR (Quick Response)} and \textbf{ECR (Efficient Consumer Response)}, considered prototypes of strategic-alliance E-commerce, are now integrated into SCM initiatives.
+SCM is an endeavor based on long-term, continuous \textbf{partnerships} with a select group of companies. It leverages information technology to link operational functions—such as procurement, production, sales, and logistics—to achieve a \textbf{competitive advantage} for the supply chain as a whole.
+
+\subsection{Application and Case Analysis}
+
+\subsubsection{Traditional OR Case: The Logistics Bottleneck}
+The traditional OR case presented in the lecture involves the process of soldiers washing their mess kits on a battlefield.
+\begin{itemize}
+	\item \textbf{The Situation}: In the process of soldiers washing their kits after a meal, a \textbf{queue} forms at the `washing station' (two basins). Meanwhile, the `rinsing station' (one basin) is flowing without stagnation.
+	\item \textbf{The Core Problem}: This queue is analogous to congestion at a fast-food restaurant or bank ATM in daily life, and it creates inefficiency (delays for the next operation or afternoon duties). This indicates that the processing capacity of the `washing station' has become the process's \textbf{constraint (bottleneck)}.
+	\item \textbf{The Solution}: Based on the \textbf{Theory of Constraints (TOC)}, resources are reallocated. Specifically, by changing the layout without changing the total number of basins—increasing the `washing station' to three basins and setting the `rinsing station' to one (※the original number of rinse basins was not specified, but increasing the wash basins is the focus)—the capacity of the bottleneck `washing station' is improved, and the queue is eliminated.
+	\item \textbf{Implications for SCM}: This OR approach—analyzing the flow of an entire process, identifying the constraint, and improving it—is fundamentally aligned with the basic thinking of SCM, which seeks to optimize the flow of goods and information across the entire supply chain.
+\end{itemize}
+
+\subsection{Deeper Context and Lessons}
+
+\textbf{\paragraph{Origin of Operations Research: `Sakusen Kenkyu' (Military Operations Research)}}
+`Operations Research', as introduced in the lecture, is translated into Japanese as `\textbf{Sakusen Kenkyu}'. The `operations' in the name originally referred to `military operations'. This origin stems from the fact that OR developed during World War II as a discipline to mathematically optimize military operations (logistics, troop deployment, bombing efficiency, etc.). The lecture's case study of `soldiers washing mess kits on a battlefield' precisely illustrates this origin in logistics optimization. It is important background knowledge for management students that modern business logistics and SCM evolved from the application of these military techniques.
+
+\textbf{\subsubsection*{AI Supplement: Expansion of Key Points --- Bullwhip Effect and Conflicts of Interest}}
+This lecture emphasized that the core concept of SCM is `overcoming \textbf{conflicts of interest}'. However, it lacked specific mention of the problems caused by these conflicts.
+The most important concept in this context is the `\textbf{Bullwhip Effect}'.
+\begin{itemize}
+	\item \textbf{Definition}: A phenomenon in the supply chain where small fluctuations in end-consumer demand are amplified as they move upstream (Retailer $\to$ Wholesaler $\to$ Manufacturer $\to$ Supplier).
+	\item \textbf{Cause (Conflicts of Interest)}: This effect is caused precisely by inter-enterprise conflicts of interest and information asymmetry. It occurs because each player aims for \textbf{local optimization} (maximizing their own profits) rather than optimizing the chain as a whole.
+	\item \textbf{Specific Example}:
+	      \begin{enumerate}
+		      \item \textbf{Information Opacity}: The retailer passes on only `order information', which includes their own safety stock, to the manufacturer, not the real demand (POS data).
+		      \item \textbf{Local Judgment}: The manufacturer, based on this amplified order information from the retailer, places orders with parts suppliers, adding their own safety stock and production lot conveniences.
+		      \item \textbf{Time Lags}: Because the movement of information and goods takes time, decision-making at each stage is delayed, and misunderstandings of demand accumulate.
+	      \end{enumerate}
+	\item \textbf{Conclusion}: As a result, the entire chain experiences excess inventory, sudden production changes, and high logistics costs. The \textbf{information sharing} (especially of end-consumer demand) aimed for by SCM's `inter-enterprise information network' is the most powerful means of suppressing this Bullwhip Effect and resolving `conflicts of interest'.
+\end{itemize}
+
+\subsection{Conclusion}
+In these lecture notes, we confirmed that the conceptual foundation of Supply Chain Management (SCM) lies in \textbf{Operations Research (OR)}. Whereas OR developed as `Sakusen Kenkyu' to resolve local process \textbf{bottlenecks}, SCM has evolved, based on information networks, into a management methodology aiming for the optimization of the entire inter-enterprise `\textbf{virtual organization}'.
+
+The practical lesson from this lecture and its `Deeper Context' is that SCM is not merely a logistics or IT implementation problem. Its essence is that of a high-level management strategy: how to overcome the `\textbf{conflicts of interest}'—represented by issues like the \textbf{Bullwhip Effect}—which are caused by the locally optimizing behaviors of individual companies, through \textbf{partnerships} and information sharing. As the logistics case demonstrates, a perspective that identifies the true `\textbf{constraint}' hindering the entire flow, looking at the chain as a whole, is indispensable.
+
+\subsection{Key Terms List}
+None
+
+\vspace{\baselineskip}
+Operations Research, Theory of Constraints, Supply Chain Management (SCM), Trade-off, Inventory, Bottleneck, Partnership, Inter-enterprise Information Network, Bullwhip Effect, QR (Quick Response), ECR (Efficient Consumer Response)
+
+\subsection{Comprehension Check Quiz}
+\begin{enumerate}
+	\item Explain the basic objective of Operations Research (OR).
+	\item In the Theory of Constraints (TOC), what does a `bottleneck' refer to?
+	\item What is the fundamental difference between Supply Chain Management (SCM) and traditional purchasing or logistics management?
+	\item List the four typical players (excluding the consumer) in a supply chain, from upstream to downstream.
+	\item What are the three primary `flows' managed in SCM?
+	\item Give one concrete example of an inter-enterprise `conflict of interest' that SCM attempts to solve.
+	\item What is the `Bullwhip Effect'?
+	\item From an information perspective, explain the main cause of the Bullwhip Effect.
+	\item What is the primary reason (benefit) for a company to hold `inventory', and what is the main problem (drawback) it causes?
+	\item Give one example of a typical `trade-off' relationship in SCM.
+	\item Explain why `information sharing' is indispensable for successful SCM, relating it to the Bullwhip Effect.
+	\item What was the main improvement sought by ECR (Efficient Consumer Response) and QR (Quick Response)?
+	\item Why are inter-enterprise `partnerships'—even with potential competitors—important for executing SCM?
+	\item One objective of SCM is `increasing free cash flow'. This is achieved primarily by reducing what on the supply chain?
+	\item In a supply chain, what do `upstream' and `downstream' refer to?
+\end{enumerate}
+
+\subsubsection*{Answer Key}
+1. To mathematically find the optimal solution for achieving a specific objective (e.g., cost minimization, profit maximization) under given resource constraints. 2. The stage or process with the lowest processing capacity, which determines the capacity (throughput) of the entire supply chain (or production process). 3. It goes beyond optimizing one's own company; it views the inter-enterprise process, from supplier to end-consumer, as a `virtual organization' and aims for the optimization of the entire chain. 4. Supplier (materials/parts), Manufacturer (production), Wholesaler, Retailer. 5. The flow of Goods (products/services), the flow of Information, and the flow of Money (cash). 6. Example: The manufacturer wants to lower production costs with large production lots, but the retailer wants small-lot, frequent deliveries to reduce inventory. 7. A phenomenon in the supply chain where small fluctuations in end-consumer demand are amplified as they move upstream (to manufacturers or suppliers). 8. Each player makes decisions based only on the `order information' from their immediate downstream partner, rather than on the true end-consumer demand (real demand) of the entire chain. 9. Benefit: Preventing lost sales (opportunity loss) from stockouts, responding to demand fluctuations. Drawback: Incurs holding costs (warehouse fees, interest), risk of obsolescence. 10. Example: Inventory level vs. stockout rate (more inventory reduces stockouts but increases costs), or transport cost vs. transport frequency (higher frequency improves service but increases transport costs). 11. By sharing end-consumer demand (e.g., POS data) across the chain, it prevents players from making speculative orders, thereby suppressing the Bullwhip Effect. 12. To reduce inventory by shortening production and replenishment lead times based on real end-consumer demand (e.g., POS data). 13. SCM cannot be accomplished by one company alone; it requires sharing sensitive information (demand forecasts, inventory, production plans) and coordinating conflicts of interest. 14. Inventory (Working Capital). 15. `Upstream' refers to the raw material/parts supply side (suppliers), while `downstream' refers to the end-consumer side (retailers).
+
+\section{The Foundations of Supply Chain Management}
+
+\subsection{Introduction}
+This lecture focuses on the \textbf{inter-enterprise information networks} that form the technological foundation of Supply Chain Management (SCM). We will survey their historical evolution: from the closed networks of \textbf{EDI (Electronic Data Interchange)}, through the emergence of the internet and \textbf{EC (Electronic Commerce)}, to the development of modern \textbf{open networks} and platforms. The objective is to understand how the challenges encountered in the implementation and utilization of EDI are fundamentally an-alogous to the challenges of implementing SCM today.
+
+\subsection{Key Concepts and Points}
+
+\subsubsection{Definition and Components of EDI (Electronic Data Interchange)}
+\textbf{EDI (Electronic Data Interchange)} is a mechanism for electronically exchanging business transaction information (such as orders, quotes, payments, and shipping data) in \textbf{standardized formats} agreed upon by industries or enterprises.
+Compared to traditional paper-based exchanges, EDI contributes to faster information transmission, reductions in administrative labor and personnel, and expanded sales opportunities, thereby realizing operational efficiency and effectiveness.
+
+The technical components of EDI are classified into the following three:
+\begin{enumerate}
+	\item \textbf{Standardized Protocols}:
+	      \begin{itemize}
+		      \item \textbf{Information Transmission Protocols}: Communication protocols (rules for computer-to-computer communication).
+		      \item \textbf{Information Representation Protocols}: Standard protocols for document formats and codes.
+	      \end{itemize}
+	\item \textbf{Communication Media}:
+	      \begin{itemize}
+		      \item \textbf{Information Processing Equipment}: PCs, mainframes, etc.
+		      \item \textbf{Communication Lines}: Dedicated lines, VANs, the Internet, etc.
+	      \end{itemize}
+	\item \textbf{EDI Software}:
+	      \begin{itemize}
+		      \item \textbf{Communication Software}: For sending/receiving data.
+		      \item \textbf{Application Software}: For order entry, payment processing.
+		      \item \textbf{Translation Software}: For converting proprietary data to standard formats.
+	      \end{itemize}
+\end{enumerate}
+The very activity of different companies collaborating to build a standardized mechanism (like a translation system) is the essence of EDI, and this forms the foundation of SCM.
+
+\subsubsection{The Development of EDI and VAN (Value-Added Network)}
+EDI implementation began in the late 1970s in the US distribution industry as \textbf{EOS (Electronic Ordering System)}. In Japan, it began to spread in the 1980s between chain stores and wholesalers, and subsequently between manufacturers and wholesalers.
+The scope of applications also expanded from initial \textbf{ordering} to include billing, payment, shipping, delivery, sales information, and inventory information, moving progressively upstream in the supply chain.
+
+This proliferation was supported by the deregulation of telecommunications under the 1985 \textbf{Telecommunications Business Act} and the subsequent emergence of \textbf{VAN (Value-Added Network)} operators. VANs leased lines from Type I carriers and provided value-added services, such as data exchange and format translation, in addition to basic communication services.
+Shared-use networks like `Industry VANs' and `Regional Distribution VANs' were particularly effective, as they allowed multiple companies to share costs. They played a crucial role in promoting EDI adoption by closing the \textbf{informatization gap} between large corporations and SMEs.
+
+\subsubsection{Problems with EDI Proliferation and the Evolution to EC (Openness)}
+While EDI improved operational efficiency, its proliferation faced three major problems:
+\begin{enumerate}
+	\item \textbf{Communication Costs}: The costs of using dedicated lines or VANs were high, creating a significant barrier to entry, especially for SMEs.
+	\item \textbf{Closed Networks}: They were closed networks, allowing exchanges only within specific industries or corporate groups (Keiretsu).
+	\item \textbf{Industry-Specific Business Customs}: Complex and non-transparent business customs unique to each industry—such as rebates, returns, managed pricing (Tatene), and verbal orders—hindered the standardization and electronification of transactions.
+\end{enumerate}
+The key to overcoming these problems and advancing SCM was the `\textbf{openness}' provided by internet technologies, which spurred the evolution toward \textbf{EC (Electronic Commerce)}.
+
+\subsubsection{Open Networks and Global SCM}
+An open network is a concept that enables transactions with \textbf{any company}, regardless of specific industry or affiliation, by adopting standardized transaction methods (protocols).
+Traditional Japanese companies (especially large ones) achieved competitive advantage by building closed, \textbf{Keiretsu-style} (affiliated group) networks based on vertical relationships of control and subordination (e.g., subcontractors, sales channels).
+However, in an environment of increasing supply chain \textbf{globalization}, such closed networks restrict the company's own network expansion and rapidly lose competitiveness. To respond to globalization and realize an SCM that links with optimal partners worldwide, transactions via open networks that transcend closed affiliations are indispensable.
+
+\subsection{Application and Case Analysis}
+
+\subsubsection{The Apparel Industry's Global Supply Chain}
+This lecture provided the example of the \textbf{global supply chain} in the apparel industry, typified by fast fashion.
+\begin{itemize}
+	\item \textbf{Planning}: Japan
+	\item \textbf{Design}: New York (a trend center)
+	\item \textbf{Raw Material Sourcing}: Italy (high-end fabrics), Mongolia (inexpensive materials), Australia (wool, etc.)
+	\item \textbf{Sewing/Production}: China
+	\item \textbf{Sales}: Exported worldwide
+\end{itemize}
+
+Such a complex system of international division of labor cannot be completed within a specific corporate group or Keiretsu. It requires flexibly finding and coordinating with partners from around the world who possess the optimal functions (design, materials, production capacity). The technological foundation that makes this possible is an \textbf{open network}, not one closed off to specific companies or industries. If the network were closed, the options for sourcing raw materials and production bases would be severely limited, making such a global SCM impossible to build.
+
+\subsection{Deeper Context and Lessons}
+
+\textbf{\paragraph{Four Challenges in EDI Utilization (From a Business Process Re-engineering Perspective)}}
+The lecture highlighted four challenges in truly leveraging EDI. These are not issues of technological adoption but rather of approach to management transformation, offering important lessons directly applicable to modern SCM and DX (Digital Transformation).
+
+\begin{itemize}
+	\item \textbf{Challenge 1: Seize the Opportunity for Business Reform}: EDI implementation must not be seen merely as a `technical information system adoption' or `front-end automation'. It is a prime opportunity for `\textbf{business process reform} (operations reform)'—a chance to review traditional paper forms, data flows, and coding systems.
+	\item \textbf{Challenge 2: Link with Management Systems (Back-End)}: It is critical to link the data received via EDI with existing internal \textbf{management systems (back-end)}—such as production planning, inventory planning, and accounting—for secondary use (indirect effects). The benefits of front-end automation alone are limited.
+	\item \textbf{Challenge 3: Realize as an Organization}: Because it involves business reform, the information systems department cannot accomplish it alone. \textbf{User departments} (sales, production, finance, etc.) must unite, coordinating their interests and promoting it as a company-wide initiative.
+	\item \textbf{Challenge 4: Choose a Good Approach}: A good approach is one that takes the stance of `building a management system', aims for `linking the front-end and back-end', and is driven by `\textbf{user department leadership}' (with the IS department in a support role). This is the very definition of an SCM initiative.
+\end{itemize}
+
+\textbf{\paragraph{Japan's `Industry-Specific Business Customs' that Hindered EDI Proliferation}}
+The `industry-specific business customs' mentioned as a problem for EDI proliferation have been a long-standing challenge in building Japanese-style SCM.
+EDI and SCM presuppose transaction `\textbf{standardization}', `\textbf{transparency}', and `\textbf{speed}'. However, non-transparent practices deeply rooted in Japan—such as \textbf{rebates} (ex-post price adjustments), \textbf{returns} (shifting inventory risk), \textbf{managed pricing} (Tatene, manufacturer-led pricing), and \textbf{verbal orders}—are in direct conflict with these prerequisites.
+These customs rely on inter-company power dynamics and tacit rules, making them extremely difficult to process using standardized electronic data. This is not a technical problem, but a management culture problem rooted in the `conflicts of interest' discussed in the previous chapter.
+
+\textbf{\subsubsection*{AI Supplement: Expansion of Key Points --- Web-EDI and the API Economy}}
+This lecture illustrated the broad shift from EDI to EC (openness). In this context, two concepts are indispensable for understanding modern SCM.
+\begin{enumerate}
+	\item \textbf{Web-EDI}:
+	      \textbf{Web-EDI} solved the problems of `high cost' and `closed nature' (requiring dedicated terminals or software) associated with traditional EDI, as noted in the lecture, by using internet technology.
+	      This form uses the internet for the communication line and a standard Web browser for the terminal. This dramatically reduced the implementation costs and operational burden, especially for SMEs, and broadened the base of EDI adoption. Much of modern B2B e-commerce takes the form of Web-EDI.
+
+	\item \textbf{API Economy}:
+	      The concept of an `open network' in the lecture has evolved even further today into the `\textbf{API (Application Programming Interface)} Economy'.
+	      This is a model where companies expose their own system functions (e.g., inventory lookup, order processing, delivery tracking, payment functions) to the outside world as standardized APIs.
+	      Partner companies can incorporate these APIs as `components' into their own systems. This allows them to build new services or advanced SCM linkages (e.g., real-time inventory allocation, automated ordering) far more quickly and flexibly than developing the one-to-one data links of traditional EDI. This is the forefront of modern `open networks', fundamentally changing how inter-enterprise collaboration works.
+\end{enumerate}
+
+\subsection{Conclusion}
+In this lecture, we learned the historical context of how the inter-enterprise information networks that underpin SCM evolved from closed, high-cost \textbf{EDI}, through internet-based \textbf{EC}, and toward `\textbf{open networks}'.
+
+The practical lesson from this lecture is encapsulated in the four challenges of EDI utilization. Initiatives like SCM and DX must not be mere `\textbf{technical information system}' implementations (= front-end automation). They must be viewed as opportunities for `\textbf{business process reform}', linked with existing `\textbf{management systems} (back-end)', and driven company-wide under the leadership of user departments.
+Even as communication technology evolves from EDI to the internet and APIs, the ability to capitalize on that technology depends entirely on overcoming `non-technical' constraints, such as outdated business customs and organizational silos.
+
+\subsection{Key Terms List}
+None
+
+\vspace{\baselineskip}
+EDI (Electronic Data Interchange), VAN (Value-Added Network), EOS (Electronic Ordering System), Electronic Commerce (EC), Open Network, Global Supply Chain, Business Process Reform, Front-End, Back-End, Information System, Web-EDI, API
+
+\subsection{Comprehension Check Quiz}
+\begin{enumerate}
+	\item Define EDI (Electronic Data Interchange) in comparison to traditional paper-based documents.
+	\item From a cost perspective, explain the important role VAN (Value-Added Network) played in the proliferation of EDI.
+	\item What is the function of `translation software' as a technical component of EDI?
+	\item In 1980s Japan, in which industry and for which business process did EDI implementation particularly advance?
+	\item List the three main problems that hindered the proliferation of traditional EDI.
+	\item If EDI implementation is seen only as `front-end automation', what limitations arise?
+	\item In the `good approach' presented in the lecture, which department should lead the EDI implementation?
+	\item Why is a `business process reform' perspective essential for the successful implementation and utilization of EDI?
+	\item Why did traditional Japanese business customs, such as rebates and returns, become obstacles to the implementation of EDI and SCM?
+	\item Explain the advantages of SCM's `closed networks (Keiretsu-style)' and their limitations (drawbacks) in the modern era.
+	\item As seen in the lecture's apparel company example, why are `open networks' indispensable for building a global SCM?
+	\item What is the greatest advantage of `Web-EDI' compared to traditional EDI?
+	\item In the context of EDI, are internal production management systems and accounting systems classified as `front-end' or `back-end'?
+	\item In the evolution from EDI to EC, what was the most important technological and conceptual change?
+	\item Why is the `API economy' superior (more flexible) compared to traditional inter-enterprise collaboration?
+\end{enumerate}
+
+\subsubsection*{Answer Key}
+1. A mechanism for electronically exchanging business information in a standard format between companies, contributing to faster information transmission and reduced administrative labor compared to paper. 2. It allowed multiple companies to jointly use a network and translation systems, significantly reducing costs compared to leasing and maintaining individual dedicated lines. 3. To convert data from a company's internal system format into the industry-standard or trading partner's standard EDI format (and vice versa). 4. The distribution industry (supermarkets and wholesalers) for ordering (EOS). 5. High communication costs, closed networks (limited to specific industries/groups), and non-transparent, industry-specific business customs. 6. The data is not linked to existing internal systems (production, inventory, accounting), preventing secondary data use and failing to improve overall operational efficiency. 7. The user departments (sales, production, finance, etc.) that actually use the system, not the information systems department. 8. Because EDI fundamentally changes existing business processes (the flow of forms and documents), the processes themselves must be reviewed concurrently with the technology adoption to be effective. 9. These customs are not based on standardization or transparency, are difficult to digitize, or involve ex-post adjustments, thereby hindering automated processing by the system. 10. Advantage: Strong coordination and quality control within the group. Limitation: Sourcing and sales partners become fixed, making global optimal sourcing and flexible market adaptation difficult. 11. Because it requires flexibly selecting and coordinating with partners worldwide who possess the optimal functions (design, materials, production), which is impossible with a closed network. 12. It uses standard technologies (internet and web browser), eliminating the need for dedicated terminals or software and dramatically lowering implementation/operation costs (especially for SMEs). 13. Back-end. 14. The shift of the communication infrastructure from dedicated lines/VANs to the inexpensive, standardized internet (= openness). 15. Because functions (inventory lookup, ordering, etc.) are provided as components (APIs) that can be freely combined, allowing collaboration systems to be built much more quickly and flexibly than through one-to-one custom development.
+
+\section{SCM Concepts and Objectives}
+
+\subsection{Introduction}
+This lecture begins by examining the background behind why Supply Chain Management (SCM) is a focus of modern management strategy. This background includes three major trends: \textbf{the development of information technology} (the shift to open networks), changes in the business environment (demand uncertainty), and the \textbf{shortening of product lifecycles}.
+To respond to these environmental changes, companies are aiming to implement and advance SCM. The objective of this lecture is to define the two levels of `objectives' that SCM seeks to achieve, and to understand the greatest factors obstructing their achievement: `\textbf{conflicts of interest}' between organizations and companies, and the `\textbf{trade-off}' structure that results from them.
+
+\subsection{Key Concepts and Points}
+
+\subsubsection{Background for the Focus on SCM}
+The reasons SCM is emphasized can be summarized in the following three points:
+\begin{enumerate}
+	\item \textbf{Development of Information Technology}: The proliferation of the internet and the emergence of open information technologies (de facto standards) have lowered the cost of building and operating inter-enterprise information networks, setting the technical foundation for SCM implementation.
+	\item \textbf{Changes in the Business Environment (Demand Uncertainty)}: The diversification of customer needs and the acceleration of change—i.e., the shift to an era of `high-mix, low-volume production'—has made adapting to demand fluctuations a critical challenge for companies.
+	\item \textbf{Shortening of Product Lifecycles}: To respond to these changes, companies are pressed by the need to bring products with short lifecycles to market in a timely manner.
+\end{enumerate}
+
+\subsubsection{The Objectives of SCM: Two Levels}
+The objectives of SCM can be understood on two levels: activity-level and performance-level.
+\begin{itemize}
+	\item \textbf{Activity-level objectives}: Direct operational improvement goals.
+	      \begin{itemize}
+		      \item \textbf{Cost reduction} across the supply chain
+		      \item \textbf{Reduction of excess inventory} across the supply chain
+		      \item \textbf{Improvement of customer service} (logistics service level)
+		      \item \textbf{Shortening of logistics lead times}
+	      \end{itemize}
+	\item \textbf{Performance-level objectives}: The ultimate financial goal achieved as a result of attaining the activity-level objectives.
+	      \begin{itemize}
+		      \item \textbf{Increase in operating cash flow}
+	      \end{itemize}
+\end{itemize}
+These are interlinked. The ultimate goal of SCM is to maximize operating cash flow (cash from core business) by reducing waste (costs and inventory) while simultaneously improving customer satisfaction (increasing sales).
+
+\subsubsection{Core Concept: Overcoming Conflicts of Interest}
+The biggest problem in SCM implementation and promotion—and thus SCM's central concept—is `how to resolve \textbf{inter-organizational conflicts of interest}'.
+This refers to the structural problem where \textbf{global optimization} of the supply chain is hindered because each department or company pursues \textbf{local optimization} based on its own role (mission) and performance evaluations.
+
+\subsubsection{SCM Trade-offs}
+Conflicts of interest manifest in concrete operations as \textbf{trade-off} relationships, where satisfying one objective makes it harder to satisfy another.
+\begin{itemize}
+	\item \textbf{Inventory Level vs. Stockout Risk}: Reducing inventory (cost reduction) increases the risk of stockouts (opportunity loss).
+	\item \textbf{Cost vs. Customer Service}: Improving the logistics service level (e.g., high-frequency delivery) increases logistics costs.
+\end{itemize}
+While the ideal of SCM is to reduce costs and inventory `and' improve service levels simultaneously, these objectives are generally in a trade-off relationship.
+
+\subsubsection{Two Approaches to Trade-offs}
+The lecture presented the following two primary means of resolving these trade-offs and overcoming conflicts of interest:
+\begin{enumerate}
+	\item \textbf{Refining Supply and Demand Planning}: Formulating and executing integrated plans (supply and demand planning) based on highly accurate \textbf{demand forecasting}.
+	\item \textbf{Shortening Supply Lead Times}: Shortening the time from planning to production and supply, enabling rapid response.
+\end{enumerate}
+
+\subsection{Application and Case Analysis}
+
+\subsubsection{Example of Inter-departmental Conflicts (Inside a Manufacturer)}
+A manufacturer's internal departments often have conflicting `local optimization' objectives, as shown in these examples:
+\begin{itemize}
+	\item \textbf{Production Dept.}: Aims to reduce \textbf{manufacturing costs}. Wants `\textbf{large-lot} production' and stable operation to increase equipment utilization.
+	\item \textbf{Sales Dept.}: Aims to maximize \textbf{sales revenue}. Wants to secure `sufficient inventory' to avoid \textbf{opportunity loss} (stockouts).
+	\item \textbf{Procurement Dept.}: Aims to reduce \textbf{purchase unit price}. Wants long-term contracts with suppliers and `\textbf{large-lot} procurement' to lower unit prices.
+	\item \textbf{Logistics Dept.}: Aims to reduce \textbf{logistics costs} (especially delivery). Wants `\textbf{large-lot} delivery' to reduce the number of trips.
+\end{itemize}
+For example, if the sales department demands high-frequency, small-lot supply of a popular product, the production department's setup changes increase, raising manufacturing costs (a conflict of interest).
+
+\subsubsection{Example of Inter-enterprise Conflicts of Interest}
+This same conflict occurs between companies.
+\begin{itemize}
+	\item \textbf{Retailer} (e.g., convenience store): Demands `\textbf{high-frequency, small-lot} delivery' from manufacturers and wholesalers to avoid stockouts on store shelves.
+	\item \textbf{Manufacturer/Wholesaler}: Prefers `\textbf{planned, large-lot} delivery' to reduce logistics costs.
+\end{itemize}
+If these conflicts of interest persist, SCM will not function, as each organization will act to prioritize its own interests.
+
+\subsubsection{The Resolution Process via Supply and Demand Planning}
+`Supply and demand planning', a means of resolving trade-offs, typically follows this workflow in a make-to-stock manufacturer:
+\begin{enumerate}
+	\item \textbf{Demand Forecasting}: Predicting how much of a product will sell. Must be based on objective causality and patterns.
+	\item \textbf{Inventory Planning}: Estimating the `error' in the demand forecast and planning optimal inventory levels to prevent stockouts.
+	\item \textbf{Production Planning}: Planning what, when, and how much to make based on the inventory plan. This is where supply-side `\textbf{constraints}' (e.g., the washbasin case, equipment capacity, labor, manufacturing costs) are considered.
+	\item \textbf{Procurement/Delivery Planning}: Raw material procurement plans and product delivery plans are formulated based on the production plan.
+\end{enumerate}
+
+\subsubsection{Product Groups Where Forecast Accuracy Issues Become Apparent}
+In the modern era of high-mix, low-volume production and short lifecycles, the problem of demand forecast accuracy (stockouts and excess inventory due to forecast errors) is worsening. It is particularly noticeable in these product groups:
+\begin{itemize}
+	\item \textbf{Seasonal Products}: Air conditioners, beer, Valentine's Day chocolate, etc., which are affected by climate change.
+	\item \textbf{Commodity Products}: PCs, digital cameras, etc., where differentiation by function is difficult and competition for market share is intense.
+	\item \textbf{Fashion Products}: Fashion apparel, etc., whose value plummets once the trend has passed.
+\end{itemize}
+
+\subsection{Deeper Context and Lessons}
+
+\textbf{\paragraph{Subjectivity in Demand Forecasting: The `Desired Sales Volume' Trap}}
+\textbf{Demand forecasting}, the starting point of supply and demand planning, must inherently be based on objective data (causality, patterns). In reality, however, it often becomes a subjective `\textbf{desired sales volume}' that reflects the sales staff's past experience, intuition, or `intentions and goals' (`this is how much we want to sell'). This is fundamentally different from an objective `forecast' and is the first step in distorting the accuracy of the entire supply and demand plan.
+
+\textbf{\paragraph{The Chain of Local Optimization and Inventory Buildup}}
+When presented with a low-accuracy demand forecast (or a subjective `desired sales volume'), how do the supply departments (production, procurement) react? They are responsible for `meeting the sales department's plan (desired volume)'. Fearing stockouts if the forecast is too low, they employ their `own departmental methods' to adjust the plan and secure extra safety stock, based on past experience.
+As a result, the supply and demand plan is not integrated across departments. Safety stock accumulates at each stage of the chain, leading to the problem of `\textbf{inventory not decreasing}'—the exact opposite of the SCM goal of `inventory reduction'.
+
+\textbf{\subsubsection*{AI Supplement: Expansion of Key Points --- The Mechanism of Lead Time Reduction}}
+This lecture cited `\textbf{shortening supply lead time}' alongside `supply and demand planning (forecast accuracy)' as a solution to trade-offs. This supplement explains why lead time reduction is indispensable for resolving trade-offs.
+
+The SCM trade-off (inventory vs. stockouts) essentially arises from `\textbf{demand uncertainty}' and `\textbf{response delays (lead time)}'.
+\begin{itemize}
+	\item \textbf{When Lead Time is Long}: It takes a long time to deliver to the customer. The company must therefore rely heavily on `\textbf{demand forecasts}'. It needs to perform large-scale `make-to-stock' production based on uncertain forecasts months in advance. If the forecast is wrong, excess inventory (unsold goods) and stockouts (opportunity loss) occur simultaneously.
+	\item \textbf{When Lead Time is Short}: If the time to deliver is shortened, the company no longer needs to rely on uncertain long-term forecasts. It becomes possible to produce and supply based on more accurate, recent demand, or even based on actual customer `\textbf{real demand} (orders)' (Demand Driven).
+\end{itemize}
+In short, \textbf{lead time reduction} enables a company's operations to shift from `forecast-dependent' to `\textbf{real-demand-driven}'. This dramatically reduces the `inventory' that existed only to absorb forecast errors, while also preventing `stockouts' by responding rapidly to real demand. This is the mechanism by which lead time reduction fundamentally resolves the trade-off.
+
+\subsection{Conclusion}
+This lecture demonstrated that SCM is not mere logistics improvement, but a management strategy that aims for optimization of the entire chain, transcending the barriers of departmental and corporate optimization.
+Its core concept is how to overcome the inevitable `\textbf{conflicts of interest}' and the resulting `\textbf{trade-offs}' (e.g., excess inventory vs. stockouts).
+The practical lesson from this lecture is that there are two pillars of management for resolving these trade-offs. One is to improve `\textbf{demand forecast accuracy}' and execute an integrated inter-departmental \textbf{supply and demand plan} (refining the plan). The other is to build a system capable of responding quickly to real demand by shortening `\textbf{supply lead times}', thereby reducing dependency on uncertain forecasts themselves (accelerating operations). These two are the twin wheels of SCM success.
+
+\subsection{Key Terms List}
+None
+
+\vspace{\baselineskip}
+Supply Chain Management (SCM), Operating Cash Flow, Conflict of Interest, Trade-off, Local Optimization, Global Optimization, Demand Forecasting, Supply and Demand Planning, Inventory Planning, Production Planning, Lead Time, Constraints, Stockout, Opportunity Loss, Commoditization
+
+\subsection{Comprehension Check Quiz}
+\begin{enumerate}
+	\item What specific financial metric does SCM aim to increase as its `performance-level objective'?
+	\item List the four `activity-level objectives' of SCM.
+	\item Through what mechanism do `conflicts of interest' that hinder SCM promotion arise?
+	\item Explain a typical conflict of interest that can occur between a manufacturer's production department and sales department.
+	\item Give two typical examples of `trade-offs' in SCM.
+	\item In SCM, why does attempting to reduce inventory (cost) increase the risk of stockouts (opportunity loss)?
+	\item What were the two primary approaches presented in the lecture for resolving SCM trade-offs?
+	\item In the `supply and demand planning' process, what is the first task that should be performed?
+	\item In an era of high-mix, low-volume production and short lifecycles, why does the problem of demand forecast accuracy become more severe?
+	\item What is the role of `inventory planning' in supply and demand planning? What aspect of the demand forecast must it estimate?
+	\item List two examples of `constraints' that must be considered when formulating a production plan.
+	\item Explain the problem with a sales department's demand forecast becoming a `subjective desired sales volume' rather than an `objective forecast'.
+	\item Why is `shortening supply lead time' effective in achieving both inventory reduction and stockout prevention (i.e., resolving the trade-off)?
+	\item Explain the conflict of interest regarding `high-frequency, small-lot delivery' that arises between manufacturers and retailers.
+	\item To shift a company's operations from `forecast-dependent' to `real-demand-driven', what is the most critical transformation?
+\end{enumerate}
+
+\subsubsection*{Answer Key}
+1. Increase in operating cash flow. 2. Cost reduction, excess inventory reduction, improvement of customer service (logistics service level), shortening of logistics lead time. 3. They arise because each department or company prioritizes its own performance evaluation (local optimization) based on its given role (mission), rather than prioritizing the optimization of the whole. 4. Example: The production dept. wants `large-lot production' to reduce manufacturing costs, while the sales dept. wants flexible `high-mix, small-lot' supply to avoid opportunity loss. 5. (1) Inventory level vs. stockout risk (service level), (2) Logistics cost vs. logistics service level (e.g., delivery frequency). 6. Because inventory functions as a buffer to absorb demand uncertainty (forecast errors), reducing that buffer makes stockouts more likely when demand spikes. 7. (1) Refining supply and demand planning (improving demand forecast accuracy), (2) Shortening supply lead times. 8. Demand forecasting. 9. The number of items to forecast increases, and the lifespan of each product shortens, making it harder to accumulate historical data. This increases forecast difficulty and the loss from errors (unsold goods). 10. To plan the optimal inventory level (safety stock) that prevents stockouts, based on estimating the demand forecast's `error'. 11. Production capacity of equipment or labor, manufacturing costs. 12. The starting point of the plan (the forecast) deviates from objective reality, distorting the subsequent inventory and production plans and ultimately causing excess inventory or stockouts. 13. Because shortened lead time allows production/supply to be based on more accurate, recent demand (or actual orders) rather than uncertain long-term forecasts, reducing the inventory (both excess and shortage) caused by forecast errors. 14. Retailers want `high-frequency, small-lot' delivery to avoid stockouts, while manufacturers (logistics dept.) want `large-lot' delivery to reduce delivery costs. 15. Shortening the supply (production/procurement) lead time.
+
+\end{document}
