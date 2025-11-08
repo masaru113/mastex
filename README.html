@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embedded Content</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* --------------------------------
+         * 1. 基本設定とリセット
+         * -------------------------------- */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f7f6;
+      /* 全体背景色 */
+      color: #333;
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* --------------------------------
+         * 2. レイアウト
+         * -------------------------------- */
+    .content-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 25px;
+      background-color: #ffffff;
+      /* コンテンツエリア背景色 */
+    }
+
+    /* --------------------------------
+         * 3. タイポグラフィ (見出し)
+         * -------------------------------- */
+    h1 {
+      font-size: 2.5rem;
+      color: #2c3e50;
+      font-weight: 700;
+      border-bottom: 3px solid #3498db;
+      padding-bottom: 10px;
+      margin-top: 0;
+      /* ラッパー直下の場合の余白リセット */
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #2c3e50;
+      font-weight: 700;
+      border-left: 5px solid #e74c3c;
+      padding-left: 15px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.75rem;
+      color: #34495e;
+      font-weight: 700;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+
+    h4 {
+      font-size: 1.5rem;
+      color: #34495e;
+      font-weight: 700;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    /* --------------------------------
+         * 4. 基本要素
+         * -------------------------------- */
+    p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style-position: inside;
+      padding-left: 20px;
+      margin-bottom: 15px;
+      /* pとの余白を合わせる */
+    }
+
+    ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #e74c3c;
+      /* 要件: 太字の色 */
+      font-weight: 700;
+      /* Roboto 700 を明示 */
+    }
+
+    a {
+      color: #3498db;
+      /* リンクの基本色 (任意) */
+    }
+
+    a:hover {
+      color: #2980b9;
+    }
+
+    /* --------------------------------
+         * 5. カードデザイン (必須コンポーネント)
+         * -------------------------------- */
+
+    /* カードコンテナ */
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      /* 折り返しを許可 */
+      gap: 25px;
+      /* カード間の隙間 */
+      margin-top: 15px;
+      /* リスト項目とのマージン */
+      margin-bottom: 15px;
+      /* * align-items: stretch; (デフォルト) 
+             * この設定により、ラップされた行ごとにアイテムの高さが揃えられます。
+             */
+    }
+
+    /* カード本体 */
+    .card {
+      /* 外観 */
+      background-color: #fdfdfd;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+      /* 内部レイアウト */
+      display: flex;
+      flex-direction: column;
+
+      /* === ▼▼▼ 修正点 ▼▼▼ === */
+      /* * height: 100%; を削除します。
+             * これにより、親コンテナの align-items: stretch が
+             * カードの高さを自動的に揃えるようになります。
+             */
+      /* height: 100%; */
+      /* === ▲▲▲ 修正点 ▲▲▲ === */
+
+
+      /* サイズ指定 (左揃え＆幅制御) */
+      flex-shrink: 1;
+      /* 縮小 */
+      width: 320px;
+      /* 固定幅を指定 */
+
+      /* インタラクション */
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* カード内コンテンツ */
+    .card-content {
+      padding: 20px;
+      flex-grow: 1;
+      /* フッターを最下部に固定するため (これが高さを吸収します) */
+    }
+
+    h5.card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-top: 0;
+      /* h5のデフォルトマージンをリセット */
+      margin-bottom: 15px;
+      /* 要件通り */
+    }
+
+    p.card-description {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 0;
+      /* フッターの直上なのでマージン除去 */
+    }
+
+    /* カードフッター (ボタンコンテナ) */
+    .card-footer {
+      padding: 0 20px 20px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      /* 2列均等 */
+      gap: 10px;
+      margin-top: auto;
+      /* コンテンツが少なくても最下部に配置 */
+    }
+
+    /* カードボタン */
+    a.card-button {
+      padding: 10px;
+      border-radius: 5px;
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      transition: opacity 0.3s ease;
+    }
+
+    a.card-button:hover {
+      opacity: 0.85;
+    }
+
+    /* ボタン種別 */
+    .btn-pdf {
+      background-color: #e74c3c;
+    }
+
+    .btn-source {
+      background-color: #3498db;
+    }
+
+    .btn-pdf-ja {
+      background-color: #2ecc71;
+    }
+
+    .btn-source-ja {
+      background-color: #9b59b6;
+    }
+
+    /* --------------------------------
+         * 6. レスポンシブ
+         * -------------------------------- */
+    @media (max-width: 768px) {
+      .content-wrapper {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 2.1rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+      }
+
+      h4 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="content-wrapper">
+
+    <h1>My Notes on Mathematics, Physics, and Financial Engineering</h1>
+
+    <hr>
+
+    <h2>Overview</h2>
+    <p>
+      This repository contains my personal notes on a wide range of topics in <strong>mathematics</strong>,
+      <strong>physics</strong>, and <strong>financial engineering</strong>. The notes range from theoretical concepts to
+      problem-solving exercises, documenting my learning journey. By sharing my knowledge and insights, I hope this
+      repository can serve as a useful resource for others exploring these fields, as well as a reference for my own
+      review.
+    </p>
+
+    <hr>
+
+    <h2>Contents</h2>
+    <p>The notes are organized within a parent directory named <code>tex</code>. All documents are written in LaTeX.</p>
+
+    <ul>
+      <li>
+        <strong>tex</strong>: Root directory for documents created with LaTeX.
+        <ul>
+          <li>
+            <strong>phys</strong>: Notes on physics.
+            <ul>
+              <li>
+                <strong>cond</strong>: Condensed matter.
+                <div class="card-container">
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">2-body mechanics in the Local Fermi Liquid</h5>
+                      <p class="card-description">Review of spin and charge susceptibilities and the Wilson ratio in the
+                        context of the local Fermi liquid theory for f-electron systems.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/LocalFermiLiquid/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/LocalFermiLiquid/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/LocalFermiLiquid/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/LocalFermiLiquid/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Anisotropic BCS Theory</h5>
+                      <p class="card-description">This is a comprehensive overview of anisotropic BCS theory, covering
+                        its historical background, theoretical formulation, and key concepts like Bogoliubov
+                        transformations and the symmetries of the superconducting gap function.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/anisotropic_superconductivity/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/anisotropic_superconductivity/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/anisotropic_superconductivity/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/anisotropic_superconductivity/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Anisotropic BCS-Nambu Green's Function in Spin Space</h5>
+                      <p class="card-description">This note introduces an anisotropic BCS mean-field Hamiltonian for
+                        spin-singlet and triplet pairing, diagonalizes it via Bogoliubov transformation, and
+                        subsequently derives the explicit expressions for the Nambu Green's function using the equation
+                        of motion method.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/nambu_spin_aniso_bcs_green_function/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/nambu_spin_aniso_bcs_green_function/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/nambu_spin_aniso_bcs_green_function/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/nambu_spin_aniso_bcs_green_function/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Gor'kov Equations Extended for Anisotropic Superconductivity and Their
+                        Solutions</h5>
+                      <p class="card-description">This note provides a theoretical derivation of the Gor'kov equations,
+                        extending them for application to anisotropic superconductivity.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/anisotropic_gorkov/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/anisotropic_gorkov/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/anisotropic_gorkov/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/anisotropic_gorkov/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Dynamic Structure Factor</h5>
+                      <p class="card-description">These are notes on the dynamic structure factor. The discussion is set
+                        in the context of neutron scattering.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/dynamic_structure_factor/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/dynamic_structure_factor/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/dynamic_structure_factor/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/dynamic_structure_factor/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Electronic Raman Dynamical Structure Factor</h5>
+                      <p class="card-description">This note defines the electronic Raman dynamical structure factor and
+                        shows its relation to the imaginary part of the response function using the Kubo formula within
+                        linear response theory.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/ElectronicRamanDynamicalStructureFactor/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/ElectronicRamanDynamicalStructureFactor/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/ElectronicRamanDynamicalStructureFactor/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/ElectronicRamanDynamicalStructureFactor/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Solutions to the Extended Gor’kov Equations for Anisotropic Superconductors
+                        and the Electronic Raman Response Function</h5>
+                      <p class="card-description">notes for review of the calculations from <a
+                          href="https://journals.jps.jp/doi/10.7566/JPSCP.3.015045" target="_blank"
+                          rel="noopener noreferrer">JPS Conf. Proc. 3, 015045 (2014)</a>.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/extended_gorkov_anisotropic_raman/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/extended_gorkov_anisotropic_raman/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/cond/extended_gorkov_anisotropic_raman/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/cond/extended_gorkov_anisotropic_raman/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                </div>
+              </li>
+              <li>
+                <strong>fnd</strong>: Foundations and Fundamentals.
+                <div class="card-container">
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Bosonic Strings Short Introduction</h5>
+                      <p class="card-description">Notes on short introduction about bosonic string.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/fnd/BozonicString/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/fnd/BozonicString/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/fnd/BozonicString/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/fnd/BozonicString/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Notes on the Derivation of the Chern-Simons Form</h5>
+                      <p class="card-description">Notes on a simple, from-scratch derivation of the Chern-Simons form.
+                      </p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/fnd/ChernSimonsForm/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/fnd/ChernSimonsForm/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/fnd/ChernSimonsForm/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/fnd/ChernSimonsForm/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Gaussian Integral using the Functional Renormalization Group</h5>
+                      <p class="card-description">A note presenting an introductory computational example of the fRG:
+                        using the functional renormalization group (fRG) to solve a Gaussian integral, for which an
+                        exact solution is known.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/fnd/FRG_GaussianIntegral/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/fnd/FRG_GaussianIntegral/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/fnd/FRG_GaussianIntegral/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/fnd/FRG_GaussianIntegral/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Massless Real Scalar Field in 5D Minkowski Space Gaining Mass Upon
+                        Compactification of One Spatial Dimension</h5>
+                      <p class="card-description">Notes on the mechanism of mass generation via compactification.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/fnd/KaluzaKleinMassGeneration/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/fnd/KaluzaKleinMassGeneration/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/fnd/KaluzaKleinMassGeneration/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/fnd/KaluzaKleinMassGeneration/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                </div>
+              </li>
+              <li>
+                <strong>neq</strong>: Nonequilibrium.
+                <div class="card-container">
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Keldysh Green Function</h5>
+                      <p class="card-description">Overview of the Keldysh Green function formalism, a method for
+                        analyzing non-equilibrium quantum systems.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/neq/KeldyshGreenFunction/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/neq/KeldyshGreenFunction/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/neq/KeldyshGreenFunction/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/neq/KeldyshGreenFunction/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Migdal-Eliashberg Theory in Nonequilibrium</h5>
+                      <p class="card-description">This note explores the Migdal-Eliashberg theory in nonequilibrium,
+                        deriving the superconducting gap equation within the Keldysh Green's function formalism.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/neq/MigdalEliashberg/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/neq/MigdalEliashberg/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/neq/MigdalEliashberg/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/neq/MigdalEliashberg/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Dirty limit. Quasiclassical Green function theta-parameterization</h5>
+                      <p class="card-description">This note derives a simplified differential equation from the Usadel
+                        equation in the dirty limit by applying a theta-parameterization to the quasiclassical Green
+                        function.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/neq/usadel_theta/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/neq/usadel_theta/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/neq/usadel_theta/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/neq/usadel_theta/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Solution of the theta-parametrized Usadel Equation at a
+                        Metal-Superconductor Interface</h5>
+                      <p class="card-description">This note details both the analytical solution using elliptic
+                        integrals and a numerical strategy using the Runge-Kutta method to solve the theta-parametrized
+                        Usadel equation at a metal-superconductor interface.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/neq/solution_usadel_theta/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/neq/solution_usadel_theta/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/phys/neq/solution_usadel_theta/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/phys/neq/solution_usadel_theta/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+
+                </div>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>qnt</strong>: Notes on financial engineering.
+            <div class="card-container">
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">The Black-Scholes-Merton Equation</h5>
+                  <p class="card-description">This document explains the Black-Scholes-Merton model, detailing its
+                    derivation and formula.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/BlackScholesMerton/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/BlackScholesMerton/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/BlackScholesMerton/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/BlackScholesMerton/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Ito's Lemma</h5>
+                  <p class="card-description">This notebook provides a derivation of Ito's Lemma, a fundamental concept
+                    in financial mathematics, and shows its application to the Black-Scholes-Merton equation for pricing
+                    stock options.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/ItoLemma/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/ItoLemma/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/ItoLemma/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/ItoLemma/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Martingale Representation Theorem</h5>
+                  <p class="card-description">Notes on martingales and the martingale representation theorem, exploring
+                    their conditions, key examples, and applications to stochastic processes like Brownian motion and
+                    geometric Brownian motion.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/MartingaleRepresentationTheorem/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/MartingaleRepresentationTheorem/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/MartingaleRepresentationTheorem/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/MartingaleRepresentationTheorem/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Arbitrage and Gauge Theory</h5>
+                  <p class="card-description">Notes examining the relationship between arbitrage in the foreign exchange
+                    market and gauge theory.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/GaugeTheoryInForex/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/GaugeTheoryInForex/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/GaugeTheoryInForex/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/GaugeTheoryInForex/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">American Options Without Dividends</h5>
+                  <p class="card-description">This note explains that an American option on a non-dividend-paying stock
+                    has the same value as a European option.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/NonDividendAmericanOption/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/NonDividendAmericanOption/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/NonDividendAmericanOption/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/NonDividendAmericanOption/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Measure Transformation via the Radon-Nikodym Derivative and the
+                    Cameron-Martin-Girsanov Theorem</h5>
+                  <p class="card-description">A note on measure transformation using the Radon-Nikodym derivative and
+                    the Cameron-Martin-Girsanov theorem, explaining how to switch between equivalent probability
+                    measures to transform a Brownian motion with drift.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/RadonNikodym_CameronMartinGirsanov/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/RadonNikodym_CameronMartinGirsanov/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/RadonNikodym_CameronMartinGirsanov/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/RadonNikodym_CameronMartinGirsanov/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Construction Strategy of a Hedging Portfolio Using a Replicating Portfolio</h5>
+                  <p class="card-description">Outlines a strategy for constructing a hedging portfolio using a
+                    replicating portfolio.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/ReplicatingPortfolio/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/ReplicatingPortfolio/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/ReplicatingPortfolio/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/ReplicatingPortfolio/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Stochastic Volatility and Local Volatility</h5>
+                  <p class="card-description">Note on stochastic volatility model derivation and market price of
+                    volatility risk analysis.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/StochasticAndLocalVolatility/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/StochasticAndLocalVolatility/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/StochasticAndLocalVolatility/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/StochasticAndLocalVolatility/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Finance Cheatsheet (Basic)</h5>
+                  <p class="card-description">A collection of <s>sad</s> formulas.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/basic_cheat_sheet/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/basic_cheat_sheet/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/basic_cheat_sheet/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/basic_cheat_sheet/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Stocks with Dividends</h5>
+                  <p class="card-description">This note provides a mathematical framework for pricing financial
+                    derivatives on dividend-paying stocks by adapting the Black-Scholes model.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/black_schorles_with_dividend/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/black_schorles_with_dividend/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/black_schorles_with_dividend/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/black_schorles_with_dividend/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Foreign Exchange and Numeraire</h5>
+                  <p class="card-description">Notes provides a breakdown of the Black-Scholes currency model,
+                    demonstrating through mathematical derivations how a derivative's price remains consistent whether
+                    valued from a dollar-based or a yen-based perspective by changing the numeraire.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/forex_and_numeraire/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/forex_and_numeraire/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/forex_and_numeraire/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/forex_and_numeraire/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Market Price of Risk</h5>
+                  <p class="card-description">These are notes on the market price of risk, explaining the concept of
+                    tradable assets using martingale theory and the Black-Scholes model.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/market_price_of_risk/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/market_price_of_risk/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/market_price_of_risk/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/market_price_of_risk/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Summary Notes on Quanto Derivatives (Reading from Baxter & Rennie, Chapter 4.5)
+                  </h5>
+                  <p class="card-description">Derives the pricing formulas for quanto forwards and options under a
+                    two-factor risk-neutral framework, based on Baxter & Rennie's Chapter 4.5.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/quanto_summary/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/quanto_summary/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/quanto_summary/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/quanto_summary/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Quanto</h5>
+                  <p class="card-description">These notes derive pricing for quanto forwards and digital options using a
+                    two-factor risk-neutral model.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/quantos/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/quantos/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/quantos/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/quantos/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Risk-Neutral Probabilities in a Binomial Tree Model</h5>
+                  <p class="card-description">In a binomial tree model, any derivative can be priced and replicated by a
+                    portfolio of stocks and bonds using a unique risk-neutral probability, which defines the limits of
+                    arbitrage.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/risk_neutral_prob_in_binomial_tree/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/risk_neutral_prob_in_binomial_tree/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/qnt/risk_neutral_prob_in_binomial_tree/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/qnt/risk_neutral_prob_in_binomial_tree/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+
+            </div>
+          </li>
+
+          <li>
+            <strong>math</strong>: Notes on mathematics.
+            <ul>
+              <li>
+                <strong>alg</strong>: Folder for topics related to algebra.
+                <div class="card-container">
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Tensor Algebra</h5>
+                      <p class="card-description">Introductory memo on tensor algebra.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/alg/TensorAlgebra/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/alg/TensorAlgebra/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/alg/TensorAlgebra/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/alg/TensorAlgebra/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <strong>anl</strong>: Folder for topics related to analysis.
+                <div class="card-container">
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">The Values of the Riemann Zeta Function at Negative Integers</h5>
+                      <p class="card-description">memo on analytic continuation of Riemann zeta to negative integers.
+                      </p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/anl/ZetaAnalyticContinuation/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/anl/ZetaAnalyticContinuation/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/anl/ZetaAnalyticContinuation/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Runge-Kutta Method</h5>
+                      <p class="card-description">This note introduces the 1st-order (Euler), 2nd-order (Heun), and
+                        4th-order (RK4) Runge-Kutta methods for the numerical solution of ordinary differential
+                        equations.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/anl/rk4/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/anl/rk4/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/anl/rk4/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/anl/rk4/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <strong>cat</strong>: Foundational notes on category theory.
+                <div class="card-container">
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Adjunction</h5>
+                      <p class="card-description">A definition of adjoint functors, including the concept of naturality,
+                        and introductory examples.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/adjunction/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/adjunction/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/adjunction/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/adjunction/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">An Introduction to Adjunctions (Reading from Steve Awodey, Chapter 9.1)
+                      </h5>
+                      <p class="card-description">These notes summarize Steve Awodey's definition of an adjunction by
+                        first exploring the free-forgetful example and then rigorously proving that the diagonal functor
+                        is left adjoint to the product functor.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/AdjunctionAwodey/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/AdjunctionAwodey/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/AdjunctionAwodey/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/AdjunctionAwodey/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">A First Step into Category Theory</h5>
+                      <p class="card-description">Definition of categories and specific examples.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/category_first_step/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/category_first_step/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/category_first_step/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/category_first_step/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Functors Connecting Physics and Finance</h5>
+                      <p class="card-description">Notes on functors and their applications in financial engineering and
+                        quantum mechanics.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/functor/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/functor/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/functor/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/functor/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Natural Transformations and the Yoneda Lemma</h5>
+                      <p class="card-description">Notes on natural transformations.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/natural_transformation/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/natural_transformation/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/natural_transformation/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/natural_transformation/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Unified View of Monoids, Groups, Topological Groups, and Lie Groups</h5>
+                      <p class="card-description">Notes on review the definitions of monoids, groups, topological
+                        groups, and Lie groups using category-theoretic diagrams.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/mon_grp_topg_lie/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/mon_grp_topg_lie/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/mon_grp_topg_lie/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/mon_grp_topg_lie/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Bogoliubov Transformation as a Natural Transformation</h5>
+                      <p class="card-description">Notes on the relationship between Bogoliubov transformations and
+                        natural transformations.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/BogoliubovTrans_as_NaturalTrans/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/BogoliubovTrans_as_NaturalTrans/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/BogoliubovTrans_as_NaturalTrans/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/BogoliubovTrans_as_NaturalTrans/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Limits in Category Theory</h5>
+                      <p class="card-description">Notes on limits in category theory.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/limit_intro/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/limit_intro/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/limit_intro/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/limit_intro/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Yoneda's Lemma, Analogies and Proof</h5>
+                      <p class="card-description">Notes on Yoneda's Lemma. Analogies and proof.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/Yoneda/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/Yoneda/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/cat/Yoneda/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/cat/Yoneda/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <strong>top</strong>: Folder for topics related to topological spaces.
+                <div class="card-container">
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Topology of Matrices</h5>
+                      <p class="card-description">Notes on topologies on matrices and supplement with a note on unitary
+                        groups and quantum mechanics.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/top/MatrixTopology/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/top/MatrixTopology/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/top/MatrixTopology/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/top/MatrixTopology/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Sierpinski Space</h5>
+                      <p class="card-description">Notes on Sierpinski space.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/top/sierpinski_space/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/top/sierpinski_space/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/top/sierpinski_space/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/top/sierpinski_space/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">An Introduction to Topological Groups</h5>
+                      <p class="card-description">Notes on introduction to topological group</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/top/topological_group_first_step/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/top/topological_group_first_step/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/top/topological_group_first_step/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <strong>stat</strong>: Folder for topics related to statistics.
+                <div class="card-container">
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">AR Model</h5>
+                      <p class="card-description">memo on AR model</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/stat/AR/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/stat/AR/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/math/stat/AR/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/math/stat/AR/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>ml</strong>: machine learning
+            <div class="card-container">
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Notes on Support Vector Regression</h5>
+                  <p class="card-description">These notes offer a technical explanation of Support Vector Regression,
+                    detailing its linear formulation, loss functions, hyperparameters, the extension to non-linear cases
+                    using kernel functions, and an applied example for time series prediction.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/ml/SupportVectorRegression/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/ml/SupportVectorRegression/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/main_ja.pdf" class="card-button btn-pdf-ja"
+                    target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/ml/SupportVectorRegression/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <strong>slide</strong>: slides
+            <div class="card-container">
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Algorithmic Trading</h5>
+                  <p class="card-description">This presentation provides a comprehensive overview of algorithmic
+                    trading, covering its definition, objectives, classifications, users, and the controversial aspects
+                    of High-Frequency Trading (HFT).</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/slide/algotrade/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/slide/algotrade/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/slide/algotrade/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/slide/algotrade/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Alpha Error and Beta Error</h5>
+                  <p class="card-description">This presentation explains the fundamental statistical trade-off between
+                    the alpha error (an 'alarmist's' false positive) and the beta error (a 'blockhead's' missed
+                    detection), demonstrating how statistical testing uses a significance level to balance these risks
+                    when making decisions.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/slide/alpha_beta_error/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="httpsS://github.com/masaru113/mastex/blob/main/tex/slide/alpha_beta_error/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/slide/alpha_beta_error/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/slide/alpha_beta_error/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Fundamentals of Statistical Estimation (Work in Progress)</h5>
+                  <p class="card-description">This presentation covers the fundamental concepts of statistical
+                    estimation, focusing on the distinction between population and sample, the types and designs of
+                    statistical research (experimental vs. observational studies), and the crucial sampling methods used
+                    for inference. (Work In Progress.)</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/slide/population_and_sample/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/slide/population_and_sample/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/slide/population_and_sample/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/slide/population_and_sample/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <strong>log</strong>: misc.
+            <div class="card-container">
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Nov. 2025</h5>
+                  <p class="card-description">note.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/log/2025/11/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/log/2025/11/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/log/2025/11/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/log/2025/11/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Oct. 2025</h5>
+                  <p class="card-description">note.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/log/2025/10/main_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/log/2025/10/main_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <strong>cv</strong>: Resume
+            <div class="card-container">
+              <div class="card">
+                <div class="card-content">
+                  <h5 class="card-title">Resume</h5>
+                  <p class="card-description">A short summary of my career.</p>
+                </div>
+                <div class="card-footer">
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/cv/masked/resume.pdf"
+                    class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/cv/masked/resume.pdf"
+                    class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                  <a href="https://github.com/masaru113/mastex/raw/main/tex/cv/masked/resume_ja.pdf"
+                    class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                  <a href="https://github.com/masaru113/mastex/blob/main/tex/cv/masked/resume_ja.pdf"
+                    class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <strong>mba</strong>: lecture notes
+            <ul>
+              <li>
+                Marketing
+                <div class="card-container">
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 1: The definition of marketing</h5>
+                      <p class="card-description">These lecture notes systematically review the definition of marketing
+                        as an evolving, scientific process of value co-creation, emphasizing its core objective of
+                        achieving long-term profit via customer satisfaction by navigating a market characterized by
+                        differentiation, segmentation, and change, and executing strategies through two distinct phases:
+                        the 'Market Phase' (BtoC) and the 'Relationship Phase' (BtoB).</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/marketing/ch01/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/marketing/ch01/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/marketing/ch01/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/marketing/ch01/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 2: Product differentiation</h5>
+                      <p class="card-description">These lecture notes provide a comprehensive overview of product
+                        differentiation, starting from its core purpose of gaining pricing power against competition,
+                        moving to strategic positioning using product attributes, and finally exploring advanced
+                        differentiation through service, channels, and underlying organizational processes.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/marketing/ch02/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/marketing/ch02/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/marketing/ch02/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/marketing/ch02/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 3: Market Segmentation</h5>
+                      <p class="card-description">This comprehensive set of lecture notes for Chapter 3 of a marketing
+                        strategy course details the principles and practical applications of market segmentation,
+                        targeting, and positioning (STP).</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/marketing/ch03/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/marketing/ch03/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/marketing/ch03/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/marketing/ch03/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 4: The Product Life Cycle</h5>
+                      <p class="card-description">The Product Life Cycle (PLC) serves as a critical diagnostic framework
+                        for managers to dynamically align marketing strategy—from market creation to competitive
+                        differentiation and strategic withdrawal—with the evolving market context and the changing
+                        consumer adoption stages.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/marketing/ch04/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/marketing/ch04/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/marketing/ch04/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/marketing/ch04/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                Operations Management
+                <div class="card-container">
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 0 (Supplement): FinTech and Operations Management</h5>
+                      <p class="card-description">These lecture notes present a consolidated analysis of FinTech through
+                        the lens of Management of Technology (MOT), characterizing it as a 'modular, open-standard'
+                        architecture that necessitates a strategic pivot from traditional 'cream-skimming'
+                        (Pareto-based) to 'bowling pin' (Long Tail/platform) operations, thereby threatening Japan's
+                        'integral' (suriawase) business models with value chain commoditization unless they can evolve
+                        to secure platform leadership.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch00/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch00/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch00/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch00/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 1: Background and Problem Awareness of this Course</h5>
+                      <p class="card-description">These notes summarize the course's core premise: redefining Operations
+                        Management not as mere technical efficiency (the "How"), but as a strategic, IT-integrated
+                        discipline (the "What") requiring a "CXO" perspective to overcome the strategic mismatches that
+                        led to Japanese business failures like the Tokyo Skytree and "Gara-Kei" phones.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch01/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch01/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch01/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch01/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 2: IT Concepts and Business Reform</h5>
+                      <p class="card-description">These Operations Management lecture notes detail the historical
+                        evolution of Information Technology, charting its progression from mainframes to personal
+                        computers and the internet, and analyzing how this technological shift drove the fusion of
+                        concepts like ERP and SCM with modern business process reform. aaaaa</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch02/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch02/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch02/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch02/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 3: Supply Chain Management 1</h5>
+                      <p class="card-description">These Lecture 3 notes on Operations Management trace the historical
+                        trajectory of Supply Chain Management (SCM), analyzing its conceptual origins (JIT, QR), the
+                        pivotal US-Japan auto industry friction that shaped its development, and its strategic evolution
+                        through three generations, exemplified by cases like Benetton and fast fashion.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch03/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch03/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch03/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch03/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 4: Supply Chain Management 2</h5>
+                      <p class="card-description">These lecture notes on operations management explain that the core
+                        concept of Supply Chain Management (SCM) is to overcome inter-organizational conflicts of
+                        interest and trade-offs—which manifest as issues like the Bullwhip Effect—by leveraging evolving
+                        inter-enterprise information networks (from EDI to open platforms) and implementing
+                        sophisticated supply-and-demand planning and lead time reduction, ultimately aiming to increase
+                        operating cash flow.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch04/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch04/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/operations_management/ch04/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/operations_management/ch04/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                Research Ethics
+                <div class="card-container">
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 1: Overview of Research Ethics</h5>
+                      <p class="card-description">These lecture notes meticulously outline the foundational principles
+                        of research ethics within a business school context, detailing specific types of academic
+                        misconduct (fabrication, falsification, plagiarism), the institutional guidelines and committee
+                        structures (like the FD/SD Committee) established to prevent them, and the critical procedures
+                        required for research involving human subjects, most notably the imperative of obtaining
+                        informed consent.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/ResearchEthics/ch01/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/ResearchEthics/ch01/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/ResearchEthics/ch01/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/ResearchEthics/ch01/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content">
+                      <h5 class="card-title">Lecture 2: Reference and Citation Methods</h5>
+                      <p class="card-description">This comprehensive guide details the principles of research ethics
+                        (FFP), the evaluation of source credibility, the legal distinctions of copyright, and the
+                        practical application of citation styles like Harvard and APA to ensure academic integrity for
+                        MBA students.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/ResearchEthics/ch02/main.pdf"
+                        class="card-button btn-pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/ResearchEthics/ch02/main.pdf"
+                        class="card-button btn-source" target="_blank" rel="noopener noreferrer">source</a>
+                      <a href="https://github.com/masaru113/mastex/raw/main/tex/mba/ResearchEthics/ch02/main_ja.pdf"
+                        class="card-button btn-pdf-ja" target="_blank" rel="noopener noreferrer">PDF(ja)</a>
+                      <a href="https://github.com/masaru113/mastex/blob/main/tex/mba/ResearchEthics/ch02/main_ja.pdf"
+                        class="card-button btn-source-ja" target="_blank" rel="noopener noreferrer">source(ja)</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <hr>
+
+    <h2>License and Usage</h2>
+    <p>© 2025 Masaru Okada. All rights reserved.<br>
+      Unauthorized automated scraping or mirroring of this repository is prohibited.<br>
+      You may view and reference this repository for personal or academic purposes, but redistribution or automated
+      collection without permission is not allowed.</p>
+
+  </main>
+
+</body>
+
+</html>
