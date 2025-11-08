@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{here}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{
+サポートベクター回帰予測についてのメモ
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+\date{ \today }
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	機械学習のtipsとして、回帰手法の一つのサポートベクター回帰について解説します。
+\end{abstract}
+
+\section{線形サポートベクター回帰}
+
+まずはシンプルな線形サポートベクター回帰から始めます。
+
+線形サポートベクターでは線形モデルのみを扱います。
+
+この範囲では線形予測モデルは次のように表現されます。
+
+$$
+	\displaystyle h_{\theta}(x) = \theta^{T} x + \theta_{0}
+$$
+
+ここで、
+$$
+	x=(x_{1}, x_{2}, \cdots , x_{n})^{T} \in \mathbb{R}^{n}
+$$
+は特徴量（訓練データ）、
+$$
+	\theta=( \theta_{0}, \theta_{1}, \theta_{2}, \cdots, \theta_{n} )^{T} \in \mathbb{R}^{n+1}
+$$
+はバイアスパラメータと呼ばれるモデルの係数でそれぞれ $n$ 次元、$n+1$ 次元のベクトルです。
+
+サポートベクター回帰による解（モデル、すなわちバイアスパラメータ $\theta$ ）は、次で表される損失関数 $J(\theta)$ を（条件付きで）最小化する問題の解として表されます。
+
+$$
+	\displaystyle J(\theta) = C \sum_{i=1}^{n} \left( \xi^{(i)} + \hat{\xi^{(i)}} \right) + \dfrac{1}{2} \sum_{j=1}^{n} \theta_{j}^{2}
+$$
+
+この第1項はマージン違反の損失関数、第2項はL2正則化の損失関数と言います。
+ここで $ \xi, \hat{\xi} \in \mathbb{R}^{n}$ となるベクトルです。
+
+ただし、損失関数 $J(\theta)$ 最小化問題の制約条件としてサポートベクター回帰では以下の条件が付随します。
+
+$$
+	y^{(i)} \leq h_{\theta}(x^{(i)}) + \varepsilon + \xi^{(i)}
+$$
+
+$$
+	y^{(i)} \geq h_{\theta}(x^{(i)}) - \varepsilon - \hat{\xi^{(i)}}
+$$
+
+$$
+	\xi^{(i)} \geq 0
+$$
+
+$$\hat{\xi^{(i)}} \geq 0
+$$
+
+ここで $y \in \mathbb{R}^{n}$ は正解データです。
+
+$C$ と $\varepsilon$ は人間が手でチューニングする1次元の値のパラメータになります。（こういった機械学習モデルに付随するパラメータをハイパーパラメータと呼びます。）
+
+すなわち、（単に式を移項しただけですが、）
+
+$$
+	\displaystyle \xi = y - \left( h_{\theta}(x) + \varepsilon  \right)
+$$
+
+$$
+	\displaystyle \hat{\xi} = \left( h_{\theta}(x) - \varepsilon  \right) - y
+$$
+
+はそれぞれ正解データと予測モデルの上側または下側の差分であり、そこに $ \varepsilon $ の幅（これを「チューブ」と言います）を持たせた領域を最小化問題を解くことで予測をします。
+
+\subsection{ハイパーパラメータ $C$}
+
+サポートベクター回帰のアルゴリズムの誤差は $\varepsilon$ チューブの上側と下側でそれぞれ $\xi, \hat{\xi}$ だけ発生しますが、例えばチューブ上部の誤差 $\xi$ は正解 $y$ と予測モデル $h_{\theta}(x) + \varepsilon$ の残差になっています。
+$C$ の値が大きいほど正解 $y$ がチューブから離れたときの残差 $\xi$ が大きくなり、マージン違反の損失関数の影響が大きくなります。
+
+\subsection{ハイパーパラメータ $\varepsilon$}
+
+$J(\theta)$ の条件付き最小化問題はラグランジュの未定乗数法を用いることが有効です。
+ラグランジュの未定乗数法を用いると、ラグランジアンと呼ばれる関数 $L$ が次のように書かれることが分かります。
+
+$$
+	\displaystyle L(a , \hat{a} ) = - \dfrac{1}{2} \sum_{i,j} (a^{(i)} - \hat{a}^{(i)}) (a^{(j)} - \hat{a}^{(j)}) K (x^{(i)} , x^{(j)}) - \varepsilon \sum_{i} (a^{(i)} + \hat{a}^{(i)}) + \varepsilon \sum_{i} (a^{(i)} - \hat{a}^{(i)}) y^{(i)}
+$$
+
+ここで $K$ はカーネル関数と呼ばれる関数です。
+線形サポートベクターでは
+$$
+	K (x^{(i)} , x) = ((x^{(i)})^{T} x)
+$$
+のようにベクトルの内積になります。
+$a,\hat{a} \in \mathbb{R}^{n}$は $\varepsilon$ チューブの外側（それぞれチューブの上側、下側）の訓練データで、サポートベクターと呼ばれます。
+このラグランジアン $ L(a , \hat{a} )$ の最小値を求めることでモデルが得られるわけですが、ここから $\varepsilon$ チューブの外側の訓練データ（サポートベクター）のみでモデルが生成されることが分かります。
+
+未定乗数法から $J(\theta)$ を極小化する $\theta$ は以下の式で表されます。
+
+$$
+	\displaystyle \theta = \sum_{i} (a^{(i)} - \hat{a}^{(i)}) x^{(i)}
+$$
+
+これを予測モデル
+$$
+	\displaystyle h_{\theta}(x) = \theta^{T} x + \theta_{0}
+$$
+に代入すると、
+
+$$
+	\displaystyle h_{\theta}(x) = \sum_{i} (a^{(i)} - \hat{a}^{(i)}) ((x^{(i)})^{T} x) + \theta_{0}
+$$
+が得られます。
+
+\section{サポートベクター回帰}
+
+これまで見てきたカーネル関数が内積の場合は線形サポートベクター回帰と呼びます。
+ここからはサポートベクター回帰を非線形な場合にも拡張することを考えます。
+先ほどの予測モデルの式に出てきた内積を次のようにカーネル関数 $K$ を用いて書き換えます。
+
+$$
+	\displaystyle h_{\theta}(x) = \sum_{i} (a^{(i)} - \hat{a}^{(i)}) K(x^{(i)}, x) + \theta_{0}
+$$
+
+カーネル関数の具体例としては
+
+線形カーネル :
+$$
+	\displaystyle K(x^{(i)}, x) = ((x^{(i)})^{T} x)
+$$
+
+ガウシアンカーネル :
+$$
+	\displaystyle K(x^{(i)}, x) = \exp ( -\gamma | x^{(i)} - x|^{2}) \ \ \
+	{\rm where} \ \ \ \gamma = \dfrac{1}{2 \sigma^{2}}
+$$
+ここで $\sigma^{2}$ はガウシアンの分散です。
+
+他にも多項式カーネルやシグモイドカーネルも利用されます。
+
+カーネルの関数形もハイパーパラメータの一つです。
+
+\section{時系列データの推移予測のハイパーパラメータ}
+
+以上がざっくりとしたサポートベクター回帰の説明になります。
+
+例として今回用いたハイパーパラメータは以下のようになっています。
+
+\begin{table}[h]
+	\caption{時系列データの推移予測のハイパーパラメータ}
+	\label{table:hyperparams}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$C$ & $\varepsilon$ & $K$       & $\gamma$        \\
+		\hline
+		100 & 7             & ガウシアンカーネル & $(\dim x)^{-1}$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+パラメータ空間の中を走査して誤差が最も少ないパラメータセットを選ぶというのが通常やられることだと思いますが、今回は決め打ちでやりました。
+
+本気でやるなら曜日ごと、週ごとに回帰を用いたり、土日祝だけフラグを立てる等でさらに予測精度が改善されると思いますが、今回はあえてここまでしか詰めていないです。
+
+これ以上まじめに精度を出すにはそもそもサポートベクター回帰とは異なる手法の方が向いていそうと感じた為です。
+
+次にはXGBoost、LightGBMといった別の方法で試してみて、また今回のように簡単に解説する記事を書きたいと思います。
+
+
+
+
+\end{document}

@@ -1,0 +1,182 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{here}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{
+Notes on Support Vector Regression
+}
+
+\author{
+Masaru Okada
+}
+\date{ \today }
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	This document provides an overview of Support Vector Regression, a regression technique, as a machine learning tip.
+\end{abstract}
+
+\section{Linear Support Vector Regression}
+
+Let's start with simple Linear Support Vector Regression.
+
+Linear Support Vector Regression deals only with linear models.
+
+In this context, the linear prediction model is expressed as follows:
+
+$$
+	\displaystyle h_{\theta}(x) = \theta^{T} x + \theta_{0}
+$$
+
+Here,
+$$
+	x=(x_{1}, x_{2}, \cdots , x_{n})^{T} \in \mathbb{R}^{n}
+$$
+is the feature vector (training data), and
+$$
+	\theta=( \theta_{0}, \theta_{1}, \theta_{2}, \cdots, \theta_{n} )^{T} \in \mathbb{R}^{n+1}
+$$
+are the model's coefficients, known as the bias parameters; these are $n$-dimensional and $(n+1)$-dimensional vectors, respectively.
+
+The solution from Support Vector Regression (the model, i.e., the bias parameters $\theta$) is expressed as the solution to the (constrained) minimization problem for the loss function $J(\theta)$, given by:
+
+$$
+	\displaystyle J(\theta) = C \sum_{i=1}^{n} \left( \xi^{(i)} + \hat{\xi^{(i)}} \right) + \dfrac{1}{2} \sum_{j=1}^{n} \theta_{j}^{2}
+$$
+
+The first term is called the margin violation loss function, and the second term is the L2 regularization loss function.
+Here, $ \xi, \hat{\xi} \in \mathbb{R}^{n}$ are vectors.
+
+However, the minimization problem for the loss function $J(\theta)$ in Support Vector Regression is subject to the following constraints:
+
+$$
+	y^{(i)} \leq h_{\theta}(x^{(i)}) + \varepsilon + \xi^{(i)}
+$$
+
+$$
+	y^{(i)} \geq h_{\theta}(x^{(i)}) - \varepsilon - \hat{\xi^{(i)}}
+$$
+
+$$
+	\xi^{(i)} \geq 0
+$$
+
+$$\hat{\xi^{(i)}} \geq 0
+$$
+
+Here, $y \in \mathbb{R}^{n}$ is the target data.
+
+$C$ and $\varepsilon$ are 1-dimensional parameters tuned manually by humans. (Such parameters associated with machine learning models are called hyperparameters.)
+
+In other words, (simply by rearranging the terms,)
+
+$$
+	\displaystyle \xi = y - \left( h_{\theta}(x) + \varepsilon \right)
+$$
+
+$$
+	\displaystyle \hat{\xi} = \left( h_{\theta}(x) - \varepsilon \right) - y
+$$
+
+These represent the differences between the target data and the upper and lower bounds of the prediction model, respectively. The prediction is made by solving the minimization problem for the region defined by this $ \varepsilon $ width (which is called the 'tube').
+
+\subsection{Hyperparameter $C$}
+
+The error in the Support Vector Regression algorithm is represented by $\xi$ and $\hat{\xi}$ on the upper and lower sides of the $\varepsilon$-tube, respectively. For example, the error $\xi$ above the tube is the residual between the target $y$ and the prediction model $h_{\theta}(x) + \varepsilon$.
+The larger the value of $C$, the greater the residual $\xi$ when the target $y$ is far from the tube, and thus the greater the influence of the margin violation loss function.
+
+\subsection{Hyperparameter $\varepsilon$}
+
+Using the method of Lagrange multipliers is effective for the constrained minimization problem of $J(\theta)$.
+Applying the method of Lagrange multipliers, the function $L$, known as the Lagrangian, can be written as follows:
+
+$$
+	\displaystyle L(a , \hat{a} ) = - \dfrac{1}{2} \sum_{i,j} (a^{(i)} - \hat{a}^{(i)}) (a^{(j)} - \hat{a}^{(j)}) K (x^{(i)} , x^{(j)}) - \varepsilon \sum_{i} (a^{(i)} + \hat{a}^{(i)}) + \varepsilon \sum_{i} (a^{(i)} - \hat{a}^{(i)}) y^{(i)}
+$$
+
+Here, $K$ is a function called the kernel function.
+In Linear Support Vector Regression,
+$$
+	K (x^{(i)} , x) = ((x^{(i)})^{T} x)
+$$
+it becomes the inner product of the vectors.
+$a, \hat{a} \in \mathbb{R}^{n}$ represent the training data points outside the $\varepsilon$-tube (on the upper and lower sides, respectively), and are called support vectors.
+The model is obtained by finding the minimum value of this Lagrangian $ L(a , \hat{a} )$. From this, it is clear that the model is generated only from the training data outside the $\varepsilon$-tube (the support vectors).
+
+From the method of multipliers, $\theta$ which minimizes $J(\theta)$ is expressed by the following equation:
+
+$$
+	\displaystyle \theta = \sum_{i} (a^{(i)} - \hat{a}^{(i)}) x^{(i)}
+$$
+
+Substituting this into the prediction model
+$$
+	\displaystyle h_{\theta}(x) = \theta^{T} x + \theta_{0}
+$$
+yields:
+
+$$
+	\displaystyle h_{\theta}(x) = \sum_{i} (a^{(i)} - \hat{a}^{(i)}) ((x^{(i)})^{T} x) + \theta_{0}
+$$
+
+\section{Support Vector Regression}
+
+As we have seen, when the kernel function is an inner product, it is called Linear Support Vector Regression.
+Now, let's consider extending Support Vector Regression to non-linear cases.
+The inner product in the prediction model equation is rewritten using the kernel function $K$ as follows:
+
+$$
+	\displaystyle h_{\theta}(x) = \sum_{i} (a^{(i)} - \hat{a}^{(i)}) K(x^{(i)}, x) + \theta_{0}
+$$
+
+Specific examples of kernel functions include:
+
+Linear kernel:
+$$
+	\displaystyle K(x^{(i)}, x) = ((x^{(i)})^{T} x)
+$$
+
+Gaussian kernel:
+$$
+	\displaystyle K(x^{(i)}, x) = \exp ( -\gamma | x^{(i)} - x|^{2}) \ \ \
+	{\rm where} \ \ \ \gamma = \dfrac{1}{2 \sigma^{2}}
+$$
+Here, $\sigma^{2}$ is the variance of the Gaussian.
+
+Polynomial and sigmoid kernels are also used.
+
+The functional form of the kernel is also a hyperparameter.
+
+\section{Hyperparameters for Time Series Trend Prediction}
+
+The above provides a rough explanation of Support Vector Regression.
+
+As an example, the hyperparameters used in this case are as follows:
+
+\begin{table}[h]
+	\caption{Hyperparameters for time series trend prediction}
+	\label{table:hyperparams}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$C$ & $\varepsilon$ & $K$ & $\gamma$ \\
+		\hline
+		100 & 7 & Gaussian kernel & $(\dim x)^{-1}$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Although one would typically scan the parameter space to select the parameter set with the smallest error, this time they were fixed arbitrarily.
+
+For a more serious attempt, prediction accuracy could likely be further improved by applying regression for each day of the week or each week, or by setting flags for weekends and holidays. However, this exploration was intentionally limited.
+
+This is because it felt that a method different from Support Vector Regression might be more suitable for achieving higher accuracy more earnestly.
+
+The next step is to try other methods, such as XGBoost and LightGBM, and then write another article providing a simple explanation, much like this one.
+
+\end{document}
