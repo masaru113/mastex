@@ -1,159 +1,86 @@
-\documentclass[dvipdfmx, autodetect-engine, aspectratio=169, 10.5pt]{beamer}
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{enumitem}
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
 
-\usetheme{Boadilla}
-\usetheme{Marburg}
-\usecolortheme{orchid}
-\usefonttheme{professionalfonts}
-
-\title{$\alpha$ Errors and $\beta$ Errors}
-\author{M. O.}
+\title{Reading Notes on $\alpha$ and $\beta$ Errors}
+\author{Masaru Okada}
 \date{\today}
 
 \begin{document}
 
-\begin{frame}[plain]
-	\titlepage
-\end{frame}
+\maketitle
 
-\begin{frame}{Contents}
-	\tableofcontents
-\end{frame}
+\section{The Concept of Statistical Significance and Its Practicality}
+In statistical discussion, the expression '\textbf{statistically significant}' carries a meaning far more critical than a mere numerical difference in magnitude. Consider, for example, a major corporation where a new initiative contributes to an annual sales increase of only one yen; from a practical standpoint, this information is almost meaningless. Yet, even if this extremely minuscule and 'imperceptible difference' is present, statistical science deems the difference '\textbf{significant}' if objective evidence suggests it's unlikely to have arisen from the \textbf{random variability of data} (random noise).
 
-\section{Statistical Significance}
+\subsection{Statistical Significance versus Practical Importance}
+Typically, some difference will emerge in representative values like the mean or proportion between two groups—say, a group trialing a new marketing method and a control group using the conventional one. Given data variability, this is natural. However, when the difference is \textbf{substantial} enough, for instance, exceeding two standard deviations ($\pm 2SD$) of the data, it's considered reasonable to assume a systematic underlying factor, or a 'meaningful difference,' rather than simple chance. This criterion serves as a benchmark for judging statistical significance. The essence of this concept, though, lies not in the \textbf{magnitude} of the difference, but in the \textbf{low probability that the difference is attributable to chance}. What we seek to ascertain is whether the observed difference is a repeatable, \textbf{essential difference}, not just a matter of 'happenstance.'
 
-\begin{frame}{Statistical Significance}
-	For example, in a large corporation, information that 'a factor causing a one-yen difference in annual sales has been found' cannot be said to be very meaningful.
-	\begin{itemize}
-		\item However, even if this difference of only one yen seems meaningless, if it is unlikely to have occurred by chance data variability, it is said to be statistically 'significant'.
-		\item Typically, it is quite normal for differences in representative values, such as means or proportions, to arise between two divided groups, simply because they are different groups. But if that difference is large, such as 'two standard deviations ($\pm$ 2SD) or more', it may be said to be statistically significant.
-	\end{itemize}
-\end{frame}
+\section{The Importance of Power and Realistic Challenges}
+In real-world data analysis, it's rare to find mean values between compared groups diverging by as much as two standard deviations. Should such a large difference exist, the distinction would likely be \textbf{intuitively obvious} without requiring specialized statistical analysis. Thus, the real challenge in statistics is determining how to find \textbf{realistic differences} that are smaller than two standard deviations but still hold practical significance, using the \textbf{minimum amount of data}. This capability is referred to in statistics as '\textbf{Statistical Power}'.
 
-\section{In Reality, Significance Isn't Found So Easily}
+\subsection{Definition of Statistical Power and the Difficulty of Maximization}
+Statistical power is simply defined as 'the \textbf{probability of correctly detecting a fact as a significant difference} through a statistical test, \textbf{given that the hypothesis of a true difference is correct}'. Maximizing this power is key to enhancing the accuracy of research and business decision-making. However, simply maximizing power doesn't solve everything. In an extreme sense, by adopting the strategy of 'irresponsibly asserting every idea conceived, without any supporting data,' one would find the meaningful difference $100\%$ of the time if the hypothesis were indeed correct. While this might appear to maximize power, it is a \textbf{harmful approach} that simultaneously generates many false claims. There are individuals who plausibly assert unfounded ideas, and their actions can be viewed as an extreme example of trying to maximize power alone. By constantly predicting some 'crisis' or 'success,' they end up hitting a prediction by chance, much like a 'broken clock being right twice a day.'
 
-\begin{frame}{Statistical Power}
-	In reality, the means of groups that must be compared are rarely separated by as much as two standard deviations.
-	\begin{itemize}
-		\item If they were that far apart, one would likely notice the difference even without statistical analysis.
-	\end{itemize}
-	Therefore, the challenge is how to detect a statistically significant difference—one that is smaller than two standard deviations yet still practically meaningful—from a minimal amount of data. In other words, how can \textbf{statistical power} be increased?
-	\begin{itemize}
-		\item Statistical power is 'the probability of being able to correctly state that a significant difference exists, given that the hypothesis of some difference existing is true'.
-	\end{itemize}
-\end{frame}
+\section{$\alpha$ and $\beta$ Errors: Types of Mistake}
+The approach of maximizing power alone is harmful because it ignores the risk of the opposite mistake—that is, the risk of '\textbf{mistakenly accepting a false hypothesis as true}'—while only considering the risk of failing to detect a correct hypothesis, known as the $\beta$ error. There are two types of error in statistics.
 
-\section{The Error of the 'Alarmist'}
+\subsection{Type I Error ($\alpha$ Error)}
+The mistake of \textbf{erroneously asserting that a difference exists} when in fact there is none is called the '\textbf{$\alpha$ error}' (Type I error). This is the error of rejecting the null hypothesis when the truth is 'no difference,' and it is often referred to as the '\textbf{a}larmist's error.' People who spout baseless claims are arguably rushing to zero out the blockhead's error ($\beta$ error) by asserting something, without considering the risk of committing this $\alpha$ error.
 
-\begin{frame}{The Error of the 'Alarmist'}
-	Simply increasing statistical power is not the whole story.
-	\begin{itemize}
-		\item There is a simple, yet harmful, method to maximize power—that is, 'to be able to find a significant difference 100$\%$ of the time whenever any hypothesis of a difference is true'.
-		\item This method involves 'continuously and irresponsibly asserting everything one thinks of, without any basis in data'.
-		\item If the hypothesis happens to be correct, one would have successfully found a meaningful difference 100$\%$ of the time.
-		\item The world (even in companies, on television, or in parliament) is full of people who plausibly assert baseless ideas; they are, in essence, creatures who only maximize statistical power.
-	\end{itemize}
-\end{frame}
+\subsection{Type II Error ($\beta$ Error)}
+Conversely, the mistake of \textbf{failing to detect a difference} and concluding 'no difference' when a difference \textbf{actually exists} (i.e., the alternative hypothesis is true) is called the '\textbf{$\beta$ error}' (Type II error). This is the error of failing to reject the null hypothesis when the truth is 'a difference exists,' and it is known as the '\textbf{b}lockhead's error.' An extreme example of seeking to eliminate this error is found in those who advocate for endless, cautious debate, avoiding all action or hypothesis formation on the grounds that 'it's not strictly knowable, no matter who asserts what.' They can zero out the risk of $\alpha$ error, but they continually overlook even patent truths. However, most real-world decisions are a race against time; just as a doctor who only observes a patient cautiously without starting treatment risks a mounting loss (or life), being a blockhead carries a significant cost.
 
-\begin{frame}{The Error of the 'Alarmist'}
-	The world (even in companies, on television, or in parliament) is full of people who plausibly assert baseless ideas; they are, in essence, creatures who only maximize statistical power.
-	\begin{itemize}
-		\item Mark Twain's famous quote: 'Even a broken clock is right twice a day'.
-		      \vspace{5mm}
-		\item An economic analyst who constantly predicts 'a recession is coming soon' will inevitably have said 'a recession is coming soon' in the year right before a recession actually arrives.
-	\end{itemize}
-\end{frame}
+\section{Setting the Significance Level and the Trade-Off}
+The $\alpha$ error (alarmist's error) and the $\beta$ error (blockhead's error) are fundamentally in a \textbf{trade-off} relationship. Since we are dealing with the uncertain event of data variability, it's impossible to completely eliminate both errors simultaneously. Statistics formalizes the process of making realistic and rational judgments between these two types of error.
 
-\section{$\alpha$ Errors and $\beta$ Errors}
+\subsection{Framework for Optimal Decision-Making}
+As a first step towards this, statistics requires clearly defining the \textbf{acceptable range for the $\alpha$ error}. This tolerance range is called the '\textbf{significance level} ($\alpha$ level).' This level is typically set at $5\%$ or $1\%$. This is the \textbf{risk threshold} set in advance by the researcher or practitioner, stating, 'We will limit the probability of mistakenly concluding a difference exists when there is none to a maximum of this level.' After setting this constraint (upper limit) on the $\alpha$ error via the significance level, the goal then becomes minimizing the $\beta$ error, or in other words, \textbf{maximizing statistical power}.
 
-\begin{frame}{$\alpha$ Errors and $\beta$ Errors}
-	Maximizing statistical power is harmful.
-	\begin{itemize}
-		\item The reason this approach is harmful is not only because of the error of 'missing a correct hypothesis'.
-		\item It fails to consider the opposite error: 'accepting a false hypothesis as true', in other words, claiming a difference exists when there is none.
-		      \vspace{5mm}
-		\item In statistics, this error of 'claiming a difference exists when there is none' is called an \textbf{$\alpha$ error}.
-		      \vspace{5mm}
-		\item On the other hand, the error of 'missing a difference that truly exists' is called a \textbf{$\beta$ error}.
-	\end{itemize}
-\end{frame}
+\section{Statistical Hypothesis Testing and the Most Powerful Test}
+\textbf{Statistical hypothesis testing} is the general term for the entire set of \textbf{methods used to determine whether a specific hypothesis is likely to be correct}.
 
-\begin{frame}{$\alpha$ Errors and $\beta$ Errors}
-	Most textbooks introduce these using a Japanese mnemonic that links the initial letters: the $\alpha$ error is called the '\textbf{a}larmist's error', and the $\beta$ error is called the '\textbf{b}lockhead's error'.
-	\begin{itemize}
-		\item Based on this expression, the people mentioned earlier who spout baseless hypotheses can be described as being too 'alarmist' in order to reduce their risk of being a 'blockhead' (a $\beta$ error) to zero.
-	\end{itemize}
-	Conversely, there is also a way to reduce the $\alpha$ error to zero, but this is harmful as well.
-	\begin{itemize}
-		\item This is the approach of only ever saying, 'Regardless of who asserts what, or on what basis, we cannot know for sure, so let's just continue to discuss it cautiously'.
-		\item In essence, such people assert no hypotheses, nor do they act in belief of any hypothesis.
-		\item Therefore, while their risk of being an 'alarmist' (an $\alpha$ error) is zero, they will continue to be 'blockheads' and dismiss any truth, even when it is presented right before their eyes.
-	\end{itemize}
-\end{frame}
+\subsection{Selecting a Test Method and Statistical Power}
+Simply \textbf{increasing the amount of data (sample size)} used in the analysis increases power and reduces the risk of overlooking the truth. However, in practice, data is often limited. Thus, to avoid carelessly overlooking the truth even with limited data, it is extremely important to \textbf{select the optimal test method based on the hypothesis and type of data}. For example, the $t$-test is an option for comparing differences in means, and the $\chi^2$ test for differences in proportions. Furthermore, within statistics, there exist testing methods that are theoretically proven to have the \textbf{highest power} under the constraint of a pre-determined \textbf{significance level} ($\alpha$ error upper limit). This is called the '\textbf{Most Powerful Test}'.
 
-\section{The Error of the 'Blockhead'}
+\section{Practical Example of Testing in Marketing}
+The concept of statistical testing is routinely used, particularly in the \textbf{evaluation of marketing initiatives} like A/B testing. For instance, suppose a website's new design results in a marginal $0.01\%$ increase in conversion rate, from $0.10\%$ to $0.11\%$. Although this $0.01\%$ difference is very small, if it truly represents a meaningful advantage (essential superiority), it could potentially boost the service's long-term sales by a factor of $1.1$. Conversely, if this $0.01\%$ difference was merely due to \textbf{random fluctuation}, all subsequent design changes and system modifications would be wasted costs, leading the company into a cycle of pursuing 'mere chance.' It is this statistical testing framework that is used to judge whether this \textbf{mere $0.01\%$ difference should be deemed 'statistically significant'} or rejected as an 'insignificant difference due to chance.' Testing provides an objective method for quantitatively managing the risks ($\alpha$ and $\beta$ errors) in this decision-making process, enabling the most rational judgment.
 
-\begin{frame}{The Error of the 'Blockhead'}
-	In many of our decisions, failing to make the best judgment right here and now results in losses accumulating moment by moment.
+\section{Universal Theories and Concepts}
+Statistical significance, Data variability, Standard deviation, Statistical power, $\alpha$ error, $\beta$ error, Null hypothesis, Alternative hypothesis, Significance level, Statistical hypothesis testing, Most powerful test, $t$-test, $\chi^2$ test, Trade-off
 
-	\vspace{7mm}
+\subsection{Comprehension Check Quiz}
 
-	If a doctor merely continues to observe a patient cautiously, most patients will eventually die.
-\end{frame}
+\begin{enumerate}
+	\item In statistical testing, what is the term for the error of mistakenly concluding that a difference exists when the truth is 'no difference'?
+	\item In statistical testing, what is the term for the error of overlooking a difference and concluding 'no difference' when a difference truly exists?
+	\item What is the statistical metric defined as the probability of correctly detecting a difference when one truly exists?
+	\item What is the risk threshold that a researcher sets in advance as the acceptable upper limit for the probability of committing the error of mistakenly concluding a difference exists?
+	\item In the basic framework of statistical testing, which hypothesis is initially doubted and subjected to verification?
+	\item What does statistics call the state where a difference found in data analysis is judged not to have occurred due to random data fluctuation?
+	\item What is the technical statistical term for the error nicknamed the 'alarmist's error'?
+	\item In statistical testing, what is the term for the test method that achieves the highest statistical power under the constraint of a predetermined risk level?
+	\item What is one of the representative statistical indicators showing the degree of data variability, which expresses the spread around the mean?
+	\item In a situation where a doctor only observes a patient cautiously without starting treatment, potentially losing a life that could have been saved, which type of statistical error is at risk of being increased?
+	\item What is the relationship called when the probability of mistakenly asserting a difference (Question 1) and the probability of overlooking a true difference (Question 2) cannot both be simultaneously reduced to zero?
+	\item What is a representative test method used in statistical testing, such as when verifying a hypothesis about the difference in population means?
+	\item What is the systematic method that formalizes the two types of errors in statistical testing (Question 1 and Question 2) to guide rational decision-making?
+	\item What is a commonly used test method in marketing A/B testing and similar situations for verifying the association or difference between two groups when the data are categorical or frequency-based (proportions)?
+	\item What statistical metric is an economist, who constantly predicts 'a recession is coming soon,' ultimately pursuing and trying to maximize?
+\end{enumerate}
 
-\section{Significance Level}
+\subsubsection*{Answer Key}
+1. $\alpha$ Error, 2. $\beta$ Error, 3. Statistical Power, 4. Significance Level, 5. Null Hypothesis, 6. Statistically Significant, 7. Type I Error, 8. Most Powerful Test, 9. Standard Deviation, 10. Type II Error, 11. Trade-off, 12. $t$-test, 13. Statistical Hypothesis Testing, 14. $\chi^2$ test, 15. Statistical Power
 
-\begin{frame}{Significance Level}
-	The 'alarmist's' error and the 'blockhead's' error are in a trade-off relationship.
-	\begin{itemize}
-		\item When dealing with events involving variability, it is impossible to reduce both errors to zero simultaneously.
-		      \vspace{5mm}
-		\item Statistics provides a formulation for how to make realistically correct judgments between these 'alarmist' and 'blockhead' errors.
-		      \vspace{5mm}
-		\item In statistics, one first decides the permissible limit for the $\alpha$ error. This permissible limit is called the '\textbf{significance level}'.
-		\item Within that significance level, one seeks to minimize the $\beta$ error, or conversely, maximize the statistical power.
-	\end{itemize}
-\end{frame}
-
-\section{Statistical Testing}
-
-\begin{frame}{Statistical Testing}
-	\begin{itemize}
-		\item Simply increasing the data used for analysis increases statistical power. However, to avoid missing the truth (like a 'blockhead') even with limited data, different methods are used depending on the hypothesis.
-		      \vspace{5mm}
-		\item In statistics, the methodology used to judge whether a hypothesis can be considered correct is generally called \textbf{statistical testing}.
-		      \vspace{5mm}
-		\item At a given significance level, the testing method with the highest statistical power is called the \textbf{most powerful test}.
-	\end{itemize}
-\end{frame}
-
-\section{Example of Testing in Marketing}
-
-\begin{frame}{Example of Testing in Marketing}
-	Suppose that as a result of an A/B test, a new design increased the conversion rate from 0.10$\%$ to 0.11$\%$.
-	\vspace{5mm}
-	\begin{itemize}
-		\item This is a mere 0.1$\%$ difference, but if it is a truly meaningful difference, it might increase the service's sales 1.1-fold.
-		\item Conversely, if it is 'just a coincidence', one might fall into a vicious cycle of continuing useless design changes.
-	\end{itemize}
-	\vspace{5mm}
-	A statistical test is what is used to determine whether this slight 0.1$\%$ difference should be considered a 'significant difference' or just a statistically meaningless difference due to chance.
-\end{frame}
-
-\begin{frame}[allowframebreaks]{References}
-	\begin{thebibliography}{9}
-        \bibitem{Vickers}
-            What is a p-value anyway $?$ - Vickers, Andrew J.
-        \bibitem{toukei_saikyou}
-            Statistics is the most powerful discipline (Practical Edition) - Kei Nishiuci
-	\end{thebibliography}
-\end{frame}
+\section{References}
+\begin{thebibliography}{9}
+	\bibitem{Vickers}
+	What is a p-value anyway $?$ - Vickers, Andrew J.
+	\bibitem{toukei_saikyou}
+	Statistics is the most powerful discipline (Practical Edition) - Kei Nishiuci
+\end{thebibliography}
 
 \end{document}
