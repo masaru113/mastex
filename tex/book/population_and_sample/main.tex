@@ -1,269 +1,83 @@
-\documentclass[dvipdfmx, autodetect-engine, aspectratio=169, 10.5pt]{beamer}
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{enumitem}
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
 
-\usetheme{Boadilla}
-\usetheme{Marburg}
-\usecolortheme{orchid}
-\usefonttheme{professionalfonts}
-
-\title{Fundamentals of Statistical Estimation}
-\author{M. O.}
+\title{\textbf{Fundamentals of Statistical Estimation}}
+\author{Masaru Okada}
 \date{\today}
 
 \begin{document}
 
-\begin{frame}[plain]
-	\titlepage
-\end{frame}
+\maketitle
 
-\begin{frame}{Outline}
-	\tableofcontents
-\end{frame}
+\section{Core Concepts of Statistical Inference: Population and Sample}
 
-\section{Population and Sample}
+In estimative statistics, the distinction between the \textbf{population} under analysis and the \textbf{sample} drawn from it is essential. The population is defined as the entire set of subjects or items to which the analysis results are intended to apply. It is generally set as 'what we wish to know, but cannot know entirely.' A sample, on the other hand, often refers to a subset extracted from the population, or a subset of its characteristic values (such as height or weight). Expressing the set of characteristic values as $\{ x_{1}, x_{2}, ..., x_{n} \} \in \mathbb{R}^{n}$ enables quantitative analysis and inference. When the population size is large and a complete survey is difficult, a \textbf{sample survey} is conducted, wherein the population's characteristics are inferred by analyzing a sample. The estimation and hypothesis testing based on this approach constitute \textbf{statistical inference}.
 
-\subsection{Population}
+\subsection*{Characterizing the Population: Parameters and Statistics}
 
-\begin{frame}{Population}
-	In inferential statistics, distinguishing between the \textbf{population} under analysis and the \textbf{sample} drawn from it is essential.
+Beyond the population's distribution itself, we often aim to determine the value of a \textbf{constant (parameter)} that characterizes that population. Examples of parameters include the \textbf{population mean}, \textbf{population variance}, \textbf{population standard deviation}, and \textbf{population proportion}. Conversely, a 'function' calculated from the sample is called a \textbf{statistic}. Examples of statistics include the \textbf{sample mean}, \textbf{sample variance}, \textbf{sample standard deviation}, and \textbf{sample proportion}. The goal of inferential statistics is to estimate the value of a population parameter based on the value of a statistic calculated from observed data.
 
-	${}$
 
-	The population is defined as the entire set of objects to which the results of the analysis are to be applied.
 
-	In the context of statistical estimation, the population typically represents 'that which we wish to know but cannot fully observe,' by definition of the problem setting.
-\end{frame}
+\section{Types of Statistical Studies and Experimental Design}
 
-\subsection{Sample}
+The role of statistics extends beyond merely estimating means and variances; it also provides \textbf{methods (sampling)} for \textbf{correctly extracting} a sample from a population. Research aimed at understanding population characteristics falls into two categories: \textbf{experimental studies}, which involve \textbf{intervention} on the research subjects, and \textbf{observational studies}, where \textbf{intervention is not possible}.
 
-\begin{frame}{Sample}
+\subsubsection*{Experimental Design and Fisher's Three Principles}
 
-	The sample, conversely, is originally a subset extracted from the population.
+A study where researchers can control the setting of conditions is termed an experiment, encompassing clinical trials for new drug development and agricultural field trials. In experimental research, patients are typically divided into an \textbf{experimental group} receiving the new drug and a \textbf{control group} receiving a comparator (e.g., a standard drug or placebo), with the difference in outcomes measured. To ensure the validity of this design, \textbf{Fisher's Three Principles} are crucial.
 
-	By an abuse of terminology, the term often refers to a subset of the characteristic values (e.g., quantities like height or weight) extracted from the population.
+\begin{itemize}
+	\item \textbf{Randomization}: The process of assigning the test drug and the control drug to subjects randomly (random assignment). This equalizes the influence of unpredictable bias and enables a fair comparison when other conditions besides the treatment cannot be made uniform. The experimental condition imposed on an experimental unit (subject) is called a '\textbf{treatment}'.
+	\item \textbf{Replication}: Since data inherently exhibits variability, repeating the experiment is necessary to determine whether the treatment's effect is discernible beyond that variability. Replication allows for an accurate estimation of the magnitude of variability. In clinical trials involving human subjects, this corresponds to obtaining data from a large number of participants.
+	\item \textbf{Local Control (Blocking)}: Experimentation is conducted by dividing the experimental units into several \textbf{blocks} with uniform conditions to minimize variability arising from factors other than the treatment. For instance, it is desirable to set up blocks based on age or gender, ensuring uniformity within blocks while maximizing differences between them.
+\end{itemize}
 
-	When the sample is a subset of characteristic values, quantitative analysis and inference become possible, as it can be expressed as $\{ x_{1}, x_{2}, ..., x_{n} \} \in \mathbb{R}^{n}$, for instance.
+\subsubsection*{Limitations of Observational Studies}
 
-	${}$
+Observational studies become necessary when ethical or practical constraints (such as studying the effects of smoking) prevent experimentation. In observational studies, subjects often choose their own 'treatment', meaning \textbf{randomization}, one of Fisher's Three Principles, \textbf{is not performed}. This characteristic can introduce a bias in treatment selection due to subject characteristics (a \textbf{confounding factor}), necessitating caution in interpreting treatment effects.
 
-	Some problem settings may permit a 'census,' or a complete survey of the entire population.
 
-	Generally, however, populations are too large for a complete survey; therefore, characteristics of the population are inferred by analyzing a sample.
-	This method of investigation is called a 'sample survey,' and the estimations and hypothesis tests based on it constitute 'statistical inference.'
-	(Both 'estimation' and 'testing' are forms of statistical 'inference.')
-\end{frame}
 
-\subsection{Surveys and Characterizing the Population}
+\section{Universal Theories and Concepts}
+Population, Sample, Parameter, Statistic, Statistical Inference, Census, Sample Survey, Experimental Study, Observational Study, Simple Random Sampling, Fisher's Three Principles, Randomization, Replication, Local Control, Treatment, Experimental Group, Control Group, Blocking, Systematic Sampling, Stratified Random Sampling
 
-\begin{frame}{Surveys and Characterizing the Population}
-	While knowledge about the distribution of the population is sometimes sought, often the objective is to determine the value of a constant that characterizes that population.
 
-	A constant that characterizes the population is called a \textbf{parameter}.
 
-	Examples of parameters include the population mean, population variance, population standard deviation, and population proportion.
+\subsection{Comprehension Check Quiz}
 
-	${}$
+\begin{enumerate}
+	\item What is the term for the entire set of subjects under analysis, generally large in size and whose true characteristic values are difficult to ascertain?
+	\item What do you call a fluctuating value, calculated from a partial group of data taken from a population, used to infer the population's characteristics?
+	\item What is the general term for the series of methods used to estimate the unknown characteristic values of a population or to judge the truth of a hypothesis using values calculated from observed data (the sample)?
+	\item What is the term for a constant that characterizes a population, whose true value is fixed but generally unknown, used to distinguish it from a value obtained from a sample?
+	\item What is the research method that involves deliberately applying specific conditions or manipulations to research subjects to evaluate their effect?
+	\item What is the research method that involves collecting and analyzing data from naturally occurring events or existing groups without intervention by the researcher?
+	\item In experimental research, what design principle involves leaving the assignment of conditions to subjects to chance to equalize the influence of unexpected external bias and accurately measure the treatment effect?
+	\item What principle is necessary to gauge the extent of the variability seen in experimental results and to statistically determine if there is an effect attributable to the treatment that exceeds that variability?
+	\item What experimental design principle involves dividing the experiment into small groups (strata) with homogeneous conditions to minimize variability caused by factors other than the treatment?
+	\item What term refers to the specific experimental condition or manipulation applied to an experimental unit (such as a subject) that is the object of comparison or effect measurement?
+	\item What is the primary group where a new intervention or drug is administered, and the effect is to be measured by the researchers?
+	\item What is the group that receives a standard existing treatment or a placebo (dummy drug) for comparison with the effect of a new intervention or drug?
+	\item What is the survey method that involves studying only a part of the population and using the findings to infer the characteristics of the whole, rather than surveying the entire population?
+	\item In the principle of local control, what is the term for the small, homogeneous subgroup of experimental units?
+	\item What problem of bias, caused by factors other than the intervention, arises when assignment to the experimental and control groups depends on the subjects' choices or other non-random factors, potentially leading to a misinterpretation of the treatment effect?
+\end{enumerate}
 
-	In contrast, a 'function' constructed from the sample is called a \textbf{statistic}.
+\subsubsection*{Answer Key}
+1. Population, 2. Statistic, 3. Statistical Inference, 4. Parameter, 5. Experimental Study, 6. Observational Study, 7. Randomization, 8. Replication, 9. Local Control, 10. Treatment, 11. Experimental Group, 12. Control Group, 13. Sample Survey, 14. Block, 15. Confounding Factor
 
-	Examples of statistics include the sample mean, sample variance, sample standard deviation, and sample proportion.
 
-	Inferential statistics aims to ascertain the value of a parameter based on the value of a statistic calculated from observed data.
-\end{frame}
 
-\section{Types of Statistical Studies}
-
-\begin{frame}{Types of Statistical Studies}
-	The role of statistics is not limited to providing methods for understanding population characteristics by estimating the mean and variance.
-
-	Statistics also plays a role in offering methods for drawing a sample correctly from the population.
-
-	The 'Simple Random Sampling' method (discussed later) is a well-known example, but many other experimental designs exist.
-
-	${}$
-
-	Research aimed at understanding population characteristics is broadly divided into two types: \textbf{experimental studies} and \textbf{observational studies}.
-
-	An experimental study involves intervention in the subjects of the research.
-
-	An observational study is one where intervention in the subjects is not possible.
-\end{frame}
-
-\subsection{Observational and Experimental Studies}
-
-\begin{frame}{Observational and Experimental Studies}
-	Statistics offers methods not only for inferring population characteristics by estimating means and variances but also for ensuring the correct extraction of a sample from the population.
-
-	Designing experiments in laboratories or factories, animal experiments for new drug development, and clinical trials are also part of the statistician's role.
-
-	${}$
-
-	Research aimed at understanding population characteristics includes both experimental and observational studies.
-
-	\begin{itemize}
-		\item \textbf{Experimental Studies}: Intervention in the research subjects is possible.
-		\item \textbf{Observational Studies}: No intervention in the research subjects occurs.
-	\end{itemize}
-
-	In both cases, the resulting sample is only a part of the population.
-
-	The research process must be designed so that the sample represents the population's characteristics without bias.
-
-\end{frame}
-
-\subsection{Design of Experimental Studies}
-
-\begin{frame}{Design of Experimental Studies}
-
-	Despite the name, not all experimental studies take place in a laboratory.
-
-	An experiment is defined as research where the conditions can be set by the researcher.
-
-	Examples include clinical trials to evaluate the efficacy of a new drug or agricultural trials to determine the effect of a fertilizer.
-
-	${}$
-
-	Consider the case of evaluating the efficacy of a new drug.
-
-	Patients are divided into a group receiving the new drug (the \textbf{experimental group}) and a group receiving a control drug (the \textbf{control group}), and the difference between the two is measured.
-
-	${}$
-
-	Fisher's Three Principles, described next, are crucial in experimental studies.
-
-\end{frame}
-
-\subsection{Fisher's Three Principles}
-
-\begin{frame}{Fisher's Three Principles}
-
-	Fisher's Three Principles:
-
-	${}$
-
-	\begin{itemize}
-		\item \textbf{Randomization}
-		\item \textbf{Replication}
-		\item \textbf{Local Control}
-	\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Fisher's Three Principles (Randomization)}
-
-	Randomization is also known as random assignment.
-
-	When comparing a new drug (test drug) with an existing one (control drug) in a clinical trial, it is vital to randomly decide which patient receives which drug (known as \textbf{random allocation}).
-
-	The experimental conditions imposed on the experimental units (in this case, the subjects) when comparing the test drug and the control drug are called the 'treatment.'
-
-	It is desirable to keep conditions other than the treatment as uniform as possible.
-
-	While anticipated biases can be dealt with, if uniformity cannot be achieved for unanticipated biases, random assignment is necessary.
-
-\end{frame}
-
-\begin{frame}{Fisher's Three Principles (Replication)}
-
-	Data inherently includes variability.
-
-	Even experiments conducted under identical conditions will yield variations in data.
-
-	Since the goal is to see if the treatment effect is observable beyond this variability, the magnitude of the variation must be estimated.
-
-	Thus, repeating the experiment is necessary.
-
-	In clinical trials involving humans, individual differences necessitate collecting data from many subjects, which is also considered replication.
-
-	Estimating the required number of repetitions during the planning stage is one of the significant tasks for a statistical analyst.
-
-\end{frame}
-
-\begin{frame}{Fisher's Three Principles (Local Control)}
-
-	As mentioned before, to compare the treatment effect with the magnitude of variability, it is desirable to minimize variability other than that caused by the treatment.
-
-	Therefore, experiments are divided into several \textbf{blocks} with uniform experimental conditions.
-
-	This blocking is called local control.
-
-	${}$
-
-	For example, an experiment comparing a new drug administered only to males in their 60s with a control drug administered only to females in their 20s is meaningless in terms of treatment effect.
-
-	It is desirable to design the experiment by using age and sex as blocks.
-
-	${}$
-
-	The setting of blocks should aim for maximum uniformity \textbf{within} the same block and maximum difference \textbf{between} different blocks.
-
-
-\end{frame}
-
-\subsection{Design of Observational Studies}
-
-\begin{frame}{Design of Observational Studies}
-
-	While experimental studies are indispensable for demonstrating treatment effects, many problems do not permit experimentation.
-
-	Consider a study investigating the effect of smoking on health: subjects cannot be compelled to smoke to study its effects.
-
-	In such cases, researchers must rely on observational studies.
-
-	${}$
-
-	Unlike experimental studies, observational studies lack the principle of randomization among Fisher's Three Principles.
-
-	The key difference is that subjects self-select the treatment.
-
-	Because subjects consciously choose their treatment, there is a potential for bias in treatment selection due to the subjects' characteristics.
-
-	Caution is needed when interpreting treatment effects from observational studies.
-
-
-\end{frame}
-
-\section{Sample Surveys and Sampling Methods}
-
-\subsection{Simple Random Sampling}
-
-\begin{frame}{Simple Random Sampling}
-	aaa
-\end{frame}
-
-\subsection{Systematic Sampling}
-
-\begin{frame}{Systematic Sampling}
-	aaa
-\end{frame}
-
-\subsection{Stratified Random Sampling}
-
-\begin{frame}{Stratified Random Sampling}
-	aaa
-\end{frame}
-
-\section{aaa}
-
-\begin{frame}{aaa}
-	aaa
-\end{frame}
-
-
-\begin{frame}[allowframebreaks]{References}
-	\begin{thebibliography}{9}
-		\bibitem{Vickers}
-		What is a p-value anyway $?$ - Vickers, Andrew J.
-		\bibitem{toukei_saikyou}
-		Statistics is the most powerful discipline (Practical Edition) - Kei Nishiuci
-	\end{thebibliography}
-\end{frame}
+\begin{thebibliography}{9}
+	\bibitem{Vickers}
+	What is a p-value anyway $?$ - Vickers, Andrew J.
+	\bibitem{toukei_saikyou}
+	Statistics is the most powerful discipline (Practical Edition) - Kei Nishiuci
+\end{thebibliography}
 
 \end{document}
