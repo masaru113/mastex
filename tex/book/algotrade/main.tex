@@ -1,228 +1,184 @@
-\documentclass[dvipdfmx, autodetect-engine, aspectratio=169, 10.5pt]{beamer}
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{enumitem}
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
 
-\usetheme{Boadilla}
-\usetheme{Marburg}
-\usecolortheme{orchid}
-\usefonttheme{professionalfonts}
-
-\title{Algorithmic Trading}
+\title{Reading Notes on Algorithmic Trading}
 \author{M. O.}
 \date{\today}
 
 \begin{document}
 
-\begin{frame}[plain]
-	\titlepage
-\end{frame}
+\maketitle
 
-\begin{frame}{Table of Contents}
-	\tableofcontents
-\end{frame}
-
-\section{Algorithmic Trading}
+\section{Core Structure and Strategies of Algorithmic Trading}
 
 \subsection{What is Algorithmic Trading?}
 
-\begin{frame}{What is Algorithmic Trading?}
-	Trading executed automatically by computers
-	\begin{itemize}
-		\item ■ Also known as automated trading or system trading
-	\end{itemize}
+Algorithmic trading, in short, is an umbrella term for methods where \textbf{computers automatically execute the buying and selling of financial products based on a predefined logic}. This is also referred to as \textbf{Automated Trading} or \textbf{System Trading}. Its scope is broad, and it does not exclusively involve highly sophisticated mathematical techniques.
 
-	Not all such trading is mathematically sophisticated
-	\begin{itemize}
-		\item ■ Mathematically sophisticated trading, using standard item marker
-		      \begin{itemize}
-			      \item ・ Statistical methods
-			      \item ・ Time series analysis
-			      \item ・ Machine learning
-			      \item ・ Deep learning
-		      \end{itemize}
-		\item ■ Trading that isn't mathematically sophisticated
-		      \begin{itemize}
-			      \item ・ Trading that merely automates routine procedures
-			            \begin{itemize}
-				            \item - Simple agency trades
-				            \item - Trades targeting momentary arbitrage opportunities
-			            \end{itemize}
-		      \end{itemize}
-	\end{itemize}
+\noindent\hrulefill
 
-\end{frame}
+\subsubsection*{Classification by Mathematical Sophistication}
 
-\subsection{Objectives of Algorithmic Trading}
-\begin{frame}{Objectives of Algorithmic Trading}
-	\scriptsize
-	Expanding the stability of profits
-	\begin{itemize}
-		\item ■ Pursuit of returns
-		      \begin{itemize}
-			      \item ・ Automatically buying low and selling high
-			      \item ・ Pursuit of profit opportunities
-		      \end{itemize}
-		\item ■ Cost reduction
-		      \begin{itemize}
-			      \item ・ Automation of routine execution tasks
-			            \begin{itemize}
-				            \item - Automated market making
-				            \item - Automated basket trading
-			            \end{itemize}
-			      \item ・ Automatic selection of markets with optimal fees
-			      \item ・ Reduction of costs due to market impact
-			            \begin{itemize}
-				            \item - Market impact refers to the increase in one's own trading costs when one's own execution causes prices to move unfavorably. definition
-			            \end{itemize}
-		      \end{itemize}
-		\item ■ Risk control
-		      \begin{itemize}
-			      \item ・ Controlling the execution probability for desired quantities
-			      \item ・ Controlling the market risk of one's own positions
-		      \end{itemize}
-	\end{itemize}
-	\vspace{5ex}
-	The pursuit of returns, cost reduction, and risk control involve trade-offs with each other.
-\end{frame}
+Algorithmic trading is broadly classified into two categories based on the complexity and purpose of its logic. One category focuses on transactions that aim to \textbf{generate profit opportunities} based on highly advanced mathematical models. This employs cutting-edge AI technologies such as \textbf{statistical methods} (e.g., statistical arbitrage), \textbf{time series analysis}, \textbf{Machine Learning}, and the recently notable \textbf{Deep Learning}. The goal is to capture market inefficiencies and predictive patterns. These methods seek to capture so-called '\textbf{alpha}', or excess returns above the market average, through minute predictions of price fluctuations and the analysis of complex correlations between markets.
 
-\subsection{Types of Algorithmic Trading}
-\begin{frame}{Types of Algorithmic Trading}
-	\scriptsize
-	\begin{itemize}
-		\item ■ Algorithms aiming to reduce trading costs
-		      \begin{itemize}
-			      \item ・ Market impact reduction
-			      \item ・ Trading cost reduction
-			            \begin{itemize}
-				            \item - Execution algorithms
-				                  \begin{itemize}
-					                  \item - Iceberg, etc.
-				                  \end{itemize}
-				            \item - Benchmark execution algorithms
-				                  \begin{itemize}
-					                  \item - VWAP, etc.
-				                  \end{itemize}
-				            \item - These aim to reduce trading costs through effects such as splitting trades finely to hide (make less obvious) the execution volume from the market.
-			            \end{itemize}
-		      \end{itemize}
-		\item ■ Algorithms aiming for profit opportunities
-		      \begin{itemize}
-			      \item ・ Market-making algorithms
-			            \begin{itemize}
-				            \item - Placing both sell and buy orders in the market, using the price difference as a source of profit.
-			            \end{itemize}
-			      \item ・ Arbitrage algorithms
-			            \begin{itemize}
-				            \item - Algorithms that earn profit by detecting when financial instruments of identical value can be traded at different prices.
-			            \end{itemize}
-			      \item ・ Directional algorithms
-			            \begin{itemize}
-				            \item - Algorithms that aim for profit from the price difference by predicting the market to buy low and sell high.
-			            \end{itemize}
-		      \end{itemize}
-		\item ■ Market manipulation algorithms
-		      \begin{itemize}
-			      \item ・ Algorithms aiming to move the market in a favorable direction by misleading the market about the liquidity or trading intentions they provide.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
+The other category, while not necessarily mathematically sophisticated, is primarily focused on \textbf{automating standardized execution procedures}. The aim here is to reduce human effort and enhance execution efficiency. Specifically, this includes the \textbf{automation of simple order routing} and straightforward automated trading to capture momentary \textbf{arbitrage opportunities}. This type of trading primarily contributes to \textbf{reducing execution costs} and the \textbf{smooth processing of large orders}, playing a vital role as part of risk management.
 
-\subsection{Users of Algorithms}
-\begin{frame}{Users of Algorithms}
-	\scriptsize
-	\begin{itemize}
-		\item ■ Some individual investors
-		      \begin{itemize}
-			      \item ・ Directional algorithms are used.
-			      \item ・ Due to constraints of the system environment, algorithms advantaged by high speed and high frequency are difficult to use.
-			            \begin{itemize}
-				            \item - Market-making and arbitrage algorithms are difficult to use.
-			            \end{itemize}
-		      \end{itemize}
-		\item ■ Institutional investors
-		      \begin{itemize}
-			      \item ・ Agency execution departments
-			            \begin{itemize}
-				            \item - Execute based on client requests.
-				            \item - Execution for the fulfillment of their own best execution obligations.
-			            \end{itemize}
-			      \item ・ Proprietary trading departments
-			            \begin{itemize}
-				            \item - The objective is to obtain trading profits from the market.
-				                  \begin{itemize}
-					                  \item - Market-making algorithms
-					                  \item - Arbitrage algorithms
-					                  \item - Directional algorithms
-				                  \end{itemize}
-			            \end{itemize}
-			      \item ・ Specific examples
-			            \begin{itemize}
-				            \item - Index managers use execution-type algorithms.
-				            \item - If pursuing trading profits, algorithms similar to those in proprietary trading are used.
-			            \end{itemize}
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
+\paragraph{\{\textbf{AI Insight: Deeper Analysis}\}}
+The evolution of algorithmic trading has been driven by the fusion of financial engineering and information engineering. The introduction of machine learning, in particular, has been revolutionary as it allows for the extraction of \textbf{market non-linearities} and \textbf{latent informational structures} that were undetectable by traditional linear models. For instance, Recurrent Neural Networks (RNNs) and Transformer architectures in deep learning are applied to analyze historical market data, as well as news and social media text data (sentiment analysis) over time, to construct highly accurate \textbf{directional prediction models}. However, the increasing complexity of models exacerbates the risk of models diverging from reality, known as \textbf{model risk}, especially the issue of \textbf{Overfitting}. Therefore, robust backtesting and risk management are indispensable.
 
-\subsection{HFT}
-\begin{frame}{HFT \textnormal{(High-Frequency Trading)}}
-	\scriptsize
-	\begin{itemize}
-		\item ■ HFT holds an advantage in market-making and arbitrage algorithms.
-		\item ■ To conduct high-frequency and high-speed trading requires:
-		      \begin{itemize}
-			      \item 1. Speeding up information acquisition for trading decisions
-			            \begin{itemize}
-				            \item - Narrowing down the information utilized.
-				            \item - Accelerating one's own systems.
-			            \end{itemize}
-			      \item 2. Speeding up the process from information processing to execution
-			            \begin{itemize}
-				            \item - Accelerating the algorithms.
-			            \end{itemize}
-			      \item 3. Speeding up the arrival of order information at the trading system
-			            \begin{itemize}
-				            \item - Installation of dedicated lines.
-				            \item - Shortening transit time through the use of DMA (Direct Market Access).
-				            \item - Placing orders from within the same network as the exchange via exchange colocation.
-			            \end{itemize}
-			      \item 4. Speeding up the processing speed per unit time of exchange and other trading systems
-			            \begin{itemize}
-				            \item - Speed is increasing due to the competition for market share among exchanges.
-				            \item - In Japan as well, HFT became possible in 2010 when Arrowhead started operating on the TSE.
-			            \end{itemize}
-			      \item ・ Since bottlenecks must be avoided, acceleration is necessary in all four areas mentioned above.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
+\subsection{Objectives and Components of Algorithmic Trading}
 
-\subsection{Pros and Cons of HFT}
-\begin{frame}{Pros and Cons of HFT}
-	\begin{itemize}
-		\item ■ High-frequency and high-speed trading is thought to utilize market-making algorithms.
-		      \begin{itemize}
-			      \item ・ Therefore, there is an argument that it benefits general investors by supplying liquidity to the market.
-			      \item ・ On the other hand, only HFT firms capture profit opportunities, impairing fairness among investors.
-			      \item ・ There is also an argument that it harms market stability by repeatedly placing, modifying, and canceling orders at speeds invisible to general investors.
-		      \end{itemize}
-	\end{itemize}
-\end{frame}
+While the ultimate goal of algorithmic trading is the \textbf{expansion of return stability}, its constituent objectives are divided into three pillars. It is crucial to understand that these objectives often involve \textbf{trade-offs} with each other.
 
-\begin{frame}[allowframebreaks]{References}
-	\begin{thebibliography}{9}
-		\bibitem{NTTData}
-		The Essence of Algorithmic Trading: Strategies and Execution - NTT Data Financial Technology
-		\bibitem{Adachi}
-		Algorithmic Trading - Takanori Adachi
-		\bibitem{Marcos}
-		Advances in Financial Machine Learning - Lopez de Prado, Marcos
-	\end{thebibliography}
-\end{frame}
+\noindent\hrulefill
+
+\subsubsection*{The Three Primary Objectives}
+
+\begin{enumerate}[label=\textcircled{\arabic*}, itemsep=5pt]
+	\item \textbf{Pursuit of Returns:}
+	      \begin{itemize}
+		      \item Employing algorithms to implement trading behavior that \textbf{automatically buys low and sells high} based on market predictions. Furthermore, it involves automatically detecting and executing \textbf{profit opportunities (e.g., statistical arbitrage)} arising between multiple markets or securities.
+	      \end{itemize}
+	\item \textbf{Cost Reduction:}
+	      \begin{itemize}
+		      \item Reducing personnel and error costs through the \textbf{automation of standardized execution tasks}. Specifically, this includes \textbf{automated market-making} and the \textbf{automation of basket trading} involving the simultaneous trading of multiple securities.
+		      \item \textbf{Minimizing market impact} is critically important. \textbf{Market impact} is the phenomenon where the execution of one's own large order moves the price in an unfavorable direction, consequently increasing trading costs. Algorithms minimize this cost by dividing the order into small segments and executing them stealthily, without the market detecting the intent. Additionally, the capability to automatically select the market offering the optimal commission also contributes to cost reduction.
+	      \end{itemize}
+	\item \textbf{Risk Control:}
+	      \begin{itemize}
+		      \item Controlling the \textbf{probability of execution for a desired quantity} to ensure the necessary position is secured reliably.
+		      \item Monitoring \textbf{market risk of the self-position} in real-time and automatically placing hedge or stop-loss orders to prevent exceeding defined risk tolerances. This automates the emergency response required to prevent unexpected major losses.
+	      \end{itemize}
+\end{enumerate}
+
+\paragraph{\{\textbf{AI Insight: Deeper Analysis}\}}
+\textbf{Execution algorithms} used in the realm of cost reduction have become an indispensable infrastructure for financial institutions. In particular, benchmark execution algorithms like \textbf{VWAP (Volume-Weighted Average Price)} and \textbf{TWAP (Time-Weighted Average Price)} are standard tools for executing large orders with a target market price. However, more sophisticated algorithms are evolving into \textbf{adaptive algorithms} that consider the \textbf{depth of market liquidity} and \textbf{short-term price fluctuation forecasts} to dynamically determine the optimal balance between execution speed and market impact in real-time. In risk control, a functionality known as a \textbf{kill switch}, which instantly halts the entire system, is an essential requirement to cope with extreme market events like \textbf{flash crashes}.
+
+\subsection{Classification of Algorithmic Trading and the User Landscape}
+
+\noindent\hrulefill
+
+\subsubsection*{Classification by Function}
+
+Algorithmic trading is broadly classified into three categories based on its function.
+
+\begin{enumerate}[label=\textcircled{\arabic*}, itemsep=5pt]
+	\item \textbf{Algorithms for Trading Cost Reduction (Execution-Focused):}
+	      \begin{itemize}
+		      \item \textbf{Purpose:} Minimizing market impact and trading costs.
+		      \item \textbf{Examples:} \textbf{Execution algorithms} such as \textbf{Iceberg} (displaying only part of an order while hiding the remainder) and \textbf{benchmark execution algorithms} such as \textbf{VWAP} fall into this category. These aim to reduce trading costs by fragmenting trades and concealing their intent from the market.
+	      \end{itemize}
+	\item \textbf{Algorithms for the Pursuit of Profit Opportunities (Signal-Generating):}
+	      \begin{itemize}
+		      \item \textbf{Market-Making Algorithms:} Constantly quoting both bid and ask orders in the market, using the \textbf{spread (price difference)} as a source of profit. These play a role in providing liquidity to the market.
+		      \item \textbf{Arbitrage Algorithms:} Detecting situations where \textbf{identical financial products are trading at different prices} and instantly buying the cheaper one and selling the expensive one to secure a virtually risk-free profit.
+		      \item \textbf{Directional Algorithms:} Predicting the direction of market price fluctuations, aiming to buy at low prices and sell at high prices. This is the strategy that demands the highest prediction accuracy.
+	      \end{itemize}
+	\item \textbf{Algorithms for Market Manipulation:}
+	      \begin{itemize}
+		      \item These are algorithms designed to mislead the market about the liquidity being provided or the trading intent, attempting to move prices in a self-favorable direction. This constitutes \textbf{market misconduct}; \textbf{Spoofing} (placing and quickly canceling large orders) is a typical example.
+	      \end{itemize}
+\end{enumerate}
+
+\subsubsection*{Primary Users of Algorithms}
+
+The strategies available to users of algorithms differ based on their capital and technological infrastructure.
+
+\begin{enumerate}[label=\textcircled{\arabic*}, itemsep=5pt]
+	\item \textbf{Some Individual Investors:}
+	      \begin{itemize}
+		      \item \textbf{Directional algorithms} are primarily used. Due to system constraints, it is difficult for them to utilize algorithms that require high speed and high frequency, such as \textbf{market-making} and \textbf{arbitrage trading}.
+	      \end{itemize}
+	\item \textbf{Institutional Investors:}
+	      \begin{itemize}
+		      \item \textbf{Agency Execution Departments:} These departments execute orders based on client requests and use \textbf{execution-focused algorithms} to fulfill their \textbf{best execution duty}.
+		      \item \textbf{Proprietary Trading Departments:} Aiming to profit from trading in the market, they employ all types of algorithms: \textbf{market-making, arbitrage, and directional}. \textbf{HFT} is primarily driven by these departments.
+		      \item \textbf{Asset Management Departments:} Index managers, for instance, heavily utilize \textbf{execution-focused algorithms}. When pursuing trading profits, they use \textbf{profit-seeking algorithms} similar to those of proprietary trading departments.
+	      \end{itemize}
+\end{enumerate}
+
+\paragraph{\{\textbf{AI Insight: Deeper Analysis}\}}
+Profit-seeking algorithms in proprietary trading often center on \textbf{Statistical Arbitrage (Stat Arb)}. This strategy relies on statistically capturing temporary price distortions or deviations in correlation within historical market data, rather than on economic fundamentals, and aims for a mean reversion. The advent of HFT has pushed arbitrage opportunities into a millisecond-level competition, drastically shortening the \textbf{Life Span of Arbitrage}. Consequently, it has become even more difficult for individual investors to capture these opportunities due to technological barriers.
+
+\subsection{Requirements, Merits, and Demerits of HFT (High-Frequency Trading)}
+
+\noindent\hrulefill
+
+\subsubsection*{HFT Implementation Requirements}
+
+\textbf{HFT (High-Frequency Trading)} provides a decisive advantage in \textbf{market-making} and \textbf{arbitrage algorithms}. To achieve this, the \textbf{elimination of bottlenecks} and \textbf{extreme acceleration} across the entire trading process are essential, requiring acceleration in all four areas listed below.
+
+\begin{enumerate}[label=\textcircled{\arabic*}, itemsep=5pt]
+	\item \textbf{High-Speed Acquisition of Information for Trading Decisions:} Limiting the information used and accelerating the system's own processing.
+	\item \textbf{High-Speed Processing from Information Processing to Execution:} Optimizing the algorithm and minimizing the \textbf{latency (delay)} from decision to order placement.
+	\item \textbf{High-Speed Transmission of Order Information to the Trading System:}
+	      \begin{itemize}
+		      \item Shortening transmission time through the \textbf{installation of dedicated lines} and the use of \textbf{DMA (Direct Market Access)}.
+		      \item Most crucial is \textbf{Exchange Colocation}. This involves placing servers within the same building or network as the exchange to minimize physical distance, thus accelerating the transmission speed of order information to the physical limit of the speed of light.
+	      \end{itemize}
+	\item \textbf{Improvement in Exchange System Processing Speed:} Exchanges are also enhancing their processing speed per unit of time to compete for market share. In Japan, HFT became fully viable with the launch of the Tokyo Stock Exchange's \textbf{Arrowhead} in 2010.
+\end{enumerate}
+
+\subsubsection*{Merits and Demerits of HFT}
+
+The impact of HFT on the market is two-sided.
+
+\begin{enumerate}[label=\textcircled{\arabic*}, itemsep=5pt]
+	\item \textbf{Merits (Advantages):}
+	      \begin{itemize}
+		      \item \textbf{Liquidity Provision:} The use of market-making algorithms constantly provides bid and ask quotes to the market, making trading easier for general investors.
+		      \item \textbf{Improved Price Efficiency:} Instantly closing arbitrage opportunities brings market prices closer to their appropriate level.
+	      \end{itemize}
+	\item \textbf{Challenges/Problems (Disadvantages):}
+	      \begin{itemize}
+		      \item \textbf{Infringement of Fairness:} There is criticism that \textbf{fairness} among investors is compromised as only HFT firms can capture profit opportunities by leveraging their high-speed capability.
+		      \item \textbf{Market Destabilization:} The constant cycle of \textbf{order placement, modification, and cancellation} at speeds invisible to general investors carries the risk of \textbf{momentary liquidity evaporation} or triggering unexpected market plunges like a \textbf{flash crash}, especially during market turmoil.
+	      \end{itemize}
+\end{enumerate}
+
+\paragraph{\{\textbf{AI Insight: Deeper Analysis}\}}
+HFT is debatable regarding the \textbf{quality of the liquidity} it provides to the market. It is often pointed out that the liquidity provided by HFT is abundant when the market is stable but is \textbf{Fragile Liquidity} that quickly withdraws under stress. To address this issue, regulatory authorities are increasing efforts to crack down on unfair practices specific to high-speed trading (e.g., layering) and strengthen circuit breakers to temporarily halt trading during extreme price fluctuations. As HFT is an indispensable component of modern markets, the construction of a \textbf{dynamic regulatory framework} is urgently needed to manage its risks and ensure market stability.
+
+\newpage
+
+\section{Universal Theories and Concepts}
+
+Algorithmic Trading, Automated Trading, System Trading, Statistical Methods, Time Series Analysis, Machine Learning, Deep Learning, Simple Order Routing, Arbitrage Opportunities, Expansion of Return Stability, Pursuit of Returns, Cost Reduction, Market Impact, Risk Control, Trade-Off, Execution Algorithms, Benchmark Execution Algorithms, VWAP, Market-Making Algorithms, Arbitrage Algorithms, Directional Algorithms, Market Manipulation Algorithms, Market Misconduct, Individual Investors, Institutional Investors, Agency Execution Departments, Proprietary Trading Departments, HFT, Dedicated Lines, DMA, Exchange Colocation, Arrowhead, Liquidity Provision, Infringement of Fairness, Market Destabilization, Flash Crash
+
+\subsection{Comprehension Check Quiz}
+
+\begin{enumerate}
+	\item What is the general term for the trading method where computers automatically execute the buying and selling of financial products according to predefined rules?
+	\item What is the goal pursued by algorithmic trading that uses advanced mathematical models and AI to achieve excess returns above the market average?
+	\item What is the technical term for the phenomenon where the execution of one's own large order moves the subsequent market price in an unfavorable direction, thus increasing trading costs?
+	\item What is the concept in economics and financial engineering that indicates that goals like the pursuit of returns, cost reduction, and risk control are mutually exclusive?
+	\item What is the representative category of algorithms (the parent category of VWAP and TWAP) aimed at reducing trading costs by dividing large orders into small segments and concealing the intent of execution to prevent the market from noticing?
+	\item What is the name of the algorithm that constantly presents both buy and sell orders to the market, providing liquidity, and using the price difference (spread) as a source of profit?
+	\item What is the trading strategy that detects situations where financial products of identical value are temporarily trading at different prices in different markets and instantly buys the cheaper one and sells the expensive one to secure a risk-free profit?
+	\item What is the technical term for the time delay in information processing and communication, from the moment an order is placed until it is executed?
+	\item What is the system connection method that aims to shorten communication time by routing order information directly to the exchange's system, bypassing brokerage firms?
+	\item In High-Frequency Trading (HFT), what is the infrastructure strategy for placing servers in the physically closest location to the exchange, maximizing the transmission speed of orders to the extreme limit?
+	\item What is the name of the trading system introduced by the Tokyo Stock Exchange in 2010 that enabled high-speed, high-volume trading in Japan?
+	\item What type of algorithm aims to acquire profits by predicting the direction of market price fluctuations, intending to buy low and sell high?
+	\item What is a form of market misconduct where an algorithm attempts to move the price in a self-favorable direction by issuing orders that mislead the market about liquidity or trading intent (e.g., immediate cancellation of a large order)?
+	\item What is the profit-seeking strategy, primarily used in High-Frequency Trading (HFT), that statistically captures temporary price distortions or correlation deviations in historical market data, aiming for mean reversion?
+	\item What is the phenomenon where liquidity is momentarily lost from the market when algorithms collectively cancel their orders, especially during market instability?
+\end{enumerate}
+
+\subsubsection*{Answer List}
+1. Algorithmic Trading, 2. Alpha, 3. Market Impact, 4. Trade-Off, 5. Execution Algorithm, 6. Market-Making Algorithm, 7. Arbitrage Trading, 8. Latency, 9. DMA, 10. Exchange Colocation, 11. Arrowhead, 12. Directional Algorithm, 13. Market Manipulation Algorithm, 14. Statistical Arbitrage, 15. Liquidity Evaporation
+
+\begin{thebibliography}{9}
+	\bibitem{NTTData}
+	The Essence of Algorithmic Trading: Strategies and Execution - NTT Data Financial Technology
+	\bibitem{Adachi}
+	Algorithmic Trading - Takanori Adachi
+	\bibitem{Marcos}
+	Advances in Financial Machine Learning - Lopez de Prado, Marcos
+\end{thebibliography}
 
 \end{document}
