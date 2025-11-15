@@ -1,0 +1,90 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancybox}
+\usepackage{tikz-cd}
+\title{
+リーマン幾何学の初歩
+}
+
+\author{
+岡田 大 (Okada Masaru)
+}
+
+\begin{document}
+\maketitle
+
+一般相対論の復習のためのリーマン幾何学の初歩についてまとめたい。
+
+\section{リーマン空間}
+
+リーマン空間は距離空間で、なおかつ微小距離だけ異なる2点
+$x^{i}, x^{i} + dx$
+の間の距離
+$ds$
+が
+\[
+	ds^{2} = g_{ij}(x) dx^{i} dx^{j}
+\]
+で定義されるような空間である。
+
+\subsection{例：2次元平面}
+
+2次元平面はリーマン空間になる。
+
+\[
+	g_{ij}(x) =
+	\left(
+	\begin{array}{cc}
+			1 & 0 \\
+			0 & 1
+		\end{array}
+	\right)
+\]
+すなわち
+\[
+	ds^{2} = dx^{2} + dy^{2}
+\]
+
+\subsection{例：2次元球面}
+
+2次元球面もリーマン空間である。
+
+\[
+	ds^{2} = a^{2} d \theta^{2} + a^{2} \sin^{2} \theta d \phi^{2}
+\]
+すなわち、
+\[
+	g_{ij}(x) =
+	\left(
+	\begin{array}{cc}
+			a^{2} & 0                     \\
+			0     & a^{2} \sin^{2} \theta
+		\end{array}
+	\right)
+\]
+
+\subsection{例：ミンコフスキー空間}
+
+ミンコフスキー空間もリーマン空間である。
+
+\[
+	g_{ij}(x) = \eta_{ij} =
+	\left(
+	\begin{array}{cccc}
+			-1 & 0 & 0 & 0 \\
+			0  & 1 & 0 & 0 \\
+			0  & 0 & 1 & 0 \\
+			0  & 0 & 0 & 1 \\
+		\end{array}
+	\right)
+\]
+
+\[
+	ds^{2} = \eta_{ij} dx^{i} dx^{j}
+\]
+
+\end{document}
