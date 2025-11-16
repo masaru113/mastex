@@ -7,7 +7,7 @@
 \usepackage{fancybox}
 \usepackage{tikz-cd}
 \title{
-リーマン幾何学の初歩
+一般相対論のためのリーマン幾何学の初歩
 }
 
 \author{
@@ -86,5 +86,276 @@ $ds$
 \[
 	ds^{2} = \eta_{ij} dx^{i} dx^{j}
 \]
+
+\section{座標変換}
+
+\subsubsection{座標変換による距離の不変性}
+
+座標系が $x$ の系と $x'$ の系でそれぞれ等しい二乗距離が
+\[
+	ds^{2} = g_{ij}(x) dx^{i} dx^{j}
+\]
+\[
+	ds'^{2} = g_{ij}(x') dx'^{i} dx'^{j}
+\]
+このように表されているとする。
+
+座標系が異なっても距離は等しい（$ds=ds'$）ので、
+\[
+	g_{ij}(x) dx^{i} dx^{j} = g_{ij}(x') dx'^{i} dx'^{j}
+\]
+
+\subsubsection{微小座標変化の変換}
+
+座標系 $x$ から $x'$ への変換を $x^{i}=x^{i}(x'^{1}, x'^{2}, x'^{3}, \cdots)$ とする。
+
+微小座標変化 $dx^{i}$ は微分の連鎖律を用いて、
+\[
+	dx^{i} = \frac{ \partial x^{i} }{ \partial x'^{k} } dx'^{k}
+\]
+と表せる。
+
+\subsubsection{距離の不変性に代入}
+$ds=ds'$ より、
+\[
+	g_{ij}(x) dx^{i} dx^{j} = g_{kl}(x') dx'^{k} dx'^{l}
+\]
+ここに微小座標変化の式を代入すると、
+\[
+	g_{ij}(x)
+	\left( \frac{ \partial x^{i} }{ \partial x'^{k} } dx'^{k} \right)
+	\left( \frac{ \partial x^{j} }{ \partial x'^{l} } dx'^{l} \right)
+	= g_{kl}(x') dx'^{k} dx'^{l}
+\]
+
+
+すなわち、
+\[
+	g_{kl}(x) = g_{ij}(x')
+	\frac{ \partial x^{i} }{ \partial x'^{k} }
+	\frac{ \partial x^{j} }{ \partial x'^{l} }
+\]
+
+\subsection{スカラー}
+
+$x$ で書かれる座標系 $x$ 系 と、別の $x'$ 系において、
+座標変換によって
+$\Phi(x) \to \Phi'(x')$
+に移った場合、一般には $\Phi(x) \neq \Phi'(x')$ であるが、
+特に
+$\Phi(x) = \Phi'(x')$
+となるような物理量をスカラーと呼ぶ。
+
+\subsubsection{例：世界距離}
+
+座標系 $x$ における微小距離
+\[
+	ds^{2} = g_{ij}(x) dx^{i} dx^{j}
+\]
+
+座標系 $x'$ における微小距離
+\[
+	ds'^{2} = g_{ij}(x') dx'^{i} dx'^{j}
+\]
+これらはそれぞれ等しい $ds = ds'$ ので $ds$ はスカラーである。
+
+スカラーとは時空の各点で定義されている量で、座標変換で不変な量である。
+
+\subsection{反変ベクトル}
+
+反変ベクトルは座標の微小変化 $dx^{i}$ と同じ変換則に従うベクトルを指す。
+物理的な位置、速度、運動量などの向きを持った量として捉えられる。
+
+$x$ 系で $A^{i}$、新しい座標系 $x'$ 系での成分を $A'^{k}$ とするとき、
+それらの間の変換則が
+\[
+	A'^{k} = \frac{ \partial x'^{k} }{ \partial x^{i} } A^{i}
+\]
+となるとき、$A^{i}$ は反変ベクトルという。
+
+\subsubsection{反変ベクトルの例：座標の微小変化}
+
+\[
+	dx'^{k} = \frac{ \partial x'^{k} }{ \partial x^{i} } dx^{i}
+\]
+これは反変ベクトルの定義そのもの。
+
+
+\subsubsection{反変ベクトルの例：2点間の有限な変位}
+
+\subsubsection{反変ベクトルの例：速度}
+
+固有時間 $\tau$ または座標時間 $dt$ で微分した量は反変ベクトルになる。
+\[
+	u^{i} = \frac{ d x^{i} }{ d \tau }
+\]
+
+\subsubsection{反変ベクトルの例：運動量}
+
+反変ベクトルである速度のスカラー倍である運動量も反変ベクトルになる。
+\[
+	p^{i} = mu^{i}
+\]
+
+\subsubsection{反変ベクトルにならない例：加速度}
+
+加速度 $a^{i}$ は、速度 $u^{i}$ を固有時間で微分した量であるが、これは反変ベクトルにならない。
+\[
+	a^{i} = \frac{ d u^{i} }{ d \tau }
+\]
+実際、
+\[
+	\frac{ d }{ d \tau } (u'^{k})
+	=
+	\frac{ d }{ d \tau }
+	\left(
+	\frac{ \partial x'^{k} }{ \partial x^{i} } u^{i}
+	\right)
+\]
+
+\[
+	=
+	\left(
+	\frac{ d }{ d \tau }
+	\frac{ \partial x'^{k} }{ \partial x^{i} }
+	\right)
+	u^{i}
+	+
+	\frac{ \partial x'^{k} }{ \partial x^{i} }
+	\frac{ d u^{i}}{ d \tau }
+\]
+第一項にチェーンルールを用いて、
+\[
+	=
+	\left(
+	\frac{ \partial }{ \partial x^{j} }
+	\frac{ \partial x'^{k} }{ \partial x^{i} }
+	\frac{ d x^{j} }{ d \tau }
+	\right)
+	u^{i}
+	+
+	\frac{ \partial x'^{k} }{ \partial x^{i} }
+	\frac{ d u^{i}}{ d \tau }
+\]
+
+\[
+	=
+	\left(
+	\frac{ \partial^{2} x'^{k} }{ \partial x^{j} \partial x^{i} }
+	u^{j}
+	\right)
+	u^{i}
+	+
+	\frac{ \partial x'^{k} }{ \partial x^{i} }
+	\frac{ d u^{i}}{ d \tau }
+\]
+第二項は加速度の定義より
+\[
+	=
+	\left(
+	\frac{ \partial^{2} x'^{k} }{ \partial x^{j} \partial x^{i} }
+	u^{j}
+	\right)
+	u^{i}
+	+
+	\frac{ \partial x'^{k} }{ \partial x^{i} }
+	a^{i}
+\]
+
+以上から、
+\[
+	a'^{k}
+	=
+	\frac{ \partial x'^{k} }{ \partial x^{i} }
+	a^{i}
+	+
+	\frac{ \partial^{2} x'^{k} }{ \partial x^{i} \partial x^{j} }
+	\frac{ d x^{i}}{ d \tau }
+	\frac{ d x^{j}}{ d \tau }
+\]
+
+加速度の第一項
+$
+	\displaystyle
+	\frac{ \partial x'^{k} }{ \partial x^{i} }
+	a^{i}
+$
+はテンソル項であり、もし
+$
+	\displaystyle
+	\frac{ d u^{i}}{ d \tau }
+$
+が反変ベクトルであれば、これだけで変換が完結するはずの項である。
+
+第二項
+$
+	\displaystyle
+	\frac{ \partial^{2} x'^{k} }{ \partial x^{i} \partial x^{j} }
+	\frac{ d x^{i}}{ d \tau }
+	\frac{ d x^{j}}{ d \tau }
+$
+が非テンソル項であり、
+反変ベクトルの定義から外れる項である。
+この項は加速座標系における慣性力（見かけ上の力）を表している。
+物理法則の共変性を維持するためには、この非テンソル項を打ち消す共変微分を導入する必要がある。
+
+\subsection{共変ベクトル}
+
+共変ベクトルは勾配 $\frac{ \partial \Phi }{ \partial x^{i} }$ と同じ変換則に従うベクトルである。
+
+$x$ 系で $B_{i}$、新しい座標系 $x'$ 系での成分を $B'_{k}$ とするとき、
+それらの間の変換則が
+\[
+	B'_{k} = \frac{ \partial x'^{i} }{ \partial x'^{k} } B_{i}
+\]
+となるとき、$B_{i}$ は共変ベクトルという。
+
+\subsubsection{共変ベクトルの例：スカラー場の勾配}
+
+あるスカラー場 $\phi$ （温度、電位、ポテンシャル）の空間的な変化率
+$\displaystyle \frac{ \partial \phi }{ \partial x^{i} }$
+は共変ベクトルになる。
+
+\subsubsection{共変ベクトルの例：共変運動量}
+
+反変運動量
+$p^{i}=mu^{i}$
+とは別に、
+一般化された運動量である共変運動量が
+\[
+	p_{i} = g_{ij} p^{j}
+\]
+として定義される。
+
+反変運動量に計量テンソルを作用させて添え字を下げたものになっているため、共変ベクトルの変換則を満たす
+物理量になる。
+
+古典力学のラグランジアン $L$ における一般化運動量
+$\displaystyle \frac{ \partial L }{ \partial v^{i} }$
+に相当する量になっている。
+
+\subsubsection{共変ベクトルの例：電磁場中の4元ポテンシャル}
+
+$A_{\mu}$ は共変ベクトルの変換則に従う。
+
+\subsubsection{共変にならない例：共変ベクトルの単純な微分量}
+
+例えば共変ベクトル $B_{i}$ の座標 $x^{k}$ で微分した量
+$\displaystyle \frac{ \partial B_{i} }{ \partial x^{k} }$
+は、2つの下付きの添え字を持つ。
+一見、2階の共変テンソルになりそうだが、実際にはテンソルにならない。
+
+座標変換の計算をすると、
+\[
+	\frac{ \partial B'_{m} }{ \partial x^{n} }
+	=
+	\frac{ \partial x^{i} }{ \partial x'^{m} }
+	\frac{ \partial x^{k} }{ \partial x'^{n} }
+	\frac{ \partial B_{i} }{ \partial x^{k} }
+	+
+	B_{i}
+	\frac{ \partial^{2} x^{i} }{ \partial x'^{m} \partial x'^{n} }
+\]
+この第二項が非テンソル部分になる。
 
 \end{document}
