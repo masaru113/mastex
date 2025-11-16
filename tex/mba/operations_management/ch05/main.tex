@@ -1,0 +1,543 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{\ \\[-20mm] Operations Management 5th Lecture Note \\ Supply Chain Management 3}
+\author{Masaru Okada}
+\date{\today}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Lecture Material Review}
+
+
+\subsection{Introduction}
+This lecture focuses on the \textbf{Toyota Production System (TPS)}, a symbol of the strength of Japan's manufacturing sector. TPS is a classic example of \textbf{core competence} in operations management, with companies worldwide attempting to adopt its essence. Although its information is widely public, fundamentally replicating it remains notoriously difficult. This note analyzes and organizes the foundational concepts of TPS, how it functions within modern \textbf{Supply Chain Management (SCM)}, and the implications it holds for innovative companies in different industries, such as Amazon and ZARA.
+
+
+
+\subsection{Key Concepts and Issues}
+
+\subsubsection{The Purpose and Fundamental Philosophy of TPS}
+The TPS originated from a deep \textbf{sense of crisis}—the need to catch up to the mass production systems of the US while operating in a low-volume production environment. Its basic philosophy is summarized in the equation: '\textbf{Profit = Selling Price - Cost}', which assumes the market determines the price. This stands in stark contrast to the '\textbf{Cost-Based Pricing}' approach (Selling Price = Cost + Profit), where profit is added to the cost to determine the selling price. The goal of TPS is to thoroughly reduce the '\textbf{cost}', the factor that can be reliably controlled through internal efforts, thus pursuing \textbf{Cost Reduction}. The most crucial means to this end is the '\textbf{Thorough Elimination of Waste}'.
+
+\subsubsection{Waste Elimination and The Seven Wastes}
+In TPS, '\textbf{waste}' refers to anything that \textbf{raises cost without adding value}. Much of this waste is difficult to see, making \textbf{Visualization} (\textit{Mieruka})—the ability for everyone to recognize waste—a prerequisite for improvement.
+The following \textbf{Seven Wastes} are defined as representative examples (often known by the Japanese acronym '\textit{Kazatte-Dōfu}').
+
+\begin{enumerate}
+	\item \textbf{Waste of Overproduction}:\\ Considered the '\textbf{Worst Waste}'. Producing more than the subsequent process requires or more than customers will buy induces other forms of waste (inventory, conveyance, space, waiting, etc.) and is the root cause of them.
+	\item \textbf{Waste of Waiting}:\\ A state where a worker is idle, waiting for work (workpiece) or due to missing parts.
+	\item \textbf{Waste of Conveyance}:\\ Transportation between processes, temporary staging, or restacking that adds no value.
+	\item \textbf{Waste of Processing Itself}:\\ Processing that results in excessive quality or work that is fundamentally unnecessary.
+	\item \textbf{Waste of Inventory}:\\ More work-in-process or finished goods than necessary. TPS considers \textbf{inventory to be the root cause that hides problems}. If the water level (inventory) is high, problems (rocks) such as equipment breakdowns, defects, or capacity imbalance remain hidden. Reducing inventory allows problems to surface, thereby prompting fundamental improvement.
+	\item \textbf{Waste of Motion}:\\ Movement during work, such as walking or awkward posture, that does not add value.
+	\item \textbf{Waste of Making Defects}:\\ The waste of materials, rework, and reinspection associated with producing defective goods.
+\end{enumerate}
+
+\subsubsection{Just-In-Time (JIT) Production and Synchronization}
+\textbf{Just-In-Time (JIT)} is the foundation of a rational production method designed to eliminate waste and is one of the pillars of TPS. It aims to produce and convey '\textbf{what is needed, when it is needed, and in the amount needed}'.
+
+Attempting to produce 'what is wanted, when it is wanted, and in the amount wanted' without restraint would require excessive facilities, personnel, and inventory, actually creating waste. In TPS, the production volume is \textbf{leveled (\textit{Heijunka})} via a \textbf{Monthly Production Plan} (discussed later) to keep daily production variation within a certain range. This stable plan makes JIT realizable without undue strain.
+
+The realization of JIT minimizes stagnation between processes, enabling \textbf{Synchronized Production}, where the entire production line works in unison. This achieves a dramatic reduction in \textbf{Production Lead Time} (the time from order placement to delivery).
+
+\subsubsection{The Kanban System}
+The \textbf{Kanban System} is the specific tool for realizing JIT and serves as the means of information transfer for operating the \textbf{Pull System} (Post-Process Withdrawal System).
+\begin{itemize}
+	\item \textbf{Mechanism}: A downstream production line (the post-process) goes to the upstream production line (the pre-process) to '\textbf{withdraw}' the required parts, at the required timing, and in the required amount.
+	\item \textbf{Production Instruction}: The '\textbf{Kanban}' (work instruction card) transmits this withdrawal information (i.e., usage history) to the pre-process. The pre-process then produces only the amount that was withdrawn (used) to replenish stock.
+	\item \textbf{Function}: This mechanism automatically dictates production based on the post-process's actual usage (pull), rather than on the production plan (push), fundamentally preventing the \textbf{Waste of Overproduction}.
+\end{itemize}
+
+\subsubsection{Sales and Operations Planning (S\&OP) Integration (Monthly Production Plan)}
+To solve the SCM trade-off between '\textbf{Inventory Excess and Stockout}', TPS employs \textbf{Lead Time Reduction} via JIT and \textbf{S\&OP Integration}.
+\begin{itemize}
+	\item \textbf{Monthly Production Preparation}: Based on the Sales Division's demand forecast, a consensus is reached with the Production Division to formulate the '\textbf{Monthly Production Plan}' for the next three months.
+	\item \textbf{Leveling (\textit{Heijunka})}: The most critical aspect of this planning is achieving \textbf{Stable Production (\textit{Heijunka})} by minimizing the fluctuation in the daily production volume on the assembly line while tracking demand changes.
+	\item \textbf{Firm and Tentative Orders}: The plan for the following month is '\textbf{firmed up}' with a determined daily production volume, which becomes the standard for ordering parts from suppliers and for workforce planning. The plan for 2-3 months out is shared as a '\textbf{tentative order}' (or forecast).
+	\item \textbf{Order Slots}: Based on this production plan, '\textbf{order slots}' (firm commitments) are also set for each dealership, balancing sales commitments with production capacity. This resolves the demand forecasting accuracy problem organizationally.
+\end{itemize}
+
+
+
+\subsection{Applications and Case Studies}
+
+\subsubsection{ZARA's Ultra-Fast Supply Chain}
+\textbf{ZARA}, the Spanish apparel company, has built an \textbf{ultra-fast supply chain}, sometimes referred to as the 'Spanish version of the Toyota Production System'.
+\begin{itemize}
+	\item \textbf{Commonality with TPS}: It is based on the philosophy of \textbf{JIT}, drastically shortening the \textbf{lead time} from design to store shelf.
+	\item \textbf{Operations}: The strategy revolves around \textbf{High-Variety, Small-Lot} production, operating a '\textbf{sell-out model}' where new products are introduced in short cycles. This maintains freshness in stores and increases customer visit frequency while minimizing inventory (waste). This case demonstrates how the TPS philosophy of lead time reduction and inventory control can be successfully applied to the completely different apparel industry.
+\end{itemize}
+
+\subsubsection{Analogy with Amazon Web Services (AWS)}
+\textbf{Jeff Bezos}, founder of Amazon, stated that the operation of \textbf{AWS} (Amazon Web Services) resembles TPS.
+\begin{itemize}
+	\item \textbf{Commonality}: Both systems aim to '\textbf{remove defects as close to the source as possible}'.
+	\item \textbf{Implication}: This resonates with the philosophy of \textbf{Jidoka} (Automation with a Human Touch), the other pillar of TPS, which is '\textbf{building quality into the process}'. It suggests that the core of system reliability and efficiency—whether in a physical manufacturing line or in the intangible operation of a cloud service—lies in mechanisms that immediately detect anomalies and prevent defects from flowing to the next process (the customer).
+\end{itemize}
+
+
+
+\subsection{Underlying Context and Lessons}
+
+\textbf{\paragraph{Side Topic Diverted from Main Discussion: Features of Automobile Production}}
+The complexity of automobile production itself is the context that necessitated a sophisticated system like TPS.
+\begin{itemize}
+	\item \textbf{Multi-Stage Processes}: A complex chain of numerous processes is involved, including pressing, casting, forging, resin molding, machining, painting, and assembly, with a vast number of suppliers participating.
+	\item \textbf{Mixed Production Methods}: The process mixes \textbf{Line Production} (no equipment changeover), such as vehicle assembly, with \textbf{Lot Production} (requiring die/mold exchange, or \textbf{setup changeover}), such as the pressing process. In lot production, optimizing the \textbf{lot size} and shortening the \textbf{setup changeover time} are key to improving productivity.
+	\item \textbf{Demand Characteristics}: Production is \textbf{High-Variety, Low-Volume}, requiring flexible response to demand fluctuations, such as the large differences in volume between the initial phase of a model change and the stable phase.
+\end{itemize}
+
+\textbf{\paragraph{Side Topic Diverted from Main Discussion: Lesson from the Near-Collapse}}
+The origin of TPS development lies in Toyota's \textbf{near-collapse} in 1950. The intense experience of '\textit{producing but not selling}' generated the philosophy of '\textbf{only producing what is tied to a sale}', providing the motivation to thoroughly eliminate the \textbf{Waste of Overproduction} as the worst form of waste.
+
+\textbf{\subsubsection{AI Supplement: Extension of Key Issues}}
+While JIT (Just-In-Time) is the central theme in this lecture text, '\textbf{Jidoka}' (Automation with a Human Touch) is the other crucial pillar supporting TPS. It is distinct from mere 'Automation'.
+\begin{itemize}
+	\item \textbf{Definition}: Jidoka, written with the person radical ('亻' - working) in the character 'Dō' (\textit{moving/working}), refers to a mechanism where '\textbf{the machine stops itself if an abnormality occurs}'. This originates from Sakichi Toyoda's invention of the automatic loom (which stops when a shuttle thread breaks).
+	\item \textbf{Purpose}:
+	      \begin{enumerate}
+		      \item \textbf{Preventing Defect Outflow}: Stopping the line immediately upon detecting an anomaly (quality defect or equipment failure) to prevent defects from flowing to the next process (\textbf{Building Quality into the Process}).
+		      \item \textbf{Problem Visualization}: The line stopping makes it '\textbf{visible}' where and what kind of anomaly occurred, enabling immediate countermeasures and root cause analysis (The 5 Whys).
+		      \item \textbf{Labor Saving}: Since the machine monitors for abnormalities, workers can oversee multiple machines, contributing to increased productivity.
+	      \end{enumerate}
+	\item \textbf{Tool}: The '\textbf{Andon}' (anomaly display board) is a 'visual control' tool used by workers to stop or warn the line when an anomaly is discovered, serving as one means to achieve Jidoka.
+\end{itemize}
+JIT pursues the efficiency of 'flow', while Jidoka pursues 'quality' and 'anomaly management'. Only when these two wheels are aligned can TPS function.
+
+
+
+\subsection{Conclusion}
+This lecture has shown that the \textbf{Toyota Production System (TPS)} is not merely a production site improvement method, but a system that solves the core challenges of \textbf{Supply Chain Management (SCM)}.
+To the eternal SCM problem of the '\textbf{Inventory Excess and Stockout Trade-Off}', TPS responds with two methods:
+\begin{enumerate}
+	\item \textbf{Just-In-Time (JIT)}: Achieves thorough \textbf{Lead Time Reduction} through the elimination of waste and synchronized production.
+	\item \textbf{Monthly Production Plan}: Resolves the \textbf{Demand Forecasting Accuracy Problem} organizationally through a consensus-building process predicated on \textbf{Leveling (\textit{Heijunka})}.
+\end{enumerate}
+As a practical lesson, the essence of TPS is not the tool of the 'Kanban' itself, but the organizational culture of continuous improvement: one that \textbf{thoroughly eliminates waste}, \textbf{reduces inventory} to \textbf{surface problems (\textit{Mieruka})}, and never stops improving. This philosophy is universally applicable to operations in every sector, not just manufacturing, as shown by ZARA (apparel) and AWS (IT services).
+
+
+
+\subsection{List of Key Keywords}
+Shigetoku Ogawara, \textbf{Jeff Bezos}, \textbf{Taiichi Ohno}
+\vspace{\baselineskip}
+\textbf{Supply Chain Management (SCM)}, \textbf{Toyota Production System (TPS)}, \textbf{Core Competence}, \textbf{Just-In-Time (JIT)}, \textbf{Lead Time}, \textbf{High-Variety, Small-Lot}, \textbf{Line Production System}, \textbf{Lot Production System}, \textbf{Setup Changeover}, \textbf{Demand Forecast}, \textbf{Leveling (\textit{Heijunka})}, \textbf{Kanban System}, \textbf{Cost Reduction}, \textbf{Waste Elimination}, \textbf{Visualization (\textit{Mieruka})}, \textbf{Synchronized Production}, \textbf{Jidoka (Automation with a Human Touch)}, \textbf{Pull System}, \textbf{Push System}
+
+
+
+\subsection{Understanding Check Quiz}
+
+\begin{enumerate}
+	\item What is the fundamental trade-off, arising from the gap between demand and supply, that Supply Chain Management (SCM) aims to resolve?
+	\item Explain the concept of 'Just-In-Time (JIT)' using its three core elements: 'what is needed,' 'when it is needed,' and 'in the amount needed.'
+	\item What is the name for a production system where production instructions are based on final demand (or the usage history of the post-process)?
+	\item What is considered the 'Worst Waste' in the Toyota Production System, which also induces many other wastes?
+	\item Explain the primary reason why the Toyota Production System views inventory not merely as an asset but as a 'problem.'
+	\item What is the term for the planning technique used to smooth out variations in daily production volume and product mix to achieve stable production?
+	\item What is the term used to refer to the time elapsed from ordering to delivery, or from the start of production to completion?
+	\item What is the name for the work required to exchange dies or fixtures to produce a different product, as is necessary in pressing machines?
+	\item What is the term for a production method (e.g., final vehicle assembly) that produces products continuously without changing over equipment or dies?
+	\item What is the mindset that seeks thorough cost reduction based on the philosophy '\text{Profit} = \text{Selling Price} - \text{Cost}'?
+	\item What is the most critical difference between 'Jidoka' (written with the person radical) and mere 'Automation'?
+	\item What is the name for the mechanism that immediately alerts all relevant parties to anomalies or progress using lamps or display boards on the production line?
+	\item Why can ZARA's operational strategy be considered an application of JIT philosophy?
+	\item What is the name for the production method where the production plan is based on demand forecasts, and products are supplied (pushed) to the market?
+	\item Among the Seven Wastes, which category includes a worker's walking or awkward posture during work that adds no value?
+\end{enumerate}
+
+\subsubsection*{Answer List}
+1. The trade-off between inventory excess and stockouts (shortages), 2. Producing and conveying what is needed, when it is needed, and in the amount needed, 3. Pull System (Post-Process Withdrawal System), 4. Waste of Overproduction, 5. Because inventory hides fundamental problems such as equipment failure and quality defects, 6. Leveling (\textit{Heijunka}), 7. Lead Time, 8. Setup Changeover, 9. Line Production System, 10. Cost Reduction (or the rejection of Cost-Based Pricing), 11. The machine stops itself when an anomaly occurs, surfacing the problem, 12. Visualization (\textit{Mieruka}), or Andon, 13. Because it minimizes inventory (waste) and uses an extremely short lead time to introduce new products to the market, 14. Push System (Make-to-Stock), 15. Waste of Motion
+
+
+
+
+
+
+
+\section{Today's Content: The Toyota Production System}
+
+\subsection{Introduction}
+This lecture focuses on the \textbf{Toyota Production System (TPS)}, the system that symbolizes the strength of Japanese manufacturing. Even though its information is widely public, fundamentally replicating it is difficult, making it a classic example of \textbf{core competence} in operations management. This note elucidates the core concepts of TPS, particularly the process of automobile production and the mechanism of the 'Kanban System,' and examines its contribution to solving modern \textbf{Supply Chain Management (SCM)} challenges, using cases like ZARA and Amazon.
+
+\subsection{Key Concepts and Issues}
+
+\subsubsection{Overview of the Automobile Production Process}
+Automobile production is a \textbf{multi-stage production process} involving a large number of suppliers. The main processes are broadly categorized into the following elements:
+\begin{itemize}
+	\item \textbf{Material and Parts Processes}: Diverse specialized processes exist, including pressing (hoods, doors), resin molding (bumpers), casting (blocks), forging (shafts), and sintering (gears).
+	\item \textbf{Assembly Processes}: The parts, engines, and transmissions manufactured above become finished vehicles through the body assembly line, paint line, and final assembly line.
+\end{itemize}
+
+\subsubsection{Classification of Production Methods: Line Production and Lot Production}
+Two production methods with different characteristics coexist within an automobile factory:
+\begin{enumerate}
+	\item \textbf{Line Production System}:\\
+	      A method of continuously and repeatedly producing products on a dedicated line. It does not require \textbf{changeover (setup changeover)} of dies or equipment. The final assembly line for vehicles and engines are typical examples.
+
+	\item \textbf{Lot Production System}:\\
+	      A dedicated line that requires a \textbf{setup changeover} of dies or equipment when producing different products. Since production stops during changeover, shortening this \textbf{setup changeover time} is key to improving productivity in \textbf{High-Variety, Small-Lot} production. Pressing, casting, forging, and resin molding fall into this category.
+\end{enumerate}
+
+\subsubsection{The Kanban System: Realizing the Pull System}
+The \textbf{Kanban System} is an informational tool for achieving \textbf{Just-In-Time (JIT)} and functions as the nerve network for the \textbf{Pull System} (Post-Process Withdrawal System).
+\begin{itemize}
+	\item \textbf{Two Types of Kanban}:
+	      \begin{itemize}
+		      \item \textbf{Withdrawal Kanban}: A conveyance instruction used when the \textbf{post-process} goes to the pre-process's parts store to '\textbf{withdraw}' the parts used.
+		      \item \textbf{Production Kanban}: Removed when parts are withdrawn from the pre-process's parts store, this serves as the production instruction to replenish those parts.
+	      \end{itemize}
+	\item \textbf{Information Flow}:
+	      Information that the post-process has used (withdrawn) a part (the Kanban) is transmitted to the pre-process. Only then does the pre-process produce '\textbf{only the amount that was withdrawn}'. This ensures that production is linked by actual consumption (pull) rather than the production plan (push), thoroughly eliminating the \textbf{Waste of Overproduction}.
+\end{itemize}
+
+\subsubsection{The Position of TPS in SCM}
+In previous lectures, it was established that the basic concept of SCM is to resolve the conflict of interest inherent in the '\textbf{Inventory Excess and Stockout Trade-Off}'. TPS approaches this challenge with the following two means:
+\begin{enumerate}
+	\item \textbf{Lead Time Reduction}: JIT (Kanban System) is thoroughly implemented to minimize the \textbf{lead time} required for supply.
+	\item \textbf{S\&OP Integration}: The problem of demand forecasting accuracy is solved through organizational planning processes (such as \textbf{Leveling (\textit{Heijunka})}).
+\end{enumerate}
+
+\subsection{Applications and Case Studies}
+
+\subsubsection{ZARA: 'The Spanish Toyota Production System'}
+\textbf{ZARA}, a global apparel company, has its \textbf{ultra-fast supply chain} as its core competence, which is sometimes called 'The Spanish Toyota Production System.'
+\begin{itemize}
+	\item \textbf{JIT Application}: ZARA implements the \textbf{JIT} mechanism, drastically reducing the \textbf{lead time} from design to store to about two weeks (competitors like H\&M and Uniqlo take over a month).
+	\item \textbf{Strategic Effect}: It adopts a '\textbf{sell-out model}' based on \textbf{High-Variety, Small-Lot} production, introducing new products in short cycles. This maintains the '\textbf{freshness of the storefront}' and increases customer visit and purchase frequency. This is a prime example of how the TPS philosophy of lead time reduction translates directly into inventory reduction and minimized opportunity loss.
+\end{itemize}
+
+\subsubsection{Amazon (AWS): 'Removing Defects at the Source'}
+\textbf{Jeff Bezos}, the founder of Amazon, stated that the operation of \textbf{AWS (Amazon Web Services)} resembles TPS.
+\begin{itemize}
+	\item \textbf{Philosophical Commonality}: Both strictly adhere to '\textbf{removing defects as close to the source as possible}'.
+	\item \textbf{Implication}: This aligns perfectly with the philosophy of \textbf{Jidoka} (Building Quality into the Process), the other pillar of TPS. Whether it is a physical manufacturing line or a digital service line, the principle is universal: a mechanism that immediately detects anomalies and prevents defects from flowing to the next process (the customer) ensures the overall reliability and efficiency of the operation.
+\end{itemize}
+
+\subsection{Underlying Context and Lessons}
+
+\textbf{\paragraph{Side Topic Diverted from Main Discussion: Five Distinct Features of Automobile Production}}
+The complex business environment unique to the automotive industry is what demanded a sophisticated system like TPS.
+\begin{enumerate}
+	\item \textbf{High Quality Requirements}: As a high-value product responsible for human life under diverse conditions, the highest levels of quality and reliability are demanded.
+	\item \textbf{Wide Range of Production Technologies}: A wide range of technologies is required, from material processing to high-tech (robot) operations and labor-intensive assembly work.
+	\item \textbf{High-Variety, Low-Volume}: Due to the diversification of customer preferences, producing multiple vehicle types on a single assembly line is now standard practice.
+	\item \textbf{Order Methods Based on Characteristics}: While primarily focused on \textbf{Make-to-Stock} orders, \textbf{Make-to-Order} is also used for specifications other than high-volume models.
+	\item \textbf{Demand Disparity between Initial and Stable Phases}: The market is mature, and demand has characteristics similar to a 'fashion product,' where it surges sharply after a model change and then stabilizes.
+\end{enumerate}
+
+\textbf{\paragraph{Side Topic Diverted from Main Discussion: The Essence of SCM Seen in an Amazon Book Review}}
+The Amazon book review introduced at the beginning of the lecture precisely summarized the essence of Toyota's SCM operation:
+\begin{itemize}
+	\item \textbf{Demand Control}: Demand forecasting is concentrated on the 20\% of product patterns that account for 80\% of sales, based on the 80:20 rule (\textbf{Pareto Principle}).
+	\item \textbf{Top-Down Planning}: Sales plans are determined top-down, rather than relying on the accumulation of bottom-up forecasts from dealers.
+	\item \textbf{S\&OP Consensus}: Emphasis is placed on reaching a consensus between Sales and Production, with the sales side holding a certain \textbf{commitment} to the plan.
+	\item \textbf{Leveling (\textit{Heijunka})}: Since promotions are executed based on the sales side's commitment, \textbf{leveling} is achieved from the demand side, contributing to the stable operation of the production line.
+\end{itemize}
+
+\textbf{\subsubsection{AI Supplement: Extension of Key Issues (The Two Pillars of TPS and Waste Elimination)}}
+This lecture transcript provided a detailed explanation of JIT (Kanban System), but two complementary issues are indispensable for understanding TPS.
+
+\textbf{\paragraph{1. Jidoka (Automation with a Human Touch)}}
+TPS is supported by the two pillars of 'JIT' and '\textbf{Jidoka}'. Jidoka is distinct from mere 'Automation,' as indicated by the person radical ('亻') in the character.
+\begin{itemize}
+	\item \textbf{Definition}: Integrating a mechanism into machines and lines to stop immediately when an anomaly (quality defect or equipment failure) occurs.
+	\item \textbf{Purpose}:
+	      \begin{enumerate}
+		      \item \textbf{Preventing Defect Outflow}: Stopping the line during an anomaly to prevent defects from flowing to the next process (=\textbf{Building Quality into the Process}).
+		      \item \textbf{Problem Visualization}: The line stopping immediately '\textbf{visualizes}' where and what problem occurred, enabling root cause analysis and improvement.
+	      \end{enumerate}
+	\item \textbf{Relevance}: Jeff Bezos's remark about 'removing defects at the source' is the very philosophy of 'Jidoka'.
+\end{itemize}
+
+\textbf{\paragraph{2. The 7 Wastes (The 7 Wastes)}}
+The ultimate goal of TPS is 'Cost Reduction,' and the means to that end is the '\textbf{Thorough Elimination of Waste}'. Both JIT and Jidoka exist to eliminate waste. TPS defines seven categories of non-value-adding activities.
+\begin{enumerate}
+	\item \textbf{Waste of Overproduction}: The \textbf{Worst Waste} that the 'Kanban System (Pull System),' as explained in this lecture, directly seeks to eliminate.
+	\item Waste of Waiting
+	\item Waste of Conveyance
+	\item Waste of Processing Itself
+	\item Waste of Inventory
+	\item Waste of Motion
+	\item Waste of Making Defects
+\end{enumerate}
+The Kanban System prevents the 'Waste of Overproduction' by not producing more than necessary, consequently reducing the 'Waste of Inventory' and 'Waste of Conveyance' as well.
+
+\subsection{Conclusion}
+This lecture note has clarified that the \textbf{Toyota Production System (TPS)} is not just an in-factory production technique but a philosophy that forms the core of \textbf{Supply Chain Management (SCM)}.
+To the eternal SCM challenge of the '\textbf{Inventory Excess and Stockout Trade-Off}', TPS provides two powerful means:
+\begin{enumerate}
+	\item \textbf{Just-In-Time (JIT)}: The Kanban System (Pull System) minimizes \textbf{Lead Time} to the extreme, physically eliminating the need for inventory.
+	\item \textbf{S\&OP Integration}: A top-down production plan that is \textbf{leveled (\textit{Heijunka})} is linked with sales-side commitment, organizationally controlling the uncertainty of demand forecasting.
+\end{enumerate}
+As the cases of ZARA and Amazon demonstrate, this philosophy of 'waste elimination through lead time reduction' and 'quality control at the source' is the core of a universal operations strategy applicable across all sectors and industries.
+
+\subsection{List of Key Keywords}
+\textbf{Jeff Bezos}
+\vspace{\baselineskip}
+\textbf{Supply Chain Management (SCM)}, \textbf{Toyota Production System (TPS)}, \textbf{Core Competence}, \textbf{Just-In-Time (JIT)}, \textbf{Lead Time}, \textbf{High-Variety, Small-Lot}, \textbf{Line Production System}, \textbf{Lot Production System}, \textbf{Setup Changeover}, \textbf{Lot Size}, \textbf{Leveling (\textit{Heijunka})}, \textbf{Kanban System}, \textbf{Pull System}, \textbf{Push System}, \textbf{Jidoka (Automation with a Human Touch)}, \textbf{Waste Elimination}
+
+\subsection{Understanding Check Quiz}
+
+\begin{enumerate}
+	\item What is the fundamental trade-off, arising from the gap between demand and supply, that Supply Chain Management (SCM) aims to resolve?
+	\item Explain the concept of 'Just-In-Time (JIT)' using its three core elements: 'what is needed,' 'when it is needed,' and 'in the amount needed.'
+	\item What is the name for a production system that sets a production plan based on demand forecasts and supplies (pushes) products to the market?
+	\item What is the name for a production system where production begins (is pulled) based on actual consumption (or a request from the post-process)?
+	\item What is the term used to refer to the time required from order placement to delivery, or from the start of production to completion?
+	\item What is the term for a core capability that gives a company a competitive advantage and cannot be easily imitated by competitors?
+	\item What is the name for the work required to exchange dies or fixtures to produce a different product, as is necessary in pressing machines?
+	\item What is the term for the quantity of product produced during a single setup changeover?
+	\item What is the planning method used to smooth out variations in production volume and product mix, ensuring a stable production load?
+	\item In the Toyota Production System, what is the conveyance instruction used by the post-process when withdrawing parts from the pre-process?
+	\item In the Toyota Production System, what is the production instruction used by the pre-process to conduct replenishment production?
+	\item What is the most critical difference between 'Jidoka' (written with the person radical) and mere 'Automation'?
+	\item What is considered the 'Worst Waste' in the Toyota Production System, which also induces many other wastes?
+	\item Explain why ZARA's supply chain strategy prioritizes lead time reduction, using the term 'freshness of the storefront.'
+	\item Briefly explain the mechanism by which the Kanban System prevents the 'Waste of Overproduction.'
+\end{enumerate}
+
+\subsubsection*{Answer List}
+1. The trade-off between inventory excess and stockouts (shortages), 2. Producing and conveying what is needed, when it is needed, and in the amount needed, 3. Push System, 4. Pull System, 5. Lead Time, 6. Core Competence, 7. Setup Changeover, 8. Lot Size (Production Lot), 9. Leveling (\textit{Heijunka}), 10. Withdrawal Kanban, 11. Production Kanban, 12. The machine stops itself when an anomaly occurs, surfacing the problem, 13. Waste of Overproduction, 14. By reducing lead time, the company can sell out high-freshness (trendy) products without stockouts, minimizing both inventory risk and opportunity loss., 15. The system ensures that the pre-process only replenishes the amount actually used (withdrawn) by the post-process, automatically preventing excessive production not based on demand.
+
+\section{Monthly Production Plan}
+
+\subsection{Introduction}
+This lecture focuses on '\textbf{S\&OP Integration},' the core function of the \textbf{Supply Chain Management (SCM)} within the Toyota Production System (TPS). Highly accurate planning and demand stabilization are prerequisites for realizing Just-In-Time (JIT). This note elucidates the overall process, known as '\textbf{Monthly Production Preparation},' its mechanism for absorbing demand fluctuations and achieving \textbf{Leveling (\textit{Heijunka})}, and how it solves SCM challenges.
+
+\subsection{Key Concepts and Issues}
+
+\subsubsection{Overview of Monthly Production Preparation (Monthly Production Plan)}
+Toyota's SCM is driven by a series of planning processes called '\textbf{Monthly Production Preparation}' that occur every month. This operation integrates demand forecasting with parts ordering.
+\begin{enumerate}
+	\item \textbf{Planning Formulation}: Based on domestic and international \textbf{demand forecasts}, a '\textbf{Monthly Sales Plan}' is formulated, incorporating the intentions of the Sales Division.
+	\item \textbf{Deployment to Production Plan}:
+	      \begin{itemize}
+		      \item A '\textbf{Monthly Production Plan by Model Name}' is formulated, from which '\textbf{Order Slots}' (firm commitments) for each dealership are created.
+		      \item This is then deployed into a '\textbf{Monthly Production Plan by Line}', considering optimization of shipping costs, among other factors, culminating in a daily '\textbf{Monthly Schedule Plan by Line}'.
+	      \end{itemize}
+	\item \textbf{Material Requirements Calculation and Ordering}:
+	      \begin{itemize}
+		      \item Based on the schedule plan, a '\textbf{Parts Requirement Calculation}' (parts explosion) is performed using the \textbf{Bill of Materials (BOM)}.
+		      \item '\textbf{Parts Ordering}' to suppliers is conducted based on the parts requirements.
+		      \item Simultaneously, a '\textbf{Material Requirement Calculation}' is performed using the '\textbf{Material Consumption Rate Table}' to carry out '\textbf{Material Ordering}'.
+	      \end{itemize}
+	\item \textbf{Resource Preparation}: The results of the parts requirement calculation determine the factory's '\textbf{Operation Plan}', '\textbf{Manpower Plan}' (including work revision), and the critical '\textbf{Kanban Quantity Change}' for JIT operations.
+\end{enumerate}
+
+\subsubsection{Calculating Required Production Volume and Plan Formulation}
+The process of calculating the required production volume from the monthly sales plan is based on the fundamental SCM logic for controlling inventory.
+\begin{itemize}
+	\item \textbf{Formula for Required Production Volume}:\\
+	      Next Month's Required Production Volume = Next Month's Sales Plan - End of Current Month's Inventory (Forecast) + End of Next Month's Inventory (Plan)
+	\item \textbf{S\&OP Adjustment}: This formula determines the production volume (supply) based on the sales plan (demand) and the inventory plan (buffer). This process is conducted for the next three months.
+\end{itemize}
+
+\subsubsection{Firm and Tentative Orders: Rolling Planning}
+The Monthly Production Plan for the next three months is created around the 20th of each month, following review and consensus between the Sales and Production Divisions.
+\begin{itemize}
+	\item \textbf{Firm (Next Month's)}: The production plan where the daily production volume is '\textbf{firmed up}'. This serves as the official standard for ordering from suppliers and for the factory's manpower plan.
+	\item \textbf{Tentative (2-3 Months Out)}: The production plan that indicates future projections, shared as a '\textbf{tentative order}' (or forecast). Suppliers use this to conduct long-term production preparation and capacity planning.
+\end{itemize}
+
+\subsubsection{Leveling (\textit{Heijunka}): The Most Critical Issue in Production Planning}
+The most critical issue in formulating the Monthly Production Plan is '\textbf{ensuring all assembly lines can produce stably}', which is achieved through \textbf{Leveling (\textit{Heijunka})}.
+\begin{itemize}
+	\item \textbf{Purpose}: To minimize the fluctuation in factory production (especially daily production volume) as much as possible, while still tracking demand increases or decreases due to seasonal variations.
+	\item \textbf{Significance}: This \textbf{leveled} production plan is the prerequisite that guarantees the stable operation of the post-process (assembly) and, consequently, enables stable JIT withdrawal via the 'Kanban System' for the pre-processes (parts) and suppliers.
+\end{itemize}
+
+\subsubsection{Parts Requirement Calculation and Production Preparation}
+\begin{itemize}
+	\item \textbf{Bill of Materials (BOM) and Requirement Calculation}: The Monthly Production Plan is a plan created by Toyota's forecast (push), not by dealership orders (pull). Using this plan (Monthly Schedule Plan by Line) and the vehicle's configuration information stored in the '\textbf{Bill of Materials}', the '\textbf{Parts Requirement Calculation}' (parts explosion) for all necessary parts is performed by computer.
+	\item \textbf{Manpower Plan}: The \textbf{manpower} is optimized for efficient production based on the determined production volume. Adjustments to overtime, assignment of new hires, and '\textbf{Inter-Plant Support}' are conducted based on required personnel, with work revisions implemented to match the change in personnel.
+	\item \textbf{Kanban Quantity Change}: The number of Kanbans, which govern JIT operation, is recalculated based on the next month's production plan (parts usage) and changed at the end of the month.
+\end{itemize}
+
+\subsection{Applications and Case Studies}
+
+\subsubsection{Case Study: SCM Optimization in Line-Specific Planning (Minimizing Shipping Costs)}
+Toyota's Monthly Production Plan extends beyond mere capacity allocation (load leveling).
+\begin{itemize}
+	\item \textbf{Analysis}: When deploying the '\textbf{Production Plan by Model Name}' into the '\textbf{Monthly Production Plan by Line}', Toyota uses a detailed demand forecast: '\textbf{how many vehicles of what specifications will sell in which region}'.
+	\item \textbf{Optimization}: Based on this regional demand forecast, the assembly line (factory) that will produce the vehicles is determined so as to '\textbf{minimize the total shipping cost from the assembly line to the final delivery destination (the dealership)}'.
+	\item \textbf{Implication}: This is a practical example of advanced SCM operation that integrally optimizes production (Make) and logistics (Deliver). It realizes cost minimization by reflecting the reality that specifications sold differ between urban and rural areas.
+\end{itemize}
+
+\subsection{Underlying Context and Lessons}
+
+\textbf{\paragraph{Side Topic Diverted from Main Discussion: Non-Use of Sales Targets}}
+A noteworthy point regarding Toyota's production planning is its strict discipline. The lecture emphasizes that '\textbf{sales targets, which are for sales convenience, are not used in demand forecasting or production planning}'. This is an important governance measure to prevent optimistic assumptions or sales goals (achievement targets) from contaminating the production plan (execution plan), thereby preempting SCM disruption (excess inventory or stockouts).
+
+\textbf{\paragraph{Side Topic Diverted from Main Discussion: Rapid Tracking of Market Changes}}
+Toyota's planning process is not static. If demand forecasts change significantly, such as due to the \textbf{introduction of a competitor's new model}, the sales and production plans are changed in a timely manner \textbf{even mid-month}, and '\textbf{production preparation}'—including ordering to suppliers and manpower planning—\textbf{is redone}. This shows that Toyota achieves \textbf{agility} in responding quickly to market changes while simultaneously maintaining the stability of the plan (\textit{Heijunka}).
+
+\textbf{\subsubsection{AI Supplement: Extension of Key Issues (Leveling and Bullwhip Effect Suppression)}}
+This lecture text details the 'planning' process of Toyota—the powerful 'push' aspect that supports JIT (pull). An important SCM implication of this 'Leveling (\textit{Heijunka})' is the suppression of the '\textbf{Bullwhip Effect}'.
+\begin{itemize}
+	\item \textbf{Bullwhip Effect}: A phenomenon in SCM where a small fluctuation in demand at the retail end is amplified as it travels up the supply chain through wholesalers, manufacturers, and suppliers. It is named for the motion of a whip. It is caused by factors such as each entity accumulating safety stock and results in excess inventory or stockouts throughout the chain.
+	\item \textbf{Suppression through Leveling}: Toyota's Monthly Production Plan intentionally seeks to '\textbf{minimize production fluctuations}'. By sharing this '\textbf{leveled}' production plan (firm information) early with suppliers as a 'tentative order,' Toyota \textbf{intentionally blocks and suppresses the Bullwhip Effect}—the propagation and amplification of end-demand fluctuation up the supply chain.
+	\item \textbf{Conclusion}: JIT (Pull System), the source of Toyota's strength, is underpinned by this highly powerful push-type (planned) S\&OP integration process called the 'Leveled Monthly Production Plan.'
+\end{itemize}
+
+\subsection{Conclusion}
+This lecture has clarified that the Toyota Production System (TPS) addresses the SCM challenge of the '\textbf{Demand Forecasting Accuracy Problem}' through a sophisticated \textbf{S\&OP Integration} process called the '\textbf{Monthly Production Plan}'.
+The core of this process is not merely tracking demand but the strong intent of Sales and Production to reach a consensus and control production fluctuations through '\textbf{Leveling (\textit{Heijunka})}'.
+
+The practical lesson is that for an efficient Pull System like JIT to function, it must be predicated on a 'leveled plan (push)' that suppresses volatility throughout the entire supply chain (especially for upstream suppliers), and a commitment from the demand side (setting of '\textbf{Order Slots}' for dealerships). Toyota achieves overall SCM optimization by linking this plan and execution, push and pull, precisely in a monthly cycle.
+
+\subsection{List of Key Keywords}
+(None listed)
+\vspace{\baselineskip}
+\textbf{Supply Chain Management (SCM)}, \textbf{Demand Forecast}, \textbf{Leveling (\textit{Heijunka})}, \textbf{Bill of Materials (BOM)}, \textbf{Material Requirements Planning (MRP)}, \textbf{Operation Plan}, \textbf{Manpower Plan}, \textbf{Inventory Management}, \textbf{Tentative Order}, \textbf{Bullwhip Effect}
+
+\subsection{Understanding Check Quiz}
+
+\begin{enumerate}
+	\item In Supply Chain Management (SCM), what is the phenomenon where a slight demand fluctuation at the retail end is amplified as it moves toward upstream suppliers?
+	\item In the Toyota Production System, what is the planning method that attempts to maintain a constant production volume and workload, regardless of demand fluctuations?
+	\item What is the general term for the planning method that shares the next month's production plan as 'firm' information and the plan for 2-3 months out as 'projection' information?
+	\item What is the list that shows the required composition of all intermediate parts and raw materials needed to produce one unit of a certain product?
+	\item What is the process of calculating the required quantity of parts and materials based on the production schedule (what, how many, by when) and the Bill of Materials?
+	\item Toyota's formula for calculating required production volume (Next Month's Sales Plan - End of Current Month's Inventory + End of Next Month's Inventory) is designed to balance what in SCM?
+	\item What crucial forecast information does Toyota use when setting up line-specific production plans to minimize shipping costs?
+	\item What is one of the main causes of the Bullwhip Effect, attributed to independent actions taken by companies at each stage of the supply chain?
+	\item Among the critical resource plans that determine factory capacity, what is the planning of personnel allocation and working hours (e.g., overtime)?
+	\item What 'tool' does Toyota recalculate and change every month based on the monthly production plan to realize JIT (Just-In-Time)?
+	\item What is the main reason why objective 'demand forecasts,' rather than the Sales Division's 'target numbers,' should be used in production planning?
+	\item What are the terms for the production method based on planned production (forecast) and the method based on actual usage (pull) by the post-process, respectively?
+	\item Which aspect is stronger in Toyota's 'Monthly Production Plan' among the two methods mentioned in Q12?
+	\item Why does Toyota place such high importance on the planning (push) process mentioned in Q13, even though it operates a JIT (pull system)?
+	\item What is the biggest advantage for suppliers in receiving 'tentative order' information from the manufacturer?
+\end{enumerate}
+
+\subsubsection*{Answer List}
+1. Bullwhip Effect, 2. Leveling (\textit{Heijunka}), 3. Rolling Planning (or Firm and Tentative Orders), 4. Bill of Materials (BOM), 5. Material Requirements Planning (MRP), 6. Supply and Demand Balance (Demand, Supply, Inventory), 7. Regional (or Dealership-specific) Demand Forecast by Specification, 8. Independent accumulation of safety stock (or batching of orders), 9. Manpower Plan, 10. Kanban (the number of cards), 11. To prevent planning confusion (excess inventory or stockouts) and maintain an objective supply and demand balance, 12. Push System (Make-to-Stock), Pull System (Post-Process Withdrawal), 13. Push System (Planned Production), 14. Because Leveling is necessary to suppress production fluctuations across the entire supply chain, serving as the prerequisite for the stable functioning of the Pull System (JIT)., 15. The ability to prepare production stably (operation plan, manpower plan, material procurement) since production fluctuations are known in advance, thus avoiding the Bullwhip Effect.
+
+\section{The Philosophy of the Toyota Production System}
+
+\subsection{Introduction}
+This lecture explains the fundamental philosophy of the \textbf{Toyota Production System (TPS)}, which was developed by Toyota Motor Corporation out of an intense sense of crisis to catch up with the US mass production system. Its goal is to \textbf{thoroughly eliminate all waste} in production to improve productivity and pursue \textbf{Cost Reduction}. This note organizes the core concepts of Just-In-Time (JIT) and The Seven Wastes, as well as the mechanisms of the 'Kanban System' and 'Visualization (\textit{Mieruka})' that realize them.
+
+\subsection{Key Concepts and Issues}
+
+\subsubsection{Basic Stance toward Cost Reduction}
+The Toyota Production System distinguishes between two equations regarding profit:
+\begin{align*}
+	\text{Profit}        & = \text{Selling Price} - \text{Cost} \quad \cdots (1) \\
+	\text{Selling Price} & = \text{Cost} + \text{Profit} \quad \cdots (2)
+\end{align*}
+Equation (2) represents the \textbf{Cost-Based Pricing} approach, where the selling price is determined by adding profit to the incurred cost. However, this approach is invalid in a global competitive environment where the selling price is determined by the market. Toyota adopts the stance of Equation (1), believing that profit can only be secured through rigorous \textbf{Cost Reduction}, which is reliably controllable through internal efforts, working backward from the market-determined selling price.
+
+\subsubsection{The Two Pillars of the Toyota Production System}
+The innovative system for realizing cost reduction was developed by pursuing two objectives:
+\begin{enumerate}
+	\item \textbf{Thorough Elimination of Waste}
+	\item A \textbf{Rational Production Method} capable of eliminating waste (\textbf{Just-In-Time}, \textbf{Jidoka})
+\end{enumerate}
+
+\subsubsection{The Definition of Waste and 'Visualization (\textit{Mieruka})'}
+\textbf{Waste} in TPS is defined as 'all things that raise cost without adding value.' This includes not only visible items like excess inventory and defective products but also less visible waste, such as work motion and waiting time.
+The crucial element is the mechanism that allows everyone to recognize these hard-to-see wastes, namely, '\textbf{Visualization (\textit{Mieruka})}.' The core TPS philosophy is that 'if waste is known, improvement will proceed,' leading to the introduction of tools like the 'Andon' discussed later.
+
+\subsubsection{Just-In-Time (JIT) Production}
+The foundation of a rational production method is \textbf{Just-In-Time (JIT)}, which means 'producing and conveying what is needed, when it is needed, and in the amount needed.'
+However, implementing this without a plan requires a massive surplus (of people, equipment, and inventory), making the exercise counterproductive. The realization of JIT requires a prerequisite adjustment with the \textbf{Monthly Production Plan} to keep demand fluctuations within a certain range. This plan ensures the fluctuation in the assembly line's required parts volume is small (=\textbf{Leveling (\textit{Heijunka})}), forming the foundation of JIT.
+
+\subsubsection{The Seven Wastes}
+TPS defines the following seven as representative wastes. They are sometimes called by the Japanese mnemonic '\textit{Kazatte-Dōfu}'.
+\begin{itemize}
+	\item \textbf{Waste of Overproduction}: Considered the worst waste. It is the root cause of inducing and concealing all other wastes (inventory, conveyance, waiting, etc.) by producing more than will sell or more than the next process requires.
+	\item \textbf{Waste of Waiting}: A state where a worker is idle due to missing parts or waiting for work.
+	\item \textbf{Waste of Conveyance}: Transportation, temporary staging, or restacking between processes that adds no value.
+	\item \textbf{Waste of Processing Itself}: Processing that results in excessive quality, inefficient processing methods, or unnecessary work.
+	\item \textbf{Waste of Inventory}: More work-in-process or finished goods than necessary. As discussed later, inventory is considered the 'breeding ground for problems.'
+	\item \textbf{Waste of Motion}: Worker movement (walking, awkward posture, etc.) during work that does not add value.
+	\item \textbf{Waste of Making Defects}: The waste of material and labor hours caused by defective products themselves and rework.
+\end{itemize}
+
+\subsubsection{The Kanban System}
+Developed to supply parts JIT, predicated on the \textbf{Leveling (\textit{Heijunka})} of the assembly line, the \textbf{Kanban System} is a tool that instructs the post-process (downstream line) to withdraw 'what is needed, when it is needed, and in the amount needed' from the pre-process (upstream line).
+\begin{itemize}
+	\item \textbf{Withdrawal Kanban}: Used by the post-process when going to withdraw parts from the pre-process.
+	\item \textbf{Production Kanban}: Used by the pre-process to produce only the amount that was withdrawn.
+\end{itemize}
+This establishes a '\textbf{Pull Production System}', where the pre-process's production is triggered by the withdrawal information (Kanban) from the post-process, rather than by a detailed production plan (push).
+
+\subsubsection{'Jidoka' and 'Andon'}
+In TPS, emphasis is placed on building quality into the process. The means for this is \textbf{'Jidoka'} (Automation with a Human Touch), written with the person radical (亻). Unlike mere 'Automation,' Jidoka refers to a mechanism (a machine integrated with human wisdom) where the equipment judges when an anomaly occurs, stops itself, and prevents defective products from flowing to the next process.
+The '\textbf{Andon}' (anomaly display board) supports this 'Visualization (\textit{Mieruka}).' When an anomaly (delay, defect, breakdown, etc.) occurs in the production process, the worker illuminates a lamp, immediately notifying managers of the problem. This makes the problem visible, allowing for rapid response and root cause analysis.
+
+\subsubsection{Synchronized Production}
+The small-batch withdrawal using the Kanban System (at 20–40 minute intervals) realizes \textbf{Synchronized Production}, linking the post-process production with the pre-process production. Eliminating stagnation (waste) between processes enables a dramatic reduction in \textbf{Production Lead Time}.
+
+\subsection{Applications and Case Studies}
+
+\subsubsection{Case Study: Operating the Pull System with the Kanban System}
+Toyota's production line functions with the Kanban System as its nervous system. When the downstream assembly line uses a part, that information (Withdrawal Kanban) is transmitted to the upstream parts process. The upstream process then produces (Production Kanban) and replenishes \textit{only the amount that was withdrawn}.
+The core of this mechanism is that production is linked by the actual usage situation on-site (pull), not by detailed central production instructions (push). This keeps the inventory between lines to the necessary minimum, structurally preventing the waste of overproduction.
+
+\subsubsection{Analysis: The Philosophy that 'Inventory Hides the Breeding Ground for Problems'}
+The 'water level' analogy presented in the lecture symbolizes TPS's view of inventory:
+\begin{itemize}
+	\item \textbf{High Inventory Level (Deep Water)}: Various 'problems (rocks)'—such as equipment breakdowns, quality defects, work delays, and capacity imbalances—are concealed by abundant inventory and do not surface. Problem-solving tends to be postponed because the next process is unaffected.
+	\item \textbf{Low Inventory Level (Shallow Water)}: Intentionally reducing inventory causes previously hidden problems (rocks) to be exposed one after another.
+\end{itemize}
+In the Toyota Production System, inventory is viewed as a 'cost' and 'the evil that hides problems,' not an 'asset.' The system deliberately reduces inventory to create a situation where problems are exposed (the line stops), and then fundamentally investigates and improves the root cause, thereby strengthening the constitution of the entire production system.
+
+\subsection{Underlying Context and Lessons}
+
+\textbf{\paragraph{Taiichi Ohno's Obsession}}
+\textbf{Taiichi Ohno}, the central figure in the development of the Toyota Production System and former Vice President, is said to have later stated that 'I am still obsessed with Just-In-Time.' This anecdote shows how difficult the realization of JIT was and that it was a never-ending pursuit.
+
+\textbf{\paragraph{The Mnemonic 'Kazatte-Dōfu'}}
+This Japanese mnemonic for the Seven Wastes (Processing, Inventory, Overproduction, Waiting, Motion, Conveyance, Defects) is a practical device to help on-site workers constantly be aware of the types of waste and utilize them in improvement activities.
+
+\textbf{\paragraph{The Primary Experience of the 1950 Near-Collapse}}
+The background for Toyota prioritizing the 'Waste of Overproduction' as the worst waste is the lesson from the 1950 management crisis (near-collapse). The strong will to 'produce only what is tied to a sale' led to the philosophy of thoroughly eliminating overproduction.
+
+\textbf{\paragraph{The Kanji Notation for 'Jidoka'}}
+The lecture prompts attention to the notation '\textbf{Jidoka}' with the person radical (亻). This is to distinguish it from mere 'Automation,' where a machine simply moves. It embodies the philosophy of integrating 'human work (wisdom)' into the machine—the ability to detect an anomaly and stop itself—and is the core term for building quality into the process.
+
+\textbf{\subsubsection{AI Supplement: Extension of Key Issues}}
+This lecture primarily detailed 'Just-In-Time (JIT)' as a pillar of TPS, but the overall picture of the other pillar, '\textbf{Jidoka},' and the supporting problem-solving methodology were limited.
+The essence of TPS's 'Jidoka' is not just anomaly stopping (\textit{Andon}). Its core is: (1) the machine stops itself if an anomaly occurs, (2) defects are absolutely prevented from flowing to the next process (building quality into the process), and (3) workers can focus on responding to anomalies and improvement (labor saving) rather than simply machine tending.
+Indispensable when a problem is exposed (visualized) by 'Jidoka' is the root cause analysis method represented by '\textbf{The 5 Whys}'. By repeating 'why' five times for a superficial problem (e.g., the machine stopped), the true root cause (e.g., the maintenance manual was insufficient) is reached, and countermeasures for recurrence prevention are implemented.
+JIT optimizes the 'flow' of things, while Jidoka guarantees 'quality' (anomaly detection). Only when both of these wheels are in place can TPS function. Furthermore, the system will merely stop repeatedly unless there is an organizational capability to solve the exposed problems (a culture of continuous improvement, or \textbf{Kaizen}).
+
+\subsection{Conclusion}
+The Toyota Production System (TPS) is a system that rejects the Cost-Based Pricing philosophy ('Selling Price = Cost + Profit') and pursues thorough \textbf{Cost Reduction} based on the idea that '\text{Profit} = \text{Selling Price} - \text{Cost}'. Its means of realization are the two pillars of '\textbf{Just-In-Time (JIT)}' and '\textbf{Jidoka}', aiming for the \textbf{elimination of all waste} (especially the 'Waste of Overproduction').
+The practical lesson from this lecture is the recognition that 'inventory hides the breeding ground for problems.' While many companies accept inventory as a 'necessary evil' for stable operation, TPS intentionally reduces inventory to '\textbf{visualize}' problems. By continually using methods like the 'Andon' and 'The 5 Whys' to fundamentally solve the exposed problems (Kaizen), the system enhances the competitiveness of the entire production process. Furthermore, the point that the 'Kanban System' (a pull-type system) must be predicated on the \textbf{'Leveling (\textit{Heijunka})'} of demand (adjustment via the Monthly Production Plan) is a crucial implication for supply chain management.
+
+\subsection{List of Key Keywords}
+\textbf{People:} \textbf{Taiichi Ohno}
+
+\vspace{\baselineskip}
+\textbf{Universal Concepts:} \textbf{Cost Reduction}, \textbf{Cost-Based Pricing}, \textbf{Lead Time}, \textbf{Just-In-Time (JIT)}, \textbf{Visualization (\textit{Mieruka})}, \textbf{Leveling (\textit{Heijunka})}, \textbf{Kanban System}, \textbf{Pull Production System}, \textbf{Push Production System}, \textbf{The Seven Wastes}, \textbf{Jidoka (Automation with a Human Touch)}, \textbf{Andon}, \textbf{Synchronization}, \textbf{Supply Chain Management}, \textbf{Continuous Improvement (Kaizen)}
+
+\subsection{Understanding Check Quiz}
+\begin{enumerate}
+	\item Explain the problem with the 'Cost-Based Pricing' approach, considering the modern competitive environment.
+	\item What is the main reason the Toyota Production System prioritizes profit assurance through 'Cost Reduction' over 'Sales Expansion'?
+	\item State the basic definition of 'Just-In-Time (JIT)' (what, when, how much).
+	\item What kind of inefficiency would occur if a JIT production system were operated with zero inventory but without planning?
+	\item What is 'Leveling (\textit{Heijunka})' in a production system? Why is it a prerequisite for realizing JIT?
+	\item Explain the fundamental difference between the 'Pull Production System' and the 'Push Production System,' focusing on the starting point of the production instruction.
+	\item List two main roles the 'Kanban System' plays in the Pull Production System.
+	\item Why is the 'Waste of Overproduction' considered the 'Worst Waste' compared to the other six?
+	\item Explain the meaning of the metaphor 'inventory hides the breeding ground for problems,' using equipment breakdown as an example.
+	\item What is the specific purpose of 'Visualization (\textit{Mieruka})' in the production workplace?
+	\item Explain the conceptual difference between 'Jidoka' (with the person radical) and the general 'Automation.'
+	\item What function does the 'Andon' system provide when a problem occurs?
+	\item Provide two examples that fall under the 'Waste of Processing Itself' (e.g., over-quality).
+	\item What state is achieved when 'Synchronized Production' is realized? How does it affect Production Lead Time?
+	\item 'The 5 Whys' is a problem-solving technique used for what purpose?
+\end{enumerate}
+
+\subsubsection*{Answer List}
+1. Since the market determines the selling price, the approach of adding profit to cost loses price competitiveness., 2. Sales (demand) fluctuates significantly and is uncertain, but Cost Reduction can reliably achieve results through internal company efforts., 3. To produce and convey \textbf{what is needed}, \textbf{when it is needed}, and \textbf{in the amount needed}., 4. Excessive personnel, equipment, and inventory must be constantly secured to cope with even slight fluctuations in demand, leading to an increase in waste., 5. Smoothing out fluctuations in production volume, product mix, and production sequence to keep the daily production load constant. If the load is unstable, it becomes difficult to supply parts JIT to the next process., 6. The Push System pushes goods from upstream to downstream based on the production plan, while the Pull System's production instructions chain back upstream, starting from the demand (withdrawal) of the post-process (customer)., 7. (1) 'Conveyance Instruction' for the post-process to withdraw parts from the pre-process, (2) 'Production Instruction' for the pre-process to produce only the amount that was withdrawn., 8. It is the root cause that \textbf{induces and conceals all other wastes}, such as the waste of inventory, conveyance, and waiting., 9. When \textbf{inventory} is abundant, the post-process can continue production using inventory even if equipment breaks down, thus the \textbf{problem (breakdown) does not surface}, and fundamental repair or recurrence prevention is delayed., 10. To make less visible wastes and anomalies (defects, delays, breakdowns, etc.) \textbf{instantly visible} to everyone, prompting \textbf{immediate problem discovery and improvement}., 11. 'Automation' is simply the machine moving; 'Jidoka' incorporates 'human wisdom (judgment)' where the machine \textbf{stops itself} when an anomaly occurs, preventing defects from flowing to the next process., 12. \textbf{Immediately notifying the entire workplace} of the anomaly via lamps, etc. ('Visualization'), and enabling \textbf{rapid response by managers}., 13. (1) Processing for unnecessary quality (over-quality), (2) Installation of parts not required by design, (3) Continuing an older processing method even when a more efficient one exists., 14. A state where there is no stagnation (inventory) between processes, and \textbf{multiple processes are linked} and flow like a stream. Since stagnation is eliminated, \textbf{Production Lead Time is drastically reduced}., 15. A problem-solving technique used to repeat 'why' for a superficial phenomenon (problem) to determine the \textbf{fundamental root cause} behind it and implement true \textbf{recurrence prevention measures}.
+
+\end{document}
