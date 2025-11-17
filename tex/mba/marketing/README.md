@@ -4,13 +4,15 @@
 
 ## Overview
 
-MBAのマーケティングの講義ノートと、それをもとにした動画と音声教材を置いています。
+MBAのマーケティングの講義ノートの共有です。
+ぜひみなさまの業務にお役立てください。
 
 ---
 
 ## Contents
 
-The notes are organized within a parent directory named `tex`. All documents are written in LaTeX.
+以下がコンテンツです。
+講義中に取ったノートと、それをもとにした動画教材と音声教材を置いています。
 
 - ([PDF](https://drive.google.com/file/d/18JSwb8mMJfuB7XN0DWZs3pvfjPNYSULn/view?usp=drive_link) / [音声](https://drive.google.com/file/d/1bRJtMxvezHPLC6H1sgIU6iIR7oGG2Irx/view?usp=drive_link) / [動画](https://drive.google.com/file/d/1C1t999Te5IkNoXA-74RVPGoqHkP-HAwc/view?usp=drive_link)) **第1講**: マーケティング戦略の基本と市場概念
 - ([PDF](https://drive.google.com/file/d/1MeS0QDOKAPB_a8_0KmWMiy0Xo6Nf0mSf/view?usp=drive_link) / [音声](https://drive.google.com/file/d/1DfcHfJQFex3LXPA5CTRthl-Qr1EjfrGd/view?usp=drive_link) / [動画](https://drive.google.com/file/d/1PC2W4XlkdmKm4gl5hyWlIiagb2Qpb908/view?usp=drive_link)) **第2講**: 製品差別化戦略とポジショニング：競争優位の構築
