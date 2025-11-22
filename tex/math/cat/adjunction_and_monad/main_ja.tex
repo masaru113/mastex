@@ -1,0 +1,189 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage{graphicx} % ドライバオプションはdocumentclassに任せるのが無難です
+\usepackage[hypertex]{hyperref}
+
+% ------------------------------------------
+% 追加: 可換図式用のパッケージと設定
+% ------------------------------------------
+\usepackage{tikz-cd}
+\usetikzlibrary{cd}
+
+\title{
+モナドと随伴
+}
+\author{岡田 大(Okada Masaru)}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\ \\
+
+\section{定義}
+
+\subsection{随伴の定義}
+
+圏 $C,D$ に対して、
+関手 $F: C \to D$ 、$G: D \to C$
+がある。
+「このとき $F$ と $G$ は随伴である」とは、
+記号では $F \dashv G : C \to D$ と書き、
+随伴関係
+\[
+	\mathrm{Hom}_{D}(Fc,d) \cong \mathrm{Hom}_{C}(c,Gd)
+\]
+が存在すること。
+ここで
+$c \in C, \ d \in D$
+。
+
+これらから自然変換
+$\eta : 1_{C} \to GF$（単位）、
+$\varepsilon : FG \to 1_{D}$（余単位）、
+が構成できて、単位と余単位は以下の三角等式を満たす。
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzcd}[row sep=large, column sep=large]
+		G \arrow[r, "\eta G"] \arrow[dr, "1_G"'] & GFG \arrow[d, "G\varepsilon"] & F \arrow[r, "F\eta"] \arrow[dr, "1_F"'] & FGF \arrow[d, "\varepsilon F"] \\
+		& G & & F
+	\end{tikzcd}
+	% \caption{随伴の三角等式}
+\end{figure}
+
+数式で書けば以下の通りである。
+$$
+	G \varepsilon \circ \eta G = 1_{G}
+$$
+$$
+	\varepsilon F \circ F \eta = 1_{F}
+$$
+
+\subsection{モナドの定義}
+
+$C$ 上のモナド $(T, \eta, \mu)$ は以下で定義される。
+
+\subsubsection{自己関手}
+
+$$
+	T = G \circ F = GF : C \to C
+$$
+
+\subsubsection{単位}
+
+随伴の単位をそのまま使う：
+$$
+	\eta : 1_{C} \to GF = T
+$$
+
+\subsubsection{乗法}
+
+乗法は随伴の余単位 $\varepsilon$ を $G$ と $F$ で挟んで構成する。
+
+$$
+	\mu = G \varepsilon F : GFGF \to GF
+$$
+すなわち、
+$$
+	\mu : T^{2} \to T
+$$
+
+\section{モナドになることの確認}
+
+\subsection{ 結合律: $(T, \eta, \mu)$ がモナドになることの確認1}
+
+$(T, \eta, \mu)$ がモナドであるためには、以下の図式が可換である必要がある。
+
+\begin{center}
+	\begin{tikzcd}[row sep=large, column sep=large]
+		T^3 \arrow[r, "T\mu"] \arrow[d, "\mu T"'] & T^2 \arrow[d, "\mu"] \\
+		T^2 \arrow[r, "\mu"'] & T
+	\end{tikzcd}
+\end{center}
+すなわち、
+$$
+	\mu \circ T \mu = \mu \circ \mu T
+$$
+
+これを$G,F,\varepsilon$で書くと、
+\[
+	T \mu = GF(G \varepsilon F) = GFG \varepsilon F
+\]
+\[
+	\mu T = (G \varepsilon F)GF = G \varepsilon FGF
+\]
+なので、示すべき式は
+\[
+	G \varepsilon F \circ GFG \varepsilon F = G \varepsilon F \circ G \varepsilon FGF
+\]
+すなわち、
+\[
+	G (\varepsilon \circ FG \varepsilon) F = G ( \varepsilon \circ \varepsilon F G)F
+\]
+である。ここで両端の$G,F$を外した核となる部分は、自然変換 $\varepsilon$ の $FG \xrightarrow{\varepsilon} 1_D$ に対する自然性（Naturality）の可換図式そのものである。
+
+\begin{center}
+	\begin{tikzcd}[column sep=huge, row sep=large]
+		FGFG \arrow[r, "FG \varepsilon"] \arrow[d, "\varepsilon_{FG}"'] & FG \arrow[d, "\varepsilon"] \\
+		FG \arrow[r, "\varepsilon"'] & 1_D
+	\end{tikzcd}
+\end{center}
+
+この可換性 $\varepsilon \circ FG \varepsilon = \varepsilon \circ \varepsilon F G$ より、結合律は直ちに従う。
+
+\subsection{ 単位律: $(T, \eta, \mu)$ がモナドになることの確認2}
+
+$(T, \eta, \mu)$ がモナドであるためには、以下の図式が可換である必要がある。
+
+\begin{center}
+	\begin{tikzcd}[row sep=large, column sep=large]
+		T \arrow[r, "\eta T"] \arrow[dr, "1_T"'] & T^2 \arrow[d, "\mu"] & T \arrow[l, "T \eta"'] \arrow[dl, "1_T"] \\
+		& T &
+	\end{tikzcd}
+\end{center}
+
+すなわち、
+右単位律 $\mu \circ T \eta = 1_{T}$ と、
+左単位律 $\mu \circ \eta T = 1_{T}$
+を満たす必要がある。
+
+\subsubsection{右単位律の確認}
+
+定義より
+\[
+	\mu \circ T \eta = (G \varepsilon F) \circ (GF \eta) = G (\varepsilon F \circ F \eta)
+\]
+ここで随伴の三角等式 $\varepsilon F \circ F \eta = 1_{F}$ を用いると、
+\[
+	\mu \circ T \eta = G(1_{F}) = 1_{GF} = 1_{T}
+\]
+となり成立する。
+
+\subsubsection{左単位律の確認}
+
+同様に、
+\[
+	\mu \circ \eta T = (G \varepsilon F) \circ (\eta GF) = (G \varepsilon \circ \eta G)F
+\]
+ここでも随伴の三角等式 $G \varepsilon \circ \eta G = 1_{G}$ を用いると、
+\[
+	= (1_{G})F = 1_{GF} = 1_{T}
+\]
+となり成立する。
+
+\section{結論}
+
+以上から、
+随伴 $F \dashv G$
+から構成される
+$C$ 上のモナド $(T=GF, \eta, \mu=G \varepsilon F)$
+は結合律と左右の単位律を満たすのでモナドになる。
+
+\end{document}
