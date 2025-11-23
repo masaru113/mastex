@@ -2,12 +2,9 @@
 \usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here}
 \usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage[english]{babel}
-\usepackage{graphicx} % ドライバオプションはdocumentclassに任せるのが無難です
+\usepackage{graphicx}
 \usepackage[hypertex]{hyperref}
 
-% ------------------------------------------
-% 追加: 可換図式用のパッケージと設定
-% ------------------------------------------
 \usepackage{tikz-cd}
 \usetikzlibrary{cd}
 
@@ -33,7 +30,7 @@
 圏 $C,D$ に対して、
 関手 $F: C \to D$ 、$G: D \to C$
 がある。
-「このとき $F$ と $G$ は随伴である」とは、
+このとき「 $F$ と $G$ は随伴である」とは、
 記号では $F \dashv G : C \to D$ と書き、
 随伴関係
 \[
@@ -183,7 +180,7 @@ $(T, \eta, \mu)$ がモナドであるためには、以下の図式が可換で
 以上から、
 随伴 $F \dashv G$
 から構成される
-$C$ 上のモナド $(T=GF, \eta, \mu=G \varepsilon F)$
+$C$ 上のトリプル $(T=GF, \eta, \mu=G \varepsilon F)$
 は結合律と左右の単位律を満たすのでモナドになる。
 
 \end{document}
