@@ -1,0 +1,245 @@
+\documentclass[uplatex,a4j,12pt,dvipdfmx]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb,bm,color,enumitem,mathrsfs,url,epic,eepic,ascmac,ulem,here,ascmac}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[dvipdfm]{graphicx}
+\usepackage[hypertex]{hyperref}
+\title{Dorfman-Steinerの定理のメモ}
+
+\author{岡田 大（Masaru Okada)}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Dorfman and Steiner (1954) によって定式化された広告支出の最適条件（ドーフマン・シュタイナーの定理）を概観する。
+\end{abstract}
+
+\tableofcontents
+
+
+\section{結論}
+
+結論はシンプルで、
+
+${}$
+
+\hspace{1cm} \textbf{「(広告支出弾力性 : 価格弾力性) の比率が (広告支出 : 売上高比率) に等しい」}
+
+${}$
+
+この条件（Dorfman Steiner condition：ドーフマン・シュタイナー条件）が満たされる場合、企業の利益が最大化するように広告支出は最適化される
+\cite{DorfmanSteiner1954}
+（この定理のことを「ドーフマン・シュタイナーの定理」と呼ぶ）。
+
+${}$
+
+$\alpha$ を広告支出弾力性、
+$\eta$ を価格弾力性、
+$A$ を広告支出、
+$P$ を価格、
+$Q$ を生産販売数量
+とする。
+
+このとき企業の利益が最大化されるには以下の等式
+$$
+	\alpha PQ = \eta A
+$$
+が満たすべき条件になる。
+
+\section{シンプルな導出（Schmalensee(1972)の方法）}
+
+Schmalensee(1972)による単純な導出方法を最初に見る
+\cite{Schmalensee1972}
+。
+
+需要関数を
+$$
+	Q = Q(P.A)
+$$
+とし、これを全微分すると
+\[
+	dQ = \dfrac{ \partial Q }{ \partial P } dP + \dfrac{ \partial Q }{ \partial A } dA
+\]
+を得る。
+$dQ = 0$
+の下では、
+\[
+	0 = \dfrac{ \partial Q }{ \partial P } dP + \dfrac{ \partial Q }{ \partial A } dA
+\]
+等式変形して、
+\[
+	dP =- \dfrac{ \left( \dfrac{ \partial Q }{ \partial A } \right) }{ \left( \dfrac{ \partial Q }{ \partial P } \right) } dA
+\]
+を得る。
+
+${}$
+
+微小に広告支出を増やしたときの利益 $\pi$ の微小変化 $d\pi$ を考える
+
+\[
+	\begin{array}{cc}
+		d \pi & = \ Q dP -dA
+		\\ & = \ - Q \dfrac{ \left( \dfrac{ \partial Q }{ \partial A } \right) }{ \left( \dfrac{ \partial Q }{ \partial P } \right) } dA - dA
+		\\ & = \ - \left( Q \dfrac{ \left( \dfrac{ \partial Q }{ \partial A } \right) }{ \left( \dfrac{ \partial Q }{ \partial P } \right) }  + 1 \right) dA
+	\end{array}
+\]
+
+利益が最大になっているときは広告支出を増やしても利益の増分はゼロであるので、
+$$
+	\dfrac{d \pi}{dA} = 0
+$$
+よって
+\[
+	1 = - Q \dfrac{ \left( \dfrac{ \partial Q }{ \partial A } \right) }{ \left( \dfrac{ \partial Q }{ \partial P } \right) }
+\]
+
+この式の両辺に価格弾力性の定義
+\[
+	\eta = - \dfrac{ \partial Q }{ \partial P } \dfrac{P}{Q}
+\]
+を掛けると、
+
+\[
+	\dfrac{\partial Q }{ \partial A } P = \eta
+\]
+この式が参考文献 \cite{DorfmanSteiner1954} が提示したオリジナルの表式である。
+
+この両辺に $A/ Q$ を乗じることによって、
+\[
+	\dfrac{\partial Q }{ \partial A } \dfrac{ A }{ Q } P = \eta \dfrac{ A }{ Q }
+\]
+
+\[
+	\alpha PQ = \eta A
+\]
+
+以上で導出された。
+ただし、$\alpha$ は広告支出弾力性 $\alpha = \dfrac{\partial Q }{ \partial A } \dfrac{ A }{ Q }$ である。
+
+\subsection{示唆}
+
+需要が一定（$dQ=0$）の仮定を置いているので、市場環境が大きく変化しない場合にのみ有効な定理になっている。
+
+また、ドーフマン＝シュタイナー定理は時間に依存しない。
+実際には広告効果は緩やかで遅れて現れる。この場合、問題はより複雑になり、進んだ議論が
+Levy Simon (1989)\cite{LevySimon1989} によってされている。
+
+\section{内田(2013)による導出}
+
+最適価格決定問題と最適マーケティングミックス問題を加味した内田(2013)\cite{Uchida2013}による導出を概観する。
+
+企業の利益関数は需要$Q$と広告価格$A$に依存するとして$\pi=\pi(Q,A)$とし、
+\[
+	\pi(Q,A) = P(Q,A) Q - C(Q) - A
+\]
+というモデルを使う。
+$C=C(Q)$は総費用関数である。
+
+利益が最大化されるときは
+$Q$微分と$A$微分がゼロになるので、
+
+\[
+	\dfrac{\partial \pi }{ \partial Q } = \left( P + Q \dfrac{\partial P }{ \partial Q } \right) - \dfrac{\partial C }{ \partial Q } = 0
+\]
+かつ
+\[
+	\dfrac{\partial \pi }{ \partial A } = Q \dfrac{\partial P }{ \partial A } -1 = 0
+\]
+が満たされるべき式になる。
+
+$\dfrac{\partial \pi }{ \partial Q } =0$
+は独占を意味し、
+$P + Q \dfrac{\partial P }{ \partial Q }$
+が限界収入、
+$\dfrac{\partial C }{ \partial Q }$
+が限界費用である。
+
+$A$方向の極値条件
+\[
+	Q \dfrac{\partial P }{ \partial A } = 1
+\]
+この両辺に価格弾力性の式
+$\eta = - \dfrac{ \partial Q }{ \partial P } \dfrac{P}{Q}$
+を掛けることで
+\[
+	Q \dfrac{\partial P }{ \partial A } \left( - \dfrac{ \partial Q }{ \partial P } \dfrac{P}{Q} \right) = \eta
+\]
+すなわち、
+\[
+	\dfrac{\partial Q }{ \partial A } \left( \dfrac{ P Q }{ Q } \right) = \eta
+\]
+さらにこの両辺に$A$を掛けて、
+\[
+	\dfrac{\partial Q }{ \partial A } \left( \dfrac{ A }{ Q } P Q \right) = A \eta
+\]
+広告支出弾力性 $\alpha = \dfrac{\partial Q }{ \partial A } \dfrac{ A }{ Q }$ の定義を入れて整理すると、
+$$
+	\alpha PQ = \eta A
+$$
+以上で定理の式が得られる。
+
+\subsection{示唆}
+
+Schmalensee (1972) の方法と異なり、本導出では
+\[
+	\pi(Q,A) = P(Q,A) Q - C(Q) - A
+\]
+すなわち、
+「利潤 $=$ 価格 $\times$ 数量 $-$ 総費用 $-$ 広告費」と定義し、「利潤と価格は広告支出に依存する」
+というモデルを仮定している。
+この極値条件から Dorfman-Steiner の条件が導出されるとともに、利益が最大になるとき「限界収益と限界費用が等しくなる」という原理、およびその際の「独占的条件」も同時に導かれる。
+
+\subsection{競争と独占に関する解釈}
+
+$Q$ 方向の微分から得られた一階条件
+\[
+	\dfrac{\partial \pi }{ \partial Q } = \left( P + Q \dfrac{\partial P }{ \partial Q } \right) - \dfrac{\partial C }{ \partial Q } = 0
+\]
+について、各項はそれぞれ以下を意味する。
+\[
+	\text{限界収益 (MR)} = P + Q \dfrac{\partial P }{ \partial Q }
+\]
+\[
+	\text{限界費用 (MC)} = \dfrac{\partial C }{ \partial Q }
+\]
+
+\subsubsection{完全競争（ライバル多数）の場合}
+
+市場に多数の競合が存在し、個々の企業に価格決定権がない場合（プライス・テイカーである場合）、企業が商品を1単位追加で販売しても市場価格 $P$ は変化しない。
+すなわち価格は定数とみなせるため $\dfrac{\partial P }{ \partial Q } = 0$ となり、
+\[
+	\text{限界収益} = P
+\]
+となる。この場合、価格そのものが限界収益と一致する。
+
+\subsubsection{独占的状況の場合}
+
+一方、本モデルで導出された限界収益の式には第2項が存在する。
+\[
+	\text{限界収益} = P + \underline{ Q \dfrac{\partial P }{ \partial Q } }
+\]
+通常、需要曲線は右下がり（$\dfrac{\partial P }{ \partial Q } < 0$）であるため、この項は「販売量を増やすためには、価格を引き下げなければならない」という市場の圧力（による収益の目減り分）を表現している。
+
+つまり、
+「1単位追加で販売するために全体を値引きする分、限界収益は価格 $P$ よりも小さくなる」
+という状況を表している。
+
+数式内に $\dfrac{\partial P }{ \partial Q }$ という項が含まれていること自体が、この企業が自ら価格をコントロールできる立場にあり、独占的（あるいは独占的競争）な市場環境に置かれていることを数学的に示唆している。
+
+\begin{thebibliography}{9}
+	\bibitem{DorfmanSteiner1954}
+	Robert Dorfman and Peter O. Steiner: Optimal Advertising and Optimal Quality, American Economic Review 44(5), April 1954, pp. 826-836.
+	\bibitem{Schmalensee1972}
+	Schmalensee, R. (1972), The Economics of Advertising, Amsterdam-London: North Holland.
+	\bibitem{LevySimon1989}
+	Haim Levy and Julian L. Simon: A generalization that makes useful the Dorfman-Steiner Theorem with respect to advertising Managerial and Decision Economics 10(1), March 1989, pp. 85-87.
+	\bibitem{Uchida2013}
+	内田達也 ドーフマン=スタイナー条件導出考 青山国際政経論集 90号,2013年5月
+\end{thebibliography}
+
+
+\end{document}
